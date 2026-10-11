@@ -135,10 +135,10 @@ The effect animations are the game's own scripts, played by a port of its effect
 - **Cards.** A card sliding to the hand, the Digimon place, the DP Slot or the support place
   takes 16 frames, as its state counter in `0x8003b210` does.
 
-## Polygon Battle (battle animation), stage 1
+## Polygon Battle (battle animation)
 
-The game can show each attack as a 3D "Polygon Battle". This is being ported in stages;
-the **Battle animation** box in the side rail turns it on and off. So far:
+The game can show each attack as a 3D "Polygon Battle". The **Battle animation** box in the
+side rail turns it on and off. It is being ported in stages; stages 1 and 2 are in.
 
 - **Models.** Each Digimon card names a model (byte `0xE5` of its `CARD2.CDD` record) in
   `F/NNN.PAK`. The model chunk holds a tree of rigid parts and one "OMD0" mesh per part:
@@ -150,12 +150,37 @@ the **Battle animation** box in the side rail turns it on and off. So far:
   from its current pose to the key over twice the duration, in two halves of constant
   acceleration aimed at the speed the next key needs (`0x80022100`, `0x80021aa8`,
   `0x80021c18`). Part rotation is `Ry·Rx·Rz` (`0x8005cbc4`, checked in the emulator).
-- **Which motion.** Each Digimon's own attack scripts (ids 554–556 in its PAK) start motions
-  1–3 for its three attacks and return to motion 0; its damage scripts start motion 4.
+- **Which scripts.** A card's attack record is {power, attack script, hit script, name}; the
+  loader `0x8002dea0` reads the two script numbers. The director (`0x801ee3d4`) runs the
+  attack script for the attacker, then the hit script for the target (not when the attack
+  did no damage). The scripts are in the Digimon's own `F/NNN.PAK`.
+- **Script engine.** The interpreter `0x801e8678` in the overlay `P/SUGSEG.BIN` is the board
+  effect engine with 460 variables and more commands (`tools/bscript.py`; `tools/btrace.py`
+  prints a script's timeline). A script runs in the frame of its Digimon (`0x801ea258`: origin
+  at its feet, turned to its facing), first sets everything up in one go, then says it is
+  ready and runs frame by frame. Commands start a motion (the damage motion 4 becomes the KO
+  motion 5 when HP is 0), show one Digimon and hide the other, wait, play sounds, and create
+  objects that hang on the script's frame, on another object or on a body part of a Digimon.
+- **Objects.** Rings, particles and plain nodes are the board ones. New here: a *sprite*
+  (`0x801e41ac`, drawn by `0x801eb874`), a flat picture facing the viewer that steps through
+  the frames of a sprite chunk, 4 x its size, with the GPU's blend modes; an *effect model*
+  (`0x801e38a0`), a model with its own motion from the attack's asset file `E/NNN.PAK`, carried
+  by a node and dimmed by its fade; a *light change* (`0x801e76a8`), which swings one of the
+  three lights' direction and colour for a number of frames; a *screen rectangle*
+  (`0x801e6424`), a blended rectangle whose colour steps between two colours, used for flashes.
+- **Movement.** A node's motion type picks how it moves (table `0x800108b0`): fixed, along a
+  line to its target, a line with a jump arc, with a sine sway on x or y, turned arcs, random
+  shake; other tables say what happens on arrival and when its lifetime ends (freeze, restart,
+  hide, fade). Types above 90 start after a delay.
+- **Lighting** is the GTE's: back colour (`0x30, 0x30, 0x40`, set at `0x80024440`) plus the
+  colour matrix times the clamped light matrix times the normal, with the default lights at
+  `0x801ef25c` / `0x801ef27c`.
 
-Still to port (stages 2 and 3): the battle scripts themselves (the overlay `P/SUGSEG.BIN`,
-interpreter `0x801e8678`), which place the Digimon, move the camera, time the target's
-reaction and spawn each attack's effects from `E/NNN.PAK`; and the arenas (`F/bgN.pak`).
+`tools/build_battle.py` exports all 737 scripts and the 745 asset files; every Digimon's
+three attacks run to their end in the browser's dry-run mode (`DDCB_B3D.attack({dry: true})`).
+
+Still to port (stage 3): the camera and the arenas (`F/bgN.pak`), and the intro and result
+scripts 999 / 998 of `A/BATTLE.PAK`.
 
 ## Not from the game code
 
@@ -181,12 +206,18 @@ reaction and spawn each attack's effects from `E/NNN.PAK`; and the arenas (`F/bg
   whatever was drawn before them), and a tinted card is only brightened, at a speed chosen
   here. Text labels the scripts put on cards are replaced by this project's captions. A card
   slides in a straight line at constant speed; the game's exact path was not read.
-- **Polygon Battle staging.** Until the battle scripts are ported, where the two Digimon
-  stand, the camera, the moment the target reacts and the plain dark background are this
-  project's. Lighting is one fixed light instead of the game's light matrices, motion sounds
-  are not played, the walk a motion applies to the whole model is left out, the alternate
-  models in archive `G` are not used, and five models whose palette is not in their own file fall
-  back to their texture's first palette.
+- **Polygon Battle staging.** Until the camera and arenas are ported, where the two Digimon
+  stand (2400 apart, the distance most attack scripts aim at), the camera (in front of the
+  Digimon each script runs for) and the plain dark background are this project's.
+- **Polygon Battle gaps.** Three object types are created but not drawn yet: palette
+  changes (type 1) and two textured kinds (10 and 12). Rings that ask for a texture are drawn plain. Effect models fade by brightness
+  only, and texture animation on them is not played. The walk a motion applies to the whole
+  model is left out. A few commands whose routines were not read are ignored (among them
+  `a.6` and `b.0`), "place where that object is" (`b.13`) is done in the script's frame, and
+  arrival at a target is judged by distance travelled. The alternate models in archive `G`
+  are not used, and five models whose palette is not in their own file fall back to their
+  texture's first palette. Sounds named by motions are not played; sounds named by scripts
+  are, where the sound bank has them.
 - **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported.
 - **Hands shown face up** rests on the card-state byte being the same for both players'
   hand cards, and on how the game plays; the drawing code was not read.
@@ -206,6 +237,7 @@ tools/.venv/Scripts/python tools/upscale_assets.py extracted web    # art and UI
 tools/.venv/Scripts/python tools/build_audio.py extracted web       # music and sound effects
 tools/.venv/Scripts/python tools/build_effects.py extracted web     # battle effect scripts
 tools/.venv/Scripts/python tools/build_models.py extracted web      # 3D models, textures, motions
+tools/.venv/Scripts/python tools/build_battle.py extracted web      # battle scripts, attack assets
 ```
 
 `upscale_assets.py` sends the 64×64 card art, the 40×40 board art and the battle textures
@@ -229,6 +261,8 @@ upscale.
 | `tools/effscript.py`, `build_effects.py`, `fxtest.js` | Effect script parser, export and headless check |
 | `web/js/battle3d.js`, `web/assets/models` | Polygon Battle: model/motion player and the generated models |
 | `tools/pak.py`, `omd.py`, `build_models.py` | PAK chunks, model and motion formats, model export |
+| `tools/bscript.py`, `btrace.py`, `build_battle.py` | Battle script parser, tracer, script and asset export |
+| `web/assets/battle` | Generated: battle scripts and attack effect assets |
 | `tools/lift.py`, `emu.py` | Compact MIPS listing and Unicorn runner used while reading the engine |
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
 

@@ -81,7 +81,10 @@ def build_cards(cdd):
         atk = []
         for k in range(3):
             o = 0x20 + k * 28
-            atk.append({"name": cstr(r[o + 6:o + 28]), "power": struct.unpack_from("<H", r, o)[0]})
+            # +2 / +4: the Polygon Battle scripts of this attack (the attack itself, and what
+            # happens to the target), read by the loader at 0x8002dea0
+            atk.append({"name": cstr(r[o + 6:o + 28]), "power": struct.unpack_from("<H", r, o)[0],
+                        "script": struct.unpack_from("<H", r, o + 2)[0], "hit": struct.unpack_from("<H", r, o + 4)[0]})
         cards.append({
             "id": i, "type": "digimon", "name": detok(cstr(r[3:24])),
             "spec": r[0x1A] >> 4, "level": r[0x1A] & 15,

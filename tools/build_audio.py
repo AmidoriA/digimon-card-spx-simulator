@@ -1,6 +1,9 @@
 """Render the game's battle music and sound effects for the web game.
 
-Usage (venv python):  build_audio.py <extracted_dir> <web_dir>
+Usage (venv python):  build_audio.py <extracted_dir> <web_dir> [--missing]
+
+With --missing only sound effects that have no file yet are rendered and the music is left
+alone (the Vorbis encoder does not give the same bytes twice).
 
   web/assets/audio/bgm/NNN.ogg   battle themes named by the opponent decks (DECK2.DEK byte 104),
                                  the two free-battle themes and the end-of-match jingles
@@ -19,6 +22,7 @@ import numpy as np
 import soundfile as sf
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import build_battle  # noqa: E402
 import effscript  # noqa: E402
 import psxsnd as P  # noqa: E402
 
@@ -45,14 +49,20 @@ def fit(pcm, peak=0.89):
 
 def main():
     ext, web = sys.argv[1], sys.argv[2]
+    missing = "--missing" in sys.argv[3:]
     out = os.path.join(web, "assets", "audio")
     os.makedirs(os.path.join(out, "bgm"), exist_ok=True)
     os.makedirs(os.path.join(out, "se"), exist_ok=True)
     manifest = {"bgm": {}, "se": [], "scripts": [], "frame": 1 / 60}
+    old, js = {}, os.path.join(web, "js", "data", "audio.js")
+    if missing and os.path.exists(js):
+        text = open(js, encoding="utf-8").read()
+        old = json.loads(text[text.index("{"):text.rindex("}") + 1])
 
     # ---- effect scripts and the sounds they need
     scripts = effscript.load(ext)
     need = set(UI_SE + CARD_SE)
+    need.update(build_battle.sound_ids(ext))     # sounds the Polygon Battle scripts play
     for cmds in scripts:
         snd = effscript.sounds(cmds)
         manifest["scripts"].append([[t, s] for t, s in snd])
@@ -62,10 +72,14 @@ def main():
     se = P.load_se(open(os.path.join(ext, "drv", "A", "SE0.PAK"), "rb").read())
     for sid in sorted(need):
         prog, tone = sid >> 4, sid & 15
+        if prog >= len(se.programs) or tone >= len(se.programs[prog]["list"]):
+            continue                              # not in this sound bank
+        manifest["se"].append(sid)
+        if missing and os.path.exists(os.path.join(out, "se", "%02x.ogg" % sid)):
+            continue
         pcm = P.render_tone(se, prog, tone, note=60, fine=60 + tone, vol=110, hold_s=1.0)
         pcm = np.concatenate([pcm, np.zeros((int(0.02 * P.RATE), 2), np.float32)])
         write_ogg(os.path.join(out, "se", "%02x.ogg" % sid), np.clip(pcm, -1, 1), 0.5)
-        manifest["se"].append(sid)
         print("  se %02x  %.2fs  peak %.2f" % (sid, len(pcm) / P.RATE, float(np.abs(pcm).max())), flush=True)
 
     # ---- music
@@ -78,6 +92,9 @@ def main():
     for bid in sorted(themes) + JINGLES:
         path = os.path.join(ext, "drv", "A", "BGM", "BGM%02d.PAK" % bid)
         seq, vab = P.load_bgm(open(path, "rb").read())
+        if missing and str(bid) in old.get("bgm", {}) and os.path.exists(os.path.join(out, "bgm", "%03d.ogg" % bid)):
+            manifest["bgm"][str(bid)] = old["bgm"][str(bid)]
+            continue
         pcm, ls, le = P.render_seq(seq, vab, loops=1)
         if le is not None:
             pcm = pcm[:int((le + 1.5) * P.RATE)]

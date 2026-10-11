@@ -57,35 +57,37 @@ def rgba(c):
     return ((c & 31) * 255 // 31, ((c >> 5) & 31) * 255 // 31, ((c >> 10) & 31) * 255 // 31, 255)
 
 
-def export(path, out_dir, num):
-    model, motions, tims, _ = omd.load(path)
-    tims = [read_tim(b) for b in tims.values()]
+def convert(model, motions, tims):
+    """model (omd.parse_model), motions (list of key lists), tims (list of read_tim results)
+    -> (16-bit words as bytes, (width, height, index bytes), (rows, RGBA bytes))"""
     tiles, order, pals = {}, [], []      # texture -> y in the stacked image; palette rows
+
+    def use(ti, row, col):
+        if ti not in tiles:
+            tiles[ti] = sum(tims[k]["h"] for k in order)
+            order.append(ti)
+        key = (ti, row, col)
+        if key not in pals:
+            pals.append(key)
+        return pals.index(key)
 
     def tile(clut, tpage):
         px, py = (tpage & 15) * 64, ((tpage >> 4) & 1) * 256
         cx, cy = (clut & 63) * 16, clut >> 6
+        hit = None
         for ti, t in enumerate(tims):
-            if "clut" in t and t["cy"] <= cy < t["cy"] + t["ch"] and t["cx"] <= cx < t["cx"] + t["cw"] and t["x"] - 256 < px <= t["x"] + t["w16"]:
-                if ti not in tiles:
-                    tiles[ti] = sum(tims[k]["h"] for k in order)
-                    order.append(ti)
-                key = (ti, cy - t["cy"], cx - t["cx"])
-                if key not in pals:
-                    pals.append(key)
-                scale = 4 if t["mode"] == 0 else 2
-                return tiles[ti], (px - t["x"]) * scale, py - t["y"], pals.index(key)
-        # the palette is not in this file (5 models): fall back to the texture's first palette
-        for ti, t in enumerate(tims):
-            if "clut" in t and t["x"] - 256 < px <= t["x"] + t["w16"]:
-                if ti not in tiles:
-                    tiles[ti] = sum(tims[k]["h"] for k in order)
-                    order.append(ti)
-                key = (ti, 0, 0)
-                if key not in pals:
-                    pals.append(key)
-                return tiles[ti], (px - t["x"]) * (4 if t["mode"] == 0 else 2), py - t["y"], pals.index(key)
-        raise ValueError("no texture for clut %#x tpage %#x" % (clut, tpage))
+            if "clut" not in t or not (t["x"] - 256 < px <= t["x"] + t["w16"]):
+                continue
+            if t["cy"] <= cy < t["cy"] + t["ch"] and t["cx"] <= cx < t["cx"] + t["cw"]:
+                hit = (ti, cy - t["cy"], cx - t["cx"])
+                break
+            # the palette is not in this file: fall back to the texture's first palette
+            hit = hit or (ti, 0, 0)
+        if hit is None:
+            raise ValueError("no texture for clut %#x tpage %#x" % (clut, tpage))
+        t = tims[hit[0]]
+        pal = use(*hit)
+        return tiles[hit[0]], (px - t["x"]) * (4 if t["mode"] == 0 else 2), py - t["y"], pal
 
     verts, index, opaque, blended = [], {}, [], []
     for pi, groups in enumerate(model["parts"]):
@@ -117,19 +119,18 @@ def export(path, out_dir, num):
         raise ValueError("too many vertices")
     width = max([tims[k]["w"] for k in order] or [1])
     height = sum(tims[k]["h"] for k in order) or 1
-    img = Image.new("L", (width, height))
+    tex = bytearray(width * height)
     for ti in order:
         t = tims[ti]
-        tile_img = Image.new("L", (t["w"], t["h"]))
-        tile_img.putdata([i for row in t["pix"] for i in row])
-        img.paste(tile_img, (0, tiles[ti]))
-    img.save(os.path.join(out_dir, "%03d.png" % num), optimize=True)
-    pimg = Image.new("RGBA", (256, max(len(pals), 1)))
-    pimg.putdata([c for ti, row, col in pals for c in ([rgba(x) for x in tims[ti]["clut"][row][col:]] + [(0, 0, 0, 0)] * 256)[:256]] or [(0, 0, 0, 0)] * 256)
-    pimg.save(os.path.join(out_dir, "%03dp.png" % num), optimize=True)
-
-    mids = sorted(motions)
-    w = [0x4D44, 1, model["n"], len(mids), len(verts), len(opaque), len(blended), width, height, len(pals)]
+        for r, row in enumerate(t["pix"]):
+            o = (tiles[ti] + r) * width
+            tex[o:o + t["w"]] = bytes(row)
+    pal = bytearray()
+    for ti, row, col in pals or [(None, 0, 0)]:
+        cols = [rgba(x) for x in tims[ti]["clut"][row][col:]] if ti is not None else []
+        for c in (cols + [(0, 0, 0, 0)] * 256)[:256]:
+            pal += bytes(c)
+    w = [0x4D44, 1, model["n"], len(motions), len(verts), len(opaque), len(blended), width, height, max(len(pals), 1)]
     for i in range(model["n"]):
         w += [model["parents"][i]] + list(model["offsets"][i])
     for v in verts:
@@ -139,17 +140,24 @@ def export(path, out_dir, num):
     for t, _ in blended:
         w += t
     w += [m for _, m in blended]
-    for mid in mids:
-        keys = motions[mid]
+    for keys in motions:
         w.append(len(keys))
         for k in keys:
             w += [k["dur"], k["snd"]]
             for r in k["recs"]:
                 w += list(r["rot"]) + [r["show"]] + list(r["move"]) + list(r["scale"]) + [r["next"]]
     data = struct.pack("<%dH" % len(w), *[x & 0xFFFF for x in w])
+    return data, (width, height, bytes(tex)), (max(len(pals), 1), bytes(pal)), (len(verts), len(opaque) + len(blended))
+
+
+def export(path, out_dir, num):
+    model, motions, tims, _ = omd.load(path)
+    data, tex, pal, counts = convert(model, [motions[k] for k in sorted(motions)], [read_tim(b) for b in tims.values()])
+    Image.frombytes("L", (tex[0], tex[1]), tex[2]).save(os.path.join(out_dir, "%03d.png" % num), optimize=True)
+    Image.frombytes("RGBA", (256, pal[0]), pal[1]).save(os.path.join(out_dir, "%03dp.png" % num), optimize=True)
     packed = gzip.compress(data, 9, mtime=0)
     open(os.path.join(out_dir, "%03d.bin.gz" % num), "wb").write(packed)
-    return len(verts), len(opaque) + len(blended), len(packed), (width, height)
+    return counts[0], counts[1], len(packed), (tex[0], tex[1])
 
 
 def main():

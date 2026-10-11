@@ -2,8 +2,8 @@
  * Battle effects: plays the game's own effect scripts (B/CBTL_EFF.ARC, exported to
  * js/data/effects.js by tools/build_effects.py) with a port of its effect engine.
  *
- * A script is a small program on 190 integer variables, run once per frame by the
- * interpreter at 0x801f663c. It fills variables, creates effect objects in 16 slots from
+ * A script is a small program on integer variables, run once per frame by an interpreter
+ * (0x801f663c for the board). It fills variables, creates effect objects in slots from
  * them, switches the slots on and off, plays sounds and waits. Two kinds of object draw:
  *
  *   ring      (0x80031f58 / 0x8003230c)  2 x N gouraud quads between an inner, a middle and
@@ -14,7 +14,8 @@
  * Both hang on a transform node (0x80030e3c / 0x80030f90): position, rotation with speed
  * and acceleration, scale moving to a target, a lifetime and a fade mode.
  *
- * Drawn on a 320x240 canvas (the game's screen) blended additively over the board.
+ * The node, ring and particle code is shared with the Polygon Battle (battle3d.js), which
+ * uses the same engine with its own variable numbers (window.DDCB_FXCORE).
  */
 (function () {
   'use strict';
@@ -28,6 +29,14 @@
   function rand() { return (Math.random() * 32768) | 0; }   // rand() at 0x80069124
   function sin12(a) { return Math.sin(a * Math.PI / 2048); }
   function cos12(a) { return Math.cos(a * Math.PI / 2048); }
+
+  // Variable numbers: the board scripts (190 variables) and the Polygon Battle scripts (460).
+  var MAP_BOARD = { node: 0x92, col: 0x25,
+    ring: { alpha: 0x37, n: 0x15, r0: 0x3d, r1: 0x3e, k: 0x41, z0: 0x3f, z1: 0x40, mode: 0x45 },
+    part: { sx: 0xb6, sy: 0xb7, size0: 0xb8, cycle: 0xb9, speed: 0xba, dir: 0xbb, count: 0xbc, size1: 0xbd, amode: 0x4e, offset: 0x4f, off: 0x50, kind: 0x51, mode: 0x45 } };
+  var MAP_BATTLE = { node: 0x197, col: 0x29,
+    ring: { alpha: 0x3b, n: 0x17, r0: 0x41, r1: 0x42, k: 0x45, z0: 0x43, z1: 0x44, mode: 0x4a },
+    part: { sx: 0x1bf, sy: 0x1c0, size0: 0x1c1, cycle: 0x1c2, speed: 0x1c3, dir: 0x1c4, count: 0x1c5, size1: 0x1c6, amode: 0x64, offset: 0x65, off: 0x66, kind: 0x67, mode: 0x4a } };
 
   // ------------------------------------------------------------------ matrices
   var IDENT = [1, 0, 0, 0, 1, 0, 0, 0, 1];
@@ -47,59 +56,144 @@
     return [m[0] * p[0] + m[1] * p[1] + m[2] * p[2] + t[0], m[3] * p[0] + m[4] * p[1] + m[5] * p[2] + t[1], m[6] * p[0] + m[7] * p[1] + m[8] * p[2] + t[2]];
   }
 
+  // The scene the objects live in. `project` turns a point into screen x, y and depth;
+  // `bill` is the turn that makes an object face the viewer (the game keeps all matrices in
+  // view space, so there it is the identity); `origin` is where a parentless node sits.
+  var core = { bill: IDENT, origin: [0, 0, H],
+    project: function (w) { return w[2] < 8 ? null : [CX + w[0] * H / w[2], CY + w[1] * H / w[2], w[2]]; } };
+
   // ------------------------------------------------------------------ transform node
-  // Variables 0x92..0xb5 describe a node (0x801f6f44 copies them).
-  function Node(v, parent) {
+  // Motion types (table at 0x800108b0): how the position moves each frame.
+  var FAMILY = {}, ARRIVE = {}, EXPIRE = {};
+  function fam(name, list) { list.forEach(function (t) { FAMILY[t] = name; }); }
+  fam('line', [1, 11, 12, 13, 29, 30, 31, 50, 57, 63, 70, 76, 83]);    // 0x80030130
+  fam('jump', [2, 14, 15, 16, 32, 33, 34, 51, 58, 64, 71, 77, 84]);    // 0x800301d0
+  fam('wavex', [3, 17, 18, 19, 35, 36, 37, 52, 59, 65, 72, 78, 85]);   // 0x80030264
+  fam('wavey', [4, 20, 21, 22, 38, 39, 40, 53, 60, 66, 73, 79, 86]);   // 0x800302e0
+  fam('arc', [5, 23, 24, 25, 41, 42, 43, 54, 61, 67, 74, 80, 87]);     // 0x8003035c
+  fam('arc2', [7, 26, 27, 28, 44, 45, 46, 55, 62, 68, 75, 81, 88]);    // 0x80030440
+  fam('shake', [8, 89]);                                               // 0x8003058c
+  // what happens on reaching the target (0x80010a20) and when the lifetime ends (0x80010b90)
+  function tab(t, name, list) { list.forEach(function (x) { t[x] = name; }); }
+  tab(ARRIVE, 'freeze', [11, 14, 17, 20, 23, 26]); tab(ARRIVE, 'stop', [12, 15, 18, 21, 24, 27]);
+  tab(ARRIVE, 'restart', [13, 16, 19, 22, 25, 28]); tab(ARRIVE, 'hide', [50, 51, 52, 53, 54, 55]);
+  tab(ARRIVE, 'land', [76, 77, 78, 79, 80, 81]); tab(ARRIVE, 'fade', [63, 64, 65, 66, 67, 68]);
+  tab(EXPIRE, 'freeze', [29, 32, 35, 38, 41, 44, 47]); tab(EXPIRE, 'stop', [30, 33, 36, 39, 42, 45, 48]);
+  tab(EXPIRE, 'restart', [31, 34, 37, 40, 43, 46, 49]); tab(EXPIRE, 'hide', [56, 57, 58, 59, 60, 61, 62]);
+  tab(EXPIRE, 'stopfade', [82, 83, 84, 85, 86, 87, 88, 89]); tab(EXPIRE, 'fade', [69, 70, 71, 72, 73, 74, 75]);
+
+  // A node is described by 40 variables from `map.node` on (0x801f6f44 / 0x801e92b0 copy them).
+  function Node(v, parent, map) {
+    var b = (map || MAP_BOARD).node;
     this.parent = parent;
-    this.pos0 = [s16(v[0x92]), s16(v[0x93]), s16(v[0x94])];
-    this.target = [s16(v[0x95]), s16(v[0x96]), s16(v[0x97])];
-    this.speed = s16(v[0x98]); this.accel = s16(v[0x99]);
-    this.rot0 = [s16(v[0x9a]), s16(v[0x9b]), s16(v[0x9c])];
-    this.rotV = [s16(v[0x9d]), s16(v[0x9e]), s16(v[0x9f])];
-    this.rotA = [s16(v[0xa0]), s16(v[0xa1]), s16(v[0xa2])];
-    this.sc0 = [v[0xa3], v[0xa4], v[0xa5]];
-    this.scT = [v[0xa6], v[0xa7], v[0xa8]];
-    this.scS = [s16(v[0xa9]), s16(v[0xaa]), s16(v[0xab])];
-    this.dur = s16(v[0xad]); this.fadeMode = v[0xae] & 0xff; this.fadeStep = s16(v[0xaf]);
-    this.type = s16(v[0xb0]);
+    this.pos0 = [s16(v[b]), s16(v[b + 1]), s16(v[b + 2])];
+    this.target = [s16(v[b + 3]), s16(v[b + 4]), s16(v[b + 5])];
+    this.speed = s16(v[b + 6]); this.accel = s16(v[b + 7]);
+    this.rot0 = [s16(v[b + 8]), s16(v[b + 9]), s16(v[b + 10])];
+    this.rotV = [s16(v[b + 11]), s16(v[b + 12]), s16(v[b + 13])];
+    this.rotA = [s16(v[b + 14]), s16(v[b + 15]), s16(v[b + 16])];
+    this.sc0 = [v[b + 17], v[b + 18], v[b + 19]];
+    this.scT = [v[b + 20], v[b + 21], v[b + 22]];
+    this.scS = [s16(v[b + 23]), s16(v[b + 24]), s16(v[b + 25])];
+    this.hitR = s16(v[b + 26]);
+    this.dur = s16(v[b + 27]); this.fadeMode = v[b + 28] & 0xff; this.fadeStep = s16(v[b + 29]);
+    this.type = s16(v[b + 30]);
+    this.delay = s16(v[b + 31]); this.amp = s16(v[b + 32]); this.freq = s16(v[b + 33]);
     this.pos = this.pos0.slice(); this.rot = this.rot0.slice(); this.sc = this.sc0.slice();
-    this.t = 0; this.t2 = 0; this.life = 0; this.done = 0; this.state = -1; this.fadeState = 0;
+    this.fadeState = 0;
+    this.m = IDENT; this.tr = core.origin.slice();
+    this.reinit();
+  }
+  // 0x80030ca8: restart the clock; a moving node goes back to its start, a fixed one keeps
+  // where it is as its new start
+  Node.prototype.reinit = function () {
     this.hidden = this.type >= 91;
+    this.state = -1; this.t = 0; this.t2 = 0; this.life = 0; this.done = 0;
+    if (this.type !== 0 && this.type !== 90) {
+      this.sc = this.sc0.slice(); this.rot = this.rot0.slice(); this.pos = this.pos0.slice();
+    } else {
+      this.sc0 = this.sc.slice(); this.rot0 = this.rot.slice(); this.pos0 = this.pos.map(s16);
+    }
     // unit vector towards the target (0x80030bc4)
     var d = [this.target[0] - this.pos0[0], this.target[1] - this.pos0[1], this.target[2] - this.pos0[2]];
-    var len = Math.sqrt(d[0] * d[0] + d[1] * d[1] + d[2] * d[2]);
-    this.dir = len ? [d[0] / len, d[1] / len, d[2] / len] : [0, 0, 0];
-    this.m = IDENT; this.tr = [0, 0, H];
-  }
-  // 0x80030f90 for the motion types the scripts use (56, 69: fixed; 70: straight line), then
-  // the matrix (0x8001eea0). `mode` 1..3 keeps one rotation axis and ignores the parent's turn.
+    this.reach = Math.sqrt(d[0] * d[0] + d[1] * d[1] + d[2] * d[2]);
+    this.dir = this.reach ? [d[0] / this.reach, d[1] / this.reach, d[2] / this.reach] : [0, 0, 0];
+  };
+  // 0x80031754: a type above 90 waits `delay` frames, then becomes type - 100
+  Node.prototype.idle = function () {
+    if (this.type < 91) return;
+    if (this.t < this.delay) this.t++;
+    else { this.t = 0; this.hidden = false; this.type -= 100; }
+  };
+  Node.prototype.freeze = function (stop) {
+    this.type = 0; this.reinit();
+    if (stop) { this.scT = this.sc.slice(); this.rotV = [0, 0, 0]; this.rotA = [0, 0, 0]; }
+  };
+  Node.prototype.fadeOut = function () { this.fadeMode = 2; this.fadeStep = -Math.abs(this.fadeStep); };
+  // 0x80030f90, then the matrix (0x8001eea0). `mode` 1..3 keeps one rotation axis and ignores
+  // the parent's turn (the object faces the viewer); 4 has no turn or scale at all.
   Node.prototype.update = function (mode) {
-    var i, v, t = this.t;
-    for (i = 0; i < 3; i++) {
-      if (this.sc[i] !== this.scT[i]) {
-        v = this.scS[i] * t + this.sc0[i];
-        if (this.scS[i] >= 0) this.sc[i] = v >= this.scT[i] ? this.scT[i] : v;
-        else { this.sc[i] = v; if (this.sc[i] <= this.scT[i]) this.sc[i] = this.scT[i]; }
+    var i, v, t = this.t, type = this.type, f = FAMILY[type];
+    if (type !== 10 && type < 90) {
+      for (i = 0; i < 3; i++) {
+        if (this.sc[i] !== this.scT[i]) {
+          v = this.scS[i] * t + this.sc0[i];
+          if (this.scS[i] >= 0) this.sc[i] = v >= this.scT[i] ? this.scT[i] : v;
+          else { this.sc[i] = v; if (this.sc[i] <= this.scT[i]) this.sc[i] = this.scT[i]; }
+        }
+        this.rot[i] = s16(this.rot0[i] + this.rotV[i] * t + tdiv(this.rotA[i] * this.t2 * this.t2, 64));
       }
-      this.rot[i] = s16(this.rot0[i] + this.rotV[i] * t + tdiv(this.rotA[i] * this.t2 * this.t2, 64));
     }
-    if (this.type === 70) {
-      v = this.speed * t + this.accel * this.t2 * this.t2;
-      for (i = 0; i < 3; i++) this.pos[i] = this.pos0[i] + Math.trunc(v * this.dir[i]);
-    } else for (i = 0; i < 3; i++) this.pos[i] = this.pos0[i];
+    var p = this.pos0.slice(), d, s, c;
+    if (f === 'shake') {
+      for (i = 0; i < 3; i++) p[i] += this.speed ? tdiv(this.speed, 2) - rand() % this.speed : 0;
+    } else if (f) {
+      d = f === 'arc2' ? this.speed * t : this.speed * t + this.accel * this.t2 * this.t2;
+      for (i = 0; i < 3; i++) p[i] += Math.trunc(d * this.dir[i]);
+      if (f === 'jump') p[1] += -this.speed * t + tdiv(this.speed * t * t, 56);
+      else if (f === 'wavex' || f === 'wavey') p[f === 'wavex' ? 0 : 1] += Math.trunc(sin12((this.delay + this.speed * t) * this.freq) * 4096 * this.amp) >> 10;
+      else if (f === 'arc' || f === 'arc2') {
+        v = -this.speed * t + tdiv((f === 'arc' ? this.speed : this.accel) * t * t, 56);
+        s = sin12(this.rot0[2]); c = cos12(this.rot0[2]);
+        p[0] -= Math.trunc(v * s); p[1] += Math.trunc(v * c);
+      }
+    }
+    this.pos = p;
+    // arrival at the target
+    if (f && f !== 'shake' && type < 90) {
+      if (this.state === -1) this.state = 0;
+      else if (this.state === 0 && this.reach > 0 && (p[0] - this.pos0[0]) * this.dir[0] + (p[1] - this.pos0[1]) * this.dir[1] + (p[2] - this.pos0[2]) * this.dir[2] >= this.reach - this.hitR) {
+        switch (ARRIVE[type]) {
+          case 'freeze': this.freeze(false); break;
+          case 'stop': this.pos = this.target.slice(); this.freeze(true); break;
+          case 'restart': this.reinit(); break;
+          case 'hide': this.hidden = true; break;
+          case 'land': this.type = 0; this.pos = this.target.slice(); this.pos0 = this.target.slice(); this.fadeOut(); break;
+          case 'fade': this.fadeOut(); break;
+        }
+        this.state = 1;
+        t = this.t;
+      }
+    }
     this.t++; this.t2++;
     if (this.dur !== 0 && !this.done) {
       if (this.dur < this.life) {
         this.life = this.dur;
-        if (this.type === 56) this.hidden = true;                                  // gone at once
-        else { this.fadeMode = 2; this.fadeStep = -Math.abs(this.fadeStep); }       // fade out
+        switch (EXPIRE[this.type]) {
+          case 'freeze': this.freeze(false); break;
+          case 'stop': this.freeze(true); break;
+          case 'restart': this.reinit(); break;
+          case 'hide': this.hidden = true; break;                    // gone at once
+          case 'stopfade': this.freeze(true); this.fadeOut(); break;
+          case 'fade': this.fadeOut(); break;                        // fade out
+        }
         this.done = 1;
       } else this.life++;
     }
     var P = this.parent, r = this.rot;
     if (mode === 1) r = [0, 0, r[2]]; else if (mode === 2) r = [0, r[1], 0]; else if (mode === 3) r = [r[0], 0, 0];
-    var m = mode === 4 ? IDENT : mode ? rotMatrix(r) : mul(P ? P.m : IDENT, rotMatrix(r));
-    this.tr = P ? apply(P.m, P.tr, this.pos) : [this.pos[0], this.pos[1], this.pos[2] + H];
+    var m = mode === 4 ? core.bill : mode ? mul(core.bill, rotMatrix(r)) : mul(P ? P.m : IDENT, rotMatrix(r));
+    this.tr = P ? apply(P.m, P.tr, this.pos) : [this.pos[0] + core.origin[0], this.pos[1] + core.origin[1], this.pos[2] + core.origin[2]];
     if (mode !== 4 && !(this.sc[0] === 4096 && this.sc[1] === 4096 && this.sc[2] === 4096)) {
       var sx = this.sc[0] / 4096, sy = this.sc[1] / 4096, sz = this.sc[2] / 4096;   // ScaleMatrix: columns
       m = [m[0] * sx, m[1] * sy, m[2] * sz, m[3] * sx, m[4] * sy, m[5] * sz, m[6] * sx, m[7] * sy, m[8] * sz];
@@ -128,19 +222,17 @@
     return a < 0 ? 0 : a > 256 ? 256 : a;
   };
 
-  function project(m, tr, p) {
-    var w = apply(m, tr, p);
-    if (w[2] < 8) return null;
-    return [CX + w[0] * H / w[2], CY + w[1] * H / w[2]];
-  }
+  function project(m, tr, p) { return core.project(apply(m, tr, p)); }
 
   // ------------------------------------------------------------------ ring
-  function Ring(v, parent) {
-    this.node = new Node(v, parent);
-    this.mode = v[0x45] & 0xff;
-    this.alpha = s16(v[0x37]);
-    this.col = [[v[0x25] & 255, v[0x26] & 255, v[0x27] & 255], [v[0x28] & 255, v[0x29] & 255, v[0x2a] & 255], [v[0x2b] & 255, v[0x2c] & 255, v[0x2d] & 255]];
-    var n = this.n = v[0x15], r0 = s16(v[0x3d]), r1 = s16(v[0x3e]), k = s16(v[0x41]), z0 = s16(v[0x3f]), z1 = s16(v[0x40]);
+  function Ring(v, parent, map) {
+    map = map || MAP_BOARD;
+    var R = map.ring, c = map.col;
+    this.node = new Node(v, parent, map);
+    this.mode = v[R.mode] & 0xff;
+    this.alpha = s16(v[R.alpha]);
+    this.col = [[v[c] & 255, v[c + 1] & 255, v[c + 2] & 255], [v[c + 3] & 255, v[c + 4] & 255, v[c + 5] & 255], [v[c + 6] & 255, v[c + 7] & 255, v[c + 8] & 255]];
+    var n = this.n = Math.max(0, Math.min(v[R.n], 64)), r0 = s16(v[R.r0]), r1 = s16(v[R.r1]), k = s16(v[R.k]), z0 = s16(v[R.z0]), z1 = s16(v[R.z1]);
     var rm = r0 + tdiv((r1 - r0) * k, 100), zm = z0 + tdiv((z1 - z0) * k, 100), i, a, b;
     this.verts = [];
     for (i = 0; i < n; i++) {
@@ -153,7 +245,7 @@
   }
   Ring.prototype.update = function (out) {
     var N = this.node;
-    if (N.hidden) return;
+    if (N.hidden) { N.idle(); return; }
     N.update(this.mode);
     this.alpha = N.fade(this.alpha);
     if (!this.alpha) return;
@@ -166,17 +258,19 @@
   };
 
   // ------------------------------------------------------------------ particles
-  function Particles(v, parent) {
-    var N = this.node = new Node(v, parent), i, z = 0;
-    this.mode = v[0x45] & 1; this.spin = v[0x45] & 2;
-    this.colA = [v[0x25] & 255, v[0x26] & 255, v[0x27] & 255];
-    this.colB = [v[0x28] & 255, v[0x29] & 255, v[0x2a] & 255];
-    var spreadY = s16(v[0xb7]) || 1, spreadX = s16(v[0xb6]) || 1, size0 = s16(v[0xb8]), size1 = s16(v[0xbd]);
-    var L = this.cycle = s16(v[0xb9]) & 0xffff, speedMax = s16(v[0xba]), amode = s16(v[0x4e]), off = s16(v[0x50]);
-    this.count = s16(v[0xbc]) & 0xffff;
-    this.offset = s16(v[0x4f]);
-    this.gouraud = (v[0x51] & 0xff) !== 0;
-    this.dir = s16(v[0xbb]) !== 0 ? -1 : 1;                       // -1: fly inwards
+  function Particles(v, parent, map) {
+    map = map || MAP_BOARD;
+    var P = map.part, cb = map.col, i, z = 0;
+    this.node = new Node(v, parent, map);
+    this.mode = v[P.mode] & 1; this.spin = v[P.mode] & 2;
+    this.colA = [v[cb] & 255, v[cb + 1] & 255, v[cb + 2] & 255];
+    this.colB = [v[cb + 3] & 255, v[cb + 4] & 255, v[cb + 5] & 255];
+    var spreadY = s16(v[P.sy]) || 1, spreadX = s16(v[P.sx]) || 1, size0 = s16(v[P.size0]), size1 = s16(v[P.size1]);
+    var L = this.cycle = s16(v[P.cycle]) & 0xffff, speedMax = s16(v[P.speed]), amode = s16(v[P.amode]), off = s16(v[P.off]);
+    this.count = Math.min(s16(v[P.count]) & 0xffff, 512);
+    this.offset = s16(v[P.offset]);
+    this.gouraud = (v[P.kind] & 0xff) !== 0;
+    this.dir = s16(v[P.dir]) !== 0 ? -1 : 1;                      // -1: fly inwards
     this.grow = size1 !== 0 ? tdiv((size1 - size0) << 3, L) : 0;
     this.step = [0, 1, 2].map(function (k) { return tdiv(this.colB[k] - this.colA[k], L) & 0xff; }, this);
     this.frame = 0;
@@ -200,11 +294,11 @@
       p.spinV = (i & 1) ? -(rand() & 0x1ff) : rand() & 0x1ff;
       this.parts.push(p);
     }
-    void N;
   }
   Particles.prototype.update = function (out) {
     var N = this.node, L = this.cycle;
-    if (N.hidden || !L) return;
+    if (N.hidden) { N.idle(); return; }
+    if (!L) return;
     N.update(this.mode);
     var total = tdiv(N.dur + L - 1, L) * L;
     for (var i = 0; i < this.count; i++) {
@@ -232,8 +326,11 @@
     this.frame = (this.frame + 1) & 0xffff;
   };
 
-  function Plain(v, parent) { this.node = new Node(v, parent); }
-  Plain.prototype.update = function () { this.node.update(0); };
+  function Plain(v, parent, map) { this.node = new Node(v, parent, map); }
+  Plain.prototype.update = function () { if (this.node.hidden) this.node.idle(); else this.node.update(0); };
+
+  window.DDCB_FXCORE = { core: core, Node: Node, Ring: Ring, Particles: Particles, Plain: Plain, MAP_BATTLE: MAP_BATTLE,
+    rotMatrix: rotMatrix, mul: mul, apply: apply, s16: s16, tdiv: tdiv, rand: rand, sin12: sin12, cos12: cos12 };
 
   // ------------------------------------------------------------------ renderer (WebGL, 320x240)
   var gl = null, prog = null, buf = null, canvas = null, tri = [], lin = [];
@@ -272,7 +369,7 @@
     tri.length = 0; lin.length = 0;
   }
 
-  // ------------------------------------------------------------------ script runner
+  // ------------------------------------------------------------------ script runner (board)
   var running = [], timer = 0, last = 0;
   var api = { locate: function () { return null; }, enabled: true };
 

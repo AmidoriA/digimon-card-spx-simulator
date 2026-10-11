@@ -766,7 +766,9 @@
         e.shown3d = true; i--;
         c = E.card(prevTop[e.p]);
         status(c.name + ': ' + c.atk[e.attack].name, '');
-        return B3D.attack([E.card(prevTop[0]).model, E.card(prevTop[1]).model], e.p, e.attack, e.dmg > 0).then(step);
+        return B3D.attack({ models: [E.card(prevTop[0]).model, E.card(prevTop[1]).model], attacker: e.p,
+          script: c.atk[e.attack].script, hit: e.dmg > 0 ? c.atk[e.attack].hit : 0,
+          hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], sound: SND.isEnabled() }).then(step);
       }
       if (e.s) A.s = e.s;
       A.glow = -1; A.hit = -1; A.floats = [];
