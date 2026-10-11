@@ -5,8 +5,8 @@ rebuilt from data, rules and graphics recovered from the disc image. Card battle
 story mode, no deck editor, no partner customisation.
 
 All card data, art, UI textures and audio (`web/js/data/`, `web/assets/`) are generated
-from your own disc image and are not part of this repository; see "Rebuild from the disc".
-Keep them for personal use; don't redistribute the generated files.
+from the disc image (SLUS-01328, US release) and are committed, so a clone runs as is.
+"Rebuild from the disc" shows how they were made.
 
 ## Play
 
