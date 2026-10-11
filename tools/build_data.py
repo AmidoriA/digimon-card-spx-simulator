@@ -88,6 +88,8 @@ def build_cards(cdd):
             "dp": r[0x1B], "pp": struct.unpack_from("<H", r, 0x1C)[0],
             "hp": struct.unpack_from("<H", r, 0x1E)[0],
             "atk": atk, "xfx": r[0xE4],
+            # Polygon Battle model: F:\NNN.PAK (see build_models.py)
+            "model": r[0xE5],
             "prio": r[0xE6], "conds": conds, "acts": acts,
             "text": text_lines(r[0xE7:0xE7 + 84]),
         })

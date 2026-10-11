@@ -135,6 +135,28 @@ The effect animations are the game's own scripts, played by a port of its effect
 - **Cards.** A card sliding to the hand, the Digimon place, the DP Slot or the support place
   takes 16 frames, as its state counter in `0x8003b210` does.
 
+## Polygon Battle (battle animation), stage 1
+
+The game can show each attack as a 3D "Polygon Battle". This is being ported in stages;
+the **Battle animation** box in the side rail turns it on and off. So far:
+
+- **Models.** Each Digimon card names a model (byte `0xE5` of its `CARD2.CDD` record) in
+  `F/NNN.PAK`. The model chunk holds a tree of rigid parts and one "OMD0" mesh per part:
+  vertices, a colour table (flat colours, or normals to be lit), and fans/strips of textured
+  or plain triangles and quads (drawn by `0x800202d8`, `0x8001f3c0`, `0x8001f94c`).
+  `tools/omd.py` documents and parses the format; all 211 files parse to the last byte.
+- **Motions.** Eight per Digimon, LZH-packed. A motion is a list of 772-byte keys: a duration,
+  a sound, and a rotation / offset / scale record for each of up to 32 parts. The model eases
+  from its current pose to the key over twice the duration, in two halves of constant
+  acceleration aimed at the speed the next key needs (`0x80022100`, `0x80021aa8`,
+  `0x80021c18`). Part rotation is `Ry·Rx·Rz` (`0x8005cbc4`, checked in the emulator).
+- **Which motion.** Each Digimon's own attack scripts (ids 554–556 in its PAK) start motions
+  1–3 for its three attacks and return to motion 0; its damage scripts start motion 4.
+
+Still to port (stages 2 and 3): the battle scripts themselves (the overlay `P/SUGSEG.BIN`,
+interpreter `0x801e8678`), which place the Digimon, move the camera, time the target's
+reaction and spawn each attack's effects from `E/NNN.PAK`; and the arenas (`F/bgN.pak`).
+
 ## Not from the game code
 
 - **Screen arrangement.** The battle screen uses the game's own textures (`B/CBTL_SYS.ARC`)
@@ -159,12 +181,18 @@ The effect animations are the game's own scripts, played by a port of its effect
   whatever was drawn before them), and a tinted card is only brightened, at a speed chosen
   here. Text labels the scripts put on cards are replaced by this project's captions. A card
   slides in a straight line at constant speed; the game's exact path was not read.
+- **Polygon Battle staging.** Until the battle scripts are ported, where the two Digimon
+  stand, the camera, the moment the target reacts and the plain dark background are this
+  project's. Lighting is one fixed light instead of the game's light matrices, motion sounds
+  are not played, the walk a motion applies to the whole model is left out, the alternate
+  models in archive `G` are not used, and five models whose palette is not in their own file fall
+  back to their texture's first palette.
 - **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported.
 - **Hands shown face up** rests on the card-state byte being the same for both players'
   hand cards, and on how the game plays; the drawing code was not read.
 - Who takes the first turn is random here; the game has you pick a card for it.
 - Left out: partner Digi-Parts and levelling, the bonus the game tracks when HP lands on a
-  multiple of 1110, undoing an entrance or digivolution, the switch to the 3D battle scene.
+  multiple of 1110, undoing an entrance or digivolution.
 
 ## Rebuild from the disc
 
@@ -177,6 +205,7 @@ tools/.venv/Scripts/python tools/build_data.py extracted web        # cards and 
 tools/.venv/Scripts/python tools/upscale_assets.py extracted web    # art and UI, needs ComfyUI
 tools/.venv/Scripts/python tools/build_audio.py extracted web       # music and sound effects
 tools/.venv/Scripts/python tools/build_effects.py extracted web     # battle effect scripts
+tools/.venv/Scripts/python tools/build_models.py extracted web      # 3D models, textures, motions
 ```
 
 `upscale_assets.py` sends the 64×64 card art, the 40×40 board art and the battle textures
@@ -198,6 +227,8 @@ upscale.
 | `web/js/audio.js`, `web/assets/audio` | Sound playback and the generated music/effects |
 | `web/js/effects.js`, `web/js/data/effects.js` | Effect engine port and the generated effect scripts |
 | `tools/effscript.py`, `build_effects.py`, `fxtest.js` | Effect script parser, export and headless check |
+| `web/js/battle3d.js`, `web/assets/models` | Polygon Battle: model/motion player and the generated models |
+| `tools/pak.py`, `omd.py`, `build_models.py` | PAK chunks, model and motion formats, model export |
 | `tools/lift.py`, `emu.py` | Compact MIPS listing and Unicorn runner used while reading the engine |
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
 

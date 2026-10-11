@@ -7,7 +7,7 @@
  */
 (function () {
   'use strict';
-  var E = window.DDCB, AI = window.DDCB_AI, D = E.DATA, SND = window.DDCB_SND, FXV = window.DDCB_FX;
+  var E = window.DDCB, AI = window.DDCB_AI, D = E.DATA, SND = window.DDCB_SND, FXV = window.DDCB_FX, B3D = window.DDCB_B3D;
   // Sound ids traced in the game: the controller plays 0xA0 on a confirming button and 0xA1
   // on cancel, the hand selector 0xA2 when the cursor moves, message windows 0xA3 / 0xA4.
   var SE = { OK: 0xa0, CANCEL: 0xa1, CURSOR: 0xa2, OPEN: 0xa3, CLOSE: 0xa4 };
@@ -761,6 +761,13 @@
     function step() {
       if (i >= evs.length || !live(tok)) return Promise.resolve();
       var e = evs[i++], d = 300, c, prevTop = [A.s[0].top, A.s[1].top];
+      // Polygon Battle: the attack is shown in 3D first, then its result on the board
+      if (e.t === 'attack' && B3D.enabled && !e.shown3d && prevTop[0] >= 0 && prevTop[1] >= 0) {
+        e.shown3d = true; i--;
+        c = E.card(prevTop[e.p]);
+        status(c.name + ': ' + c.atk[e.attack].name, '');
+        return B3D.attack([E.card(prevTop[0]).model, E.card(prevTop[1]).model], e.p, e.attack, e.dmg > 0).then(step);
+      }
       if (e.s) A.s = e.s;
       A.glow = -1; A.hit = -1; A.floats = [];
       fxWait = null;
@@ -969,7 +976,7 @@
 
   function toMenu() {
     S.token++; S.G = null; S.resolve = null; S.anim = null;
-    SND.stopMusic(); FXV.stop();
+    SND.stopMusic(); FXV.stop(); B3D.stop();
     $('game').hidden = true; $('setup').hidden = false;
     renderSetup();
   }
@@ -1012,6 +1019,12 @@
   Array.prototype.forEach.call($('previewTabs').children, function (b) { b.onclick = function () { S.previewSide = b.dataset.side; renderSetup(); }; });
   $('btnRandom').onclick = function () { S.op = OP_DECKS[Math.floor(Math.random() * OP_DECKS.length)].id; S.previewSide = 'op'; renderSetup(); };
   $('btnStart').onclick = startGame;
+  try { B3D.enabled = localStorage.getItem('ddcb-anim3d') !== '0'; } catch (err) { /* storage unavailable */ }
+  $('anim3d').checked = B3D.enabled;
+  $('anim3d').onchange = function () {
+    B3D.enabled = $('anim3d').checked;
+    try { localStorage.setItem('ddcb-anim3d', B3D.enabled ? '1' : '0'); } catch (err) { /* ignore */ }
+  };
   $('sound').checked = SND.isEnabled();
   $('sound').onchange = function () { SND.setEnabled($('sound').checked); };
   $('btnRules').onclick = function () { $('rules').showModal(); };
