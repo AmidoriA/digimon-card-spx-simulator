@@ -1,0 +1,9 @@
+# working copy of the disc and disassembly notes
+extracted/
+# generated from the disc image (card data, art, textures, audio): rebuild, don't commit
+web/assets/
+web/js/data/
+# local tooling
+tools/.venv/
+__pycache__/
+*.pyc

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Card Battle</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================== setup screen ============================== -->
+<section id="setup" class="screen">
+  <div class="setup-wrap">
+    <header class="setup-head">
+      <p class="kicker">Card Battle Arena</p>
+      <h1>Digital Card Battle</h1>
+      <p class="sub">Pick a deck, pick an opponent. First to three KOs wins.</p>
+    </header>
+
+    <div class="setup-grid">
+      <div class="panel">
+        <h2>Your deck</h2>
+        <input id="myFilter" class="filter" type="search" placeholder="Search decks" aria-label="Search your deck">
+        <ul id="myDecks" class="decklist" role="listbox" aria-label="Your deck"></ul>
+      </div>
+      <div class="panel">
+        <h2>Opponent</h2>
+        <input id="opFilter" class="filter" type="search" placeholder="Search opponents" aria-label="Search opponents">
+        <ul id="opDecks" class="decklist" role="listbox" aria-label="Opponent deck"></ul>
+      </div>
+      <div class="panel preview">
+        <h2 id="previewTitle">Deck contents</h2>
+        <div id="previewTabs" class="tabs">
+          <button data-side="me" class="on">Yours</button>
+          <button data-side="op">Opponent's</button>
+        </div>
+        <ul id="previewList" class="cardlist"></ul>
+      </div>
+    </div>
+
+    <footer class="setup-foot">
+      <label class="optl">Opponent skill
+        <select id="skill">
+          <option value="0.35">Rookie</option>
+          <option value="0.7" selected>Champion</option>
+          <option value="1">Ultimate</option>
+        </select>
+      </label>
+      <button id="btnRandom" class="btn ghost">Random opponent</button>
+      <button id="btnStart" class="btn primary">Start battle</button>
+    </footer>
+  </div>
+</section>
+
+<!-- ============================== game screen ============================== -->
+<section id="game" class="screen" hidden>
+  <div class="gamewrap">
+    <div id="stageBox" class="stagebox">
+      <!-- 320x240 battle screen drawn at 4x; scaled to fit by script -->
+      <div id="stage" class="stage">
+        <div id="static"></div>
+        <div id="dyn"></div>
+        <div id="msg" class="msg"><div id="msg1" class="m1"></div><div id="msg2" class="m2" aria-live="polite"></div></div>
+        <div id="acts" class="acts"></div>
+        <div id="flash" class="flash" hidden></div>
+        <div id="info" class="info" hidden></div>
+        <div id="ask" class="ask" hidden>
+          <p id="askText"></p>
+          <div class="askrow"><button id="askYes" class="gbtn">Yes</button><button id="askNo" class="gbtn">No</button></div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="rail">
+      <div class="railhead">
+        <div class="turnbox"><span class="lbl">Turn</span> <b id="turnNo">1</b></div>
+        <label class="optl small"><input type="checkbox" id="sound" checked> Sound</label>
+        <label class="optl small"><input type="checkbox" id="fast"> Fast</label>
+        <button id="btnRules" class="btn ghost small">Rules</button>
+        <button id="btnQuit" class="btn ghost small">Quit</button>
+      </div>
+      <div class="panel logpanel">
+        <h3>Battle log</h3>
+        <ol id="log" class="log"></ol>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================== dialogs ============================== -->
+<dialog id="rules" class="dialog">
+  <h2>How to play</h2>
+  <div class="rules-body">
+    <p>Each player brings a 30-card deck. Hands are open: both players can see each other's cards. You win by scoring three KOs, or when the opponent can no longer field a Digimon.</p>
+    <h3>A turn belongs to one player</h3>
+    <ol>
+      <li><b>Preparation.</b> The turn player draws up to 4 cards (only they draw). With no Digimon in play they must send one out from their hand. Any level may enter, but a level C entering directly has HP and attack powers halved, and a level U has them quartered. They may change all cards (discard the hand and redraw) while the Online deck has cards. A hand with no Digimon card is redrawn automatically; if the deck is empty, that player loses.</li>
+      <li><b>Digivolve.</b> In this order: send one Digimon card to the DP Slot (adds its +P), use a digivolve option card, then digivolve normally: R to C to U, same Specialty, DP at least the new card's cost. Digivolving gives the new card's full HP and empties the DP Slot. Using an option card ends the phase.</li>
+      <li><b>Battle.</b> If the opponent has no Digimon there is no battle. Otherwise both players secretly choose an attack (&#9675; &#9651; &#10005;). Then the opponent commits a support card, and after seeing it the turn player commits theirs. A support can be a Digimon or option card from the hand, or the unseen top card of the Online deck. Supports and &#10005; effects resolve, then the turn player strikes first.</li>
+    </ol>
+    <h3>Support timing</h3>
+    <p>Every effect has a speed tier. Tier 3 resolves first, then 2, then 1. Inside a tier: option cards (turn player first), then Digimon supports, then &#10005; effects. "Support voided" stops Digimon supports only; "Support and Option Effects voided" stops both.</p>
+    <h3>&#10005; attack effects</h3>
+    <ul>
+      <li><b>1st Attack</b> strikes first regardless of turn.</li>
+      <li><b>&#9675;/&#9651;/&#10005; to 0</b> lowers that attack of the opponent to 0.</li>
+      <li><b>Counter</b> if the opponent used the named attack, it misses and you strike second with its power.</li>
+      <li><b>Crash</b> attack power becomes your HP, then your HP becomes 10.</li>
+      <li><b>Eat-up HP</b> recover HP equal to the damage inflicted.</li>
+      <li><b>Jamming</b> voids the opponent's Digimon support effect.</li>
+      <li><b>Foe x3</b> triples your &#10005; power against that Specialty.</li>
+    </ul>
+    <h3>KOs</h3>
+    <p>A KO'd Digimon and its digivolution stack go Offline and the opponent scores. An armor Digimon falls back to its Rookie form instead. A revive effect keeps the Digimon in play, except against the KO that would decide the match.</p>
+  </div>
+  <form method="dialog"><button class="btn primary">Close</button></form>
+</dialog>
+
+<dialog id="result" class="dialog result">
+  <h2 id="resultTitle"></h2>
+  <p id="resultText"></p>
+  <div class="row">
+    <button id="btnAgain" class="btn primary">Rematch</button>
+    <button id="btnMenu" class="btn ghost">Change decks</button>
+  </div>
+</dialog>
+
+<script src="js/data/cards.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/data/audio.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>

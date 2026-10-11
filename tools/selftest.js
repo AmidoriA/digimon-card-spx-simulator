@@ -1,0 +1,241 @@
+// Spot checks of the rules engine against behaviour traced in the game code.
+// Usage: node tools/selftest.js
+const path = require('path');
+const assert = require('assert');
+const E = require(path.join(__dirname, '..', 'web', 'js', 'engine.js'));
+
+const byName = (n) => { const c = E.CARDS.find((x) => x.name === n); assert(c, 'no card ' + n); return c.id; };
+const C = (n) => E.card(byName(n));
+const filler = byName('Agumon');
+
+// Fixed position: each side gets an active Digimon (entered as-is, full stats), a hand and a DP slot.
+function setup(a, b, opts) {
+  opts = opts || {};
+  const G = E.newGame({
+    names: ['A', 'B'], seed: 7, first: opts.first || 0,
+    decks: [{ cards: Array(30).fill(filler), armor: a.armor || 0 }, { cards: Array(30).fill(filler), armor: b.armor || 0 }]
+  });
+  [a, b].forEach((s, p) => {
+    const P = G.players[p];
+    if (s.mon) {
+      const c = C(s.mon);
+      P.active = { stack: [c.id], armor: -1, hp: s.hp || c.hp, spec: c.spec, base: c.atk.map((x) => x.power), abn: 0 };
+    }
+    P.hand = (s.hand || []).map(byName);
+    P.dp = (s.dp || []).map(byName);
+    if (s.deck) P.deck = s.deck.map(byName);
+    if (s.wins) P.wins = s.wins;
+  });
+  return G;
+}
+// a/b: { attack, support } with support = hand index, 'deck' or -1
+function fight(G, a, b) {
+  const t = G.tp, ch = [a, b];
+  E.setSupport(G, t ^ 1, ch[t ^ 1].support);
+  E.setSupport(G, t, ch[t].support);
+  const ev = E.resolveBattle(G, [a.attack, b.attack], []);
+  return { ev, hp: G.players.map((P) => (P.active ? P.active.hp : 0)), atk: ev.filter((e) => e.t === 'attack') };
+}
+const none = (attack) => ({ attack, support: -1 });
+let n = 0;
+function test(name, fn) { fn(); n++; console.log('ok  ' + name); }
+
+// ------------------------------------------------------------------ turn structure
+test('turn start: only the turn player draws; no battle while the opponent has no Digimon', () => {
+  const G = E.newGame({ names: ['A', 'B'], seed: 3, first: 0, decks: [{ cards: Array(30).fill(filler) }, { cards: Array(30).fill(filler) }] });
+  E.beginTurn(G);
+  assert.strictEqual(G.players[0].hand.length, 4);
+  assert.strictEqual(G.players[1].hand.length, 0);
+  assert(E.enter(G, 0, 0));
+  assert.strictEqual(E.battleOn(G), false);
+  E.endTurn(G);
+  assert.strictEqual(G.tp, 1);
+  E.beginTurn(G);
+  assert.strictEqual(G.players[1].hand.length, 4);
+  assert.strictEqual(G.players[0].hand.length, 3, 'the other player does not refill');
+});
+
+test('no Digimon card in hand: forced redraw, and a loss once the Online deck is empty', () => {
+  let G = setup({ hand: [], deck: ['Agumon', 'Attack Chip', 'Attack Chip', 'Attack Chip', 'Attack Chip'] }, { mon: 'Gabumon' });
+  const ev = [];
+  E.beginTurn(G, ev);
+  assert(ev.some((e) => e.t === 'forced'));
+  assert.strictEqual(G.winner, null);
+  assert(E.handHasDigimon(G.players[0]));
+  G = setup({ hand: [], deck: ['Attack Chip', 'Attack Chip'] }, { mon: 'Gabumon' });
+  E.beginTurn(G);
+  assert.strictEqual(G.winner, 1);
+  assert.strictEqual(G.winReason, 'nocards');
+});
+
+test('entrance: any level may enter; C is halved, U quartered (cut to tens)', () => {
+  const G = setup({ hand: ['Greymon', 'WarGreymon', 'Agumon'] }, { mon: 'Gabumon' });
+  const g = C('Greymon'), w = C('WarGreymon');
+  let H = E.clone(G); E.enter(H, 0, 0);
+  assert.strictEqual(H.players[0].active.hp, Math.floor((g.hp >> 1) / 10) * 10);
+  assert.deepStrictEqual(H.players[0].active.base, g.atk.map((a) => Math.floor((a.power >> 1) / 10) * 10));
+  H = E.clone(G); E.enter(H, 0, 1);
+  assert.strictEqual(H.players[0].active.hp, Math.floor((w.hp >> 2) / 10) * 10);
+  H = E.clone(G); E.enter(H, 0, 2);
+  assert.strictEqual(H.players[0].active.hp, C('Agumon').hp);
+  assert.strictEqual(E.canEnter(G, 1, 0), false, 'only the turn player');
+});
+
+test('armor: the partner Rookie of an armor deck powers up on entrance and falls back when KO\'d', () => {
+  const G = setup({ hand: ['Veemon'], armor: 2 }, { mon: 'Imperialdramon' });
+  E.enter(G, 0, 0);
+  assert.strictEqual(E.card(E.armorOption(G, 0)).name, 'Raidramon');
+  assert(E.armorDigivolve(G, 0));
+  assert.strictEqual(E.top(G.players[0]).name, 'Raidramon');
+  assert.strictEqual(G.players[0].active.hp, C('Raidramon').hp);
+  const r = fight(G, none(0), none(0));
+  assert.strictEqual(r.ev.find((e) => e.t === 'ko').how, 'armor');
+  assert.strictEqual(E.top(G.players[0]).name, 'Veemon');
+  assert.strictEqual(G.players[0].active.hp, C('Veemon').hp);
+  assert.strictEqual(G.players[1].wins, 1);
+});
+
+test('digivolve phase: one DP card, before digivolving; an option card ends the phase', () => {
+  const G = setup({ mon: 'Agumon', hand: ['Greymon', 'Agumon', 'Agumon', 'Speed Digivolve'] }, { mon: 'Gabumon' });
+  assert(E.addDP(G, 0, 1));
+  assert.strictEqual(E.canAddDP(G, 0, 1), false, 'second DP card refused');
+  const mv = E.evoMoves(G, 0).find((m) => m.kind === 'option');
+  assert(mv, 'Speed Digivolve usable');
+  assert(E.digivolve(G, 0, mv));
+  assert.strictEqual(E.top(G.players[0]).name, 'Greymon');
+  assert.strictEqual(G.players[0].dp.length, 1, 'Speed keeps the DP Slot');
+  assert.strictEqual(E.evoMoves(G, 0).length, 0);
+  assert.strictEqual(E.canAddDP(G, 0, 0), false);
+});
+
+test('digivolve legality (0x801e9f5c) and DP handling', () => {
+  const G = setup({ mon: 'Agumon', hand: ['Greymon', 'Garurumon', 'MetalGreymon'], dp: ['Agumon'] }, { mon: 'Gabumon' });
+  const P = G.players[0];
+  assert.strictEqual(E.evoLegal(P, byName('Greymon'), -1), E.dpTotal(P) >= C('Greymon').dp);
+  assert.strictEqual(E.evoLegal(P, byName('Garurumon'), -1), false, 'wrong Specialty');
+  assert.strictEqual(E.evoLegal(P, byName('MetalGreymon'), -1), false, 'cannot skip a level');
+  assert.strictEqual(E.evoLegal(P, byName('Greymon'), byName('Speed Digivolve')), true, 'Speed ignores DP');
+  assert.strictEqual(E.evoLegal(P, byName('Garurumon'), byName('Download Digivolve')), true);
+  P.active.abn = 2;
+  assert.strictEqual(E.evoLegal(P, byName('Greymon'), byName('Speed Digivolve')), false, 'not in an abnormal state');
+  P.active.abn = 0;
+  P.dp = ['Agumon', 'Agumon', 'Agumon'].map(byName);
+  const mv = E.evoMoves(G, 0).find((m) => m.kind === 'normal');
+  assert(E.digivolve(G, 0, mv));
+  assert.strictEqual(E.top(P).name, 'Greymon');
+  assert.strictEqual(P.active.hp, C('Greymon').hp, 'full HP of the new card');
+  assert.strictEqual(P.dp.length, 0, 'DP Slot emptied');
+});
+
+test('Digi-devolve: back one level with double HP', () => {
+  const G = setup({ mon: 'Agumon', hand: ['Digi-devolve'] }, { mon: 'Gabumon' });
+  G.players[0].active.stack.push(byName('Greymon'));
+  const mv = E.evoMoves(G, 0)[0];
+  assert(mv && mv.target === -1);
+  E.digivolve(G, 0, mv);
+  assert.strictEqual(E.top(G.players[0]).name, 'Agumon');
+  assert.strictEqual(G.players[0].active.hp, C('Agumon').hp * 2);
+});
+
+// ------------------------------------------------------------------ battle
+test('calc: divide rounds down to tens, floors at 10, caps at 9990', () => {
+  assert.strictEqual(E.calc(1230, 3, 2), 610);
+  assert.strictEqual(E.calc(15, 3, 2), 10);
+  assert.strictEqual(E.calc(0, 3, 2), 0);
+  assert.strictEqual(E.calc(9000, 0, 5000), 9990);
+  assert.strictEqual(E.calc(100, 1, 300), 0);
+});
+
+test('plain exchange: the turn player strikes first, the turn passes at end of turn', () => {
+  const G = setup({ mon: 'Agumon' }, { mon: 'Gabumon' }, { first: 1 });
+  const r = fight(G, none(0), none(1));
+  assert.deepStrictEqual(r.atk.map((e) => e.p), [1, 0]);
+  assert.strictEqual(r.atk[1].dmg, C('Agumon').atk[0].power);
+  E.endTurn(G);
+  assert.strictEqual(G.tp, 0);
+});
+
+test('Imperialdramon support: + (DP cards x100) to every attack', () => {
+  const G = setup({ mon: 'Agumon', hand: ['Imperialdramon'], dp: ['Agumon', 'Agumon', 'Agumon'] }, { mon: 'Gabumon' });
+  const r = fight(G, { attack: 1, support: 0 }, none(0));
+  assert.strictEqual(r.atk[0].dmg, C('Agumon').atk[1].power + 300);
+});
+
+test('Metallic Banana: own HP halved (tens), opponent attack 0', () => {
+  const G = setup({ mon: 'Paildramon', hand: ['Metallic Banana'] }, { mon: 'Gabumon' });
+  const r = fight(G, { attack: 0, support: 0 }, none(0));
+  assert.strictEqual(r.atk[1] ? r.atk[1].dmg : 0, 0);
+  assert.strictEqual(r.hp[0], 610);
+});
+
+test('support from the top of the Online deck uses that card\'s own tier', () => {
+  const G = setup({ mon: 'Agumon', deck: ['Attack Chip'] }, { mon: 'Gabumon' });
+  const r = fight(G, { attack: 0, support: 'deck' }, none(0));
+  assert.strictEqual(r.atk[0].dmg, C('Agumon').atk[0].power + 300);
+  E.endTurn(G);
+  assert.strictEqual(G.players[0].offline.length, 1);
+});
+
+test('counter: named attack misses, counter-er strikes second with that power', () => {
+  const G = setup({ mon: 'Imperialdramon' }, { mon: 'WarGreymon' });
+  const r = fight(G, none(2), none(0));
+  assert.deepStrictEqual(r.atk.map((e) => [e.p, e.dmg]), [[1, 0], [0, C('WarGreymon').atk[0].power]]);
+  const G2 = setup({ mon: 'Imperialdramon' }, { mon: 'WarGreymon' });
+  const r2 = fight(G2, none(2), none(1));
+  assert.deepStrictEqual([r2.atk[0].p, r2.atk[0].dmg], [0, 0], 'no trigger against another attack');
+});
+
+test('x3: triples x power only against the named Specialty', () => {
+  const wg = C('WarGreymon');
+  assert.strictEqual(E.XFX[wg.xfx], 'Ice Foe x3');
+  assert.strictEqual(fight(setup({ mon: 'WarGreymon' }, { mon: 'Gabumon' }), none(2), none(0)).atk[0].dmg, wg.atk[2].power * 3);
+  assert.strictEqual(fight(setup({ mon: 'WarGreymon' }, { mon: 'Agumon' }), none(2), none(0)).atk[0].dmg, wg.atk[2].power);
+});
+
+test('Crash / Eat-up / 1st Attack x-effects', () => {
+  const crash = E.CARDS.find((c) => c.xfx === 8), eat = E.CARDS.find((c) => c.xfx === 9), fst = E.CARDS.find((c) => c.xfx === 1);
+  let r = fight(setup({ mon: crash.name }, { mon: 'Imperialdramon' }), none(2), none(1));
+  assert.strictEqual(r.atk[0].dmg, crash.hp, 'crash power = HP');
+  assert.strictEqual(r.hp[0], Math.max(10 - r.atk[1].dmg, 0));
+  r = fight(setup({ mon: eat.name, hp: 100 }, { mon: 'Imperialdramon' }), none(2), none(2));
+  assert.strictEqual(r.atk[0].heal, eat.atk[2].power);
+  r = fight(setup({ mon: 'Agumon' }, { mon: fst.name }), none(0), none(2));
+  assert.strictEqual(r.atk[0].p, 1, '1st Attack overrides turn order');
+});
+
+test('void tiers: "support voided" stops Digimon supports but not option cards', () => {
+  const voider = E.CARDS.find((c) => c.type === 'digimon' && c.conds.length === 0 && c.acts.length === 1 && c.acts[0].op === 0x2c);
+  const base = C('Agumon').atk[0].power;
+  let r = fight(setup({ mon: 'Agumon', hand: [voider.name] }, { mon: 'Agumon', hand: ['RealMetalGreymon'] }), { attack: 0, support: 0 }, { attack: 0, support: 0 });
+  assert.strictEqual(r.atk[1].dmg, base, 'Digimon support voided');
+  r = fight(setup({ mon: 'Agumon', hand: [voider.name] }, { mon: 'Agumon', hand: ['Attack Chip'] }), { attack: 0, support: 0 }, { attack: 0, support: 0 });
+  assert.strictEqual(r.atk[1].dmg, base + 300, 'option card still works');
+  r = fight(setup({ mon: 'Agumon', hand: ["Cherrymon's Mist"] }, { mon: 'Agumon', hand: ['Attack Chip'] }), { attack: 0, support: 0 }, { attack: 0, support: 0 });
+  assert.strictEqual(r.atk[1].dmg, base, "Cherrymon's Mist voids options too");
+});
+
+test('revive: the KO still scores, but there is no revival from the deciding KO', () => {
+  let G = setup({ mon: 'Agumon', hp: 10, hand: ['Phoenixmon'] }, { mon: 'Imperialdramon' });
+  fight(G, { attack: 0, support: 0 }, none(0));
+  assert.strictEqual(G.players[1].wins, 1);
+  assert.strictEqual(G.players[0].active.hp, 500);
+  G = setup({ mon: 'Agumon', hp: 10, hand: ['Phoenixmon'] }, { mon: 'Imperialdramon', wins: 2 });
+  fight(G, { attack: 0, support: 0 }, none(0));
+  assert.strictEqual(G.players[0].active, null);
+  assert.strictEqual(G.winner, 1);
+  assert.strictEqual(G.winReason, 'KO');
+});
+
+test('after a KO: no Digimon in play, none in hand and an empty deck ends the match', () => {
+  const G = setup({ mon: 'Agumon', hp: 10, hand: ['Attack Chip'], deck: [] }, { mon: 'Imperialdramon' });
+  fight(G, none(0), none(0));
+  assert.strictEqual(G.winner, 1);
+  assert.strictEqual(G.winReason, 'nodigimon');
+});
+
+test('data quirk kept: comparison op 0xFF never passes (Aquilamon)', () => {
+  const r = fight(setup({ mon: 'Agumon', hand: ['Aquilamon'] }, { mon: 'Gabumon' }), { attack: 1, support: 0 }, none(0));
+  assert.strictEqual(r.ev.find((e) => e.t === 'support').ok, false);
+});
+
+console.log(n + ' checks passed');
