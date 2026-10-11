@@ -118,6 +118,27 @@
     return null;
   }
 
+  // small card picture for the setup screen (board art, assets/mini)
+  function thumb(id) {
+    var c = E.card(id), el = h('span', 'th ' + cls(c)), img = document.createElement('img');
+    img.src = 'assets/mini/' + pad3(id) + '.webp'; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+    el.appendChild(img);
+    return el;
+  }
+  // the cards a deck is recognised by: its strongest Digimon, highest level first
+  var faceCache = {};
+  function deckFaces(d) {
+    if (!faceCache[d.id]) {
+      var seen = {}, ids = d.cards.filter(function (id) {
+        if (seen[id] || E.card(id).type !== 'digimon') return false;
+        seen[id] = 1; return true;
+      });
+      ids.sort(function (a, b) { var x = E.card(a), y = E.card(b); return y.level - x.level || y.hp - x.hp || a - b; });
+      faceCache[d.id] = ids.slice(0, 6);
+    }
+    return faceCache[d.id];
+  }
+
   function fillDeckList(ul, decks, selId, filter, onPick) {
     clear(ul);
     var f = (filter || '').toLowerCase();
@@ -130,6 +151,9 @@
       li.appendChild(h('span', 'dn', d.name));
       li.appendChild(h('span', 'do', d.owner === 'Player' ? 'Starter deck' : d.owner));
       if (d.owner !== 'Player') li.appendChild(h('span', 'dr', 'Lv ' + d.rank));
+      var strip = h('span', 'dt');
+      deckFaces(d).forEach(function (id) { var t = thumb(id); t.title = E.card(id).name; strip.appendChild(t); });
+      li.appendChild(strip);
       li.onclick = function () { onPick(d.id); };
       li.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPick(d.id); } };
       ul.appendChild(li);
@@ -153,11 +177,12 @@
       if (!ids.length) return;
       ul.appendChild(h('li', 'grp', g[0]));
       ids.forEach(function (id) {
-        var c = E.card(id), li = h('li');
-        li.appendChild(h('span', 'badge ' + cls(c), lvl(c)));
-        li.appendChild(h('span', null, c.name));
-        li.appendChild(h('span', 'cnt', '×' + counts[id]));
-        li.title = c.type === 'digimon' ? ('HP ' + c.hp + ' • ' + c.atk.map(function (a) { return a.power; }).join(' / ') + ' • ' + c.text) : c.text;
+        var c = E.card(id), li = h('li', 'tile'), pic = thumb(id);
+        pic.appendChild(h('span', 'badge ' + cls(c), lvl(c)));
+        pic.appendChild(h('span', 'cnt', '×' + counts[id]));
+        li.appendChild(pic);
+        li.appendChild(h('span', 'tn', c.name));
+        li.title = c.name + ' — ' + (c.type === 'digimon' ? ('HP ' + c.hp + ' • ' + c.atk.map(function (a) { return a.power; }).join(' / ') + ' • ' + c.text) : c.text);
         ul.appendChild(li);
       });
     });

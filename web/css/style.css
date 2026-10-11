@@ -71,16 +71,24 @@ button, input, select { font: inherit; color: inherit; }
 .decklist li[aria-selected="true"] { background: var(--panel-2); border-color: var(--accent); }
 .decklist .dn { font-weight: 600; overflow-wrap: anywhere; }
 .decklist .do { grid-column: 1; color: var(--ink-3); font-size: 12px; }
+.decklist .dt { grid-column: 1 / -1; display: flex; gap: 4px; margin-top: 5px; min-height: 34px; overflow: hidden; }
+.decklist .dt .th { width: 34px; }
+.th { position: relative; display: block; flex: none; aspect-ratio: 1; border-radius: 4px; overflow: hidden; background: #0c131c; border: 2px solid var(--tc, var(--opt)); }
+.th img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.th.fire { --tc: var(--fire); } .th.ice { --tc: var(--ice); } .th.nature { --tc: var(--nature); }
+.th.dark { --tc: #555; } .th.rare { --tc: var(--rare); } .th.opt { --tc: var(--opt); }
 .decklist .dr { grid-row: 1 / span 2; grid-column: 2; align-self: center; font: 11px var(--mono); color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 99px; padding: 1px 7px; }
 .tabs { display: flex; gap: 6px; margin-bottom: 8px; }
 .tabs button { flex: 1; background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 5px; cursor: pointer; color: var(--ink-2); }
 .tabs button.on { border-color: var(--accent); color: var(--ink); }
-.cardlist li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: center; padding: 4px 6px; border-radius: 5px; font-size: 13px; }
-.cardlist li:hover { background: var(--panel-2); }
-.cardlist .grp { display: block; color: var(--ink-3); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding-top: 10px; }
-.cardlist .grp:hover { background: none; }
-.cardlist .note { display: block; color: var(--warn); font-size: 12px; }
-.cardlist .cnt { font: 12px var(--mono); color: var(--ink-2); }
+.cardlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 10px 8px; align-content: start; padding-right: 4px; }
+.cardlist .grp { grid-column: 1 / -1; color: var(--ink-3); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding-top: 6px; }
+.cardlist .note { grid-column: 1 / -1; color: var(--warn); font-size: 12px; }
+.cardlist .tile { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.cardlist .tile .th { width: 100%; border-radius: 6px; }
+.cardlist .tile .badge { position: absolute; left: 2px; top: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .5); }
+.cardlist .tile .cnt { position: absolute; right: 2px; bottom: 2px; font: 700 11px var(--mono); color: #fff; background: rgba(0, 0, 0, .72); border-radius: 4px; padding: 0 4px; }
+.cardlist .tn { font-size: 11px; line-height: 1.2; color: var(--ink-2); text-align: center; overflow-wrap: anywhere; }
 .badge { display: inline-grid; place-items: center; width: 22px; height: 18px; border-radius: 4px; font: 700 11px var(--mono); color: #fff; background: var(--opt); }
 .badge.fire { background: var(--fire); } .badge.ice { background: var(--ice); } .badge.nature { background: var(--nature); }
 .badge.dark { background: #555; } .badge.rare { background: var(--rare); } .badge.opt { background: var(--opt); }
