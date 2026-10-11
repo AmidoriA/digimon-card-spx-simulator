@@ -81,7 +81,7 @@ test('entrance: any level may enter; C is halved, U quartered (cut to tens)', ()
   assert.strictEqual(E.canEnter(G, 1, 0), false, 'only the turn player');
 });
 
-test('armor: the partner Rookie of an armor deck powers up on entrance and falls back when KO\'d', () => {
+test('armor: the partner Rookie of an armor deck powers up on entrance; a KO sends the Rookie Offline', () => {
   const G = setup({ hand: ['Veemon'], armor: 2 }, { mon: 'Imperialdramon' });
   E.enter(G, 0, 0);
   assert.strictEqual(E.card(E.armorOption(G, 0)).name, 'Raidramon');
@@ -89,9 +89,11 @@ test('armor: the partner Rookie of an armor deck powers up on entrance and falls
   assert.strictEqual(E.top(G.players[0]).name, 'Raidramon');
   assert.strictEqual(G.players[0].active.hp, C('Raidramon').hp);
   const r = fight(G, none(0), none(0));
-  assert.strictEqual(r.ev.find((e) => e.t === 'ko').how, 'armor');
-  assert.strictEqual(E.top(G.players[0]).name, 'Veemon');
-  assert.strictEqual(G.players[0].active.hp, C('Veemon').hp);
+  const ko = r.ev.find((e) => e.t === 'ko');
+  assert.strictEqual(ko.how, 'armor');
+  assert.strictEqual(E.card(ko.rookie).name, 'Veemon');
+  assert.strictEqual(G.players[0].active, null, 'nothing stays in play');
+  assert.deepStrictEqual(G.players[0].offline.map((id) => E.card(id).name), ['Veemon']);
   assert.strictEqual(G.players[1].wins, 1);
 });
 

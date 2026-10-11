@@ -601,15 +601,15 @@
       P.active.hp = P.b.reviveHp;
       O.wins++;
       emit(G, ev, { t: 'ko', p: p, how: 'revive' });
-    } else if (P.active.armor >= 0) {        // an armor Digimon falls back to its Rookie form
-      revertArmor(P);
-      O.wins++;
-      emit(G, ev, { t: 'ko', p: p, how: 'armor' });
     } else {
+      // An armor Digimon is first shown dropping back to its Rookie (0x80048150 finds it,
+      // effect script 0x1e, 0x80040d88 resets the display); then the same loop as for any
+      // other Digimon sends every card in play Offline (0x801ec608).
+      var armor = P.active.armor >= 0, rookie = P.active.stack[0];
       while (P.active.stack.length) P.offline.push(P.active.stack.pop());
       P.active = null;
       O.wins++;
-      emit(G, ev, { t: 'ko', p: p, how: 'out' });
+      emit(G, ev, armor ? { t: 'ko', p: p, how: 'armor', rookie: rookie } : { t: 'ko', p: p, how: 'out' });
     }
     // state 0x24
     if (O.wins >= WINS_NEEDED) { G.winner = p ^ 1; G.winReason = 'KO'; }

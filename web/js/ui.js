@@ -825,7 +825,7 @@
           d = 1500; break;
         case 'ko':
           if (e.how === 'revive') { status(mon(e.p) + " is KO'd, but revives!", vb(e.p ^ 1, 'score') + ' the KO.'); log(mon(e.p) + " is KO'd and revives with " + A.s[e.p].hp + ' HP.', 'big'); flash('REVIVE', 'fx'); fx(FX.REVIVE, e.p, 0); }
-          else if (e.how === 'armor') { status(E.card(prevTop[e.p]).name + " is KO'd!", 'It returns to ' + mon(e.p) + '. ' + vb(e.p ^ 1, 'score') + ' the KO.'); log(E.card(prevTop[e.p]).name + " is KO'd and returns to " + mon(e.p) + '.', 'big'); flash('KO', 'a0'); fx(FX.DE_ARMOR, e.p, 0); }
+          else if (e.how === 'armor') { A.koShow[e.p] = e.rookie; status(E.card(prevTop[e.p]).name + " is KO'd!", 'It drops back to ' + E.card(e.rookie).name + ', which goes Offline. ' + vb(e.p ^ 1, 'score') + ' a KO.'); log(E.card(prevTop[e.p]).name + " is KO'd; " + E.card(e.rookie).name + ' goes Offline.', 'big'); flash('KO', 'a0'); fx(FX.DE_ARMOR, e.p, 0); }
           else { A.koShow[e.p] = prevTop[e.p]; status(E.card(prevTop[e.p]).name + " is KO'd!", vb(e.p ^ 1, 'score') + ' a KO.'); log(E.card(prevTop[e.p]).name + " is KO'd.", 'big'); flash('KO', 'a0'); }
           d = 1600; break;
       }

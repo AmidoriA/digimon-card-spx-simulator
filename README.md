@@ -65,7 +65,8 @@ state. Digi-devolve doubles the lower form's HP.
   side strikes second with the opponent's power). Crash and Eat-up apply per strike; a KO'd
   Digimon does not strike back.
 - KO (`0x801ecf0c`): the opponent scores. A revive effect keeps the Digimon in play unless
-  the opponent already has 2 KOs. An armor Digimon falls back to its Rookie form. Otherwise
+  the opponent already has 2 KOs. An armor Digimon is first shown dropping back to its Rookie form
+  (effect script `0x1e`); then, as for any other Digimon,
   the whole stack goes Offline. Three KOs win; a KO'd player with no Digimon in play, none
   in hand and an empty Online deck also loses.
 - End of turn: supports go Offline, the turn passes.
