@@ -13,6 +13,12 @@ Usage (venv python):  build_battle.py <extracted_dir> <web_dir> [pak numbers...]
      tims     id -> {w, h, off, rows, pal} one byte per pixel at off, rows x 256 RGBA at pal
      models   id -> {off, len, tw, th, tex, rows, pal}   a model as in build_models.py
 
+  web/assets/battle/arenas.json       the arena table of the EXE (0x8006e0c0, 8 bytes each:
+                                      file number - 900, palettes, palette period, flags,
+                                      back colour r g b, brightness) for the 24 free-battle
+                                      arenas, entries 32..55
+  web/assets/models/bgNNN.*           those arenas (F/BGNNN.PAK) as models, like the Digimon
+
 A card's attack k names its attack script and hit script in its CARD2.CDD record
 (build_data.py: `script`, `hit`).
 """
@@ -117,6 +123,31 @@ def export_fx(path):
     return gzip.compress(struct.pack("<I", len(head)) + head + bytes(blob), 9, mtime=0), index, bad
 
 
+def export_arenas(ext, web):
+    """The arenas the game picks from when none is named (0x8002e42c: rand % 12 + 44) and the
+    rest of the free-battle block. An arena is a one-part model drawn around the camera."""
+    exe = open(os.path.join(ext, "disc", "SLUS_013.28"), "rb").read()
+    base = struct.unpack_from("<I", exe, 0x18)[0]
+    off = 0x8006E0C0 - base + 0x800
+    out, mdir = [], os.path.join(web, "assets", "models")
+    for i in range(32, 56):
+        num, pals, period, flags, r, g, b, bright = struct.unpack_from("<bBBbBBBB", exe, off + i * 8)
+        f = os.path.join(ext, "drv", "F", "BG%d.PAK" % (900 + num))
+        model, tims = None, []
+        for typ, cid, data in pak.chunks(open(f, "rb").read()):
+            if typ == 0 and model is None:
+                model = omd.parse_model(data)
+            elif typ == 5:
+                tims.append(bm.read_tim(pak.unpack(data)))
+        data, tex, pal, _ = bm.convert(model, [], tims)
+        bm.Image.frombytes("L", (tex[0], tex[1]), tex[2]).save(os.path.join(mdir, "bg%d.png" % (900 + num)), optimize=True)
+        bm.Image.frombytes("RGBA", (256, pal[0]), pal[1]).save(os.path.join(mdir, "bg%dp.png" % (900 + num)), optimize=True)
+        open(os.path.join(mdir, "bg%d.bin.gz" % (900 + num)), "wb").write(gzip.compress(data, 9, mtime=0))
+        out.append({"index": i, "file": 900 + num, "back": [r, g, b], "bright": bright})
+    json.dump(out, open(os.path.join(web, "assets", "battle", "arenas.json"), "w"), separators=(",", ":"))
+    return len(out)
+
+
 def main():
     ext, web = sys.argv[1], sys.argv[2]
     only = {int(a) for a in sys.argv[3:]}
@@ -127,6 +158,7 @@ def main():
         data = gzip.compress(json.dumps({str(k): v for k, v in sorted(scripts.items())}, separators=(",", ":")).encode(), 9, mtime=0)
         open(os.path.join(out, "scripts.json.gz"), "wb").write(data)
         print("scripts:", len(scripts), "- %.2f MB" % (len(data) / 1e6))
+        print("arenas:", export_arenas(ext, web))
     total = n = bad = nm = ns = 0
     for f in sorted(glob.glob(os.path.join(ext, "drv", "E", "*.PAK"))):
         m = re.match(r"^(\d+)\.PAK$", os.path.basename(f))

@@ -138,7 +138,8 @@ The effect animations are the game's own scripts, played by a port of its effect
 ## Polygon Battle (battle animation)
 
 The game can show each attack as a 3D "Polygon Battle". The **Battle animation** box in the
-side rail turns it on and off. It is being ported in stages; stages 1 and 2 are in.
+side rail turns it on and off. It was ported in three stages: models and motions, the battle
+scripts, then camera and arenas.
 
 - **Models.** Each Digimon card names a model (byte `0xE5` of its `CARD2.CDD` record) in
   `F/NNN.PAK`. The model chunk holds a tree of rigid parts and one "OMD0" mesh per part:
@@ -176,11 +177,22 @@ side rail turns it on and off. It is being ported in stages; stages 1 and 2 are 
   colour matrix times the clamped light matrix times the normal, with the default lights at
   `0x801ef25c` / `0x801ef27c`.
 
-`tools/build_battle.py` exports all 737 scripts and the 745 asset files; every Digimon's
-three attacks run to their end in the browser's dry-run mode (`DDCB_B3D.attack({dry: true})`).
+- **Places.** The battle setup (`0x801edb64`) puts the turn player's Digimon at z = 750
+  facing -z and the other at z = -750 facing it. Part 0's z offset in a motion is not a pose:
+  `0x80021964` walks the whole model that far along its facing each frame.
+- **Camera.** The camera task (`0x800250f4`) follows the model a script puts on screen (a
+  Digimon, or an effect model that takes the camera). The last record of every motion key is
+  the camera track for that motion: the camera sits at the model's place plus the record's
+  offset (mirrored for the Digimon that faces the other way) and is turned by minus the
+  record's angles plus that Digimon's facing. It eases between keys like the body parts do.
+- **Arenas.** An arena (`0x8002e42c`) is a one-part model from `F/BGnnn.PAK`, drawn turned
+  with the camera but not moved by it, behind everything, at the brightness the arena table
+  (`0x8006e0c0`) gives; the table also gives the back colour. With no arena named the game
+  picks one of twelve at random (table entries 44-55), which is what a match here does.
 
-Still to port (stage 3): the camera and the arenas (`F/bgN.pak`), and the intro and result
-scripts 999 / 998 of `A/BATTLE.PAK`.
+`tools/build_battle.py` exports all 737 scripts, the 745 asset files and the 24 free-battle
+arenas; every Digimon's three attacks run to their end in the browser's dry-run mode
+(`DDCB_B3D.attack({dry: true})`).
 
 ## Not from the game code
 
@@ -206,13 +218,15 @@ scripts 999 / 998 of `A/BATTLE.PAK`.
   whatever was drawn before them), and a tinted card is only brightened, at a speed chosen
   here. Text labels the scripts put on cards are replaced by this project's captions. A card
   slides in a straight line at constant speed; the game's exact path was not read.
-- **Polygon Battle staging.** Until the camera and arenas are ported, where the two Digimon
-  stand (2400 apart, the distance most attack scripts aim at), the camera (in front of the
-  Digimon each script runs for) and the plain dark background are this project's.
+- **Polygon Battle staging.** Each strike is shown on its own (attack script, then hit
+  script), starting from the Digimon's home places; the game runs a whole battle turn in one
+  scene with an intro (script 999) and a result script (998), which are not played. Before a
+  script puts its model on screen, and for a model without a camera track, the camera is this
+  project's. Arenas that animate their palette are shown still, and which arena a given
+  opponent uses in the story was not traced (the random free-battle pick is used).
 - **Polygon Battle gaps.** Three object types are created but not drawn yet: palette
   changes (type 1) and two textured kinds (10 and 12). Rings that ask for a texture are drawn plain. Effect models fade by brightness
-  only, and texture animation on them is not played. The walk a motion applies to the whole
-  model is left out. A few commands whose routines were not read are ignored (among them
+  only, and texture animation on them is not played. A few commands whose routines were not read are ignored (among them
   `a.6` and `b.0`), "place where that object is" (`b.13`) is done in the script's frame, and
   arrival at a target is judged by distance travelled. The alternate models in archive `G`
   are not used, and five models whose palette is not in their own file fall back to their

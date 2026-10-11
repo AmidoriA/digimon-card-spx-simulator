@@ -84,7 +84,7 @@ def convert(model, motions, tims):
             # the palette is not in this file: fall back to the texture's first palette
             hit = hit or (ti, 0, 0)
         if hit is None:
-            raise ValueError("no texture for clut %#x tpage %#x" % (clut, tpage))
+            return None                      # no such texture in this file: drawn plain
         t = tims[hit[0]]
         pal = use(*hit)
         return tiles[hit[0]], (px - t["x"]) * (4 if t["mode"] == 0 else 2), py - t["y"], pal
@@ -93,15 +93,15 @@ def convert(model, motions, tims):
     for pi, groups in enumerate(model["parts"]):
         for gi, g in enumerate(groups):
             for tri in g["tris"]:
-                pal = 0
-                if tri["clut"] is not None:
-                    ty, du, dv, pal = tile(tri["clut"], tri["tpage"])
+                pal, tx = 0, tile(tri["clut"], tri["tpage"]) if tri["clut"] is not None else None
+                if tx:
+                    ty, du, dv, pal = tx
                 ids = []
                 for k, (vi, ci, u, v) in enumerate(tri["v"]):
                     if not tri["gouraud"]:
                         ci = tri["v"][0][1]
                     r, g_, b, nrm = g["colours"][ci]
-                    if tri["clut"] is None:
+                    if tx is None:
                         uu, vv = -1, -1
                     else:
                         uu, vv = u + du, v + dv + ty

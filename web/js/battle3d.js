@@ -14,8 +14,12 @@
  * rings, particles, sprites (0x801eb874), animated effect models and light changes
  * (0x801e7880), switch them on and off and play sounds.
  *
- * Drawn on a 320x240 canvas like the game's screen. Where the Digimon stand and the camera
- * are this project's until the game's camera and arenas are ported; see README.
+ * The two Digimon stand 1500 apart (0x801edb64). The camera (task 0x800250f4) follows the
+ * Digimon or effect model the script puts on screen: the last record of every motion key is
+ * a camera track, its offset and angles relative to that model. The arena (0x8002e42c) is a
+ * model drawn around the camera.
+ *
+ * Drawn on a 320x240 canvas like the game's screen.
  */
 (function () {
   'use strict';
@@ -132,9 +136,10 @@
       }).catch(function () { return { sprites: {}, tims: {}, models: {} }; });
     return fxCache[id];
   }
+  // num: a Digimon's model number, or 'bg912' for an arena
   function load(num) {
     if (cache[num]) return cache[num];
-    var base = 'assets/models/' + ('00' + num).slice(-3);
+    var base = 'assets/models/' + (typeof num === 'number' ? ('00' + num).slice(-3) : num);
     cache[num] = Promise.all([
       fetch(base + '.bin.gz').then(function (r) { if (!r.ok) throw new Error('no model ' + num); return r.arrayBuffer(); }).then(inflate),
       image(base + '.png'), image(base + 'p.png')
@@ -205,11 +210,14 @@
       var acc = this.phase >= 0 ? this.a1 : this.a2;
       for (j = 0; j < (n + 1) * 9; j++) this.v[j] += acc[j];
     }
-    // Part 0's z offset is not a pose value: 0x80021964 takes it away every frame and walks the
-    // whole model that far along its facing. The walk is left out until the scripts that place
-    // the Digimon are ported, so the model stays where it stands.
-    this.p[5] -= Math.trunc(this.p[5]);
     this.base = this.baseM || rotYXZ([0, this.facing, 0]);
+    // Part 0's z offset is not a pose value: 0x80021964 takes it away every frame and walks the
+    // whole model that far along its facing.
+    var dz = Math.trunc(this.p[5]);
+    if (dz) {
+      this.p[5] -= dz;
+      if (!this.baseM) { this.pos[0] += this.base[2] * dz; this.pos[1] += this.base[5] * dz; this.pos[2] += this.base[8] * dz; }
+    }
   };
   // parents may come after their children in the part list: resolve in dependency order
   Actor.prototype.resolve = function () {
@@ -316,6 +324,16 @@
     var d = [f[1] * r[2] - f[2] * r[1], f[2] * r[0] - f[0] * r[2], f[0] * r[1] - f[1] * r[0]];
     return [r[0], r[1], r[2], d[0], d[1], d[2], f[0], f[1], f[2]];
   }
+  // 0x800250f4: the camera sits at the focus model's place plus the offset of the motion's
+  // camera record (mirrored for the Digimon that faces the other way) and is turned by minus
+  // its angles, plus that Digimon's facing.
+  function camera(sc) {
+    var a = sc.focus, o = sc.focusOwner || a;
+    if (!a || !a.keys) return;
+    var r = a.m.n * 9, s5 = o.facing ? -1 : 1;
+    sc.cam.eye = [Math.trunc(a.p[r + 3]) * s5 + a.pos[0], Math.trunc(a.p[r + 4]) + a.pos[1], Math.trunc(a.p[r + 5]) * s5 + a.pos[2]];
+    sc.view = C.rotMatrix([-Math.trunc(a.p[r]), -Math.trunc(a.p[r + 1]) + o.facing, -Math.trunc(a.p[r + 2])]);
+  }
   var tri = [], lin = [], sprites = [], rects = [];
   var sink = {
     quad: function (a, b, c, d, ca, cb, cc, cd) {
@@ -329,13 +347,23 @@
   function render() {
     if (!gl || !scene) return;
     gl.viewport(0, 0, W, HGT);
-    gl.clearColor(0.03, 0.04, 0.08, 1); gl.clearDepth(1);
+    var bk = scene.arena ? scene.arena.back : [8, 10, 20];
+    gl.clearColor(bk[0] / 255, bk[1] / 255, bk[2] / 255, 1); gl.clearDepth(1);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL); gl.depthMask(true);
     gl.useProgram(prog);
     var R = scene.view, e = scene.cam.eye, t = xf(R, [0, 0, 0], [-e[0], -e[1], -e[2]]), V = new Float32Array(9), k, L = scene.lights;
     for (k = 0; k < 9; k++) V[k] = R[(k % 3) * 3 + Math.floor(k / 3)];
-    gl.uniformMatrix3fv(loc.uV, false, V); gl.uniform3f(loc.uVT, t[0], t[1], t[2]);
+    gl.uniformMatrix3fv(loc.uV, false, V);
+    if (scene.arena && scene.arena.actor) {
+      // the arena turns with the camera but does not move with it, and is behind everything
+      gl.uniform3f(loc.uVT, 0, 0, 0);
+      gl.uniform3fv(loc.uLD, new Float32Array(9)); gl.uniform3fv(loc.uLC, new Float32Array(9)); gl.uniform3f(loc.uBK, 1, 1, 1);
+      gl.depthMask(false);
+      drawActor(scene.arena.actor);
+      gl.depthMask(true); gl.clear(gl.DEPTH_BUFFER_BIT);
+    }
+    gl.uniform3f(loc.uVT, t[0], t[1], t[2]);
     gl.uniform3fv(loc.uLD, new Float32Array(L.dir[0].concat(L.dir[1], L.dir[2]).map(function (x) { return x / 4096; })));
     gl.uniform3fv(loc.uLC, new Float32Array(L.col[0].concat(L.col[1], L.col[2]).map(function (x) { return x / 4096; })));
     gl.uniform3f(loc.uBK, BACK[0], BACK[1], BACK[2]);
@@ -581,8 +609,13 @@
           }
           break;
         case 14:                              // which Digimon is on screen
-          if (a0 === 0) { a = this.actor(v[0x1be]); this.scene.actors.forEach(function (x) { x.visible = x === a; }); }
-          else if (a0 === 2) this.scene.actors.forEach(function (x) { x.visible = true; });
+          if (a0 === 0) {
+            a = this.actor(v[0x1be]); this.scene.actors.forEach(function (x) { x.visible = x === a; });
+            if (a) { this.scene.focus = a; this.scene.focusOwner = null; }
+          } else if (a0 === 1) {                // an effect model takes the camera
+            s = this.slots[v[0x1be]];
+            if (s && s.obj && s.obj.actor) { this.scene.focus = s.obj.actor; this.scene.focusOwner = this.scene.actors[this.self]; }
+          } else if (a0 === 2) this.scene.actors.forEach(function (x) { x.visible = true; });
           break;
       }
     } else if (c[0] === 0x0c) {
@@ -648,17 +681,18 @@
     if (api.paused) return;                     // for looking at one frame while testing
     // the effect objects of effects.js draw through this scene's camera while it runs
     var core = C.core, keep = { project: core.project, bill: core.bill, origin: core.origin };
-    var sc = scene, R = sc.view, e = sc.cam.eye;
-    core.bill = [R[0], R[3], R[6], R[1], R[4], R[7], R[2], R[5], R[8]];
+    var sc = scene;
     core.origin = [0, 0, 0];
     core.project = function (w) {
-      var q = xf(R, [0, 0, 0], [w[0] - e[0], w[1] - e[1], w[2] - e[2]]);
+      var R = sc.view, e = sc.cam.eye, q = xf(R, [0, 0, 0], [w[0] - e[0], w[1] - e[1], w[2] - e[2]]);
       return q[2] < 8 ? null : [160 + q[0] * 448 / q[2], 120 + q[1] * 448 / q[2], q[2]];
     };
     while (n-- > 0 && scene === sc) {
       tri.length = 0; lin.length = 0; sprites.length = 0; rects.length = 0;
       sc.frame++;
       sc.actors.forEach(function (a) { a.step(); a.resolve(); });
+      camera(sc);
+      core.bill = [sc.view[0], sc.view[3], sc.view[6], sc.view[1], sc.view[4], sc.view[7], sc.view[2], sc.view[5], sc.view[8]];
       if (sc.script) sc.script(sc);
     }
     core.project = keep.project; core.bill = keep.bill; core.origin = keep.origin;
@@ -673,22 +707,27 @@
   }
 
   // ------------------------------------------------------------------ one attack
-  // The two Digimon stand 2400 apart facing each other (the distance most attack scripts aim
-  // their shots at). Until the game's camera is ported, each script is watched from in front
-  // of the Digimon it runs for.
-  var APART = 2400;
+  // The battle setup (0x801edb64) puts the turn player's Digimon at z = 750 facing -z and the
+  // other at z = -750 facing it.
+  var HOME = 750;
+  // Each script starts with the camera on its Digimon (the game's free camera between scripts
+  // was not ported).
   function cut(sc, self) {
     var a = sc.actors[self], h = a.height, d = Math.max(h * 2.4, 460), m = rotYXZ([0, a.facing, 0]);
     sc.cam = { eye: xf(m, a.pos, [d * 0.62, -h * 0.62, -d]), at: xf(m, a.pos, [0, -h * 0.5, -h * 0.25]) };
     sc.view = lookAt(sc.cam.eye, sc.cam.at);
+    sc.focus = a; sc.focusOwner = null;
+    camera(sc);
   }
-  // opts: models [player 0, player 1], attacker 0|1, script (attack script id), hit (hit script
-  // id, 0 = none), hp [after the attack, for both players], sound (bool).
+  // opts: models [player 0, player 1], attacker 0|1, first (the turn player, who stands at
+  // z = 750), script (attack script id), hit (hit script id, 0 = none), hp [after the attack,
+  // for both players], arena ({file, back, bright} from arenas.json), sound (bool).
   // With opts.dry the attack is run to its end at once without drawing, for testing; the
   // result is then {frames, quads, lines, sprites, models}.
   api.attack = function (opts) {
     if (!(api.enabled || opts.dry) || !initGL()) return Promise.resolve(false);
-    return Promise.all([load(opts.models[0]), load(opts.models[1]), loadScripts()]).then(function (r) {
+    var arenaP = opts.arena ? load('bg' + opts.arena.file).catch(function () { return null; }) : Promise.resolve(null);
+    return Promise.all([load(opts.models[0]), load(opts.models[1]), loadScripts(), arenaP]).then(function (r) {
       var scripts = r[2], list = [[scripts[opts.script], opts.attacker]];
       if (opts.hit && scripts[opts.hit]) list.push([scripts[opts.hit], opts.attacker ^ 1]);
       list = list.filter(function (x) { return x[0]; });
@@ -699,9 +738,15 @@
       });
       return Promise.all(paks).then(function (fxs) {
         return new Promise(function (res) {
-          var act = [new Actor(r[0], [0, 0, APART / 2], 0), new Actor(r[1], [0, 0, -APART / 2], 2048)];
+          var first = opts.first === 1 ? 1 : 0;
+          var act = [0, 1].map(function (p) { return new Actor(r[p], [0, 0, p === first ? HOME : -HOME], p === first ? 0 : 2048); });
           act.forEach(function (a) { a.step(); a.resolve(); var b = a.bounds(); a.height = Math.max(b[4] - b[1], 60); });
-          var sc = scene = { actors: act, extra: [], hp: opts.hp || [1, 1], sound: opts.sound !== false, frame: 0, cam: null, view: null, script: null, finish: res,
+          var arena = null;
+          if (r[3]) {
+            arena = { actor: new Actor(r[3], [0, 0, 0], 0), back: opts.arena.back, bright: opts.arena.bright };
+            arena.actor.bright = opts.arena.bright / 255; arena.actor.step(); arena.actor.resolve();
+          }
+          var sc = scene = { actors: act, extra: [], arena: arena, focus: null, focusOwner: null, hp: opts.hp || [1, 1], sound: opts.sound !== false, frame: 0, cam: null, view: null, script: null, finish: res,
             lights: { dir: LIGHT_DIR.map(function (x) { return x.slice(); }), col: LIGHT_COL.map(function (x) { return x.slice(); }) } };
           var k = -1, run = null, hold = 0;
           function next() {
@@ -724,8 +769,9 @@
             try {
               while (scene === sc && st.frames < 4000) {
                 tri.length = 0; lin.length = 0; sprites.length = 0; rects.length = 0;
-                core.bill = [sc.view[0], sc.view[3], sc.view[6], sc.view[1], sc.view[4], sc.view[7], sc.view[2], sc.view[5], sc.view[8]];
                 act.forEach(function (a) { a.step(); a.resolve(); });
+                camera(sc);
+                core.bill = [sc.view[0], sc.view[3], sc.view[6], sc.view[1], sc.view[4], sc.view[7], sc.view[2], sc.view[5], sc.view[8]];
                 sc.script(sc);
                 st.frames++; st.quads += tri.length / 36; st.lines += lin.length / 12; st.sprites += sprites.length;
                 st.models += sc ? sc.extra.filter(function (a) { return a.visible; }).length : 0;

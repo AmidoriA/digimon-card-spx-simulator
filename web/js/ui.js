@@ -380,6 +380,10 @@
     if (!moving) { clearInterval(ROLL.timer); ROLL.timer = 0; }
   }
 
+  // arena table for the Polygon Battle (tools/build_battle.py)
+  var ARENAS = [];
+  fetch('assets/battle/arenas.json').then(function (r) { return r.ok ? r.json() : []; }).then(function (a) { ARENAS = a; }).catch(function () { /* no arenas: plain background */ });
+
   // ------------------------------------------------------------------ battle effects
   // Play effect script n the way the game's launcher (0x801f6294) is called: A is card
   // `kA` of player pA, B card `kB` of player pB (kind 0 = Digimon in play, 1 = support card).
@@ -768,7 +772,7 @@
         status(c.name + ': ' + c.atk[e.attack].name, '');
         return B3D.attack({ models: [E.card(prevTop[0]).model, E.card(prevTop[1]).model], attacker: e.p,
           script: c.atk[e.attack].script, hit: e.dmg > 0 ? c.atk[e.attack].hit : 0,
-          hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], sound: SND.isEnabled() }).then(step);
+          hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], first: A.tp, arena: S.arena, sound: SND.isEnabled() }).then(step);
       }
       if (e.s) A.s = e.s;
       A.glow = -1; A.hit = -1; A.floats = [];
@@ -964,6 +968,8 @@
     S.token++;
     S.G = E.newGame({ names: ['You', od.owner], decks: [md, od] });
     S.anim = null; S.resolve = null; S.step = null; S.sel = -1; S.myAtk = -1;
+    // the arena: with none named the game picks one of entries 44..55 of its table (0x8002e42c)
+    S.arena = ARENAS.filter(function (a) { return a.index >= 44; })[Math.floor(Math.random() * 12)] || null;
     rollReset();
     clear($('log')); $('ask').hidden = true; $('info').hidden = true; $('flash').hidden = true;
     $('setup').hidden = true; $('game').hidden = false;
