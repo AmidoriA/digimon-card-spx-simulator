@@ -2,3 +2,4 @@ capstone
 numpy
 pillow
 soundfile
+unicorn

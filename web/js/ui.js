@@ -7,7 +7,7 @@
  */
 (function () {
   'use strict';
-  var E = window.DDCB, AI = window.DDCB_AI, D = E.DATA, SND = window.DDCB_SND;
+  var E = window.DDCB, AI = window.DDCB_AI, D = E.DATA, SND = window.DDCB_SND, FXV = window.DDCB_FX;
   // Sound ids traced in the game: the controller plays 0xA0 on a confirming button and 0xA1
   // on cancel, the hand selector 0xA2 when the cursor moves, message windows 0xA3 / 0xA4.
   var SE = { OK: 0xa0, CANCEL: 0xa1, CURSOR: 0xa2, OPEN: 0xa3, CLOSE: 0xa4 };
@@ -301,22 +301,45 @@
   // stack (0xB, landing 0xC), the DP Slot (0x1A, landing 0x1B), the support place from the
   // hand (0x10) or from the Online deck (0x15); a face-down support turned up is 0x19 -> 0x10.
   function cardSounds(p, v) {
-    var P = S.G.players[p], o = prevView[p], t = 0, n, k;
+    var P = S.G.players[p], o = prevView[p], t = 0, n, k, mv = { hand: {}, top: null, dp: null, sup: null, flip: false };
     var stackN = S.anim ? (o ? o.stackN : 0) : (P.active ? P.active.stack.length : 0);
     var sup = v.sup ? (v.sup.face ? 2 : 1) : 0;
     prevView[p] = { hand: v.hand.slice(), offline: v.offline, top: v.top, dp: v.dp.length, sup: sup, stackN: stackN };
-    if (!o) return;
+    if (!o) return mv;
     function move(land) {
       SND.se(CARD.MOVE, t);
       if (land) SND.se(CARD.LAND, t + MOVE_FRAMES * FRAME);
       t += STAGGER;
+      return t - STAGGER;
     }
-    n = Math.min(added(v.hand, o.hand), 4); for (k = 0; k < n; k++) move(false);
+    // where a card that left the hand used to be
+    function from(id) { k = o.hand.indexOf(id); return k >= 0 ? L.hand[p][Math.min(k, 3)] : null; }
+    var left = o.hand.slice();
+    v.hand.forEach(function (id, i) {
+      k = left.indexOf(id);
+      if (k >= 0) left.splice(k, 1); else if (i < 4) mv.hand[i] = { from: L.deck[p], delay: move(false) };
+    });
     n = Math.min(v.offline - o.offline, 4); for (k = 0; k < n; k++) move(false);
-    if (!S.anim && v.top >= 0 && (stackN > o.stackN || (v.top !== o.top && o.hand.indexOf(v.top) >= 0))) move(true);
-    n = Math.min(v.dp.length - o.dp, 4); for (k = 0; k < n; k++) move(true);
-    if (sup && !o.sup) move(false);
-    else if (sup === 2 && o.sup === 1) { SND.se(CARD.FLIP, t); t += STAGGER; }
+    if (!S.anim && v.top >= 0 && (stackN > o.stackN || (v.top !== o.top && o.hand.indexOf(v.top) >= 0))) mv.top = { from: from(v.top), delay: move(true) };
+    if (v.dp.length > o.dp) {
+      mv.dp = { from: from(v.dp[v.dp.length - 1]), delay: t };
+      n = Math.min(v.dp.length - o.dp, 4); for (k = 0; k < n; k++) move(true);
+    }
+    if (sup && !o.sup) mv.sup = { from: sup === 2 ? from(v.sup.id) : L.deck[p], delay: move(false) };
+    else if (sup === 2 && o.sup === 1) { mv.flip = true; SND.se(CARD.FLIP, t); t += STAGGER; }
+    return mv;
+  }
+
+  // Slide a card in from where it came, over the 16 frames the game's card objects take
+  // (counter 0x10 in states 3, 0xB, 0x10, 0x15, 0x1A of 0x8003b210).
+  function slide(el, to, m) {
+    if (!m || !m.from || !el.animate) return;
+    el.animate([{ transform: 'translate(' + (m.from.x - to.x) * U + 'px,' + (m.from.y - to.y) * U + 'px)' }, { transform: 'none' }],
+      { duration: MOVE_FRAMES * FRAME * 1000, delay: m.delay * 1000, fill: 'backwards', easing: 'linear' });
+  }
+  function flip(el) {
+    if (!el.animate) return;
+    el.animate([{ transform: 'scaleX(0)' }, { transform: 'none' }], { duration: MOVE_FRAMES * FRAME * 1000, easing: 'linear' });
   }
 
   // Number roll, as in 0x8003e4f0: five values per player (HP, the three attack powers, DP).
@@ -357,6 +380,19 @@
     if (!moving) { clearInterval(ROLL.timer); ROLL.timer = 0; }
   }
 
+  // ------------------------------------------------------------------ battle effects
+  // Play effect script n the way the game's launcher (0x801f6294) is called: A is card
+  // `kA` of player pA, B card `kB` of player pB (kind 0 = Digimon in play, 1 = support card).
+  // The script brings its own sounds. `fxWait` lets the event player wait for the last one.
+  var fxWait = null;
+  function fx(n, pA, kA, pB, kB) { fxWait = FXV.play(n, pA, kA, pB, kB); return fxWait; }
+  FXV.locate = function (p, kind) {
+    if (!S.G) return null;
+    var v = view(p);
+    if (kind === 1) return v.sup ? { x: L.sup[p].x, y: L.sup[p].y, w: 40, h: 48 } : null;
+    return v.top >= 0 ? { x: L.mon[p].x, y: L.mon[p].y, w: 40, h: 48 } : null;
+  };
+
   // which of your hand cards can be clicked in the current step
   function handActions() {
     var G = S.G, P = G.players[0], n = P.hand.length, can = [], i;
@@ -393,7 +429,7 @@
     ROLL.el = [[], []];
     for (var p = 0; p < 2; p++) {
       var v = view(p), i, el;
-      cardSounds(p, v);
+      var mv = cardSounds(p, v);
       // nameplate
       var nm = box(h('div', 'name', v.name), L.name[p].x, L.name[p].y, L.name[p].w, L.name[p].h);
       if (tp === p) nm.appendChild(h('small', null, '◆ Turn — 1st Attack'));
@@ -416,6 +452,7 @@
             if (i === S.sel) el.classList.add('pick');
           }
           dyn.appendChild(box(el, slot.x, slot.y));
+          slide(el, slot, mv.hand[i]);
         } else {
           el = plate('', 'col');
           if (p === 0) { el.appendChild(h('span', 'tri down')); el.appendChild(document.createTextNode('CARD')); }
@@ -429,6 +466,7 @@
         if (v.ko >= 0) el.classList.add('ko');
         if (A && A.hit === p) el.classList.add('hit');
         dyn.appendChild(box(el, L.mon[p].x, L.mon[p].y));
+        slide(el, L.mon[p], mv.top);
         if (v.ko >= 0) dyn.appendChild(box(h('div', 'kox', 'KO'), L.mon[p].x, L.mon[p].y, 40, 48));
       } else dyn.appendChild(box(plate('DIGIMON'), L.monPlate[p].x, L.monPlate[p].y, 42, 47));
       // panel: name, attack bars, HP, DP
@@ -461,12 +499,14 @@
         el = cardEl(v.dp[v.dp.length - 1], true);
         el.title = v.dp.length + ' card' + (v.dp.length > 1 ? 's' : '') + ' in the DP Slot: ' + v.dp.map(function (id) { return E.card(id).name + ' +' + E.card(id).pp; }).join(', ');
         dyn.appendChild(box(el, L.dpslot[p].x, L.dpslot[p].y));
+        slide(el, L.dpslot[p], mv.dp);
       } else dyn.appendChild(box(plate('DP', 'small'), L.dpslot[p].x, L.dpslot[p].y, 19, 25));
       // support slot
       if (v.sup) {
         el = v.sup.face ? cardEl(v.sup.id) : backEl();
         if (A && A.glow === p) el.classList.add('pick');
         dyn.appendChild(box(el, L.sup[p].x, L.sup[p].y));
+        if (mv.flip) flip(el); else slide(el, L.sup[p], mv.sup);
       }
     }
     if (S.step === 'attack' && S.resolve && !A && !S.viewCards) attackPanel(dyn);
@@ -622,7 +662,7 @@
           if (await ask('Do you want to Armor Digivolve to ' + E.card(ar).name + '?')) {
             E.armorDigivolve(G, 0);
             log(c.name + ' armor digivolves to ' + E.card(ar).name + '.', 'me');
-            flash('Armor Digivolve', 'fx'); SND.script(FX.ARMOR);
+            flash('Armor Digivolve', 'fx'); fx(FX.ARMOR, 0, 0);
           }
         }
       } else if (a.t === 'ok') return;
@@ -632,10 +672,10 @@
   async function aiSteps(msgs, tok) {
     for (var i = 0; i < msgs.length && live(tok); i++) {
       var m = msgs[i], k;
-      if (/armor digivolves/.test(m)) SND.script(FX.ARMOR);
+      if (/armor digivolves/.test(m)) fx(FX.ARMOR, 1, 0);
       else if (/ uses /.test(m)) {
-        for (k = 0; k < 8; k++) if (m.indexOf(' uses ' + EVO_CARD[k]) >= 0) SND.script(EVO_FX[k]);
-      } else if (/digivolves to/.test(m)) SND.script(FX.DIGIVOLVE);
+        for (k = 0; k < 8; k++) if (m.indexOf(' uses ' + EVO_CARD[k]) >= 0) fx(EVO_FX[k], 1, 0);
+      } else if (/digivolves to/.test(m)) fx(FX.DIGIVOLVE, 1, 0);
       else SND.se(SE.OK);
       log(m, 'op'); status($('msg1').textContent, m); render(); await sleep(900);
     }
@@ -672,7 +712,7 @@
         if (await ask(q)) {
           E.digivolve(G, 0, moves[0]);
           log('You use ' + c.name + ': now ' + E.top(P).name + '.', 'me');
-          flash(EVO_NAME[c.dtype], 'fx'); SND.script(EVO_FX[c.dtype]); SND.script(EVO_FX[c.dtype]);
+          flash(EVO_NAME[c.dtype], 'fx'); fx(EVO_FX[c.dtype], 0, 0);
         }
         continue;
       }
@@ -703,7 +743,7 @@
       var nm = E.card(P.hand[m2.target]).name;
       E.digivolve(G, 0, m2);
       log('You digivolve to ' + nm + '.', 'me');
-      flash('Digivolve', 'fx'); SND.script(FX.DIGIVOLVE);
+      flash('Digivolve', 'fx'); fx(FX.DIGIVOLVE, 0, 0);
     }
     S.step = null;
     status('Digivolve: Digivolve Complete.', '');
@@ -716,11 +756,14 @@
   function playEvents(evs, tok) {
     var A = S.anim, i = 0;
     function mon(p) { var id = A.s[p].top >= 0 ? A.s[p].top : A.koShow[p]; return id >= 0 ? E.card(id).name : name(p); }
+    // effect caused by the card now resolving (A.src), landing on player p's Digimon
+    function fxs(n, p) { var src = A.src || { p: p, k: 0 }; fx(n, src.p, src.k, p, 0); }
     function step() {
       if (i >= evs.length || !live(tok)) return Promise.resolve();
       var e = evs[i++], d = 300, c, prevTop = [A.s[0].top, A.s[1].top];
       if (e.s) A.s = e.s;
       A.glow = -1; A.hit = -1; A.floats = [];
+      fxWait = null;
       switch (e.t) {
         case 'reveal':
           A.reveal = true;
@@ -731,10 +774,10 @@
           });
           d = 1100; break;
         case 'support':
-          c = E.card(e.card); A.glow = e.p; A.face[e.p] = true;
+          c = E.card(e.card); A.glow = e.p; A.face[e.p] = true; A.src = { p: e.p, k: 1 };
           if (e.none) { status(poss(e.p) + ' support: ' + c.name, 'No effect.'); log(poss(e.p) + ' ' + c.name + ' has no effect.', who(e.p)); d = 900; }
-          else if (e.voided) { status(poss(e.p) + ' support: ' + c.name, 'Voided!'); log(poss(e.p) + ' ' + c.name + ' is voided.', who(e.p)); flash('Void-out Support', 'fx'); SND.script(FX.MISFIRE); d = 1200; }
-          else if (!e.ok) { status(poss(e.p) + ' support: ' + c.name, c.text); log(poss(e.p) + ' ' + c.name + ': condition not met.', who(e.p)); flash('Misfire Failure', 'fx'); SND.script(FX.MISFIRE); d = 1200; }
+          else if (e.voided) { status(poss(e.p) + ' support: ' + c.name, 'Voided!'); log(poss(e.p) + ' ' + c.name + ' is voided.', who(e.p)); flash('Void-out Support', 'fx'); fx(FX.MISFIRE, e.p, 1); d = 1200; }
+          else if (!e.ok) { status(poss(e.p) + ' support: ' + c.name, c.text); log(poss(e.p) + ' ' + c.name + ': condition not met.', who(e.p)); flash('Misfire Failure', 'fx'); fx(FX.MISFIRE, e.p, 1); d = 1200; }
           else { status(poss(e.p) + ' support: ' + c.name, c.text); log(poss(e.p) + ' ' + c.name + ': ' + c.text, who(e.p)); d = 1300; }
           break;
         case 'xfx':
@@ -742,15 +785,16 @@
             status(mon(e.p) + ': ' + E.XFX[e.fx], XFX_HELP[e.fx]);
             log(mon(e.p) + "'s " + E.ATK[2] + ' effect: ' + E.XFX[e.fx] + '.', who(e.p));
             flash(e.fx === 1 ? FLAG_CAPTION.first : e.fx === 8 ? 'Self-Destruct is Set' : e.fx === 9 ? FLAG_CAPTION.eatup : e.fx === 10 ? 'Jamming Support' : e.fx >= 5 && e.fx <= 7 ? FLAG_CAPTION.counter : E.XFX[e.fx], 'fx');
-            SND.script(e.fx === 1 ? FX.FIRST : e.fx === 8 ? FX.CRASH_SET : e.fx === 9 ? FX.EATUP : e.fx === 10 ? FX.VOID : e.fx >= 5 && e.fx <= 7 ? FX.COUNTER_SET : FX.STAT);
+            A.src = { p: e.p, k: 0 };
+            fx(e.fx === 1 ? FX.FIRST : e.fx === 8 ? FX.CRASH_SET : e.fx === 9 ? FX.EATUP : e.fx === 10 ? FX.VOID : e.fx >= 5 && e.fx <= 7 ? FX.COUNTER_SET : FX.STAT, e.p, 0);
             d = 1100;
-          } else { log(mon(e.p) + "'s " + E.XFX[e.fx] + ' does not trigger.', who(e.p)); SND.script(FX.MISFIRE); d = 500; }
+          } else { log(mon(e.p) + "'s " + E.XFX[e.fx] + ' does not trigger.', who(e.p)); fx(FX.MISFIRE, e.p, 0); d = 500; }
           break;
-        case 'flag': flash(FLAG_CAPTION[e.flag], 'fx'); SND.script({ first: FX.FIRST, eatup: FX.EATUP, counter: FX.COUNTER_SET, revive: FX.REVIVE_SET }[e.flag]); d = 900; break;
-        case 'void': log(poss(e.p) + ' ' + (e.all ? 'support and option effects are' : 'Digimon support effect is') + ' voided.', who(e.p)); SND.script(e.all ? FX.VOID_ALL : FX.VOID); d = 900; break;
-        case 'spec': flash('Speciality Change', 'fx'); SND.script(FX.SPEC); d = 800; break;
-        case 'choice': flash('Attack Change', 'fx'); SND.script(FX.ATTACK_CHANGE); d = 800; break;
-        case 'hp': case 'atk': SND.script(FX.STAT); d = 600; break;
+        case 'flag': flash(FLAG_CAPTION[e.flag], 'fx'); fxs({ first: FX.FIRST, eatup: FX.EATUP, counter: FX.COUNTER_SET, revive: FX.REVIVE_SET }[e.flag], e.p); d = 900; break;
+        case 'void': log(poss(e.p) + ' ' + (e.all ? 'support and option effects are' : 'Digimon support effect is') + ' voided.', who(e.p)); fxs(e.all ? FX.VOID_ALL : FX.VOID, e.p); d = 900; break;
+        case 'spec': flash('Speciality Change', 'fx'); fxs(FX.SPEC, e.p); d = 800; break;
+        case 'choice': flash('Attack Change', 'fx'); fxs(FX.ATTACK_CHANGE, e.p); d = 800; break;
+        case 'hp': case 'atk': fxs(FX.STAT, e.p); d = 600; break;
         case 'discard':
           log(vb(e.p, 'discard') + ' ' + cards(e.n) + ' from ' + ({ hand: 'hand', deck: 'the Online deck', dp: 'the DP Slot' })[e.from] + '.', who(e.p)); d = 500; break;
         case 'draw': log(vb(e.p, 'draw') + ' ' + cards(e.n) + '.', who(e.p)); d = 500; break;
@@ -765,28 +809,29 @@
           A.counterBy = e.p;
           status(mon(e.p) + ' counters!', "The opponent's attack misses."); log(mon(e.p) + ' counterattacks.', who(e.p)); d = 900; break;
         case 'crash':
-          status(mon(e.p) + ': Crash!', 'Attack power becomes HP; HP drops to 10.'); log(mon(e.p) + ' uses Crash.', who(e.p)); A.crashed[e.p] = true; SND.script(FX.CRASH); d = 1100; break;
+          status(mon(e.p) + ': Crash!', 'Attack power becomes HP; HP drops to 10.'); log(mon(e.p) + ' uses Crash.', who(e.p)); A.crashed[e.p] = true; fx(FX.CRASH, e.p, 0, e.p ^ 1, 0); d = 1100; break;
         case 'attack':
           c = E.card(A.s[e.p].top);
           status(c.name + ': ' + c.atk[e.attack].name, e.dmg + ' damage' + (e.heal ? ', recovers ' + e.heal + ' HP.' : '.'));
           log(c.name + ' attacks with ' + c.atk[e.attack].name + ' for ' + e.dmg + (e.heal ? ' and recovers ' + e.heal : '') + '.', 'big ' + who(e.p));
           flash(ATK_WORD[e.attack], 'a' + e.attack);
           // result message the game shows for this strike (state 0x23)
-          if (e.dmg === 0) SND.script(FX.NO_DAMAGE);
-          else if (e.heal) SND.script(FX.EATUP_HIT);
-          else if (A.counterBy === e.p) SND.script(FX.COUNTER_HIT);
-          else if (!A.crashed[e.p]) SND.script(FX.HIT);
+          if (e.dmg === 0) fx(FX.NO_DAMAGE, e.p, 0, e.p ^ 1, 0);
+          else if (e.heal) fx(FX.EATUP_HIT, e.p, 0, e.p ^ 1, 0);
+          else if (A.counterBy === e.p) fx(FX.COUNTER_HIT, e.p, 0, e.p ^ 1, 0);
+          else if (!A.crashed[e.p]) fx(FX.HIT, e.p, 0, e.p ^ 1, 0);
           if (e.dmg > 0) { A.hit = e.p ^ 1; A.floats.push({ p: e.p ^ 1, text: '-' + e.dmg }); }
           if (e.heal) A.floats.push({ p: e.p, text: '+' + e.heal, heal: true });
           d = 1500; break;
         case 'ko':
-          if (e.how === 'revive') { status(mon(e.p) + " is KO'd, but revives!", vb(e.p ^ 1, 'score') + ' the KO.'); log(mon(e.p) + " is KO'd and revives with " + A.s[e.p].hp + ' HP.', 'big'); flash('REVIVE', 'fx'); SND.script(FX.REVIVE); }
-          else if (e.how === 'armor') { status(E.card(prevTop[e.p]).name + " is KO'd!", 'It returns to ' + mon(e.p) + '. ' + vb(e.p ^ 1, 'score') + ' the KO.'); log(E.card(prevTop[e.p]).name + " is KO'd and returns to " + mon(e.p) + '.', 'big'); flash('KO', 'a0'); SND.script(FX.DE_ARMOR); }
+          if (e.how === 'revive') { status(mon(e.p) + " is KO'd, but revives!", vb(e.p ^ 1, 'score') + ' the KO.'); log(mon(e.p) + " is KO'd and revives with " + A.s[e.p].hp + ' HP.', 'big'); flash('REVIVE', 'fx'); fx(FX.REVIVE, e.p, 0); }
+          else if (e.how === 'armor') { status(E.card(prevTop[e.p]).name + " is KO'd!", 'It returns to ' + mon(e.p) + '. ' + vb(e.p ^ 1, 'score') + ' the KO.'); log(E.card(prevTop[e.p]).name + " is KO'd and returns to " + mon(e.p) + '.', 'big'); flash('KO', 'a0'); fx(FX.DE_ARMOR, e.p, 0); }
           else { A.koShow[e.p] = prevTop[e.p]; status(E.card(prevTop[e.p]).name + " is KO'd!", vb(e.p ^ 1, 'score') + ' a KO.'); log(E.card(prevTop[e.p]).name + " is KO'd.", 'big'); flash('KO', 'a0'); }
           d = 1600; break;
       }
       render();
-      return sleep(d).then(step);
+      var w = fxWait;
+      return sleep(d).then(function () { return w; }).then(step);
     }
     return step();
   }
@@ -924,7 +969,7 @@
 
   function toMenu() {
     S.token++; S.G = null; S.resolve = null; S.anim = null;
-    SND.stopMusic();
+    SND.stopMusic(); FXV.stop();
     $('game').hidden = true; $('setup').hidden = false;
     renderSetup();
   }

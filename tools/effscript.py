@@ -1,13 +1,23 @@
-"""Battle effect scripts (B/CBTL_EFF.ARC, "MSCD" streams run by 0x801f663c).
+"""Battle effect scripts (B/CBTL_EFF.ARC, "MSCD" streams).
 
-A script is a flat command stream after a 16-byte header:
-  07 00 kk 00 | u32 0 | s32 value       set property kk
-  0a 00 ss 00                           class 0x0a command
-  0b 00 ss 00 | u16 0 | u16 param       class 0x0b command; ss = 0 plays sound effect `param`,
-                                        ss = 6 waits `param` frames
-  0c 00 ss 00 | u16 | u16 | u16 | u16   class 0x0c command
-  09 00 ss 00 | 4 x s32                 class 0x09 command
-Usage: effscript.py <extracted_dir>   prints the sound effects of every script.
+Each member is packed with the game's LZSS+Huffman scheme (lzh.py). A script is a small
+program for the reader at 0x80020f54, run once per frame by the interpreter at 0x801f663c
+on a block of 190 s32 variables:
+
+  05 00 | u16 0 | u32 offset                      jump (offset from the end of the 16-byte header)
+  07 00 | u16 var | u16 op | u16 ind | s32 val    var = var <op> val (or var[val] if ind);
+                                                  op 0 set, 1 add, 2 sub, 3 mul, 4 div, 5 mod,
+                                                  6 rand() % (val + 1)
+  09 00 | u16 var | u16 op | u16 ind | s32 val    test; when it holds the next command is skipped
+  0a 00 | u16 sub                                 host command, no argument
+  0b 00 | u16 sub | (u16 ind, u16 val)            host command, 1 argument
+  0c 00 | u16 sub | (u16 ind, u16 val) x 2        host command, 2 arguments
+
+Host commands (interpreter): 0b/0 play sound, 0b/4 and 0b/5 switch an effect slot on and off,
+0b/6 wait n frames, 0c/0 create an effect object (slot, type) from the current variables, the
+rest place effects on cards or tint cards. See web/js/effects.js for the object types.
+
+Usage: effscript.py <extracted_dir>            list the host commands of every script
 """
 import os
 import struct
@@ -15,6 +25,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import lzh  # noqa: E402
+
+SIZE = {5: 8, 7: 12, 9: 12, 0x0A: 4, 0x0B: 8, 0x0C: 12, 0x0D: 16, 0x0E: 20}
 
 
 def members(arc):
@@ -24,38 +36,37 @@ def members(arc):
 
 
 def parse(o):
+    """-> list of commands; jump targets are command indices."""
     assert o[:4] == b"MSCD"
-    pos, out = 16, []
+    pos, out, at = 16, [], {}
     while pos + 4 <= len(o):
         c, sub = struct.unpack_from("<HH", o, pos)
-        if c == 7:
-            out.append((7, sub, struct.unpack_from("<i", o, pos + 8)[0]))
-            pos += 12
-        elif c == 0x0A:
-            out.append((0x0A, sub, 0))
-            pos += 4
-        elif c == 0x0B:
-            out.append((0x0B, sub, struct.unpack_from("<H", o, pos + 6)[0]))
-            pos += 8
-        elif c == 0x0C:
-            out.append((0x0C, sub, struct.unpack_from("<4H", o, pos + 4)))
-            pos += 12
-        elif c == 0x09:
-            out.append((0x09, sub, struct.unpack_from("<4i", o, pos + 4)))
-            pos += 20
+        at[pos] = len(out)
+        if c in (7, 9):
+            op, ind, val = struct.unpack_from("<HHi", o, pos + 4)
+            out.append([c, sub, op, ind, val])
+        elif c == 5:
+            out.append([5, struct.unpack_from("<I", o, pos + 4)[0]])
+        elif c in (0x0A, 0x0B, 0x0C):
+            n = c - 0x0A
+            out.append([c, sub] + list(struct.unpack_from("<%dH" % (2 * n), o, pos + 4)))
         else:
-            raise ValueError("unknown command class %#x at %#x" % (c, pos))
+            raise ValueError("unknown command %#x at %#x" % (c, pos))
+        pos += SIZE[c]
+    for cmd in out:
+        if cmd[0] == 5:
+            cmd[1] = at[cmd[1] + 16]
     return out
 
 
 def sounds(cmds):
-    """[(frame, se_id)] using the class 0x0b wait command (sub 6) as the clock."""
+    """[(frame, se_id)] on the straight-line path, using the wait command as the clock."""
     t, out = 0, []
-    for c, sub, p in cmds:
-        if c == 0x0B and sub == 6:
-            t += p
-        elif c == 0x0B and sub == 0:
-            out.append((t, p))
+    for c in cmds:
+        if c[0] == 0x0B and c[1] == 6:
+            t += c[3]
+        elif c[0] == 0x0B and c[1] == 0:
+            out.append((t, c[3]))
     return out
 
 
@@ -66,4 +77,5 @@ def load(ext):
 
 if __name__ == "__main__":
     for i, cmds in enumerate(load(sys.argv[1])):
-        print("script %2d (%#04x): %s" % (i, i, " ".join("t%d:%02x" % s for s in sounds(cmds)) or "-"))
+        host = ["%x.%d(%s)" % (c[0], c[1], ",".join(str(v) for v in c[3::2])) for c in cmds if c[0] >= 0x0A]
+        print("script %#04x: %s" % (i, " ".join(host)))

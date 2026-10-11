@@ -109,6 +109,31 @@ Music and effects are rendered offline from the disc's own data by `tools/build_
   towards the real one, and while any is still moving `AA` plays on every 4th frame. With no
   Digimon in play the first four are zero, so a new Digimon's numbers roll up from 0.
 
+## Battle effects
+
+The effect animations are the game's own scripts, played by a port of its effect engine
+(`web/js/effects.js`; `node tools/fxtest.js` runs all 31 without a display).
+
+- **Scripts.** Each member of `B/CBTL_EFF.ARC` is a small program for the reader at
+  `0x80020f54`, run once per frame by the interpreter at `0x801f663c` on 190 integer
+  variables: set/add/subtract/multiply/divide/modulo/random, a test that skips the next
+  command, a jump, and host commands. The host commands create an effect object in one of 16
+  slots from the current variables, switch slots on and off, wait, play a sound, put the
+  effect on a card (the launcher `0x801f6294` names card A and card B: a player's Digimon or
+  support card) and tint a card. `tools/effscript.py` documents the command set.
+- **Objects.** Two kinds draw. A *ring* (`0x80031f58`, drawn by `0x8003230c`) is 2 × N
+  gouraud quads between an inner, a middle and an outer circle with one colour each. A
+  *particle set* (`0x80032b44`, drawn by `0x80033258`) is N line streaks: each flies along
+  its own randomly turned axis, one frame behind the previous, on a fixed cycle, its colour
+  running from the first to the second colour; a flag makes them fly inwards.
+- **Motion.** Every object hangs on a transform node (`0x80030e3c`, updated by `0x80030f90`):
+  position (fixed, or along a line), rotation with speed and acceleration, scale moving to a
+  target, a lifetime, and a brightness mode from `0x800317a8` (follow the scale, ramp, pulse
+  once, pulse forever, flicker). Rotation is `Rx·Ry·Rz` and projection distance 448, both
+  checked by running the game's routines in an emulator (`tools/emu.py`).
+- **Cards.** A card sliding to the hand, the Digimon place, the DP Slot or the support place
+  takes 16 frames, as its state counter in `0x8003b210` does.
+
 ## Not from the game code
 
 - **Screen arrangement.** The battle screen uses the game's own textures (`B/CBTL_SYS.ARC`)
@@ -127,12 +152,18 @@ Music and effects are rendered offline from the disc's own data by `tools/build_
   these sounds have nothing to attach to here and are left out: `A7` when the side panels
   slide in (`0x8003dd9c`, `0x8003e11c`) and `A6` when the Digimon cards turn for the switch
   to the battle scene (state 0x20).
+- **Effect details.** Effects are drawn on a 320×240 layer added to the board. The camera is
+  taken as looking straight at the board (the card coordinates fit that, but the camera
+  object was not read), particle lines are blended additively (their blend mode comes from
+  whatever was drawn before them), and a tinted card is only brightened, at a speed chosen
+  here. Text labels the scripts put on cards are replaced by this project's captions. A card
+  slides in a straight line at constant speed; the game's exact path was not read.
 - **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported.
 - **Hands shown face up** rests on the card-state byte being the same for both players'
   hand cards, and on how the game plays; the drawing code was not read.
 - Who takes the first turn is random here; the game has you pick a card for it.
 - Left out: partner Digi-Parts and levelling, the bonus the game tracks when HP lands on a
-  multiple of 1110, undoing an entrance or digivolution, battle animations.
+  multiple of 1110, undoing an entrance or digivolution, the switch to the 3D battle scene.
 
 ## Rebuild from the disc
 
@@ -143,7 +174,8 @@ python tools/extract_iso.py "<path>/Digimon Digital Card Battle.bin" extracted/d
 python tools/extract_drv.py extracted/disc extracted/drv
 tools/.venv/Scripts/python tools/build_data.py extracted web        # cards and decks
 tools/.venv/Scripts/python tools/upscale_assets.py extracted web    # art and UI, needs ComfyUI
-tools/.venv/Scripts/python tools/build_audio.py extracted web       # music and effects
+tools/.venv/Scripts/python tools/build_audio.py extracted web       # music and sound effects
+tools/.venv/Scripts/python tools/build_effects.py extracted web     # battle effect scripts
 ```
 
 `upscale_assets.py` sends the 64×64 card art, the 40×40 board art and the battle textures
@@ -161,8 +193,11 @@ upscale.
 | `web/assets/art`, `mini`, `ui` | Generated: upscaled card art and battle textures |
 | `tools/mips.py` | MIPS disassembly helper for the EXE and overlays (overlay base `0x801DDF38`) |
 | `tools/extract_*.py`, `tim.py`, `comfy.py` | Disc, archive, texture and ComfyUI helpers |
-| `tools/psxsnd.py`, `lzh.py`, `effscript.py`, `build_audio.py` | Sound: SEQ/VAB synthesiser, unpacker, effect scripts, audio build |
+| `tools/psxsnd.py`, `lzh.py`, `build_audio.py` | Sound: SEQ/VAB synthesiser, unpacker, audio build |
 | `web/js/audio.js`, `web/assets/audio` | Sound playback and the generated music/effects |
+| `web/js/effects.js`, `web/js/data/effects.js` | Effect engine port and the generated effect scripts |
+| `tools/effscript.py`, `build_effects.py`, `fxtest.js` | Effect script parser, export and headless check |
+| `tools/lift.py`, `emu.py` | Compact MIPS listing and Unicorn runner used while reading the engine |
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
 
 ## File formats
