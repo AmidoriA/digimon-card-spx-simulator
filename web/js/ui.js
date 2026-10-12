@@ -683,15 +683,19 @@
     }
   }
 
-  async function aiSteps(msgs, tok) {
-    for (var i = 0; i < msgs.length && live(tok); i++) {
-      var m = msgs[i], k;
-      if (/armor digivolves/.test(m)) fx(FX.ARMOR, 1, 0);
+  // The opponent makes one move at a time: the next is not made until this one has been
+  // shown, its cards have landed and its effect has played out.
+  async function aiSteps(steps, tok) {
+    for (var it = steps.next(); !it.done && live(tok); it = steps.next()) {
+      var m = it.value, k, w = null;
+      if (/armor digivolves/.test(m)) w = fx(FX.ARMOR, 1, 0);
       else if (/ uses /.test(m)) {
-        for (k = 0; k < 8; k++) if (m.indexOf(' uses ' + EVO_CARD[k]) >= 0) fx(EVO_FX[k], 1, 0);
-      } else if (/digivolves to/.test(m)) fx(FX.DIGIVOLVE, 1, 0);
+        for (k = 0; k < 8; k++) if (m.indexOf(' uses ' + EVO_CARD[k]) >= 0) w = fx(EVO_FX[k], 1, 0);
+      } else if (/digivolves to/.test(m)) w = fx(FX.DIGIVOLVE, 1, 0);
       else SND.se(SE.OK);
-      log(m, 'op'); status($('msg1').textContent, m); render(); await sleep(900);
+      log(m, 'op'); status($('msg1').textContent, m); render();
+      await sleep(900);
+      await w;
     }
   }
 
@@ -956,10 +960,10 @@
       await showPrepEvents(ev, t);
       if (!live(tok) || G.winner !== null) break;
       if (t === 0) await humanPrep(tok);
-      else { status('Preparation: Digimon Entrance.', ''); await aiSteps(AI.prep(G, 1), tok); }
+      else { status('Preparation: Digimon Entrance.', ''); await aiSteps(AI.prepSteps(G, 1), tok); }
       if (!live(tok) || G.winner !== null) break;
       if (t === 0) await humanEvo(tok);
-      else { status('Digivolve: Digivolve Points (DP).', ''); render(); await sleep(400); await aiSteps(AI.digivolvePhase(G, 1), tok); }
+      else { status('Digivolve: Digivolve Points (DP).', ''); render(); await sleep(400); await aiSteps(AI.digivolveSteps(G, 1), tok); }
       if (!live(tok)) break;
       if (!E.battleOn(G)) {
         S.step = null;

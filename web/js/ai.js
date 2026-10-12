@@ -15,10 +15,13 @@
   }
   function entryValue(c) { return power(c, Math.max((c.level & 3) - 1, 0)); }
 
+  // The two phase functions make one move each time they are resumed and hand back its
+  // description, so that whoever shows the game can let a move finish before the next.
+
   // Preparation for the turn player: field a Digimon, redrawing first if only
   // penalised (level C / U) cards are in hand and the deck can afford it.
-  function prep(G, p) {
-    var P = G.players[p], msgs = [], redraws = 0;
+  function* prepSteps(G, p) {
+    var P = G.players[p], redraws = 0;
     while (G.winner === null && !P.active) {
       var best = -1, bv = -1, i;
       for (i = 0; i < P.hand.length; i++) {
@@ -31,18 +34,18 @@
       if (c.level >= 2 && redraws < 2 && P.deck.length >= 12 && E.canChangeAll(G, p)) {
         redraws++;
         E.changeAll(G, p);
-        msgs.push(P.name + ' changes all cards.');
+        yield P.name + ' changes all cards.';
         continue;
       }
       E.enter(G, p, best);
-      msgs.push(P.name + ' sends out ' + c.name + (c.level >= 2 ? ' (weakened: level ' + E.LEVEL[c.level] + ' entrance).' : '.'));
+      yield P.name + ' sends out ' + c.name + (c.level >= 2 ? ' (weakened: level ' + E.LEVEL[c.level] + ' entrance).' : '.');
       if (E.armorOption(G, p) >= 0) {
         E.armorDigivolve(G, p);
-        msgs.push(c.name + ' armor digivolves to ' + E.top(P).name + '.');
+        yield c.name + ' armor digivolves to ' + E.top(P).name + '.';
       }
     }
-    return msgs;
   }
+  function prep(G, p) { return Array.from(prepSteps(G, p)); }
 
   function evoValue(G, p, mv) {
     var P = G.players[p], cur = E.top(P);
@@ -84,9 +87,9 @@
   }
 
   // Digivolve Phase in the controller's order: DP card, option card, digivolution.
-  function digivolvePhase(G, p) {
-    var P = G.players[p], msgs = [], i;
-    if (!P.active) return msgs;
+  function* digivolveSteps(G, p) {
+    var P = G.players[p], i, msg;
+    if (!P.active) return;
     var mv = bestEvo(G, p);
     if (!mv) {
       var done = false;
@@ -95,8 +98,9 @@
         var H = E.clone(G);
         E.addDP(H, p, i);
         if (bestEvo(H, p)) {
-          msgs.push(P.name + ' sends ' + E.card(P.hand[i]).name + ' to the DP Slot.');
+          msg = P.name + ' sends ' + E.card(P.hand[i]).name + ' to the DP Slot.';
           E.addDP(G, p, i);
+          yield msg;
           done = true;
         }
       }
@@ -109,18 +113,20 @@
           if (v < pv) { pv = v; pick = i; }
         }
         if (pick >= 0 && pv <= 25) {
-          msgs.push(P.name + ' sends ' + E.card(P.hand[pick]).name + ' to the DP Slot.');
+          msg = P.name + ' sends ' + E.card(P.hand[pick]).name + ' to the DP Slot.';
           E.addDP(G, p, pick);
+          yield msg;
         }
       }
     }
     var guard = 0;
     while ((mv = bestEvo(G, p)) && guard++ < 4) {
-      msgs.push(describeEvo(P, mv));
+      msg = describeEvo(P, mv);
       E.digivolve(G, p, mv);
+      yield msg;
     }
-    return msgs;
   }
+  function digivolvePhase(G, p) { return Array.from(digivolveSteps(G, p)); }
 
   function evaluate(G0, G1, p) {
     var o = p ^ 1, a0 = G0.players[p], b0 = G0.players[o], a1 = G1.players[p], b1 = G1.players[o];
@@ -180,5 +186,5 @@
     return best;
   }
 
-  return { prep: prep, digivolvePhase: digivolvePhase, chooseAttack: chooseAttack, chooseSupport: chooseSupport };
+  return { prep: prep, prepSteps: prepSteps, digivolvePhase: digivolvePhase, digivolveSteps: digivolveSteps, chooseAttack: chooseAttack, chooseSupport: chooseSupport };
 });
