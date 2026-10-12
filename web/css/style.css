@@ -94,7 +94,9 @@ button, input, select { font: inherit; color: inherit; }
 .badge { display: inline-grid; place-items: center; width: 22px; height: 18px; border-radius: 4px; font: 700 11px var(--mono); color: #fff; background: var(--opt); }
 .badge.fire { background: var(--fire); } .badge.ice { background: var(--ice); } .badge.nature { background: var(--nature); }
 .badge.dark { background: #555; } .badge.rare { background: var(--rare); } .badge.opt { background: var(--opt); }
-.setup-foot { display: flex; gap: 10px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+.setup-foot { display: flex; gap: 10px; align-items: center; justify-content: flex-end; flex-wrap: wrap;
+  /* stays in view so Start battle is never pushed below the fold */
+  position: sticky; bottom: 0; z-index: 10; background: var(--bg); padding: 10px 0 12px; max-height: 70vh; overflow-y: auto; box-shadow: 0 -8px 12px var(--bg); }
 .optl { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); margin-right: auto; }
 .optl.small { margin-right: 0; font-size: 12px; }
 .setup-foot label.optl { margin-right: 18px; }
