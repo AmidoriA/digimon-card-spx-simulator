@@ -186,6 +186,35 @@ test('digivolve legality (0x801e9f5c) and DP handling', () => {
   assert.strictEqual(P.dp.length, 0, 'DP Slot emptied');
 });
 
+test('entrance penalty: kept by normal digivolution, cleared by an option card (0x8004080c, states 0x10-0x15)', () => {
+  const dp = ['Agumon', 'Agumon', 'Agumon'];
+  let G = setup({ hand: ['Greymon', 'WarGreymon'], dp }, { mon: 'Gabumon' });
+  let P = G.players[0];
+  assert(E.enter(G, 0, 0));
+  assert.strictEqual(P.active.hp, 420, 'level C enters at half strength, cut to tens');
+  assert(E.digivolve(G, 0, E.evoMoves(G, 0).find((m) => m.kind === 'normal')));
+  assert.strictEqual(E.top(P).name, 'WarGreymon');
+  assert.strictEqual(P.active.hp, 820, 'the level U it digivolves into is halved too');
+  assert.deepStrictEqual(P.active.base, [450, 330, 190]);
+  assert.strictEqual(P.active.abn, 2, 'still in the abnormal state');
+
+  P.evoStarted = false; P.evoEnded = false; // next turn
+  P.hand = [byName('Digi-devolve')];
+  assert(E.digivolve(G, 0, E.evoMoves(G, 0)[0]));
+  assert.strictEqual(P.active.hp, C('Greymon').hp * 2, 'Digi-devolve clears it: full HP, doubled');
+  assert.deepStrictEqual(P.active.base, C('Greymon').atk.map((x) => x.power));
+  assert.strictEqual(P.active.abn, 0);
+
+  G = setup({ hand: ['Greymon', 'WarGreymon', 'Special Digivolve'], dp }, { mon: 'Gabumon' });
+  P = G.players[0];
+  assert(E.enter(G, 0, 0));
+  assert(E.digivolve(G, 0, E.evoMoves(G, 0).find((m) => m.kind === 'option')));
+  assert.strictEqual(E.top(P).name, 'WarGreymon');
+  assert.strictEqual(P.active.hp, C('WarGreymon').hp, 'an option card clears it: full strength');
+  assert.deepStrictEqual(P.active.base, C('WarGreymon').atk.map((x) => x.power));
+  assert.strictEqual(P.active.abn, 0);
+});
+
 test('Digi-devolve: back one level with double HP', () => {
   const G = setup({ mon: 'Agumon', hand: ['Digi-devolve'] }, { mon: 'Gabumon' });
   G.players[0].active.stack.push(byName('Greymon'));
