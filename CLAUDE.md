@@ -30,8 +30,9 @@ its section for the area you are about to touch before changing it.
 | `web/` | The site. Plain scripts, no build step. `js/engine.js` rules, `js/ai.js` opponent, `js/ui.js` board and turn flow, `js/decks.js` deck rules, search and export, `js/editor.js` deck editor, `js/effects.js` board effects, `js/battle3d.js` 3D battle, `js/audio.js` sound |
 | `web/js/data/`, `web/assets/` | Generated from the disc by the tools. Do not edit by hand |
 | `tools/` | Readers for the game's formats, the exporters, the disassembly helpers, the tests |
+| `tools/custom_cards.json` | The cards that are not on the disc, each made from one that is (`tools/build_custom.py`; the `create-card` skill). They are the one place where numbers are chosen, not read: the README names each under "Not from the game code" |
 | `extracted/` | The unpacked disc. Not in git: made with `tools/extract_iso.py` and `tools/extract_drv.py` from the owner's image (hashes in the README) |
-| `.claude/skills/` | How to read the game code, how to rebuild the assets, how to check a change in the browser |
+| `.claude/skills/` | How to read the game code, how to rebuild the assets, how to check a change in the browser, how to add a custom card |
 
 Python tools run with `tools/.venv/Scripts/python`; the tests run with `node`.
 
