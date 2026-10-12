@@ -18,6 +18,12 @@ Then open <http://localhost:8765/>. Pick one of the game's decks for yourself an
 its opponents, choose the opponent skill, and start. Sound needs the page served over
 HTTP as above; the Sound box in the side rail mutes it.
 
+The site is static, so it can also be published as it is. `.github/workflows/pages.yml`
+publishes the `web` folder to GitHub Pages on every push that changes it (set the
+repository's Pages source to "GitHub Actions"). Before publishing it runs
+`tools/check_paths.py`, which checks that every file the page asks for is in git under
+exactly that name, capitals included: Pages tells names apart by case and Windows does not.
+
 During a match, click a TRASH plate to see that player's Offline pile (newest card first)
 and a DECK plate to see which cards are still in that deck, by level and with their counts.
 
@@ -331,6 +337,7 @@ upscale.
 | `web/js/ui.js`, `web/css/style.css`, `web/index.html` | Front end |
 | `web/js/data/cards.js` | Generated: 301 cards, 159 decks |
 | `web/assets/art`, `mini`, `ui` | Generated: upscaled card art and battle textures |
+| `tools/check_paths.py` | Checks that every file the page asks for is in git under its exact name |
 | `tools/mips.py` | MIPS disassembly helper for the EXE and overlays (overlay base `0x801DDF38`) |
 | `tools/extract_*.py`, `tim.py`, `comfy.py` | Disc, archive, texture and ComfyUI helpers |
 | `tools/psxsnd.py`, `lzh.py`, `build_audio.py` | Sound: SEQ/VAB synthesiser, unpacker, audio build |
