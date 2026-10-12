@@ -1237,12 +1237,16 @@
     core.project = keep.project; core.bill = keep.bill; core.origin = keep.origin;
     if (scene === sc) render();
   }
-  function stop() {
+  // keep: leave the last picture up, for a scene that another follows at once
+  var held = false;
+  function stop(keep) {
     sceneRequest++;
     if (timer) { clearInterval(timer); timer = 0; }
     if (scene && scene.finish) { var f = scene.finish; scene.finish = null; f(false); }
     scene = null;
     tri.length = 0; lin.length = 0; sprites.length = 0; rects.length = 0;
+    if (keep === true) return;
+    held = false;
     if (canvas) canvas.hidden = true;
     if (OV.canvas) { OV.canvas.hidden = true; if (OV.ctx) OV.ctx.clearRect(0, 0, OV.canvas.width, OV.canvas.height); }
   }
@@ -1265,8 +1269,9 @@
   // opts: models [player 0, player 1], attacker 0|1, first (the turn player, who stands at
   // z = 750), script (attack script id), hit (hit script id), hp [after the attack, for both
   // players], hpBefore (the target's), damage, attack (0..2), name, arena ({file, back, bright}
-  // from arenas.json), sound (bool), shown (called when the scene comes on screen), and how the
-  // strike goes (director 0x801ee3d4):
+  // from arenas.json), sound (bool), shown (called when the scene comes on screen), more (another
+  // strike of the same turn follows: the last picture stays up until its scene is ready), and
+  // how the strike goes (director 0x801ee3d4):
   //   mode 'normal'    attack script with the attack banner, then the hit script with the HP
   //                    count and the damage; the target's motion is waited for
   //        'zero'      no damage: no scripts, the attacker stands and "Miss!!" is shown
@@ -1278,7 +1283,7 @@
   // result is then {frames, quads, lines, sprites, models}.
   api.attack = function (opts) {
     if (!(api.enabled || opts.dry) || !initGL()) return Promise.resolve(false);
-    stop();
+    stop(held);
     var request = ++sceneRequest;
     hdScale = requestedScale(); slowFrames = 0;
     var arenaP = opts.arena ? load('bg' + opts.arena.file).then(function(m){return opts.dry||arenaScale()===1?m:loadArenaHD(m,opts.arena.file);}).catch(function () { return null; }) : Promise.resolve(null);
@@ -1358,7 +1363,7 @@
               if (sc.overlays.indexOf(eat) < 0) after();          // the script has ended by now
             } else if (phase === 'winner') {
               if (!sc.overlays.length) { phase = 'end'; hold = 30; }
-            } else if (!sc.overlays.length && --hold <= 0) { sc.finish = null; stop(); if (!opts.dry) res(true); }
+            } else if (!sc.overlays.length && --hold <= 0) { sc.finish = null; held = !!opts.more && !opts.dry; stop(held); if (!opts.dry) res(true); }
           };
           if (opts.dry) {
             var st = { frames: 0, quads: 0, lines: 0, sprites: 0, models: 0 }, core = C.core, keep = { project: core.project, bill: core.bill, origin: core.origin };
@@ -1378,7 +1383,7 @@
             res(st);
             return;
           }
-          canvas.hidden = false;
+          canvas.hidden = false; held = false;
           if (opts.shown) opts.shown();
           // If the user changed arena quality while the attack was loading, finish loading
           // the current choice without restarting or advancing its animation.
@@ -1411,7 +1416,9 @@
       return small.toDataURL('image/png');
     });
   };
-  api.stop = stop;
+  api.stop = function () { stop(); };
+  // whether a scene can be shown at all: the animation is on and the browser has WebGL
+  api.available = function () { return api.enabled && initGL(); };
   api.setStyle = function (style) {
     api.style = style === 'legacy' ? 'legacy' : style === 'ultra' ? 'ultra' : 'enhanced';
     if (scene && scene.modern) scene.modern.length = 0;
