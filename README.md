@@ -177,14 +177,28 @@ scripts, then camera and arenas.
   colour matrix times the clamped light matrix times the normal, with the default lights at
   `0x801ef25c` / `0x801ef27c`.
 
-- **Places.** The battle setup (`0x801edb64`) puts the turn player's Digimon at z = 750
-  facing -z and the other at z = -750 facing it. Part 0's z offset in a motion is not a pose:
-  `0x80021964` walks the whole model that far along its facing each frame.
+- **Places.** The battle setup (`0x801edc4c`) puts the turn player's Digimon at z = 750
+  facing -z and the other at z = -750 facing it. They stay there: the routine that would walk
+  a model along its facing (`0x80021964`) is not called in battle.
 - **Camera.** The camera task (`0x800250f4`) follows the model a script puts on screen (a
   Digimon, or an effect model that takes the camera). The last record of every motion key is
   the camera track for that motion: the camera sits at the model's place plus the record's
   offset (mirrored for the Digimon that faces the other way) and is turned by minus the
   record's angles plus that Digimon's facing. It eases between keys like the body parts do.
+- **How a strike goes.** The director (`0x801ee3d4`) has three ways. Normally the attack
+  script plays, then the hit script on the target, and it waits for the target's damage
+  motion (4, or 5 when the hit takes its HP to 0) to finish. An attack that does no damage has
+  no script at all: the attacker stands and "Miss!!" is shown (`0x801eee24`). An attack that
+  is countered plays only its motion (`0x801eebec`) under "ATTACK!" (`0x801ecc70`); the counter
+  attack that follows is a normal strike labelled "COUNTER ATTACK!". When a Digimon is left at
+  0 HP the winner is shown alone in its victory motion (6) under "WINNER!!" (`0x801ed97c`).
+- **Words on screen.** The director draws them from the battle texture (chunk 104 of
+  `A/BATTLE.PAK`: one picture holding several overlaid ones, told apart by 24 palettes that
+  sit inside the texture's own area). Each piece slides to a first place, then a second, then
+  fades (`0x801ec160`, `0x801ec1f4`). The attack banner (`0x801ecf20`) has the player label
+  (1P / Com), "ATTACK!" with the attack's type icon, the attack's name, and badges for
+  1st Attack, Crash and x3. During the hit (`0x801ec8a4`, `0x801ec6e0`) the target's HP counts
+  down over 40 frames and "DAMAGE nnn pts." comes up piece by piece.
 - **Arenas.** An arena (`0x8002e42c`) is a one-part model from `F/BGnnn.PAK`, drawn turned
   with the camera but not moved by it, behind everything, at the brightness the arena table
   (`0x8006e0c0`) gives; the table also gives the back colour. With no arena named the game
@@ -218,12 +232,15 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   whatever was drawn before them), and a tinted card is only brightened, at a speed chosen
   here. Text labels the scripts put on cards are replaced by this project's captions. A card
   slides in a straight line at constant speed; the game's exact path was not read.
-- **Polygon Battle staging.** Each strike is shown on its own (attack script, then hit
-  script), starting from the Digimon's home places; the game runs a whole battle turn in one
-  scene with an intro (script 999) and a result script (998), which are not played. Before a
+- **Polygon Battle staging.** Each strike is shown as its own scene from the Digimon's home
+  places; the game runs a whole battle turn in one scene with an intro (script 999) and a
+  result script (998), which are not played. The attack's name is drawn as plain text where
+  the game shows a name plate from a strip of video memory whose source was not found.
+  Overlay pieces fade by opacity, and their trailing after-images are not drawn. Before a
   script puts its model on screen, and for a model without a camera track, the camera is this
   project's. Arenas that animate their palette are shown still, and which arena a given
-  opponent uses in the story was not traced (the random free-battle pick is used).
+  opponent uses in the story was not traced (the random free-battle pick is used). "Eat-Up
+  HP" has no sequence of its own yet.
 - **Polygon Battle gaps.** Three object types are created but not drawn yet: palette
   changes (type 1) and two textured kinds (10 and 12). Rings that ask for a texture are drawn plain. Effect models fade by brightness
   only, and texture animation on them is not played. A few commands whose routines were not read are ignored (among them

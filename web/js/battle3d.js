@@ -14,10 +14,15 @@
  * rings, particles, sprites (0x801eb874), animated effect models and light changes
  * (0x801e7880), switch them on and off and play sounds.
  *
- * The two Digimon stand 1500 apart (0x801edb64). The camera (task 0x800250f4) follows the
+ * The two Digimon stand 1500 apart (0x801edc4c). The camera (task 0x800250f4) follows the
  * Digimon or effect model the script puts on screen: the last record of every motion key is
  * a camera track, its offset and angles relative to that model. The arena (0x8002e42c) is a
  * model drawn around the camera.
+ *
+ * The director also draws words over the scene (0x801ecf20, 0x801ec8a4, 0x801ec6e0,
+ * 0x801ed97c): the attack banner with the attack's type, the target's HP counting down, the
+ * damage, "WINNER!!". An attack that does no damage has no script, only "Miss!!"; an attack
+ * that is countered plays its motion without effects (0x801eebec, 0x801ecc70).
  *
  * Drawn on a 320x240 canvas like the game's screen.
  */
@@ -176,6 +181,7 @@
   // "next key" field decides whether it repeats.
   Actor.prototype.play = function (mot, loop) {
     this.keys = this.m.motions[mot] || this.m.motions[0];
+    this.motion = this.m.motions[mot] ? mot : 0;
     if (!this.keys) return;
     this.loop = loop ? this.keys[0].r[10] : -1;
     this.cur = 0; this.count = 0;
@@ -211,13 +217,6 @@
       for (j = 0; j < (n + 1) * 9; j++) this.v[j] += acc[j];
     }
     this.base = this.baseM || rotYXZ([0, this.facing, 0]);
-    // Part 0's z offset is not a pose value: 0x80021964 takes it away every frame and walks the
-    // whole model that far along its facing.
-    var dz = Math.trunc(this.p[5]);
-    if (dz) {
-      this.p[5] -= dz;
-      if (!this.baseM) { this.pos[0] += this.base[2] * dz; this.pos[1] += this.base[5] * dz; this.pos[2] += this.base[8] * dz; }
-    }
   };
   // parents may come after their children in the part list: resolve in dependency order
   Actor.prototype.resolve = function () {
@@ -227,7 +226,7 @@
       if (done[i]) return done[i];
       if (guard++ > 4096) return { m: base, t: self.pos };
       var par = self.m.parents[i], pm = par >= 0 ? part(par) : { m: base, t: self.pos }, j = i * 9;
-      var lm = rotYXZ([self.p[j], self.p[j + 1], self.p[j + 2]]), s = [self.p[j + 6] / 4096, self.p[j + 7] / 4096, self.p[j + 8] / 4096];
+      var lm = rotYXZ([Math.trunc(self.p[j]), Math.trunc(self.p[j + 1]), Math.trunc(self.p[j + 2])]), s = [self.p[j + 6] / 4096, self.p[j + 7] / 4096, self.p[j + 8] / 4096];
       lm = [lm[0] * s[0], lm[1] * s[1], lm[2] * s[2], lm[3] * s[0], lm[4] * s[1], lm[5] * s[2], lm[6] * s[0], lm[7] * s[1], lm[8] * s[2]];
       var lt = [self.m.offsets[i][0] + Math.trunc(self.p[j + 3]), self.m.offsets[i][1] + Math.trunc(self.p[j + 4]), self.m.offsets[i][2] + Math.trunc(self.p[j + 5])];
       done[i] = { m: mul3(pm.m, lm), t: xf(pm.m, pm.t, lt) };
@@ -422,6 +421,184 @@
       gl.enable(gl.DEPTH_TEST);
     }
     gl.depthMask(true); gl.disable(gl.BLEND);
+    drawOverlays(scene);
+  }
+
+  // ------------------------------------------------------------------ battle overlay
+  // The words and numbers the director draws over the scene, from the battle texture (chunk
+  // 104 of A/BATTLE.PAK; its 24 palettes pick which of the overlaid pictures shows). A piece
+  // slides to a first place, then to a second, then fades (0x801ec160 / 0x801ec1f4).
+  var OV = { img: null, pal: null, sheets: {}, ctx: null, canvas: null, p: null };
+  function loadOverlay() {
+    if (!OV.p) {
+      OV.p = Promise.all([image('assets/battle/overlay.png'), image('assets/battle/overlayp.png')]).then(function (a) {
+        function data(im) { var c = document.createElement('canvas'); c.width = im.width; c.height = im.height; var x = c.getContext('2d'); x.drawImage(im, 0, 0); return x.getImageData(0, 0, im.width, im.height); }
+        OV.img = data(a[0]); OV.pal = data(a[1]);
+      }).catch(function () { OV.img = null; });
+    }
+    return OV.p;
+  }
+  // the texture coloured with one palette; id as the GPU takes it: x / 16 in the low 6 bits, y above
+  function sheet(id) {
+    if (OV.sheets[id]) return OV.sheets[id];
+    var row = ((id >> 6) - 80) * 4 + ((id & 0x3f) - 40), c = document.createElement('canvas'), w = OV.img.width, h = OV.img.height;
+    c.width = w; c.height = h;
+    var x = c.getContext('2d'), out = x.createImageData(w, h), s = OV.img.data, p = OV.pal.data, i, k;
+    if (row < 0 || row * 16 * 4 >= p.length) row = 1;
+    for (i = 0; i < w * h; i++) {
+      k = (row * OV.pal.width + s[i * 4]) * 4;
+      out.data[i * 4] = p[k]; out.data[i * 4 + 1] = p[k + 1]; out.data[i * 4 + 2] = p[k + 2]; out.data[i * 4 + 3] = p[k + 3];
+    }
+    x.putImageData(out, 0, 0);
+    OV.sheets[id] = c;
+    return c;
+  }
+  // rect = [u, v, w, h] in the texture page (the texture starts at v = 40); brightness 128 = full
+  function spr(x, y, rect, clut, bright) {
+    var c = OV.ctx;
+    if (!c || !OV.img || bright <= 0) return;
+    c.globalAlpha = Math.min(1, bright / 128);
+    c.drawImage(sheet(clut), rect[0], rect[1] - 40, rect[2], rect[3], Math.trunc(x), y, rect[2], rect[3]);
+    c.globalAlpha = 1;
+  }
+  function El(x0, t1, t2) { this.x = x0; this.t = [t1, t2]; this.bright = 128; }
+  // 0x801ec1f4: one frame for `els`; returns the new phase (3 = finished)
+  function advance(els, phase, speed) {
+    var done = 0, i, e;
+    if (phase < 2) {
+      for (i = 0; i < els.length; i++) {
+        e = els[i];
+        e.x += (e.t[phase] - e.x) / (8 >> phase);
+        if (Math.abs(Math.trunc(e.x) - e.t[phase]) < 2) done++;
+      }
+      return done === els.length ? phase + 1 : phase;
+    }
+    if (phase === 2) for (i = 0; i < els.length; i++) { els[i].bright -= speed; if (els[i].bright <= 0) phase = 3; }
+    return phase;
+  }
+  var LABEL = function (k) { return [k * 40, 168, 40, 24]; }, LCLUT = function (k) { return 0x1400 | (((k * 16 + 656) >> 4) & 0x3f); };
+  // 0x801ec494: a number of up to four digits, with "HP" in front unless x is 31
+  function digits(x, y, value, bright) {
+    if (x !== 31) { spr(x, y, [120, 168, 40, 24], 5224, bright); x += 16; }
+    var d = [Math.floor(value / 1000) % 10, Math.floor(value / 100) % 10, Math.floor(value / 10) % 10, value % 10], n = 1, seen = false, k;
+    for (k = 0; k < 4; k++) {
+      if (d[k]) seen = true;
+      if (!seen && k !== 3) continue;
+      spr(x + 21 * n + 4, y, [d[k] * 24, 192, 24, 24], 5225, bright);
+      n++;
+    }
+  }
+  // 0x801ecf20: the attack banner. o: label (0 1P, 1 2P, 2 Com), atk 0..2, name, first, crash,
+  // counter (this is the counter attack), x3, miss (the attack does no damage).
+  function AttackOverlay(o) {
+    this.o = o; this.phase = 0; this.speed = o.miss ? 2 : 1;
+    var badge = o.first || o.crash ? 1 : 0;
+    this.e0 = o.miss ? new El(-128, -128, 96) : new El(-256, 43, 32);
+    this.els = [this.e0];
+    if (o.counter) {
+      this.e1 = new El(80 + 32 * badge, -200, -200);
+      if (badge) { this.badge = new El(48, -250, -250); this.els.push(this.badge); }
+      this.ec = new El(320, 78, 80); this.els.push(this.ec);
+    } else {
+      this.e1 = new El(320, 78 + 32 * badge, 80 + 32 * badge);
+      if (badge) { this.badge = new El(-64, 50, 48); this.els.push(this.badge); }
+    }
+    this.e1.bright = 90; this.els.splice(1, 0, this.e1);
+    if (o.x3) { this.ex = new El(this.e1.x + 160, this.e1.t[0] + 160, this.e1.t[1] + 160); this.els.push(this.ex); }
+  }
+  AttackOverlay.prototype.step = function () {
+    if (this.phase < 3) this.phase = advance(this.els, this.phase, this.speed);
+    return this.phase < 3;
+  };
+  AttackOverlay.prototype.draw = function () {
+    var o = this.o, c = OV.ctx;
+    if (this.phase >= 3 || !c) return;
+    if (o.miss) spr(this.e0.x, 194, [128, 88, 128, 32], 5226, this.e0.bright);
+    else {
+      // the attack name plate (a strip of VRAM the game fills elsewhere; drawn here as text)
+      c.globalAlpha = Math.min(1, Math.max(0, this.e0.bright) / 128);
+      c.font = 'italic 900 15px "Arial Narrow", Arial, sans-serif'; c.textBaseline = 'top'; c.lineJoin = 'round';
+      c.lineWidth = 3; c.strokeStyle = '#102070'; c.strokeText(o.name, Math.trunc(this.e0.x) + 8, 184);
+      c.fillStyle = '#ffffff'; c.fillText(o.name, Math.trunc(this.e0.x) + 8, 184);
+      c.globalAlpha = 1;
+    }
+    spr(this.e1.x, 162, [0, 136, 160, 16], 5352, this.e1.bright);
+    if (this.badge) spr(this.badge.x, 146, [(o.crash ? 1 : 0) * 64, 88, 64, 32], 0x1500 | ((((o.crash ? 1 : 0) * 16 + 672) >> 4) & 0x3f), this.badge.bright);
+    if (this.ec) spr(this.ec.x, 162, [0, 152, 159, 16], 5353, this.ec.bright);
+    else spr(this.e1.x + 6, 162, [160 + 24 * o.atk, 160, 24, 16], 0x14a8 | o.atk, this.e1.bright);
+    if (this.ex) spr(this.ex.x, 152, [232, 160, 24, 32], 5354, this.ex.bright);
+    spr(16, 16, LABEL(o.label), LCLUT(o.label), this.e0.bright);
+  };
+  // 0x801ecc70: "ATTACK!" for an attack that is about to be countered; ends once it has slid in
+  function CounteredOverlay(o) {
+    var badge = o.first || o.crash ? 1 : 0;
+    this.o = o; this.phase = 0;
+    this.e0 = new El(320, 78 + 32 * badge, 80 + 32 * badge); this.e0.bright = 90;
+    this.els = [this.e0];
+    if (badge) { this.badge = new El(-64, 50, 48); this.els.push(this.badge); }
+  }
+  CounteredOverlay.prototype.step = function () {
+    if (this.phase < 2) this.phase = advance(this.els, this.phase, 2);
+    return this.phase < 2;
+  };
+  CounteredOverlay.prototype.draw = function () {
+    var o = this.o;
+    spr(this.e0.x, 162, [0, 136, 160, 16], 5352, this.e0.bright);
+    if (this.badge) spr(this.badge.x, 146, [(o.crash ? 1 : 0) * 64, 88, 64, 32], 0x1500 | ((((o.crash ? 1 : 0) * 16 + 672) >> 4) & 0x3f), 128);
+    spr(this.e0.x + 6, 162, [160 + 24 * o.atk, 160, 24, 16], 0x14a8 | o.atk, this.e0.bright);
+  };
+  // 0x801ec8a4: the target's HP counts down over 40 frames once its damage motion has started,
+  // then fades. o: label, hp0, hp1, started() -> bool
+  function HpOverlay(o) {
+    this.o = o; this.cur = o.hp0; this.left = 40; this.bright = 128; this.state = 0;
+    this.stepBy = Math.trunc((o.hp0 - Math.max(o.hp1, 0)) / 40);
+    if (!this.stepBy && o.hp0 !== o.hp1) { this.stepBy = o.hp0 > o.hp1 ? 1 : -1; this.left = Math.abs(o.hp0 - o.hp1); }
+  }
+  HpOverlay.prototype.step = function () {
+    if (this.state === 0) { if (!this.o.started()) return true; this.state = 1; }
+    if (this.state === 1) {
+      if (this.left-- > 0 && this.cur - this.stepBy >= 0) this.cur -= this.stepBy;
+      else { this.cur = Math.max(this.o.hp1, 0); this.state = 2; }
+      return true;
+    }
+    this.bright -= 4;
+    return this.bright >= 0;
+  };
+  HpOverlay.prototype.draw = function () {
+    if (this.state === 0 || this.bright < 0) return;
+    digits(168, 16, this.cur, this.bright);
+    spr(120, 16, LABEL(this.o.label), LCLUT(this.o.label), this.bright);
+  };
+  // 0x801ec6e0: "DAMAGE", the number and "pts." come up one after the other and go the same way
+  function DamagePopup(dmg) { this.dmg = dmg; this.t = 0; this.b = [0, 0, 0]; }
+  DamagePopup.prototype.step = function () {
+    var t = this.t;
+    if (t < 20) this.b[0] = t << 3; else if (t < 40) this.b[1] = (t - 20) << 3; else if (t < 60) this.b[2] = (t - 40) << 3;
+    else if (t >= 71 && t < 90) this.b[0] = (89 - t) << 3; else if (t >= 90 && t < 110) this.b[1] = (109 - t) << 3; else if (t >= 110 && t < 130) this.b[2] = (129 - t) << 3;
+    return ++this.t < 150;
+  };
+  DamagePopup.prototype.draw = function () {
+    spr(15, 174, [160, 144, 96, 16], 5480, this.b[0]);
+    if (this.b[1] > 0) digits(31, 193, this.dmg, this.b[1]);
+    spr(63, 217, [160, 176, 60, 16], 5481, this.b[2]);
+  };
+  // 0x801ed97c: "WINNER!!" and the winner's label
+  function WinnerOverlay(label) { this.label = label; this.phase = 0; this.e0 = new El(-256, 60, 50); this.e1 = new El(-24, 198, 188); this.els = [this.e0, this.e1]; }
+  WinnerOverlay.prototype.step = function () {
+    if (this.phase < 3) this.phase = advance(this.els, this.phase, 2);
+    return this.phase < 3;
+  };
+  WinnerOverlay.prototype.draw = function () {
+    if (this.phase >= 3) return;
+    spr(this.e0.x, 180, [0, 40, 256, 40], 5355, this.e0.bright);
+    spr(10, Math.trunc(this.e1.x), LABEL(this.label), LCLUT(this.label), this.e1.bright);
+  };
+  function drawOverlays(sc) {
+    var c = OV.ctx;
+    if (!c) return;
+    c.clearRect(0, 0, W, HGT);
+    c.imageSmoothingEnabled = false;
+    sc.overlays.forEach(function (o) { o.draw(); });
   }
 
   // ------------------------------------------------------------------ script objects
@@ -585,8 +762,12 @@
       switch (c[1]) {
         case 2:                               // start a motion; the damage motion becomes the KO one
           a = this.actor(v[0x1be]);
-          if (a) a.play(a0 === 4 && this.scene.hp[this.scene.actors.indexOf(a)] <= 0 ? 5 : a0, true);
+          if (a) {
+            var mot = a0 === 4 && this.scene.hp[this.scene.actors.indexOf(a)] <= 0 ? 5 : a0;
+            if (a.motion !== mot) a.play(mot, true);          // 0x8002daac: not if it is already in it
+          }
           break;
+        case 1: a = this.actor(v[0x1be]); if (a && a.m.motions[a0]) a.snap(a0); break;       // 0x8002db58
         case 3: if (SND && this.scene.sound) SND.se(a0); break;
         case 5: this.readNode(a0, false); break;
         case 15: this.readNode(a0, true); break;
@@ -704,6 +885,7 @@
     scene = null;
     tri.length = 0; lin.length = 0; sprites.length = 0; rects.length = 0;
     if (canvas) canvas.hidden = true;
+    if (OV.canvas) { OV.canvas.hidden = true; if (OV.ctx) OV.ctx.clearRect(0, 0, W, HGT); }
   }
 
   // ------------------------------------------------------------------ one attack
@@ -720,16 +902,26 @@
     camera(sc);
   }
   // opts: models [player 0, player 1], attacker 0|1, first (the turn player, who stands at
-  // z = 750), script (attack script id), hit (hit script id, 0 = none), hp [after the attack,
-  // for both players], arena ({file, back, bright} from arenas.json), sound (bool).
+  // z = 750), script (attack script id), hit (hit script id), hp [after the attack, for both
+  // players], hpBefore (the target's), damage, attack (0..2), name, arena ({file, back, bright}
+  // from arenas.json), sound (bool), and how the strike goes (director 0x801ee3d4):
+  //   mode 'normal'    attack script with the attack banner, then the hit script with the HP
+  //                    count and the damage; the target's motion is waited for
+  //        'zero'      no damage: no scripts, the attacker stands and "Miss!!" is shown
+  //        'countered' the attack is countered: its motion only, with "ATTACK!"
+  //   badges: firstAttack, crash, counter (this strike is the counter attack), x3
+  // If the target ends at 0 HP the winner is then shown with its victory motion (6).
   // With opts.dry the attack is run to its end at once without drawing, for testing; the
   // result is then {frames, quads, lines, sprites, models}.
   api.attack = function (opts) {
     if (!(api.enabled || opts.dry) || !initGL()) return Promise.resolve(false);
     var arenaP = opts.arena ? load('bg' + opts.arena.file).catch(function () { return null; }) : Promise.resolve(null);
-    return Promise.all([load(opts.models[0]), load(opts.models[1]), loadScripts(), arenaP]).then(function (r) {
-      var scripts = r[2], list = [[scripts[opts.script], opts.attacker]];
-      if (opts.hit && scripts[opts.hit]) list.push([scripts[opts.hit], opts.attacker ^ 1]);
+    return Promise.all([load(opts.models[0]), load(opts.models[1]), loadScripts(), arenaP, opts.dry ? null : loadOverlay()]).then(function (r) {
+      var scripts = r[2], mode = opts.mode || 'normal', list = [];
+      if (mode === 'normal') {
+        list.push([scripts[opts.script], opts.attacker]);
+        if (opts.hit && scripts[opts.hit]) list.push([scripts[opts.hit], opts.attacker ^ 1]);
+      }
       list = list.filter(function (x) { return x[0]; });
       // each script names its asset file with its first command (b.16)
       var paks = list.map(function (x) {
@@ -746,21 +938,44 @@
             arena = { actor: new Actor(r[3], [0, 0, 0], 0), back: opts.arena.back, bright: opts.arena.bright };
             arena.actor.bright = opts.arena.bright / 255; arena.actor.step(); arena.actor.resolve();
           }
-          var sc = scene = { actors: act, extra: [], arena: arena, focus: null, focusOwner: null, hp: opts.hp || [1, 1], sound: opts.sound !== false, frame: 0, cam: null, view: null, script: null, finish: res,
+          var sc = scene = { actors: act, extra: [], arena: arena, focus: null, focusOwner: null, overlays: [], hp: opts.hp || [1, 1], sound: opts.sound !== false, frame: 0, cam: null, view: null, script: null, finish: res,
             lights: { dir: LIGHT_DIR.map(function (x) { return x.slice(); }), col: LIGHT_COL.map(function (x) { return x.slice(); }) } };
-          var k = -1, run = null, hold = 0;
+          var k = -1, run = null, hold = 0, phase = 'scripts', A = act[opts.attacker], T = act[opts.attacker ^ 1];
+          var label = function (pl) { return pl === 0 ? 0 : 2; };       // 1P and Com
+          var banner = { label: label(opts.attacker), atk: opts.attack || 0, name: opts.name || '', first: !!opts.firstAttack, crash: !!opts.crash, counter: !!opts.counter, x3: !!opts.x3, miss: mode === 'zero' };
+          function only(a) { act.forEach(function (x) { x.visible = x === a; }); sc.focus = a; sc.focusOwner = null; }
           function next() {
             if (run) run.end();
-            if (++k >= list.length) { run = null; hold = 20; return; }
+            if (++k >= list.length) { run = null; return; }
             act.forEach(function (a) { a.visible = true; });
             cut(sc, list[k][1]);
             run = new Run(list[k][0], list[k][1], sc, fxs[k]);
+            if (k === 0) sc.overlays.push(new AttackOverlay(banner));
+            else if (opts.hpBefore != null) {
+              // 0x801ec8a4 / 0x801ec6e0: shown once the target's damage motion (4 or 5) has started
+              sc.overlays.push(new HpOverlay({ label: label(opts.attacker ^ 1), hp0: opts.hpBefore, hp1: sc.hp[opts.attacker ^ 1],
+                started: function () { return T.motion >= 4; } }));
+              sc.overlays.push(new DamagePopup(opts.damage || 0));
+            }
           }
-          next();
-          if (!run) { scene = null; res(false); return; }
+          cut(sc, opts.attacker);
+          if (mode === 'zero') { only(A); A.play(0, true); sc.overlays.push(new AttackOverlay(banner)); }
+          else if (mode === 'countered') { only(A); A.play((opts.attack || 0) + 1, true); sc.overlays.push(new CounteredOverlay(banner)); }
+          else { next(); if (!run) { scene = null; res(false); return; } }
           sc.script = function () {
-            if (run) { if (!run.step()) next(); }
-            else if (--hold <= 0) { sc.finish = null; stop(); if (!opts.dry) res(true); }
+            sc.overlays = sc.overlays.filter(function (o) { return o.step(); });
+            if (run) { if (!run.step()) next(); return; }
+            if (phase === 'scripts') {
+              // the director waits for the target's damage motion before it goes on
+              if (sc.overlays.length || (mode === 'normal' && T.motion >= 4 && T.busy())) return;
+              if (mode === 'normal' && sc.hp[opts.attacker ^ 1] <= 0) {
+                only(A); A.play(6, true);
+                sc.overlays.push(new WinnerOverlay(label(opts.attacker)));
+                phase = 'winner';
+              } else { phase = 'end'; hold = mode === 'normal' ? 20 : 8; }
+            } else if (phase === 'winner') {
+              if (!sc.overlays.length) { phase = 'end'; hold = 30; }
+            } else if (--hold <= 0) { sc.finish = null; stop(); if (!opts.dry) res(true); }
           };
           if (opts.dry) {
             var st = { frames: 0, quads: 0, lines: 0, sprites: 0, models: 0 }, core = C.core, keep = { project: core.project, bill: core.bill, origin: core.origin };
@@ -781,6 +996,8 @@
             return;
           }
           canvas.hidden = false;
+          OV.canvas = document.getElementById('b3dui');
+          if (OV.canvas) { OV.ctx = OV.canvas.getContext('2d'); OV.canvas.hidden = false; }
           last = performance.now();
           if (!timer) timer = setInterval(tick, FRAME_MS);
           render();

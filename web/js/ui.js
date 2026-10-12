@@ -770,9 +770,15 @@
         e.shown3d = true; i--;
         c = E.card(prevTop[e.p]);
         status(c.name + ': ' + c.atk[e.attack].name, '');
-        return B3D.attack({ models: [E.card(prevTop[0]).model, E.card(prevTop[1]).model], attacker: e.p,
-          script: c.atk[e.attack].script, hit: e.dmg > 0 ? c.atk[e.attack].hit : 0,
-          hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], first: A.tp, arena: S.arena, sound: SND.isEnabled() }).then(step);
+        var tgt = e.p ^ 1, countered = A.counterBy >= 0 && A.counterBy !== e.p;
+        var o3 = { models: [E.card(prevTop[0]).model, E.card(prevTop[1]).model], attacker: e.p, first: A.tp, arena: S.arena, sound: SND.isEnabled(),
+          script: c.atk[e.attack].script, hit: c.atk[e.attack].hit, attack: e.attack, name: c.atk[e.attack].name,
+          // director 0x801ee3d4: a countered attack shows its motion only, one that does no damage shows "Miss!!"
+          mode: countered ? 'countered' : e.dmg === 0 ? 'zero' : 'normal',
+          hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], hpBefore: A.s[tgt].hp, damage: e.dmg,
+          firstAttack: !A.shown3d && A.first !== A.tp, crash: !!A.crashed[e.p], counter: A.counterBy === e.p, x3: !!(A.x3 && A.x3[e.p] && e.attack === 2) };
+        A.shown3d = true;
+        return B3D.attack(o3).then(step);
       }
       if (e.s) A.s = e.s;
       A.glow = -1; A.hit = -1; A.floats = [];
@@ -799,6 +805,7 @@
             log(mon(e.p) + "'s " + E.ATK[2] + ' effect: ' + E.XFX[e.fx] + '.', who(e.p));
             flash(e.fx === 1 ? FLAG_CAPTION.first : e.fx === 8 ? 'Self-Destruct is Set' : e.fx === 9 ? FLAG_CAPTION.eatup : e.fx === 10 ? 'Jamming Support' : e.fx >= 5 && e.fx <= 7 ? FLAG_CAPTION.counter : E.XFX[e.fx], 'fx');
             A.src = { p: e.p, k: 0 };
+            if (e.fx >= 11 && e.fx <= 15) { A.x3 = A.x3 || {}; A.x3[e.p] = true; }      // foe x3
             fx(e.fx === 1 ? FX.FIRST : e.fx === 8 ? FX.CRASH_SET : e.fx === 9 ? FX.EATUP : e.fx === 10 ? FX.VOID : e.fx >= 5 && e.fx <= 7 ? FX.COUNTER_SET : FX.STAT, e.p, 0);
             d = 1100;
           } else { log(mon(e.p) + "'s " + E.XFX[e.fx] + ' does not trigger.', who(e.p)); fx(FX.MISFIRE, e.p, 0); d = 500; }
@@ -815,6 +822,7 @@
         case 'recycle': log(vb(e.p, 'move') + ' ' + cards(e.n) + ' from Offline to the Online deck.', who(e.p)); break;
         case 'shuffle': log(vb(e.p, 'shuffle') + ' the Online deck.', who(e.p)); break;
         case 'order':
+          A.first = e.first;
           status('Battle: ' + mon(e.first) + ' attacks first.', '');
           if (e.first !== A.tp) log(mon(e.first) + ' takes the first attack.', who(e.first));
           d = 600; break;

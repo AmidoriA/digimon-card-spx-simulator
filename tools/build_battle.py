@@ -18,6 +18,10 @@ Usage (venv python):  build_battle.py <extracted_dir> <web_dir> [pak numbers...]
                                       back colour r g b, brightness) for the 24 free-battle
                                       arenas, entries 32..55
   web/assets/models/bgNNN.*           those arenas (F/BGNNN.PAK) as models, like the Digimon
+  web/assets/battle/overlay.png       the battle overlay texture (chunk 104 of A/BATTLE.PAK) as
+                                      colour indices, and overlayp.png, its 24 palettes: the
+                                      texture sits at VRAM (640, 40) and carries a 4 x 6 grid
+                                      of 16-colour palettes inside its own area at (640, 80)
 
 A card's attack k names its attack script and hit script in its CARD2.CDD record
 (build_data.py: `script`, `hit`).
@@ -148,6 +152,25 @@ def export_arenas(ext, web):
     return len(out)
 
 
+def export_overlay(ext, web):
+    """"ATTACK!", "DAMAGE", digits and so on. Palette row = (y - 80) * 4 + (x - 640) / 16."""
+    data = open(os.path.join(ext, "drv", "A", "BATTLE.PAK"), "rb").read()
+    tim = [b for typ, cid, b in pak.chunks(data) if typ == 5 and cid == 104][0]
+    t = bm.read_tim(tim)
+    out = os.path.join(web, "assets", "battle")
+    bm.Image.frombytes("L", (t["w"], t["h"]), bytes(i for row in t["pix"] for i in row)).save(os.path.join(out, "overlay.png"), optimize=True)
+    n = struct.unpack_from("<I", tim, 8)[0]
+    w16 = struct.unpack_from("<H", tim, 8 + n + 8)[0]
+    pix = 8 + n + 12
+    pal = bytearray()
+    for r in range(6):
+        for c in range(4):
+            words = struct.unpack_from("<16H", tim, pix + ((40 + r) * w16 + 16 * c) * 2)
+            for x in words:
+                pal += bytes(bm.rgba(x))
+    bm.Image.frombytes("RGBA", (16, 24), bytes(pal)).save(os.path.join(out, "overlayp.png"), optimize=True)
+
+
 def main():
     ext, web = sys.argv[1], sys.argv[2]
     only = {int(a) for a in sys.argv[3:]}
@@ -159,6 +182,7 @@ def main():
         open(os.path.join(out, "scripts.json.gz"), "wb").write(data)
         print("scripts:", len(scripts), "- %.2f MB" % (len(data) / 1e6))
         print("arenas:", export_arenas(ext, web))
+        export_overlay(ext, web)
     total = n = bad = nm = ns = 0
     for f in sorted(glob.glob(os.path.join(ext, "drv", "E", "*.PAK"))):
         m = re.match(r"^(\d+)\.PAK$", os.path.basename(f))
