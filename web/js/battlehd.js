@@ -9,7 +9,7 @@
   function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
   // Fixed budgets keep the optional effects bounded on mobile WebGL as well as desktop.
   function quality(style) {
-    return style === 'ultra' ? { scale: 6, minScale: 3, particles: 448, quads: 768, emitters: 24, spawn: 5, burst: 96 } :
+    return style === 'ultra' ? { scale: 3, minScale: 2, particles: 448, quads: 768, emitters: 24, spawn: 5, burst: 96 } :
       { scale: style === 'legacy' ? 1 : 3, minScale: 2, particles: 112, quads: 160, emitters: 5, spawn: 2, burst: 32 };
   }
   // Weld only within a rigid body part. A crease keeps teeth, blades and armor edges sharp.

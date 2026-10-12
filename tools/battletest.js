@@ -12,11 +12,17 @@ const gl = new Proxy({}, { get: (t, k) => {
   if (k === 'getShaderParameter' || k === 'getProgramParameter') return () => true;
   if (k === 'getAttribLocation') return () => 0;
   if (k === 'checkFramebufferStatus') return () => 1;
+  if (k === 'getParameter') return () => 16384;
   if (/^[A-Z_0-9]+$/.test(k)) return 1;
   return () => ({});
 } });
 class TestImage {
-  set src(url) { assert(fs.existsSync(path.join(web, url)), 'missing image ' + url); this.width = 256; this.height = 256; queueMicrotask(() => this.onload()); }
+  set src(url) {
+    assert(fs.existsSync(path.join(web, url)), 'missing image ' + url);
+    if (url.includes('/arena-hd/')) { const info = JSON.parse(fs.readFileSync(path.join(web,url.replace('.webp','.json')))); this.width=info.width;this.height=info.height; }
+    else { this.width = 256; this.height = 256; }
+    queueMicrotask(() => this.onload());
+  }
 }
 const canvas = { getContext: () => gl, hidden: true, width: 1280, height: 960, classList: { toggle() {} } };
 const sandbox = {
@@ -71,7 +77,8 @@ function mesh(model) {
     assert(result.frames < 4000 && result.sprites === 0 && result.quads === 0, mode + ' emitted attacks');
   }
   const c = cards.find(c => c.name === 'Agumon'), a = c.atk[0];
-  const sample = { models: [c.model, cards[0].model], attacker: 0, script: a.script, hit: a.hit,
+  const arenas = JSON.parse(fs.readFileSync(path.join(web,'assets/battle/arenas.json')));
+  const sample = { models: [c.model, cards[0].model], attacker: 0, script: a.script, hit: a.hit, arena: arenas[0],
     name: a.name, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false };
   const stale = B.attack({ ...sample, dry: true });
   const replacement = B.attack({ ...sample, dry: true });
@@ -90,6 +97,7 @@ function mesh(model) {
     assert(sc.modern.length <= HD.quality(style).particles, 'particle budget exceeded');
     assert.strictEqual(stats.width, HD.quality(style).scale * 320, 'wrong rendering resolution');
     assert.strictEqual(stats.shadows, style === 'ultra', 'wrong shadow mode');
+    assert.strictEqual(stats.arenaTextureScale, style === 'legacy' ? 1 : 4, 'wrong arena texture mode');
     populations[style] = sc.modern.length;
     if (style === 'legacy') assert(sc.modern.length === 0, 'legacy emitted modern particles');
     else assert(sc.modern.length > 0, 'enhanced attack emitted no accents');
@@ -101,13 +109,23 @@ function mesh(model) {
       sc.script = () => {}; // Keep a scene alive while simulating sustained slow frame delivery.
       B.paused = false;
       for (let i = 0; i < 150; i++) { clock += 50.1; interval(); }
-      assert.strictEqual(B.stats().width, 960, 'Ultra did not adapt to slow rendering');
+      assert.strictEqual(B.stats().width, 640, 'Ultra did not adapt to slow rendering');
       assert.strictEqual(B.stats().shadows, true, 'resolution adaptation lost shadows');
       sc.script = originalScript;
     }
     B.stop(); assert.strictEqual(await playback, false, 'stopped playback did not settle');
   }
   assert(populations.ultra > populations.enhanced, 'Ultra did not increase the particle population');
+  B.setStyle('ultra'); B.paused = true;
+  for (const arena of arenas) {
+    const playback = B.attack({ ...sample, arena });
+    for (let i = 0; i < 100 && !B.busy(); i++) await new Promise(resolve => setImmediate(resolve));
+    assert(B.busy(), 'arena preview failed: ' + arena.file);
+    B.advance(12);
+    assert.strictEqual(B.stats().arenaTextureScale, 4, 'HD arena did not load: ' + arena.file);
+    assert(B.stats().arenaAtlases <= 2, 'too many GPU arena atlases retained');
+    B.stop(); await playback;
+  }
   assert.strictEqual(B.setStyle('nonsense'), 'enhanced');
   console.log('PASS: %d Digimon, %d attacks × three styles; longest %d frames; misses and counters emit no attack effects.', cards.length, count, max);
 })().catch(e => { console.error(e); process.exitCode = 1; });

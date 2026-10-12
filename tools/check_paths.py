@@ -101,6 +101,8 @@ def wanted():
         for ext in (".bin.gz", ".png", "p.png"):
             add("assets/models/bg%d%s" % (a["file"], ext), "arena %d" % a["file"])
         add("assets/battle/arena/%d.webp" % a["file"], "preview of arena %d" % a["file"])
+        for ext in (".webp", ".json"):
+            add("assets/battle/arena-hd/%d%s" % (a["file"], ext), "4x texture atlas of arena %d" % a["file"])
     scripts = json.loads(gzip.open(os.path.join(WEB, "assets", "battle", "scripts.json.gz")).read())
     for sid, cmds in scripts.items():
         for c in cmds:
