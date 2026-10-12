@@ -65,7 +65,7 @@
     sup: [{ x: 4, y: 96 }, { x: 276, y: 96 }],
     // attack panel (CBTL_SYS texture 13, 208x64): it is exactly as wide as the hand
     // slots of the tray, so it is drawn over them; fields measured from the texture
-    atk: { x: 80, y: 176, rowY: [14, 26, 38], rowH: 11 }
+    atk: { at: [{ x: 80, y: 176 }, { x: 32, y: 0 }], rowY: [14, 26, 38], rowH: 11 }
   };
 
   // digivolve option card names by type, for sounding the opponent's digivolutions
@@ -74,7 +74,8 @@
 
   var S = {
     my: null, op: null, previewSide: 'me', skill: 0.7,
-    G: null, step: null, sel: -1, myAtk: -1, anim: null, resolve: null, token: 0,
+    two: false, // two players at this screen instead of one against the computer
+    G: null, step: null, actor: 0, sel: -1, myAtk: -1, anim: null, resolve: null, token: 0,
     viewCards: false // while choosing an attack: look at the hand instead of the attack panel
   };
 
@@ -232,9 +233,25 @@
 
   function renderSetup() {
     fillDeckList($('myDecks'), MY_DECKS, S.my, $('myFilter').value, function (id) { S.my = id; S.previewSide = 'me'; renderSetup(); });
-    fillDeckList($('opDecks'), OP_DECKS, S.op, $('opFilter').value, function (id) { S.op = id; S.previewSide = 'op'; renderSetup(); });
+    fillDeckList($('opDecks'), S.two ? MY_DECKS : OP_DECKS, S.op, $('opFilter').value, function (id) { S.op = id; S.previewSide = 'op'; renderSetup(); });
     Array.prototype.forEach.call($('previewTabs').children, function (b) { b.classList.toggle('on', b.dataset.side === S.previewSide); });
     renderPreview();
+  }
+
+  // One player against the computer, or two players who share this screen. The second
+  // player may take any deck, as the first may.
+  function setMode(two) {
+    S.two = two;
+    if (!two && OP_DECKS.every(function (d) { return d.id !== S.op; })) S.op = OP_DECKS[0].id;
+    $('mode').value = two ? '2' : '1';
+    $('setupSub').textContent = (two ? 'Each player picks a deck.' : 'Pick a deck, pick an opponent.') + ' First to three KOs wins.';
+    $('myTitle').textContent = two ? 'Player 1' : 'Your deck';
+    $('opTitle').textContent = two ? 'Player 2' : 'Opponent';
+    $('opFilter').placeholder = two ? 'Search decks' : 'Search opponents';
+    $('previewTabs').children[0].textContent = two ? 'Player 1' : 'Yours';
+    $('previewTabs').children[1].textContent = two ? 'Player 2' : "Opponent's";
+    $('skillBox').hidden = two; $('btnRandom').hidden = two;
+    renderSetup();
   }
 
   // ------------------------------------------------------------------ static stage layer
@@ -473,29 +490,29 @@
     return v.top >= 0 ? { x: L.mon[p].x, y: L.mon[p].y, w: 40, h: 48 } : null;
   };
 
-  // which of your hand cards can be clicked in the current step
+  // which hand cards of the player now deciding can be clicked in the current step
   function handActions() {
-    var G = S.G, P = G.players[0], n = P.hand.length, can = [], i;
+    var G = S.G, me = S.actor, P = G.players[me], n = P.hand.length, can = [], i;
     for (i = 0; i < n; i++) can.push(false);
     if (S.anim || !S.resolve) return can;
     var moves;
     switch (S.step) {
-      case 'entrance': for (i = 0; i < n; i++) can[i] = E.canEnter(G, 0, i); break;
-      case 'dp': for (i = 0; i < n; i++) can[i] = E.canAddDP(G, 0, i); break;
+      case 'entrance': for (i = 0; i < n; i++) can[i] = E.canEnter(G, me, i); break;
+      case 'dp': for (i = 0; i < n; i++) can[i] = E.canAddDP(G, me, i); break;
       case 'option':
-        moves = E.evoMoves(G, 0);
-        var waste = E.wasteMoves(G, 0);
+        moves = E.evoMoves(G, me);
+        var waste = E.wasteMoves(G, me);
         for (i = 0; i < n; i++) can[i] = waste.indexOf(i) >= 0 || moves.some(function (m) { return m.kind === 'option' && m.opt === i; });
         break;
       case 'target':
-        moves = E.evoMoves(G, 0);
+        moves = E.evoMoves(G, me);
         for (i = 0; i < n; i++) can[i] = i === S.sel || moves.some(function (m) { return m.kind === 'option' && m.opt === S.sel && m.target === i; });
         break;
       case 'evo':
-        moves = E.evoMoves(G, 0);
+        moves = E.evoMoves(G, me);
         for (i = 0; i < n; i++) can[i] = moves.some(function (m) { return m.kind === 'normal' && m.target === i; });
         break;
-      case 'support': E.supportOptions(G, 0).hand.forEach(function (k) { can[k] = true; }); break;
+      case 'support': E.supportOptions(G, me).hand.forEach(function (k) { can[k] = true; }); break;
     }
     return can;
   }
@@ -521,13 +538,14 @@
       el = plate('TRASH', 'small trash col'); el.appendChild(h('b', null, String(v.offline)));
       dyn.appendChild(box(pilePlate(el, p, showTrash, 'Offline pile'), L.trash[p].x, L.trash[p].y, 25, 19));
       el = plate('DECK', 'small col'); el.appendChild(h('b', null, String(v.deck)));
-      dyn.appendChild(box(pilePlate(el, p, showDeck, 'Online deck'), L.deck[p].x, L.deck[p].y, 25, 19));
+      // between two players what is left of a deck stays unknown: the plate only counts
+      dyn.appendChild(box(S.two ? el : pilePlate(el, p, showDeck, 'Online deck'), L.deck[p].x, L.deck[p].y, 25, 19));
       // hand (open for both players)
       for (i = 0; i < 4; i++) {
         var slot = L.hand[p][i];
         if (i < v.hand.length) {
           el = cardEl(v.hand[i]);
-          if (p === 0) {
+          if (p === S.actor) {
             if (can[i]) { el.classList.add('can'); el.tabIndex = 0; el.setAttribute('role', 'button'); bindCard(el, i); }
             else if (S.resolve && !A && S.step && S.step !== 'attack' && S.step !== 'prepEnd') el.classList.add('dim');
             if (i === S.sel) el.classList.add('pick');
@@ -557,7 +575,7 @@
         pn.appendChild(dot); pn.appendChild(document.createTextNode(c.name + ' · ' + E.LEVEL[c.level]));
         pn.title = c.name + ' — ' + E.SPEC[v.spec] + ', level ' + E.LEVEL[c.level];
         dyn.appendChild(box(pn, L.pname[p].x, L.pname[p].y, L.pname[p].w, L.pname[p].h));
-        var choosing = p === 0 && S.step === 'attack' && S.resolve && !A;
+        var choosing = p === S.actor && S.step === 'attack' && S.resolve && !A;
         for (i = 0; i < 3; i++) {
           var bar = h(choosing ? 'button' : 'div', 'bar a' + i);
           bar.appendChild(h('span', 'ic', E.ATK[i]));
@@ -605,9 +623,10 @@
   }
 
   // The game's attack panel: the three attacks of your Digimon with their powers and
-  // the special effect of its x attack. Rows are the attack buttons.
+  // the special effect of its x attack. Rows are the attack buttons. It lies over the tray
+  // of the player who is choosing.
   function attackPanel(dyn) {
-    var P = S.G.players[0], c = E.top(P), a = L.atk, i, el;
+    var P = S.G.players[S.actor], c = E.top(P), a = { x: L.atk.at[S.actor].x, y: L.atk.at[S.actor].y, rowY: L.atk.rowY, rowH: L.atk.rowH }, i, el;
     dyn.appendChild(tex('atk_panel', a.x, a.y, 208, 64));
     el = h('div', 'ap-name', c.name);
     el.appendChild(h('small', null, E.SPEC[P.active.spec] + ' · Level ' + E.LEVEL[c.level]));
@@ -639,12 +658,12 @@
     return b;
   }
   function renderActions() {
-    var G = S.G, bx = clear($('acts'));
+    var G = S.G, me = S.actor, bx = clear($('acts'));
     if (S.anim || !S.resolve) return;
     function add(label, a, alt, dis) { bx.appendChild(gbtn(label, function () { act(a); }, alt, dis)); }
     switch (S.step) {
-      case 'entrance': add('Change All Cards', { t: 'changeAll' }, true, !E.canChangeAll(G, 0)); break;
-      case 'prepEnd': add('Change All Cards', { t: 'changeAll' }, true, !E.canChangeAll(G, 0)); add('OK', { t: 'ok' }); break;
+      case 'entrance': add('Change All Cards', { t: 'changeAll' }, true, !E.canChangeAll(G, me)); break;
+      case 'prepEnd': add('Change All Cards', { t: 'changeAll' }, true, !E.canChangeAll(G, me)); add('OK', { t: 'ok' }); break;
       case 'dp': add('Skip', { t: 'skip' }); break;
       case 'option': add('Skip', { t: 'skip' }); break;
       case 'target': add('Cancel', { t: 'skip' }, true); break;
@@ -654,7 +673,7 @@
         break;
       case 'support':
         add('No Support Card', { t: 'support', choice: -1 }, true);
-        add('Top of Online Deck', { t: 'support', choice: 'deck' }, false, !E.supportOptions(G, 0).deck);
+        add('Top of Online Deck', { t: 'support', choice: 'deck' }, false, !E.supportOptions(G, me).deck);
         break;
     }
   }
@@ -682,12 +701,15 @@
   }
   function who(p) { return p === 0 ? 'me' : 'op'; }
   function name(p) { return S.G.players[p].name; }
-  function poss(p) { return p === 0 ? 'Your' : name(p) + "'s"; }
-  function vb(p, verb) { return name(p) + ' ' + (p === 0 ? verb : (/[sxz]$|ch$|sh$/.test(verb) ? verb + 'es' : verb + 's')); }
+  // "You" is the one player of a match against the computer; two players both go by name
+  function you(p) { return p === 0 && !S.two; }
+  function poss(p) { return you(p) ? 'Your' : name(p) + "'s"; }
+  function conj(p, verb) { return you(p) ? verb : (/[sxz]$|ch$|sh$/.test(verb) ? verb + 'es' : verb + 's'); }
+  function vb(p, verb) { return name(p) + ' ' + conj(p, verb); }
   function cards(n) { return n + ' card' + (n > 1 ? 's' : ''); }
 
   // ------------------------------------------------------------------ input plumbing
-  function waitAction(step) { S.step = step; return new Promise(function (res) { S.resolve = res; render(); }); }
+  function waitAction(step, p) { S.step = step; S.actor = p; return new Promise(function (res) { S.resolve = res; render(); }); }
   function act(x) {
     var r = S.resolve;
     if (!r) return;
@@ -717,41 +739,41 @@
           log(vb(p, 'redraw') + ': no Digimon cards in hand.', who(p)); render(); return sleep(1100);
         }
         if (e.t === 'nocards') {
-          status('Preparation: No Cards in Online Deck!', 'There are no more Cards, so ' + name(p) + (p === 0 ? ' lose!' : ' loses!'));
-          log(name(p) + (p === 0 ? ' have' : ' has') + ' no Digimon and no cards left.', 'big'); render(); return sleep(1400);
+          status('Preparation: No Cards in Online Deck!', 'There are no more Cards, so ' + name(p) + (you(p) ? ' lose!' : ' loses!'));
+          log(name(p) + (you(p) ? ' have' : ' has') + ' no Digimon and no cards left.', 'big'); render(); return sleep(1400);
         }
       });
     });
     return seq;
   }
 
-  async function humanPrep(tok) {
-    var G = S.G, P = G.players[0];
+  async function humanPrep(tok, p) {
+    var G = S.G, P = G.players[p];
     while (live(tok) && G.winner === null) {
       if (!P.active) status('Preparation: Digimon Entrance.', 'Choose a Digimon card to send out. Level C enters at half strength, U at a quarter.');
       else status('Preparation: Preparation Complete.', 'OK to continue, or change all cards.');
-      var a = await waitAction(P.active ? 'prepEnd' : 'entrance');
+      var a = await waitAction(P.active ? 'prepEnd' : 'entrance', p);
       if (!live(tok)) return;
       if (a.t === 'changeAll') {
         var ev = [];
-        E.changeAll(G, 0, ev);
-        log('You change all cards.', 'me');
+        E.changeAll(G, p, ev);
+        log(vb(p, 'change') + ' all cards.', who(p));
         S.step = null; render();
-        await showPrepEvents(ev, 0);
+        await showPrepEvents(ev, p);
       } else if (a.t === 'card') {
         var c = E.card(P.hand[a.i]);
-        E.enter(G, 0, a.i);
-        log('You send out ' + c.name + (c.level >= 2 ? ' at reduced strength (level ' + E.LEVEL[c.level] + ' entrance).' : '.'), 'me');
+        E.enter(G, p, a.i);
+        log(vb(p, 'send') + ' out ' + c.name + (c.level >= 2 ? ' at reduced strength (level ' + E.LEVEL[c.level] + ' entrance).' : '.'), who(p));
         flash('DIGIMON ENTRANCE', 'sys');
-        var ar = E.armorOption(G, 0);
+        var ar = E.armorOption(G, p);
         if (ar >= 0) {
           S.step = null; status('Preparation: Digi-Egg Power-Up.', ''); render();
           if (await ask('Do you want to Armor Digivolve to ' + E.card(ar).name + '?')) {
-            log(c.name + ' armor digivolves to ' + E.card(ar).name + '.', 'me');
+            log(c.name + ' armor digivolves to ' + E.card(ar).name + '.', who(p));
             flash('Armor Digivolve', 'fx');
-            await fx(FX.ARMOR, 0, 0);               // the effect first, then the card (0x80034fb4)
+            await fx(FX.ARMOR, p, 0);               // the effect first, then the card (0x80034fb4)
             if (!live(tok)) return;
-            E.armorDigivolve(G, 0);
+            E.armorDigivolve(G, p);
           }
         }
       } else if (a.t === 'ok') return;
@@ -783,35 +805,35 @@
   }
 
   // ------------------------------------------------------------------ digivolve phase
-  async function humanEvo(tok) {
-    var G = S.G, P = G.players[0], a, i, c, moves;
+  async function humanEvo(tok, p) {
+    var G = S.G, P = G.players[p], a, i, c, moves;
     // 1. one card to the DP Slot
-    if (P.hand.some(function (_, k) { return E.canAddDP(G, 0, k); })) {
+    if (P.hand.some(function (_, k) { return E.canAddDP(G, p, k); })) {
       status('Digivolve: Digivolve Points (DP).', 'Rack-up DP: send one Digimon card to the DP Slot, or skip.');
-      a = await waitAction('dp');
+      a = await waitAction('dp', p);
       if (!live(tok)) return;
       if (a.t === 'card') {
         c = E.card(P.hand[a.i]);
-        E.addDP(G, 0, a.i);
-        log('You send ' + c.name + ' to the DP Slot (+' + c.pp + ').', 'me');
+        E.addDP(G, p, a.i);
+        log(vb(p, 'send') + ' ' + c.name + ' to the DP Slot (+' + c.pp + ').', who(p));
       }
     }
     // 2. digivolve option card
     while (live(tok) && !P.evoEnded && !P.evoStarted && P.hand.some(function (id) { return E.card(id).type === 'digivolve'; })) {
       status('Digivolve: Digivolve Option.', 'Use a digivolve option card, or skip.');
       S.sel = -1;
-      a = await waitAction('option');
+      a = await waitAction('option', p);
       if (!live(tok)) return;
       if (a.t !== 'card') break;
       i = a.i; c = E.card(P.hand[i]);
-      moves = E.evoMoves(G, 0).filter(function (m) { return m.kind === 'option' && m.opt === i; });
+      moves = E.evoMoves(G, p).filter(function (m) { return m.kind === 'option' && m.opt === i; });
       if (!moves.length) {
         // state 0xF: a card that can do nothing may be used all the same, and is lost
-        if (E.wasteMoves(G, 0).indexOf(i) < 0) continue;
+        if (E.wasteMoves(G, p).indexOf(i) < 0) continue;
         S.step = null; render();
         if (await ask('This Digivolve Option has no Effect. Do you still want to use it?')) {
-          E.wasteOption(G, 0, i);
-          log('You use ' + c.name + ' to no effect; it goes Offline.', 'me');
+          E.wasteOption(G, p, i);
+          log(vb(p, 'use') + ' ' + c.name + ' to no effect; it goes Offline.', who(p));
         }
         continue;
       }
@@ -821,47 +843,47 @@
           : "Your Digimon's level will become R. Do you still want to Armor Digi-devolve?";
         if (await ask(q)) {
           flash(EVO_NAME[c.dtype], 'fx');
-          await fx(EVO_FX[c.dtype], 0, 0);          // the effect first, then the cards (state 0x10)
+          await fx(EVO_FX[c.dtype], p, 0);          // the effect first, then the cards (state 0x10)
           if (!live(tok)) return;
-          E.digivolve(G, 0, moves[0]);
-          log('You use ' + c.name + ': now ' + E.top(P).name + '.', 'me');
+          E.digivolve(G, p, moves[0]);
+          log(vb(p, 'use') + ' ' + c.name + ': now ' + E.top(P).name + '.', who(p));
         }
         continue;
       }
       S.sel = i;
       status('Digivolve: Digivolve Digimon.', c.name + ': choose the Digimon to digivolve into.');
-      a = await waitAction('target');
+      a = await waitAction('target', p);
       if (!live(tok)) return;
       var mv = a.t === 'card' ? moves.filter(function (m) { return m.target === a.i; })[0] : null;
       S.sel = -1;
       if (mv) {
         var tn = E.card(P.hand[mv.target]).name;
-        log('You use ' + c.name + ' and digivolve to ' + tn + '.', 'me');
+        log(vb(p, 'use') + ' ' + c.name + ' and ' + conj(p, 'digivolve') + ' to ' + tn + '.', who(p));
         S.step = null; render();
         flash(EVO_NAME[c.dtype], 'fx');
-        await fx(EVO_FX[c.dtype], 0, 0);            // state 0x12
+        await fx(EVO_FX[c.dtype], p, 0);            // state 0x12
         if (!live(tok)) return;
-        E.digivolve(G, 0, mv);
+        E.digivolve(G, p, mv);
       }
     }
     S.sel = -1;
     // 3. normal digivolution, as long as one is possible
     while (live(tok) && !P.evoEnded) {
-      moves = E.evoMoves(G, 0).filter(function (m) { return m.kind === 'normal'; });
+      moves = E.evoMoves(G, p).filter(function (m) { return m.kind === 'normal'; });
       if (!moves.length) break;
       status('Digivolve: Digivolve Digimon.', 'Choose a Digimon to digivolve into, or finish.');
-      a = await waitAction('evo');
+      a = await waitAction('evo', p);
       if (!live(tok)) return;
       if (a.t !== 'card') break;
       var m2 = moves.filter(function (m) { return m.target === a.i; })[0];
       if (!m2) continue;
       var nm = E.card(P.hand[m2.target]).name;
-      log('You digivolve to ' + nm + '.', 'me');
+      log(vb(p, 'digivolve') + ' to ' + nm + '.', who(p));
       S.step = null; render();
       flash('Digivolve', 'fx');
-      await fx(FX.DIGIVOLVE, 0, 0);                 // state 0x15
+      await fx(FX.DIGIVOLVE, p, 0);                 // state 0x15
       if (!live(tok)) return;
-      E.digivolve(G, 0, m2);
+      E.digivolve(G, p, m2);
     }
     S.step = null;
     status('Digivolve: Digivolve Complete.', '');
@@ -972,43 +994,51 @@
   }
 
   async function battle(tok) {
-    var G = S.G, t = G.tp, o = t ^ 1, P0 = G.players[0], P1 = G.players[1];
+    var G = S.G, t = G.tp, o = t ^ 1, P0 = G.players[0], P1 = G.players[1], atk = [-1, -1], k, p;
     S.myAtk = -1;
-    // both players decide an attack; neither is shown yet
-    var aiAtk = AI.chooseAttack(G, 1, S.skill);
-    var mine = E.top(P0), foe = E.top(P1);
-    S.viewCards = false;
-    status('Battle: Deciding an Attack.',
-      (mine.xfx ? 'Your ' + E.ATK[2] + ' ' + E.XFX[mine.xfx] + ': ' + XFX_HELP[mine.xfx] : 'Your ' + E.ATK[2] + ' attack has no special effect.') +
-      ' Opponent’s ' + E.ATK[2] + ': ' + (foe.xfx ? E.XFX[foe.xfx] : 'no effect') + '.');
-    var a = await waitAction('attack');
-    if (!live(tok)) return;
-    S.myAtk = a.k;
-    log('You choose your attack.', 'me');
+    // both players decide an attack; neither is shown yet. Two players at one screen choose
+    // one after the other, the turn player first, and a choice leaves no mark on the board.
+    if (!S.two) atk[1] = AI.chooseAttack(G, 1, S.skill);
+    var pick = S.two ? [t, o] : [0];
+    for (k = 0; k < pick.length; k++) {
+      p = pick[k];
+      var mine = E.top(G.players[p]), foe = E.top(G.players[p ^ 1]);
+      S.viewCards = false;
+      status(S.two ? 'Battle: ' + name(p) + ' decides an Attack. ' + name(p ^ 1) + ', look away!' : 'Battle: Deciding an Attack.',
+        (mine.xfx ? poss(p) + ' ' + E.ATK[2] + ' ' + E.XFX[mine.xfx] + ': ' + XFX_HELP[mine.xfx] : poss(p) + ' ' + E.ATK[2] + ' attack has no special effect.') +
+        (S.two ? ' ' + poss(p ^ 1) : ' Opponent’s') + ' ' + E.ATK[2] + ': ' + (foe.xfx ? E.XFX[foe.xfx] : 'no effect') + '.');
+      var a = await waitAction('attack', p);
+      if (!live(tok)) return;
+      atk[p] = a.k;
+      if (!S.two) S.myAtk = a.k;
+      log(vb(p, 'choose') + (you(p) ? ' your' : ' an') + ' attack.', who(p));
+    }
     // support cards: the non-turn player commits first
     var order = [o, t];
-    for (var k = 0; k < 2 && live(tok); k++) {
-      var p = order[k];
-      if (p === 0) {
-        var opts = E.supportOptions(G, 0);
+    for (k = 0; k < 2 && live(tok); k++) {
+      p = order[k];
+      if (S.two || p === 0) {
+        var opts = E.supportOptions(G, p);
         if (!opts.hand.length && !opts.deck) {
-          status('Battle: Your Support Card.', "You have no Cards left, so you can't use any Support Cards!");
+          status('Battle: ' + poss(p) + ' Support Card.', you(p) ? "You have no Cards left, so you can't use any Support Cards!"
+            : name(p) + " has no Cards left, and can't use any Support Cards!");
           S.step = null; render(); await sleep(1100);
         } else {
-          status('Battle: Your Support Card.', k === 0 ? 'You commit first: choose a support card, or none.' : "The opponent has committed. Choose a support card, or none.");
-          var s = await waitAction('support');
+          status('Battle: ' + poss(p) + ' Support Card.', k === 0 ? vb(p, 'commit') + ' first: choose a support card, or none.'
+            : (you(p) ? 'The opponent has committed. Choose' : name(p ^ 1) + ' has committed. ' + name(p) + ': choose') + ' a support card, or none.');
+          var s = await waitAction('support', p);
           if (!live(tok)) return;
           var choice = s.t === 'card' ? s.i : s.choice;
-          var cn = choice === -1 ? null : choice === 'deck' ? 'the top card of your Online deck' : E.card(P0.hand[choice]).name;
-          E.setSupport(G, 0, choice);
-          log(cn ? 'You set ' + cn + ' as support.' : 'You use no support card.', 'me');
+          var cn = choice === -1 ? null : choice === 'deck' ? 'the top card of ' + (you(p) ? 'your' : 'their') + ' Online deck' : E.card(G.players[p].hand[choice]).name;
+          E.setSupport(G, p, choice);
+          log(cn ? vb(p, 'set') + ' ' + cn + ' as support.' : vb(p, 'use') + ' no support card.', who(p));
         }
       } else {
         status('Battle: ' + P1.name + "'s Support Card.", '');
         S.step = null; render(); await sleep(500);
         var H = G;
         if (P0.sup && P0.sup.deck) { H = E.clone(G); H.players[0].sup = null; } // a face-down card stays unknown to the AI
-        var c1 = AI.chooseSupport(H, 1, aiAtk, S.skill);
+        var c1 = AI.chooseSupport(H, 1, atk[1], S.skill);
         var n1 = c1 >= 0 ? E.card(P1.hand[c1]).name : null;
         E.setSupport(G, 1, c1);
         log(n1 ? P1.name + ' sets ' + n1 + ' as support.' : P1.name + ' uses no support card.', 'op');
@@ -1028,7 +1058,7 @@
     status('Battle: Begin Battle.', '');
     flash('BEGIN BATTLE', 'sys');
     render();
-    var evs = E.resolveBattle(G, [S.myAtk, aiAtk], []);
+    var evs = E.resolveBattle(G, atk, []);
     await sleep(900);
     await playEvents(evs, tok);
     await sleep(500);
@@ -1045,21 +1075,21 @@
       log('Turn ' + G.turn + ' — ' + name(t), 'turn');
       S.step = null; S.myAtk = -1;
       status('Preparation: Preparing a Hand.', vb(t, 'draw') + ' cards.');
-      flash((t === 0 ? 'YOUR' : name(t).toUpperCase() + "'S") + ' TURN', 'sys');
+      flash((you(t) ? 'YOUR' : name(t).toUpperCase() + "'S") + ' TURN', 'sys');
       render();
       await sleep(900);
       await showPrepEvents(ev, t);
       if (!live(tok) || G.winner !== null) break;
-      if (t === 0) await humanPrep(tok);
+      if (S.two || t === 0) await humanPrep(tok, t);
       else { status('Preparation: Digimon Entrance.', ''); await aiSteps(AI.prepSteps(G, 1), tok); }
       if (!live(tok) || G.winner !== null) break;
-      if (t === 0) await humanEvo(tok);
+      if (S.two || t === 0) await humanEvo(tok, t);
       else { status('Digivolve: Digivolve Points (DP).', ''); render(); await sleep(400); await aiSteps(AI.digivolveSteps(G, 1), tok); }
       if (!live(tok)) break;
       if (!E.battleOn(G)) {
         S.step = null;
-        status('Battle: ' + name(t ^ 1) + (t === 1 ? ' have' : ' has') + ' no Digimon.', 'Since ' + name(t ^ 1) + (t === 1 ? ' have' : ' has') + ' no Digimon, there is no Battle Phase.');
-        log('No Battle Phase: ' + name(t ^ 1) + (t === 1 ? ' have' : ' has') + ' no Digimon.', 'big');
+        status('Battle: ' + name(t ^ 1) + (you(t ^ 1) ? ' have' : ' has') + ' no Digimon.', 'Since ' + name(t ^ 1) + (you(t ^ 1) ? ' have' : ' has') + ' no Digimon, there is no Battle Phase.');
+        log('No Battle Phase: ' + name(t ^ 1) + (you(t ^ 1) ? ' have' : ' has') + ' no Digimon.', 'big');
         render();
         await sleep(1500);
       } else await battle(tok);
@@ -1073,14 +1103,14 @@
   function finish() {
     var G = S.G, w = G.winner, me = G.players[0], op = G.players[1];
     S.step = null; S.anim = null; render();
-    var why = G.winReason === 'KO' ? me.wins + ' Wins, ' + op.wins + ' Losses.'
-      : G.winReason === 'nocards' ? 'There are no more Cards, so ' + name(w ^ 1) + (w === 1 ? ' lose.' : ' loses.')
-        : 'Since ' + name(w ^ 1) + (w === 1 ? ' have' : ' has') + ' no more Digimon, the winner is ' + name(w) + '.';
-    $('resultTitle').textContent = w === 0 ? 'You win!' : 'You lose';
+    var why = G.winReason === 'KO' ? (S.two ? name(w) + ': ' + G.players[w].wins + ' Wins, ' + G.players[w ^ 1].wins + ' Losses.' : me.wins + ' Wins, ' + op.wins + ' Losses.')
+      : G.winReason === 'nocards' ? 'There are no more Cards, so ' + name(w ^ 1) + (you(w ^ 1) ? ' lose.' : ' loses.')
+        : 'Since ' + name(w ^ 1) + (you(w ^ 1) ? ' have' : ' has') + ' no more Digimon, the winner is ' + name(w) + '.';
+    $('resultTitle').textContent = you(w) ? 'You win!' : S.two ? name(w) + ' wins!' : 'You lose';
     $('resultText').textContent = why + ' Finished on turn ' + G.turn + '.';
-    status(w === 0 ? 'YOU WIN!' : name(w) + ' WINS!', why);
-    log(w === 0 ? 'You win the match.' : op.name + ' wins the match.', 'big');
-    SND.music(w === 0 ? 149 : 150);
+    status(you(w) ? 'YOU WIN!' : name(w) + ' WINS!', why);
+    log(you(w) ? 'You win the match.' : name(w) + ' wins the match.', 'big');
+    SND.music(w === 0 || S.two ? 149 : 150); // with two players, the winner's tune
     $('result').showModal();
   }
 
@@ -1088,8 +1118,8 @@
     var md = D.decks[S.my], od = D.decks[S.op];
     S.skill = parseFloat($('skill').value);
     S.token++;
-    S.G = E.newGame({ names: ['You', od.owner], decks: [md, od] });
-    S.anim = null; S.resolve = null; S.step = null; S.sel = -1; S.myAtk = -1;
+    S.G = E.newGame({ names: S.two ? ['Player 1', 'Player 2'] : ['You', od.owner], decks: [md, od] });
+    S.anim = null; S.resolve = null; S.step = null; S.actor = 0; S.sel = -1; S.myAtk = -1;
     // the arena: the one chosen, or, as the game does with none named, one of entries 44..55
     // of its table (0x8002e42c)
     S.arena = ARENAS.filter(function (a) { return String(a.index) === arenaPick; })[0] ||
@@ -1098,11 +1128,11 @@
     clear($('log')); $('ask').hidden = true; $('info').hidden = true; $('flash').hidden = true;
     $('setup').hidden = true; $('game').hidden = false;
     buildStatic(); fit();
-    log('Your deck: ' + md.name + '. Opponent: ' + od.owner + ' (' + od.name + ').');
-    log(S.G.players[S.G.tp].name + (S.G.tp === 0 ? ' take' : ' takes') + ' the first turn.');
+    log(S.two ? 'Player 1: ' + md.name + '. Player 2: ' + od.name + '.' : 'Your deck: ' + md.name + '. Opponent: ' + od.owner + ' (' + od.name + ').');
+    log(vb(S.G.tp, 'take') + ' the first turn.');
     window.scrollTo(0, 0);
     SND.init();
-    SND.music(od.bgm || 143 + Math.floor(Math.random() * 2)); // free battle: 0x8f + rand % 2
+    SND.music((!S.two && od.bgm) || 143 + Math.floor(Math.random() * 2)); // free battle: 0x8f + rand % 2
     runGame(S.token);
   }
 
@@ -1152,6 +1182,10 @@
   Array.prototype.forEach.call($('previewTabs').children, function (b) { b.onclick = function () { S.previewSide = b.dataset.side; renderSetup(); }; });
   $('btnRandom').onclick = function () { S.op = OP_DECKS[Math.floor(Math.random() * OP_DECKS.length)].id; S.previewSide = 'op'; renderSetup(); };
   $('btnStart').onclick = startGame;
+  $('mode').onchange = function () {
+    try { localStorage.setItem('ddcb-mode', $('mode').value); } catch (err) { /* ignore */ }
+    setMode($('mode').value === '2');
+  };
   $('arenaBtn').onclick = openArenas;
   try { B3D.enabled = localStorage.getItem('ddcb-anim3d') !== '0'; } catch (err) { /* storage unavailable */ }
   $('anim3d').checked = B3D.enabled;
@@ -1168,7 +1202,9 @@
 
   S.my = MY_DECKS[0].id;
   S.op = OP_DECKS[0].id;
-  renderSetup();
+  var mode = '1';
+  try { mode = localStorage.getItem('ddcb-mode') || '1'; } catch (err) { /* storage unavailable */ }
+  setMode(mode === '2');
 
   // small hook for automated checks
   window.DDCB_UI = { state: S, act: act };
