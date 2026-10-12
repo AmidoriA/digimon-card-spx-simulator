@@ -297,4 +297,18 @@ test('data quirk kept: comparison op 0xFF never passes (Aquilamon)', () => {
   assert.strictEqual(r.ev.find((e) => e.t === 'support').ok, false);
 });
 
+// CARD2.CDD: both records test variable 0x0e (the opponent's Level, 0x801e7f38) although the text says "own"
+test('data quirk kept: Veedramon and AeroVeedramon double on the opponent\'s Level U, not the own', () => {
+  ['Veedramon', 'AeroVeedramon'].forEach((sup) => {
+    const ok = (mon, foe) => fight(setup({ mon, hand: [sup] }, { mon: foe }), { attack: 0, support: 0 }, none(0)).ev.find((e) => e.t === 'support').ok;
+    assert.strictEqual(C('Gotsumon').level, 0);
+    assert.strictEqual(C('WarGreymon').level, 3);
+    assert.strictEqual(ok('Gotsumon', 'WarGreymon'), true, sup + ': R against U');
+    assert.strictEqual(ok('WarGreymon', 'Gotsumon'), false, sup + ': U against R');
+    const G = setup({ mon: 'Gotsumon', hand: [sup] }, { mon: 'WarGreymon' });
+    const r = fight(G, { attack: 0, support: 0 }, none(0));
+    assert.strictEqual(r.ev.filter((e) => e.t === 'atk' && e.p === 0).pop().s[0].atk[0], C('Gotsumon').atk[0].power * 2);
+  });
+});
+
 console.log(n + ' checks passed');

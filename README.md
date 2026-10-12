@@ -165,6 +165,15 @@ subtract floors at 0, divide rounds down to tens with a minimum of 10), `0x801e9
 compares, `0x801e81dc` executes 54 opcodes. One card (Aquilamon) ships with comparison
 operator `0xFF`, so its effect never fires; kept as is.
 
+Variable `0x0d` is the Level of the support's own Digimon and `0x0e` the opponent's: the
+battle routine calls the interpreter with the support's owner first (`0x801e71f0`,
+`0x801e7290`) and the Level reader (`0x801e7f1c`, `0x801e7f38`) takes the top card of that
+player's stack (`0x80040764`). Two cards carry a text that does not match their condition:
+Veedramon and AeroVeedramon say "If own Level is U, own Attack Power is doubled", but their
+records in `CARD2.CDD` test `0x0e`, as BKGatomon and Silver Ball do. In the game they
+double the attack when the *opponent* is U, whatever the own Level is; kept as is, text
+and condition both as shipped.
+
 `node tools/selftest.js` checks 19 of these behaviours; `node tools/sim.js 300` plays
 AI-vs-AI matches and checks card-count invariants.
 
