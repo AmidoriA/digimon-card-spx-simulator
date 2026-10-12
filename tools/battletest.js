@@ -28,7 +28,7 @@ const canvas = { getContext: () => gl, hidden: true, width: 1280, height: 960, c
 const sandbox = {
   window: { DDCB_DATA: data }, console, performance: { now: () => clock }, Math: math, Promise, Blob, Response, TextDecoder, DecompressionStream,
   Image: TestImage, Int16Array, Uint16Array, Uint8Array, Int32Array, Float32Array, Float64Array, DataView,
-  document: { getElementById: id => id === 'b3d' ? canvas : null },
+  document: { getElementById: id => id === 'b3d' ? canvas : null, createElement: () => ({ width:0,height:0,getContext:()=>({drawImage(){}}) }) },
   fetch: async url => { const p = path.join(web, url); return fs.existsSync(p) ? new Response(fs.readFileSync(p)) : new Response('', { status: 404 }); },
   setInterval: fn => { interval = fn; return 1; }, clearInterval: () => { interval = null; }
 };
@@ -36,6 +36,10 @@ vm.createContext(sandbox);
 for (const f of ['data/effects.js', 'effects.js', 'battlehd.js', 'battleultra.js', 'battle3d.js']) vm.runInContext(fs.readFileSync(path.join(web, 'js', f), 'utf8'), sandbox);
 const B = sandbox.window.DDCB_B3D, HD = sandbox.window.DDCB_BATTLE_HD;
 const cards = data.cards.filter(c => c.type === 'digimon');
+async function waitFor(check) {
+  const deadline = Date.now() + 5000;
+  while (!check() && Date.now() < deadline) await new Promise(resolve => setTimeout(resolve, 5));
+}
 function mesh(model) {
   const bytes = zlib.gunzipSync(fs.readFileSync(path.join(web, 'assets/models', String(model).padStart(3, '0') + '.bin.gz')));
   const w = new Int16Array(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
@@ -45,11 +49,18 @@ function mesh(model) {
 (async () => {
   let vertices = 0, triangles = 0;
   for (const model of new Set(cards.map(c => c.model))) {
-    const m = mesh(model), before = m.vb.slice(), hd = HD.refine(m);
+    const m = mesh(model), before = m.vb.slice(), hd = HD.refine(m), smooth = HD.smooth(m);
     assert(hd.vb.every(Number.isFinite), 'non-finite mesh ' + model);
     assert(hd.ib.every(i => i < hd.vb.length / 13), 'invalid index ' + model);
     assert(hd.ib.length === (hd.nto + hd.ntb) * 3);
     assert.deepStrictEqual(m.vb, before, 'modified original mesh ' + model);
+    assert(smooth.vb.every(Number.isFinite), 'non-finite Smooth mesh ' + model);
+    assert(smooth.ib.every(i => i < smooth.nv), 'invalid Smooth index ' + model);
+    assert(smooth.ib.length === m.ib.length * 16, 'Smooth did not subdivide twice ' + model);
+    for (let i = 0; i < smooth.vb.length; i += 13) {
+      assert(Number.isInteger(smooth.vb[i + 11]), 'Smooth changed body-part index');
+      assert(Number.isInteger(smooth.vb[i + 12]), 'Smooth changed palette index');
+    }
     for (let i = 0; i < hd.vb.length; i += 13) {
       assert(Number.isInteger(hd.vb[i + 11]), 'interpolated body index');
       assert(Number.isInteger(hd.vb[i + 12]), 'interpolated palette index');
@@ -88,7 +99,7 @@ function mesh(model) {
   for (const style of ['legacy', 'enhanced', 'ultra']) {
     B.setStyle(style); B.paused = true;
     const playback = B.attack(sample);
-    for (let i = 0; i < 100 && !B.busy(); i++) await new Promise(resolve => setImmediate(resolve));
+    await waitFor(() => B.busy());
     assert(B.busy(), 'live preview failed to start');
     B.advance(120); B.advance(48);
     const sc = B._debug();
@@ -119,7 +130,7 @@ function mesh(model) {
   B.setStyle('ultra'); B.paused = true;
   for (const arena of arenas) {
     const playback = B.attack({ ...sample, arena });
-    for (let i = 0; i < 100 && !B.busy(); i++) await new Promise(resolve => setImmediate(resolve));
+    await waitFor(() => B.busy());
     assert(B.busy(), 'arena preview failed: ' + arena.file);
     B.advance(12);
     assert.strictEqual(B.stats().arenaTextureScale, 4, 'HD arena did not load: ' + arena.file);
@@ -127,5 +138,34 @@ function mesh(model) {
     B.stop(); await playback;
   }
   assert.strictEqual(B.setStyle('nonsense'), 'enhanced');
+  B.setStyle('ultra'); B.paused=true;
+  const customPlayback=B.attack(sample);
+  await waitFor(() => B.busy());
+  assert(B.busy());B.advance(120);
+  const frame=B._debug().frame;
+  const initial=B.getGraphics();
+  B.setGraphics({model:'original'});
+  assert.strictEqual(B.stats().model,'original');assert.strictEqual(B.getGraphics().lighting,initial.lighting);
+  B.setGraphics({model:'smooth',lighting:'legacy',resolution:'medium',arena:'2x'});
+  await waitFor(() => B.stats().arenaTextureScale === 2);
+  assert.strictEqual(B.stats().width,640);assert.strictEqual(B.stats().model,'smooth');assert.strictEqual(B.stats().shadows,false);
+  assert.strictEqual(B.stats().arenaTextureScale,2);assert.strictEqual(B.style,'ultra','changing lighting changed particle level');
+  assert.strictEqual(B.getPreset(),'custom');assert.strictEqual(B._debug().frame,frame,'graphics change advanced the animation');
+  for(const [resolution,width] of [['ps1',320],['medium',640],['high',960],['maximum',1280],['auto',960]]){
+    B.setGraphics({resolution});assert.strictEqual(B.stats().width,width,'incorrect independent resolution');
+  }
+  B.setGraphics({effects:'legacy'});B.advance(12);assert.strictEqual(B._debug().modern.length,0,'Original effects kept modern particles');
+  B.setStyle('legacy');assert.strictEqual(B.getPreset(),'legacy');assert.strictEqual(B.stats().width,320);assert.strictEqual(B.stats().arenaTextureScale,1);
+  B.setGraphics({model:'bad',lighting:'bad',resolution:'bad',arena:'bad',effects:'bad'});assert.strictEqual(B.getPreset(),'legacy','invalid settings changed preset');
+  B.stop();await customPlayback;
+  B.setStyle('ultra');B.paused=true;
+  for(const digimon of cards.filter((c,i,all)=>all.findIndex(a=>a.model===c.model)===i).slice(0,6)){
+    const atk=digimon.atk[0], playback=B.attack({...sample,models:[digimon.model,cards[0].model],script:atk.script,hit:atk.hit,name:atk.name});
+    await waitFor(() => B.busy());
+    assert(B.busy(),'Smooth model preview failed');assert(B.stats().smoothModels<=4,'Smooth cache exceeded its budget');
+    B.stop();await playback;
+  }
+  assert(B.stats().smoothModels<=4,'Smooth GPU model budget exceeded');
+  console.log('PASS: Smooth meshes, independent settings, fixed/adaptive resolutions, 24 arena atlases and bounded GPU caches.');
   console.log('PASS: %d Digimon, %d attacks × three styles; longest %d frames; misses and counters emit no attack effects.', cards.length, count, max);
 })().catch(e => { console.error(e); process.exitCode = 1; });

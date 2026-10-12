@@ -34,12 +34,12 @@
     gl.bindRenderbuffer(gl.RENDERBUFFER,depth);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,SIZE,SIZE);
     gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,depth);
     if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE){gl.deleteTexture(tex);gl.deleteFramebuffer(fbo);gl.deleteRenderbuffer(depth);gl.deleteProgram(dp);return null;}
-    function draw(actors) {
+    function draw(actors,meshFor) {
       var frame=matrix(actors);
       gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);gl.viewport(0,0,SIZE,SIZE);gl.clearColor(1,1,1,1);gl.clearDepth(1);gl.depthMask(true);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.BLEND);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(dp);
       gl.uniformMatrix4fv(dl.uLight,false,frame.light);
       actors.forEach(function(a){
-        var m=a.m, mesh=m.hd||m, M=new Float32Array(288), T=new Float32Array(96), S=new Float32Array(32);
+        var m=a.m, mesh=meshFor?meshFor(m):m.hd||m, M=new Float32Array(288), T=new Float32Array(96), S=new Float32Array(32);
         for(var i=0;i<m.n&&i<32;i++){var mt=a.mats[i];for(var k=0;k<9;k++)M[i*9+k]=mt.m[(k%3)*3+Math.floor(k/3)];T.set(mt.t,i*3);S[i]=a.show[i]?1:0;}
         gl.uniformMatrix3fv(dl.uM,false,M);gl.uniform3fv(dl.uT,T);gl.uniform1fv(dl.uShow,S);gl.uniform2f(dl.uTex,m.tw,m.th);gl.uniform1f(dl.uPalN,Math.max(1,m.npal));
         gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,m.tex);gl.uniform1i(dl.uS,0);gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,m.pal);gl.uniform1i(dl.uP,1);

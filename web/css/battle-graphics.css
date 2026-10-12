@@ -1,0 +1,10 @@
+.graphics-settings { border: 1px solid #354568; border-radius: 8px; background: #101a28; padding: 10px 12px; }
+.graphics-settings summary { cursor: pointer; color: #b6c9e4; font-weight: 600; }
+.graphics-settings .graphics-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 12px; margin-top: 14px; }
+.graphics-settings .optl { display: grid; gap: 6px; min-width: 0; }
+.graphics-settings select { width: 100%; min-width: 0; }
+.graphics-settings p { margin: 10px 0 0; color: #9caec8; font-size: 12px; }
+.setup-graphics { flex-basis: 100%; }
+.rail .graphics-settings .graphics-grid { grid-template-columns: 1fr; }
+.rail .graphics-settings { flex-basis: 100%; width: 100%; }
+.preview-graphics { margin: 12px 0 18px; }

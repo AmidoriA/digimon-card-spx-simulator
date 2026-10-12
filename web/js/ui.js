@@ -1348,16 +1348,7 @@
     setMode($('mode').value === '2');
   };
   $('arenaBtn').onclick = openArenas;
-  function setBattleStyle(style) {
-    var chosen = B3D.setStyle(style);
-    $('battleStyle').value = chosen; $('battleStyleMatch').value = chosen;
-    try { localStorage.setItem('ddcb-battle-style', chosen); } catch (err) { /* storage unavailable */ }
-  }
-  var battleStyle = 'enhanced';
-  try { battleStyle = localStorage.getItem('ddcb-battle-style') || battleStyle; } catch (err) { /* ignore */ }
-  setBattleStyle(battleStyle);
-  $('battleStyle').onchange = function () { setBattleStyle(this.value); };
-  $('battleStyleMatch').onchange = function () { setBattleStyle(this.value); };
+  // Independent battle graphics controls are shared with the preview by battlegraphics.js.
   try { B3D.enabled = localStorage.getItem('ddcb-anim3d') !== '0'; } catch (err) { /* storage unavailable */ }
   $('anim3d').checked = B3D.enabled;
   $('anim3d').onchange = function () {

@@ -3,10 +3,14 @@
   var B = window.DDCB_B3D, cards = window.DDCB_DATA.cards.filter(function (c) { return c.type === 'digimon'; });
   var $ = function (id) { return document.getElementById(id); }, run = 0, playingName = '';
   cards.slice().sort(function (a, b) { return a.name.localeCompare(b.name); }).forEach(function (c) {
-    var option = document.createElement('option'); option.value = c.id; option.textContent = c.name; $('previewCard').appendChild(option);
+    ['previewCard', 'previewOpponent'].forEach(function (id) {
+      var option = document.createElement('option'); option.value = c.id; option.textContent = c.name; $(id).appendChild(option);
+    });
   });
   var agumon = cards.find(function (c) { return c.name === 'Agumon'; });
   if (agumon) $('previewCard').value = agumon.id;
+  var garurumon = cards.find(function (c) { return c.name === 'Garurumon'; }) || cards[0];
+  $('previewOpponent').value = garurumon.id;
   function selected() { return window.DDCB_DATA.cards[+$('previewCard').value]; }
   function attacks() {
     $('previewAttack').textContent = '';
@@ -16,12 +20,7 @@
   }
   attacks();
   $('previewCard').onchange = attacks;
-  try { $('previewStyle').value = localStorage.getItem('ddcb-battle-style') || 'enhanced'; } catch (err) { /* ignore */ }
-  B.setStyle($('previewStyle').value);
-  $('previewStyle').onchange = function () {
-    B.setStyle(this.value);
-    try { localStorage.setItem('ddcb-battle-style', B.style); } catch (err) { /* ignore */ }
-  };
+  // Presets and independent settings are shared with the game by battlegraphics.js.
   var arenaList = [];
   function showStage() {
     var arena = arenaList.find(function (a) { return String(a.index) === $('previewStage').value; });
@@ -68,7 +67,8 @@
   };
   $('previewPlay').onclick = function () {
     var token = ++run, card = selected(), k = +$('previewAttack').value, attack = card.atk[k], stage = $('previewStage').value;
-    playingName = card.name;
+    var opponent = window.DDCB_DATA.cards[+$('previewOpponent').value];
+    playingName = card.name + ' vs ' + opponent.name;
     B.stop(); B.paused = false; $('previewPause').textContent = 'Pause'; $('previewPause').disabled = $('previewStep').disabled = true;
     $('previewStatus').textContent = 'Loading ' + card.name + ' · ' + attack.name + '…';
     arenas.then(function (list) {
@@ -79,15 +79,14 @@
         var free = list.filter(function (a) { return a.index >= 44 && a.index <= 55; });
         arena = (free.length ? free : list)[Math.floor(Math.random() * (free.length || list.length))];
       }
-      var opponent = cards.find(function (c) { return c.name === 'Garurumon'; }) || cards[0];
       $('previewPause').disabled = $('previewStep').disabled = false;
-      $('previewStatus').textContent = card.name + ' · ' + attack.name + ' — preview damage: 300 HP';
+      $('previewStatus').textContent = playingName + ' · ' + attack.name + ' — preview damage: 300 HP';
       return B.attack({ models: [card.model, opponent.model], attacker: 0, first: 0, script: attack.script, hit: attack.hit,
         attack: k, name: attack.name, specialty: card.spec, arena: arena, sound: false,
         hp: [1200, 900], hpBefore: 1200, damage: 300 }).then(function (ok) {
         if (token !== run) return;
         $('previewPause').disabled = $('previewStep').disabled = true; $('previewPause').textContent = 'Pause';
-        $('previewStatus').textContent = ok ? card.name + ' · ' + attack.name + ' finished. Play again or choose another move.' : 'The animation could not load. Reload and try again.';
+        $('previewStatus').textContent = ok ? playingName + ' · ' + attack.name + ' finished. Play again or choose another move.' : 'The animation could not load. Reload and try again.';
       });
     }).catch(function () { if (token === run) $('previewStatus').textContent = 'The arena could not load. Reload and try again.'; });
   };

@@ -40,12 +40,29 @@
   var api = { enabled: true, style: 'enhanced' }, HD = window.DDCB_BATTLE_HD;
   var targetW = W, targetH = HGT, depth = null, depthFormat = null, hdScale = 3, slowFrames = 0, inspecting = false;
   var ULTRA = window.DDCB_BATTLE_ULTRA, shadows = null, shadowTried = false;
+  var graphics = {lighting:'enhanced',model:'refined',resolution:'auto',arena:'4x',effects:'enhanced'}, smoothCache = [];
+  var choices = {lighting:['legacy','enhanced','ultra'],model:['original','refined','smooth'],resolution:['auto','ps1','medium','high','maximum'],arena:['original','2x','4x'],effects:['legacy','enhanced','ultra']};
+  function preset(style) { return {lighting:style,model:style==='legacy'?'original':style==='ultra'?'smooth':'refined',resolution:style==='legacy'?'ps1':'auto',arena:style==='legacy'?'original':'4x',effects:style}; }
+  function requestedScale() { return {auto:3,ps1:1,medium:2,high:3,maximum:4}[graphics.resolution]; }
+  function lighting() { return graphics.lighting !== 'legacy'; }
+  function ultraLighting() { return graphics.lighting === 'ultra'; }
+  function filtering() { return graphics.resolution !== 'ps1'; }
+  function arenaScale() { return graphics.arena==='2x'?2:graphics.arena==='4x'?4:1; }
+  function detailedArena(m) { return arenaScale()>1 && m.arenaTex && m.arenaScale===arenaScale(); }
+  function modelMesh(m) {
+    if (m.material<0 || m.material==null || graphics.model==='original') return m;
+    if (graphics.model==='refined') { if(!m.hd)m.hd=buffers(HD.refine(m));return m.hd; }
+    if(!m.smooth)m.smooth=buffers(HD.smooth(m));
+    smoothCache=smoothCache.filter(function(x){return x!==m;});smoothCache.push(m);
+    while(smoothCache.length>4){var old=smoothCache.shift();gl.deleteBuffer(old.smooth.vbo);gl.deleteBuffer(old.smooth.ibo);old.smooth=null;}
+    return m.smooth;
+  }
   function enhanced() { return api.style !== 'legacy' && !!HD; }
   function ultra() { return api.style === 'ultra' && !!HD; }
   function quality() { return HD.quality(api.style); }
   function resizeTarget() {
-    var scale = enhanced() ? hdScale : 1, w = W * scale, h = HGT * scale;
-    canvas.classList.toggle('enhanced', enhanced());
+    var scale = hdScale, w = W * scale, h = HGT * scale;
+    canvas.classList.toggle('enhanced', scale>1);
     var outputScale = 4;
     if (canvas.width !== W * outputScale) { canvas.width = W * outputScale; canvas.height = HGT * outputScale; }
     if (OV.canvas && OV.canvas.width !== canvas.width) { OV.canvas.width = canvas.width; OV.canvas.height = canvas.height; }
@@ -186,19 +203,26 @@
   // Keep only two GPU atlases resident when browsing all 24 stages.
   var arenaHDCache = [];
   function loadArenaHD(m, file) {
-    if (m.arenaTex) {
+    var scale=arenaScale();
+    if (m.arenaTex && m.arenaScale===scale) {
       arenaHDCache = arenaHDCache.filter(function(x){return x!==m;}); arenaHDCache.push(m);
       return Promise.resolve(m);
     }
-    if (m.arenaP) return m.arenaP;
+    if (m.arenaP && m.arenaLoadingScale===scale) return m.arenaP;
+    m.arenaLoadingScale=scale;
+    var token=m.arenaLoadToken=(m.arenaLoadToken||0)+1;
     var base = 'assets/battle/arena-hd/' + file;
     m.arenaP = Promise.all([
       fetch(base+'.json').then(function(r){if(!r.ok)throw new Error('no HD arena');return r.json();}), image(base+'.webp')
     ]).then(function(a){
       var info=a[0], im=a[1];
+      if(token!==m.arenaLoadToken)return m;
       if (im.width!==info.width || im.height!==info.height || info.uv.length!==m.npal) throw new Error('invalid HD arena');
+      if(scale===2){var small=document.createElement('canvas');small.width=im.width/2;small.height=im.height/2;var ctx=small.getContext('2d');ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(im,0,0,small.width,small.height);im=small;}
       if (im.width>gl.getParameter(gl.MAX_TEXTURE_SIZE) || im.height>gl.getParameter(gl.MAX_TEXTURE_SIZE)) throw new Error('HD arena exceeds GPU texture limit');
-      m.arenaTex=texture(im); m.arenaMeta=info;
+      if(m.arenaTex)gl.deleteTexture(m.arenaTex);
+      arenaHDCache=arenaHDCache.filter(function(x){return x!==m;});
+      m.arenaTex=texture(im); m.arenaMeta=info; m.arenaScale=scale;
       gl.bindTexture(gl.TEXTURE_2D,m.arenaTex);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
       gl.generateMipmap(gl.TEXTURE_2D);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);
       var ext=gl.getExtension('EXT_texture_filter_anisotropic')||gl.getExtension('WEBKIT_EXT_texture_filter_anisotropic');
@@ -206,7 +230,7 @@
       arenaHDCache.push(m);
       while(arenaHDCache.length>2){var evict=arenaHDCache.findIndex(function(x){return !(scene&&scene.arena&&scene.arena.actor.m===x);});var old=arenaHDCache.splice(evict,1)[0];gl.deleteTexture(old.arenaTex);old.arenaTex=null;old.arenaP=null;}
       return m;
-    }).catch(function(){m.arenaP=null;return m;});
+    }).catch(function(){if(token===m.arenaLoadToken)m.arenaP=null;return m;});
     return m.arenaP;
   }
 
@@ -317,11 +341,11 @@
     'vShadow=uLight*vec4(w,1.0);vN=m*aN;vE=e;vLocal=aP;vBase=aC/128.0*uBright;vC=vBase*lit;vTex=aT.x<0.0?0.0:1.0;vUV=(aT.xy+0.5)/uTex;vPal=(aT.w+0.5)/uPalN;' +
     'gl_Position=vec4(e.x*uF/160.0,-e.y*uF/120.0,e.z*DA+DB,e.z);if(uShow[i]>0.5)gl_Position=vec4(2.0,2.0,2.0,1.0);}';
   var PAL_GLSL = HD ? HD.paletteGLSL : 'vec4 palSample(vec2 uv){float ix=texture2D(uS,uv).r*255.0;return texture2D(uP,vec2((ix+0.5)/256.0,PAL));}vec4 smoothPal(vec2 uv){return palSample(uv);}';
-  var FS = 'precision highp float;uniform sampler2D uS,uP;uniform vec2 uTex;uniform float uEnhanced,uMaterial,uUltra,uShadowReady,uArenaHD;uniform vec4 uArenaUV;uniform mat3 uV;uniform vec4 uFxPos[2];uniform vec3 uFxColor;' +
+  var FS = 'precision highp float;uniform sampler2D uS,uP;uniform vec2 uTex;uniform float uEnhanced,uFilter,uMaterial,uUltra,uShadowReady,uArenaHD;uniform vec4 uArenaUV;uniform mat3 uV;uniform vec4 uFxPos[2];uniform vec3 uFxColor;' +
     'uniform vec3 uLD[3],uLC[3],uBK;varying vec3 vC,vN,vE,vBase,vLocal;varying vec2 vUV;varying float vPal,vTex;' +
     (ULTRA ? ULTRA.shadowGLSL : 'varying vec4 vShadow;float shadowMask(float bias){return 0.0;}') +
     PAL_GLSL.replace(/PAL/g, 'vPal') +
-    'void main(){vec2 arenaUV=clamp(vUV,0.5/uTex,1.0-0.5/uTex)*uArenaUV.zw+uArenaUV.xy;vec4 c=vTex<0.5?vec4(0.5,0.5,0.5,1.0):(uArenaHD>0.5?texture2D(uS,arenaUV):(uEnhanced>0.5?smoothPal(vUV):palSample(vUV)));if(c.a<0.5)discard;' +
+    'void main(){vec2 arenaUV=clamp(vUV,0.5/uTex,1.0-0.5/uTex)*uArenaUV.zw+uArenaUV.xy;vec4 c=vTex<0.5?vec4(0.5,0.5,0.5,1.0):(uArenaHD>0.5?texture2D(uS,arenaUV):(uFilter>0.5?smoothPal(vUV):palSample(vUV)));if(c.a<0.5)discard;' +
     'vec3 col=c.rgb*vC;if(uEnhanced>0.5&&uMaterial>=0.0&&dot(vN,vN)>0.01){vec3 n=normalize(vN);vec3 eye=normalize(-vE);vec3 en=normalize(uV*n);' +
     'float shade=0.0;if(uUltra>0.5&&uShadowReady>0.5)shade=shadowMask(0.0025+0.003*(1.0-abs(n.y)));' +
     'vec3 lit=uBK+vec3(0.14,0.16,0.2);for(int k=0;k<3;k++)lit+=uLC[k]*max(0.0,dot(n,uLD[k]))*(1.0-shade*0.65);' +
@@ -346,8 +370,9 @@
   var BFS = 'precision mediump float;uniform sampler2D uS;uniform vec2 uPixel;uniform float uEnhanced,uUltra;varying vec2 vUV;' +
     'vec3 bright(vec2 uv){vec3 c=texture2D(uS,uv).rgb;return c*max(0.0,max(c.r,max(c.g,c.b))-0.7);}' +
     'void main(){vec3 c=texture2D(uS,vUV).rgb;if(uEnhanced>0.5){vec3 glow=vec3(0.0);' +
-    'for(int i=1;i<=3;i++){vec2 d=uPixel*float(i)*2.0;glow+=bright(vUV+vec2(d.x,0.0))+bright(vUV-vec2(d.x,0.0))+bright(vUV+vec2(0.0,d.y))+bright(vUV-vec2(0.0,d.y));}' +
-    'if(uUltra>0.5){for(int i=1;i<=3;i++){vec2 d=uPixel*float(i)*8.0;glow+=0.6*(bright(vUV+d)+bright(vUV-d)+bright(vUV+vec2(d.x,-d.y))+bright(vUV+vec2(-d.x,d.y)));}}' +
+    // Ultra lights the actual surfaces. Offset copies of bright scene pixels produced
+    // ghost silhouettes, so it uses no screen-space bloom; Enhanced keeps its original glow.
+    'if(uUltra<0.5){for(int i=1;i<=3;i++){vec2 d=uPixel*float(i)*2.0;glow+=bright(vUV+vec2(d.x,0.0))+bright(vUV-vec2(d.x,0.0))+bright(vUV+vec2(0.0,d.y))+bright(vUV-vec2(0.0,d.y));}}' +
     'c+=glow*0.095;float vignette=1.0-0.16*dot((vUV-0.5)*1.4,(vUV-0.5)*1.4);c=pow(max(c*vignette,vec3(0.0)),vec3(0.96));}gl_FragColor=vec4(c,1.0);}';
   // uK: brightness, share of the colour that is added, share of the picture behind that is covered
   var OFS = 'precision mediump float;uniform sampler2D uS;uniform vec3 uK;varying vec2 vUV;' +
@@ -370,7 +395,7 @@
     if (!gl) return false;
     prog = program(VS, FS);
     ['aP', 'aN', 'aC', 'aT'].forEach(function (a) { loc[a] = gl.getAttribLocation(prog, a); });
-    ['uM', 'uT', 'uShow', 'uV', 'uVT', 'uTex', 'uPalN', 'uS', 'uP', 'uBright', 'uLD', 'uLC', 'uBK', 'uF', 'uEnhanced', 'uMaterial', 'uUltra', 'uLight', 'uShadow', 'uShadowReady', 'uFxPos', 'uFxColor', 'uArenaHD', 'uArenaUV'].forEach(function (u) { loc[u] = gl.getUniformLocation(prog, u); });
+    ['uM', 'uT', 'uShow', 'uV', 'uVT', 'uTex', 'uPalN', 'uS', 'uP', 'uBright', 'uLD', 'uLC', 'uBK', 'uF', 'uEnhanced', 'uFilter', 'uMaterial', 'uUltra', 'uLight', 'uShadow', 'uShadowReady', 'uFxPos', 'uFxColor', 'uArenaHD', 'uArenaUV'].forEach(function (u) { loc[u] = gl.getUniformLocation(prog, u); });
     pprog = program(PVS, PFS); ploc = { p: gl.getAttribLocation(pprog, 'p'), c: gl.getAttribLocation(pprog, 'c') };
     sprog = program(SVS, SFS);
     sloc = { p: gl.getAttribLocation(sprog, 'p'), t: gl.getAttribLocation(sprog, 't') };
@@ -394,12 +419,10 @@
   }
   function drawActor(a, order) {
     var m = a.m, mesh = m, M = new Float32Array(32 * 9), T = new Float32Array(32 * 3), S = new Float32Array(32), i, k;
-    var arenaHD = enhanced() && !!m.arenaTex && order;
-    if (enhanced() && m.material >= 0 && !order) {
-      if (!m.hd) m.hd = buffers(HD.refine(m));
-      mesh = m.hd;
-    }
-    gl.uniform1f(loc.uEnhanced, enhanced() ? 1 : 0);
+    var arenaHD = detailedArena(m) && order;
+    if (!order) mesh=modelMesh(m);
+    gl.uniform1f(loc.uEnhanced, lighting() ? 1 : 0);
+    gl.uniform1f(loc.uFilter, filtering() ? 1 : 0);
     gl.uniform1f(loc.uArenaHD, arenaHD ? 1 : 0);
     gl.uniform1f(loc.uMaterial, m.material == null ? -1 : m.material);
     for (i = 0; i < m.n && i < 32; i++) {
@@ -450,7 +473,7 @@
     var idx = new Uint16Array(nt * 3), runs = [], n = 0;
     prims.forEach(function (q) {
       var last = runs[runs.length - 1];
-      if (!last || last.blend !== q.blend || (enhanced() && m.arenaTex && last.pal !== q.pal)) runs.push(last = { blend: q.blend, pal: q.pal, start: n, count: 0 });
+      if (!last || last.blend !== q.blend || (detailedArena(m) && last.pal !== q.pal)) runs.push(last = { blend: q.blend, pal: q.pal, start: n, count: 0 });
       for (i = 0; i < q.n * 3; i++) idx[n++] = ib[q.t * 3 + i];
       last.count += q.n * 3;
     });
@@ -459,7 +482,7 @@
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.sorted); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, idx, gl.DYNAMIC_DRAW);
     gl.disable(gl.DEPTH_TEST);
     runs.forEach(function (r) {
-      if(enhanced()&&m.arenaTex)gl.uniform4fv(loc.uArenaUV,new Float32Array(m.arenaMeta.uv[r.pal]||[0,0,0,0]));
+      if(detailedArena(m))gl.uniform4fv(loc.uArenaUV,new Float32Array(m.arenaMeta.uv[r.pal]||[0,0,0,0]));
       // blend modes of the GPU: 0 half + half, 1 add, 2 subtract, 3 add a quarter; -1 opaque
       if (r.blend < 0) gl.disable(gl.BLEND); else gl.enable(gl.BLEND);
       if (r.blend === 0) { gl.blendColor(0.5, 0.5, 0.5, 1); gl.blendFunc(gl.CONSTANT_COLOR, gl.CONSTANT_COLOR); }
@@ -598,7 +621,7 @@
       if (!isFinite(x+y+z+r) || z < 16 || x < -80 || x > 400 || y < -80 || y > 320) return;
       candidates.push({ pos:[(x-160)*z/448,(y-120)*z/448,z,Math.min(1200,Math.max(160,r*z/448*5))],weight:r });
     }
-    if (ultra() && sc.allowModern) {
+    if (ultraLighting() && sc.allowModern) {
       sprites.slice(0,48).forEach(function(s){if(s.blend===2||s.col<16)return;var v=s.v;add((v[0]+v[15])/2,(v[1]+v[16])/2,v[2],Math.hypot(v[0]-v[15],v[1]-v[16])*0.4);});
       sc.extra.slice(0,8).forEach(function(a){if(a.visible&&a.bright>0.2){var p=modernPoint(sc,a.pos);if(p)add(p[0],p[1],p[2],32);}});
       for(var i=0;i<lin.length&&i<96;i+=12)add(lin[i],lin[i+1],lin[i+2],12);
@@ -615,11 +638,10 @@
     if (!gl || !scene) return;
     resizeTarget();
     var shadowFrame = null, visible = scene.actors.filter(function(a){return a.visible;});
-    if (ultra() && ULTRA && visible.length) {
+    if (ultraLighting() && ULTRA && visible.length) {
       if (!shadowTried) { shadowTried = true; try { shadows = ULTRA.create(gl,program); } catch (err) { console.warn('Ultra shadows unavailable',err); } }
       if (shadows) {
-        visible.forEach(function(a){if(!a.m.hd)a.m.hd=buffers(HD.refine(a.m));});
-        shadowFrame = shadows.draw(visible);
+        shadowFrame = shadows.draw(visible,modelMesh);
       }
     }
     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
@@ -633,7 +655,7 @@
     for (k = 0; k < 9; k++) V[k] = R[(k % 3) * 3 + Math.floor(k / 3)];
     gl.uniformMatrix3fv(loc.uV, false, V);
     gl.uniform1f(loc.uF, scene.focal || 448);            // the game's projection distance
-    gl.uniform1f(loc.uUltra, ultra() ? 1 : 0); gl.uniform1f(loc.uShadowReady, shadowFrame ? 1 : 0);
+    gl.uniform1f(loc.uUltra, ultraLighting() ? 1 : 0); gl.uniform1f(loc.uShadowReady, shadowFrame ? 1 : 0);
     if (shadowFrame) {
       gl.uniformMatrix4fv(loc.uLight,false,shadowFrame.light);
       gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,shadows.texture);gl.uniform1i(loc.uShadow,2);
@@ -659,7 +681,7 @@
     gl.enable(gl.BLEND); gl.depthMask(false);
     if (sprites.length) {
       gl.useProgram(sprog);
-      gl.uniform1f(sloc.uEnhanced, enhanced() ? 1 : 0);
+      gl.uniform1f(sloc.uEnhanced, filtering() ? 1 : 0);
       gl.bindBuffer(gl.ARRAY_BUFFER, pbuf);
       gl.enableVertexAttribArray(sloc.p); gl.enableVertexAttribArray(sloc.t);
       gl.vertexAttribPointer(sloc.p, 3, gl.FLOAT, false, 20, 0); gl.vertexAttribPointer(sloc.t, 2, gl.FLOAT, false, 20, 12);
@@ -916,8 +938,8 @@
     gl.enableVertexAttribArray(bloc.p); gl.enableVertexAttribArray(bloc.t);
     gl.vertexAttribPointer(bloc.p, 2, gl.FLOAT, false, 16, 0); gl.vertexAttribPointer(bloc.t, 2, gl.FLOAT, false, 16, 8);
     gl.bindTexture(gl.TEXTURE_2D, ftex); gl.uniform1i(bloc.uS, 0); gl.uniform2f(bloc.uTex, W, HGT);
-    gl.uniform2f(bloc.uPixel, 1 / targetW, 1 / targetH); gl.uniform1f(bloc.uEnhanced, enhanced() ? 1 : 0);
-    gl.uniform1f(bloc.uUltra, ultra() ? 1 : 0);
+    gl.uniform2f(bloc.uPixel, 1 / targetW, 1 / targetH); gl.uniform1f(bloc.uEnhanced, lighting() ? 1 : 0);
+    gl.uniform1f(bloc.uUltra, ultraLighting() ? 1 : 0);
     quad(0, 0, W, HGT, 0, HGT, W, 0);
     gl.disableVertexAttribArray(bloc.p); gl.disableVertexAttribArray(bloc.t);
     gl.useProgram(oprog);
@@ -1191,9 +1213,9 @@
     last += n * FRAME_MS;
     if (now - last > 200) last = now;
     if (api.paused) return;                     // for looking at one frame while testing
-    if (enhanced() && !inspecting) {
+    if (graphics.resolution==='auto' && !inspecting) {
       slowFrames = n >= 3 ? slowFrames + 1 : Math.max(0, slowFrames - 1);
-      if (slowFrames >= 24) { hdScale = Math.max(quality().minScale,hdScale-1); slowFrames = 0; }
+      if (slowFrames >= 24) { hdScale = Math.max(2,hdScale-1); slowFrames = 0; }
     }
     // the effect objects of effects.js draw through this scene's camera while it runs
     var core = C.core, keep = { project: core.project, bill: core.bill, origin: core.origin };
@@ -1257,8 +1279,8 @@
     if (!(api.enabled || opts.dry) || !initGL()) return Promise.resolve(false);
     stop();
     var request = ++sceneRequest;
-    hdScale = quality().scale; slowFrames = 0;
-    var arenaP = opts.arena ? load('bg' + opts.arena.file).then(function(m){return opts.dry||!enhanced()?m:loadArenaHD(m,opts.arena.file);}).catch(function () { return null; }) : Promise.resolve(null);
+    hdScale = requestedScale(); slowFrames = 0;
+    var arenaP = opts.arena ? load('bg' + opts.arena.file).then(function(m){return opts.dry||arenaScale()===1?m:loadArenaHD(m,opts.arena.file);}).catch(function () { return null; }) : Promise.resolve(null);
     return Promise.all([load(opts.models[0]), load(opts.models[1]), loadScripts(), arenaP, opts.dry ? null : loadOverlay()]).then(function (r) {
       if (request !== sceneRequest) return false;
       var scripts = r[2], mode = opts.mode || 'normal', list = [];
@@ -1356,6 +1378,9 @@
             return;
           }
           canvas.hidden = false;
+          // If the user changed arena quality while the attack was loading, finish loading
+          // the current choice without restarting or advancing its animation.
+          if(arena&&arenaScale()>1&&!detailedArena(arena.actor.m))loadArenaHD(arena.actor.m,arena.file).then(function(){if(scene===sc)render();});
           OV.canvas = document.getElementById('b3dui');
           if (OV.canvas) { OV.ctx = OV.canvas.getContext('2d'); OV.canvas.hidden = false; }
           last = performance.now();
@@ -1387,14 +1412,23 @@
   api.stop = stop;
   api.setStyle = function (style) {
     api.style = style === 'legacy' ? 'legacy' : style === 'ultra' ? 'ultra' : 'enhanced';
-    hdScale = quality().scale; slowFrames = 0;
     if (scene && scene.modern) scene.modern.length = 0;
     if (scene && scene.rings) scene.rings.length = 0;
-    if (enhanced() && scene && scene.arena && scene.arena.file && !scene.arena.actor.m.arenaTex) {
-      var sc = scene; loadArenaHD(sc.arena.actor.m,sc.arena.file).then(function(){if(scene===sc)render();});
-    }
-    if (gl && scene) render();
+    hdScale=api.style==='legacy'?1:3;slowFrames=0;
+    api.setGraphics(preset(api.style));
     return api.style;
+  };
+  api.getGraphics = function () { return Object.assign({},graphics); };
+  api.getPreset = function () { var p=preset(api.style);return Object.keys(choices).every(function(k){return graphics[k]===p[k];})?api.style:'custom'; };
+  api.setGraphics = function (value) {
+    var previous=graphics.resolution;
+    Object.keys(choices).forEach(function(k){if(value&&choices[k].indexOf(value[k])>=0)graphics[k]=value[k];});
+    if(api.style!==graphics.effects){api.style=graphics.effects;if(scene&&scene.modern)scene.modern.length=0;if(scene&&scene.rings)scene.rings.length=0;}
+    if(previous!==graphics.resolution){hdScale=requestedScale();slowFrames=0;}
+    if(arenaScale()>1&&scene&&scene.arena&&scene.arena.file&&!detailedArena(scene.arena.actor.m)){
+      var sc=scene;loadArenaHD(sc.arena.actor.m,sc.arena.file).then(function(){if(scene===sc)render();});
+    }
+    if(gl&&scene)render();return api.getGraphics();
   };
   // Preview controls can inspect the same animation moment in both styles.
   api.advance = function (frames) {
@@ -1413,7 +1447,8 @@
   api.stats = function () {
     var arena = scene&&scene.arena&&scene.arena.actor.m;
     return { style:api.style, width:targetW, height:targetH, particles:scene&&scene.modern?scene.modern.length:0,
-      shadows:ultra()&&!!shadows, particleLimit:quality().particles, arenaTextureScale:enhanced()&&arena&&arena.arenaTex?4:1, arenaAtlases:arenaHDCache.length };
+      shadows:ultraLighting()&&!!shadows, particleLimit:quality().particles, arenaTextureScale:arena&&detailedArena(arena)?arena.arenaScale:1, arenaAtlases:arenaHDCache.length,
+      model:graphics.model,lighting:graphics.lighting,resolution:graphics.resolution,smoothModels:smoothCache.length };
   };
   window.DDCB_B3D = api;
 })();

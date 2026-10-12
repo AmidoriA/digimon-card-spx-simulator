@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Attack preview · Digital Card Battle</title>
 <link rel="stylesheet" href="css/style.css?v=battle-hd-7">
+<link rel="stylesheet" href="css/battle-graphics.css?v=battle-options-2">
 <style>
   .showcase { max-width: 1080px; margin: 32px auto; padding: 0 20px; }
   .showcase h1 { margin: 16px 0 8px; }
@@ -25,18 +26,20 @@
   <a class="btn ghost small" href="index.html">&larr; Back to game</a>
   <p class="kicker">All 191 Digimon · All three attacks</p>
   <h1>Attack preview</h1>
-  <p>Choose a stage before playing. Compare Original PS1, Enhanced and Enhanced Ultra at the same moment. Both enhanced levels use sharper arena textures. Ultra adds denser particles, glowing attack lighting and shadows on the Digimon at the same resolution as Enhanced.</p>
+  <p>Choose a Digimon, opponent, stage and move, then play the attack. Garurumon is the default opponent. Use the battle visuals presets, or open Graphics options to mix lighting, model shape, resolution and attack effects. Switch settings while paused to compare the same moment.</p>
   <div class="preview-controls">
     <label class="optl">Digimon<select id="previewCard"></select></label>
     <label class="optl">Attack<select id="previewAttack"></select></label>
+    <label class="optl">Opponent<select id="previewOpponent"></select></label>
     <label class="optl">Stage
       <span class="preview-stage"><select id="previewStage" aria-label="Stage" disabled><option>Loading stages…</option></select><img id="previewStageThumb" alt="Selected stage preview" hidden></span>
     </label>
-    <label class="optl">Battle visuals<select id="previewStyle"><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option></select></label>
+    <label class="optl">Battle visuals<select id="previewStyle" data-battle-preset><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option><option value="custom" disabled>Custom</option></select></label>
     <button class="btn primary" id="previewPlay" disabled>Play attack</button>
     <button class="btn ghost" id="previewPause" disabled>Pause</button>
     <button class="btn ghost" id="previewStep" disabled>Next moment</button>
   </div>
+  <details class="graphics-settings preview-graphics"><summary>Graphics options</summary><div class="graphics-grid" data-battle-graphics="preview"></div><p>Adjust each setting independently. Presets reset all graphics options. Changes keep the same animation moment.</p></details>
   <p id="previewStatus" role="status">Select a Digimon and play an attack.</p>
   <div class="battle-view">
     <div class="preview-empty">Choose any Digimon.<br>Its original moves, with a new level of detail.</div>
@@ -47,9 +50,10 @@
 <script src="js/data/cards.js"></script>
 <script src="js/data/effects.js"></script>
 <script src="js/effects.js"></script>
-<script src="js/battlehd.js?v=battle-arena-hd-1"></script>
-<script src="js/battleultra.js?v=battle-arena-hd-1"></script>
-<script src="js/battle3d.js?v=battle-arena-hd-1"></script>
-<script src="js/battle-preview.js?v=battle-stage-1"></script>
+<script src="js/battlehd.js?v=battle-options-2"></script>
+<script src="js/battleultra.js?v=battle-options-2"></script>
+<script src="js/battle3d.js?v=battle-options-2"></script>
+<script src="js/battlegraphics.js?v=battle-options-2"></script>
+<script src="js/battle-preview.js?v=battle-options-3"></script>
 </body>
 </html>

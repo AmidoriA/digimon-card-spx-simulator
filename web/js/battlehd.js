@@ -14,7 +14,8 @@
   }
   // Weld only within a rigid body part. A crease keeps teeth, blades and armor edges sharp.
   // One curved subdivision adds four triangles per source triangle, without new assets.
-  function refine(m) {
+  function refine(m, options) {
+    var crease = options ? options.crease : 0.62, curve = options ? options.curve : 0.12;
     var vb = m.vb, ib = m.ib, faces = [], weld = {}, keys = [], i, j;
     function key(n) { var p = n * 13; return [vb[p + 11], vb[p], vb[p + 1], vb[p + 2]].join(':'); }
     for (i = 0; i < m.nv; i++) keys[i] = key(i);
@@ -38,7 +39,7 @@
       for (j = 0; j < 3; j++) {
         var id = ib[i + j], p = Array.prototype.slice.call(vb, id * 13, id * 13 + 13), sum = [0, 0, 0];
         weld[keys[id]].forEach(function (n) {
-          if (dot(face, n) > 0.62) { sum[0] += n[0]; sum[1] += n[1]; sum[2] += n[2]; }
+          if (dot(face, n) > crease) { sum[0] += n[0]; sum[1] += n[1]; sum[2] += n[2]; }
         });
         var normal = unit(sum);
         p[3] = normal[0]; p[4] = normal[1]; p[5] = normal[2]; corners.push(p);
@@ -49,7 +50,7 @@
           var na = a.slice(3, 6), nb = b.slice(3, 6), d = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
           // Conservative curvature; keep part and palette indices discrete.
           var da = dot(d, na), db = dot(d, nb);
-          for (var k = 0; k < 3; k++) p[k] -= (da * na[k] - db * nb[k]) * 0.12;
+          for (var k = 0; k < 3; k++) p[k] -= (da * na[k] - db * nb[k]) * curve;
           // Share geometry across UV/normal seams so curvature cannot open cracks.
           var ka = keys[ib[i + edge[0]]], kb = keys[ib[i + edge[1]]], ek = ka < kb ? ka + '/' + kb : kb + '/' + ka;
           if (!midpoints[ek]) midpoints[ek] = p.slice(0, 3);
@@ -64,8 +65,14 @@
       (subdivide ? [0, 3, 5, 3, 1, 4, 5, 4, 2, 3, 4, 5] : [0, 1, 2]).forEach(function (n) { ids.push(base + n); });
     }
     // The source models fit 16-bit indices. Fall back to their mesh for larger inputs.
-    if (out.length / 13 > 65535) return { vb: vb, ib: ib, nto: m.nto, ntb: m.ntb };
-    return { vb: new Float32Array(out), ib: new Uint16Array(ids), nto: m.nto * (subdivide ? 4 : 1), ntb: m.ntb * (subdivide ? 4 : 1) };
+    if (out.length / 13 > 65535) return { vb: vb, ib: ib, nv:m.nv, nto: m.nto, ntb: m.ntb };
+    return { vb: new Float32Array(out), ib: new Uint16Array(ids), nv:out.length/13, nto: m.nto * (subdivide ? 4 : 1), ntb: m.ntb * (subdivide ? 4 : 1) };
+  }
+  // Two curved passes round silhouettes and blend broad body facets, while retaining
+  // body-part seams, UV seams and the sharper edges of teeth and armor. All card models
+  // fit the 16-bit index budget at this level. Generated only when Smooth is selected.
+  function smooth(m) {
+    return refine(refine(m,{crease:0.45,curve:0.18}),{crease:0.45,curve:0.12});
   }
   function profile(name, spec) {
     name = (name || '').toLowerCase();
@@ -90,5 +97,5 @@
   var paletteGLSL = 'vec4 palSample(vec2 uv){float ix=texture2D(uS,uv).r*255.0;return texture2D(uP,vec2((ix+0.5)/256.0,PAL));}' +
     'vec4 smoothPal(vec2 uv){vec2 p=uv*uTex-0.5;vec2 f=fract(p);vec2 q=(floor(p)+0.5)/uTex;vec2 d=1.0/uTex;' +
     'return mix(mix(palSample(q),palSample(q+vec2(d.x,0.0)),f.x),mix(palSample(q+vec2(0.0,d.y)),palSample(q+d),f.x),f.y);}';
-  window.DDCB_BATTLE_HD = { refine: refine, profile: profile, material: material, paletteGLSL: paletteGLSL, quality: quality };
+  window.DDCB_BATTLE_HD = { refine: refine, smooth:smooth, profile: profile, material: material, paletteGLSL: paletteGLSL, quality: quality };
 })();

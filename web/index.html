@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Digital Card Battle</title>
 <link rel="stylesheet" href="css/style.css?v=battle-hd-7">
+<link rel="stylesheet" href="css/battle-graphics.css?v=battle-options-2">
 </head>
 <body>
 
@@ -73,12 +74,13 @@
         </button>
       </div>
       <label class="optl">Battle visuals
-        <select id="battleStyle"><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option></select>
+        <select id="battleStyle" data-battle-preset><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option><option value="custom" disabled>Custom</option></select>
       </label>
       <a class="btn ghost" href="battle-preview.html">Preview attacks</a>
       <span id="startNote" class="start-note" role="status"></span>
       <button id="btnRandom" class="btn ghost">Random opponent</button>
       <button id="btnStart" class="btn primary">Start battle</button>
+      <details class="graphics-settings setup-graphics"><summary>Graphics options</summary><div class="graphics-grid" data-battle-graphics="setup"></div><p>Adjust each setting independently. Battle visuals presets reset all graphics options.</p></details>
     </footer>
   </div>
 </section>
@@ -175,8 +177,9 @@
         <label class="optl small"><input type="checkbox" id="fast"> Fast</label>
         <label class="optl small" title="Show attacks as the 3D Polygon Battle"><input type="checkbox" id="anim3d" checked> Battle animation</label>
         <label class="optl small">Battle visuals
-          <select id="battleStyleMatch"><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option></select>
+          <select id="battleStyleMatch" data-battle-preset><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option><option value="custom" disabled>Custom</option></select>
         </label>
+        <details class="graphics-settings"><summary>Graphics options</summary><div class="graphics-grid" data-battle-graphics="match"></div><p>Presets reset all graphics options.</p></details>
         <label class="optl small" title="Digimon cards: illustrations of the modern card game, or the game's own pictures"><input type="checkbox" id="newArt" checked> New card art</label>
         <button id="btnRules" class="btn ghost small">Rules</button>
         <button id="btnQuit" class="btn ghost small">Quit</button>
@@ -280,11 +283,12 @@
 <script src="js/audio.js"></script>
 <script src="js/data/effects.js"></script>
 <script src="js/effects.js"></script>
-<script src="js/battlehd.js?v=battle-arena-hd-1"></script>
-<script src="js/battleultra.js?v=battle-arena-hd-1"></script>
-<script src="js/battle3d.js?v=battle-arena-hd-1"></script>
+<script src="js/battlehd.js?v=battle-options-2"></script>
+<script src="js/battleultra.js?v=battle-options-2"></script>
+<script src="js/battle3d.js?v=battle-options-2"></script>
+<script src="js/battlegraphics.js?v=battle-options-2"></script>
 <script src="js/decks.js"></script>
-<script src="js/ui.js?v=battle-hd-7"></script>
+<script src="js/ui.js?v=battle-options-2"></script>
 <script src="js/editor.js"></script>
 </body>
 </html>

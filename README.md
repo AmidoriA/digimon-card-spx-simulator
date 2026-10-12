@@ -36,13 +36,33 @@ is remembered.
 **Battle visuals** on the start screen and in the match rail switches between **Enhanced Ultra**,
 **Enhanced** (the default) and **Original PS1**. Both enhanced levels use 4× upscaled arena
 textures. Ultra adds denser particles, attack lighting and surface shadows at the same
-resolution as Enhanced. The choice is saved separately from card art and the animation
-on/off box. **Preview attacks** opens a browser preview for all 191 Digimon and
-their three attacks. Pause or use **Next moment**, then switch styles to compare the same
+resolution as Enhanced, and selects the smoother model shape. The choice is saved
+separately from card art and the animation on/off box. **Preview attacks** opens a browser
+preview for all 191 Digimon and
+their three attacks. Its **Opponent** picker offers all 191 Digimon and starts with
+Garurumon; an opponent choice applies to the next attack played. Pause or use **Next moment**, then switch styles to compare the same
 pose. Its **Stage** picker offers all 24 arenas with a thumbnail, plus **Random** (one of
 the twelve free-battle arenas). The preview remembers its stage separately from the match
 arena; a stage choice applies to the next attack played. Preview damage is a fixed 300 HP;
 it does not change card balance.
+
+**Graphics options** is available on setup, in the match rail and in the attack preview.
+Each setting can be changed independently and is remembered across those screens:
+
+- **Lighting:** Original PS1, Enhanced, or Ultra with shadows on the Digimon themselves.
+- **Model shape:** Original polygons, Refined, or Smooth. Smooth rounds the existing
+  models' silhouettes and body facets while retaining body parts and sharper features.
+- **Render resolution:** Adaptive (960×720, falling to 640×480 under sustained slow frames),
+  or fixed 320×240, 640×480, 960×720, or 1280×960.
+- **Arena resolution:** Original textures, sharper 2×, or sharper 4×. The 2× choice uploads
+  a half-sized copy of the decoded 4× atlas to reduce GPU memory use.
+- **Attack effects:** Original PS1, Enhanced, or Ultra's denser particles.
+
+Changing one option leaves the others alone, and keeps a paused preview at the same frame.
+The **Battle visuals** picker shows **Custom** when the options differ from a preset.
+Choosing Original PS1, Enhanced or Enhanced Ultra again resets all five options. Enhanced
+and Ultra presets share the same rendering resolution. Original PS1 resets every option
+to the original presentation. Graphics choices never affect damage or attack timing.
 
 During a match, click a TRASH plate to see that player's Offline pile (newest card first)
 and a DECK plate to see which cards are still in that deck, by level and with their counts.
@@ -231,8 +251,12 @@ The optional enhanced presentation renders at 960×720, dropping to 640×480 whe
 delivery stays slow. Enhanced Ultra uses the same 960×720 resolution and 640×480 fallback.
 Original PS1 keeps the original 320×240 framebuffer and nearest sampling. All three modes
 use the same models, motions, scripts, cameras, sounds and damage
-timing. `js/battlehd.js` refines each loaded Digimon mesh once (four triangles per source
-triangle, shared curved edge positions and crease-aware normals). The original mesh is
+timing. `js/battlehd.js` refines a Digimon mesh on demand (four triangles per source
+triangle, shared curved edge positions and crease-aware normals). Smooth uses two curved
+subdivision passes (sixteen triangles per source triangle), with broader normal blending
+on body facets. All 190 unique card models fit 16-bit indices at this level. Only four
+Smooth meshes remain resident, and both lighting and shadow passes use the selected shape.
+The original mesh is
 kept for immediate switching. Model and sprite palettes remain nearest sampled; enhanced
 texture filtering interpolates **decoded colours**, never palette indices.
 
@@ -251,6 +275,9 @@ Both enhanced levels use **4× RealESRGAN arena textures** for all 24 stages. Ge
 upscaling, pack the regions with padded edges into atlases, and retain the original alpha
 mask. Atlas dimensions range from 2048×512 to 2048×2048. All 24 WebP atlases together are
 4.66 MiB; only the selected stage loads, and at most two atlases stay in GPU memory.
+The independent 2× setting uploads the same atlas at half its width and height; UV mapping
+remains identical. Original textures can also be selected independently of lighting,
+models and attack particles.
 Mipmaps and optional 4× anisotropic filtering keep distant surfaces stable. Arena
 primitives retain their exact native sorting order, including transparency; only adjacent
 primitives with the same palette can share an atlas draw. Original PS1 uses the original
@@ -261,8 +288,9 @@ against over 1.6 million original pixels, including transparency.
 
 Ultra raises the limits to 448 live particles and 768 procedural quads in one extra draw,
 adds fading streak trails, wider layered glows and expanding impact rings. The largest
-two active effect sources cast coloured, distance-limited light onto the Digimon. Its wider
-bloom pass remains bounded. `js/battleultra.js` draws the posed Digimon into a 1024×1024
+two active effect sources cast coloured, distance-limited light onto the Digimon. Ultra
+omits screen-space bloom to avoid ghost outlines around bright surfaces; Enhanced keeps
+its subtle bloom. `js/battleultra.js` draws the posed Digimon into a 1024×1024
 colour depth map, with nine-sample soft filtering for shadows on the Digimon themselves.
 The arena remains camera-centred and drawn in its native polygon order. No ground plane,
 floor shadow or contact shadow is added. Shadows are skipped if the framebuffer is
