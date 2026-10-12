@@ -41,7 +41,11 @@ belongs to one player (the byte at state `+0x817`), who is also the first attack
 
 1. One Digimon card to the DP Slot (8 cards max; DP = sum of +P, capped at 90).
 2. One digivolve option card. Digi-devolve and De-Armor act at once; the others ask for a
-   target. Using an option card ends the phase.
+   target. Using an option card ends the phase. A card that can do nothing as things stand
+   (`0x801ea374`: no card in the hand is a legal target for it, or there is nothing to
+   devolve) may still be used: state 0xF asks "This Digivolve Option has no Effect. Do you
+   still want to use it?", and state 0x10 sends it Offline and goes on to step 3. A card
+   that does have a legal target cannot be thrown away like this.
 3. Normal digivolution, repeatable while legal: R→C→U, same current Specialty, DP ≥ cost.
 
 Legality is `0x801e9f5c`. Digivolving gives the new card's full stats and empties the DP
@@ -260,6 +264,11 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   are not used, and five models whose palette is not in their own file fall back to their
   texture's first palette. Sounds named by motions are not played; sounds named by scripts
   are, where the sound bank has them.
+- **Taking back in the Digivolve Phase.** In the game, answering No to "Is it OK to end the
+  Digivolve Phase?" (or backing out of the digivolve choice) returns the DP card placed this
+  turn and an option card used to no effect to the hand and starts the phase again
+  (`0x801ecd68`); what a digivolution already made leaves to take back was not traced. Here
+  a card that was placed stays placed.
 - **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported.
 - **Hands shown face up** rests on the card-state byte being the same for both players'
   hand cards, and on how the game plays; the drawing code was not read.

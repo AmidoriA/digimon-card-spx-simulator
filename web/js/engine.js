@@ -260,6 +260,27 @@
     return out;
   }
 
+  // A digivolve option card that can do nothing as things stand (0x801ea374: no card in the
+  // hand is a legal target for it, or there is nothing to devolve) may still be used. State
+  // 0xF asks "This Digivolve Option has no Effect. Do you still want to use it?", and state
+  // 0x10 then sends it Offline and goes on to normal digivolution. -> hand indices
+  function wasteMoves(G, p) {
+    var P = G.players[p], out = [];
+    if (p !== G.tp || !P.active || P.evoEnded || P.evoStarted) return out;
+    var mv = evoMoves(G, p);
+    P.hand.forEach(function (id, j) {
+      if (card(id).type === 'digivolve' && !mv.some(function (m) { return m.kind === 'option' && m.opt === j; })) out.push(j);
+    });
+    return out;
+  }
+  function wasteOption(G, p, hi) {
+    if (wasteMoves(G, p).indexOf(hi) < 0) return false;
+    var P = G.players[p];
+    P.offline.push(P.hand.splice(hi, 1)[0]);
+    P.evoStarted = true; // no second option card, no DP card; normal digivolution is still open
+    return true;
+  }
+
   function discardDP(P) { while (P.dp.length) P.offline.push(P.dp.pop()); } // 0x801ece24
 
   // States 0x10, 0x12, 0x13/0x15.
@@ -640,7 +661,7 @@
     makeRng: makeRng, newGame: newGame, clone: clone, top: top, dpTotal: dpTotal, snap: snap, handHasDigimon: handHasDigimon,
     beginTurn: beginTurn, canChangeAll: canChangeAll, changeAll: changeAll,
     canEnter: canEnter, enter: enter, armorOption: armorOption, armorDigivolve: armorDigivolve,
-    canAddDP: canAddDP, addDP: addDP, evoMoves: evoMoves, evoLegal: evoLegal, digivolve: digivolve,
+    canAddDP: canAddDP, addDP: addDP, evoMoves: evoMoves, evoLegal: evoLegal, digivolve: digivolve, wasteMoves: wasteMoves, wasteOption: wasteOption,
     battleOn: battleOn, supportOptions: supportOptions, setSupport: setSupport,
     resolveBattle: resolveBattle, endTurn: endTurn,
     calc: calc, cmp: cmp

@@ -408,7 +408,8 @@
       case 'dp': for (i = 0; i < n; i++) can[i] = E.canAddDP(G, 0, i); break;
       case 'option':
         moves = E.evoMoves(G, 0);
-        for (i = 0; i < n; i++) can[i] = moves.some(function (m) { return m.kind === 'option' && m.opt === i; });
+        var waste = E.wasteMoves(G, 0);
+        for (i = 0; i < n; i++) can[i] = waste.indexOf(i) >= 0 || moves.some(function (m) { return m.kind === 'option' && m.opt === i; });
         break;
       case 'target':
         moves = E.evoMoves(G, 0);
@@ -700,7 +701,7 @@
       }
     }
     // 2. digivolve option card
-    while (live(tok) && !P.evoEnded && P.hand.some(function (id) { return E.card(id).type === 'digivolve'; })) {
+    while (live(tok) && !P.evoEnded && !P.evoStarted && P.hand.some(function (id) { return E.card(id).type === 'digivolve'; })) {
       status('Digivolve: Digivolve Option.', 'Use a digivolve option card, or skip.');
       S.sel = -1;
       a = await waitAction('option');
@@ -708,7 +709,16 @@
       if (a.t !== 'card') break;
       i = a.i; c = E.card(P.hand[i]);
       moves = E.evoMoves(G, 0).filter(function (m) { return m.kind === 'option' && m.opt === i; });
-      if (!moves.length) continue;
+      if (!moves.length) {
+        // state 0xF: a card that can do nothing may be used all the same, and is lost
+        if (E.wasteMoves(G, 0).indexOf(i) < 0) continue;
+        S.step = null; render();
+        if (await ask('This Digivolve Option has no Effect. Do you still want to use it?')) {
+          E.wasteOption(G, 0, i);
+          log('You use ' + c.name + ' to no effect; it goes Offline.', 'me');
+        }
+        continue;
+      }
       if (moves[0].target < 0) {
         S.step = null; render();
         var q = c.dtype === E.DIGIVOLVE.DEVOLVE ? 'Current Digimon will be discarded. Do you still want to Digi-devolve?'

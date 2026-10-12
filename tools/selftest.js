@@ -97,6 +97,19 @@ test('armor: the partner Rookie of an armor deck powers up on entrance; a KO sen
   assert.strictEqual(G.players[1].wins, 1);
 });
 
+test('a digivolve option card with no effect can still be used and is lost (0x801ea374, state 0x10)', () => {
+  const G = setup({ mon: 'Agumon', hand: ['Greymon', 'Agumon', 'Digi-devolve', 'Speed Digivolve'] }, { mon: 'Gabumon' });
+  assert.deepStrictEqual(E.wasteMoves(G, 0), [2], 'nothing to devolve; Speed Digivolve has a target');
+  assert.strictEqual(E.wasteOption(G, 0, 3), false, 'a card that has an effect cannot be thrown away');
+  assert(E.wasteOption(G, 0, 2));
+  const P = G.players[0];
+  assert.strictEqual(P.hand.length, 3);
+  assert.strictEqual(E.card(P.offline[P.offline.length - 1]).name, 'Digi-devolve');
+  assert.strictEqual(E.evoMoves(G, 0).some((m) => m.kind === 'option'), false, 'no second option card');
+  assert.strictEqual(E.wasteMoves(G, 0).length, 0);
+  assert.strictEqual(E.canAddDP(G, 0, 1), false);
+});
+
 test('digivolve phase: one DP card, before digivolving; an option card ends the phase', () => {
   const G = setup({ mon: 'Agumon', hand: ['Greymon', 'Agumon', 'Agumon', 'Speed Digivolve'] }, { mon: 'Gabumon' });
   assert(E.addDP(G, 0, 1));
