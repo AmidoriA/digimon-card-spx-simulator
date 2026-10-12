@@ -17,7 +17,12 @@ Mesh (drawn by 0x800202d8 / 0x8001f3c0 / 0x8001f94c): u32 groups; each group is
       0x04 textured, 0x10 gouraud), bits 20.. = fan entries, bits 8..19 = strip entries.
       Entry: u16 runs, u16 length; each run is one full primitive (3 or 4 vertex words, then as
       many texture words if textured) and length-1 continuations (1 vertex + 1 texture word for
-      triangles, 2 + 2 for quads). Vertex word: u16 colour offset, u16 vertex offset into the
+      triangles, 2 + 2 for quads). The continuations grow from the first primitive's first
+      edge: a triangle fan turns about vertex 0 through 2, 1, 3, 4, ...; a triangle strip runs
+      2, 0, 1, 3, 4, ...; a quad fan turns about vertex 0 through the spokes 2, 1, 4, 6, ...
+      with the corners 3, 5, 7, ...; a quad strip is a band of the edges (2, 3), (0, 1), (4, 5),
+      (6, 7), ... This order was read from the data, not from the emitters (0x8001f94c,
+      0x80020778): it is the one that leaves meshes closed. Vertex word: u16 colour offset, u16 vertex offset into the
       work buffer (vertices 8 bytes each, colours 4 bytes each after them). Texture word:
       u8 u, v, then CLUT id / texture page / 0 as in a GPU packet.
 
@@ -91,15 +96,26 @@ def parse_mesh(d, pos):
                             eu = [struct.unpack_from("<BBH", d, pos + 4 * i) for i in range(n1)] if tex else [(0, 0, 0)] * n1
                             pos += 4 * n1 if tex else 0
                             seq += [(ev[i][0], ev[i][1], eu[i][0], eu[i][1]) for i in range(n1)]
-                        if quad:      # every pair of vertices adds a quad: (a, b, c, d) -> abc, bdc
-                            order = [(i, i + 1, i + 2) if k == 0 else (i + 1, i + 3, i + 2) for i in range(0, len(seq) - 2, 2) for k in (0, 1)]
-                        elif fan:     # pivot seq[0], rim seq[2], seq[1], seq[3], seq[4], ...
+                        # A run's first primitive is stored whole and the rest grow from its
+                        # first edge, not its last (the joins that leave the fewest open edges
+                        # in every model; see the note at the top).
+                        if quad and fan:   # around seq[0]: spokes seq[2], seq[1], seq[4], seq[6], ...; corners seq[3], seq[5], ...
+                            rim = [2, 1] + list(range(4, len(seq), 2))
+                            order = [t for k in range(len(rim) - 1) for t in ((0, rim[k], rim[k + 1]), (rim[k], 3 + 2 * k, rim[k + 1]))]
+                        elif quad:         # a band of edges (2j, 2j+1) in the order 1, 0, 2, 3, ...
+                            band = [1, 0] + list(range(2, len(seq) // 2))
+                            order = [t for k in range(len(band) - 1) for e, f in [(2 * band[k], 2 * band[k + 1])]
+                                     for t in ((e, e + 1, f), (e + 1, f + 1, f))]
+                        elif fan:          # pivot seq[0], rim seq[2], seq[1], seq[3], seq[4], ...
                             rim = [2, 1] + list(range(3, len(seq)))
                             order = [(0, rim[i], rim[i + 1]) for i in range(len(rim) - 1)]
-                        else:         # strip
-                            order = [(i, i + 1, i + 2) if i % 2 == 0 else (i + 1, i, i + 2) for i in range(len(seq) - 2)]
-                        for o in order:
-                            tris.append({"v": [seq[i] for i in o], "clut": clut, "tpage": tpage, "gouraud": bool(code & 0x10), "code": code})
+                        else:              # strip through seq[2], seq[0], seq[1], seq[3], seq[4], ...
+                            band = [2, 0, 1] + list(range(3, len(seq)))
+                            order = [(band[i], band[i + 1], band[i + 2]) for i in range(len(band) - 2)]
+                        for k, o in enumerate(order):
+                            # half: 1 for the second triangle of a quad, which is one primitive with the first
+                            tris.append({"v": [seq[i] for i in o], "clut": clut, "tpage": tpage, "gouraud": bool(code & 0x10), "code": code,
+                                         "half": k & 1 if quad else 0})
         groups.append({"verts": verts, "colours": colours, "tris": tris})
     return groups, pos
 

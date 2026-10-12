@@ -150,6 +150,9 @@ scripts, then camera and arenas.
   vertices, a colour table (flat colours, or normals to be lit), and fans/strips of textured
   or plain triangles and quads (drawn by `0x800202d8`, `0x8001f3c0`, `0x8001f94c`).
   `tools/omd.py` documents and parses the format; all 211 files parse to the last byte.
+  How the vertices of a fan or strip join was read from the data rather than from the
+  emitters: of the possible orders, the one in `omd.py` is the one that leaves the meshes
+  closed (about a seventh as many open edges as joining them in file order).
 - **Motions.** Eight per Digimon, LZH-packed. A motion is a list of 772-byte keys: a duration,
   a sound, and a rotation / offset / scale record for each of up to 32 parts. The model eases
   from its current pose to the key over twice the duration, in two halves of constant
@@ -214,9 +217,14 @@ scripts, then camera and arenas.
   and before the winner is shown, `0x801eec3c` shows the attacker with script 998 of
   `A/BATTLE.PAK` (rings closing on it), slides in "Eat-Up HP" (`0x801edb64`) and counts the
   attacker's HP up to its new value with the same counter that counts a target's down.
-- **Arenas.** An arena (`0x8002e42c`) is a one-part model from `F/BGnnn.PAK`, drawn turned
-  with the camera but not moved by it, behind everything, at the brightness the arena table
-  (`0x8006e0c0`) gives; the table also gives the back colour. With no arena named the game
+- **Arenas.** An arena (`0x8002e42c`) is a model from `F/BGnnn.PAK`, drawn turned with the
+  camera but not moved by it, behind everything, at the brightness the arena table
+  (`0x8006e0c0`) gives; the table also gives the back colour. The game has no depth buffer:
+  each polygon goes into an ordering table at its average depth / 4 (`0x8001f728`), the
+  arena into the far quarter of it (`0x80024010`), and the table is drawn from the far end,
+  the polygons of one entry in the reverse of the order they were sent. An arena's layers
+  lie on each other (a sky with clouds over it, a wall with a window in it), so the arena is
+  drawn here in exactly that order; the Digimon and the effects use a depth buffer. With no arena named the game
   picks one of twelve at random (table entries 44-55), which is what a match here does
   unless an arena is picked on the start screen (any of the table's 24, which the game
   does not name). The picker's previews are this project's: each arena drawn by the same

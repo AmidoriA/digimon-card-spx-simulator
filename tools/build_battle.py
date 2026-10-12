@@ -141,7 +141,7 @@ def export_arenas(ext, web):
                 model = omd.parse_model(data)
             elif typ == 5:
                 tims.append(bm.read_tim(pak.unpack(data)))
-        data, tex, pal, _ = bm.convert(model, [], tims)
+        data, tex, pal, _ = bm.convert(model, [], tims, prims=True)
         bm.Image.frombytes("L", (tex[0], tex[1]), tex[2]).save(os.path.join(mdir, "bg%d.png" % (900 + num)), optimize=True)
         bm.Image.frombytes("RGBA", (256, pal[0]), pal[1]).save(os.path.join(mdir, "bg%dp.png" % (900 + num)), optimize=True)
         open(os.path.join(mdir, "bg%d.bin.gz" % (900 + num)), "wb").write(gzip.compress(data, 9, mtime=0))

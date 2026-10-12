@@ -94,6 +94,8 @@
       for (i = 0; i < nk; i++) { keys.push({ dur: w[p], snd: w[p + 1], r: w.subarray(p + 2, p + 2 + rec) }); p += 2 + rec; }
       m.motions.push(keys);
     }
+    // arenas: the number of each triangle's primitive in the file (a quad's two share one)
+    if (p + m.nto + m.ntb <= w.length) m.prim = w.subarray(p, p + m.nto + m.ntb);
     return m;
   }
   function rawTexture(fmt, w, h, bytes) {
@@ -255,18 +257,22 @@
   // (0x30, 0x30, 0x40) is set at 0x80024440.
   var LIGHT_DIR = [[0, -4096, -1500], [0, 4096, -2000], [0, 0, 0]], LIGHT_COL = [[4096, 4096, 4096], [1500, 1500, 1500], [0, 0, 0]];
   var BACK = [0x30 / 256, 0x30 / 256, 0x40 / 256];
-  var VS = 'attribute vec3 aP,aN,aC;attribute vec4 aT;uniform mat3 uM[32];uniform vec3 uT[32];uniform float uShow[32];uniform mat3 uV;uniform vec3 uVT;uniform vec2 uTex;uniform float uPalN,uBright,uF;' +
+  // Depth runs from 16 to 65536 in front of the camera (depth = DA + DB / z). The position
+  // keeps its own distance as w, so a polygon that reaches behind the camera is cut off there
+  // by the GPU; the arena, which stands around the camera, always has such polygons.
+  var DEPTH = '#define DA 1.000488\n#define DB -32.007815\n';
+  var VS = DEPTH + 'attribute vec3 aP,aN,aC;attribute vec4 aT;uniform mat3 uM[32];uniform vec3 uT[32];uniform float uShow[32];uniform mat3 uV;uniform vec3 uVT;uniform vec2 uTex;uniform float uPalN,uBright,uF;' +
     'uniform vec3 uLD[3];uniform vec3 uLC[3];uniform vec3 uBK;varying vec3 vC;varying vec2 vUV;varying float vPal,vTex;' +
     'void main(){int i=int(aT.z+0.5);mat3 m=uM[i];vec3 w=m*aP+uT[i];vec3 e=uV*w+uVT;' +
     'vec3 lit=vec3(1.0);if(dot(aN,aN)>0.5){vec3 n=normalize(m*aN);lit=uBK;for(int k=0;k<3;k++)lit+=uLC[k]*max(0.0,dot(n,uLD[k]));lit=clamp(lit,0.0,2.0);}' +
     'vC=aC/128.0*lit*uBright;vTex=aT.x<0.0?0.0:1.0;vUV=(aT.xy+0.5)/uTex;vPal=(aT.w+0.5)/uPalN;' +
-    'float z=max(e.z,1.0);gl_Position=vec4(e.x*uF/160.0,-e.y*uF/120.0,(z-60.0)/20000.0*z,z);if(uShow[i]>0.5)gl_Position=vec4(2.0,2.0,2.0,1.0);}';
+    'gl_Position=vec4(e.x*uF/160.0,-e.y*uF/120.0,e.z*DA+DB,e.z);if(uShow[i]>0.5)gl_Position=vec4(2.0,2.0,2.0,1.0);}';
   var FS = 'precision mediump float;uniform sampler2D uS,uP;varying vec3 vC;varying vec2 vUV;varying float vPal,vTex;' +
     'void main(){if(vTex<0.5){gl_FragColor=vec4(vC*0.5,1.0);return;}float ix=texture2D(uS,vUV).r*255.0;vec4 c=texture2D(uP,vec2((ix+0.5)/256.0,vPal));if(c.a<0.5)discard;gl_FragColor=vec4(c.rgb*vC,1.0);}';
   // flat-coloured effect primitives and sprites, already projected: x, y in screen pixels, z = depth
-  var PVS = 'attribute vec3 p;attribute vec3 c;varying vec3 v;void main(){v=c/255.0;gl_Position=vec4(p.x/160.0-1.0,1.0-p.y/120.0,clamp((p.z-60.0)/20000.0,0.0,1.0),1.0);}';
+  var PVS = DEPTH + 'attribute vec3 p;attribute vec3 c;varying vec3 v;void main(){v=c/255.0;gl_Position=vec4(p.x/160.0-1.0,1.0-p.y/120.0,clamp(DA+DB/max(p.z,16.0),-1.0,1.0),1.0);}';
   var PFS = 'precision mediump float;varying vec3 v;void main(){gl_FragColor=vec4(v,1.0);}';
-  var SVS = 'attribute vec3 p;attribute vec2 t;uniform vec2 uTex;varying vec2 vUV;void main(){vUV=(t+0.5)/uTex;gl_Position=vec4(p.x/160.0-1.0,1.0-p.y/120.0,clamp((p.z-60.0)/20000.0,0.0,1.0),1.0);}';
+  var SVS = DEPTH + 'attribute vec3 p;attribute vec2 t;uniform vec2 uTex;varying vec2 vUV;void main(){vUV=(t+0.5)/uTex;gl_Position=vec4(p.x/160.0-1.0,1.0-p.y/120.0,clamp(DA+DB/max(p.z,16.0),-1.0,1.0),1.0);}';
   var SFS = 'precision mediump float;uniform sampler2D uS,uP;uniform float uPal,uCol;varying vec2 vUV;' +
     'void main(){float ix=texture2D(uS,vUV).r*255.0;vec4 c=texture2D(uP,vec2((ix+0.5)/256.0,uPal));if(c.a<0.5)discard;gl_FragColor=vec4(c.rgb*uCol,1.0);}';
   // the finished 320x240 picture, and the pieces of the overlay: x, y in screen pixels, u, v in texture pixels
@@ -311,7 +317,7 @@
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     return true;
   }
-  function drawActor(a) {
+  function drawActor(a, order) {
     var m = a.m, M = new Float32Array(32 * 9), T = new Float32Array(32 * 3), S = new Float32Array(32), i, k;
     for (i = 0; i < m.n && i < 32; i++) {
       var x = a.mats[i];
@@ -331,12 +337,54 @@
     gl.enableVertexAttribArray(loc.aC); gl.vertexAttribPointer(loc.aC, 3, gl.FLOAT, false, st, 24);
     gl.enableVertexAttribArray(loc.aT); gl.vertexAttribPointer(loc.aT, 4, gl.FLOAT, false, st, 36);
     gl.disable(gl.BLEND);
+    if (order) return;
     gl.drawElements(gl.TRIANGLES, m.nto * 3, gl.UNSIGNED_SHORT, 0);
     if (m.ntb) {
       gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE); gl.depthMask(false);
       gl.drawElements(gl.TRIANGLES, m.ntb * 3, gl.UNSIGNED_SHORT, m.nto * 6);
       gl.depthMask(true);
     }
+  }
+  // The arena is drawn in the game's own order. Each polygon goes into the ordering table at
+  // its average depth / 4 (GTE AVSZ3 / AVSZ4 with the library's factors 0x155 and 0x100;
+  // emitters 0x8001f94c / 0x80020778, entry at 0x8001f728), the table is drawn from its far
+  // end, and of the polygons in one entry the one sent first is drawn last. The arena's
+  // layers lie on each other, so a depth buffer cannot tell them apart.
+  function drawArena(a, R) {
+    var m = a.m, vb = m.vb, ib = m.ib, z = new Float32Array(m.nv), nt = m.nto + m.ntb, prims = [], i, t = 0;
+    for (i = 0; i < m.nv; i++) {
+      var mt = a.mats[vb[i * 13 + 11]], w = xf(mt.m, mt.t, [vb[i * 13], vb[i * 13 + 1], vb[i * 13 + 2]]);
+      z[i] = Math.max(0, Math.trunc(R[6] * w[0] + R[7] * w[1] + R[8] * w[2]));
+    }
+    while (t < nt) {
+      var quad = t + 1 < nt && m.prim[t + 1] === m.prim[t], sum = z[ib[t * 3]] + z[ib[t * 3 + 1]] + z[ib[t * 3 + 2]];
+      // the second triangle of a quad is (b, d, c): its middle corner is the quad's fourth
+      prims.push({ otz: quad ? ((sum + z[ib[t * 3 + 4]]) * 0x100) >> 12 : (sum * 0x155) >> 12, id: m.prim[t], t: t, n: quad ? 2 : 1,
+        blend: t < m.nto ? -1 : m.blend[t - m.nto] });
+      t += quad ? 2 : 1;
+    }
+    prims.sort(function (x, y) { return y.otz - x.otz || y.id - x.id; });
+    var idx = new Uint16Array(nt * 3), runs = [], n = 0;
+    prims.forEach(function (q) {
+      var last = runs[runs.length - 1];
+      if (!last || last.blend !== q.blend) runs.push(last = { blend: q.blend, start: n, count: 0 });
+      for (i = 0; i < q.n * 3; i++) idx[n++] = ib[q.t * 3 + i];
+      last.count += q.n * 3;
+    });
+    drawActor(a, true);                       // its uniforms, textures and vertices
+    if (!m.sorted) m.sorted = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.sorted); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, idx, gl.DYNAMIC_DRAW);
+    gl.disable(gl.DEPTH_TEST);
+    runs.forEach(function (r) {
+      // blend modes of the GPU: 0 half + half, 1 add, 2 subtract, 3 add a quarter; -1 opaque
+      if (r.blend < 0) gl.disable(gl.BLEND); else gl.enable(gl.BLEND);
+      if (r.blend === 0) { gl.blendColor(0.5, 0.5, 0.5, 1); gl.blendFunc(gl.CONSTANT_COLOR, gl.CONSTANT_COLOR); }
+      else if (r.blend === 2) gl.blendFunc(gl.ZERO, gl.ONE_MINUS_SRC_COLOR);
+      else if (r.blend === 3) { gl.blendColor(0.25, 0.25, 0.25, 1); gl.blendFunc(gl.CONSTANT_COLOR, gl.ONE); }
+      else gl.blendFunc(gl.ONE, gl.ONE);
+      gl.drawElements(gl.TRIANGLES, r.count, gl.UNSIGNED_SHORT, r.start * 2);
+    });
+    gl.disable(gl.BLEND); gl.enable(gl.DEPTH_TEST);
   }
   // view: rows right, down, forward (the PlayStation's x right, y down, z into the screen)
   function lookAt(eye, at) {
@@ -381,11 +429,11 @@
     gl.uniform1f(loc.uF, scene.focal || 448);            // the game's projection distance
     if (scene.arena && scene.arena.actor) {
       // the arena turns with the camera but does not move with it, and is behind everything
+      // (0x80024010: no translation, and the far quarter of the ordering table)
       gl.uniform3f(loc.uVT, 0, 0, 0);
       gl.uniform3fv(loc.uLD, new Float32Array(9)); gl.uniform3fv(loc.uLC, new Float32Array(9)); gl.uniform3f(loc.uBK, 1, 1, 1);
-      gl.depthMask(false);
-      drawActor(scene.arena.actor);
-      gl.depthMask(true); gl.clear(gl.DEPTH_BUFFER_BIT);
+      if (scene.arena.actor.m.prim) drawArena(scene.arena.actor, R);
+      else { drawActor(scene.arena.actor); gl.clear(gl.DEPTH_BUFFER_BIT); }
     }
     gl.uniform3f(loc.uVT, t[0], t[1], t[2]);
     gl.uniform3fv(loc.uLD, new Float32Array(L.dir[0].concat(L.dir[1], L.dir[2]).map(function (x) { return x / 4096; })));

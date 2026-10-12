@@ -57,9 +57,12 @@ def rgba(c):
     return ((c & 31) * 255 // 31, ((c >> 5) & 31) * 255 // 31, ((c >> 10) & 31) * 255 // 31, 255)
 
 
-def convert(model, motions, tims):
+def convert(model, motions, tims, prims=False):
     """model (omd.parse_model), motions (list of key lists), tims (list of read_tim results)
-    -> (16-bit words as bytes, (width, height, index bytes), (rows, RGBA bytes))"""
+    -> (16-bit words as bytes, (width, height, index bytes), (rows, RGBA bytes))
+    With prims, one more word per triangle follows the motions: the number of its primitive in
+    the file's order (the two triangles of a quad share one), for models that are drawn in the
+    game's own depth order."""
     tiles, order, pals = {}, [], []      # texture -> y in the stacked image; palette rows
 
     def use(ti, row, col):
@@ -89,7 +92,7 @@ def convert(model, motions, tims):
         pal = use(*hit)
         return tiles[hit[0]], (px - t["x"]) * (4 if t["mode"] == 0 else 2), py - t["y"], pal
 
-    verts, index, opaque, blended = [], {}, [], []
+    verts, index, opaque, blended, pid = [], {}, [], [], -1
     for pi, groups in enumerate(model["parts"]):
         for gi, g in enumerate(groups):
             for tri in g["tris"]:
@@ -111,10 +114,11 @@ def convert(model, motions, tims):
                         x, y, z = g["verts"][vi]
                         verts.append((x, y, z) + (nrm or (0, 0, 0)) + (r, g_, b, uu, vv, pi, pal))
                     ids.append(index[key])
+                pid += 0 if tri["half"] else 1
                 if tri["code"] & 2:
-                    blended.append((ids, ((tri["tpage"] or 0) >> 5) & 3))
+                    blended.append((ids, ((tri["tpage"] or 0) >> 5) & 3, pid))
                 else:
-                    opaque.append(ids)
+                    opaque.append((ids, pid))
     if len(verts) > 65535:
         raise ValueError("too many vertices")
     width = max([tims[k]["w"] for k in order] or [1])
@@ -135,17 +139,19 @@ def convert(model, motions, tims):
         w += [model["parents"][i]] + list(model["offsets"][i])
     for v in verts:
         w += list(v)
-    for t in opaque:
+    for t, _ in opaque:
         w += t
-    for t, _ in blended:
+    for t, _, _ in blended:
         w += t
-    w += [m for _, m in blended]
+    w += [m for _, m, _ in blended]
     for keys in motions:
         w.append(len(keys))
         for k in keys:
             w += [k["dur"], k["snd"]]
             for r in k["recs"]:
                 w += list(r["rot"]) + [r["show"]] + list(r["move"]) + list(r["scale"]) + [r["next"]]
+    if prims:
+        w += [p for _, p in opaque] + [p for _, _, p in blended]
     data = struct.pack("<%dH" % len(w), *[x & 0xFFFF for x in w])
     return data, (width, height, bytes(tex)), (max(len(pals), 1), bytes(pal)), (len(verts), len(opaque) + len(blended))
 
