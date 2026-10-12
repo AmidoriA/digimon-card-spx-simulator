@@ -7,7 +7,7 @@
  */
 (function () {
   'use strict';
-  var E = window.DDCB, AI = window.DDCB_AI, D = E.DATA, SND = window.DDCB_SND, FXV = window.DDCB_FX, B3D = window.DDCB_B3D;
+  var E = window.DDCB, AI = window.DDCB_AI, K = window.DDCB_DECKS, D = E.DATA, SND = window.DDCB_SND, FXV = window.DDCB_FX, B3D = window.DDCB_B3D;
   // Sound ids traced in the game: the controller plays 0xA0 on a confirming button and 0xA1
   // on cancel, the hand selector 0xA2 when the cursor moves, message windows 0xA3 / 0xA4.
   var SE = { OK: 0xa0, CANCEL: 0xa1, CURSOR: 0xa2, OPEN: 0xa3, CLOSE: 0xa4 };
@@ -110,13 +110,13 @@
   var OP_DECKS = ALL_DECKS.filter(function (d) { return d.owner !== 'Player'; })
     .sort(function (a, b) { return a.rank - b.rank || a.id - b.id; });
 
-  function deckArmor(d) {
-    if (!d.armor) return null;
-    for (var k = 0; k < E.PARTNERS.length; k++) {
-      if (d.cards.indexOf(E.PARTNERS[k]) >= 0 && E.ARMORS[k][d.armor - 1]) return [E.card(E.PARTNERS[k]), E.card(E.ARMORS[k][d.armor - 1])];
-    }
-    return null;
-  }
+  // The player's own decks, built in the deck editor and kept in the browser (decks.js).
+  // A deck of the game has a number for an id, one of the player's a string.
+  var OWN = K.load();
+  function own(d) { return typeof d.id === 'string'; }
+  function deckOf(id) { return typeof id === 'number' ? D.decks[id] : OWN.filter(function (d) { return d.id === id; })[0]; }
+  function deckName(d) { return d.name || 'Unnamed deck'; }
+  function ownerOf(d) { return own(d) ? 'Your deck' : d.owner === 'Player' ? 'Starter deck' : d.owner; }
 
   // small card picture for the setup screen (board art, assets/mini)
   function thumb(id) {
@@ -128,7 +128,7 @@
   // the cards a deck is recognised by: its strongest Digimon, highest level first
   var faceCache = {};
   function deckFaces(d) {
-    if (!faceCache[d.id]) {
+    if (own(d) || !faceCache[d.id]) { // a deck of the player's changes: not remembered
       var seen = {}, ids = d.cards.filter(function (id) {
         if (seen[id] || E.card(id).type !== 'digimon') return false;
         seen[id] = 1; return true;
@@ -143,14 +143,15 @@
     clear(ul);
     var f = (filter || '').toLowerCase();
     decks.forEach(function (d) {
-      if (f && (d.name + ' ' + d.owner).toLowerCase().indexOf(f) < 0) return;
+      if (f && (d.name + ' ' + ownerOf(d)).toLowerCase().indexOf(f) < 0) return;
       var li = h('li');
       li.tabIndex = 0;
       li.setAttribute('role', 'option');
       li.setAttribute('aria-selected', d.id === selId ? 'true' : 'false');
-      li.appendChild(h('span', 'dn', d.name));
-      li.appendChild(h('span', 'do', d.owner === 'Player' ? 'Starter deck' : d.owner));
-      if (d.owner !== 'Player') li.appendChild(h('span', 'dr', 'Lv ' + d.rank));
+      li.appendChild(h('span', 'dn', deckName(d)));
+      li.appendChild(h('span', 'do', ownerOf(d)));
+      if (own(d)) { if (!K.legal(d.cards)) li.appendChild(h('span', 'dr warn', d.cards.length + ' / ' + K.SIZE)); }
+      else if (d.owner !== 'Player') li.appendChild(h('span', 'dr', 'Lv ' + d.rank));
       var strip = h('span', 'dt');
       deckFaces(d).forEach(function (id) { var t = thumb(id); t.title = E.card(id).name; strip.appendChild(t); });
       li.appendChild(strip);
@@ -162,14 +163,21 @@
   }
 
   function renderPreview() {
-    var d = D.decks[S.previewSide === 'me' ? S.my : S.op];
-    $('previewTitle').textContent = d.name + ' — 30 cards';
+    var d = previewed();
+    $('previewTitle').textContent = deckName(d) + ' — ' + d.cards.length + (d.cards.length === 1 ? ' card' : ' cards');
     var counts = {}, order = [];
     d.cards.forEach(function (id) { if (!counts[id]) { counts[id] = 0; order.push(id); } counts[id]++; });
-    var ul = clear($('previewList')), ar = deckArmor(d);
-    if (ar) ul.appendChild(h('li', 'note', ar[0].name + ' can armor digivolve to ' + ar[1].name + ' when it enters.'));
+    var ul = clear($('previewList'));
+    K.problems(d.cards).forEach(function (t) { ul.appendChild(h('li', 'note', t)); });
+    K.armorForms(d.cards, d.armor).forEach(function (ar) {
+      ul.appendChild(h('li', 'note', E.card(ar[0]).name + ' can armor digivolve to ' + E.card(ar[1]).name + ' when it enters.'));
+    });
     grouped(ul, order, counts);
+    $('btnEdit').textContent = own(d) ? 'Edit' : 'Copy and edit';
+    $('btnEdit').title = own(d) ? 'Open this deck in the deck editor' : 'Make a deck of your own from this one and open it in the deck editor';
+    $('btnDelete').hidden = !own(d);
   }
+  function previewed() { return deckOf(S.previewSide === 'me' ? S.my : S.op); }
   var GROUPS = [['Level R', function (c) { return c.type === 'digimon' && c.level === 0; }],
     ['Level C', function (c) { return c.type === 'digimon' && c.level === 2; }],
     ['Level U', function (c) { return c.type === 'digimon' && c.level === 3; }],
@@ -231,10 +239,121 @@
   }
 
   function renderSetup() {
-    fillDeckList($('myDecks'), MY_DECKS, S.my, $('myFilter').value, function (id) { S.my = id; S.previewSide = 'me'; renderSetup(); });
-    fillDeckList($('opDecks'), OP_DECKS, S.op, $('opFilter').value, function (id) { S.op = id; S.previewSide = 'op'; renderSetup(); });
+    // a deck that is gone, or an opponent's that can no longer be played, gives way to the first one
+    if (!deckOf(S.my)) S.my = (OWN[0] || MY_DECKS[0]).id;
+    if (!deckOf(S.op) || !K.legal(deckOf(S.op).cards)) S.op = OP_DECKS[0].id;
+    try { localStorage.setItem('ddcb-deck', String(S.my)); } catch (err) { /* storage unavailable */ }
+    fillDeckList($('myDecks'), OWN.concat(MY_DECKS), S.my, $('myFilter').value, function (id) { S.my = id; S.previewSide = 'me'; renderSetup(); });
+    fillDeckList($('opDecks'), OP_DECKS.concat(OWN.filter(function (d) { return K.legal(d.cards); })), S.op, $('opFilter').value,
+      function (id) { S.op = id; S.previewSide = 'op'; renderSetup(); });
     Array.prototype.forEach.call($('previewTabs').children, function (b) { b.classList.toggle('on', b.dataset.side === S.previewSide); });
     renderPreview();
+    var bad = K.problems(deckOf(S.my).cards);
+    $('btnStart').disabled = !!bad.length;
+    $('startNote').textContent = bad.length ? 'Your deck is not ready. ' + bad[0] : '';
+  }
+
+  // ------------------------------------------------------------------ the player's own decks
+  function storeOwn() {
+    if (!K.save(OWN)) $('startNote').textContent = 'Your decks could not be saved in this browser.';
+  }
+  // a name no other of the player's decks has
+  function freeName(base) {
+    var name = K.tidyName(base) || 'Deck', n = 1;
+    function taken(x) { return OWN.some(function (d) { return d.name === x; }); }
+    while (taken(name)) name = K.tidyName(base).slice(0, K.NAME_MAX - 3) + ' ' + (++n);
+    return name;
+  }
+  function addOwn(src) {
+    var d = K.clean(src);
+    d.id = K.newId(OWN);
+    OWN.unshift(d); storeOwn();
+    S.my = d.id; S.previewSide = 'me';
+    return d;
+  }
+  function removeOwn(d) {
+    OWN.splice(OWN.indexOf(d), 1); storeOwn();
+  }
+  // Open one of the player's decks in the editor, which changes it in place. A new deck that
+  // comes back with no cards is not kept: the deck picked before it (`was`) is picked again.
+  function editDeck(d, was) {
+    $('setup').hidden = true;
+    window.DDCB_EDITOR.open(d, {
+      save: storeOwn, exportDeck: openExport,
+      done: function () {
+        if (was != null && !d.cards.length) { removeOwn(d); S.my = was; }
+        $('setup').hidden = false;
+        renderSetup();
+        window.scrollTo(0, 0);
+      }
+    });
+  }
+
+  // export: the deck as a card list or as a code, to copy or to save
+  var xdeck = null, xform = 'text';
+  function showExport() {
+    var bad = K.problems(xdeck.cards);
+    $('xportTitle').textContent = 'Export — ' + deckName(xdeck);
+    Array.prototype.forEach.call($('xportTabs').children, function (b) { b.classList.toggle('on', b.dataset.form === xform); });
+    $('xportText').value = xform === 'text' ? K.toText(xdeck) : K.toCode(xdeck);
+    $('xportText').rows = xform === 'text' ? 14 : 4;
+    $('xportNote').textContent = (xform === 'text' ? 'One card a line. The list can be changed by hand and imported again.'
+      : 'The same deck as one short line, for a message or a link.') + (bad.length ? ' This deck is not complete: ' + bad[0] : '');
+    $('xportSay').textContent = '';
+  }
+  function openExport(d) { xdeck = d; showExport(); $('xport').showModal(); $('xportCopy').focus(); }
+  function copyText(text, done) {
+    function plain() {
+      var t = $('xportText'), was = t.value, ok = false;
+      t.value = text; t.select();
+      try { ok = document.execCommand('copy'); } catch (err) { /* not allowed */ }
+      t.value = was;
+      $('xportSay').textContent = ok ? done : 'Copying is not allowed here: select the text and copy it.';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { $('xportSay').textContent = done; }, plain);
+    else plain();
+  }
+  function saveFile() {
+    var a = document.createElement('a'), url = URL.createObjectURL(new Blob([K.toText(xdeck)], { type: 'text/plain' }));
+    a.href = url; a.download = (deckName(xdeck).replace(/[^\w .-]+/g, '').trim() || 'deck') + '.txt';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    $('xportSay').textContent = 'Saved as ' + a.download + '.';
+  }
+
+  // import: what is typed, pasted or dropped is read as it changes, and said back before it is kept
+  var mdeck = null;
+  function readImport() {
+    var text = $('mportText').value, box = clear($('mportSay')), d, bad, ul;
+    mdeck = null;
+    if (text.trim()) {
+      d = K.parse(text);
+      if (d.cards.length) {
+        mdeck = d; bad = K.problems(d.cards);
+        box.appendChild(h('p', 'io-ok', deckName(d) + ' — ' + d.cards.length + (d.cards.length === 1 ? ' card' : ' cards') +
+          (bad.length ? '. ' + bad[0] + ' It opens in the deck editor.' : ', ready to play.')));
+      } else if (!d.notes.length) box.appendChild(h('p', 'io-bad', 'No cards found. Write one card a line, such as "4 Agumon".'));
+      if (d.notes.length) {
+        ul = h('ul', 'io-notes');
+        d.notes.slice(0, 8).forEach(function (t) { ul.appendChild(h('li', null, t)); });
+        if (d.notes.length > 8) ul.appendChild(h('li', null, 'And ' + (d.notes.length - 8) + ' more.'));
+        box.appendChild(ul);
+      }
+    }
+    $('mportOk').disabled = !mdeck;
+  }
+  function openImport(text) {
+    $('mportText').value = text || '';
+    readImport();
+    $('mport').showModal();
+    $('mportText').focus();
+  }
+  function importFile(file) {
+    if (!file) return;
+    if (file.size > 200000) { clear($('mportSay')).appendChild(h('p', 'io-bad', 'That file is too big to be a deck.')); return; }
+    var r = new FileReader();
+    r.onload = function () { $('mportText').value = String(r.result); readImport(); };
+    r.readAsText(file);
   }
 
   // ------------------------------------------------------------------ static stage layer
@@ -1085,10 +1204,11 @@
   }
 
   function startGame() {
-    var md = D.decks[S.my], od = D.decks[S.op];
+    var md = deckOf(S.my), od = deckOf(S.op), foe = own(od) ? 'Opponent' : od.owner;
+    if (!K.legal(md.cards) || !K.legal(od.cards)) return;
     S.skill = parseFloat($('skill').value);
     S.token++;
-    S.G = E.newGame({ names: ['You', od.owner], decks: [md, od] });
+    S.G = E.newGame({ names: ['You', foe], decks: [md, od] });
     S.anim = null; S.resolve = null; S.step = null; S.sel = -1; S.myAtk = -1;
     // the arena: the one chosen, or, as the game does with none named, one of entries 44..55
     // of its table (0x8002e42c)
@@ -1098,7 +1218,7 @@
     clear($('log')); $('ask').hidden = true; $('info').hidden = true; $('flash').hidden = true;
     $('setup').hidden = true; $('game').hidden = false;
     buildStatic(); fit();
-    log('Your deck: ' + md.name + '. Opponent: ' + od.owner + ' (' + od.name + ').');
+    log('Your deck: ' + deckName(md) + '. Opponent: ' + (own(od) ? deckName(od) + ', a deck of yours.' : foe + ' (' + deckName(od) + ').'));
     log(S.G.players[S.G.tp].name + (S.G.tp === 0 ? ' take' : ' takes') + ' the first turn.');
     window.scrollTo(0, 0);
     SND.init();
@@ -1152,6 +1272,36 @@
   Array.prototype.forEach.call($('previewTabs').children, function (b) { b.onclick = function () { S.previewSide = b.dataset.side; renderSetup(); }; });
   $('btnRandom').onclick = function () { S.op = OP_DECKS[Math.floor(Math.random() * OP_DECKS.length)].id; S.previewSide = 'op'; renderSetup(); };
   $('btnStart').onclick = startGame;
+  $('btnNewDeck').onclick = function () { var was = S.my; editDeck(addOwn({ name: freeName('New deck'), cards: [], armor: 0 }), was); };
+  $('btnEdit').onclick = function () {
+    var d = previewed();
+    editDeck(own(d) ? d : addOwn({ name: freeName(d.name), cards: d.cards, armor: d.armor }));
+  };
+  $('btnDelete').onclick = function () {
+    var d = previewed();
+    if (own(d) && window.confirm('Delete the deck "' + deckName(d) + '"?')) { removeOwn(d); renderSetup(); }
+  };
+  $('btnExport').onclick = function () { openExport(previewed()); };
+  Array.prototype.forEach.call($('xportTabs').children, function (b) { b.onclick = function () { xform = b.dataset.form; showExport(); }; });
+  $('xportCopy').onclick = function () { copyText($('xportText').value, 'Copied.'); };
+  $('xportLink').onclick = function () { copyText(location.href.split('#')[0] + '#deck=' + K.toCode(xdeck), 'Link copied.'); };
+  $('xportFile').onclick = saveFile;
+  $('xportClose').onclick = function () { $('xport').close(); };
+  $('btnImport').onclick = function () { openImport(''); };
+  $('mportText').oninput = readImport;
+  $('mportPick').onclick = function () { $('mportFile').click(); };
+  $('mportFile').onchange = function () { importFile($('mportFile').files[0]); $('mportFile').value = ''; };
+  $('mportText').ondragover = function (e) { e.preventDefault(); };
+  $('mportText').ondrop = function (e) {
+    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) { e.preventDefault(); importFile(e.dataTransfer.files[0]); }
+  };
+  $('mportClose').onclick = function () { $('mport').close(); };
+  $('mportOk').onclick = function () {
+    if (!mdeck) return;
+    var d = addOwn({ name: freeName(mdeck.name || 'Imported deck'), cards: mdeck.cards, armor: mdeck.armor });
+    $('mport').close();
+    if (K.legal(d.cards)) renderSetup(); else editDeck(d);
+  };
   $('arenaBtn').onclick = openArenas;
   try { B3D.enabled = localStorage.getItem('ddcb-anim3d') !== '0'; } catch (err) { /* storage unavailable */ }
   $('anim3d').checked = B3D.enabled;
@@ -1168,8 +1318,18 @@
 
   S.my = MY_DECKS[0].id;
   S.op = OP_DECKS[0].id;
+  try { // the deck picked last time
+    var last = localStorage.getItem('ddcb-deck');
+    if (last != null && deckOf(/^\d+$/.test(last) ? +last : last)) S.my = /^\d+$/.test(last) ? +last : last;
+  } catch (err) { /* storage unavailable */ }
   renderSetup();
+  // a link made by "Copy link" carries a deck code: offer it for import
+  var linked = /[#&]deck=(DCB1-[A-Za-z0-9_-]+)/.exec(location.hash);
+  if (linked) {
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (err) { /* keep the link as it is */ }
+    openImport(linked[1]);
+  }
 
-  // small hook for automated checks
-  window.DDCB_UI = { state: S, act: act };
+  // what the deck editor (editor.js) shares with this file, and a small hook for automated checks
+  window.DDCB_UI = { state: S, act: act, h: h, clear: clear, thumb: thumb, rich: rich, cls: cls, lvl: lvl, XFX_HELP: XFX_HELP };
 })();

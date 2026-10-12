@@ -1,8 +1,8 @@
 # Digital Card Battle — web card battle
 
 A browser version of the card battle from *Digimon Digital Card Battle* (PS1, SLUS-01328),
-rebuilt from data, rules and graphics recovered from the disc image. Card battle only: no
-story mode, no deck editor, no partner customisation.
+rebuilt from data, rules and graphics recovered from the disc image. Card battle and deck
+building only: no story mode, no card collection, no partner customisation.
 
 All card data, art, UI textures and audio (`web/js/data/`, `web/assets/`) are generated
 from the disc image (SLUS-01328, US release) and are committed, so a clone runs as is.
@@ -26,6 +26,50 @@ exactly that name, capitals included: Pages tells names apart by case and Window
 
 During a match, click a TRASH plate to see that player's Offline pile (newest card first)
 and a DECK plate to see which cards are still in that deck, by level and with their counts.
+
+## Deck editor
+
+**New deck** on the start screen opens the deck editor; **Copy and edit** under a deck's
+contents starts from any deck of the game, yours or an opponent's. Decks you build are kept
+in the browser (`localStorage`), saved as you go, and are listed above the game's decks; a
+finished one can also be picked as the opponent's deck.
+
+The rules are the ones of the game's deck editor, the overlay `P/SUBSEG.BIN`:
+
+- A deck is 30 cards. Leaving the editor, `0x801ed61c` walks the deck's 30 slots: with an
+  empty one it says "There are not enough Cards.", and with no Digimon card among them
+  "Please place Digimon Cards in a Deck." (`0x801ed674`).
+- Before a card goes into a slot, `0x801ece70` refuses the armor forms (card numbers
+  172-174, 176-181, 185, 186, 188, 189) and any card the deck already holds 4 of.
+- Card numbers are the ids used here: `0x80046bac` takes numbers below 191 as Digimon, the
+  next 102 as option cards and the rest as digivolve cards.
+
+Finding cards:
+
+- **Search** looks for every word typed in card names, attack names, the name of the
+  ✕ effect and the effect text, and marks what it found. `"attack first"` keeps words
+  together, `-discard` leaves cards out. Numbers can be compared: `hp>=1500`, `dp<40`,
+  `+p=20`, `o>600` (`o`, `t`, `x` are the three attack powers). The attack symbols can be
+  typed as `circle`, `triangle`, `cross`.
+- **Filters** for type, Specialty, level and whether a card is in the deck, and under "More
+  filters" the ✕ effect, DP cost and +P. Each value shows how many cards choosing it
+  would leave; several values of one filter widen it, different filters narrow each other.
+- **Sort** by the keys of the game's own sort menu (table `0x801f2154`: Number, Level,
+  Strength, Required DP, Added DP, the three attack powers, Cards Used) or by name. In
+  number order a search puts cards whose name matches before cards that only mention the word.
+- **Keys:** `/` goes to the search box, Enter there adds the first card found, the down arrow
+  goes into the list, where Enter or `+` adds and `-` takes out. Ctrl+Z and Ctrl+Y undo and
+  redo. A click on a card adds it, Shift+click takes one out.
+
+**Export** gives a deck as a card list (one `4 Agumon` line per card, which can be changed
+by hand) or as a short deck code, to copy, to save as a file or as a link that opens the
+page with the deck ready to import. **Import** reads either form, pasted, chosen as a file or
+dropped; it says what it understood before anything is kept, names a card it does not know
+with the nearest name, and leaves out what the rules do not allow. A deck that is not
+complete yet is kept, opens in the editor and cannot start a battle.
+
+`node tools/decktest.js` checks the rules against all 159 decks of the game, the search and
+filters, and that every deck comes back the same from both exported forms.
 
 ## Rules, as traced in the game code
 
@@ -301,6 +345,17 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   nothing away that the table does not already show: both hands are open here and the decks
   are the game's own lists. It is sorted, not in draw order, and a support card lying face
   down from the deck is still counted as in the deck.
+- **Deck editor screen.** The rules above are the game's; the screen, the search, the
+  filters, undo, and the list and code a deck is exported as are this project's. The game's
+  editor only offers the cards a save holds ("Cards in Stock": a working copy at `0x801f3f48`,
+  filled from the save by `0x80045f5c`, from which `0x801eda88` takes one for each card put
+  in). There is no collection here, so every card is on offer, the six partner Rookies
+  included: how many of those a save holds was not traced, and here the check that allows 4
+  of a card is the only limit on them. A deck's armor form is one choice for the whole deck,
+  as in a `DECK2.DEK` record; how the game's own editor stores it ("Armor Change with L1 &
+  R1") was not traced. How each key of the game's sort menu orders the cards was not read
+  either: here they sort by the value they name. The game also offers "Auto Deck" and
+  starting from a "Base Deck"; only the second has a counterpart here (Copy and edit).
 - **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported.
 - **Hands shown face up** rests on the card-state byte being the same for both players'
   hand cards, and on how the game plays; the drawing code was not read.
@@ -334,6 +389,9 @@ upscale.
 | --- | --- |
 | `web/js/engine.js` | Rules engine (port of the traced routines) |
 | `web/js/ai.js` | Computer opponent |
+| `web/js/decks.js` | Deck rules (from the game's editor), card search, deck export and import |
+| `web/js/editor.js` | Deck editor screen |
+| `tools/decktest.js` | Checks of the deck rules, the search and export/import |
 | `web/js/ui.js`, `web/css/style.css`, `web/index.html` | Front end |
 | `web/js/data/cards.js` | Generated: 301 cards, 159 decks |
 | `web/assets/art`, `mini`, `ui` | Generated: upscaled card art and battle textures |

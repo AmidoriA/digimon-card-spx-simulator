@@ -19,7 +19,11 @@
 
     <div class="setup-grid">
       <div class="panel">
-        <h2>Your deck</h2>
+        <div class="panel-head">
+          <h2>Your deck</h2>
+          <button id="btnNewDeck" class="btn small" type="button" title="Build a deck of your own">New deck</button>
+          <button id="btnImport" class="btn ghost small" type="button" title="Bring in a deck from a card list or a deck code">Import</button>
+        </div>
         <input id="myFilter" class="filter" type="search" placeholder="Search decks" aria-label="Search your deck">
         <ul id="myDecks" class="decklist" role="listbox" aria-label="Your deck"></ul>
       </div>
@@ -33,6 +37,11 @@
         <div id="previewTabs" class="tabs">
           <button data-side="me" class="on">Yours</button>
           <button data-side="op">Opponent's</button>
+        </div>
+        <div class="deck-acts">
+          <button id="btnEdit" class="btn small" type="button">Edit</button>
+          <button id="btnExport" class="btn ghost small" type="button" title="This deck as a card list or a deck code">Export</button>
+          <button id="btnDelete" class="btn ghost small danger" type="button">Delete</button>
         </div>
         <ul id="previewList" class="cardlist"></ul>
       </div>
@@ -51,9 +60,73 @@
           <span id="arenaThumb" class="arena-thumb"></span><span id="arenaName">Random</span>
         </button>
       </div>
+      <span id="startNote" class="start-note" role="status"></span>
       <button id="btnRandom" class="btn ghost">Random opponent</button>
       <button id="btnStart" class="btn primary">Start battle</button>
     </footer>
+  </div>
+</section>
+
+<!-- ============================== deck editor ============================== -->
+<section id="editor" class="screen" hidden>
+  <div class="ed-wrap">
+    <header class="ed-top">
+      <button id="edBack" class="btn ghost" type="button">&larr; Decks</button>
+      <input id="edName" class="ed-name" type="text" maxlength="24" placeholder="Deck name" aria-label="Deck name" autocomplete="off" spellcheck="false">
+      <label id="edArmorBox" class="optl ed-armor" title="The armor form a partner Rookie of this deck can armor digivolve into when it enters">Armor
+        <select id="edArmor"></select>
+      </label>
+      <span id="edSaved" class="ed-saved">Saved as you go</span>
+      <button id="edUndo" class="btn ghost small" type="button" title="Undo (Ctrl+Z)">Undo</button>
+      <button id="edRedo" class="btn ghost small" type="button" title="Redo (Ctrl+Y)">Redo</button>
+      <button id="edExport" class="btn ghost" type="button">Export</button>
+      <button id="edDone" class="btn primary" type="button">Done</button>
+    </header>
+
+    <div id="edTabs" class="tabs ed-tabs">
+      <button type="button" data-view="cards" class="on">Cards</button>
+      <button type="button" data-view="deck" id="edTabDeck">Deck</button>
+    </div>
+
+    <div id="edGrid" class="ed-grid" data-view="cards">
+      <div class="panel ed-pool">
+        <div class="ed-search">
+          <input id="edQ" class="filter" type="search" placeholder="Search name, attack or effect &mdash; try &ldquo;draw&rdquo; or hp&gt;=1500" aria-label="Search cards" autocomplete="off" spellcheck="false">
+          <button id="edHelpBtn" class="btn ghost small" type="button" aria-expanded="false" aria-controls="edHelp" title="Search tips">?</button>
+          <label class="ed-sort">Sort
+            <select id="edSort" aria-label="Sort by"></select>
+          </label>
+          <button id="edDir" class="btn ghost small" type="button"></button>
+        </div>
+        <div id="edHelp" class="ed-help" hidden>
+          <p><b>Words</b> are looked for in card names, attack names, &#10005; effects and effect text; every word has to be there. Put <kbd>"attack first"</kbd> in quotes to keep words together, and <kbd>-discard</kbd> leaves cards out.</p>
+          <p><b>Numbers:</b> <kbd>hp&gt;=1500</kbd> <kbd>dp&lt;40</kbd> <kbd>+p=20</kbd> <kbd>o&gt;600</kbd> <kbd>t&gt;400</kbd> <kbd>x&gt;=300</kbd> (o, t, x are the &#9675; &#9651; &#10005; attack powers).</p>
+          <p><b>Keys:</b> <kbd>/</kbd> search &middot; <kbd>Enter</kbd> add the first card found &middot; <kbd>&darr;</kbd> into the list &middot; <kbd>Enter</kbd> or <kbd>+</kbd> add, <kbd>&minus;</kbd> take out &middot; <kbd>Esc</kbd> clear the search.</p>
+        </div>
+        <div id="edFacets" class="ed-facets"></div>
+        <div class="ed-count">
+          <span id="edCount" role="status"></span>
+          <button id="edMore" class="linkbtn" type="button" aria-expanded="false"></button>
+          <button id="edClear" class="linkbtn" type="button">Clear filters</button>
+        </div>
+        <ul id="edList" class="ed-list" aria-label="Cards"></ul>
+      </div>
+
+      <aside class="ed-side">
+        <div id="edInfo" class="panel ed-info"></div>
+        <div class="panel ed-deck">
+          <div class="panel-head">
+            <h2>Deck <b id="edTotal"></b></h2>
+            <button id="edEmpty" class="btn ghost small" type="button">Clear deck</button>
+          </div>
+          <div class="ed-meter"><i id="edMeter"></i></div>
+          <ul id="edProblems" class="ed-problems"></ul>
+          <div id="edMix" class="ed-mix"></div>
+          <ul id="edDeck" class="ed-decklist" aria-label="Cards in the deck"></ul>
+        </div>
+      </aside>
+    </div>
+    <div id="edSay" class="vh" aria-live="polite"></div>
   </div>
 </section>
 
@@ -138,6 +211,37 @@
   <form method="dialog"><button class="btn ghost">Close</button></form>
 </dialog>
 
+<dialog id="xport" class="dialog xport">
+  <h2 id="xportTitle">Export deck</h2>
+  <div id="xportTabs" class="tabs">
+    <button type="button" data-form="text" class="on">Card list</button>
+    <button type="button" data-form="code">Deck code</button>
+  </div>
+  <p id="xportNote" class="pile-note"></p>
+  <textarea id="xportText" class="deck-io" readonly rows="14" aria-label="Exported deck" spellcheck="false"></textarea>
+  <div class="row">
+    <span id="xportSay" class="io-say" role="status"></span>
+    <button id="xportCopy" class="btn primary" type="button">Copy</button>
+    <button id="xportLink" class="btn ghost" type="button" title="A link that opens this page with the deck ready to import">Copy link</button>
+    <button id="xportFile" class="btn ghost" type="button">Save as file</button>
+    <button id="xportClose" class="btn ghost" type="button">Close</button>
+  </div>
+</dialog>
+
+<dialog id="mport" class="dialog xport">
+  <h2>Import deck</h2>
+  <p class="pile-note">Paste a card list (one card a line, such as <kbd>4 Agumon</kbd>) or a deck code, or choose or drop a file.</p>
+  <textarea id="mportText" class="deck-io" rows="12" aria-label="Deck to import" spellcheck="false" placeholder="Deck: My deck&#10;4 Agumon&#10;2 Greymon&#10;&hellip;"></textarea>
+  <div id="mportSay" class="io-result" role="status"></div>
+  <div class="row">
+    <input id="mportFile" type="file" accept=".txt,text/plain" hidden>
+    <button id="mportPick" class="btn ghost" type="button">Choose file&hellip;</button>
+    <span class="io-say"></span>
+    <button id="mportOk" class="btn primary" type="button" disabled>Import</button>
+    <button id="mportClose" class="btn ghost" type="button">Cancel</button>
+  </div>
+</dialog>
+
 <dialog id="result" class="dialog result">
   <h2 id="resultTitle"></h2>
   <p id="resultText"></p>
@@ -155,6 +259,8 @@
 <script src="js/data/effects.js"></script>
 <script src="js/effects.js"></script>
 <script src="js/battle3d.js"></script>
+<script src="js/decks.js"></script>
 <script src="js/ui.js"></script>
+<script src="js/editor.js"></script>
 </body>
 </html>
