@@ -18,6 +18,13 @@
    {"hue": [330, 70], "sat": [0.15, 1], "to": {"hue": [252, 282], "sat": 0.95, "val": 0.85}}
   ]
  },
+ "decks": [
+  {
+   "name": "Black Fire Again",
+   "base": {"name": "Black Fire Heart", "owner": "BK WarGreymon"},
+   "replace": {"WarGreymon": "BlackWarGreymon"}
+  }
+ ],
  "cards": [
   {
    "id": 301,

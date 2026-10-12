@@ -143,6 +143,24 @@ tools/.venv/Scripts/python tools/build_custom.py extracted web
 - In the README: a column in the table of "Custom cards" with what the card is made from,
   and in "Not from the game code" what was chosen and by whom.
 
+## A deck with the card
+
+When the owner wants an opponent to play a custom card, the game's deck stays as it is and
+a **custom deck** is made from it: an entry in `"decks"` with a name, the base deck (its
+name and owner) and the cards to exchange by name. It follows the game's 159 decks and
+keeps its base's owner, rank, armor form and music, so it shows up as that opponent's next
+deck. The name is yours to choose unless the owner gives one: at most 18 letters, like the
+game's, and in the manner of the game's second decks ("Black Storm Again", "Evil Fire
+Revived"). Only the card data changes:
+
+```bash
+tools/.venv/Scripts/python tools/build_custom.py extracted web data
+```
+
+Add a check to `tools/selftest.js` that the deck is its base with the exchange, run
+`node tools/sim.js` (it now plays the deck), look for it in the opponent list on the start
+screen, and name it in the README next to the card.
+
 ## Traps
 
 - **The page keeps old files.** After a rebuild, fetch the model, the effect files and
@@ -152,4 +170,5 @@ tools/.venv/Scripts/python tools/build_custom.py extracted web
 - **A hue range that goes through red** is written with the larger number first:
   `[330, 70]`.
 - **Do not touch the game's cards or decks** to make room for a custom card. No deck of
-  the game holds one; the owner builds a deck with it in the deck editor.
+  the game holds one; the owner builds a deck with it in the deck editor, or asks for a
+  custom deck (below).
