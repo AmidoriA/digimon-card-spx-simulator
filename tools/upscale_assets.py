@@ -1,11 +1,12 @@
 """Upscale the game's card art and battle-screen textures 4x through a local ComfyUI
 (RealESRGAN_x4plus) and write the web assets.
 
-Usage (venv python):  upscale_assets.py <extracted_dir> <web_dir> [art] [mini] [ui]
+Usage (venv python):  upscale_assets.py <extracted_dir> <web_dir> [art] [mini] [ui] [overlay]
 
   web/assets/art/NNN.webp    256x256  card illustration  (B/CARD/LCnnn.TIM, 64x64)
   web/assets/mini/NNN.webp   160x160  board-size card art (B/M_CARD.ARC, 40x40)
   web/assets/ui/<name>.png   battle screen pieces         (B/CBTL_SYS.ARC)
+  web/assets/battle/overlay4.png  words of the Polygon Battle (chunk 104 of A/BATTLE.PAK)
 
 Tiles are packed into sheets with replicated-edge padding so neighbours do not bleed
 into each other, upscaled in one pass per sheet, then cut apart again.
@@ -114,9 +115,47 @@ def do_ui(ext, web):
         print("  ui: %s %s" % (name, res.size), flush=True)
 
 
+def bleed(rgba, n):
+    """Spread the colours of the opaque pixels n pixels into the transparent ones, so the
+    upscaler does not mix a background colour into the edges."""
+    out = rgba.copy()
+    for _ in range(n):
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            moved = Image.new("RGBA", out.size)
+            moved.paste(out, (dx, dy))
+            out = Image.alpha_composite(moved, out)
+    return out
+
+
+def do_overlay(ext, web):
+    """The words of the Polygon Battle ("ATTACK!", "DAMAGE", digits ...), each piece upscaled
+    on its own: web/assets/battle/overlay4.png, laid out like overlay.png at 4x."""
+    import build_battle
+    w, h, pieces = build_battle.overlay_pieces(ext)
+    sheet = Image.new("RGBA", (w * SCALE, h * SCALE))
+    for k, (u, v, im) in enumerate(pieces):
+        wide = Image.new("RGBA", (im.width + 2 * PAD, im.height + 2 * PAD))
+        wide.paste(im, (PAD, PAD))
+        alpha = wide.split()[3]
+        spread = bleed(wide, PAD)
+        flat = Image.new("RGB", wide.size, (96, 96, 96))
+        flat.paste(spread.convert("RGB"), (0, 0), spread.split()[3])
+        big = comfy.upscale(flat, MODEL, "ov_%02d" % k)
+        # the outline is upscaled as a picture of its own, which keeps its edges smooth
+        mask = comfy.upscale(Image.merge("RGB", (alpha, alpha, alpha)), MODEL, "ovm_%02d" % k).convert("L")
+        res = big.convert("RGBA")
+        res.putalpha(mask.point(lambda a: max(0, min(255, (a - 64) * 2))))
+        res = res.crop((PAD * SCALE, PAD * SCALE, res.width - PAD * SCALE, res.height - PAD * SCALE))
+        sheet.paste(res, (u * SCALE, (v - 40) * SCALE))
+        print("  overlay: %d/%d" % (k + 1, len(pieces)), flush=True)
+    sheet.save(os.path.join(web, "assets", "battle", "overlay4.png"), optimize=True)
+
+
 def main():
     ext, web = sys.argv[1], sys.argv[2]
-    what = sys.argv[3:] or ["art", "mini", "ui"]
+    what = sys.argv[3:] or ["art", "mini", "ui", "overlay"]
+    if "overlay" in what:
+        do_overlay(ext, web)
     if "ui" in what:
         do_ui(ext, web)
     if "mini" in what:

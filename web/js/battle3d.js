@@ -22,9 +22,12 @@
  * The director also draws words over the scene (0x801ecf20, 0x801ec8a4, 0x801ec6e0,
  * 0x801ed97c): the attack banner with the attack's type, the target's HP counting down, the
  * damage, "WINNER!!". An attack that does no damage has no script, only "Miss!!"; an attack
- * that is countered plays its motion without effects (0x801eebec, 0x801ecc70).
+ * that is countered plays its motion without effects (0x801eebec, 0x801ecc70). After a hit
+ * with Eat-Up HP the attacker is shown alone with script 998 while its HP counts up
+ * (0x801eec3c).
  *
- * Drawn on a 320x240 canvas like the game's screen.
+ * The scene is drawn at the game's 320x240 and enlarged; the words go over it at the
+ * canvas's own size.
  */
 (function () {
   'use strict';
@@ -266,7 +269,13 @@
   var SVS = 'attribute vec3 p;attribute vec2 t;uniform vec2 uTex;varying vec2 vUV;void main(){vUV=(t+0.5)/uTex;gl_Position=vec4(p.x/160.0-1.0,1.0-p.y/120.0,clamp((p.z-60.0)/20000.0,0.0,1.0),1.0);}';
   var SFS = 'precision mediump float;uniform sampler2D uS,uP;uniform float uPal,uCol;varying vec2 vUV;' +
     'void main(){float ix=texture2D(uS,vUV).r*255.0;vec4 c=texture2D(uP,vec2((ix+0.5)/256.0,uPal));if(c.a<0.5)discard;gl_FragColor=vec4(c.rgb*uCol,1.0);}';
-  var pprog = null, sprog = null, pbuf = null, ploc = {}, sloc = {};
+  // the finished 320x240 picture, and the pieces of the overlay: x, y in screen pixels, u, v in texture pixels
+  var OVS = 'attribute vec2 p,t;uniform vec2 uTex;varying vec2 vUV;void main(){vUV=t/uTex;gl_Position=vec4(p.x/160.0-1.0,1.0-p.y/120.0,0.0,1.0);}';
+  var BFS = 'precision mediump float;uniform sampler2D uS;varying vec2 vUV;void main(){gl_FragColor=vec4(texture2D(uS,vUV).rgb,1.0);}';
+  // uK: brightness, share of the colour that is added, share of the picture behind that is covered
+  var OFS = 'precision mediump float;uniform sampler2D uS;uniform vec3 uK;varying vec2 vUV;' +
+    'void main(){vec4 c=texture2D(uS,vUV);gl_FragColor=vec4(min(c.rgb*uK.x,1.0)*uK.y*c.a,c.a*uK.z);}';
+  var pprog = null, sprog = null, bprog = null, oprog = null, pbuf = null, ploc = {}, sloc = {}, bloc = {}, oloc = {}, fbo = null, ftex = null;
   function program(vs, fs) {
     function sh(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; }
     var p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(p);
@@ -276,7 +285,8 @@
     canvas = document.getElementById('b3d');
     if (!canvas) return false;
     if (gl) return true;
-    gl = canvas.getContext('webgl', { alpha: false, antialias: false });
+    var want = { alpha: false, antialias: false };
+    gl = canvas.getContext('webgl2', want) || canvas.getContext('webgl', want);
     if (!gl) return false;
     prog = program(VS, FS);
     ['aP', 'aN', 'aC', 'aT'].forEach(function (a) { loc[a] = gl.getAttribLocation(prog, a); });
@@ -285,7 +295,20 @@
     sprog = program(SVS, SFS);
     sloc = { p: gl.getAttribLocation(sprog, 'p'), t: gl.getAttribLocation(sprog, 't') };
     ['uTex', 'uS', 'uP', 'uPal', 'uCol'].forEach(function (u) { sloc[u] = gl.getUniformLocation(sprog, u); });
+    bprog = program(OVS, BFS); oprog = program(OVS, OFS);
+    [[bprog, bloc], [oprog, oloc]].forEach(function (x) {
+      x[1].p = gl.getAttribLocation(x[0], 'p'); x[1].t = gl.getAttribLocation(x[0], 't');
+      ['uTex', 'uS', 'uK'].forEach(function (u) { x[1][u] = gl.getUniformLocation(x[0], u); });
+    });
     pbuf = gl.createBuffer();
+    // the scene's own 320x240 picture
+    ftex = rawTexture(gl.RGBA, W, HGT, null);
+    fbo = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, ftex, 0);
+    var depth = gl.createRenderbuffer(); gl.bindRenderbuffer(gl.RENDERBUFFER, depth);
+    gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT24 || gl.DEPTH_COMPONENT16, W, HGT);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, depth);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     return true;
   }
   function drawActor(a) {
@@ -345,6 +368,7 @@
   };
   function render() {
     if (!gl || !scene) return;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
     gl.viewport(0, 0, W, HGT);
     var bk = scene.arena ? scene.arena.back : [8, 10, 20];
     gl.clearColor(bk[0] / 255, bk[1] / 255, bk[2] / 255, 1); gl.clearDepth(1);
@@ -426,65 +450,71 @@
 
   // ------------------------------------------------------------------ battle overlay
   // The words and numbers the director draws over the scene, from the battle texture (chunk
-  // 104 of A/BATTLE.PAK; its 24 palettes pick which of the overlaid pictures shows). A piece
-  // slides to a first place, then to a second, then fades (0x801ec160 / 0x801ec1f4).
-  var OV = { img: null, pal: null, sheets: {}, ctx: null, canvas: null, p: null };
+  // 104 of A/BATTLE.PAK). Every colour of it has the GPU's blend bit set, so a piece is mixed
+  // with the picture by its blend mode (0 half and half, 1 added, 3 a quarter added) after its
+  // colours are scaled by its brightness (128 = as painted; 0x8001c4dc). A piece slides to a
+  // first place, then to a second; after that it fades, or, if it is one that holds, it waits
+  // and leaves to the right (0x801ec160 / 0x801ec1f4). Pieces drawn through 0x801ebfd4 trail
+  // after-images: copies at the places of the frames before, a quarter added.
+  var OV = { tex: null, w: 256, h: 216, ctx: null, canvas: null, p: null };
   function loadOverlay() {
     if (!OV.p) {
-      OV.p = Promise.all([image('assets/battle/overlay.png'), image('assets/battle/overlayp.png')]).then(function (a) {
-        function data(im) { var c = document.createElement('canvas'); c.width = im.width; c.height = im.height; var x = c.getContext('2d'); x.drawImage(im, 0, 0); return x.getImageData(0, 0, im.width, im.height); }
-        OV.img = data(a[0]); OV.pal = data(a[1]);
-      }).catch(function () { OV.img = null; });
+      // the sheet upscaled 4x (tools/upscale_assets.py) or, without it, as the game has it
+      OV.p = image('assets/battle/overlay4.png').then(function (im) { return [im, 4]; }, function () {
+        return image('assets/battle/overlay.png').then(function (im) { return [im, 1]; });
+      }).then(function (a) { OV.tex = texture(a[0]); OV.w = a[0].width / a[1]; OV.h = a[0].height / a[1]; }).catch(function () { OV.tex = null; });
     }
     return OV.p;
   }
-  // the texture coloured with one palette; id as the GPU takes it: x / 16 in the low 6 bits, y above
-  function sheet(id) {
-    if (OV.sheets[id]) return OV.sheets[id];
-    var row = ((id >> 6) - 80) * 4 + ((id & 0x3f) - 40), c = document.createElement('canvas'), w = OV.img.width, h = OV.img.height;
-    c.width = w; c.height = h;
-    var x = c.getContext('2d'), out = x.createImageData(w, h), s = OV.img.data, p = OV.pal.data, i, k;
-    if (row < 0 || row * 16 * 4 >= p.length) row = 1;
-    for (i = 0; i < w * h; i++) {
-      k = (row * OV.pal.width + s[i * 4]) * 4;
-      out.data[i * 4] = p[k]; out.data[i * 4 + 1] = p[k + 1]; out.data[i * 4 + 2] = p[k + 2]; out.data[i * 4 + 3] = p[k + 3];
-    }
-    x.putImageData(out, 0, 0);
-    OV.sheets[id] = c;
-    return c;
+  function quad(x0, y0, x1, y1, u0, v0, u1, v1) {
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([x0, y0, u0, v0, x1, y0, u1, v0, x0, y1, u0, v1, x1, y1, u1, v1]), gl.DYNAMIC_DRAW);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
-  // rect = [u, v, w, h] in the texture page (the texture starts at v = 40); brightness 128 = full
-  function spr(x, y, rect, clut, bright) {
-    var c = OV.ctx;
-    if (!c || !OV.img || bright <= 0) return;
-    c.globalAlpha = Math.min(1, bright / 128);
-    c.drawImage(sheet(clut), rect[0], rect[1] - 40, rect[2], rect[3], Math.trunc(x), y, rect[2], rect[3]);
-    c.globalAlpha = 1;
+  // rect = [u, v, w, h] in the texture page (the texture starts at v = 40)
+  function spr(x, y, rect, bright, blend) {
+    if (!OV.tex || bright <= 0) return;
+    var k = Math.min(bright, 255) / 128;
+    x = Math.trunc(x);
+    gl.uniform3f(oloc.uK, k, blend === 0 ? 0.5 : blend === 3 ? 0.25 : 1, blend === 0 ? 0.5 : 0);
+    quad(x, y, x + rect[2], y + rect[3], rect[0], rect[1] - 40, rect[0] + rect[2], rect[1] - 40 + rect[3]);
   }
-  function El(x0, t1, t2) { this.x = x0; this.t = [t1, t2]; this.bright = 128; }
+  // hold: the frames a piece waits before it leaves to the right; without it the piece fades
+  function El(x0, t1, t2, hold) { this.x = x0; this.t = [t1, t2]; this.bright = 128; this.hold = hold; this.tr = [x0, x0, x0, x0, x0, x0, x0]; }
   // 0x801ec1f4: one frame for `els`; returns the new phase (3 = finished)
   function advance(els, phase, speed) {
     var done = 0, i, e;
-    if (phase < 2) {
-      for (i = 0; i < els.length; i++) {
-        e = els[i];
+    for (i = 0; i < els.length; i++) {
+      e = els[i];
+      if (phase < 2) {
         e.x += (e.t[phase] - e.x) / (8 >> phase);
         if (Math.abs(Math.trunc(e.x) - e.t[phase]) < 2) done++;
+      } else if (phase === 2) {
+        if (e.hold === undefined) { e.bright -= speed; if (e.bright <= 0) phase = 3; }
+        else if (e.hold > 0) e.hold--;
+        // towards x = 340, an eighth of the way each frame, until it hardly moves any more
+        else { e.x += (340 - e.x) * 0.125; if (Math.abs(Math.trunc(e.x) - e.tr[0]) < 2) phase = 3; }
       }
-      return done === els.length ? phase + 1 : phase;
     }
-    if (phase === 2) for (i = 0; i < els.length; i++) { els[i].bright -= speed; if (els[i].bright <= 0) phase = 3; }
+    if (phase < 2 && done === els.length) phase++;
+    // where the piece was drawn in the frames before: tr[0] is this frame
+    for (i = 0; i < els.length; i++) { e = els[i]; e.tr.unshift(e.fixed === undefined ? Math.trunc(e.x) : e.fixed); e.tr.length = 7; }
     return phase;
   }
-  var LABEL = function (k) { return [k * 40, 168, 40, 24]; }, LCLUT = function (k) { return 0x1400 | (((k * 16 + 656) >> 4) & 0x3f); };
+  // 0x801ebfd4: a piece with n after-images behind it, each a little darker than the one before
+  function trailed(e, y, rect, bright, blend, n) {
+    var b = (bright & 0xff) - 4, i;
+    for (i = 1; i <= n; i++, b -= 4) if (b >= 9) spr(e.tr[i], y, rect, b, 3);
+    spr(e.x, y, rect, bright, blend);
+  }
+  var LABEL = function (k) { return [k * 40, 168, 40, 24]; };
   // 0x801ec494: a number of up to four digits, with "HP" in front unless x is 31
   function digits(x, y, value, bright) {
-    if (x !== 31) { spr(x, y, [120, 168, 40, 24], 5224, bright); x += 16; }
+    if (x !== 31) { spr(x, y, [120, 168, 40, 24], bright, 1); x += 16; }
     var d = [Math.floor(value / 1000) % 10, Math.floor(value / 100) % 10, Math.floor(value / 10) % 10, value % 10], n = 1, seen = false, k;
     for (k = 0; k < 4; k++) {
       if (d[k]) seen = true;
       if (!seen && k !== 3) continue;
-      spr(x + 21 * n + 4, y, [d[k] * 24, 192, 24, 24], 5225, bright);
+      spr(x + 21 * n + 4, y, [d[k] * 24, 192, 24, 24], bright, 1);
       n++;
     }
   }
@@ -512,9 +542,9 @@
   };
   AttackOverlay.prototype.draw = function () {
     var o = this.o, c = OV.ctx;
-    if (this.phase >= 3 || !c) return;
-    if (o.miss) spr(this.e0.x, 194, [128, 88, 128, 32], 5226, this.e0.bright);
-    else {
+    if (this.phase >= 3) return;
+    if (o.miss) trailed(this.e0, 194, [128, 88, 128, 32], this.e0.bright, 0, 6);
+    else if (c) {
       // the attack name plate (a strip of VRAM the game fills elsewhere; drawn here as text)
       c.globalAlpha = Math.min(1, Math.max(0, this.e0.bright) / 128);
       c.font = 'italic 900 15px "Arial Narrow", Arial, sans-serif'; c.textBaseline = 'top'; c.lineJoin = 'round';
@@ -522,18 +552,18 @@
       c.fillStyle = '#ffffff'; c.fillText(o.name, Math.trunc(this.e0.x) + 8, 184);
       c.globalAlpha = 1;
     }
-    spr(this.e1.x, 162, [0, 136, 160, 16], 5352, this.e1.bright);
-    if (this.badge) spr(this.badge.x, 146, [(o.crash ? 1 : 0) * 64, 88, 64, 32], 0x1500 | ((((o.crash ? 1 : 0) * 16 + 672) >> 4) & 0x3f), this.badge.bright);
-    if (this.ec) spr(this.ec.x, 162, [0, 152, 159, 16], 5353, this.ec.bright);
-    else spr(this.e1.x + 6, 162, [160 + 24 * o.atk, 160, 24, 16], 0x14a8 | o.atk, this.e1.bright);
-    if (this.ex) spr(this.ex.x, 152, [232, 160, 24, 32], 5354, this.ex.bright);
-    spr(16, 16, LABEL(o.label), LCLUT(o.label), this.e0.bright);
+    trailed(this.e1, 162, [0, 136, 160, 16], this.e1.bright, 1, 1);
+    if (this.badge) trailed(this.badge, 146, [(o.crash ? 1 : 0) * 64, 88, 64, 32], this.badge.bright, 0, 6);
+    if (this.ec) trailed(this.ec, 162, [0, 152, 159, 16], this.ec.bright, 0, 6);
+    else spr(this.e1.x + 6, 162, [160 + 24 * o.atk, 160, 24, 16], this.e1.bright, 1);
+    if (this.ex) trailed(this.ex, 152, [232, 160, 24, 32], this.ex.bright, 0, 6);
+    spr(16, 16, LABEL(o.label), this.e0.bright, 1);
   };
   // 0x801ecc70: "ATTACK!" for an attack that is about to be countered; ends once it has slid in
   function CounteredOverlay(o) {
     var badge = o.first || o.crash ? 1 : 0;
     this.o = o; this.phase = 0;
-    this.e0 = new El(320, 78 + 32 * badge, 80 + 32 * badge); this.e0.bright = 90;
+    this.e0 = new El(320, 78 + 32 * badge, 80 + 32 * badge);
     this.els = [this.e0];
     if (badge) { this.badge = new El(-64, 50, 48); this.els.push(this.badge); }
   }
@@ -543,12 +573,12 @@
   };
   CounteredOverlay.prototype.draw = function () {
     var o = this.o;
-    spr(this.e0.x, 162, [0, 136, 160, 16], 5352, this.e0.bright);
-    if (this.badge) spr(this.badge.x, 146, [(o.crash ? 1 : 0) * 64, 88, 64, 32], 0x1500 | ((((o.crash ? 1 : 0) * 16 + 672) >> 4) & 0x3f), 128);
-    spr(this.e0.x + 6, 162, [160 + 24 * o.atk, 160, 24, 16], 0x14a8 | o.atk, this.e0.bright);
+    trailed(this.e0, 162, [0, 136, 160, 16], 128, 1, 1);
+    if (this.badge) trailed(this.badge, 146, [(o.crash ? 1 : 0) * 64, 88, 64, 32], 128, 0, 6);
+    spr(this.e0.x + 6, 162, [160 + 24 * o.atk, 160, 24, 16], 128, 1);
   };
-  // 0x801ec8a4: the target's HP counts down over 40 frames once its damage motion has started,
-  // then fades. o: label, hp0, hp1, started() -> bool
+  // 0x801ec8a4: a Digimon's HP counts to its new value over 40 frames (down once its damage
+  // motion has started, or up for Eat-Up HP), then fades. o: label, hp0, hp1, started() -> bool
   function HpOverlay(o) {
     this.o = o; this.cur = o.hp0; this.left = 40; this.bright = 128; this.state = 0;
     this.stepBy = Math.trunc((o.hp0 - Math.max(o.hp1, 0)) / 40);
@@ -567,7 +597,7 @@
   HpOverlay.prototype.draw = function () {
     if (this.state === 0 || this.bright < 0) return;
     digits(168, 16, this.cur, this.bright);
-    spr(120, 16, LABEL(this.o.label), LCLUT(this.o.label), this.bright);
+    spr(120, 16, LABEL(this.o.label), this.bright, 1);
   };
   // 0x801ec6e0: "DAMAGE", the number and "pts." come up one after the other and go the same way
   function DamagePopup(dmg) { this.dmg = dmg; this.t = 0; this.b = [0, 0, 0]; }
@@ -578,27 +608,62 @@
     return ++this.t < 150;
   };
   DamagePopup.prototype.draw = function () {
-    spr(15, 174, [160, 144, 96, 16], 5480, this.b[0]);
+    spr(15, 174, [160, 144, 96, 16], this.b[0], 1);
     if (this.b[1] > 0) digits(31, 193, this.dmg, this.b[1]);
-    spr(63, 217, [160, 176, 60, 16], 5481, this.b[2]);
+    spr(63, 217, [160, 176, 60, 16], this.b[2], 1);
   };
-  // 0x801ed97c: "WINNER!!" and the winner's label
-  function WinnerOverlay(label) { this.label = label; this.phase = 0; this.e0 = new El(-256, 60, 50); this.e1 = new El(-24, 198, 188); this.els = [this.e0, this.e1]; }
+  // 0x801ed97c: "WINNER!!" and the winner's label slide in, stay 128 frames and leave. The
+  // label's slider is its height; its after-images are kept by x, which starts as that slider's.
+  function WinnerOverlay(label) {
+    this.label = label; this.phase = 0;
+    this.e0 = new El(-256, 60, 50, 128); this.e1 = new El(-24, 198, 188, 128); this.e1.fixed = 10;
+    this.els = [this.e0, this.e1];
+  }
   WinnerOverlay.prototype.step = function () {
     if (this.phase < 3) this.phase = advance(this.els, this.phase, 2);
     return this.phase < 3;
   };
   WinnerOverlay.prototype.draw = function () {
+    var y = Math.trunc(this.e1.x), b = 124, i;
     if (this.phase >= 3) return;
-    spr(this.e0.x, 180, [0, 40, 256, 40], 5355, this.e0.bright);
-    spr(10, Math.trunc(this.e1.x), LABEL(this.label), LCLUT(this.label), this.e1.bright);
+    trailed(this.e0, 180, [0, 40, 256, 40], 128, 0, 6);
+    for (i = 1; i <= 6; i++, b -= 4) spr(this.e1.tr[i], y, LABEL(this.label), b, 3);
+    spr(10, y, LABEL(this.label), 128, 0);
   };
+  // 0x801edb64: "Eat-Up HP" slides in, stays 32 frames and leaves
+  function EatUpOverlay() { this.phase = 0; this.e0 = new El(-96, 122, 112, 32); }
+  EatUpOverlay.prototype.step = function () {
+    if (this.phase < 3) this.phase = advance([this.e0], this.phase, 2);
+    return this.phase < 3;
+  };
+  EatUpOverlay.prototype.draw = function () {
+    if (this.phase < 3) trailed(this.e0, 180, [160, 120, 96, 24], 128, 0, 6);
+  };
+  // The scene, drawn at the game's 320 x 240, is put on the canvas and the words go over it
   function drawOverlays(sc) {
-    var c = OV.ctx;
-    if (!c) return;
-    c.clearRect(0, 0, W, HGT);
-    c.imageSmoothingEnabled = false;
+    var c = OV.ctx, S = canvas.width / W;
+    if (c) { c.setTransform(S, 0, 0, S, 0, 0); c.clearRect(0, 0, W, HGT); c.imageSmoothingEnabled = false; }
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.disable(gl.DEPTH_TEST); gl.disable(gl.BLEND);
+    gl.bindBuffer(gl.ARRAY_BUFFER, pbuf);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.useProgram(bprog);
+    gl.enableVertexAttribArray(bloc.p); gl.enableVertexAttribArray(bloc.t);
+    gl.vertexAttribPointer(bloc.p, 2, gl.FLOAT, false, 16, 0); gl.vertexAttribPointer(bloc.t, 2, gl.FLOAT, false, 16, 8);
+    gl.bindTexture(gl.TEXTURE_2D, ftex); gl.uniform1i(bloc.uS, 0); gl.uniform2f(bloc.uTex, W, HGT);
+    quad(0, 0, W, HGT, 0, HGT, W, 0);
+    gl.disableVertexAttribArray(bloc.p); gl.disableVertexAttribArray(bloc.t);
+    gl.useProgram(oprog);
+    gl.enableVertexAttribArray(oloc.p); gl.enableVertexAttribArray(oloc.t);
+    gl.vertexAttribPointer(oloc.p, 2, gl.FLOAT, false, 16, 0); gl.vertexAttribPointer(oloc.t, 2, gl.FLOAT, false, 16, 8);
+    gl.uniform1i(oloc.uS, 0); gl.uniform2f(oloc.uTex, OV.w, OV.h);
+    if (OV.tex) gl.bindTexture(gl.TEXTURE_2D, OV.tex);
+    // colours come out of the shader already weighted: new = colour + old x (1 - cover)
+    gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     sc.overlays.forEach(function (o) { o.draw(); });
+    gl.disable(gl.BLEND);
+    gl.disableVertexAttribArray(oloc.p); gl.disableVertexAttribArray(oloc.t);
   }
 
   // ------------------------------------------------------------------ script objects
@@ -885,7 +950,7 @@
     scene = null;
     tri.length = 0; lin.length = 0; sprites.length = 0; rects.length = 0;
     if (canvas) canvas.hidden = true;
-    if (OV.canvas) { OV.canvas.hidden = true; if (OV.ctx) OV.ctx.clearRect(0, 0, W, HGT); }
+    if (OV.canvas) { OV.canvas.hidden = true; if (OV.ctx) OV.ctx.clearRect(0, 0, OV.canvas.width, OV.canvas.height); }
   }
 
   // ------------------------------------------------------------------ one attack
@@ -910,7 +975,8 @@
   //        'zero'      no damage: no scripts, the attacker stands and "Miss!!" is shown
   //        'countered' the attack is countered: its motion only, with "ATTACK!"
   //   badges: firstAttack, crash, counter (this strike is the counter attack), x3
-  // If the target ends at 0 HP the winner is then shown with its victory motion (6).
+  // heal > 0 (with hpSelf, the attacker's HP before it): the hit is followed by the Eat-Up HP
+  // sequence. If the target ends at 0 HP the winner is then shown with its victory motion (6).
   // With opts.dry the attack is run to its end at once without drawing, for testing; the
   // result is then {frames, quads, lines, sprites, models}.
   api.attack = function (opts) {
@@ -940,7 +1006,7 @@
           }
           var sc = scene = { actors: act, extra: [], arena: arena, focus: null, focusOwner: null, overlays: [], hp: opts.hp || [1, 1], sound: opts.sound !== false, frame: 0, cam: null, view: null, script: null, finish: res,
             lights: { dir: LIGHT_DIR.map(function (x) { return x.slice(); }), col: LIGHT_COL.map(function (x) { return x.slice(); }) } };
-          var k = -1, run = null, hold = 0, phase = 'scripts', A = act[opts.attacker], T = act[opts.attacker ^ 1];
+          var k = -1, run = null, hold = 0, phase = 'scripts', eat = null, A = act[opts.attacker], T = act[opts.attacker ^ 1];
           var label = function (pl) { return pl === 0 ? 0 : 2; };       // 1P and Com
           var banner = { label: label(opts.attacker), atk: opts.attack || 0, name: opts.name || '', first: !!opts.firstAttack, crash: !!opts.crash, counter: !!opts.counter, x3: !!opts.x3, miss: mode === 'zero' };
           function only(a) { act.forEach(function (x) { x.visible = x === a; }); sc.focus = a; sc.focusOwner = null; }
@@ -958,6 +1024,13 @@
               sc.overlays.push(new DamagePopup(opts.damage || 0));
             }
           }
+          function after() {
+            if (mode === 'normal' && sc.hp[opts.attacker ^ 1] <= 0) {
+              only(A); A.play(6, true);
+              sc.overlays.push(new WinnerOverlay(label(opts.attacker)));
+              phase = 'winner';
+            } else { phase = 'end'; hold = mode === 'normal' ? 20 : 8; }
+          }
           cut(sc, opts.attacker);
           if (mode === 'zero') { only(A); A.play(0, true); sc.overlays.push(new AttackOverlay(banner)); }
           else if (mode === 'countered') { only(A); A.play((opts.attack || 0) + 1, true); sc.overlays.push(new CounteredOverlay(banner)); }
@@ -968,14 +1041,20 @@
             if (phase === 'scripts') {
               // the director waits for the target's damage motion before it goes on
               if (sc.overlays.length || (mode === 'normal' && T.motion >= 4 && T.busy())) return;
-              if (mode === 'normal' && sc.hp[opts.attacker ^ 1] <= 0) {
-                only(A); A.play(6, true);
-                sc.overlays.push(new WinnerOverlay(label(opts.attacker)));
-                phase = 'winner';
-              } else { phase = 'end'; hold = mode === 'normal' ? 20 : 8; }
+              if (mode === 'normal' && opts.heal > 0 && scripts['998']) {
+                // 0x801eec3c: the attacker with script 998 and "Eat-Up HP" while its HP counts up
+                cut(sc, opts.attacker);
+                run = new Run(scripts['998'], opts.attacker, sc, { sprites: {}, tims: {}, models: {} });
+                k = list.length;
+                eat = new HpOverlay({ label: label(opts.attacker), hp0: opts.hpSelf, hp1: sc.hp[opts.attacker], started: function () { return true; } });
+                sc.overlays.push(new EatUpOverlay(), eat);
+                phase = 'eatup';
+              } else after();
+            } else if (phase === 'eatup') {
+              if (sc.overlays.indexOf(eat) < 0) after();          // the script has ended by now
             } else if (phase === 'winner') {
               if (!sc.overlays.length) { phase = 'end'; hold = 30; }
-            } else if (--hold <= 0) { sc.finish = null; stop(); if (!opts.dry) res(true); }
+            } else if (!sc.overlays.length && --hold <= 0) { sc.finish = null; stop(); if (!opts.dry) res(true); }
           };
           if (opts.dry) {
             var st = { frames: 0, quads: 0, lines: 0, sprites: 0, models: 0 }, core = C.core, keep = { project: core.project, bill: core.bill, origin: core.origin };

@@ -775,7 +775,7 @@
           script: c.atk[e.attack].script, hit: c.atk[e.attack].hit, attack: e.attack, name: c.atk[e.attack].name,
           // director 0x801ee3d4: a countered attack shows its motion only, one that does no damage shows "Miss!!"
           mode: countered ? 'countered' : e.dmg === 0 ? 'zero' : 'normal',
-          hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], hpBefore: A.s[tgt].hp, damage: e.dmg,
+          hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], hpBefore: A.s[tgt].hp, damage: e.dmg, heal: e.heal || 0, hpSelf: A.s[e.p].hp,
           firstAttack: !A.shown3d && A.first !== A.tp, crash: !!A.crashed[e.p], counter: A.counterBy === e.p, x3: !!(A.x3 && A.x3[e.p] && e.attack === 2) };
         A.shown3d = true;
         return B3D.attack(o3).then(step);

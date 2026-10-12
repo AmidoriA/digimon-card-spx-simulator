@@ -194,11 +194,22 @@ scripts, then camera and arenas.
   0 HP the winner is shown alone in its victory motion (6) under "WINNER!!" (`0x801ed97c`).
 - **Words on screen.** The director draws them from the battle texture (chunk 104 of
   `A/BATTLE.PAK`: one picture holding several overlaid ones, told apart by 24 palettes that
-  sit inside the texture's own area). Each piece slides to a first place, then a second, then
-  fades (`0x801ec160`, `0x801ec1f4`). The attack banner (`0x801ecf20`) has the player label
-  (1P / Com), "ATTACK!" with the attack's type icon, the attack's name, and badges for
-  1st Attack, Crash and x3. During the hit (`0x801ec8a4`, `0x801ec6e0`) the target's HP counts
-  down over 40 frames and "DAMAGE nnn pts." comes up piece by piece.
+  sit inside the texture's own area). Each piece slides to a first place, then a second; then
+  it fades, or, for "WINNER!!" and "Eat-Up HP", waits and leaves to the right (`0x801ec160`,
+  `0x801ec1f4`). Every colour of the texture has the blend bit set, so a piece is mixed with
+  the picture by its blend mode after its colours are scaled by its brightness
+  (`0x8001c4dc`): "ATTACK!", the type icon, the player label, the HP and the damage are added
+  to the picture; the name, the badges, "COUNTER ATTACK!", "Miss!!", "WINNER!!" and "Eat-Up
+  HP" are mixed half and half, which is why a fading one ends as a shadow. Sliding pieces
+  trail up to six after-images, a quarter added, at the places of the frames before
+  (`0x801ebfd4`). The attack banner (`0x801ecf20`) has the player label (1P / Com), "ATTACK!"
+  with the attack's type icon, the attack's name, and badges for 1st Attack, Crash and x3.
+  During the hit (`0x801ec8a4`, `0x801ec6e0`) the target's HP counts down over 40 frames and
+  "DAMAGE nnn pts." comes up piece by piece.
+- **Eat-Up HP.** After a hit by an attack with Eat-up, once the target's motion has ended
+  and before the winner is shown, `0x801eec3c` shows the attacker with script 998 of
+  `A/BATTLE.PAK` (rings closing on it), slides in "Eat-Up HP" (`0x801edb64`) and counts the
+  attacker's HP up to its new value with the same counter that counts a target's down.
 - **Arenas.** An arena (`0x8002e42c`) is a one-part model from `F/BGnnn.PAK`, drawn turned
   with the camera but not moved by it, behind everything, at the brightness the arena table
   (`0x8006e0c0`) gives; the table also gives the back colour. With no arena named the game
@@ -233,14 +244,14 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   here. Text labels the scripts put on cards are replaced by this project's captions. A card
   slides in a straight line at constant speed; the game's exact path was not read.
 - **Polygon Battle staging.** Each strike is shown as its own scene from the Digimon's home
-  places; the game runs a whole battle turn in one scene with an intro (script 999) and a
-  result script (998), which are not played. The attack's name is drawn as plain text where
-  the game shows a name plate from a strip of video memory whose source was not found.
-  Overlay pieces fade by opacity, and their trailing after-images are not drawn. Before a
+  places; the game runs a whole battle turn in one scene with an intro (script 999), which
+  is not played. The attack's name is drawn as plain text where the game shows a name plate
+  from a strip of video memory whose source was not found. The words are drawn from a copy
+  of the game's texture enlarged four times by an upscaling model, over a scene that keeps
+  the game's 320x240. Before a
   script puts its model on screen, and for a model without a camera track, the camera is this
   project's. Arenas that animate their palette are shown still, and which arena a given
-  opponent uses in the story was not traced (the random free-battle pick is used). "Eat-Up
-  HP" has no sequence of its own yet.
+  opponent uses in the story was not traced (the random free-battle pick is used).
 - **Polygon Battle gaps.** Three object types are created but not drawn yet: palette
   changes (type 1) and two textured kinds (10 and 12). Rings that ask for a texture are drawn plain. Effect models fade by brightness
   only, and texture animation on them is not played. A few commands whose routines were not read are ignored (among them
