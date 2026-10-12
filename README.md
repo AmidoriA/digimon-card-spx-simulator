@@ -27,6 +27,13 @@ exactly that name, capitals included: Pages tells names apart by case and Window
 During a match, click a TRASH plate to see that player's Offline pile (newest card first)
 and a DECK plate to see which cards are still in that deck, by level and with their counts.
 
+**Two players.** Set Players to "2, at this screen" and each player picks a deck (any of
+them). Both play at the one screen and take the mouse in turn; the hands are open in the game
+anyway. The attack is the one secret: the turn player chooses first while the other looks
+away, then they swap, and nothing on the board shows a choice until the battle begins. The
+deck tracker is off in this mode: the DECK plates only count the cards. This way of sharing
+a screen is this project's arrangement, not something traced in the game.
+
 ## Rules, as traced in the game code
 
 The turn controller is a 40-state machine at `0x80034260` in `SLUS_013.28`. One turn

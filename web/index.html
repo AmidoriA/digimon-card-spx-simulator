@@ -14,17 +14,17 @@
     <header class="setup-head">
       <p class="kicker">Card Battle Arena</p>
       <h1>Digital Card Battle</h1>
-      <p class="sub">Pick a deck, pick an opponent. First to three KOs wins.</p>
+      <p id="setupSub" class="sub">Pick a deck, pick an opponent. First to three KOs wins.</p>
     </header>
 
     <div class="setup-grid">
       <div class="panel">
-        <h2>Your deck</h2>
+        <h2 id="myTitle">Your deck</h2>
         <input id="myFilter" class="filter" type="search" placeholder="Search decks" aria-label="Search your deck">
         <ul id="myDecks" class="decklist" role="listbox" aria-label="Your deck"></ul>
       </div>
       <div class="panel">
-        <h2>Opponent</h2>
+        <h2 id="opTitle">Opponent</h2>
         <input id="opFilter" class="filter" type="search" placeholder="Search opponents" aria-label="Search opponents">
         <ul id="opDecks" class="decklist" role="listbox" aria-label="Opponent deck"></ul>
       </div>
@@ -39,7 +39,13 @@
     </div>
 
     <footer class="setup-foot">
-      <label class="optl">Opponent skill
+      <label class="optl">Players
+        <select id="mode">
+          <option value="1" selected>1, against the computer</option>
+          <option value="2">2, at this screen</option>
+        </select>
+      </label>
+      <label id="skillBox" class="optl">Opponent skill
         <select id="skill">
           <option value="0.35">Rookie</option>
           <option value="0.7" selected>Champion</option>
@@ -121,6 +127,8 @@
     </ul>
     <h3>KOs</h3>
     <p>A KO'd Digimon and its digivolution stack go Offline and the opponent scores. An armor Digimon drops back to its Rookie form, and that Rookie goes Offline too. A revive effect keeps the Digimon in play, except against the KO that would decide the match.</p>
+    <h3>Two players</h3>
+    <p>Two players share this screen and take the mouse in turn. The attack is the one secret: the turn player chooses first while the other looks away, then they swap, and nothing on the board shows a choice until the battle begins. The DECK plates only count the cards; what is left in a deck cannot be looked up.</p>
   </div>
   <form method="dialog"><button class="btn primary">Close</button></form>
 </dialog>
