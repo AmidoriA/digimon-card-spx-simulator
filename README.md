@@ -310,6 +310,28 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 ## Rebuild from the disc
 
+### The disc
+
+Everything here was read from one disc image: *Digimon Digital Card Battle* (USA),
+SLUS-01328, as a single-track `.bin` of raw 2352-byte sectors. Every address and file
+offset in the tools and in this document is for that build.
+
+| | |
+|---|---|
+| Size | 215,661,936 bytes (91,693 sectors) |
+| CRC-32 | `2cd0aad9` |
+| MD5 | `3170c2d81cb4c28b9d7924ddbf4a831d` |
+| SHA-1 | `b3945b3e76c1fcc554a7614e2b4211d974990105` |
+| SHA-256 | `345ea3e1ce1140e0483afaa63b902773ec32fc04ba414e8042968b6de84c4bf1` |
+
+An image in another format (2048-byte sectors, CHD, a different rip) will not have these
+hashes even when the game is the same. The boot file inside it tells: `SLUS_013.28`,
+428,032 bytes, SHA-1 `fa4e03b5e0671dce399a35f2747080ced492d2c3`
+(MD5 `57df71732a052dc774d8745e77b59bf5`). `tools/extract_iso.py` prints both comparisons
+when it unpacks an image.
+
+### Steps
+
 ```bash
 python -m venv tools/.venv
 tools/.venv/Scripts/python -m pip install -r tools/requirements.txt

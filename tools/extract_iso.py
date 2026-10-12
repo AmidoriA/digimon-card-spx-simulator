@@ -5,7 +5,11 @@ Usage: python -I extract_iso.py <image.bin> <out_dir>
 Form 1 sectors yield 2048 data bytes at offset 24. XA/STR files (Form 2,
 interleaved audio/video) are dumped as raw 2352-byte sectors with a .raw2352
 suffix so nothing is silently truncated.
+
+The image and its boot file are compared with the ones this project was built from
+(README, "The disc"): every address and offset in the tools and notes is for that build.
 """
+import hashlib
 import os
 import struct
 import sys
@@ -13,6 +17,20 @@ import sys
 SECTOR = 2352
 HDR = 24
 DATA = 2048
+
+# Digimon Digital Card Battle (USA), SLUS-01328: one track of raw 2352-byte sectors
+IMAGE_SIZE = 215661936
+IMAGE_SHA1 = "b3945b3e76c1fcc554a7614e2b4211d974990105"
+BOOT_FILE = "SLUS_013.28"
+BOOT_SHA1 = "fa4e03b5e0671dce399a35f2747080ced492d2c3"
+
+
+def sha1_of(path):
+    h = hashlib.sha1()
+    with open(path, "rb") as f:
+        for block in iter(lambda: f.read(1 << 20), b""):
+            h.update(block)
+    return h.hexdigest()
 
 
 class Bin:
@@ -112,6 +130,14 @@ def main():
             man.write("%s\t%d\t%d\t%s\t%s\n" % (e["path"], e["lba"], e["size"], xa, mode))
             print("%-40s lba=%-7d size=%-10d xa=%s %s" % (e["path"], e["lba"], e["size"], xa, mode))
     print("files:", len(files), "| image sectors:", b.nsec)
+    got = sha1_of(img)
+    print("image SHA-1 %s: %s" % (got, "the image this project was built from" if got == IMAGE_SHA1
+                                    else "NOT the image this project was built from (%s, %d bytes)" % (IMAGE_SHA1, IMAGE_SIZE)))
+    boot = os.path.join(outdir, BOOT_FILE)
+    if os.path.exists(boot):
+        got = sha1_of(boot)
+        print("%s SHA-1 %s: %s" % (BOOT_FILE, got, "the same game build" if got == BOOT_SHA1
+                                      else "a different build (%s expected); addresses in the tools and notes may not fit" % BOOT_SHA1))
 
 
 if __name__ == "__main__":
