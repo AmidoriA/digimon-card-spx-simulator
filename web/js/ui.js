@@ -95,7 +95,7 @@
     return el;
   }
   function sleep(ms) { return new Promise(function (r) { setTimeout(r, $('fast').checked ? ms * 0.3 : ms); }); }
-  function cls(c) { return c.type === 'digimon' ? SPEC_CLS[c.spec] : 'opt'; }
+  function cls(c, spec) { return c.type === 'digimon' ? SPEC_CLS[spec == null ? c.spec : spec] : 'opt'; }
   function lvl(c) { return c.type === 'digimon' ? E.LEVEL[c.level] : (c.type === 'option' ? 'OP' : 'EV'); }
   function pad3(n) { return ('00' + n).slice(-3); }
   // Card pictures: the game's own (assets/art, assets/mini), or for the Digimon cards the
@@ -409,8 +409,10 @@
   }
 
   // ------------------------------------------------------------------ cards
-  function cardEl(id, small) {
-    var c = E.card(id), el = h('div', 'c ' + cls(c) + (small ? ' small' : ''));
+  // The frame's palette is byte 0x14 of the card object (0x80045560: CLUT row 0x1f1 + that
+  // byte). `spec` is given for the Digimon in play, whose frame is not the card's own.
+  function cardEl(id, small, spec) {
+    var c = E.card(id), el = h('div', 'c ' + cls(c, spec) + (small ? ' small' : ''));
     el.dataset.id = id;
     var art = h('div', 'ca');
     art.style.backgroundImage = 'url(' + artUrl(id, true) + ')';
@@ -469,7 +471,8 @@
       v = { hand: s.hand, deck: s.deck, offline: s.offline, wins: s.wins, dp: s.dp, top: s.top, hp: s.hp, spec: s.spec,
         atk: s.atk, base: A.base[p], choice: A.reveal ? s.choice : (p === 0 ? S.myAtk : -1),
         sup: A.sup[p] >= 0 ? { id: A.sup[p], face: A.face[p] } : null, ko: A.koShow[p] };
-      if (v.ko >= 0) v.top = v.ko;
+      if (A.specHold && A.specHold.p === p) v.spec = A.specHold.spec;
+      if (v.ko >= 0) { v.top = v.ko; v.spec = A.koSpec[p]; }
     } else {
       v = { hand: P.hand, deck: P.deck.length, offline: P.offline.length, wins: P.wins, dp: P.dp,
         top: P.active ? E.top(P).id : -1, hp: P.active ? P.active.hp : 0, spec: P.active ? P.active.spec : 0,
@@ -696,7 +699,9 @@
       }
       // active Digimon
       if (v.top >= 0) {
-        el = cardEl(v.top);
+        // 0x8003d664: every frame the top card of the Digimon stack is given the Digimon's
+        // Specialty as it is now, so its frame follows a Speciality Change
+        el = cardEl(v.top, false, v.spec);
         if (v.ko >= 0) el.classList.add('ko');
         if (A && A.hit === p) el.classList.add('hit');
         dyn.appendChild(box(el, L.mon[p].x, L.mon[p].y));
@@ -1035,7 +1040,7 @@
     function fxs(n, p) { var src = A.src || { p: p, k: 0 }; fx(n, src.p, src.k, p, 0); }
     function step() {
       if (i >= evs.length || !live(tok)) return Promise.resolve();
-      var e = evs[i++], d = 300, c, prevTop = [A.s[0].top, A.s[1].top];
+      var e = evs[i++], d = 300, c, prevTop = [A.s[0].top, A.s[1].top], prevSpec = [A.s[0].spec, A.s[1].spec];
       // Polygon Battle: the attack is shown in 3D first, then its result on the board
       if (e.t === 'attack' && B3D.enabled && !e.shown3d && prevTop[0] >= 0 && prevTop[1] >= 0) {
         e.shown3d = true; i--;
@@ -1052,7 +1057,7 @@
         return B3D.attack(o3).then(step);
       }
       if (e.s) A.s = e.s;
-      A.glow = -1; A.hit = -1; A.floats = [];
+      A.glow = -1; A.hit = -1; A.floats = []; A.specHold = null;
       fxWait = null;
       switch (e.t) {
         case 'reveal':
@@ -1083,7 +1088,10 @@
           break;
         case 'flag': flash(FLAG_CAPTION[e.flag], 'fx'); fxs({ first: FX.FIRST, eatup: FX.EATUP, counter: FX.COUNTER_SET, revive: FX.REVIVE_SET }[e.flag], e.p); d = 900; break;
         case 'void': log(poss(e.p) + ' ' + (e.all ? 'support and option effects are' : 'Digimon support effect is') + ' voided.', who(e.p)); fxs(e.all ? FX.VOID_ALL : FX.VOID, e.p); d = 900; break;
-        case 'spec': flash('Speciality Change', 'fx'); fxs(FX.SPEC, e.p); d = 800; break;
+        case 'spec':
+          // 0x801e8240: effect 0xF is played to its end before the Specialty is written, so
+          // the card keeps its old frame until then
+          flash('Speciality Change', 'fx'); fxs(FX.SPEC, e.p); A.specHold = { p: e.p, spec: prevSpec[e.p] }; d = 800; break;
         case 'choice': flash('Attack Change', 'fx'); fxs(FX.ATTACK_CHANGE, e.p); d = 800; break;
         case 'hp': case 'atk': fxs(FX.STAT, e.p); d = 600; break;
         case 'discard':
@@ -1117,12 +1125,15 @@
           d = 1500; break;
         case 'ko':
           if (e.how === 'revive') { status(mon(e.p) + " is KO'd, but revives!", vb(e.p ^ 1, 'score') + ' the KO.'); log(mon(e.p) + " is KO'd and revives with " + A.s[e.p].hp + ' HP.', 'big'); flash('REVIVE', 'fx'); fx(FX.REVIVE, e.p, 0); }
-          else if (e.how === 'armor') { A.koShow[e.p] = e.rookie; status(E.card(prevTop[e.p]).name + " is KO'd!", 'It drops back to ' + E.card(e.rookie).name + ', which goes Offline. ' + vb(e.p ^ 1, 'score') + ' a KO.'); log(E.card(prevTop[e.p]).name + " is KO'd; " + E.card(e.rookie).name + ' goes Offline.', 'big'); flash('KO', 'a0'); fx(FX.DE_ARMOR, e.p, 0); }
-          else { A.koShow[e.p] = prevTop[e.p]; status(E.card(prevTop[e.p]).name + " is KO'd!", vb(e.p ^ 1, 'score') + ' a KO.'); log(E.card(prevTop[e.p]).name + " is KO'd.", 'big'); flash('KO', 'a0'); }
+          // the card that goes Offline keeps the frame it had; the Rookie an armor Digimon
+          // drops back to is given its own Specialty again (0x80040dcc)
+          else if (e.how === 'armor') { A.koShow[e.p] = e.rookie; A.koSpec[e.p] = E.card(e.rookie).spec; status(E.card(prevTop[e.p]).name + " is KO'd!", 'It drops back to ' + E.card(e.rookie).name + ', which goes Offline. ' + vb(e.p ^ 1, 'score') + ' a KO.'); log(E.card(prevTop[e.p]).name + " is KO'd; " + E.card(e.rookie).name + ' goes Offline.', 'big'); flash('KO', 'a0'); fx(FX.DE_ARMOR, e.p, 0); }
+          else { A.koShow[e.p] = prevTop[e.p]; A.koSpec[e.p] = prevSpec[e.p]; status(E.card(prevTop[e.p]).name + " is KO'd!", vb(e.p ^ 1, 'score') + ' a KO.'); log(E.card(prevTop[e.p]).name + " is KO'd.", 'big'); flash('KO', 'a0'); }
           d = 1600; break;
       }
       render();
-      var w = fxWait;
+      var w = fxWait, hold = A.specHold;
+      if (hold) w.then(function () { if (A.specHold === hold) { A.specHold = null; if (live(tok) && S.anim === A) render(); } });
       return sleep(d).then(function () { return w; }).then(step);
     }
     return step();
@@ -1184,7 +1195,7 @@
     if (!live(tok)) return;
     S.step = null;
     S.anim = {
-      tp: t, reveal: false, glow: -1, hit: -1, floats: [], koShow: [-1, -1], counterBy: -1, crashed: [false, false],
+      tp: t, reveal: false, glow: -1, hit: -1, floats: [], koShow: [-1, -1], koSpec: [0, 0], specHold: null, counterBy: -1, crashed: [false, false],
       sup: [P0.sup ? P0.sup.id : -1, P1.sup ? P1.sup.id : -1],
       face: [!(P0.sup && P0.sup.deck), !(P1.sup && P1.sup.deck)],
       base: [P0.active.base.slice(), P1.active.base.slice()],
