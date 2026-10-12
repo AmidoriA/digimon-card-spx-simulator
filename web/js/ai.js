@@ -88,36 +88,59 @@
     return P.name + ' ' + parts.join(' and ') + '.';
   }
 
+  // The DP the next stage can ask for: the dearest card of the next level still in the hand
+  // or the Online deck (the player's own deck list; the order of the deck is not looked at).
+  // Any Specialty counts: Special Digivolve crosses them, and the DP Slot outlasts a KO, so
+  // the next Digimon gets what this one leaves. An armor form goes on only by ArmorCrush
+  // Digivolve, to its own Specialty.
+  function dpNeed(G, p) {
+    var P = G.players[p], cur = E.top(P), pool = P.hand.concat(P.deck), need = 0;
+    if (!cur) return 0;
+    var armor = cur.level === 1, next = (cur.level || 1) + 1;
+    if (armor && !pool.some(function (id) { var o = E.card(id); return o.type === 'digivolve' && o.dtype === E.DIGIVOLVE.ARMOR_CRUSH; })) return 0;
+    pool.forEach(function (id) {
+      var c = E.card(id);
+      if (c.type !== 'digimon') return;
+      if (armor ? c.level >= 2 && c.spec === P.active.spec : c.level === next) need = Math.max(need, c.dp);
+    });
+    return need;
+  }
+
+  // The digivolutions of this phase made on a copy: what they are worth and where they lead.
+  function playOut(G, p) {
+    var H = E.clone(G), mv, v = 0, guard = 0;
+    while ((mv = bestEvo(H, p)) && guard++ < 4) { v += evoValue(H, p, mv); E.digivolve(H, p, mv); }
+    return { G: H, value: v };
+  }
+
+  // The card for the DP Slot this turn, as a hand index, or -1. A card that opens a (better)
+  // digivolution now comes first. Otherwise one card goes in every turn until the DP Slot
+  // holds what the next stage can ask for: the card of least use with the most +P, and none
+  // when this turn's digivolution would empty the slot again.
+  function dpPick(G, p) {
+    var P = G.players[p], before = playOut(G, p), best = -1, bv = -1e9;
+    for (var i = 0; i < P.hand.length; i++) {
+      if (!E.canAddDP(G, p, i)) continue;
+      var c = E.card(P.hand[i]), H = E.clone(G);
+      E.addDP(H, p, i);
+      var out = playOut(H, p), Q = out.G.players[p], keep = keepValue(out.G, p, c), v;
+      if (out.value > before.value) v = 1e4 + out.value - keep;
+      else if (out.value < before.value || !c.pp || Q.dp.length <= P.dp.length) continue;
+      else if (E.dpTotal(before.G.players[p]) >= dpNeed(out.G, p)) continue;
+      else v = c.pp - keep;
+      if (v > bv) { bv = v; best = i; }
+    }
+    return best;
+  }
+
   // Digivolve Phase in the controller's order: DP card, option card, digivolution.
   function* digivolveSteps(G, p) {
-    var P = G.players[p], i;
+    var P = G.players[p];
     if (!P.active) return;
-    var mv = bestEvo(G, p);
-    if (!mv) {
-      var done = false;
-      for (i = 0; i < P.hand.length && !done; i++) { // does one DP card unlock a digivolution?
-        if (!E.canAddDP(G, p, i)) continue;
-        var H = E.clone(G);
-        E.addDP(H, p, i);
-        if (bestEvo(H, p)) {
-          yield P.name + ' sends ' + E.card(P.hand[i]).name + ' to the DP Slot.';
-          E.addDP(G, p, i);
-          done = true;
-        }
-      }
-      if (!done && E.dpTotal(P) < 60) { // otherwise rack up a card that is of little use
-        var pick = -1, pv = 1e9;
-        for (i = 0; i < P.hand.length; i++) {
-          if (!E.canAddDP(G, p, i)) continue;
-          var c = E.card(P.hand[i]);
-          var v = keepValue(G, p, c) - c.pp * 0.5;
-          if (v < pv) { pv = v; pick = i; }
-        }
-        if (pick >= 0 && pv <= 25) {
-          yield P.name + ' sends ' + E.card(P.hand[pick]).name + ' to the DP Slot.';
-          E.addDP(G, p, pick);
-        }
-      }
+    var i = dpPick(G, p), mv;
+    if (i >= 0) {
+      yield P.name + ' sends ' + E.card(P.hand[i]).name + ' to the DP Slot.';
+      E.addDP(G, p, i);
     }
     var guard = 0;
     while ((mv = bestEvo(G, p)) && guard++ < 4) {

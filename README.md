@@ -301,7 +301,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   nothing away that the table does not already show: both hands are open here and the decks
   are the game's own lists. It is sorted, not in draw order, and a support card lying face
   down from the deck is still counted as in the deck.
-- **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported.
+- **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported. In the Digivolve
+  Phase it sends one card to the DP Slot every turn until the slot holds the highest DP a
+  card of the next level in its hand or deck asks for, and digivolves as soon as it can.
 - **Hands shown face up** rests on the card-state byte being the same for both players'
   hand cards, and on how the game plays; the drawing code was not read.
 - Who takes the first turn is random here; the game has you pick a card for it.
