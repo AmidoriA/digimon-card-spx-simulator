@@ -74,14 +74,21 @@
   function smooth(m) {
     return refine(refine(m,{crease:0.45,curve:0.18}),{crease:0.45,curve:0.12});
   }
-  function profile(name, spec) {
+  var FAMILY = {
+    fire: { kind: 'fire', color: [1, 0.34, 0.07], gravity: -0.025 }, ice: { kind: 'ice', color: [0.2, 0.7, 1], gravity: 0.012 },
+    electric: { kind: 'electric', color: [0.5, 0.8, 1], gravity: 0 }, dark: { kind: 'dark', color: [0.65, 0.22, 1], gravity: -0.012 },
+    holy: { kind: 'holy', color: [1, 0.84, 0.35], gravity: -0.01 }, physical: { kind: 'physical', color: [1, 0.72, 0.35], gravity: 0.06 }
+  };
+  // accent: the family an attack names itself (the custom cards' `accent`), before its name is tried
+  function profile(name, spec, accent) {
+    if (FAMILY[accent]) return FAMILY[accent];
     name = (name || '').toLowerCase();
-    if (/fire|flame|flare|heat|burn|terra|meteor|crimson|pepper/.test(name)) return { kind: 'fire', color: [1, 0.34, 0.07], gravity: -0.025 };
-    if (/ice|snow|freeze|freez|frost|blizzard|water|ocean|aqua|bubble|harpoon/.test(name)) return { kind: 'ice', color: [0.2, 0.7, 1], gravity: 0.012 };
-    if (/electric|thunder|lightning|spark|bolt|shock/.test(name)) return { kind: 'electric', color: [0.5, 0.8, 1], gravity: 0 };
-    if (/dark|evil|night|death|poison|venom|hell|nightmare/.test(name)) return { kind: 'dark', color: [0.65, 0.22, 1], gravity: -0.012 };
-    if (/holy|heaven|angel|celestial|shine|shining|divine|light|star/.test(name)) return { kind: 'holy', color: [1, 0.84, 0.35], gravity: -0.01 };
-    if (/blade|claw|slash|sword|cut|punch|kick|tackle|horn|bite|hammer|drill/.test(name)) return { kind: 'physical', color: [1, 0.72, 0.35], gravity: 0.06 };
+    if (/fire|flame|flare|heat|burn|terra|meteor|crimson|pepper/.test(name)) return FAMILY.fire;
+    if (/ice|snow|freeze|freez|frost|blizzard|water|ocean|aqua|bubble|harpoon/.test(name)) return FAMILY.ice;
+    if (/electric|thunder|lightning|spark|bolt|shock/.test(name)) return FAMILY.electric;
+    if (/dark|evil|night|death|poison|venom|hell|nightmare/.test(name)) return FAMILY.dark;
+    if (/holy|heaven|angel|celestial|shine|shining|divine|light|star/.test(name)) return FAMILY.holy;
+    if (/blade|claw|slash|sword|cut|punch|kick|tackle|horn|bite|hammer|drill/.test(name)) return FAMILY.physical;
     var colors = [[1, 0.4, 0.12], [0.25, 0.75, 1], [0.45, 1, 0.45], [0.7, 0.3, 1], [1, 0.85, 0.3]];
     return { kind: 'energy', color: colors[spec] || [0.3, 0.75, 1], gravity: 0 };
   }

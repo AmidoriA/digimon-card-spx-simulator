@@ -22,7 +22,8 @@ Usage (venv python):  build_battle.py <extracted_dir> <web_dir> [pak numbers...]
                                       A/BATTLE.PAK), each piece coloured with its palette
 
 A card's attack k names its attack script and hit script in its CARD2.CDD record
-(build_data.py: `script`, `hit`).
+(build_data.py: `script`, `hit`). The scripts of the custom cards (custom.py) are written
+with the game's; their effect files are made by build_custom.py.
 """
 import glob
 import gzip
@@ -34,7 +35,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bscript  # noqa: E402
+import build_data  # noqa: E402
 import build_models as bm  # noqa: E402
+import custom  # noqa: E402
 import omd  # noqa: E402
 import pak  # noqa: E402
 
@@ -73,7 +76,21 @@ def parse_sprite(b):
     return {"loop": loop, "frames": frames}
 
 
-def export_fx(path):
+def write_scripts(ext, web):
+    """scripts.json.gz: the game's scripts and, with them, those of the custom cards."""
+    scripts = all_scripts(ext)
+    cards = build_data.build_cards(open(os.path.join(ext, "drv", "B", "CARD2.CDD"), "rb").read())
+    own, notes = custom.scripts(scripts, cards)
+    scripts.update(own)
+    data = gzip.compress(json.dumps({str(k): v for k, v in sorted(scripts.items())}, separators=(",", ":")).encode(), 9, mtime=0)
+    open(os.path.join(web, "assets", "battle", "scripts.json.gz"), "wb").write(data)
+    print("scripts:", len(scripts), "(%d of custom cards)" % len(own), "- %.2f MB" % (len(data) / 1e6))
+    return notes
+
+
+def export_fx(path, change=None):
+    """change(index, data) -> data: for a file that is written with other colours than the
+    disc's (build_custom.py)."""
     chunks = pak.chunks(open(path, "rb").read())
     tims, raw_tims = {}, {}
     for typ, cid, b in chunks:
@@ -120,6 +137,8 @@ def export_fx(path):
             continue
         index["models"][str(cid)] = {"off": put(data), "len": len(data), "tw": tex[0], "th": tex[1], "tex": put(tex[2]),
                                      "rows": pal[0], "pal": put(pal[1])}
+    if change:
+        blob = change(index, blob)
     head = json.dumps(index, separators=(",", ":")).encode()
     head += b" " * (-len(head) % 4)
     return gzip.compress(struct.pack("<I", len(head)) + head + bytes(blob), 9, mtime=0), index, bad
@@ -204,10 +223,7 @@ def main():
     out = os.path.join(web, "assets", "battle")
     os.makedirs(os.path.join(out, "fx"), exist_ok=True)
     if not only:
-        scripts = all_scripts(ext)
-        data = gzip.compress(json.dumps({str(k): v for k, v in sorted(scripts.items())}, separators=(",", ":")).encode(), 9, mtime=0)
-        open(os.path.join(out, "scripts.json.gz"), "wb").write(data)
-        print("scripts:", len(scripts), "- %.2f MB" % (len(data) / 1e6))
+        write_scripts(ext, web)
         print("arenas:", export_arenas(ext, web))
         export_overlay(ext, web)
     total = n = bad = nm = ns = 0

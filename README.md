@@ -8,8 +8,9 @@ building only: no story mode, no card collection, no partner customisation.
 
 All card data, art, UI textures and audio (`web/js/data/`, `web/assets/`) are generated
 from the disc image (SLUS-01328, US release) and are committed, so a clone runs as is.
-"Rebuild from the disc" shows how they were made. The one exception is the new card art
-(`web/assets/art2`, `mini2`), which is not from the disc: see "New card art".
+"Rebuild from the disc" shows how they were made. Two things are not from the disc: the new
+card art (`web/assets/art2`, `mini2`, see "New card art") and the custom cards, which are
+made from cards of the game (see "Custom cards").
 
 ## Play
 
@@ -38,8 +39,8 @@ is remembered.
 textures. Ultra adds denser particles, attack lighting and surface shadows at the same
 resolution as Enhanced, and selects the smoother model shape. The choice is saved
 separately from card art and the animation on/off box. **Preview attacks** opens a browser
-preview for all 191 Digimon and
-their three attacks. Its **Opponent** picker offers all 191 Digimon and starts with
+preview for all 192 Digimon (the game's 191 and the custom card) and
+their three attacks. Its **Opponent** picker offers the same 192 and starts with
 Garurumon; an opponent choice applies to the next attack played. Pause or use **Next moment**, then switch styles to compare the same
 pose. Its **Stage** picker offers all 24 arenas with a thumbnail, plus **Random** (one of
 the twelve free-battle arenas). The preview remembers its stage separately from the match
@@ -89,7 +90,7 @@ The rules are the ones of the game's deck editor, the overlay `P/SUBSEG.BIN`:
 - Before a card goes into a slot, `0x801ece70` refuses the armor forms (card numbers
   172-174, 176-181, 185, 186, 188, 189) and any card the deck already holds 4 of.
 - Card numbers are the ids used here: `0x80046bac` takes numbers below 191 as Digimon, the
-  next 102 as option cards and the rest as digivolve cards.
+  next 102 as option cards and the rest as digivolve cards. The custom cards follow from 301.
 
 Finding cards:
 
@@ -203,8 +204,42 @@ card of the Digimon stack the Specialty from that word (`0x8003d664`). A card th
 Offline after a KO keeps the frame it had; the Rookie an armor Digimon drops back to gets
 its own Specialty again (`0x80040dcc`).
 
-`node tools/selftest.js` checks 19 of these behaviours; `node tools/sim.js 300` plays
-AI-vs-AI matches and checks card-count invariants.
+`node tools/selftest.js` checks these behaviours (26 checks, the custom card among them);
+`node tools/sim.js 300` plays AI-vs-AI matches and checks card-count invariants.
+
+## Custom cards
+
+Cards that are not on the disc. Each is made from a card of the game: it has that card's
+model, motions and battle scripts in other colours, and numbers and an effect of its own.
+`tools/custom_cards.json` lists them; `tools/build_custom.py` makes their files (see
+"Rebuild from the disc"). They follow the game's 301 cards from number 301, their models
+the game's from 400, and their battle scripts and effect files carry the number of the
+script they were made from plus 10000 for the first custom card, 20000 for the second.
+The deck editor offers them like any other card; no deck of the game holds one.
+
+| | BlackWarGreymon (301) | WarGreymon (2), which it is made from |
+|---|---|---|
+| Specialty, level | Fire, U | Fire, U |
+| DP, +P | 60, +20 | 50, +20 |
+| HP | 1750 | 1650 |
+| ○ | Black Terra Force 950 | Terra Force 900 |
+| △ | Black Great Tornado 700 | Great Tornado 670 |
+| ✕ | Black Dramon Cutter 400, Nature Foe x3 | Dramon Cutter 380, Ice Foe x3 |
+| Support | Add number of Darkness Cards in DP Slot x200 to own Attack Power. | Add number of Cards in Hand x100 to own Attack Power. |
+
+- **Model 400** is WarGreymon's (`F/173.PAK`): the same mesh, motions and texture, with the
+  14 palettes changed. Gold becomes charcoal, the orange of the straps, the hair and the leg
+  bands yellow, the green eye yellow and the blue lining of the shield slate; the silver
+  armour is as it was.
+- **Battle scripts** 11105-11107 and 10435, 12006, 10400 are WarGreymon's three attack
+  scripts and their hit scripts. Before each object a script creates, the colour variables
+  of that kind of object (screen rectangle, ring, particles, light change) are set to the
+  changed colour, and back after it. The effect files of the same numbers hold the sprites,
+  textures and effect models with their palettes changed the same way: reds, oranges and
+  yellows become violet. Great Tornado's wind is not a fire colour and stays as it is.
+- **Pictures.** The game's two pictures of WarGreymon (`B/CARD/LC002.TIM`, member 2 of
+  `B/M_CARD.ARC`) recoloured and enlarged 4x through ComfyUI like the other cards'; for
+  "New card art" a square of a picture supplied by the owner (`tools/custom/`).
 
 ## Sound
 
@@ -321,7 +356,7 @@ floor shadow or contact shadow is added. Shadows are skipped if the framebuffer 
 unsupported; the other Ultra improvements still work. These are authored visual additions,
 not recovered game behaviour. They require no new downloaded model or texture assets.
 
-`node tools/battletest.js` validates every card model and compares all 573 attack/hit script
+`node tools/battletest.js` validates every card model and compares all 576 attack/hit script
 runs in all three styles with the same random seed, including no-effect misses and countered
 motions. It checks CPU animation logic; real shader linking and visual appearance are
 checked separately in `battle-preview.html`. For deliberately uncommitted development,
@@ -432,6 +467,20 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 (`DDCB_B3D.attack({dry: true})`).
 
 ## Not from the game code
+
+- **Custom cards.** Nothing about a custom card is the game's but what it is made from.
+  BlackWarGreymon's numbers (DP 60, +P 20, HP 1750, attacks 950 / 700 / 400), its attack
+  names, its colours and its support effect were chosen for this project at the owner's
+  request. "Nature Foe x3" is one of the game's ✕ effects. The support effect counts the
+  Darkness cards in the own DP Slot, which the game's effect interpreter has no variable
+  for: the engine has variables of its own for it, 0x40-0x44 for the number of cards of
+  each Specialty in the own DP Slot and 0x48-0x4c for the opponent's (the game's end at
+  0x1c). The effect is written like Imperialdramon's and has its tier, 1. An attack of a
+  custom card can name the colour family of the enhanced effects (`accent`), which is
+  otherwise taken from the attack's name. How a script's colours are changed is this
+  project's too: the values are followed through the script from the top, and a colour
+  that is computed or set under a test would be left as it is (none of BlackWarGreymon's
+  is; the builder runs both scripts and compares every object's colours).
 
 - **Mobile setup controls.** On screens up to 900px wide, the sticky setup bar shows
   Settings, Random opponent and Start battle. Settings opens a scrollable panel above
@@ -576,7 +625,14 @@ tools/.venv/Scripts/python tools/build_models.py extracted web      # 3D models,
 tools/.venv/Scripts/python tools/build_battle.py extracted web      # battle scripts, attack assets
 tools/.venv/Scripts/python tools/arena_previews.py web              # arena previews, drawn in a browser
 tools/.venv/Scripts/python tools/build_new_art.py extracted web     # new card art, needs the internet and ComfyUI
+tools/.venv/Scripts/python tools/build_custom.py extracted web      # the custom cards' models, effects and pictures, needs ComfyUI
 ```
+
+`build_data.py` and `build_battle.py` write the custom cards' records and battle scripts
+along with the game's; `build_custom.py` makes the rest (and those two again), or one part
+of it: `data`, `model`, `battle`, `art`. Only `art` needs ComfyUI. `tools/custom_look.py`
+shows a model's texture with its palettes, the game's pictures of a card under a recolour,
+and the colours a card's battle scripts use, for writing a recolour.
 
 `upscale_assets.py` sends the 64×64 card art, the 40×40 board art and the battle textures
 through a local ComfyUI (`http://127.0.0.1:8188`, model `RealESRGAN_x4plus`) for a 4×
@@ -596,7 +652,8 @@ out, upscales them 4× through the same ComfyUI model and writes 512×512 and 16
 | `web/js/editor.js` | Deck editor screen |
 | `tools/decktest.js` | Checks of the deck rules, the search and export/import |
 | `web/js/ui.js`, `web/css/style.css`, `web/index.html` | Front end |
-| `web/js/data/cards.js` | Generated: 301 cards, 159 decks |
+| `web/js/data/cards.js` | Generated: the game's 301 cards and 159 decks, and the custom cards |
+| `tools/custom_cards.json`, `custom.py`, `build_custom.py`, `custom_look.py`, `tools/custom/` | The custom cards: their list, the recolouring, the builder, a viewer, their picture sources |
 | `web/assets/art`, `mini`, `ui` | Generated: upscaled card art and battle textures |
 | `web/assets/art2`, `mini2` | Generated: new art for the Digimon cards (`tools/build_new_art.py`, `tools/new_art.json`) |
 | `tools/check_paths.py` | Checks that every file the page asks for is in git under its exact name |
