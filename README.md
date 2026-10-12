@@ -4,11 +4,15 @@ A browser version of the card battle from *Digimon Digital Card Battle* (PS1, SL
 rebuilt from data, rules and graphics recovered from the disc image. Card battle only: no
 story mode, no deck editor, no partner customisation.
 
+**Play it in the browser: <https://amidoria.github.io/digimon-card-spx-simulator/>**
+
 All card data, art, UI textures and audio (`web/js/data/`, `web/assets/`) are generated
 from the disc image (SLUS-01328, US release) and are committed, so a clone runs as is.
 "Rebuild from the disc" shows how they were made.
 
 ## Play
+
+Online at <https://amidoria.github.io/digimon-card-spx-simulator/>, or from a clone:
 
 ```bash
 python -m http.server 8765 --bind 127.0.0.1 --directory web
@@ -18,9 +22,9 @@ Then open <http://localhost:8765/>. Pick one of the game's decks for yourself an
 its opponents, choose the opponent skill, and start. Sound needs the page served over
 HTTP as above; the Sound box in the side rail mutes it.
 
-The site is static, so it can also be published as it is. `.github/workflows/pages.yml`
-publishes the `web` folder to GitHub Pages on every push that changes it (set the
-repository's Pages source to "GitHub Actions"). Before publishing it runs
+The online copy is the `web` folder as it is: `.github/workflows/pages.yml` publishes it to
+GitHub Pages on every push that changes it (the repository's Pages source is set to
+"GitHub Actions"). Before publishing it runs
 `tools/check_paths.py`, which checks that every file the page asks for is in git under
 exactly that name, capitals included: Pages tells names apart by case and Windows does not.
 
