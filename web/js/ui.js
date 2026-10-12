@@ -382,7 +382,16 @@
 
   // arena table for the Polygon Battle (tools/build_battle.py)
   var ARENAS = [];
-  fetch('assets/battle/arenas.json').then(function (r) { return r.ok ? r.json() : []; }).then(function (a) { ARENAS = a; }).catch(function () { /* no arenas: plain background */ });
+  fetch('assets/battle/arenas.json').then(function (r) { return r.ok ? r.json() : []; }).then(function (a) {
+    ARENAS = a;
+    // the arena can be chosen; the game's table has no names for them
+    var sel = $('arena'), saved = '';
+    try { saved = localStorage.getItem('ddcb-arena') || ''; } catch (err) { /* storage unavailable */ }
+    a.forEach(function (x, k) { var o = h('option', '', 'Arena ' + (k + 1)); o.value = String(x.index); sel.appendChild(o); });
+    sel.value = saved;
+    if (sel.selectedIndex < 0) sel.value = '';
+    sel.onchange = function () { try { localStorage.setItem('ddcb-arena', sel.value); } catch (err) { /* ignore */ } };
+  }).catch(function () { /* no arenas: plain background */ });
 
   // ------------------------------------------------------------------ battle effects
   // Play effect script n the way the game's launcher (0x801f6294) is called: A is card
@@ -986,8 +995,10 @@
     S.token++;
     S.G = E.newGame({ names: ['You', od.owner], decks: [md, od] });
     S.anim = null; S.resolve = null; S.step = null; S.sel = -1; S.myAtk = -1;
-    // the arena: with none named the game picks one of entries 44..55 of its table (0x8002e42c)
-    S.arena = ARENAS.filter(function (a) { return a.index >= 44; })[Math.floor(Math.random() * 12)] || null;
+    // the arena: the one chosen, or, as the game does with none named, one of entries 44..55
+    // of its table (0x8002e42c)
+    S.arena = ARENAS.filter(function (a) { return String(a.index) === $('arena').value; })[0] ||
+      ARENAS.filter(function (a) { return a.index >= 44; })[Math.floor(Math.random() * 12)] || null;
     rollReset();
     clear($('log')); $('ask').hidden = true; $('info').hidden = true; $('flash').hidden = true;
     $('setup').hidden = true; $('game').hidden = false;

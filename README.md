@@ -217,7 +217,9 @@ scripts, then camera and arenas.
 - **Arenas.** An arena (`0x8002e42c`) is a one-part model from `F/BGnnn.PAK`, drawn turned
   with the camera but not moved by it, behind everything, at the brightness the arena table
   (`0x8006e0c0`) gives; the table also gives the back colour. With no arena named the game
-  picks one of twelve at random (table entries 44-55), which is what a match here does.
+  picks one of twelve at random (table entries 44-55), which is what a match here does
+  unless an arena is picked on the start screen (any of the table's 24, which the game
+  does not name).
 
 `tools/build_battle.py` exports all 737 scripts, the 745 asset files and the 24 free-battle
 arenas; every Digimon's three attacks run to their end in the browser's dry-run mode

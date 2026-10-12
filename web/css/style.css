@@ -95,6 +95,7 @@ button, input, select { font: inherit; color: inherit; }
 .setup-foot { display: flex; gap: 10px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
 .optl { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); margin-right: auto; }
 .optl.small { margin-right: 0; font-size: 12px; }
+.setup-foot .optl:first-child { margin-right: 18px; }
 .optl select { background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
 
 /* ------------------------------------------------------------ game shell */
