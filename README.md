@@ -187,6 +187,15 @@ subtract floors at 0, divide rounds down to tens with a minimum of 10), `0x801e9
 compares, `0x801e81dc` executes 54 opcodes. One card (Aquilamon) ships with comparison
 operator `0xFF`, so its effect never fires; kept as is.
 
+**Speciality Change** (opcodes 0 and 1, `0x801e8240`): the Specialty of a Digimon in play is
+kept apart from its card, in bits 19–21 of word `0x178` of the player's block. Effect script
+`0xF` plays to its end first, then the new value is written. The card's frame follows it:
+the card draw (`0x80044ab0`) takes the frame palette from byte `0x14` of the card object
+(CLUT row `0x1f1` + that byte, at `0x80045560`), and every frame the board gives the top
+card of the Digimon stack the Specialty from that word (`0x8003d664`). A card that goes
+Offline after a KO keeps the frame it had; the Rookie an armor Digimon drops back to gets
+its own Specialty again (`0x80040dcc`).
+
 `node tools/selftest.js` checks 19 of these behaviours; `node tools/sim.js 300` plays
 AI-vs-AI matches and checks card-count invariants.
 
