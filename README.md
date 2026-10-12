@@ -18,6 +18,9 @@ Then open <http://localhost:8765/>. Pick one of the game's decks for yourself an
 its opponents, choose the opponent skill, and start. Sound needs the page served over
 HTTP as above; the Sound box in the side rail mutes it.
 
+During a match, click a TRASH plate to see that player's Offline pile (newest card first)
+and a DECK plate to see which cards are still in that deck, by level and with their counts.
+
 ## Rules, as traced in the game code
 
 The turn controller is a 40-state machine at `0x80034260` in `SLUS_013.28`. One turn
@@ -281,6 +284,11 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   turn and an option card used to no effect to the hand and starts the phase again
   (`0x801ecd68`); what a digivolution already made leaves to take back was not traced. Here
   a card that was placed stays placed.
+- **Looking into the piles.** The Offline view and the list of what is left in a deck are
+  this project's; whether and how the game shows them was not traced. The deck list gives
+  nothing away that the table does not already show: both hands are open here and the decks
+  are the game's own lists. It is sorted, not in draw order, and a support card lying face
+  down from the deck is still counted as in the deck.
 - **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported.
 - **Hands shown face up** rests on the card-state byte being the same for both players'
   hand cards, and on how the game plays; the drawing code was not read.

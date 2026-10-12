@@ -166,26 +166,68 @@
     $('previewTitle').textContent = d.name + ' — 30 cards';
     var counts = {}, order = [];
     d.cards.forEach(function (id) { if (!counts[id]) { counts[id] = 0; order.push(id); } counts[id]++; });
-    var groups = [['Level R', function (c) { return c.type === 'digimon' && c.level === 0; }],
-      ['Level C', function (c) { return c.type === 'digimon' && c.level === 2; }],
-      ['Level U', function (c) { return c.type === 'digimon' && c.level === 3; }],
-      ['Option', function (c) { return c.type !== 'digimon'; }]];
     var ul = clear($('previewList')), ar = deckArmor(d);
     if (ar) ul.appendChild(h('li', 'note', ar[0].name + ' can armor digivolve to ' + ar[1].name + ' when it enters.'));
-    groups.forEach(function (g) {
+    grouped(ul, order, counts);
+  }
+  var GROUPS = [['Level R', function (c) { return c.type === 'digimon' && c.level === 0; }],
+    ['Level C', function (c) { return c.type === 'digimon' && c.level === 2; }],
+    ['Level U', function (c) { return c.type === 'digimon' && c.level === 3; }],
+    ['Option', function (c) { return c.type !== 'digimon'; }]];
+  // one card of a card list; corner = what to write in its lower corner, if anything
+  function tile(id, corner, cornerCls) {
+    var c = E.card(id), li = h('li', 'tile'), pic = thumb(id);
+    pic.appendChild(h('span', 'badge ' + cls(c), lvl(c)));
+    if (corner) pic.appendChild(h('span', cornerCls || 'cnt', corner));
+    li.appendChild(pic);
+    li.appendChild(h('span', 'tn', c.name));
+    li.title = c.name + ' — ' + (c.type === 'digimon' ? ('HP ' + c.hp + ' • ' + c.atk.map(function (a) { return a.power; }).join(' / ') + ' • ' + c.text) : c.text);
+    return li;
+  }
+  // the different cards of `order` by level, each with how many there are
+  function grouped(ul, order, counts) {
+    GROUPS.forEach(function (g) {
       var ids = order.filter(function (id) { return g[1](E.card(id)); });
       if (!ids.length) return;
-      ul.appendChild(h('li', 'grp', g[0]));
-      ids.forEach(function (id) {
-        var c = E.card(id), li = h('li', 'tile'), pic = thumb(id);
-        pic.appendChild(h('span', 'badge ' + cls(c), lvl(c)));
-        pic.appendChild(h('span', 'cnt', '×' + counts[id]));
-        li.appendChild(pic);
-        li.appendChild(h('span', 'tn', c.name));
-        li.title = c.name + ' — ' + (c.type === 'digimon' ? ('HP ' + c.hp + ' • ' + c.atk.map(function (a) { return a.power; }).join(' / ') + ' • ' + c.text) : c.text);
-        ul.appendChild(li);
-      });
+      ul.appendChild(h('li', 'grp', g[0] + ' — ' + ids.reduce(function (t, id) { return t + counts[id]; }, 0)));
+      ids.forEach(function (id) { ul.appendChild(tile(id, '×' + counts[id])); });
     });
+  }
+
+  // ------------------------------------------------------------------ looking into the piles
+  // The Offline pile, newest card first. While a battle is being played back only the cards
+  // that have been shown going there are listed.
+  function showTrash(p) {
+    var G = S.G;
+    if (!G) return;
+    var ids = G.players[p].offline.slice(0, view(p).offline).reverse(), ul = clear($('pileList'));
+    $('pileTitle').textContent = poss(p) + ' Offline pile — ' + ids.length + (ids.length === 1 ? ' card' : ' cards');
+    $('pileNote').textContent = ids.length ? 'Newest first.' : '';
+    if (!ids.length) ul.appendChild(h('li', 'empty', 'No cards have gone Offline yet.'));
+    ids.forEach(function (id, k) { ul.appendChild(tile(id, String(ids.length - k), 'ord')); });
+    $('pile').showModal();
+  }
+  // What is left of a deck: the cards still in it, by level and not in their order, which
+  // nobody knows. A support card lying face down from the deck counts as still in it.
+  function showDeck(p) {
+    var G = S.G;
+    if (!G) return;
+    var P = G.players[p], ids = P.deck.slice(), counts = {}, order = [], ul = clear($('pileList'));
+    if (P.sup && P.sup.deck) ids.push(P.sup.id);
+    ids.forEach(function (id) { if (!counts[id]) { counts[id] = 0; order.push(id); } counts[id]++; });
+    order.sort(function (a, b) { return a - b; });
+    $('pileTitle').textContent = poss(p) + ' Online deck — ' + ids.length + (ids.length === 1 ? ' card' : ' cards') + ' left';
+    $('pileNote').textContent = ids.length ? 'The cards still to come, not in the order they will come.' : '';
+    if (!ids.length) ul.appendChild(h('li', 'empty', 'The deck is empty.'));
+    grouped(ul, order, counts);
+    $('pile').showModal();
+  }
+  function pilePlate(el, p, show, what) {
+    el.classList.add('pile'); el.tabIndex = 0; el.setAttribute('role', 'button');
+    el.title = what + ' — click to look';
+    el.onclick = function () { show(p); };
+    el.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(p); } };
+    return el;
   }
 
   function renderSetup() {
@@ -476,10 +518,10 @@
       // win counters
       for (i = 0; i < 3; i++) dyn.appendChild(box(h('div', 'pip' + (i < v.wins ? ' on' : ''), i < v.wins ? 'KO' : ''), L.pips[p][i].x, L.pips[p][i].y, 29, 12));
       // piles
-      el = plate('TRASH', 'small trash col'); el.appendChild(h('b', null, String(v.offline))); el.title = 'Offline pile';
-      dyn.appendChild(box(el, L.trash[p].x, L.trash[p].y, 25, 19));
-      el = plate('DECK', 'small col'); el.appendChild(h('b', null, String(v.deck))); el.title = 'Online deck';
-      dyn.appendChild(box(el, L.deck[p].x, L.deck[p].y, 25, 19));
+      el = plate('TRASH', 'small trash col'); el.appendChild(h('b', null, String(v.offline)));
+      dyn.appendChild(box(pilePlate(el, p, showTrash, 'Offline pile'), L.trash[p].x, L.trash[p].y, 25, 19));
+      el = plate('DECK', 'small col'); el.appendChild(h('b', null, String(v.deck)));
+      dyn.appendChild(box(pilePlate(el, p, showDeck, 'Online deck'), L.deck[p].x, L.deck[p].y, 25, 19));
       // hand (open for both players)
       for (i = 0; i < 4; i++) {
         var slot = L.hand[p][i];
@@ -1041,6 +1083,7 @@
   }
 
   function toMenu() {
+    if ($('pile').open) $('pile').close();
     S.token++; S.G = null; S.resolve = null; S.anim = null;
     SND.stopMusic(); FXV.stop(); B3D.stop();
     $('game').hidden = true; $('setup').hidden = false;
