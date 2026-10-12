@@ -15,8 +15,9 @@
   }
   function entryValue(c) { return power(c, Math.max((c.level & 3) - 1, 0)); }
 
-  // The two phase functions make one move each time they are resumed and hand back its
-  // description, so that whoever shows the game can let a move finish before the next.
+  // The two phase functions hand back the description of their next move and make it when
+  // they are resumed, so that whoever shows the game can announce a move, play its effect and
+  // only then let it happen, as the game does.
 
   // Preparation for the turn player: field a Digimon, redrawing first if only
   // penalised (level C / U) cards are in hand and the deck can afford it.
@@ -33,15 +34,16 @@
       var c = E.card(P.hand[best]);
       if (c.level >= 2 && redraws < 2 && P.deck.length >= 12 && E.canChangeAll(G, p)) {
         redraws++;
-        E.changeAll(G, p);
         yield P.name + ' changes all cards.';
+        E.changeAll(G, p);
         continue;
       }
-      E.enter(G, p, best);
       yield P.name + ' sends out ' + c.name + (c.level >= 2 ? ' (weakened: level ' + E.LEVEL[c.level] + ' entrance).' : '.');
-      if (E.armorOption(G, p) >= 0) {
+      E.enter(G, p, best);
+      var armor = E.armorOption(G, p);
+      if (armor >= 0) {
+        yield c.name + ' armor digivolves to ' + E.card(armor).name + '.';
         E.armorDigivolve(G, p);
-        yield c.name + ' armor digivolves to ' + E.top(P).name + '.';
       }
     }
   }
@@ -88,7 +90,7 @@
 
   // Digivolve Phase in the controller's order: DP card, option card, digivolution.
   function* digivolveSteps(G, p) {
-    var P = G.players[p], i, msg;
+    var P = G.players[p], i;
     if (!P.active) return;
     var mv = bestEvo(G, p);
     if (!mv) {
@@ -98,9 +100,8 @@
         var H = E.clone(G);
         E.addDP(H, p, i);
         if (bestEvo(H, p)) {
-          msg = P.name + ' sends ' + E.card(P.hand[i]).name + ' to the DP Slot.';
+          yield P.name + ' sends ' + E.card(P.hand[i]).name + ' to the DP Slot.';
           E.addDP(G, p, i);
-          yield msg;
           done = true;
         }
       }
@@ -113,17 +114,15 @@
           if (v < pv) { pv = v; pick = i; }
         }
         if (pick >= 0 && pv <= 25) {
-          msg = P.name + ' sends ' + E.card(P.hand[pick]).name + ' to the DP Slot.';
+          yield P.name + ' sends ' + E.card(P.hand[pick]).name + ' to the DP Slot.';
           E.addDP(G, p, pick);
-          yield msg;
         }
       }
     }
     var guard = 0;
     while ((mv = bestEvo(G, p)) && guard++ < 4) {
-      msg = describeEvo(P, mv);
+      yield describeEvo(P, mv);
       E.digivolve(G, p, mv);
-      yield msg;
     }
   }
   function digivolvePhase(G, p) { return Array.from(digivolveSteps(G, p)); }

@@ -3,6 +3,7 @@
 const path = require('path');
 const assert = require('assert');
 const E = require(path.join(__dirname, '..', 'web', 'js', 'engine.js'));
+const AI = require(path.join(__dirname, '..', 'web', 'js', 'ai.js'));
 
 const byName = (n) => { const c = E.CARDS.find((x) => x.name === n); assert(c, 'no card ' + n); return c.id; };
 const C = (n) => E.card(byName(n));
@@ -108,6 +109,17 @@ test('a digivolve option card with no effect can still be used and is lost (0x80
   assert.strictEqual(E.evoMoves(G, 0).some((m) => m.kind === 'option'), false, 'no second option card');
   assert.strictEqual(E.wasteMoves(G, 0).length, 0);
   assert.strictEqual(E.canAddDP(G, 0, 1), false);
+});
+
+test('the opponent names a move before it makes it, so its effect can play first', () => {
+  const G = setup({ mon: 'Agumon', hand: ['Greymon'], dp: ['Agumon', 'Agumon'] }, { mon: 'Gabumon' });
+  const steps = AI.digivolveSteps(G, 0);
+  let it = steps.next();
+  assert(/digivolves to Greymon/.test(it.value), String(it.value));
+  assert.strictEqual(E.top(G.players[0]).name, 'Agumon', 'not yet');
+  it = steps.next();
+  assert.strictEqual(E.top(G.players[0]).name, 'Greymon');
+  assert(it.done);
 });
 
 test('digivolve phase: one DP card, before digivolving; an option card ends the phase', () => {

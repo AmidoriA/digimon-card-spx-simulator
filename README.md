@@ -51,6 +51,10 @@ belongs to one player (the byte at state `+0x817`), who is also the first attack
    that does have a legal target cannot be thrown away like this.
 3. Normal digivolution, repeatable while legal: R→C→U, same current Specialty, DP ≥ cost.
 
+A digivolution's effect plays to its end before the cards change: the effect call
+(`0x801f6214`) comes back only when the effect is over, and the card is moved after it, in
+every digivolve state and for the armor digivolution of the entrance (`0x80034fb4`).
+
 Legality is `0x801e9f5c`. Digivolving gives the new card's full stats and empties the DP
 Slot (`0x801ece24`); Speed and Download keep the DP Slot. Speed is refused in an abnormal
 state. Digi-devolve doubles the lower form's HP.

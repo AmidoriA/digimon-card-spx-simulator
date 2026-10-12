@@ -741,28 +741,38 @@
         if (ar >= 0) {
           S.step = null; status('Preparation: Digi-Egg Power-Up.', ''); render();
           if (await ask('Do you want to Armor Digivolve to ' + E.card(ar).name + '?')) {
-            E.armorDigivolve(G, 0);
             log(c.name + ' armor digivolves to ' + E.card(ar).name + '.', 'me');
-            flash('Armor Digivolve', 'fx'); fx(FX.ARMOR, 0, 0);
+            flash('Armor Digivolve', 'fx');
+            await fx(FX.ARMOR, 0, 0);               // the effect first, then the card (0x80034fb4)
+            if (!live(tok)) return;
+            E.armorDigivolve(G, 0);
           }
         }
       } else if (a.t === 'ok') return;
     }
   }
 
-  // The opponent makes one move at a time: the next is not made until this one has been
-  // shown, its cards have landed and its effect has played out.
+  // The opponent makes one move at a time. A digivolution is announced and its effect plays
+  // to the end before the cards change, as in the game (the effect call 0x801f6214 comes
+  // back only when the effect is over, and the card is moved after it: states 0x12, 0x15
+  // and the armor digivolution of the entrance). The next move waits for the cards to land.
   async function aiSteps(steps, tok) {
-    for (var it = steps.next(); !it.done && live(tok); it = steps.next()) {
-      var m = it.value, k, w = null;
-      if (/armor digivolves/.test(m)) w = fx(FX.ARMOR, 1, 0);
+    var it = steps.next();
+    while (!it.done && live(tok)) {
+      var m = it.value, k, n = -1;
+      if (/armor digivolves/.test(m)) n = FX.ARMOR;
       else if (/ uses /.test(m)) {
-        for (k = 0; k < 8; k++) if (m.indexOf(' uses ' + EVO_CARD[k]) >= 0) w = fx(EVO_FX[k], 1, 0);
-      } else if (/digivolves to/.test(m)) w = fx(FX.DIGIVOLVE, 1, 0);
-      else SND.se(SE.OK);
-      log(m, 'op'); status($('msg1').textContent, m); render();
+        for (k = 0; k < 8; k++) if (m.indexOf(' uses ' + EVO_CARD[k]) >= 0) n = EVO_FX[k];
+      } else if (/digivolves to/.test(m)) n = FX.DIGIVOLVE;
+      log(m, 'op'); status($('msg1').textContent, m);
+      if (n >= 0) {
+        render();
+        await fx(n, 1, 0);
+        if (!live(tok)) return;
+      } else SND.se(SE.OK);
+      it = steps.next();                          // the move is made here
+      render();
       await sleep(900);
-      await w;
     }
   }
 
@@ -804,9 +814,11 @@
         var q = c.dtype === E.DIGIVOLVE.DEVOLVE ? 'Current Digimon will be discarded. Do you still want to Digi-devolve?'
           : "Your Digimon's level will become R. Do you still want to Armor Digi-devolve?";
         if (await ask(q)) {
+          flash(EVO_NAME[c.dtype], 'fx');
+          await fx(EVO_FX[c.dtype], 0, 0);          // the effect first, then the cards (state 0x10)
+          if (!live(tok)) return;
           E.digivolve(G, 0, moves[0]);
           log('You use ' + c.name + ': now ' + E.top(P).name + '.', 'me');
-          flash(EVO_NAME[c.dtype], 'fx'); fx(EVO_FX[c.dtype], 0, 0);
         }
         continue;
       }
@@ -818,9 +830,12 @@
       S.sel = -1;
       if (mv) {
         var tn = E.card(P.hand[mv.target]).name;
-        E.digivolve(G, 0, mv);
         log('You use ' + c.name + ' and digivolve to ' + tn + '.', 'me');
+        S.step = null; render();
         flash(EVO_NAME[c.dtype], 'fx');
+        await fx(EVO_FX[c.dtype], 0, 0);            // state 0x12
+        if (!live(tok)) return;
+        E.digivolve(G, 0, mv);
       }
     }
     S.sel = -1;
@@ -835,9 +850,12 @@
       var m2 = moves.filter(function (m) { return m.target === a.i; })[0];
       if (!m2) continue;
       var nm = E.card(P.hand[m2.target]).name;
-      E.digivolve(G, 0, m2);
       log('You digivolve to ' + nm + '.', 'me');
-      flash('Digivolve', 'fx'); fx(FX.DIGIVOLVE, 0, 0);
+      S.step = null; render();
+      flash('Digivolve', 'fx');
+      await fx(FX.DIGIVOLVE, 0, 0);                 // state 0x15
+      if (!live(tok)) return;
+      E.digivolve(G, 0, m2);
     }
     S.step = null;
     status('Digivolve: Digivolve Complete.', '');
