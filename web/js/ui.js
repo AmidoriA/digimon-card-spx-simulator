@@ -384,14 +384,39 @@
   var ARENAS = [];
   fetch('assets/battle/arenas.json').then(function (r) { return r.ok ? r.json() : []; }).then(function (a) {
     ARENAS = a;
-    // the arena can be chosen; the game's table has no names for them
-    var sel = $('arena'), saved = '';
-    try { saved = localStorage.getItem('ddcb-arena') || ''; } catch (err) { /* storage unavailable */ }
-    a.forEach(function (x, k) { var o = h('option', '', 'Arena ' + (k + 1)); o.value = String(x.index); sel.appendChild(o); });
-    sel.value = saved;
-    if (sel.selectedIndex < 0) sel.value = '';
-    sel.onchange = function () { try { localStorage.setItem('ddcb-arena', sel.value); } catch (err) { /* ignore */ } };
+    try { arenaPick = localStorage.getItem('ddcb-arena') || ''; } catch (err) { /* storage unavailable */ }
+    if (!a.some(function (x) { return String(x.index) === arenaPick; })) arenaPick = '';
+    showArena();
   }).catch(function () { /* no arenas: plain background */ });
+  // The arena can be chosen ('' = at random); the game's table has no names for them, and the
+  // previews are this project's pictures of them.
+  var arenaPick = '';
+  function arenaThumb(el, x) {
+    el.style.backgroundImage = x ? 'url(assets/battle/arena/' + x.file + '.webp)' : '';
+    el.textContent = x ? '' : '?';
+  }
+  function showArena() {
+    var k = ARENAS.map(function (x) { return String(x.index); }).indexOf(arenaPick);
+    arenaThumb($('arenaThumb'), ARENAS[k]);
+    $('arenaName').textContent = k < 0 ? 'Random' : 'Arena ' + (k + 1);
+  }
+  function openArenas() {
+    var grid = $('arenaGrid');
+    clear(grid);
+    [null].concat(ARENAS).forEach(function (x, k) {
+      var id = x ? String(x.index) : '', b = h('button', 'arena-tile' + (id === arenaPick ? ' on' : '')), t = h('span', 'arena-thumb');
+      b.type = 'button';
+      arenaThumb(t, x);
+      b.appendChild(t); b.appendChild(h('span', '', x ? 'Arena ' + k : 'Random'));
+      b.onclick = function () {
+        arenaPick = id;
+        try { localStorage.setItem('ddcb-arena', id); } catch (err) { /* ignore */ }
+        showArena(); $('arenas').close();
+      };
+      grid.appendChild(b);
+    });
+    $('arenas').showModal();
+  }
 
   // ------------------------------------------------------------------ battle effects
   // Play effect script n the way the game's launcher (0x801f6294) is called: A is card
@@ -1001,7 +1026,7 @@
     S.anim = null; S.resolve = null; S.step = null; S.sel = -1; S.myAtk = -1;
     // the arena: the one chosen, or, as the game does with none named, one of entries 44..55
     // of its table (0x8002e42c)
-    S.arena = ARENAS.filter(function (a) { return String(a.index) === $('arena').value; })[0] ||
+    S.arena = ARENAS.filter(function (a) { return String(a.index) === arenaPick; })[0] ||
       ARENAS.filter(function (a) { return a.index >= 44; })[Math.floor(Math.random() * 12)] || null;
     rollReset();
     clear($('log')); $('ask').hidden = true; $('info').hidden = true; $('flash').hidden = true;
@@ -1060,6 +1085,7 @@
   Array.prototype.forEach.call($('previewTabs').children, function (b) { b.onclick = function () { S.previewSide = b.dataset.side; renderSetup(); }; });
   $('btnRandom').onclick = function () { S.op = OP_DECKS[Math.floor(Math.random() * OP_DECKS.length)].id; S.previewSide = 'op'; renderSetup(); };
   $('btnStart').onclick = startGame;
+  $('arenaBtn').onclick = openArenas;
   try { B3D.enabled = localStorage.getItem('ddcb-anim3d') !== '0'; } catch (err) { /* storage unavailable */ }
   $('anim3d').checked = B3D.enabled;
   $('anim3d').onchange = function () {

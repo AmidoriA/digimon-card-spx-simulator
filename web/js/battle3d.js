@@ -255,12 +255,12 @@
   // (0x30, 0x30, 0x40) is set at 0x80024440.
   var LIGHT_DIR = [[0, -4096, -1500], [0, 4096, -2000], [0, 0, 0]], LIGHT_COL = [[4096, 4096, 4096], [1500, 1500, 1500], [0, 0, 0]];
   var BACK = [0x30 / 256, 0x30 / 256, 0x40 / 256];
-  var VS = 'attribute vec3 aP,aN,aC;attribute vec4 aT;uniform mat3 uM[32];uniform vec3 uT[32];uniform float uShow[32];uniform mat3 uV;uniform vec3 uVT;uniform vec2 uTex;uniform float uPalN,uBright;' +
+  var VS = 'attribute vec3 aP,aN,aC;attribute vec4 aT;uniform mat3 uM[32];uniform vec3 uT[32];uniform float uShow[32];uniform mat3 uV;uniform vec3 uVT;uniform vec2 uTex;uniform float uPalN,uBright,uF;' +
     'uniform vec3 uLD[3];uniform vec3 uLC[3];uniform vec3 uBK;varying vec3 vC;varying vec2 vUV;varying float vPal,vTex;' +
     'void main(){int i=int(aT.z+0.5);mat3 m=uM[i];vec3 w=m*aP+uT[i];vec3 e=uV*w+uVT;' +
     'vec3 lit=vec3(1.0);if(dot(aN,aN)>0.5){vec3 n=normalize(m*aN);lit=uBK;for(int k=0;k<3;k++)lit+=uLC[k]*max(0.0,dot(n,uLD[k]));lit=clamp(lit,0.0,2.0);}' +
     'vC=aC/128.0*lit*uBright;vTex=aT.x<0.0?0.0:1.0;vUV=(aT.xy+0.5)/uTex;vPal=(aT.w+0.5)/uPalN;' +
-    'float z=max(e.z,1.0);gl_Position=vec4(e.x*448.0/160.0,-e.y*448.0/120.0,(z-60.0)/20000.0*z,z);if(uShow[i]>0.5)gl_Position=vec4(2.0,2.0,2.0,1.0);}';
+    'float z=max(e.z,1.0);gl_Position=vec4(e.x*uF/160.0,-e.y*uF/120.0,(z-60.0)/20000.0*z,z);if(uShow[i]>0.5)gl_Position=vec4(2.0,2.0,2.0,1.0);}';
   var FS = 'precision mediump float;uniform sampler2D uS,uP;varying vec3 vC;varying vec2 vUV;varying float vPal,vTex;' +
     'void main(){if(vTex<0.5){gl_FragColor=vec4(vC*0.5,1.0);return;}float ix=texture2D(uS,vUV).r*255.0;vec4 c=texture2D(uP,vec2((ix+0.5)/256.0,vPal));if(c.a<0.5)discard;gl_FragColor=vec4(c.rgb*vC,1.0);}';
   // flat-coloured effect primitives and sprites, already projected: x, y in screen pixels, z = depth
@@ -290,7 +290,7 @@
     if (!gl) return false;
     prog = program(VS, FS);
     ['aP', 'aN', 'aC', 'aT'].forEach(function (a) { loc[a] = gl.getAttribLocation(prog, a); });
-    ['uM', 'uT', 'uShow', 'uV', 'uVT', 'uTex', 'uPalN', 'uS', 'uP', 'uBright', 'uLD', 'uLC', 'uBK'].forEach(function (u) { loc[u] = gl.getUniformLocation(prog, u); });
+    ['uM', 'uT', 'uShow', 'uV', 'uVT', 'uTex', 'uPalN', 'uS', 'uP', 'uBright', 'uLD', 'uLC', 'uBK', 'uF'].forEach(function (u) { loc[u] = gl.getUniformLocation(prog, u); });
     pprog = program(PVS, PFS); ploc = { p: gl.getAttribLocation(pprog, 'p'), c: gl.getAttribLocation(pprog, 'c') };
     sprog = program(SVS, SFS);
     sloc = { p: gl.getAttribLocation(sprog, 'p'), t: gl.getAttribLocation(sprog, 't') };
@@ -378,6 +378,7 @@
     var R = scene.view, e = scene.cam.eye, t = xf(R, [0, 0, 0], [-e[0], -e[1], -e[2]]), V = new Float32Array(9), k, L = scene.lights;
     for (k = 0; k < 9; k++) V[k] = R[(k % 3) * 3 + Math.floor(k / 3)];
     gl.uniformMatrix3fv(loc.uV, false, V);
+    gl.uniform1f(loc.uF, scene.focal || 448);            // the game's projection distance
     if (scene.arena && scene.arena.actor) {
       // the arena turns with the camera but does not move with it, and is behind everything
       gl.uniform3f(loc.uVT, 0, 0, 0);
@@ -1083,6 +1084,25 @@
         });
       });
     }).catch(function () { stop(); return false; });
+  };
+  // A picture of an arena by itself, as the scene draws it: the view turned by yaw and pitch
+  // (4096 = a full turn), with a projection distance of its own to take in more than the
+  // battle's does. For the arena picker's previews (tools/arena_previews.py).
+  // -> data URL of the 320x240 picture
+  api.arenaShot = function (arena, yaw, pitch, focal) {
+    if (!initGL() || scene) return Promise.resolve(null);
+    return load('bg' + arena.file).then(function (m) {
+      var a = new Actor(m, [0, 0, 0], 0);
+      a.bright = arena.bright / 255; a.step(); a.resolve();
+      scene = { actors: [], extra: [], overlays: [], arena: { actor: a, back: arena.back, bright: arena.bright }, cam: { eye: [0, 0, 0] },
+        view: C.rotMatrix([pitch || 0, yaw || 0, 0]), focal: focal, lights: { dir: LIGHT_DIR, col: LIGHT_COL } };
+      render();
+      var small = document.createElement('canvas'), x = small.getContext('2d');
+      small.width = W; small.height = HGT;
+      x.imageSmoothingEnabled = false; x.drawImage(canvas, 0, 0, W, HGT);
+      scene = null;
+      return small.toDataURL('image/png');
+    });
   };
   api.stop = stop;
   api.busy = function () { return !!scene; };

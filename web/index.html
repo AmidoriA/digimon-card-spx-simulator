@@ -46,9 +46,11 @@
           <option value="1">Ultimate</option>
         </select>
       </label>
-      <label class="optl" title="Where the battle animation takes place">Arena
-        <select id="arena"><option value="">Random</option></select>
-      </label>
+      <div class="optl">Arena
+        <button id="arenaBtn" class="arena-btn" type="button" title="Choose where the battle animation takes place">
+          <span id="arenaThumb" class="arena-thumb"></span><span id="arenaName">Random</span>
+        </button>
+      </div>
       <button id="btnRandom" class="btn ghost">Random opponent</button>
       <button id="btnStart" class="btn primary">Start battle</button>
     </footer>
@@ -121,6 +123,12 @@
     <p>A KO'd Digimon and its digivolution stack go Offline and the opponent scores. An armor Digimon drops back to its Rookie form, and that Rookie goes Offline too. A revive effect keeps the Digimon in play, except against the KO that would decide the match.</p>
   </div>
   <form method="dialog"><button class="btn primary">Close</button></form>
+</dialog>
+
+<dialog id="arenas" class="dialog arenas">
+  <h2>Arena</h2>
+  <div id="arenaGrid" class="arena-grid"></div>
+  <form method="dialog"><button class="btn ghost">Close</button></form>
 </dialog>
 
 <dialog id="result" class="dialog result">

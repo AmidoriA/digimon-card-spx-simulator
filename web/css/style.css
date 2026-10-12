@@ -96,6 +96,17 @@ button, input, select { font: inherit; color: inherit; }
 .optl { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); margin-right: auto; }
 .optl.small { margin-right: 0; font-size: 12px; }
 .setup-foot .optl:first-child { margin-right: 18px; }
+/* arena picker: previews drawn by tools/arena_previews.py */
+.arena-btn { display: inline-flex; align-items: center; gap: 8px; padding: 3px 10px 3px 3px; background: var(--bg-2); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; cursor: pointer; font: inherit; }
+.arena-btn:hover { border-color: var(--accent); }
+.arena-thumb { display: grid; place-items: center; width: 56px; height: 42px; border-radius: 4px; background: #05080c center / cover no-repeat; color: var(--ink-3); font: 700 20px var(--game); image-rendering: pixelated; }
+.dialog.arenas { width: min(880px, 94vw); max-width: none; }
+.arena-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); gap: 8px; max-height: 66vh; overflow-y: auto; padding: 2px; }
+.arena-tile { display: block; padding: 0; background: var(--bg-2); color: var(--ink-2); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; cursor: pointer; font: 12px var(--sans); text-align: center; }
+.arena-tile .arena-thumb { width: 100%; height: auto; aspect-ratio: 4 / 3; border-radius: 0; font-size: 40px; }
+.arena-tile span:last-child { display: block; padding: 4px 0 5px; }
+.arena-tile:hover { border-color: var(--accent); }
+.arena-tile.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); color: var(--ink); }
 .optl select { background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
 
 /* ------------------------------------------------------------ game shell */

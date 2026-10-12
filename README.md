@@ -219,7 +219,9 @@ scripts, then camera and arenas.
   (`0x8006e0c0`) gives; the table also gives the back colour. With no arena named the game
   picks one of twelve at random (table entries 44-55), which is what a match here does
   unless an arena is picked on the start screen (any of the table's 24, which the game
-  does not name).
+  does not name). The picker's previews are this project's: each arena drawn by the same
+  renderer from the middle of it, level, with a wider angle than the battle's
+  (`tools/arena_previews.py`).
 
 `tools/build_battle.py` exports all 737 scripts, the 745 asset files and the 24 free-battle
 arenas; every Digimon's three attacks run to their end in the browser's dry-run mode
@@ -291,6 +293,7 @@ tools/.venv/Scripts/python tools/build_audio.py extracted web       # music and 
 tools/.venv/Scripts/python tools/build_effects.py extracted web     # battle effect scripts
 tools/.venv/Scripts/python tools/build_models.py extracted web      # 3D models, textures, motions
 tools/.venv/Scripts/python tools/build_battle.py extracted web      # battle scripts, attack assets
+tools/.venv/Scripts/python tools/arena_previews.py web              # arena previews, drawn in a browser
 ```
 
 `upscale_assets.py` sends the 64×64 card art, the 40×40 board art and the battle textures

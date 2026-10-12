@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Arena previews</title>
+<style>
+  body { background: #101418; color: #d8dee6; font: 14px system-ui, sans-serif; margin: 16px; }
+  #out { display: grid; grid-template-columns: repeat(6, 160px); gap: 6px; margin-top: 12px; }
+  #out img { width: 160px; image-rendering: pixelated; display: block; }
+</style>
+</head>
+<body>
+<!-- Served by tools/arena_previews.py next to the web folder: draws each arena and posts it back. -->
+<p id="say">Drawing the arenas…</p>
+<div id="out"></div>
+<canvas id="b3d" width="1280" height="960" hidden></canvas>
+<script src="js/effects.js"></script>
+<script src="js/battle3d.js"></script>
+<script>
+(async function () {
+  'use strict';
+  var FOCAL = 170, TURNS = [0, 512, 1024, 1536, 2048, 2560, 3072, 3584];
+  var say = document.getElementById('say'), out = document.getElementById('out');
+  // how much there is to see in a picture: the spread of its brightness
+  function detail(url) {
+    return new Promise(function (res) {
+      var im = new Image();
+      im.onload = function () {
+        var c = document.createElement('canvas'), x = c.getContext('2d'), i, n = 0, s = 0, q = 0;
+        c.width = im.width; c.height = im.height; x.drawImage(im, 0, 0);
+        var d = x.getImageData(0, 0, c.width, c.height).data;
+        for (i = 0; i < d.length; i += 4) { var l = d[i] * 0.3 + d[i + 1] * 0.59 + d[i + 2] * 0.11; s += l; q += l * l; n++; }
+        res(Math.sqrt(Math.max(q / n - (s / n) * (s / n), 0)));
+      };
+      im.src = url;
+    });
+  }
+  try {
+    var arenas = await (await fetch('assets/battle/arenas.json')).json(), k, t;
+    for (k = 0; k < arenas.length; k++) {
+      var shots = [];
+      for (t = 0; t < TURNS.length; t++) {
+        var url = await window.DDCB_B3D.arenaShot(arenas[k], TURNS[t], 0, FOCAL);
+        shots.push({ url: url, d: await detail(url) });
+      }
+      // the front, unless another side shows much more
+      var best = shots.reduce(function (a, b) { return b.d > a.d ? b : a; }), pick = best.d > shots[0].d * 1.5 ? best : shots[0];
+      var im = new Image(); im.src = pick.url; im.title = 'arena ' + arenas[k].file; out.appendChild(im);
+      await fetch('/__shot/' + arenas[k].file, { method: 'POST', body: await (await fetch(pick.url)).blob() });
+      say.textContent = 'Drawing the arenas… ' + (k + 1) + ' of ' + arenas.length;
+    }
+    await fetch('/__done', { method: 'POST' });
+    say.textContent = 'Done: ' + arenas.length + ' previews saved. This page can be closed.';
+  } catch (err) {
+    say.textContent = 'Failed: ' + err;
+  }
+})();
+</script>
+</body>
+</html>
