@@ -154,9 +154,16 @@ A digivolution's effect plays to its end before the cards change: the effect cal
 (`0x801f6214`) comes back only when the effect is over, and the card is moved after it, in
 every digivolve state and for the armor digivolution of the entrance (`0x80034fb4`).
 
-Legality is `0x801e9f5c`. Digivolving gives the new card's full stats and empties the DP
-Slot (`0x801ece24`); Speed and Download keep the DP Slot. Speed is refused in an abnormal
-state. Digi-devolve doubles the lower form's HP.
+Legality is `0x801e9f5c`. Digivolving sets the new card's stats with the same `0x8004080c`
+and empties the DP Slot (`0x801ece24`); Speed and Download keep the DP Slot. Speed is refused
+in an abnormal state. Digi-devolve doubles the lower form's HP.
+
+The entrance penalty is not tied to the card that entered. Normal digivolution (states 0x13
+and 0x15) calls `0x801ec7c0` with the abnormal state untouched, so a level C that entered at
+half strength digivolves into a level U at half strength. The option cards clear the state
+first and give full stats: Digi-devolve in state 0x10 (`0x80035f90`), and every card of
+state 0x12 (`0x80036788` Special, Warp and Mutant, `0x800368f0` Speed and Download,
+`0x80036a18` ArmorCrush). De-Armor (`0x80040d88`) does not touch it.
 
 **Battle (states 0x17–0x25)**
 

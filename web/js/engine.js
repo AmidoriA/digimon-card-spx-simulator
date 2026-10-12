@@ -103,7 +103,9 @@
   }
 
   // 0x8004080c: HP and attack powers come from the card, shifted right by the entrance
-  // penalty (level C entered directly: halved, level U: quartered) and cut to tens.
+  // penalty (level C entered directly: halved, level U: quartered) and cut to tens. The
+  // routine reads the penalty from the Digimon in play, not from the card it is given.
+  function entryShift(A) { return Math.max(A.abn - 1, 0); }
   function setStats(P, c, shift) {
     var A = P.active;
     A.spec = c.spec;
@@ -158,7 +160,7 @@
     if (!canEnter(G, p, hi)) return false;
     var P = G.players[p], id = P.hand.splice(hi, 1)[0], c = card(id);
     P.active = { stack: [id], armor: -1, hp: 0, spec: 0, base: [0, 0, 0], abn: c.level & 3 }; // 0x801ea558
-    setStats(P, c, Math.max((c.level & 3) - 1, 0));
+    setStats(P, c, entryShift(P.active));
     return true;
   }
   // "Digi-Egg Power-Up": the armor form available to the Digimon that just entered, or -1.
@@ -295,7 +297,12 @@
       .forEach(function (x) { P.hand.splice(x, 1); });
     var A = P.active, st = A.stack, dtype = oid >= 0 ? card(oid).dtype : -1;
     if (oid >= 0) P.offline.push(oid);
-    A.abn = 0; // every digivolve path clears the entrance penalty bits
+    // The option cards that change the Digimon clear the entrance penalty before the new
+    // stats are set (Digi-devolve at 0x80035f90; state 0x12 at 0x80036788, 0x800368f0 and
+    // 0x80036a18). Normal digivolution (states 0x13 and 0x15) goes straight to 0x801ec7c0
+    // and De-Armor to 0x80040d88: both leave it. A level C that entered at half strength
+    // digivolves into a level U at half strength.
+    if (oid >= 0 && dtype !== DIGIVOLVE.DE_ARMOR) A.abn = 0;
     if (dtype === DIGIVOLVE.DEVOLVE) {
       P.offline.push(st.pop());
       setStats(P, card(st[st.length - 1]), 0);
@@ -309,7 +316,7 @@
         while (st.length) P.offline.push(st.pop());
       }
       st.push(tid);
-      setStats(P, card(tid), 0);
+      setStats(P, card(tid), entryShift(A));
       // Speed and Download leave the DP Slot alone; every other digivolution empties it
       if (dtype !== DIGIVOLVE.SPEED && dtype !== DIGIVOLVE.DOWNLOAD) discardDP(P);
     }
@@ -660,7 +667,7 @@
     HAND_MAX: HAND_MAX, DP_MAX: DP_MAX, WINS_NEEDED: WINS_NEEDED,
     makeRng: makeRng, newGame: newGame, clone: clone, top: top, dpTotal: dpTotal, snap: snap, handHasDigimon: handHasDigimon,
     beginTurn: beginTurn, canChangeAll: canChangeAll, changeAll: changeAll,
-    canEnter: canEnter, enter: enter, armorOption: armorOption, armorDigivolve: armorDigivolve,
+    canEnter: canEnter, enter: enter, entryShift: entryShift, armorOption: armorOption, armorDigivolve: armorDigivolve,
     canAddDP: canAddDP, addDP: addDP, evoMoves: evoMoves, evoLegal: evoLegal, digivolve: digivolve, wasteMoves: wasteMoves, wasteOption: wasteOption,
     battleOn: battleOn, supportOptions: supportOptions, setSupport: setSupport,
     resolveBattle: resolveBattle, endTurn: endTurn,

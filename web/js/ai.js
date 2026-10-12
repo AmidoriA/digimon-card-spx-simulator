@@ -59,7 +59,8 @@
       var prev = E.card(P.active.stack[P.active.stack.length - 2]);
       return prev.hp * 2 - P.active.hp > cur.hp * 0.6 ? 150 : -1;
     }
-    var gain = power(E.card(P.hand[mv.target])) - have;
+    // a normal digivolution keeps the entrance penalty, an option card clears it
+    var gain = power(E.card(P.hand[mv.target]), mv.kind === 'normal' ? E.entryShift(P.active) : 0) - have;
     if (mv.kind === 'option') gain -= 120; // spends an extra card
     return gain;
   }
