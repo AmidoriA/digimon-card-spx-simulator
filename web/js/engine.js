@@ -379,7 +379,14 @@
       case 0x1b: return S.deck.length;
       case 0x1c: return O.deck.length;
     }
+    // Not the game's: variables for the custom cards (tools/custom_cards.json). 0x40-0x44 the
+    // number of cards of Specialty v - 0x40 in the own DP Slot, 0x48-0x4c in the opponent's.
+    if (v >= 0x40 && v <= 0x44) return dpOfSpec(S, v - 0x40);
+    if (v >= 0x48 && v <= 0x4c) return dpOfSpec(O, v - 0x48);
     return 0;
+  }
+  function dpOfSpec(P, spec) {
+    return P.dp.filter(function (id) { return card(id).spec === spec; }).length;
   }
 
   function snap(G) {

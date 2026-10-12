@@ -321,6 +321,27 @@ test('after a KO: no Digimon in play, none in hand and an empty deck ends the ma
   assert.strictEqual(G.winReason, 'nodigimon');
 });
 
+test('custom cards follow the 301 cards of the game and leave them as they are', () => {
+  assert.strictEqual(E.card(300).name, 'Digi-devolve');
+  const own = E.CARDS.filter((c) => c.custom != null);
+  assert.deepStrictEqual(own.map((c) => c.id), own.map((c, k) => 301 + k));
+  own.forEach((c) => { assert.strictEqual(c.type, 'digimon'); assert.ok(E.card(c.custom).custom == null && c.custom < 191); });
+  assert.strictEqual(E.CARDS.filter((c) => c.custom == null).length, 301);
+});
+
+test('BlackWarGreymon (custom): +200 for each Darkness card in the own DP Slot; x3 against Nature', () => {
+  const bw = C('BlackWarGreymon'), dark = E.CARDS.filter((c) => c.type === 'digimon' && c.spec === 3).map((c) => c.name);
+  assert.deepStrictEqual([E.SPEC[bw.spec], E.LEVEL[bw.level], bw.dp, bw.pp], ['Fire', 'U', 60, 20]);
+  // two Darkness cards and one Fire card in the own DP Slot, three Darkness cards in the opponent's
+  const G = setup({ mon: 'Agumon', hand: ['BlackWarGreymon'], dp: [dark[0], 'Agumon', dark[1]] }, { mon: 'Gabumon', dp: dark.slice(0, 3) });
+  const r = fight(G, { attack: 1, support: 0 }, none(0));
+  assert.strictEqual(r.atk[0].dmg, C('Agumon').atk[1].power + 400);
+  assert.strictEqual(fight(setup({ mon: 'Agumon', hand: ['BlackWarGreymon'] }, { mon: 'Gabumon' }), { attack: 0, support: 0 }, none(0)).atk[0].dmg, C('Agumon').atk[0].power);
+  assert.strictEqual(E.XFX[bw.xfx], 'Nature Foe x3');
+  assert.strictEqual(fight(setup({ mon: 'BlackWarGreymon' }, { mon: 'Patamon' }), none(2), none(0)).atk[0].dmg, bw.atk[2].power * 3);
+  assert.strictEqual(fight(setup({ mon: 'BlackWarGreymon' }, { mon: 'Gabumon' }), none(2), none(0)).atk[0].dmg, bw.atk[2].power);
+});
+
 test('data quirk kept: comparison op 0xFF never passes (Aquilamon)', () => {
   const r = fight(setup({ mon: 'Agumon', hand: ['Aquilamon'] }, { mon: 'Gabumon' }), { attack: 1, support: 0 }, none(0));
   assert.strictEqual(r.ev.find((e) => e.t === 'support').ok, false);

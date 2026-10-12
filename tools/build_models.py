@@ -156,9 +156,14 @@ def convert(model, motions, tims, prims=False):
     return data, (width, height, bytes(tex)), (max(len(pals), 1), bytes(pal)), (len(verts), len(opaque) + len(blended))
 
 
-def export(path, out_dir, num):
+def export(path, out_dir, num, change=None):
+    """change(data, palette bytes) -> (data, palette bytes): for a model that is written with
+    other colours than the file's (build_custom.py)."""
     model, motions, tims, _ = omd.load(path)
     data, tex, pal, counts = convert(model, [motions[k] for k in sorted(motions)], [read_tim(b) for b in tims.values()])
+    if change:
+        data, colours = change(data, pal[1])
+        pal = (pal[0], colours)
     Image.frombytes("L", (tex[0], tex[1]), tex[2]).save(os.path.join(out_dir, "%03d.png" % num), optimize=True)
     Image.frombytes("RGBA", (256, pal[0]), pal[1]).save(os.path.join(out_dir, "%03dp.png" % num), optimize=True)
     packed = gzip.compress(data, 9, mtime=0)

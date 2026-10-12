@@ -1063,7 +1063,7 @@
         log(c.name + ' attacks with ' + c.atk[e.attack].name + ' for ' + e.dmg + (e.heal ? ' and recovers ' + e.heal : '') + '.', 'big ' + who(e.p));
         said.push(c.name + ': ' + e.dmg + ' damage' + (e.heal ? ', recovers ' + e.heal + ' HP.' : '.'));
         var o3 = { models: [E.card(s0[0].top).model, E.card(s0[1].top).model], attacker: e.p, first: A.tp, arena: S.arena, sound: SND.isEnabled(),
-          script: c.atk[e.attack].script, hit: c.atk[e.attack].hit, attack: e.attack, name: c.atk[e.attack].name, specialty: c.spec,
+          script: c.atk[e.attack].script, hit: c.atk[e.attack].hit, attack: e.attack, name: c.atk[e.attack].name, specialty: c.spec, accent: c.atk[e.attack].accent,
           // director 0x801ee3d4: a countered attack shows its motion only, one that does no damage shows "Miss!!"
           mode: countered ? 'countered' : e.dmg === 0 ? 'zero' : 'normal',
           hp: [before[0].hp, before[1].hp], hpBefore: s0[tgt].hp, damage: e.dmg, heal: e.heal || 0, hpSelf: s0[e.p].hp,

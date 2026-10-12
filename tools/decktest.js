@@ -7,6 +7,7 @@ const K = require(path.join(__dirname, '..', 'web', 'js', 'decks.js'));
 
 const id = (n) => { const c = E.CARDS.find((x) => x.name === n); assert(c, 'no card ' + n); return c.id; };
 const names = (ids) => ids.map((i) => E.card(i).name);
+const CUSTOM = E.CARDS.filter((c) => c.custom != null).length;
 const find = (q, sel) => {
   const f = K.newFilter();
   f.q = q || '';
@@ -34,13 +35,14 @@ test('rules: 30 cards, 4 of a card, no armor forms, a Digimon card', () => {
   assert.deepStrictEqual(K.problems(noMon), ['Please place Digimon Cards in a Deck.']);
   // the armor forms are exactly the level A cards
   assert.deepStrictEqual(E.CARDS.filter((c) => !K.usable(c.id)).map((c) => c.id), E.CARDS.filter((c) => c.level === 1).map((c) => c.id));
-  assert.strictEqual(K.POOL.length, 288);
+  // the game's 288, and the custom cards (tools/custom_cards.json)
+  assert.strictEqual(K.POOL.length, 288 + CUSTOM);
 });
 
 test('search: words, in any order, over names, attacks and effects', () => {
   assert.strictEqual(names(find('agumon').ids)[0], 'Agumon');
   assert.ok(names(find('greymon').ids).includes('MetalGreymon'));
-  assert.deepStrictEqual(find('terra force').ids, [id('WarGreymon')]);
+  assert.deepStrictEqual(find('terra force').ids, [id('WarGreymon'), id('BlackWarGreymon')]);
   assert.deepStrictEqual(find('force terra').ids, find('terra force').ids);
   assert.ok(find('"attack first"').ids.length > 0);
   assert.ok(find('"attack first"').ids.every((i) => /attack first/i.test(E.card(i).text)));
@@ -71,8 +73,8 @@ test('search: number comparisons and leaving words out', () => {
 
 test('filters: values add up, and each count is what choosing it gives', () => {
   const all = find('');
-  assert.strictEqual(all.ids.length, 288);
-  assert.strictEqual(all.facets.kind.digimon + all.facets.kind.option + all.facets.kind.digivolve, 288);
+  assert.strictEqual(all.ids.length, 288 + CUSTOM);
+  assert.strictEqual(all.facets.kind.digimon + all.facets.kind.option + all.facets.kind.digivolve, 288 + CUSTOM);
   const fire = find('', { spec: [0] });
   assert.strictEqual(fire.ids.length, all.facets.spec[0]);
   assert.ok(fire.ids.every((i) => E.card(i).spec === 0 && E.card(i).type === 'digimon'));
@@ -90,7 +92,7 @@ test('filters: in the deck or not', () => {
   f.sel.deck = ['in'];
   assert.deepStrictEqual(K.search(f, { [agu]: 2 }).ids, [agu]);
   f.sel.deck = ['out'];
-  assert.strictEqual(K.search(f, { [agu]: 2 }).ids.length, 287);
+  assert.strictEqual(K.search(f, { [agu]: 2 }).ids.length, 287 + CUSTOM);
 });
 
 test('sort: by a number, cards without it last either way', () => {

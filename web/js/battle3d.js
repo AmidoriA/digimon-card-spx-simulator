@@ -1268,7 +1268,7 @@
   }
   // opts: models [player 0, player 1], attacker 0|1, first (the turn player, who stands at
   // z = 750), script (attack script id), hit (hit script id), hp [after the attack, for both
-  // players], hpBefore (the target's), damage, attack (0..2), name, arena ({file, back, bright}
+  // players], hpBefore (the target's), damage, attack (0..2), name, accent, arena ({file, back, bright}
   // from arenas.json), sound (bool), shown (called when the scene comes on screen), more (another
   // strike of the same turn follows: the last picture stays up until its scene is ready), and
   // how the strike goes (director 0x801ee3d4):
@@ -1312,7 +1312,7 @@
             arena.actor.bright = opts.arena.bright / 255; arena.actor.step(); arena.actor.resolve();
           }
           var sc = scene = { actors: act, extra: [], arena: arena, focus: null, focusOwner: null, overlays: [], hp: opts.hp || [1, 1], sound: opts.sound !== false, frame: 0, cam: null, view: null, script: null, finish: res,
-            modern: [], rings: [], seed: (opts.script || 1) >>> 0, profile: HD ? HD.profile(opts.name, opts.specialty) : null, allowModern: mode === 'normal',
+            modern: [], rings: [], seed: (opts.script || 1) >>> 0, profile: HD ? HD.profile(opts.name, opts.specialty, opts.accent) : null, allowModern: mode === 'normal',
             lights: { dir: LIGHT_DIR.map(function (x) { return x.slice(); }), col: LIGHT_COL.map(function (x) { return x.slice(); }) } };
           var k = -1, run = null, hold = 0, phase = 'scripts', eat = null, A = act[opts.attacker], T = act[opts.attacker ^ 1];
           var label = function (pl) { return pl === 0 ? 0 : 2; };       // 1P and Com

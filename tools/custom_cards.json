@@ -1,0 +1,44 @@
+{
+ "recolours": {
+  "blackwargreymon": [
+   {"colours": [[222, 164, 74], [246, 164, 57]], "to": {"hue": 50, "sat": 1.1}},
+   {"colours": [[246, 246, 238]], "to": {"sat": 0, "val": 0.45}},
+   {"hue": [15, 32], "sat": [0.3, 1], "to": {"hue": 50, "val": 1.1}},
+   {"hue": [32, 70], "sat": [0.25, 1], "to": {"hue": 240, "sat": [0, 0.05], "val": 0.3}},
+   {"hue": [80, 160], "to": {"hue": 52}},
+   {"hue": [220, 290], "to": {"sat": 0.3, "val": 0.5}}
+  ],
+  "blackwargreymon-art": [
+   {"hue": [18, 37], "sat": [0.7, 1], "val": [0.66, 1], "to": {"hue": 50}},
+   {"hue": [36, 70], "sat": [0.3, 1], "to": {"hue": 240, "sat": [0, 0.06], "val": 0.36}},
+   {"hue": [36, 70], "sat": [0.08, 0.3], "val": [0.5, 1], "to": {"sat": 0, "val": 0.55}},
+   {"hue": [220, 290], "to": {"sat": 0.35, "val": 0.7}}
+  ],
+  "darkfire": [
+   {"hue": [330, 70], "sat": [0.15, 1], "to": {"hue": [252, 282], "sat": 0.95, "val": 0.85}}
+  ]
+ },
+ "cards": [
+  {
+   "id": 301,
+   "name": "BlackWarGreymon",
+   "base": "WarGreymon",
+   "spec": "Fire", "level": "U", "dp": 60, "pp": 20, "hp": 1750,
+   "attacks": [
+    {"name": "Black Terra Force", "power": 950},
+    {"name": "Black Great Tornado", "power": 700},
+    {"name": "Black Dramon Cutter", "power": 400}
+   ],
+   "xfx": "Nature Foe x3",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [{"op": 10, "v": [11, 0, 67], "i": [0, 200, 0], "m1": 0, "m2": 2}],
+    "text": "Add number of Darkness Cards in DP Slot x200 to own Attack Power."
+   },
+   "model": {"number": 400, "recolour": "blackwargreymon"},
+   "battle": {"offset": 10000, "recolour": "darkfire", "accent": "dark"},
+   "art": {"recolour": "blackwargreymon-art", "new": {"file": "custom/blackwargreymon.png", "crop": [0, 20, 335]}}
+  }
+ ]
+}

@@ -2,6 +2,7 @@
   'use strict';
   var B = window.DDCB_B3D, cards = window.DDCB_DATA.cards.filter(function (c) { return c.type === 'digimon'; });
   var $ = function (id) { return document.getElementById(id); }, run = 0, playingName = '';
+  $('previewCount').textContent = 'All ' + cards.length + ' Digimon · All three attacks';
   cards.slice().sort(function (a, b) { return a.name.localeCompare(b.name); }).forEach(function (c) {
     ['previewCard', 'previewOpponent'].forEach(function (id) {
       var option = document.createElement('option'); option.value = c.id; option.textContent = c.name; $(id).appendChild(option);
@@ -82,7 +83,7 @@
       $('previewPause').disabled = $('previewStep').disabled = false;
       $('previewStatus').textContent = playingName + ' · ' + attack.name + ' — preview damage: 300 HP';
       return B.attack({ models: [card.model, opponent.model], attacker: 0, first: 0, script: attack.script, hit: attack.hit,
-        attack: k, name: attack.name, specialty: card.spec, arena: arena, sound: false,
+        attack: k, name: attack.name, specialty: card.spec, accent: attack.accent, arena: arena, sound: false,
         hp: [1200, 900], hpBefore: 1200, damage: 300 }).then(function (ok) {
         if (token !== run) return;
         $('previewPause').disabled = $('previewStep').disabled = true; $('previewPause').textContent = 'Pause';

@@ -71,7 +71,7 @@ function mesh(model) {
   let count = 0, max = 0;
   for (const c of cards) for (let k = 0; k < 3; k++) {
     const atk = c.atk[k], opts = { models: [c.model, cards[0].model], attacker: 0, first: 0, script: atk.script, hit: atk.hit,
-      attack: k, name: atk.name, specialty: c.spec, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false, dry: true };
+      attack: k, name: atk.name, specialty: c.spec, accent: atk.accent, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false, dry: true };
     seed = 123; B.setStyle('legacy'); const old = await B.attack(opts);
     seed = 123; B.setStyle('enhanced'); const modern = await B.attack(opts);
     seed = 123; B.setStyle('ultra'); const ultra = await B.attack(opts);
