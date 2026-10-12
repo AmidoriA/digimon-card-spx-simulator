@@ -42,7 +42,9 @@ belongs to one player (the byte at state `+0x817`), who is also the first attack
 
 **Digivolve (states 0xB–0x16)**, in this fixed order
 
-1. One Digimon card to the DP Slot (8 cards max; DP = sum of +P, capped at 90).
+1. One Digimon card to the DP Slot (8 cards max; DP = sum of +P, capped at 90). The eight
+   boxes under the slot count its cards: one lights per card, the upper four first, from
+   the left (`0x800399f8`).
 2. One digivolve option card. Digi-devolve and De-Armor act at once; the others ask for a
    target. Using an option card ends the phase. A card that can do nothing as things stand
    (`0x801ea374`: no card in the hand is a legal target for it, or there is nothing to

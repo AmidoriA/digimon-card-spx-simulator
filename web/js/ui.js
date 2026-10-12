@@ -582,6 +582,12 @@
         dyn.appendChild(box(el, L.dpslot[p].x, L.dpslot[p].y));
         slide(el, L.dpslot[p], mv.dp);
       } else dyn.appendChild(box(plate('DP', 'small'), L.dpslot[p].x, L.dpslot[p].y, 19, 25));
+      // DP card counter (0x800399f8): a 16x8 picture (CBTL_SYS member 20) goes over the eight
+      // boxes of the panel, at +3 / +97 and +50 from the panel's corner; its palette row is the
+      // number of cards, and row n lights n boxes, the upper four first, from the left
+      for (i = 0; i < Math.min(v.dp.length, 8); i++) {
+        dyn.appendChild(box(h('div', 'dplamp'), L.panel[p].x + (p ? 97 : 3) + (i & 3) * 4, L.panel[p].y + 50 + (i >> 2) * 4, 3, 3));
+      }
       // support slot
       if (v.sup) {
         el = v.sup.face ? cardEl(v.sup.id) : backEl();
