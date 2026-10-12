@@ -168,11 +168,23 @@ operator `0xFF`, so its effect never fires; kept as is.
 Variable `0x0d` is the Level of the support's own Digimon and `0x0e` the opponent's: the
 battle routine calls the interpreter with the support's owner first (`0x801e71f0`,
 `0x801e7290`) and the Level reader (`0x801e7f1c`, `0x801e7f38`) takes the top card of that
-player's stack (`0x80040764`). Two cards carry a text that does not match their condition:
-Veedramon and AeroVeedramon say "If own Level is U, own Attack Power is doubled", but their
-records in `CARD2.CDD` test `0x0e`, as BKGatomon and Silver Ball do. In the game they
-double the attack when the *opponent* is U, whatever the own Level is; kept as is, text
-and condition both as shipped.
+player's stack (`0x80040764`). The same holds for the other pairs: Specialty `0x01`/`0x02`
+(`0x801e7e20`, `0x801e7e30`), chosen attack `0x11`/`0x12` (`0x801e8068`, `0x801e8078`).
+
+Six cards carry a text that does not match their record in `CARD2.CDD`. The game runs the
+record, so the port does too; text and record are both kept as shipped.
+
+| Card | Text | Record |
+|---|---|---|
+| Veedramon, AeroVeedramon | If own Level is U, own Attack Power is doubled. | Tests `0x0e`: the *opponent's* Level is U, as BKGatomon and Silver Ball do. |
+| Dolphmon | If own Attack is not ○, recover own HP by +300. | Tests `0x12`: the *opponent's* attack is not ○, as Shellmon and the Hitter cards do. |
+| Sylphymon | If opponent's Specialty is not Nature, attack second. | Runs opcode `0x35`, the one behind Birdramon's "Attack first": it attacks *first*. |
+| Baronmon | If foe's Specialty is Darkness, own Attack Power is Doubled. Draw 1 Card. | Tests `0x01`: the *own* Specialty is Darkness. Patamon, with the same text, tests `0x02`. |
+| Pegasusmon | If foe's Specialty is Nature, own Attack Power is doubled. Draw 1 Card. | Tests `0x02` with "less than 3": the opponent is Fire, Ice or Nature. There is no draw action. |
+
+Four more texts say "less than" or "more than" where the record's comparison includes the
+number: Betamon (own HP 200 or less), R-Gatomon (own HP 500 or less), Shining Mane
+(opponent's HP 1000 or more), Ankylomon (2 or more cards in the opponent's DP Slot).
 
 `node tools/selftest.js` checks 19 of these behaviours; `node tools/sim.js 300` plays
 AI-vs-AI matches and checks card-count invariants.

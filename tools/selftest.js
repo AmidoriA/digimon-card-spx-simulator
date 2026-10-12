@@ -311,4 +311,29 @@ test('data quirk kept: Veedramon and AeroVeedramon double on the opponent\'s Lev
   });
 });
 
+// The other records of CARD2.CDD that differ from their text (README, "Support effects")
+test('data quirks kept: Dolphmon, Sylphymon, Baronmon and Pegasusmon follow their records', () => {
+  assert.deepStrictEqual(['Agumon', 'Gabumon', 'Gotsumon', 'Devimon'].map((x) => C(x).spec), [0, 1, 2, 3]);
+  const run = (mon, sup, foe, mine, his) => fight(setup({ mon, hand: [sup] }, { mon: foe }), { attack: mine, support: 0 }, none(his)).ev;
+  const ok = (ev) => ev.find((e) => e.t === 'support').ok;
+  const has = (ev, f) => ev.some((e) => e.p === 0 && f(e));
+  // Dolphmon: variable 0x12, the opponent's attack (0x801e8078)
+  assert.strictEqual(ok(run('Agumon', 'Dolphmon', 'Gabumon', 0, 1)), true, 'own ○ against △');
+  assert.strictEqual(ok(run('Agumon', 'Dolphmon', 'Gabumon', 2, 0)), false, 'own ✕ against ○');
+  // Sylphymon: opcode 0x35, the first attack
+  let ev = run('Agumon', 'Sylphymon', 'Gabumon', 0, 0);
+  assert(ok(ev) && has(ev, (e) => e.t === 'flag' && e.flag === 'first'));
+  assert.strictEqual(ok(run('Agumon', 'Sylphymon', 'Gotsumon', 0, 0)), false);
+  // Baronmon: variable 0x01, the own Specialty (0x801e7e20)
+  ev = run('Devimon', 'Baronmon', 'Gabumon', 0, 0);
+  assert(ok(ev) && has(ev, (e) => e.t === 'draw'));
+  assert.strictEqual(ok(run('Agumon', 'Baronmon', 'Devimon', 0, 0)), false);
+  // Pegasusmon: opponent's Specialty below 3, and no draw
+  ['Agumon', 'Gabumon', 'Gotsumon'].forEach((foe) => {
+    ev = run('Devimon', 'Pegasusmon', foe, 0, 0);
+    assert(ok(ev) && !has(ev, (e) => e.t === 'draw'), foe);
+  });
+  assert.strictEqual(ok(run('Agumon', 'Pegasusmon', 'Devimon', 0, 0)), false);
+});
+
 console.log(n + ' checks passed');
