@@ -133,6 +133,7 @@ button, input, select { font: inherit; color: inherit; }
 /* Polygon Battle: the game's 320x240 screen over the whole board while an attack plays */
 .b3dui { z-index: 36; }
 .b3d { position: absolute; left: 0; top: 0; width: 1280px; height: 960px; image-rendering: pixelated; pointer-events: none; z-index: 35; }
+.b3d.enhanced { image-rendering: auto; }
 /* battle effects: the game's 320x240 screen, added to the board like its semi-transparent prims */
 .fxcanvas { position: absolute; left: 0; top: 0; width: 1280px; height: 960px; image-rendering: pixelated; pointer-events: none; z-index: 20; mix-blend-mode: screen; mix-blend-mode: plus-lighter; }
 #dyn > * { pointer-events: auto; }

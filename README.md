@@ -33,6 +33,15 @@ exactly that name, capitals included: Pages tells names apart by case and Window
 switch the Digimon cards between new illustrations and the game's own pictures. The choice
 is remembered.
 
+**Battle visuals** on the start screen and in the match rail switches between **Enhanced**
+(the default) and **Original PS1**. The choice is saved separately from card art and the
+animation on/off box. **Preview attacks** opens a browser preview for all 191 Digimon and
+their three attacks. Pause or use **Next moment**, then switch styles to compare the same
+pose. Its **Stage** picker offers all 24 arenas with a thumbnail, plus **Random** (one of
+the twelve free-battle arenas). The preview remembers its stage separately from the match
+arena; a stage choice applies to the next attack played. Preview damage is a fixed 300 HP;
+it does not change card balance.
+
 During a match, click a TRASH plate to see that player's Offline pile (newest card first)
 and a DECK plate to see which cards are still in that deck, by level and with their counts.
 
@@ -216,6 +225,29 @@ The effect animations are the game's own scripts, played by a port of its effect
 
 ## Polygon Battle (battle animation)
 
+The optional enhanced presentation renders at 960×720, dropping to 640×480 when frame
+delivery stays slow. Original PS1 keeps the original 320×240 framebuffer and nearest
+sampling. Both modes use the same models, motions, scripts, cameras, sounds and damage
+timing. `js/battlehd.js` refines each loaded Digimon mesh once (four triangles per source
+triangle, shared curved edge positions and crease-aware normals). The original mesh is
+kept for immediate switching. Model and sprite palettes remain nearest sampled; enhanced
+texture filtering interpolates **decoded colours**, never palette indices.
+
+Enhanced shading adds per-fragment lighting, restrained procedural surface grain, material
+highlights and rim lighting. Attack names select fire, ice/water, electric, dark, holy,
+physical or generic energy accents; unmatched names use Specialty colour. These accents
+follow the existing sprites, particle lines, rings and effect models, with an impact burst
+when the hit script starts. They use at most 112 live particles and 160 procedural quads
+in one extra draw, plus a bounded bloom pass. Camera cuts clear trails, and misses and
+countered motions never emit these accents. No extra model/texture downloads are required.
+
+`node tools/battletest.js` validates every card model and compares all 573 attack/hit script
+runs in both styles with the same random seed, including no-effect misses and countered
+motions. It checks CPU animation logic; real shader linking and visual appearance are
+checked separately in `battle-preview.html`. For deliberately uncommitted development,
+`python tools/check_paths.py --working-tree` includes new files; the normal command still
+requires every website file to be in Git before publication.
+
 The game can show each attack as a 3D "Polygon Battle". The **Battle animation** box in the
 side rail turns it on and off. It was ported in three stages: models and motions, the battle
 scripts, then camera and arenas.
@@ -312,6 +344,15 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 ## Not from the game code
 
+- **Enhanced battle visuals.** Higher rendering resolution, curved mesh subdivision,
+  crease normals, interpolated palette colours, procedural surface materials, rim/specular
+  lighting, bloom, attack-family particles and hit sparks are this project's new art
+  direction, requested as an alternative to the PS1 visuals. Material and attack-family
+  assignments are name-based presentation choices, not recovered game data. This improves
+  the existing models; it does not replace them with individually sculpted modern models
+  or newly painted high-resolution textures. The attack preview and its fixed damage are
+  also this project's tools.
+
 - **Screen arrangement.** The battle screen uses the game's own textures (`B/CBTL_SYS.ARC`)
   on its 320×240 screen, and slot/bar positions inside each texture are measured from the
   art. Where each texture sits on screen is this project's arrangement; the draw code was
@@ -339,7 +380,7 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   is not played. The attack's name is drawn as plain text where the game shows a name plate
   from a strip of video memory whose source was not found. The words are drawn from a copy
   of the game's texture enlarged four times by an upscaling model, over a scene that keeps
-  the game's 320x240. Before a
+  the game's 320x240 in Original PS1 mode. Before a
   script puts its model on screen, and for a model without a camera track, the camera is this
   project's. Arenas that animate their palette are shown still, and which arena a given
   opponent uses in the story was not traced (the random free-battle pick is used).

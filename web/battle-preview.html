@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attack preview · Digital Card Battle</title>
+<link rel="stylesheet" href="css/style.css?v=battle-hd-7">
+<style>
+  .showcase { max-width: 1080px; margin: 32px auto; padding: 0 20px; }
+  .showcase h1 { margin: 16px 0 8px; }
+  .preview-controls { display: flex; gap: 16px; flex-wrap: wrap; align-items: end; margin: 22px 0; }
+  .preview-controls .optl { display: grid; gap: 6px; }
+  .preview-controls select { max-width: 280px; }
+  .preview-stage { display: flex; gap: 10px; align-items: center; }
+  .preview-stage img { width: 72px; height: 54px; object-fit: cover; border: 1px solid #354568; border-radius: 5px; }
+  .battle-view { position: relative; width: 100%; aspect-ratio: 4 / 3; background: #080b17; border: 1px solid #354568; border-radius: 12px; overflow: hidden; }
+  .battle-view .b3d { width: 100%; height: 100%; }
+  .battle-view .b3dui { image-rendering: auto; }
+  .preview-empty { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; color: #aebfd7; }
+  #previewStatus { min-height: 24px; color: #b6c9e4; }
+</style>
+</head>
+<body>
+<main class="showcase">
+  <a class="btn ghost small" href="index.html">&larr; Back to game</a>
+  <p class="kicker">All 191 Digimon · All three attacks</p>
+  <h1>Attack preview</h1>
+  <p>Choose a stage before playing. Compare the detailed battle visuals with the original PS1 animation, or switch styles during an attack to see the same moment.</p>
+  <div class="preview-controls">
+    <label class="optl">Digimon<select id="previewCard"></select></label>
+    <label class="optl">Attack<select id="previewAttack"></select></label>
+    <label class="optl">Stage
+      <span class="preview-stage"><select id="previewStage" aria-label="Stage" disabled><option>Loading stages…</option></select><img id="previewStageThumb" alt="Selected stage preview" hidden></span>
+    </label>
+    <label class="optl">Battle visuals<select id="previewStyle"><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option></select></label>
+    <button class="btn primary" id="previewPlay" disabled>Play attack</button>
+    <button class="btn ghost" id="previewPause" disabled>Pause</button>
+    <button class="btn ghost" id="previewStep" disabled>Next moment</button>
+  </div>
+  <p id="previewStatus" role="status">Select a Digimon and play an attack.</p>
+  <div class="battle-view">
+    <div class="preview-empty">Choose any Digimon.<br>Its original moves, with a new level of detail.</div>
+    <canvas id="b3d" class="b3d" width="1280" height="960" hidden></canvas>
+    <canvas id="b3dui" class="b3d b3dui" width="1280" height="960" hidden></canvas>
+  </div>
+</main>
+<script src="js/data/cards.js"></script>
+<script src="js/data/effects.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/battlehd.js?v=battle-hd-7"></script>
+<script src="js/battle3d.js?v=battle-hd-7"></script>
+<script src="js/battle-preview.js?v=battle-stage-1"></script>
+</body>
+</html>

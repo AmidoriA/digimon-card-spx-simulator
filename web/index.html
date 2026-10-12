@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Digital Card Battle</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=battle-hd-7">
 </head>
 <body>
 
@@ -72,6 +72,10 @@
           <span id="arenaThumb" class="arena-thumb"></span><span id="arenaName">Random</span>
         </button>
       </div>
+      <label class="optl">Battle visuals
+        <select id="battleStyle"><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option></select>
+      </label>
+      <a class="btn ghost" href="battle-preview.html">Preview attacks</a>
       <span id="startNote" class="start-note" role="status"></span>
       <button id="btnRandom" class="btn ghost">Random opponent</button>
       <button id="btnStart" class="btn primary">Start battle</button>
@@ -170,6 +174,9 @@
         <label class="optl small"><input type="checkbox" id="sound" checked> Sound</label>
         <label class="optl small"><input type="checkbox" id="fast"> Fast</label>
         <label class="optl small" title="Show attacks as the 3D Polygon Battle"><input type="checkbox" id="anim3d" checked> Battle animation</label>
+        <label class="optl small">Battle visuals
+          <select id="battleStyleMatch"><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option></select>
+        </label>
         <label class="optl small" title="Digimon cards: illustrations of the modern card game, or the game's own pictures"><input type="checkbox" id="newArt" checked> New card art</label>
         <button id="btnRules" class="btn ghost small">Rules</button>
         <button id="btnQuit" class="btn ghost small">Quit</button>
@@ -273,9 +280,10 @@
 <script src="js/audio.js"></script>
 <script src="js/data/effects.js"></script>
 <script src="js/effects.js"></script>
-<script src="js/battle3d.js"></script>
+<script src="js/battlehd.js?v=battle-hd-7"></script>
+<script src="js/battle3d.js?v=battle-hd-7"></script>
 <script src="js/decks.js"></script>
-<script src="js/ui.js"></script>
+<script src="js/ui.js?v=battle-hd-7"></script>
 <script src="js/editor.js"></script>
 </body>
 </html>

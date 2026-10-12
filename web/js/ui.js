@@ -1037,7 +1037,7 @@
         status(c.name + ': ' + c.atk[e.attack].name, '');
         var tgt = e.p ^ 1, countered = A.counterBy >= 0 && A.counterBy !== e.p;
         var o3 = { models: [E.card(prevTop[0]).model, E.card(prevTop[1]).model], attacker: e.p, first: A.tp, arena: S.arena, sound: SND.isEnabled(),
-          script: c.atk[e.attack].script, hit: c.atk[e.attack].hit, attack: e.attack, name: c.atk[e.attack].name,
+          script: c.atk[e.attack].script, hit: c.atk[e.attack].hit, attack: e.attack, name: c.atk[e.attack].name, specialty: c.spec,
           // director 0x801ee3d4: a countered attack shows its motion only, one that does no damage shows "Miss!!"
           mode: countered ? 'countered' : e.dmg === 0 ? 'zero' : 'normal',
           hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], hpBefore: A.s[tgt].hp, damage: e.dmg, heal: e.heal || 0, hpSelf: A.s[e.p].hp,
@@ -1348,6 +1348,16 @@
     setMode($('mode').value === '2');
   };
   $('arenaBtn').onclick = openArenas;
+  function setBattleStyle(style) {
+    var chosen = B3D.setStyle(style);
+    $('battleStyle').value = chosen; $('battleStyleMatch').value = chosen;
+    try { localStorage.setItem('ddcb-battle-style', chosen); } catch (err) { /* storage unavailable */ }
+  }
+  var battleStyle = 'enhanced';
+  try { battleStyle = localStorage.getItem('ddcb-battle-style') || battleStyle; } catch (err) { /* ignore */ }
+  setBattleStyle(battleStyle);
+  $('battleStyle').onchange = function () { setBattleStyle(this.value); };
+  $('battleStyleMatch').onchange = function () { setBattleStyle(this.value); };
   try { B3D.enabled = localStorage.getItem('ddcb-anim3d') !== '0'; } catch (err) { /* storage unavailable */ }
   $('anim3d').checked = B3D.enabled;
   $('anim3d').onchange = function () {

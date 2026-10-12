@@ -1,6 +1,7 @@
 """Check that every file the site asks for is in the repository under exactly that name.
 
 Usage:  python tools/check_paths.py        (from the repository; needs git and node)
+        python tools/check_paths.py --working-tree   (include uncommitted new files)
 
 A host with case-sensitive names (GitHub Pages) serves a file only under its exact name,
 and Windows hides a mismatch. The site is published from git, so the names that count are
@@ -64,9 +65,10 @@ def wanted():
     def add(p, why):
         want.setdefault(os.path.normpath(p).replace(os.sep, "/"), why)
 
-    html = open(os.path.join(WEB, "index.html"), encoding="utf-8").read()
-    for m in re.finditer(r'(?:src|href)="([^"#:]+)"', html):
-        add(m.group(1), "index.html")
+    for page in ("index.html", "battle-preview.html"):
+        html = open(os.path.join(WEB, page), encoding="utf-8").read()
+        for m in re.finditer(r'(?:src|href)="([^"#:]+)"', html):
+            add(m.group(1).split("?")[0], page)
     css = open(os.path.join(WEB, "css", "style.css"), encoding="utf-8").read()
     for m in re.finditer(r"url\(([^)]+)\)", css):
         add(os.path.join("css", m.group(1).strip("'\"")), "css/style.css")
@@ -110,6 +112,8 @@ def wanted():
 
 def main():
     git, disk, want = tracked(), on_disk(), wanted()
+    if "--working-tree" in sys.argv:
+        git |= disk  # Local development: include new, deliberately uncommitted files.
     lower, problems = {}, []
     for p in sorted(git):
         if p.lower() in lower:
@@ -125,9 +129,10 @@ def main():
         if p not in git:
             other = lower.get(p.lower())
             problems.append(("asked for as %s but named %s (%s)" % (p, other, why)) if other else "missing: %s (%s)" % (p, why))
-    print("%d files in git under web/, %d asked for by the page" % (len(git), len(want)))
+    inventory = "working tree" if "--working-tree" in sys.argv else "git"
+    print("%d files in %s under web/, %d asked for by the page" % (len(git), inventory, len(want)))
     unused = sorted(git - set(want))
-    print("%d files in git that this check does not see asked for" % len(unused))
+    print("%d files in %s that this check does not see asked for" % (len(unused), inventory))
     if "-v" in sys.argv:
         for p in unused:
             print("   ", p)
