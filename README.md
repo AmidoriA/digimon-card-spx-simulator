@@ -496,6 +496,12 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 - Who takes the first turn is random here; the game has you pick a card for it.
 - Left out: partner Digi-Parts and levelling, the bonus the game tracks when HP lands on a
   multiple of 1110, undoing an entrance or digivolution.
+- **Promo video.** `promo/digital-card-battle-promo.mp4` is a presentation of this project,
+  not part of the game: its captions, layout and editing are new. Every picture in it is
+  captured from the site (`tools/promo/`): the 3D battles are stepped two game frames at a
+  time through `DDCB_B3D.advance`, so the Original PS1 and Enhanced Ultra halves of the
+  comparison show the same frame; the board is a recorded match played by a simple script.
+  The music is the game's free-battle tune (bgm 143).
 
 ## Rebuild from the disc
 
@@ -569,6 +575,7 @@ out, upscales them 4× through the same ComfyUI model and writes 512×512 and 16
 | `tools/bscript.py`, `btrace.py`, `build_battle.py` | Battle script parser, tracer, script and asset export |
 | `web/assets/battle` | Generated: battle scripts and attack effect assets |
 | `tools/lift.py`, `emu.py` | Compact MIPS listing and Unicorn runner used while reading the engine |
+| `promo/digital-card-battle-promo.mp4` | 50-second promo video (1080p): PS1 against Enhanced Ultra on the same frames, new card art, the board. Rebuilt with `tools/promo/make.sh` |
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
 
 ## File formats
