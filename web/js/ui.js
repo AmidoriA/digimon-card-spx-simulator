@@ -1033,8 +1033,11 @@
     function mon(p) { var id = A.s[p].top >= 0 ? A.s[p].top : A.koShow[p]; return id >= 0 ? E.card(id).name : name(p); }
     // effect caused by the card now resolving (A.src), landing on player p's Digimon
     function fxs(n, p) { var src = A.src || { p: p, k: 0 }; fx(n, src.p, src.k, p, 0); }
+    // The board's track, loaded at volume 0x7f. The switch back from the battle scene starts
+    // it again (0x8002e3f8); a no-op while it is the one playing.
+    function boardMusic() { if (live(tok)) SND.music(S.bgm[0], 0x7f); }
     function step() {
-      if (i >= evs.length || !live(tok)) return Promise.resolve();
+      if (i >= evs.length || !live(tok)) { boardMusic(); return Promise.resolve(); }
       var e = evs[i++], d = 300, c, prevTop = [A.s[0].top, A.s[1].top];
       // Polygon Battle: the attack is shown in 3D first, then its result on the board
       if (e.t === 'attack' && B3D.enabled && !e.shown3d && prevTop[0] >= 0 && prevTop[1] >= 0) {
@@ -1049,7 +1052,14 @@
           hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], hpBefore: A.s[tgt].hp, damage: e.dmg, heal: e.heal || 0, hpSelf: A.s[e.p].hp,
           firstAttack: !A.shown3d && A.first !== A.tp, crash: !!A.crashed[e.p], counter: A.counterBy === e.p, x3: !!(A.x3 && A.x3[e.p] && e.attack === 2) };
         A.shown3d = true;
-        return B3D.attack(o3).then(step);
+        // the switch to the battle scene (0x8002e26c) starts the second track, loaded at
+        // volume 0x64. The game shows a turn's strikes in one scene (state 0x22 makes the
+        // switch once), so the track is kept here until the last of them is over.
+        o3.shown = function () { if (live(tok)) SND.music(S.bgm[1], 0x64); };
+        return B3D.attack(o3).then(function () {
+          if (!evs.slice(i + 1).some(function (x) { return x.t === 'attack'; })) boardMusic();
+          return step();
+        });
       }
       if (e.s) A.s = e.s;
       A.glow = -1; A.hit = -1; A.floats = [];
@@ -1269,7 +1279,10 @@
     log(vb(S.G.tp, 'take') + ' the first turn.');
     window.scrollTo(0, 0);
     SND.init();
-    SND.music((!S.two && od.bgm) || 143 + Math.floor(Math.random() * 2)); // free battle: 0x8f + rand % 2
+    // the battle start (0x801f1aa8) loads two tracks, the board's and the 3D battle's: the ones
+    // the opponent's deck names, or in a free battle 0x8f + rand % 2 and 0x93 + rand % 2
+    S.bgm = [(!S.two && od.bgm) || 143 + Math.floor(Math.random() * 2), (!S.two && od.bgm3d) || 147 + Math.floor(Math.random() * 2)];
+    SND.music(S.bgm[0], 0x7f);
     runGame(S.token);
   }
 

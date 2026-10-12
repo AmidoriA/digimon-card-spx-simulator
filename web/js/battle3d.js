@@ -1265,7 +1265,8 @@
   // opts: models [player 0, player 1], attacker 0|1, first (the turn player, who stands at
   // z = 750), script (attack script id), hit (hit script id), hp [after the attack, for both
   // players], hpBefore (the target's), damage, attack (0..2), name, arena ({file, back, bright}
-  // from arenas.json), sound (bool), and how the strike goes (director 0x801ee3d4):
+  // from arenas.json), sound (bool), shown (called when the scene comes on screen), and how the
+  // strike goes (director 0x801ee3d4):
   //   mode 'normal'    attack script with the attack banner, then the hit script with the HP
   //                    count and the damage; the target's motion is waited for
   //        'zero'      no damage: no scripts, the attacker stands and "Miss!!" is shown
@@ -1378,6 +1379,7 @@
             return;
           }
           canvas.hidden = false;
+          if (opts.shown) opts.shown();
           // If the user changed arena quality while the attack was loading, finish loading
           // the current choice without restarting or advancing its animation.
           if(arena&&arenaScale()>1&&!detailedArena(arena.actor.m))loadArenaHD(arena.actor.m,arena.file).then(function(){if(scene===sc)render();});

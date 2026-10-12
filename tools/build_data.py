@@ -133,6 +133,9 @@ def build_decks(dek):
             # battle music: BGM number the battle start routine (0x801f1aa8) loads for
             # this opponent; 0 = none named (free battle picks 143 or 144)
             "bgm": r[104],
+            # the second track the same routine loads, started when the screen changes to
+            # the 3D battle (0x8002e26c); 0 = none named (free battle picks 147 or 148)
+            "bgm3d": r[105],
         })
     return decks
 

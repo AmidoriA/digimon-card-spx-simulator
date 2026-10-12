@@ -297,4 +297,21 @@ test('data quirk kept: comparison op 0xFF never passes (Aquilamon)', () => {
   assert.strictEqual(r.ev.find((e) => e.t === 'support').ok, false);
 });
 
+test('music: a deck that names a board track names one for the 3D battle, and both are rendered (0x801f1aa8)', () => {
+  const fs = require('fs'), web = path.join(__dirname, '..', 'web');
+  const decks = require(path.join(web, 'js', 'data', 'cards.js')).decks;
+  const text = fs.readFileSync(path.join(web, 'js', 'data', 'audio.js'), 'utf8');
+  const bgm = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1)).bgm;
+  const pairs = new Set(['143,147', '144,148']);          // the free battle's: 0x8f / 0x93 + rand % 2
+  decks.forEach((d) => {
+    assert.strictEqual(!d.bgm, !d.bgm3d, d.name);
+    if (d.bgm) pairs.add(d.bgm + ',' + d.bgm3d);
+  });
+  assert.deepStrictEqual([...pairs].sort(), ['143,147', '144,148', '46,37', '47,44']);
+  [37, 44, 46, 47, 143, 144, 147, 148].forEach((id) => {
+    assert.ok(bgm[id], 'no loop points for track ' + id);
+    assert.ok(fs.existsSync(path.join(web, 'assets', 'audio', 'bgm', String(id).padStart(3, '0') + '.ogg')), 'no file for track ' + id);
+  });
+});
+
 console.log(n + ' checks passed');

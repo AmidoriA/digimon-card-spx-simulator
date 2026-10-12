@@ -42,8 +42,10 @@
     curId = null;
   }
 
-  // Start a music track (looping between the score's own loop markers). No-op if it is playing.
-  function music(id) {
+  // Start a music track from its beginning (looping between the score's own loop markers), as
+  // the game's start routine does (0x8002b858: stop what plays, play, set the volume). `vol`
+  // is the volume the game loaded the track with, out of 127. No-op if it is playing.
+  function music(id, vol) {
     if (!ctx || id === curId) return;
     stopMusic();
     curId = id;
@@ -52,6 +54,7 @@
       if (curId !== id) return;
       var s = ctx.createBufferSource(), info = M.bgm[id];
       s.buffer = buf;
+      musicGain.gain.value = 0.5 * (vol == null ? 127 : vol) / 127;
       if (info && info.loopEnd != null) { s.loop = true; s.loopStart = info.loopStart; s.loopEnd = info.loopEnd; }
       s.connect(musicGain);
       s.start();

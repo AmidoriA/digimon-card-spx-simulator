@@ -198,9 +198,17 @@ Music and effects are rendered offline from the disc's own data by `tools/build_
   8 = VAB samples. `tools/psxsnd.py` decodes the ADPCM samples and plays the scores with a
   software synthesiser (SPU ADSR rates, libsnd pitch formula from `0x80053984`, score loop
   markers). Rendered music lands on the equal-tempered grid within about 10 cents.
-- **Battle music:** the battle start routine (`0x801f1aa8`) loads the track named in byte 104
-  of the opponent's `DECK2.DEK` record; with none named it picks 143 or 144. The end of the
-  match (`0x801f2a40`) plays 149 or 150.
+- **Battle music:** the battle start routine (`0x801f1aa8`) loads two tracks (`0x8002b024`):
+  into slot 0, at volume 127, the one named in byte 104 of the opponent's `DECK2.DEK` record,
+  and into slot 1, at volume 100, the one named in byte 105. With no opponent record it rolls
+  twice: 143 or 144 for slot 0, 147 or 148 for slot 1. It then starts slot 0, the board's
+  music. The switch to the 3D battle (`0x8002e26c`) starts slot 1 once the battle overlay is
+  loaded and slot 0 again when the board is back. Starting a slot (`0x8002b858`) stops the
+  track that plays (`SsSeqStop`) and plays the other from its beginning. The decks pair the
+  tracks 143/147, 144/148, 46/37 and 47/44. The track is the opponent's, as the arena is
+  (byte 106, handed to the 3D battle's setup at `0x8003eaec`), not the arena's: the same arena
+  is fought in with different tracks (entry 37 with all four). The end of the match
+  (`0x801f2a40`) plays 149 or 150.
 - **Effects:** the play routine (`0x8002b498`) takes `program*16 + tone` in the SE0 bank. The
   turn controller plays `A0` on confirm and `A1` on cancel, the hand selector `A2` on cursor
   movement, message windows `A3`/`A4`.
@@ -423,8 +431,12 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   in width exactly; "View Cards" hides it. That placement is inferred from the sizes.
 - **Sound details.** Which of tracks 149/150 is the win and which the loss is inferred
   (150 only plays in one-player mode when a flag is set, so it is used for a loss). Script
-  frames are timed at 60 per second. Reverb is not modelled. The second per-opponent track
-  (deck byte 105) belongs to the 3D "polygon battle" and is not used. Card sounds are
+  frames are timed at 60 per second. Reverb is not modelled. The 3D battle's track is kept
+  playing from a turn's first strike to its last, over the board shown between them, because
+  the game shows the strikes of a turn in one scene and this project shows each in its own;
+  with the battle animation off it is never heard. Its volume of 100 out of 127 is applied as
+  a plain factor (how the sound library folds a track's volume into a note was not read), and
+  the four frames the game waits after stopping a track are left out. Card sounds are
   triggered by comparing the board before and after each step; when several cards move at
   once they are spaced 8 frames apart, which is this project's choice. Two more uses of
   these sounds have nothing to attach to here and are left out: `A7` when the side panels
@@ -438,13 +450,19 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   slides in a straight line at constant speed; the game's exact path was not read.
 - **Polygon Battle staging.** Each strike is shown as its own scene from the Digimon's home
   places; the game runs a whole battle turn in one scene with an intro (script 999), which
-  is not played. The attack's name is drawn as plain text where the game shows a name plate
+  is not played. The board does not come back between the strikes in the game: its state
+  0x22 (`0x80038298`) starts the 3D battle once for the turn, and state 0x23 then plays none
+  of the strike effects on the board; it waits 60 frames, sets both HP to their final values
+  and waits for the numbers to roll (`0x80038900`). The strike effects on the board are what
+  the game shows with the battle animation off. Here the board shows each strike's result,
+  with its effect, after that strike's scene. The attack's name is drawn as plain text where the game shows a name plate
   from a strip of video memory whose source was not found. The words are drawn from a copy
   of the game's texture enlarged four times by an upscaling model, over a scene that keeps
   the game's 320x240 in Original PS1 mode. Before a
   script puts its model on screen, and for a model without a camera track, the camera is this
-  project's. Arenas that animate their palette are shown still, and which arena a given
-  opponent uses in the story was not traced (the random free-battle pick is used).
+  project's. Arenas that animate their palette are shown still, and the arena an opponent's
+  deck names (byte 106, entries 32-43 of the table) is not used: a match takes the arena
+  picked on the start screen or the random free-battle one.
 - **Polygon Battle gaps.** Three object types are created but not drawn yet: palette
   changes (type 1) and two textured kinds (10 and 12). Rings that ask for a texture are drawn plain. Effect models fade by brightness
   only, and texture animation on them is not played. A few commands whose routines were not read are ignored (among them
