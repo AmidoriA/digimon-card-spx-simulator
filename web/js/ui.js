@@ -149,6 +149,9 @@
   }
 
   function fillDeckList(ul, decks, selId, filter, onPick) {
+    // the list is rebuilt on every pick: keep its place, and the keyboard's, instead of
+    // jumping back to the top
+    var top = ul.scrollTop, hadFocus = ul.contains(document.activeElement), focusId = null;
     clear(ul);
     var f = (filter || '').toLowerCase();
     decks.forEach(function (d) {
@@ -167,8 +170,11 @@
       li.onclick = function () { onPick(d.id); };
       li.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPick(d.id); } };
       ul.appendChild(li);
+      if (hadFocus && d.id === selId) focusId = li;
     });
     if (!ul.firstChild) ul.appendChild(h('li', 'do', 'No decks match.'));
+    ul.scrollTop = top;
+    if (focusId) focusId.focus({ preventScroll: true });
   }
 
   function renderPreview() {
