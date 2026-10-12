@@ -100,6 +100,10 @@ button, input, select { font: inherit; color: inherit; }
 .optl { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); margin-right: auto; }
 .optl.small { margin-right: 0; font-size: 12px; }
 .setup-foot label.optl { margin-right: 18px; }
+.setup-settings, .setup-options { display: contents; }
+.setup-settings::details-content { display: contents; }
+.setup-settings > summary { display: none; }
+.setup-options > .setup-graphics { order: 1; }
 /* arena picker: previews drawn by tools/arena_previews.py */
 .arena-btn { display: inline-flex; align-items: center; gap: 8px; padding: 3px 10px 3px 3px; background: var(--bg-2); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; cursor: pointer; font: inherit; }
 .arena-btn:hover { border-color: var(--accent); }
@@ -430,6 +434,24 @@ mark { background: rgba(255, 178, 36, .32); color: var(--ink); border-radius: 2p
 
 /* ------------------------------------------------------------ responsive */
 @media (max-width: 900px) {
+  /* Only the action row stays visible; settings open in a scrollable panel above it. */
+  .setup-wrap { min-height: 100dvh; }
+  .setup-foot { gap: 8px; flex-wrap: wrap; max-height: none; overflow: visible; padding: 8px 0 max(8px, env(safe-area-inset-bottom)); }
+  .setup-settings { display: block; flex: 1; min-width: 0; }
+  .setup-settings::details-content { display: block; }
+  .setup-settings > summary { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 6px; color: var(--ink); font-weight: 600; cursor: pointer; list-style: none; }
+  .setup-settings > summary::-webkit-details-marker { display: none; }
+  .setup-settings > summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .setup-settings[open] > summary { border-color: var(--accent); }
+  .setup-options { display: flex; flex-wrap: wrap; gap: 12px; position: absolute; left: 0; right: 0; bottom: calc(100% + 8px); max-height: 60vh; max-height: 60dvh; overflow-y: auto; overscroll-behavior: contain; padding: 12px; background: var(--panel); border: 1px solid var(--line-2); border-radius: 10px; box-shadow: 0 -8px 24px rgba(0, 0, 0, .3); }
+  .setup-foot .setup-options > .optl { display: grid; gap: 4px; flex: 1 1 140px; min-width: 0; margin-right: 0; }
+  .setup-options > .optl:first-child { flex-basis: 100%; }
+  .setup-options select { width: 100%; min-width: 0; font-size: 16px; }
+  .setup-options .arena-btn { min-height: 44px; }
+  .setup-options > .btn { min-height: 44px; display: inline-flex; align-items: center; }
+  .setup-foot > .btn { min-height: 44px; padding: 8px 10px; }
+  .setup-foot .start-note { flex-basis: 100%; order: -1; text-align: left; }
+  .setup-foot .start-note:empty, .setup-foot .random-label { display: none; }
   .gamewrap { flex-direction: column; align-items: center; justify-content: flex-start; padding: 6px; min-height: 0; }
   .rail { width: 100%; max-width: 640px; position: static; max-height: 260px; }
   .setup-grid { grid-template-columns: 1fr 1fr; }

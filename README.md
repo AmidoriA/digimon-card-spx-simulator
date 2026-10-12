@@ -400,6 +400,10 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 ## Not from the game code
 
+- **Mobile setup controls.** On screens up to 900px wide, the sticky setup bar shows
+  Settings, Random opponent and Start battle. Settings opens a scrollable panel above
+  the bar for the existing battle and graphics options. This is a browser layout choice.
+
 - **Enhanced battle visuals.** Higher rendering resolution, curved mesh subdivision,
   crease normals, interpolated palette colours, procedural surface materials, rim/specular
   lighting, bloom, attack-family particles and hit sparks are this project's new art

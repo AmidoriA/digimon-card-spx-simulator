@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Digital Card Battle</title>
-<link rel="stylesheet" href="css/style.css?v=battle-hd-8">
+<link rel="stylesheet" href="css/style.css?v=mobile-setup-1">
 <link rel="stylesheet" href="css/battle-graphics.css?v=battle-options-2">
 </head>
 <body>
@@ -53,38 +53,43 @@
     </div>
 
     <footer class="setup-foot">
-      <label class="optl">Players
-        <select id="mode">
-          <option value="1" selected>1, against the computer</option>
-          <option value="2">2, at this screen</option>
-        </select>
-      </label>
-      <label id="skillBox" class="optl">Opponent skill
-        <select id="skill">
-          <option value="0.35">Rookie</option>
-          <option value="0.7" selected>Champion</option>
-          <option value="1">Ultimate</option>
-        </select>
-      </label>
-      <label class="optl" title="Digimon cards: illustrations of the modern card game, or the game's own pictures">Card art
-        <select id="artStyle">
-          <option value="new" selected>New</option>
-          <option value="legacy">Legacy</option>
-        </select>
-      </label>
-      <div class="optl">Arena
-        <button id="arenaBtn" class="arena-btn" type="button" title="Choose where the battle animation takes place">
-          <span id="arenaThumb" class="arena-thumb"></span><span id="arenaName">Random</span>
-        </button>
-      </div>
-      <label class="optl">Battle visuals
-        <select id="battleStyle" data-battle-preset><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option><option value="custom" disabled>Custom</option></select>
-      </label>
-      <a class="btn ghost" href="battle-preview.html">Preview attacks</a>
+      <details id="setupSettings" class="setup-settings" open>
+        <summary>Settings</summary>
+        <div class="setup-options">
+          <label class="optl">Players
+            <select id="mode">
+              <option value="1" selected>1, against the computer</option>
+              <option value="2">2, at this screen</option>
+            </select>
+          </label>
+          <label id="skillBox" class="optl">Opponent skill
+            <select id="skill">
+              <option value="0.35">Rookie</option>
+              <option value="0.7" selected>Champion</option>
+              <option value="1">Ultimate</option>
+            </select>
+          </label>
+          <label class="optl" title="Digimon cards: illustrations of the modern card game, or the game's own pictures">Card art
+            <select id="artStyle">
+              <option value="new" selected>New</option>
+              <option value="legacy">Legacy</option>
+            </select>
+          </label>
+          <div class="optl">Arena
+            <button id="arenaBtn" class="arena-btn" type="button" title="Choose where the battle animation takes place">
+              <span id="arenaThumb" class="arena-thumb"></span><span id="arenaName">Random</span>
+            </button>
+          </div>
+          <label class="optl">Battle visuals
+            <select id="battleStyle" data-battle-preset><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option><option value="custom" disabled>Custom</option></select>
+          </label>
+          <a class="btn ghost" href="battle-preview.html">Preview attacks</a>
+          <details class="graphics-settings setup-graphics"><summary>Graphics options</summary><div class="graphics-grid" data-battle-graphics="setup"></div><p>Adjust each setting independently. Battle visuals presets reset all graphics options.</p></details>
+        </div>
+      </details>
       <span id="startNote" class="start-note" role="status"></span>
-      <button id="btnRandom" class="btn ghost">Random opponent</button>
+      <button id="btnRandom" class="btn ghost" aria-label="Random opponent">Random<span class="random-label"> opponent</span></button>
       <button id="btnStart" class="btn primary">Start battle</button>
-      <details class="graphics-settings setup-graphics"><summary>Graphics options</summary><div class="graphics-grid" data-battle-graphics="setup"></div><p>Adjust each setting independently. Battle visuals presets reset all graphics options.</p></details>
     </footer>
   </div>
 </section>
@@ -292,7 +297,7 @@
 <script src="js/battle3d.js?v=battle-options-2"></script>
 <script src="js/battlegraphics.js?v=battle-options-2"></script>
 <script src="js/decks.js"></script>
-<script src="js/ui.js?v=battle-options-2"></script>
+<script src="js/ui.js?v=mobile-setup-1"></script>
 <script src="js/editor.js"></script>
 </body>
 </html>

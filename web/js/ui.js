@@ -1315,6 +1315,11 @@
   window.addEventListener('resize', fit);
 
   $('myFilter').oninput = renderSetup;
+  // The mobile setup bar keeps settings collapsed until requested.
+  var compactSetup = window.matchMedia('(max-width: 900px)');
+  function fitSetupSettings() { $('setupSettings').open = !compactSetup.matches; }
+  fitSetupSettings();
+  compactSetup.addEventListener('change', fitSetupSettings);
   $('opFilter').oninput = renderSetup;
   Array.prototype.forEach.call($('previewTabs').children, function (b) { b.onclick = function () { S.previewSide = b.dataset.side; renderSetup(); }; });
   $('btnRandom').onclick = function () { S.op = OP_DECKS[Math.floor(Math.random() * OP_DECKS.length)].id; S.previewSide = 'op'; renderSetup(); };
