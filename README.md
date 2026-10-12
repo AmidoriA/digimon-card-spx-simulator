@@ -27,12 +27,19 @@ exactly that name, capitals included: Pages tells names apart by case and Window
 During a match, click a TRASH plate to see that player's Offline pile (newest card first)
 and a DECK plate to see which cards are still in that deck, by level and with their counts.
 
+**Two players.** Set Players to "2, at this screen" and each player picks a deck (any of
+them). Both play at the one screen and take the mouse in turn; the hands are open in the game
+anyway. The attack is the one secret: the turn player chooses first while the other looks
+away, then they swap, and nothing on the board shows a choice until the battle begins. The
+deck tracker is off in this mode: the DECK plates only count the cards. This way of sharing
+a screen is this project's arrangement, not something traced in the game.
+
 ## Deck editor
 
 **New deck** on the start screen opens the deck editor; **Copy and edit** under a deck's
 contents starts from any deck of the game, yours or an opponent's. Decks you build are kept
 in the browser (`localStorage`), saved as you go, and are listed above the game's decks; a
-finished one can also be picked as the opponent's deck.
+finished one can also be picked as the opponent's deck, or by either of two players.
 
 The rules are the ones of the game's deck editor, the overlay `P/SUBSEG.BIN`:
 
@@ -356,7 +363,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   R1") was not traced. How each key of the game's sort menu orders the cards was not read
   either: here they sort by the value they name. The game also offers "Auto Deck" and
   starting from a "Base Deck"; only the second has a counterpart here (Copy and edit).
-- **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported.
+- **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported. In the Digivolve
+  Phase it sends one card to the DP Slot every turn until the slot holds the highest DP a
+  card of the next level in its hand or deck asks for, and digivolves as soon as it can.
 - **Hands shown face up** rests on the card-state byte being the same for both players'
   hand cards, and on how the game plays; the drawing code was not read.
 - Who takes the first turn is random here; the game has you pick a card for it.
@@ -364,6 +373,28 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   multiple of 1110, undoing an entrance or digivolution.
 
 ## Rebuild from the disc
+
+### The disc
+
+Everything here was read from one disc image: *Digimon Digital Card Battle* (USA),
+SLUS-01328, as a single-track `.bin` of raw 2352-byte sectors. Every address and file
+offset in the tools and in this document is for that build.
+
+| | |
+|---|---|
+| Size | 215,661,936 bytes (91,693 sectors) |
+| CRC-32 | `2cd0aad9` |
+| MD5 | `3170c2d81cb4c28b9d7924ddbf4a831d` |
+| SHA-1 | `b3945b3e76c1fcc554a7614e2b4211d974990105` |
+| SHA-256 | `345ea3e1ce1140e0483afaa63b902773ec32fc04ba414e8042968b6de84c4bf1` |
+
+An image in another format (2048-byte sectors, CHD, a different rip) will not have these
+hashes even when the game is the same. The boot file inside it tells: `SLUS_013.28`,
+428,032 bytes, SHA-1 `fa4e03b5e0671dce399a35f2747080ced492d2c3`
+(MD5 `57df71732a052dc774d8745e77b59bf5`). `tools/extract_iso.py` prints both comparisons
+when it unpacks an image.
+
+### Steps
 
 ```bash
 python -m venv tools/.venv

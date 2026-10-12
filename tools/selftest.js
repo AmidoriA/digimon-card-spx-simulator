@@ -122,6 +122,38 @@ test('the opponent names a move before it makes it, so its effect can play first
   assert(it.done);
 });
 
+test('the opponent sends a card to the DP Slot every turn, up to what the next stage can ask for', () => {
+  const names = (ids) => ids.map((id) => E.card(id).name);
+  let G = setup({ mon: 'Agumon', hand: ['Greymon', 'MetalGreymon', 'Biyomon', 'Biyomon'] }, { mon: 'Gabumon' });
+  const P = G.players[0];
+  AI.digivolvePhase(G, 0);
+  assert.deepStrictEqual(names(P.dp), ['Biyomon'], 'the card of least use; Greymon (DP 40) is kept');
+  assert.strictEqual(E.top(P).name, 'Agumon');
+  P.dpUsed = false; // next turn
+  const said = AI.digivolvePhase(G, 0);
+  assert(/Biyomon to the DP Slot/.test(said[0]) && /digivolves to Greymon/.test(said[1]), said.join(' '));
+  assert.strictEqual(E.top(P).name, 'Greymon', 'DP 40 reached: digivolves in the same phase');
+
+  G = setup({ mon: 'Agumon', hand: ['Biyomon'], dp: ['Agumon', 'Agumon'], deck: ['Greymon', 'WarGreymon'] }, { mon: 'Gabumon' });
+  AI.digivolvePhase(G, 0);
+  assert.strictEqual(G.players[0].dp.length, 2, 'DP 40 is all a level C in this deck asks for');
+  G = setup({ mon: 'Agumon', hand: ['Biyomon'], dp: ['Agumon'], deck: ['Greymon', 'WarGreymon'] }, { mon: 'Gabumon' });
+  AI.digivolvePhase(G, 0);
+  assert.strictEqual(G.players[0].dp.length, 2, 'DP 20 is short of it, with the level C still in the deck');
+
+  G = setup({ mon: 'Agumon', hand: ['Greymon', 'Speed Digivolve', 'Biyomon'], deck: ['WarGreymon'] }, { mon: 'Gabumon' });
+  AI.digivolvePhase(G, 0);
+  assert.strictEqual(E.top(G.players[0]).name, 'Greymon');
+  assert.deepStrictEqual(names(G.players[0].dp), ['Biyomon'], 'Speed keeps the DP Slot: the card is for WarGreymon');
+
+  G = setup({ mon: 'Agumon', hand: ['Greymon', 'Biyomon'], dp: ['Agumon', 'Agumon'] }, { mon: 'Gabumon' });
+  AI.digivolvePhase(G, 0);
+  assert.strictEqual(G.players[0].hand.length, 1, 'no card for a DP Slot the digivolution is about to empty');
+  G = setup({ mon: 'MetalGreymon', hand: ['Biyomon'] }, { mon: 'Gabumon' });
+  AI.digivolvePhase(G, 0);
+  assert.strictEqual(G.players[0].dp.length, 0, 'level U has no next stage');
+});
+
 test('digivolve phase: one DP card, before digivolving; an option card ends the phase', () => {
   const G = setup({ mon: 'Agumon', hand: ['Greymon', 'Agumon', 'Agumon', 'Speed Digivolve'] }, { mon: 'Gabumon' });
   assert(E.addDP(G, 0, 1));
