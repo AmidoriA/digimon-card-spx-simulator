@@ -6,7 +6,8 @@ story mode, no deck editor, no partner customisation.
 
 All card data, art, UI textures and audio (`web/js/data/`, `web/assets/`) are generated
 from the disc image (SLUS-01328, US release) and are committed, so a clone runs as is.
-"Rebuild from the disc" shows how they were made.
+"Rebuild from the disc" shows how they were made. The one exception is the new card art
+(`web/assets/art2`, `mini2`), which is not from the disc: see "New card art".
 
 ## Play
 
@@ -23,6 +24,10 @@ publishes the `web` folder to GitHub Pages on every push that changes it (set th
 repository's Pages source to "GitHub Actions"). Before publishing it runs
 `tools/check_paths.py`, which checks that every file the page asks for is in git under
 exactly that name, capitals included: Pages tells names apart by case and Windows does not.
+
+"Card art" on the start screen, and the "New card art" box in the side rail during a match,
+switch the Digimon cards between new illustrations and the game's own pictures. The choice
+is remembered.
 
 During a match, click a TRASH plate to see that player's Offline pile (newest card first)
 and a DECK plate to see which cards are still in that deck, by level and with their counts.
@@ -301,6 +306,20 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   nothing away that the table does not already show: both hands are open here and the decks
   are the game's own lists. It is sorted, not in draw order, and a support card lying face
   down from the deck is still counted as in the deck.
+- **New card art.** With "Card art: New" the 191 Digimon cards show illustrations of the
+  modern Digimon Card Game (2020) in the game's card frame: for 182 of them a square cut out
+  of a card picture from the official card list (world.digimoncard.com), and for the nine
+  that have no card in that game (BomberNanimon, Yanmamon, J-Mojyamon, NiseDrimogemon,
+  ShimaUnimon, MudFrigimon, SandYanmamon, Baronmon, Tylomon) the picture of the Digimon
+  Reference Book (digimon.net). Cards are matched by name, with the game's older names
+  taken to today's (Goburimon = Goblimon, Rockmon = Golemon, Zassomon = Weedmon, Raidramon
+  = Lighdramon, R-Gatomon = Gatomon and so on); RealMetalGreymon and MetalGreymon are the
+  Vaccine and the Virus MetalGreymon, Omnimon I and II two different Omnimon cards.
+  `tools/new_art.json` names the card and the square for each. Squares were placed by eye
+  to centre the Digimon; where that takes in part of the card's own print (a cost circle at
+  the left edge, a line of rules text at the foot) it is left in rather than moving the
+  Digimon off centre. The 110 option cards have no counterpart and keep the game's pictures. "Legacy"
+  shows the game's pictures for every card.
 - **Opponent AI** is new; the game's AI overlay (`SAISEG`) was not ported.
 - **Hands shown face up** rests on the card-state byte being the same for both players'
   hand cards, and on how the game plays; the drawing code was not read.
@@ -322,11 +341,16 @@ tools/.venv/Scripts/python tools/build_effects.py extracted web     # battle eff
 tools/.venv/Scripts/python tools/build_models.py extracted web      # 3D models, textures, motions
 tools/.venv/Scripts/python tools/build_battle.py extracted web      # battle scripts, attack assets
 tools/.venv/Scripts/python tools/arena_previews.py web              # arena previews, drawn in a browser
+tools/.venv/Scripts/python tools/build_new_art.py extracted web     # new card art, needs the internet and ComfyUI
 ```
 
 `upscale_assets.py` sends the 64×64 card art, the 40×40 board art and the battle textures
 through a local ComfyUI (`http://127.0.0.1:8188`, model `RealESRGAN_x4plus`) for a 4×
 upscale.
+
+`build_new_art.py` is the only step that does not read the disc: it downloads the card
+pictures named in `tools/new_art.json` (once, into `extracted/newart`), cuts the squares
+out, upscales them 4× through the same ComfyUI model and writes 512×512 and 160×160 files.
 
 ## Layout
 
@@ -337,6 +361,7 @@ upscale.
 | `web/js/ui.js`, `web/css/style.css`, `web/index.html` | Front end |
 | `web/js/data/cards.js` | Generated: 301 cards, 159 decks |
 | `web/assets/art`, `mini`, `ui` | Generated: upscaled card art and battle textures |
+| `web/assets/art2`, `mini2` | Generated: new art for the Digimon cards (`tools/build_new_art.py`, `tools/new_art.json`) |
 | `tools/check_paths.py` | Checks that every file the page asks for is in git under its exact name |
 | `tools/mips.py` | MIPS disassembly helper for the EXE and overlays (overlay base `0x801DDF38`) |
 | `tools/extract_*.py`, `tim.py`, `comfy.py` | Disc, archive, texture and ComfyUI helpers |

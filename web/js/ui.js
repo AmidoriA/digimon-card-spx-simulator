@@ -97,6 +97,14 @@
   function cls(c) { return c.type === 'digimon' ? SPEC_CLS[c.spec] : 'opt'; }
   function lvl(c) { return c.type === 'digimon' ? E.LEVEL[c.level] : (c.type === 'option' ? 'OP' : 'EV'); }
   function pad3(n) { return ('00' + n).slice(-3); }
+  // Card pictures: the game's own (assets/art, assets/mini), or for the Digimon cards the
+  // modern card game's illustrations (assets/art2, assets/mini2; tools/build_new_art.py).
+  // Option cards have the game's pictures only.
+  var newArt = true;
+  try { newArt = localStorage.getItem('ddcb-art') !== 'legacy'; } catch (err) { /* storage unavailable */ }
+  function artUrl(id, mini) {
+    return 'assets/' + (mini ? 'mini' : 'art') + (newArt && E.card(id).type === 'digimon' ? '2' : '') + '/' + pad3(id) + '.webp';
+  }
 
   // ------------------------------------------------------------------ setup screen
   function deckKey(d) { return d.name + '|' + d.owner + '|' + d.armor + '|' + d.cards.join(','); }
@@ -118,10 +126,10 @@
     return null;
   }
 
-  // small card picture for the setup screen (board art, assets/mini)
+  // small card picture for the setup screen (board art)
   function thumb(id) {
     var c = E.card(id), el = h('span', 'th ' + cls(c)), img = document.createElement('img');
-    img.src = 'assets/mini/' + pad3(id) + '.webp'; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+    img.src = artUrl(id, true); img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
     el.appendChild(img);
     return el;
   }
@@ -261,7 +269,7 @@
     var c = E.card(id), el = h('div', 'c ' + cls(c) + (small ? ' small' : ''));
     el.dataset.id = id;
     var art = h('div', 'ca');
-    art.style.backgroundImage = 'url(assets/mini/' + pad3(id) + '.webp)';
+    art.style.backgroundImage = 'url(' + artUrl(id, true) + ')';
     el.appendChild(art);
     var nm = h('div', 'cn', c.name);
     if (!small) { if (c.name.length > 15) nm.style.fontSize = '14px'; else if (c.name.length > 11) nm.style.fontSize = '17px'; }
@@ -280,7 +288,7 @@
     var c = E.card(id), box0 = clear($('info'));
     box0.hidden = false;
     box0.style.top = (yUnits < 70 ? 68 : yUnits < 160 ? 168 : 102) * U + 'px';
-    var art = h('div', 'art'); art.style.backgroundImage = 'url(assets/art/' + pad3(id) + '.webp)'; box0.appendChild(art);
+    var art = h('div', 'art'); art.style.backgroundImage = 'url(' + artUrl(id, false) + ')'; box0.appendChild(art);
     box0.appendChild(h('div', 'nm', c.name));
     if (c.type === 'digimon') {
       box0.appendChild(h('div', 'ty', E.SPEC[c.spec] + ' ' + E.LEVEL[c.level]));
@@ -1159,6 +1167,26 @@
     B3D.enabled = $('anim3d').checked;
     try { localStorage.setItem('ddcb-anim3d', B3D.enabled ? '1' : '0'); } catch (err) { /* ignore */ }
   };
+  // new or legacy card art, from the start screen or during a match: the cards on the board
+  // only change their picture, so a move or an effect in progress is left alone
+  function setArt(on) {
+    newArt = on;
+    try { localStorage.setItem('ddcb-art', on ? 'new' : 'legacy'); } catch (err) { /* ignore */ }
+    $('artStyle').value = on ? 'new' : 'legacy';
+    $('newArt').checked = on;
+    Array.prototype.forEach.call($('dyn').querySelectorAll('.c[data-id] > .ca'), function (a) {
+      // swapped once the other picture has arrived, so the card does not blink empty
+      var id = +a.parentNode.dataset.id, url = artUrl(id, true), im = new Image();
+      im.onload = function () { if (artUrl(id, true) === url) a.style.backgroundImage = 'url(' + url + ')'; };
+      im.src = url;
+    });
+    $('info').hidden = true;
+    renderSetup();
+  }
+  $('artStyle').value = newArt ? 'new' : 'legacy';
+  $('newArt').checked = newArt;
+  $('artStyle').onchange = function () { setArt($('artStyle').value !== 'legacy'); };
+  $('newArt').onchange = function () { setArt($('newArt').checked); };
   $('sound').checked = SND.isEnabled();
   $('sound').onchange = function () { SND.setEnabled($('sound').checked); };
   $('btnRules').onclick = function () { $('rules').showModal(); };

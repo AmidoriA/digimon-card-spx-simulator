@@ -9,7 +9,8 @@ the ones git has, not the ones on this disk. Checked:
   - no two files in web/ whose names differ only by case
   - the names on disk are the names in git, and nothing in web/ is left out of git
   - every path the page names outright (index.html, the style sheet, the scripts)
-  - every path the scripts put together: card pictures, UI pieces, models, arenas and their
+  - every path the scripts put together: card pictures (the game's and the new art), UI
+    pieces, models, arenas and their
     previews, attack effect files, sounds and music, taken from the same data the page reads
 
 Sounds that scripts ask for but the sound bank does not have are not errors: the page stays
@@ -48,6 +49,7 @@ def page_data():
       new Function('window', fs.readFileSync(path.join(web, 'js', 'data', 'audio.js'), 'utf8'))(window);
       console.log(JSON.stringify({
         cards: E.CARDS.map((c) => c.id),
+        digimon: E.CARDS.filter((c) => c.type === 'digimon').map((c) => c.id),
         models: E.CARDS.filter((c) => c.model != null).map((c) => c.model),
         se: window.DDCB_AUDIO.se, bgm: Object.keys(window.DDCB_AUDIO.bgm).map(Number)
       }));
@@ -83,6 +85,9 @@ def wanted():
     for i in d["cards"]:
         add("assets/mini/%03d.webp" % i, "card %d" % i)
         add("assets/art/%03d.webp" % i, "card %d" % i)
+    for i in d["digimon"]:                                    # the new art, Digimon cards only
+        add("assets/mini2/%03d.webp" % i, "new art of card %d" % i)
+        add("assets/art2/%03d.webp" % i, "new art of card %d" % i)
     for m in sorted(set(d["models"])):
         for ext in (".bin.gz", ".png", "p.png"):
             add("assets/models/%03d%s" % (m, ext), "model %d" % m)
