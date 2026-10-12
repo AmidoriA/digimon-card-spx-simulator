@@ -28,6 +28,7 @@
  *
  * Original mode draws the scene at 320x240. Enhanced mode refines loaded Digimon meshes,
  * shades surfaces per fragment and adds bounded attack accents at up to 960x720.
+ * Ultra adds shadow maps, effect lighting and denser accents at up to 1920x1440.
  * The words go over either scene at the canvas's own size.
  */
 (function () {
@@ -38,10 +39,16 @@
   var scene = null, sceneRequest = 0;
   var api = { enabled: true, style: 'enhanced' }, HD = window.DDCB_BATTLE_HD;
   var targetW = W, targetH = HGT, depth = null, depthFormat = null, hdScale = 3, slowFrames = 0, inspecting = false;
-  function enhanced() { return api.style === 'enhanced' && !!HD; }
+  var ULTRA = window.DDCB_BATTLE_ULTRA, shadows = null, shadowTried = false;
+  function enhanced() { return api.style !== 'legacy' && !!HD; }
+  function ultra() { return api.style === 'ultra' && !!HD; }
+  function quality() { return HD.quality(api.style); }
   function resizeTarget() {
     var scale = enhanced() ? hdScale : 1, w = W * scale, h = HGT * scale;
     canvas.classList.toggle('enhanced', enhanced());
+    var outputScale = ultra() ? Math.max(4, scale) : 4;
+    if (canvas.width !== W * outputScale) { canvas.width = W * outputScale; canvas.height = HGT * outputScale; }
+    if (OV.canvas && OV.canvas.width !== canvas.width) { OV.canvas.width = canvas.width; OV.canvas.height = canvas.height; }
     if (w === targetW && h === targetH) return;
     targetW = w; targetH = h;
     gl.bindTexture(gl.TEXTURE_2D, ftex);
@@ -276,19 +283,21 @@
   // by the GPU; the arena, which stands around the camera, always has such polygons.
   var DEPTH = '#define DA 1.000488\n#define DB -32.007815\n';
   var VS = DEPTH + 'attribute vec3 aP,aN,aC;attribute vec4 aT;uniform mat3 uM[32];uniform vec3 uT[32];uniform float uShow[32];uniform mat3 uV;uniform vec3 uVT;uniform vec2 uTex;uniform float uPalN,uBright,uF;' +
-    'varying vec3 vN,vE,vBase,vLocal;' +
+    'varying vec3 vN,vE,vBase,vLocal;uniform mat4 uLight;varying vec4 vShadow;' +
     'uniform vec3 uLD[3];uniform vec3 uLC[3];uniform vec3 uBK;varying vec3 vC;varying vec2 vUV;varying float vPal,vTex;' +
     'void main(){int i=int(aT.z+0.5);mat3 m=uM[i];vec3 w=m*aP+uT[i];vec3 e=uV*w+uVT;' +
     'vec3 lit=vec3(1.0);if(dot(aN,aN)>0.5){vec3 n=normalize(m*aN);lit=uBK;for(int k=0;k<3;k++)lit+=uLC[k]*max(0.0,dot(n,uLD[k]));lit=clamp(lit,0.0,2.0);}' +
-    'vN=m*aN;vE=e;vLocal=aP;vBase=aC/128.0*uBright;vC=vBase*lit;vTex=aT.x<0.0?0.0:1.0;vUV=(aT.xy+0.5)/uTex;vPal=(aT.w+0.5)/uPalN;' +
+    'vShadow=uLight*vec4(w,1.0);vN=m*aN;vE=e;vLocal=aP;vBase=aC/128.0*uBright;vC=vBase*lit;vTex=aT.x<0.0?0.0:1.0;vUV=(aT.xy+0.5)/uTex;vPal=(aT.w+0.5)/uPalN;' +
     'gl_Position=vec4(e.x*uF/160.0,-e.y*uF/120.0,e.z*DA+DB,e.z);if(uShow[i]>0.5)gl_Position=vec4(2.0,2.0,2.0,1.0);}';
   var PAL_GLSL = HD ? HD.paletteGLSL : 'vec4 palSample(vec2 uv){float ix=texture2D(uS,uv).r*255.0;return texture2D(uP,vec2((ix+0.5)/256.0,PAL));}vec4 smoothPal(vec2 uv){return palSample(uv);}';
-  var FS = 'precision highp float;uniform sampler2D uS,uP;uniform vec2 uTex;uniform float uEnhanced,uMaterial;uniform mat3 uV;' +
+  var FS = 'precision highp float;uniform sampler2D uS,uP;uniform vec2 uTex;uniform float uEnhanced,uMaterial,uUltra,uShadowReady;uniform mat3 uV;uniform vec4 uFxPos[2];uniform vec3 uFxColor;' +
     'uniform vec3 uLD[3],uLC[3],uBK;varying vec3 vC,vN,vE,vBase,vLocal;varying vec2 vUV;varying float vPal,vTex;' +
+    (ULTRA ? ULTRA.shadowGLSL : 'varying vec4 vShadow;float shadowMask(float bias){return 0.0;}') +
     PAL_GLSL.replace(/PAL/g, 'vPal') +
     'void main(){vec4 c=vTex<0.5?vec4(0.5,0.5,0.5,1.0):(uEnhanced>0.5?smoothPal(vUV):palSample(vUV));if(c.a<0.5)discard;' +
     'vec3 col=c.rgb*vC;if(uEnhanced>0.5&&uMaterial>=0.0&&dot(vN,vN)>0.01){vec3 n=normalize(vN);vec3 eye=normalize(-vE);vec3 en=normalize(uV*n);' +
-    'vec3 lit=uBK+vec3(0.14,0.16,0.2);for(int k=0;k<3;k++)lit+=uLC[k]*max(0.0,dot(n,uLD[k]));' +
+    'float shade=0.0;if(uUltra>0.5&&uShadowReady>0.5)shade=shadowMask(0.0025+0.003*(1.0-abs(n.y)));' +
+    'vec3 lit=uBK+vec3(0.14,0.16,0.2);for(int k=0;k<3;k++)lit+=uLC[k]*max(0.0,dot(n,uLD[k]))*(1.0-shade*0.65);' +
     'float metal=1.0-step(0.1,abs(uMaterial-1.0));float fur=1.0-step(0.1,abs(uMaterial-2.0));float cloth=step(2.5,uMaterial);' +
     'float grain=sin(vLocal.x*0.7+sin(vLocal.z*0.24))*sin(vLocal.y*0.7);' +
     'float fiber=sin(vLocal.y*1.2+vLocal.x*0.12)*sin(vLocal.z*0.08);float weave=sin(vLocal.x*0.65)*sin(vLocal.y*0.65);' +
@@ -296,6 +305,7 @@
     'vec3 halfV=normalize(eye+normalize(vec3(-0.35,-0.65,-1.0)));float spec=pow(max(0.0,dot(en,halfV)),mix(24.0,72.0,metal));' +
     'float rim=pow(1.0-max(0.0,dot(en,eye)),3.0);col=c.rgb*vBase*clamp(lit,0.0,1.7)*(1.0+detail*0.055);' +
     'col+=vec3(0.65,0.78,1.0)*rim*0.16+vec3(1.0,0.92,0.8)*spec*mix(0.16,0.5,metal);}' +
+    'if(uUltra>0.5&&uMaterial>=0.0&&dot(vN,vN)>0.01){vec3 en=normalize(uV*vN);for(int i=0;i<2;i++){if(uFxPos[i].w>0.0){vec3 d=uFxPos[i].xyz-vE;float dist=length(d);float fall=pow(max(0.0,1.0-dist/uFxPos[i].w),2.0);float nd=max(0.0,dot(en,d/max(dist,0.01)));col+=uFxColor*fall*(0.15+nd)*c.rgb*vBase*1.5;}}}' +
     'gl_FragColor=vec4(col,1.0);}';
   // flat-coloured effect primitives and sprites, already projected: x, y in screen pixels, z = depth
   var PVS = DEPTH + 'attribute vec3 p;attribute vec3 c;varying vec3 v;void main(){v=c/255.0;gl_Position=vec4(p.x/160.0-1.0,1.0-p.y/120.0,clamp(DA+DB/max(p.z,16.0),-1.0,1.0),1.0);}';
@@ -306,10 +316,11 @@
     'void main(){vec4 c=uEnhanced>0.5?smoothPal(vUV):palSample(vUV);if(c.a<0.15)discard;gl_FragColor=vec4(c.rgb*uCol*c.a,1.0);}';
   // the finished 320x240 picture, and the pieces of the overlay: x, y in screen pixels, u, v in texture pixels
   var OVS = 'attribute vec2 p,t;uniform vec2 uTex;varying vec2 vUV;void main(){vUV=t/uTex;gl_Position=vec4(p.x/160.0-1.0,1.0-p.y/120.0,0.0,1.0);}';
-  var BFS = 'precision mediump float;uniform sampler2D uS;uniform vec2 uPixel;uniform float uEnhanced;varying vec2 vUV;' +
+  var BFS = 'precision mediump float;uniform sampler2D uS;uniform vec2 uPixel;uniform float uEnhanced,uUltra;varying vec2 vUV;' +
     'vec3 bright(vec2 uv){vec3 c=texture2D(uS,uv).rgb;return c*max(0.0,max(c.r,max(c.g,c.b))-0.7);}' +
     'void main(){vec3 c=texture2D(uS,vUV).rgb;if(uEnhanced>0.5){vec3 glow=vec3(0.0);' +
     'for(int i=1;i<=3;i++){vec2 d=uPixel*float(i)*2.0;glow+=bright(vUV+vec2(d.x,0.0))+bright(vUV-vec2(d.x,0.0))+bright(vUV+vec2(0.0,d.y))+bright(vUV-vec2(0.0,d.y));}' +
+    'if(uUltra>0.5){for(int i=1;i<=3;i++){vec2 d=uPixel*float(i)*8.0;glow+=0.6*(bright(vUV+d)+bright(vUV-d)+bright(vUV+vec2(d.x,-d.y))+bright(vUV+vec2(-d.x,d.y)));}}' +
     'c+=glow*0.095;float vignette=1.0-0.16*dot((vUV-0.5)*1.4,(vUV-0.5)*1.4);c=pow(max(c*vignette,vec3(0.0)),vec3(0.96));}gl_FragColor=vec4(c,1.0);}';
   // uK: brightness, share of the colour that is added, share of the picture behind that is covered
   var OFS = 'precision mediump float;uniform sampler2D uS;uniform vec3 uK;varying vec2 vUV;' +
@@ -332,7 +343,7 @@
     if (!gl) return false;
     prog = program(VS, FS);
     ['aP', 'aN', 'aC', 'aT'].forEach(function (a) { loc[a] = gl.getAttribLocation(prog, a); });
-    ['uM', 'uT', 'uShow', 'uV', 'uVT', 'uTex', 'uPalN', 'uS', 'uP', 'uBright', 'uLD', 'uLC', 'uBK', 'uF', 'uEnhanced', 'uMaterial'].forEach(function (u) { loc[u] = gl.getUniformLocation(prog, u); });
+    ['uM', 'uT', 'uShow', 'uV', 'uVT', 'uTex', 'uPalN', 'uS', 'uP', 'uBright', 'uLD', 'uLC', 'uBK', 'uF', 'uEnhanced', 'uMaterial', 'uUltra', 'uLight', 'uShadow', 'uShadowReady', 'uFxPos', 'uFxColor'].forEach(function (u) { loc[u] = gl.getUniformLocation(prog, u); });
     pprog = program(PVS, PFS); ploc = { p: gl.getAttribLocation(pprog, 'p'), c: gl.getAttribLocation(pprog, 'c') };
     sprog = program(SVS, SFS);
     sloc = { p: gl.getAttribLocation(sprog, 'p'), t: gl.getAttribLocation(sprog, 't') };
@@ -340,7 +351,7 @@
     bprog = program(OVS, BFS); oprog = program(OVS, OFS);
     [[bprog, bloc], [oprog, oloc]].forEach(function (x) {
       x[1].p = gl.getAttribLocation(x[0], 'p'); x[1].t = gl.getAttribLocation(x[0], 't');
-      ['uTex', 'uS', 'uK', 'uPixel', 'uEnhanced'].forEach(function (u) { x[1][u] = gl.getUniformLocation(x[0], u); });
+      ['uTex', 'uS', 'uK', 'uPixel', 'uEnhanced', 'uUltra'].forEach(function (u) { x[1][u] = gl.getUniformLocation(x[0], u); });
     });
     pbuf = gl.createBuffer();
     // the scene's own 320x240 picture
@@ -450,13 +461,13 @@
   var tri = [], lin = [], sprites = [], rects = [];
   // Bounded procedural accents follow the original emitters. Never start an effect for a
   // miss or a countered motion, and clear screen-space trails on every scripted camera cut.
-  var modernProgram = null, modernLoc = {}, modernData = new Float32Array(160 * 6 * 9);
+  var modernProgram = null, modernLoc = {}, modernData = new Float32Array(768 * 6 * 9);
   var MVS = DEPTH + 'attribute vec3 p,c;attribute vec2 t;attribute float a;varying vec2 uv;varying vec3 color;varying float alpha;' +
     'void main(){uv=t;color=c;alpha=a;gl_Position=vec4(p.x/160.0-1.0,1.0-p.y/120.0,clamp(DA+DB/max(p.z,16.0),-1.0,1.0),1.0);}';
   var MFS = 'precision mediump float;varying vec2 uv;varying vec3 color;varying float alpha;uniform float uKind;' +
     'void main(){float r=length(uv);float shape=exp(-r*r*4.5)*(1.0-smoothstep(0.65,1.0,r));' +
     'if(uKind>0.5&&uKind<1.5)shape*=0.5+0.5*step(abs(uv.x),abs(uv.y)*0.65);' +
-    'gl_FragColor=vec4(color*shape*alpha,0.0);}';
+    'if(alpha<0.0)shape=exp(-pow((r-0.78)*22.0,2.0));gl_FragColor=vec4(color*shape*abs(alpha),0.0);}';
   function modernPoint(sc, w) {
     var q = xf(sc.view, [0, 0, 0], [w[0] - sc.cam.eye[0], w[1] - sc.cam.eye[1], w[2] - sc.cam.eye[2]]);
     return q[2] > 16 ? [160 + q[0] * 448 / q[2], 120 + q[1] * 448 / q[2], q[2]] : null;
@@ -464,7 +475,8 @@
   function random(sc) { sc.seed = (Math.imul(sc.seed, 1664525) + 1013904223) >>> 0; return sc.seed / 4294967296; }
   function spawnModern(sc, p, count, burst) {
     if (!p || !sc.modern || p[0] < -40 || p[0] > 360 || p[1] < -40 || p[1] > 280) return;
-    for (var i = 0; i < count && sc.modern.length < 112; i++) {
+    if (burst && ultra()) sc.rings.push({ x:p[0],y:p[1],z:p[2],age:0,life:26 });
+    for (var i = 0; i < count && sc.modern.length < quality().particles; i++) {
       var angle = random(sc) * Math.PI * 2, speed = (0.3 + random(sc) * 1.7) * (burst ? 1.8 : 0.5);
       sc.modern.push({ x: p[0], y: p[1], z: p[2], vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
         age: 0, life: 14 + random(sc) * 20, size: 0.8 + random(sc) * (burst ? 2.8 : 1.4) });
@@ -476,19 +488,21 @@
       p.x += p.vx; p.y += p.vy; p.vy += sc.profile.gravity; p.age++;
       return p.age < p.life;
     });
+    sc.rings = sc.rings.filter(function (p) { return ++p.age < p.life; });
     if (!sc.allowModern) return;
     // Sample rather than multiply the PS1's entire particle population.
-    sprites.slice(0, 5).forEach(function (s) {
+    var q = quality();
+    sprites.slice(0, q.emitters).forEach(function (s) {
       if (s.blend === 2 || s.col < 16) return;
       var v = s.v;
-      spawnModern(sc, [(v[0] + v[5] + v[10] + v[15]) / 4, (v[1] + v[6] + v[11] + v[16]) / 4, v[2]], 2, false);
+      spawnModern(sc, [(v[0] + v[5] + v[10] + v[15]) / 4, (v[1] + v[6] + v[11] + v[16]) / 4, v[2]], q.spawn, false);
     });
-    for (var i = 0; i < lin.length && i < 72; i += 12) spawnModern(sc, lin.slice(i, i + 3), 1, false);
-    for (i = 0; i < tri.length && i < 108; i += 36) {
-      spawnModern(sc, [(tri[i] + tri[i + 6] + tri[i + 12]) / 3, (tri[i + 1] + tri[i + 7] + tri[i + 13]) / 3, tri[i + 2]], 1, false);
+    for (var i = 0; i < lin.length && i < (ultra() ? 288 : 72); i += 12) spawnModern(sc, lin.slice(i, i + 3), ultra() ? 3 : 1, false);
+    for (i = 0; i < tri.length && i < (ultra() ? 432 : 108); i += 36) {
+      spawnModern(sc, [(tri[i] + tri[i + 6] + tri[i + 12]) / 3, (tri[i + 1] + tri[i + 7] + tri[i + 13]) / 3, tri[i + 2]], ultra() ? 3 : 1, false);
     }
     sc.extra.slice(0, 3).forEach(function (a) {
-      if (a.visible && a.bright > 0.2) spawnModern(sc, modernPoint(sc, a.pos), 2, false);
+      if (a.visible && a.bright > 0.2) spawnModern(sc, modernPoint(sc, a.pos), q.spawn, false);
     });
   }
   function drawModernEffects(sc) {
@@ -498,9 +512,9 @@
       ['p', 'c', 't', 'a'].forEach(function (n) { modernLoc[n] = gl.getAttribLocation(modernProgram, n); });
       modernLoc.kind = gl.getUniformLocation(modernProgram, 'uKind');
     }
-    var n = 0, color = sc.profile.color;
+    var n = 0, color = sc.profile.color, quadLimit = quality().quads;
     function glow(x, y, z, sx, sy, alpha, angle) {
-      if (n >= 160 * 6 || !isFinite(x + y + z + sx + sy)) return;
+      if (n >= quadLimit * 6 || !isFinite(x + y + z + sx + sy)) return;
       var co = Math.cos(angle || 0), si = Math.sin(angle || 0);
       [[-1, -1], [1, -1], [-1, 1], [1, -1], [1, 1], [-1, 1]].forEach(function (uv) {
         var u = uv[0] * sx, v = uv[1] * sy, k = n++ * 9;
@@ -510,16 +524,19 @@
     sc.modern.forEach(function (p) {
       var fade = 1 - p.age / p.life, stretch = sc.profile.kind === 'physical' || sc.profile.kind === 'electric' ? 3 : 1.5;
       glow(p.x, p.y, p.z, p.size * stretch, p.size, fade, Math.atan2(p.vy, p.vx));
+      if (ultra() && p.age % 3 === 0) glow(p.x-p.vx*2,p.y-p.vy*2,p.z,p.size*stretch*2,p.size*0.65,fade*0.3,Math.atan2(p.vy,p.vx));
     });
+    if (ultra()) sc.rings.slice(0, 4).forEach(function(p){var r=4+p.age*2.4;glow(p.x,p.y,p.z,r,r*0.6,-0.65*(1-p.age/p.life),0);});
     if (sc.allowModern) {
-      sprites.slice(0, 6).forEach(function (s) {
+      sprites.slice(0, ultra() ? 24 : 6).forEach(function (s) {
         if (s.blend === 2 || s.col < 16) return;
         var v = s.v, x = (v[0] + v[5] + v[10] + v[15]) / 4, y = (v[1] + v[6] + v[11] + v[16]) / 4;
-        var radius = Math.min(32, Math.hypot(v[0] - v[15], v[1] - v[16]) * 0.55);
+        var radius = Math.min(ultra() ? 48 : 32, Math.hypot(v[0] - v[15], v[1] - v[16]) * 0.55);
         glow(x, y, v[2], radius, radius, Math.min(0.28, s.col / 512), 0);
+        if (ultra()) glow(x,y,v[2],radius*1.8,radius*1.8,Math.min(0.08,s.col/1600),0);
       });
       // Wide luminous cores turn the original one-pixel lines into energy streaks.
-      for (var i = 0; i < lin.length && i < 144; i += 12) {
+      for (var i = 0; i < lin.length && i < (ultra() ? 288 : 144); i += 12) {
         var dx = lin[i + 6] - lin[i], dy = lin[i + 7] - lin[i + 1];
         glow((lin[i] + lin[i + 6]) / 2, (lin[i + 1] + lin[i + 7]) / 2, lin[i + 2], Math.min(48, Math.hypot(dx, dy) / 2), 1.5, 0.45, Math.atan2(dy, dx));
       }
@@ -543,9 +560,38 @@
     sprite: function (s) { sprites.push(s); },
     rect: function (r) { rects.push(r); }
   };
+  // Effect vertices already have camera depth, so lights can follow their true 3D positions
+  // without altering the original scripts. Prefer the largest two sources, bounded per frame.
+  function effectLights(sc) {
+    var candidates = [], lights = new Float32Array(8);
+    function add(x,y,z,r) {
+      if (!isFinite(x+y+z+r) || z < 16 || x < -80 || x > 400 || y < -80 || y > 320) return;
+      candidates.push({ pos:[(x-160)*z/448,(y-120)*z/448,z,Math.min(1200,Math.max(160,r*z/448*5))],weight:r });
+    }
+    if (ultra() && sc.allowModern) {
+      sprites.slice(0,48).forEach(function(s){if(s.blend===2||s.col<16)return;var v=s.v;add((v[0]+v[15])/2,(v[1]+v[16])/2,v[2],Math.hypot(v[0]-v[15],v[1]-v[16])*0.4);});
+      sc.extra.slice(0,8).forEach(function(a){if(a.visible&&a.bright>0.2){var p=modernPoint(sc,a.pos);if(p)add(p[0],p[1],p[2],32);}});
+      for(var i=0;i<lin.length&&i<96;i+=12)add(lin[i],lin[i+1],lin[i+2],12);
+      for(i=0;i<tri.length&&i<144;i+=36)add(tri[i],tri[i+1],tri[i+2],18);
+      candidates.sort(function(a,b){return b.weight-a.weight;});
+      // Two overlapping sprites should illuminate as one source rather than doubling it.
+      var selected=[];
+      candidates.forEach(function(a){if(selected.length<2&&!selected.some(function(b){return Math.hypot(a.pos[0]-b.pos[0],a.pos[1]-b.pos[1],a.pos[2]-b.pos[2])<100;}))selected.push(a);});
+      selected.forEach(function(a,i){lights.set(a.pos,i*4);});
+    }
+    return lights;
+  }
   function render() {
     if (!gl || !scene) return;
     resizeTarget();
+    var shadowFrame = null, visible = scene.actors.filter(function(a){return a.visible;});
+    if (ultra() && ULTRA && visible.length) {
+      if (!shadowTried) { shadowTried = true; try { shadows = ULTRA.create(gl,program); } catch (err) { console.warn('Ultra shadows unavailable',err); } }
+      if (shadows) {
+        visible.forEach(function(a){if(!a.m.hd)a.m.hd=buffers(HD.refine(a.m));});
+        shadowFrame = shadows.draw(visible);
+      }
+    }
     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
     gl.viewport(0, 0, targetW, targetH);
     var bk = scene.arena ? scene.arena.back : [8, 10, 20];
@@ -557,6 +603,13 @@
     for (k = 0; k < 9; k++) V[k] = R[(k % 3) * 3 + Math.floor(k / 3)];
     gl.uniformMatrix3fv(loc.uV, false, V);
     gl.uniform1f(loc.uF, scene.focal || 448);            // the game's projection distance
+    gl.uniform1f(loc.uUltra, ultra() ? 1 : 0); gl.uniform1f(loc.uShadowReady, shadowFrame ? 1 : 0);
+    if (shadowFrame) {
+      gl.uniformMatrix4fv(loc.uLight,false,shadowFrame.light);
+      gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,shadows.texture);gl.uniform1i(loc.uShadow,2);
+    }
+    gl.uniform4fv(loc.uFxPos,effectLights(scene));
+    gl.uniform3fv(loc.uFxColor,new Float32Array(scene.profile ? scene.profile.color : [0,0,0]));
     if (scene.arena && scene.arena.actor) {
       // the arena turns with the camera but does not move with it, and is behind everything
       // (0x80024010: no translation, and the far quarter of the ordering table)
@@ -834,6 +887,7 @@
     gl.vertexAttribPointer(bloc.p, 2, gl.FLOAT, false, 16, 0); gl.vertexAttribPointer(bloc.t, 2, gl.FLOAT, false, 16, 8);
     gl.bindTexture(gl.TEXTURE_2D, ftex); gl.uniform1i(bloc.uS, 0); gl.uniform2f(bloc.uTex, W, HGT);
     gl.uniform2f(bloc.uPixel, 1 / targetW, 1 / targetH); gl.uniform1f(bloc.uEnhanced, enhanced() ? 1 : 0);
+    gl.uniform1f(bloc.uUltra, ultra() ? 1 : 0);
     quad(0, 0, W, HGT, 0, HGT, W, 0);
     gl.disableVertexAttribArray(bloc.p); gl.disableVertexAttribArray(bloc.t);
     gl.useProgram(oprog);
@@ -1109,7 +1163,7 @@
     if (api.paused) return;                     // for looking at one frame while testing
     if (enhanced() && !inspecting) {
       slowFrames = n >= 3 ? slowFrames + 1 : Math.max(0, slowFrames - 1);
-      if (slowFrames >= 24) { hdScale = 2; slowFrames = 0; }
+      if (slowFrames >= 24) { hdScale = Math.max(quality().minScale,hdScale-1); slowFrames = 0; }
     }
     // the effect objects of effects.js draw through this scene's camera while it runs
     var core = C.core, keep = { project: core.project, bill: core.bill, origin: core.origin };
@@ -1149,6 +1203,7 @@
   // was not ported).
   function cut(sc, self) {
     if (sc.modern) sc.modern.length = 0;
+    if (sc.rings) sc.rings.length = 0;
     var a = sc.actors[self], h = a.height, d = Math.max(h * 2.4, 460), m = rotYXZ([0, a.facing, 0]);
     sc.cam = { eye: xf(m, a.pos, [d * 0.62, -h * 0.62, -d]), at: xf(m, a.pos, [0, -h * 0.5, -h * 0.25]) };
     sc.view = lookAt(sc.cam.eye, sc.cam.at);
@@ -1172,7 +1227,7 @@
     if (!(api.enabled || opts.dry) || !initGL()) return Promise.resolve(false);
     stop();
     var request = ++sceneRequest;
-    hdScale = 3; slowFrames = 0;
+    hdScale = quality().scale; slowFrames = 0;
     var arenaP = opts.arena ? load('bg' + opts.arena.file).catch(function () { return null; }) : Promise.resolve(null);
     return Promise.all([load(opts.models[0]), load(opts.models[1]), loadScripts(), arenaP, opts.dry ? null : loadOverlay()]).then(function (r) {
       if (request !== sceneRequest) return false;
@@ -1199,7 +1254,7 @@
             arena.actor.bright = opts.arena.bright / 255; arena.actor.step(); arena.actor.resolve();
           }
           var sc = scene = { actors: act, extra: [], arena: arena, focus: null, focusOwner: null, overlays: [], hp: opts.hp || [1, 1], sound: opts.sound !== false, frame: 0, cam: null, view: null, script: null, finish: res,
-            modern: [], seed: (opts.script || 1) >>> 0, profile: HD ? HD.profile(opts.name, opts.specialty) : null, allowModern: mode === 'normal',
+            modern: [], rings: [], seed: (opts.script || 1) >>> 0, profile: HD ? HD.profile(opts.name, opts.specialty) : null, allowModern: mode === 'normal',
             lights: { dir: LIGHT_DIR.map(function (x) { return x.slice(); }), col: LIGHT_COL.map(function (x) { return x.slice(); }) } };
           var k = -1, run = null, hold = 0, phase = 'scripts', eat = null, A = act[opts.attacker], T = act[opts.attacker ^ 1];
           var label = function (pl) { return pl === 0 ? 0 : 2; };       // 1P and Com
@@ -1213,7 +1268,7 @@
             run = new Run(list[k][0], list[k][1], sc, fxs[k]);
             if (k === 0) sc.overlays.push(new AttackOverlay(banner));
             else if (opts.hpBefore != null) {
-              if (enhanced()) spawnModern(sc, modernPoint(sc, [T.pos[0], T.pos[1] - T.height * 0.5, T.pos[2]]), 32, true);
+              if (enhanced() && !opts.dry) spawnModern(sc, modernPoint(sc, [T.pos[0], T.pos[1] - T.height * 0.5, T.pos[2]]), quality().burst, true);
               // 0x801ec8a4 / 0x801ec6e0: shown once the target's damage motion (4 or 5) has started
               sc.overlays.push(new HpOverlay({ label: label(opts.attacker ^ 1), hp0: opts.hpBefore, hp1: sc.hp[opts.attacker ^ 1],
                 started: function () { return T.motion >= 4; } }));
@@ -1301,8 +1356,10 @@
   };
   api.stop = stop;
   api.setStyle = function (style) {
-    api.style = style === 'legacy' ? 'legacy' : 'enhanced';
+    api.style = style === 'legacy' ? 'legacy' : style === 'ultra' ? 'ultra' : 'enhanced';
+    hdScale = quality().scale; slowFrames = 0;
     if (scene && scene.modern) scene.modern.length = 0;
+    if (scene && scene.rings) scene.rings.length = 0;
     if (gl && scene) render();
     return api.style;
   };
@@ -1320,5 +1377,6 @@
   };
   api.busy = function () { return !!scene; };
   api._debug = function () { return scene; };
+  api.stats = function () { return { style:api.style, width:targetW, height:targetH, particles:scene&&scene.modern?scene.modern.length:0, shadows:ultra()&&!!shadows, particleLimit:quality().particles }; };
   window.DDCB_B3D = api;
 })();

@@ -25,14 +25,14 @@
   <a class="btn ghost small" href="index.html">&larr; Back to game</a>
   <p class="kicker">All 191 Digimon · All three attacks</p>
   <h1>Attack preview</h1>
-  <p>Choose a stage before playing. Compare the detailed battle visuals with the original PS1 animation, or switch styles during an attack to see the same moment.</p>
+  <p>Choose a stage before playing. Compare Original PS1, Enhanced and Enhanced Ultra at the same moment. Ultra adds denser particles, glowing attack lighting and soft shadows at up to 1920 × 1440.</p>
   <div class="preview-controls">
     <label class="optl">Digimon<select id="previewCard"></select></label>
     <label class="optl">Attack<select id="previewAttack"></select></label>
     <label class="optl">Stage
       <span class="preview-stage"><select id="previewStage" aria-label="Stage" disabled><option>Loading stages…</option></select><img id="previewStageThumb" alt="Selected stage preview" hidden></span>
     </label>
-    <label class="optl">Battle visuals<select id="previewStyle"><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option></select></label>
+    <label class="optl">Battle visuals<select id="previewStyle"><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option></select></label>
     <button class="btn primary" id="previewPlay" disabled>Play attack</button>
     <button class="btn ghost" id="previewPause" disabled>Pause</button>
     <button class="btn ghost" id="previewStep" disabled>Next moment</button>
@@ -47,8 +47,9 @@
 <script src="js/data/cards.js"></script>
 <script src="js/data/effects.js"></script>
 <script src="js/effects.js"></script>
-<script src="js/battlehd.js?v=battle-hd-7"></script>
-<script src="js/battle3d.js?v=battle-hd-7"></script>
+<script src="js/battlehd.js?v=battle-ultra-1"></script>
+<script src="js/battleultra.js?v=battle-ultra-1"></script>
+<script src="js/battle3d.js?v=battle-ultra-1"></script>
 <script src="js/battle-preview.js?v=battle-stage-1"></script>
 </body>
 </html>

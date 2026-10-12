@@ -33,8 +33,9 @@ exactly that name, capitals included: Pages tells names apart by case and Window
 switch the Digimon cards between new illustrations and the game's own pictures. The choice
 is remembered.
 
-**Battle visuals** on the start screen and in the match rail switches between **Enhanced**
-(the default) and **Original PS1**. The choice is saved separately from card art and the
+**Battle visuals** on the start screen and in the match rail switches between **Enhanced Ultra**,
+**Enhanced** (the default) and **Original PS1**. Ultra adds denser particles, attack lighting,
+soft shadows and higher resolution. The choice is saved separately from card art and the
 animation on/off box. **Preview attacks** opens a browser preview for all 191 Digimon and
 their three attacks. Pause or use **Next moment**, then switch styles to compare the same
 pose. Its **Stage** picker offers all 24 arenas with a thumbnail, plus **Random** (one of
@@ -226,8 +227,9 @@ The effect animations are the game's own scripts, played by a port of its effect
 ## Polygon Battle (battle animation)
 
 The optional enhanced presentation renders at 960×720, dropping to 640×480 when frame
+delivery stays slow. Enhanced Ultra starts at 1920×1440 and steps down to 960×720 if frame
 delivery stays slow. Original PS1 keeps the original 320×240 framebuffer and nearest
-sampling. Both modes use the same models, motions, scripts, cameras, sounds and damage
+sampling. All three modes use the same models, motions, scripts, cameras, sounds and damage
 timing. `js/battlehd.js` refines each loaded Digimon mesh once (four triangles per source
 triangle, shared curved edge positions and crease-aware normals). The original mesh is
 kept for immediate switching. Model and sprite palettes remain nearest sampled; enhanced
@@ -241,8 +243,18 @@ when the hit script starts. They use at most 112 live particles and 160 procedur
 in one extra draw, plus a bounded bloom pass. Camera cuts clear trails, and misses and
 countered motions never emit these accents. No extra model/texture downloads are required.
 
+Ultra raises the limits to 448 live particles and 768 procedural quads in one extra draw,
+adds fading streak trails, wider layered glows and expanding impact rings. The largest
+two active effect sources cast coloured, distance-limited light onto the Digimon. Its wider
+bloom pass remains bounded. `js/battleultra.js` draws the posed Digimon into a 1024×1024
+colour depth map, with nine-sample soft filtering for shadows on the Digimon themselves.
+The arena remains camera-centred and drawn in its native polygon order. No ground plane,
+floor shadow or contact shadow is added. Shadows are skipped if the framebuffer is
+unsupported; the other Ultra improvements still work. These are authored visual additions,
+not recovered game behaviour. They require no new downloaded model or texture assets.
+
 `node tools/battletest.js` validates every card model and compares all 573 attack/hit script
-runs in both styles with the same random seed, including no-effect misses and countered
+runs in all three styles with the same random seed, including no-effect misses and countered
 motions. It checks CPU animation logic; real shader linking and visual appearance are
 checked separately in `battle-preview.html`. For deliberately uncommitted development,
 `python tools/check_paths.py --working-tree` includes new files; the normal command still
@@ -347,7 +359,8 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 - **Enhanced battle visuals.** Higher rendering resolution, curved mesh subdivision,
   crease normals, interpolated palette colours, procedural surface materials, rim/specular
   lighting, bloom, attack-family particles and hit sparks are this project's new art
-  direction, requested as an alternative to the PS1 visuals. Material and attack-family
+  direction, requested as an alternative to the PS1 visuals. Ultra's shadow maps,
+  effect lighting, trails and shockwaves extend that direction. Material and attack-family
   assignments are name-based presentation choices, not recovered game data. This improves
   the existing models; it does not replace them with individually sculpted modern models
   or newly painted high-resolution textures. The attack preview and its fixed damage are
