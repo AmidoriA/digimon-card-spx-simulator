@@ -116,7 +116,7 @@ dropped; it says what it understood before anything is kept, names a card it doe
 with the nearest name, and leaves out what the rules do not allow. A deck that is not
 complete yet is kept, opens in the editor and cannot start a battle.
 
-`node tools/decktest.js` checks the rules against all 159 decks of the game, the search and
+`node tools/decktest.js` checks the rules against all 159 decks of the game and the custom one, the search and
 filters, and that every deck comes back the same from both exported forms.
 
 ## Rules, as traced in the game code
@@ -204,7 +204,7 @@ card of the Digimon stack the Specialty from that word (`0x8003d664`). A card th
 Offline after a KO keeps the frame it had; the Rookie an armor Digimon drops back to gets
 its own Specialty again (`0x80040dcc`).
 
-`node tools/selftest.js` checks these behaviours (26 checks, the custom card among them);
+`node tools/selftest.js` checks these behaviours (27 checks, the custom card and deck among them);
 `node tools/sim.js 300` plays AI-vs-AI matches and checks card-count invariants.
 
 ## Custom cards
@@ -216,6 +216,12 @@ model, motions and battle scripts in other colours, and numbers and an effect of
 the game's from 400, and their battle scripts and effect files carry the number of the
 script they were made from plus 10000 for the first custom card, 20000 for the second.
 The deck editor offers them like any other card; no deck of the game holds one.
+
+A **custom deck** is a deck of the game with some of its cards exchanged; the list names it
+with its base and the exchange. It follows the game's 159 decks and keeps its base's owner,
+rank, armor form and music. There is one: **Black Fire Again**, BK WarGreymon's second
+deck, which is his Black Fire Heart with its four WarGreymon exchanged for four
+BlackWarGreymon. Black Fire Heart itself is as the game has it.
 
 | | BlackWarGreymon (301) | WarGreymon (2), which it is made from |
 |---|---|---|
@@ -480,7 +486,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   otherwise taken from the attack's name. How a script's colours are changed is this
   project's too: the values are followed through the script from the top, and a colour
   that is computed or set under a test would be left as it is (none of BlackWarGreymon's
-  is; the builder runs both scripts and compares every object's colours).
+  is; the builder runs both scripts and compares every object's colours). The deck Black
+  Fire Again and its name are this project's as well, made at the owner's request; in the
+  game BK WarGreymon has the one deck, and it plays WarGreymon.
 
 - **Mobile setup controls.** On screens up to 900px wide, the sticky setup bar shows
   Settings, Random opponent and Start battle. Settings opens a scrollable panel above
@@ -652,8 +660,8 @@ out, upscales them 4× through the same ComfyUI model and writes 512×512 and 16
 | `web/js/editor.js` | Deck editor screen |
 | `tools/decktest.js` | Checks of the deck rules, the search and export/import |
 | `web/js/ui.js`, `web/css/style.css`, `web/index.html` | Front end |
-| `web/js/data/cards.js` | Generated: the game's 301 cards and 159 decks, and the custom cards |
-| `tools/custom_cards.json`, `custom.py`, `build_custom.py`, `custom_look.py`, `tools/custom/` | The custom cards: their list, the recolouring, the builder, a viewer, their picture sources |
+| `web/js/data/cards.js` | Generated: the game's 301 cards and 159 decks, and the custom cards and decks |
+| `tools/custom_cards.json`, `custom.py`, `build_custom.py`, `custom_look.py`, `tools/custom/` | The custom cards and decks: their list, the recolouring, the builder, a viewer, their picture sources |
 | `web/assets/art`, `mini`, `ui` | Generated: upscaled card art and battle textures |
 | `web/assets/art2`, `mini2` | Generated: new art for the Digimon cards (`tools/build_new_art.py`, `tools/new_art.json`) |
 | `tools/check_paths.py` | Checks that every file the page asks for is in git under its exact name |

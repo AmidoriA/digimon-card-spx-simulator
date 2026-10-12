@@ -4,7 +4,8 @@ Usage (venv python):  build_data.py <extracted_dir> <web_dir>
 
 Reads  B/CARD2.CDD  (card database) and B/DECK2.DEK (deck lists).
 Writes <web>/js/data/cards.js. Card art is produced separately by upscale_assets.py.
-The custom cards of tools/custom_cards.json (custom.py) follow the game's 301.
+The custom cards of tools/custom_cards.json (custom.py) follow the game's 301, and its
+custom decks the game's 159.
 
 Record layouts were recovered from the files and from the loader at 0x800457fc in
 SLUS_013.28 (table pointers 0x801d8408 / 0x801d8400 / 0x801d8404):
@@ -150,6 +151,7 @@ def main():
     cards += custom.cards(cards)
     assert [c["id"] for c in cards] == list(range(len(cards)))
     decks = build_decks(open(os.path.join(ext, "drv", "B", "DECK2.DEK"), "rb").read())
+    decks += custom.decks(decks, cards)
     os.makedirs(os.path.join(web, "js", "data"), exist_ok=True)
     os.makedirs(os.path.join(web, "assets"), exist_ok=True)
     with open(os.path.join(web, "js", "data", "cards.js"), "w", encoding="utf-8") as f:

@@ -20,6 +20,11 @@ README lists every custom card under "Not from the game code".
                                      copied under their number + offset
      "art":    {"recolour": name,                     the game's pictures of the base, recoloured
                 "new": {"file": "custom/x.png", "crop": [x, y, size]}}   picture for "New card art"
+   }],
+   "decks": [{                      a deck of the game with some of its cards exchanged; it
+     "name": "Black Fire Again",    follows the game's 159 decks and keeps the owner, the rank,
+     "base": {"name": "Black Fire Heart", "owner": "BK WarGreymon"},     the armor form and
+     "replace": {"WarGreymon": "BlackWarGreymon"}                        the music of its base
    }]}
 
 A recolour is a list of rules; the first rule that takes a colour changes it, a colour no
@@ -76,6 +81,26 @@ def base_of(c, cards):
     hit = [x for x in cards if x["type"] == "digimon" and (x["id"] == b or x["name"] == b)]
     assert len(hit) == 1, "base card %r" % (b,)
     return hit[0]
+
+
+def decks(game_decks, all_cards):
+    """-> the custom decks as records of cards.js, to follow the game's. all_cards: the
+    game's cards and the custom ones."""
+    ids = {}
+    for c in all_cards:
+        ids.setdefault(c["name"], c["id"])
+    out = []
+    for d in load().get("decks", []):
+        base = [x for x in game_decks if x["name"] == d["base"]["name"] and x["owner"] == d["base"]["owner"]]
+        assert base, "base deck %r" % (d["base"],)
+        base = base[0]
+        swap = {ids[a]: ids[b] for a, b in d["replace"].items()}
+        assert all(a in base["cards"] for a in swap), "deck %s: a card to replace is not in %s" % (d["name"], base["name"])
+        assert len(d["name"]) <= 18 and not any(x["name"] == d["name"] for x in game_decks + out), "deck name %s" % d["name"]
+        out.append(dict(base, id=len(game_decks) + len(out), name=d["name"],
+                        cards=[swap.get(i, i) for i in base["cards"]],
+                        custom=base["id"]))                # not a deck of the game: made from this one
+    return out
 
 
 def cards(game_cards):

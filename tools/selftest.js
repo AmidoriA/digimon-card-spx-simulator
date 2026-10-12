@@ -329,6 +329,18 @@ test('custom cards follow the 301 cards of the game and leave them as they are',
   assert.strictEqual(E.CARDS.filter((c) => c.custom == null).length, 301);
 });
 
+test('custom decks follow the 159 decks of the game; Black Fire Again is Black Fire Heart with BlackWarGreymon', () => {
+  const decks = E.DATA.decks, own = decks.filter((d) => d.custom != null);
+  assert.strictEqual(decks.filter((d) => d.custom == null).length, 159);
+  assert.deepStrictEqual(own.map((d) => d.id), own.map((d, k) => 159 + k));
+  decks.forEach((d, k) => assert.strictEqual(d.id, k));
+  const again = decks.find((d) => d.name === 'Black Fire Again'), heart = decks[again.custom];
+  assert.deepStrictEqual([heart.name, heart.owner, again.owner], ['Black Fire Heart', 'BK WarGreymon', 'BK WarGreymon']);
+  assert.ok(heart.cards.includes(byName('WarGreymon')) && !heart.cards.includes(byName('BlackWarGreymon')));
+  assert.deepStrictEqual(again.cards, heart.cards.map((id) => (id === byName('WarGreymon') ? byName('BlackWarGreymon') : id)));
+  assert.deepStrictEqual([again.rank, again.armor, again.bgm, again.bgm3d], [heart.rank, heart.armor, heart.bgm, heart.bgm3d]);
+});
+
 test('BlackWarGreymon (custom): +200 for each Darkness card in the own DP Slot; x3 against Nature', () => {
   const bw = C('BlackWarGreymon'), dark = E.CARDS.filter((c) => c.type === 'digimon' && c.spec === 3).map((c) => c.name);
   assert.deepStrictEqual([E.SPEC[bw.spec], E.LEVEL[bw.level], bw.dp, bw.pp], ['Fire', 'U', 60, 20]);
