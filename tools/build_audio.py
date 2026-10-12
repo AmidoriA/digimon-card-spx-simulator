@@ -5,8 +5,9 @@ Usage (venv python):  build_audio.py <extracted_dir> <web_dir> [--missing]
 With --missing only sound effects that have no file yet are rendered and the music is left
 alone (the Vorbis encoder does not give the same bytes twice).
 
-  web/assets/audio/bgm/NNN.ogg   battle themes named by the opponent decks (DECK2.DEK byte 104),
-                                 the two free-battle themes and the end-of-match jingles
+  web/assets/audio/bgm/NNN.ogg   battle themes named by the opponent decks (DECK2.DEK byte 104 for
+                                 the board, byte 105 for the 3D battle), the free-battle themes
+                                 and the end-of-match jingles
   web/assets/audio/se/XX.ogg     sound effects, XX = program*16 + tone in SE0.PAK
   web/js/data/audio.js           loop points and the sound list of every battle effect script
 
@@ -32,6 +33,7 @@ UI_SE = [0xA0, 0xA1, 0xA2, 0xA3, 0xA4]      # confirm, cancel, cursor, window op
 CARD_SE = [0xA5, 0xA6, 0xA7, 0xAA]
 JINGLES = [149, 150]                         # end of match (0x801f2a40)
 FREE_BATTLE = [143, 144]                     # 0x8f + rand % 2 when the opponent names no theme
+FREE_BATTLE_3D = [147, 148]                  # 0x93 + rand % 2, the 3D battle's theme likewise
 
 
 def write_ogg(path, pcm, quality=0.4):
@@ -84,11 +86,9 @@ def main():
 
     # ---- music
     dek = open(os.path.join(ext, "drv", "B", "DECK2.DEK"), "rb").read()
-    themes = set(FREE_BATTLE)
+    themes = set(FREE_BATTLE + FREE_BATTLE_3D)
     for i in range((len(dek) - 8) // 110):
-        b = dek[8 + i * 110 + 104]
-        if b:
-            themes.add(b)
+        themes.update(b for b in dek[8 + i * 110 + 104:8 + i * 110 + 106] if b)
     for bid in sorted(themes) + JINGLES:
         path = os.path.join(ext, "drv", "A", "BGM", "BGM%02d.PAK" % bid)
         seq, vab = P.load_bgm(open(path, "rb").read())

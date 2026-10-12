@@ -554,6 +554,8 @@
     el.textContent = String(ROLL.shown[p][k]);
     if (!ROLL.timer && ROLL.shown[p][k] !== target) { ROLL.last = performance.now(); ROLL.timer = setInterval(rollStep, 1000 / 60); }
   }
+  // resolves when no shown number is moving any more
+  function rolled() { return new Promise(function (res) { (function poll() { if (ROLL.timer) setTimeout(poll, 50); else res(); })(); }); }
   function rollClear(p) { for (var k = 0; k < 4; k++) { ROLL.shown[p][k] = 0; ROLL.target[p][k] = 0; } }
   function rollStep() {
     var now = performance.now(), frames = Math.min(Math.floor((now - ROLL.last) * 60 / 1000), 30), moving = false, tick = false, p, k, d, st;
@@ -1038,23 +1040,57 @@
     function mon(p) { var id = A.s[p].top >= 0 ? A.s[p].top : A.koShow[p]; return id >= 0 ? E.card(id).name : name(p); }
     // effect caused by the card now resolving (A.src), landing on player p's Digimon
     function fxs(n, p) { var src = A.src || { p: p, k: 0 }; fx(n, src.p, src.k, p, 0); }
-    function step() {
-      if (i >= evs.length || !live(tok)) return Promise.resolve();
-      var e = evs[i++], d = 300, c, prevTop = [A.s[0].top, A.s[1].top], prevSpec = [A.s[0].spec, A.s[1].spec];
-      // Polygon Battle: the attack is shown in 3D first, then its result on the board
-      if (e.t === 'attack' && B3D.enabled && !e.shown3d && prevTop[0] >= 0 && prevTop[1] >= 0) {
-        e.shown3d = true; i--;
-        c = E.card(prevTop[e.p]);
+    // The board's track, loaded at volume 0x7f. The switch back from the battle scene starts
+    // it again (0x8002e3f8); a no-op while it is the one playing.
+    function boardMusic() { if (live(tok)) SND.music(S.bgm[0], 0x7f); }
+    // The strikes of the turn in 3D. The board waits 60 frames and hands over once for the
+    // whole turn (state 0x22, 0x80038298): it does not come back between the strikes, and the
+    // second track, loaded at volume 0x64, plays from the switch (0x8002e26c) until the board
+    // is back. There the game plays no strike effect (those are for a battle shown on the
+    // board): after 60 frames it sets both HP to what the battle left and waits for the
+    // numbers to roll (state 0x23, 0x80038900).
+    function strikes3d() {
+      var k = i, end = i, before = A.s, first = true, said = [];
+      while (end < evs.length && (evs[end].t === 'attack' || evs[end].t === 'crash')) end++;
+      i = end;
+      function next() {
+        if (k >= end || !live(tok)) return Promise.resolve();
+        var e = evs[k++], s0 = before, more = evs.slice(k, end).some(function (x) { return x.t === 'attack'; });
+        if (e.s) before = e.s;
+        if (e.t === 'crash') { A.crashed[e.p] = true; log(E.card(s0[e.p].top).name + ' uses Crash.', who(e.p)); return next(); }
+        var c = E.card(s0[e.p].top), tgt = e.p ^ 1, countered = A.counterBy >= 0 && A.counterBy !== e.p;
         status(c.name + ': ' + c.atk[e.attack].name, '');
-        var tgt = e.p ^ 1, countered = A.counterBy >= 0 && A.counterBy !== e.p;
-        var o3 = { models: [E.card(prevTop[0]).model, E.card(prevTop[1]).model], attacker: e.p, first: A.tp, arena: S.arena, sound: SND.isEnabled(),
+        log(c.name + ' attacks with ' + c.atk[e.attack].name + ' for ' + e.dmg + (e.heal ? ' and recovers ' + e.heal : '') + '.', 'big ' + who(e.p));
+        said.push(c.name + ': ' + e.dmg + ' damage' + (e.heal ? ', recovers ' + e.heal + ' HP.' : '.'));
+        var o3 = { models: [E.card(s0[0].top).model, E.card(s0[1].top).model], attacker: e.p, first: A.tp, arena: S.arena, sound: SND.isEnabled(),
           script: c.atk[e.attack].script, hit: c.atk[e.attack].hit, attack: e.attack, name: c.atk[e.attack].name, specialty: c.spec,
           // director 0x801ee3d4: a countered attack shows its motion only, one that does no damage shows "Miss!!"
           mode: countered ? 'countered' : e.dmg === 0 ? 'zero' : 'normal',
-          hp: [e.s ? e.s[0].hp : 1, e.s ? e.s[1].hp : 1], hpBefore: A.s[tgt].hp, damage: e.dmg, heal: e.heal || 0, hpSelf: A.s[e.p].hp,
-          firstAttack: !A.shown3d && A.first !== A.tp, crash: !!A.crashed[e.p], counter: A.counterBy === e.p, x3: !!(A.x3 && A.x3[e.p] && e.attack === 2) };
-        A.shown3d = true;
-        return B3D.attack(o3).then(step);
+          hp: [before[0].hp, before[1].hp], hpBefore: s0[tgt].hp, damage: e.dmg, heal: e.heal || 0, hpSelf: s0[e.p].hp,
+          firstAttack: first && A.first !== A.tp, crash: !!A.crashed[e.p], counter: A.counterBy === e.p, x3: !!(A.x3 && A.x3[e.p] && e.attack === 2),
+          more: more, shown: function () { if (live(tok)) SND.music(S.bgm[1], 0x64); } };
+        first = false;
+        return B3D.attack(o3).then(next);
+      }
+      return sleep(1000).then(next).then(function () {
+        if (!live(tok)) return;
+        B3D.stop(); boardMusic();
+        status(said[0] || '', said[1] || '');
+        return sleep(1000);
+      }).then(function () {
+        if (!live(tok)) return;
+        A.s = before; A.glow = -1; A.hit = -1; A.floats = []; A.specHold = null;
+        render();
+        return rolled();
+      });
+    }
+    function step() {
+      if (i >= evs.length || !live(tok)) { boardMusic(); return Promise.resolve(); }
+      var e = evs[i++], d = 300, c, prevTop = [A.s[0].top, A.s[1].top], prevSpec = [A.s[0].spec, A.s[1].spec];
+      // Polygon Battle: the turn's strikes are shown in 3D, then their result on the board
+      if ((e.t === 'attack' || e.t === 'crash') && !A.board && prevTop[0] >= 0 && prevTop[1] >= 0) {
+        if (B3D.available()) { i--; return strikes3d().then(step); }
+        A.board = true;
       }
       if (e.s) A.s = e.s;
       A.glow = -1; A.hit = -1; A.floats = []; A.specHold = null;
@@ -1280,7 +1316,10 @@
     log(vb(S.G.tp, 'take') + ' the first turn.');
     window.scrollTo(0, 0);
     SND.init();
-    SND.music((!S.two && od.bgm) || 143 + Math.floor(Math.random() * 2)); // free battle: 0x8f + rand % 2
+    // the battle start (0x801f1aa8) loads two tracks, the board's and the 3D battle's: the ones
+    // the opponent's deck names, or in a free battle 0x8f + rand % 2 and 0x93 + rand % 2
+    S.bgm = [(!S.two && od.bgm) || 143 + Math.floor(Math.random() * 2), (!S.two && od.bgm3d) || 147 + Math.floor(Math.random() * 2)];
+    SND.music(S.bgm[0], 0x7f);
     runGame(S.token);
   }
 
