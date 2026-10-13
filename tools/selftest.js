@@ -329,7 +329,7 @@ test('custom cards follow the 301 cards of the game and leave them as they are',
   assert.strictEqual(E.CARDS.filter((c) => c.custom == null).length, 301);
 });
 
-const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon", "Gaomon", "Lunamon", "Syakomon", "Gaogamon", "Lekismon", "Octomon", "MachGaogamon", "Crescemon", "Dragomon", "Renamon", "Terriermon", "Lalamon", "Kyubimon", "Gargomon", "Sunflowmon", "Taomon", "Rapidmon", "Lilamon"];
+const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon", "Gaomon", "Lunamon", "Syakomon", "Gaogamon", "Lekismon", "Octomon", "MachGaogamon", "Crescemon", "Dragomon", "Renamon", "Terriermon", "Lalamon", "Kyubimon", "Gargomon", "Sunflowmon", "Taomon", "Rapidmon", "Lilamon", "Agumon (Black)", "Monodramon", "Dracmon", "Kurisarimon", "Strikedramon", "Sangloupmon", "MetalTyrannomon", "Cyberdramon", "Matadormon"];
 
 test('Time Stranger cards preserve their bases numbers and effects', () => {
   const names = TIME_STRANGER_NAMES;

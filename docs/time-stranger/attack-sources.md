@@ -70,3 +70,28 @@ field guide. Its disc placeholder model is retained per the owner's earlier deci
 - **Taomon (326)**: Talisman of Light / Hell Crusher II / Magic Field. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=taomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/taomon/).
 - **Rapidmon (327)**: Rapid Fire / Golden Triangle / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=rapidmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/rapidmon/).
 - **Lilamon (328)**: Lila Shower / Beauty Slap / Pollen Spray. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lilamon).
+| 329 | Agumon (Black) | Wolkenapalm I | 30011 | absent: bonus character | online character association only |
+| 329 | Agumon (Black) | Magic Bind | 32151 | absent: bonus character | online character association only |
+| 330 | Monodramon | Knuckle Beater | 24581 | char_MONODRAMON | [72] |
+| 330 | Monodramon | Comet Hammer I | 30161 | char_MONODRAMON | [108] |
+| 331 | Dracmon | Soul Fear I | 30304 | char_DRACUMON | [111] |
+| 332 | Kurisarimon | Shadow Fang II | 30282 | char_KURISARIMON | [108] |
+| 332 | Kurisarimon | Mental Break | 32221 | char_KURISARIMON | [111] |
+| 333 | Strikedramon | Crush Blade II | 30222 | char_STRIKEDRAMON | [108] |
+| 333 | Strikedramon | Heavy Strike II | 30312 | char_STRIKEDRAMON | [111] |
+| 334 | Sangloupmon | Nightmare II | 30292 | char_SANGLOUPMON | [114] |
+| 335 | MetalTyrannomon | Thunder Fall II | 30152 | char_METALTYRANNOMON | [108] |
+| 336 | Cyberdramon | Nanomachine Break II | 30132 | char_CYBERDRAMON | [108] |
+| 336 | Cyberdramon | Thunder Fall II | 30152 | char_CYBERDRAMON | [114] |
+
+## TS-104 sources and selected names
+
+- **Agumon (Black) (329)**: Pepper Breath / Wolkenapalm I / Magic Bind. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=agumon-black); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/agumon-black/).
+- **Monodramon (330)**: Crack Bite / Knuckle Beater / Comet Hammer I. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=monodramon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/monodramon/).
+- **Dracmon (331)**: Eye of Nightmares / Undead Fang / Soul Fear I. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dracumon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/dracmon/).
+- **Kurisarimon (332)**: Data Crusher / Shadow Fang II / Mental Break. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=chrysalimon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/kurisarimon/).
+- **Strikedramon (333)**: Fang Strike / Crush Blade II / Heavy Strike II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=strikedramon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/strikedramon/).
+- **Sangloupmon (334)**: Sticker Blade / Black Mind / Nightmare II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=sangloupmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/sangloupmon/).
+- **MetalTyrannomon (335)**: Giga Destroyerโ…ก / Nuclear Laser / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=metaltyranomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/metaltyrannomon/).
+- **Cyberdramon (336)**: Desolation Claw / Nanomachine Break II / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=cyberdramon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/cyberdramon/).
+- **Matadormon (337)**: Thousand Arrows / Bulldog / Earth-Shattering Stomp. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=matadrmon).

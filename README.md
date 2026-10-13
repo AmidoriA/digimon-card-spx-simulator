@@ -335,6 +335,15 @@ checked before every build. Rebuild with `build_custom.py <extracted> web art <i
 | 326 | Taomon | Nature / U | Angewomon (77) | 425 | card `BT5-041`, edit 326 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) |
 | 327 | Rapidmon | Nature / U | MagnaAngemon (75) | 426 | card `BT3-052`, edit 327 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) |
 | 328 | Lilamon | Nature / U | Lillymon (78) | 427 | card `BT4-059`, edit 328 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) |
+| 329 | Agumon (Black) | Darkness / R | Agumon (27) ✱ | 428 | card `BT8-058`, edit 329 | [468 · Virus](https://digimon.jsuk.cloud/en/d/agumon-black/) |
+| 330 | Monodramon | Darkness / R | Veemon (175) ✱ | 429 | card `BT1-009`, edit 330 | [037 · Vaccine](https://digimon.jsuk.cloud/en/d/monodramon/) |
+| 331 | Dracmon | Darkness / R | DemiDevimon (132) | 430 | card `ST6-04`, edit 331 | [070 · Virus](https://digimon.jsuk.cloud/en/d/dracmon/) |
+| 332 | Kurisarimon | Darkness / C | Bakemon (123) | 431 | card `BT2-059`, edit 332 | [178 · Unknown](https://digimon.jsuk.cloud/en/d/kurisarimon/) |
+| 333 | Strikedramon | Darkness / C | Darkrizamon (130) | 432 | card `EX2-032`, edit 333 | [093 · Vaccine](https://digimon.jsuk.cloud/en/d/strikedramon/) |
+| 334 | Sangloupmon | Darkness / C | Gururumon (126) | 433 | card `BT9-073`, edit 334 | [153 · Virus](https://digimon.jsuk.cloud/en/d/sangloupmon/) |
+| 335 | MetalTyrannomon | Darkness / U | MasterTyrannomon (8) ✱ | 434 | card `BT1-024`, edit 335 | [295 · Virus](https://digimon.jsuk.cloud/en/d/metaltyrannomon/) |
+| 336 | Cyberdramon | Darkness / U | Andromon (116) | 435 | card `EX3-050`, edit 336 | [210 · Vaccine](https://digimon.jsuk.cloud/en/d/cyberdramon/) |
+| 337 | Matadormon | Darkness / U | Myotismon (111) | 436 | card `BT9-077`, edit 337 | [290 · Virus](https://digimon.jsuk.cloud/en/d/matadormon/) |
 
 ### Local picture restoration (TS-004)
 

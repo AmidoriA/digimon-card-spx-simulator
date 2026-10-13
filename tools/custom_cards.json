@@ -1040,6 +1040,337 @@
      "sat": 0.75
     }
    }
+  ],
+  "ts-329-model": [
+   {
+    "hue": [
+     0,
+     180
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "sat": 0.05,
+     "val": 0.18
+    }
+   }
+  ],
+  "ts-329-fx": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": [
+      255,
+      280
+     ],
+     "sat": 0.8,
+     "val": 1
+    }
+   }
+  ],
+  "ts-330-model": [
+   {
+    "hue": [
+     170,
+     280
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 275,
+     "sat": 0.65,
+     "val": 0.9
+    }
+   },
+   {
+    "hue": [
+     0,
+     90
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 50,
+     "sat": 0.85
+    }
+   }
+  ],
+  "ts-330-fx": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": [
+      255,
+      280
+     ],
+     "sat": 0.8,
+     "val": 1
+    }
+   }
+  ],
+  "ts-331-model": [
+   {
+    "hue": [
+     175,
+     280
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 220,
+     "sat": 0.8,
+     "val": 0.8
+    }
+   },
+   {
+    "hue": [
+     25,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.8
+    }
+   }
+  ],
+  "ts-332-model": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0,
+     0.3
+    ],
+    "to": {
+     "hue": 255,
+     "sat": [
+      0,
+      0.5
+     ],
+     "val": 0.45
+    }
+   }
+  ],
+  "ts-333-model": [
+   {
+    "hue": [
+     0,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 20,
+     "sat": 0.5,
+     "val": 1.2
+    }
+   },
+   {
+    "hue": [
+     175,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 240,
+     "sat": 0.25,
+     "val": 0.8
+    }
+   }
+  ],
+  "ts-334-model": [
+   {
+    "hue": [
+     170,
+     290
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 275,
+     "sat": 0.75,
+     "val": 0.55
+    }
+   },
+   {
+    "hue": [
+     0,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 275,
+     "sat": 0.65,
+     "val": 0.7
+    }
+   }
+  ],
+  "ts-335-model": [
+   {
+    "hue": [
+     0,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 225,
+     "sat": 0.1,
+     "val": 1.5
+    }
+   },
+   {
+    "hue": [
+     170,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 220,
+     "sat": 0.15,
+     "val": 1.2
+    }
+   }
+  ],
+  "ts-335-fx": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": [
+      255,
+      280
+     ],
+     "sat": 0.8,
+     "val": 1
+    }
+   }
+  ],
+  "ts-336-model": [
+   {
+    "hue": [
+     0,
+     90
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 280,
+     "sat": 0.6,
+     "val": 0.65
+    }
+   },
+   {
+    "hue": [
+     170,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 265,
+     "sat": 0.45,
+     "val": 0.8
+    }
+   }
+  ],
+  "ts-337-model": [
+   {
+    "hue": [
+     0,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.85
+    }
+   },
+   {
+    "hue": [
+     80,
+     175
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.8
+    }
+   },
+   {
+    "hue": [
+     175,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 275,
+     "sat": 0.5,
+     "val": 0.6
+    }
+   }
   ]
  },
  "decks": [
@@ -3148,6 +3479,700 @@
       430
      ],
      "edited": "edited/ts002/328.png"
+    }
+   }
+  },
+  {
+   "id": 329,
+   "name": "Agumon (Black)",
+   "base": 27,
+   "spec": "Darkness",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 570,
+   "attacks": [
+    {
+     "name": "Pepper Breath",
+     "power": 380
+    },
+    {
+     "name": "Wolkenapalm I",
+     "power": 200
+    },
+    {
+     "name": "Magic Bind",
+     "power": 120
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 4,
+      "v": [
+       0,
+       0,
+       5
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own ○ Attack Power +300."
+   },
+   "model": {
+    "number": 428,
+    "recolour": "ts-329-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT8-058",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/329.png"
+    }
+   },
+   "battle": {
+    "offset": 20000,
+    "recolour": "ts-329-fx",
+    "accent": "dark"
+   }
+  },
+  {
+   "id": 330,
+   "name": "Monodramon",
+   "base": 175,
+   "spec": "Darkness",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 550,
+   "attacks": [
+    {
+     "name": "Crack Bite",
+     "power": 350
+    },
+    {
+     "name": "Knuckle Beater",
+     "power": 280
+    },
+    {
+     "name": "Comet Hammer I",
+     "power": 200
+    }
+   ],
+   "xfx": "None",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       1
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own Attack Power +100. Draw 1 Card."
+   },
+   "model": {
+    "number": 429,
+    "recolour": "ts-330-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT1-009",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/330.png"
+    }
+   },
+   "battle": {
+    "offset": 30000,
+    "recolour": "ts-330-fx",
+    "accent": "dark"
+   }
+  },
+  {
+   "id": 331,
+   "name": "Dracmon",
+   "base": 132,
+   "spec": "Darkness",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 490,
+   "attacks": [
+    {
+     "name": "Eye of Nightmares",
+     "power": 360
+    },
+    {
+     "name": "Undead Fang",
+     "power": 200
+    },
+    {
+     "name": "Soul Fear I",
+     "power": 190
+    }
+   ],
+   "xfx": "Nature Foe x3",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       2,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       2,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       2,
+       0
+      ],
+      "m1": 0,
+      "m2": 2
+     }
+    ],
+    "text": "If opponent's Specialty is Nature, own Attack Power is doubled."
+   },
+   "model": {
+    "number": 430,
+    "recolour": "ts-331-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "ST6-04",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/331.png"
+    }
+   }
+  },
+  {
+   "id": 332,
+   "name": "Kurisarimon",
+   "base": 123,
+   "spec": "Darkness",
+   "level": "C",
+   "dp": 30,
+   "pp": 10,
+   "hp": 860,
+   "attacks": [
+    {
+     "name": "Data Crusher",
+     "power": 450
+    },
+    {
+     "name": "Shadow Fang II",
+     "power": 270
+    },
+    {
+     "name": "Mental Break",
+     "power": 170
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 0,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       3
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Change own Specialty to Darkness."
+   },
+   "model": {
+    "number": 431,
+    "recolour": "ts-332-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT2-059",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/332.png"
+    }
+   }
+  },
+  {
+   "id": 333,
+   "name": "Strikedramon",
+   "base": 130,
+   "spec": "Darkness",
+   "level": "C",
+   "dp": 30,
+   "pp": 10,
+   "hp": 890,
+   "attacks": [
+    {
+     "name": "Fang Strike",
+     "power": 330
+    },
+    {
+     "name": "Crush Blade II",
+     "power": 440
+    },
+    {
+     "name": "Heavy Strike II",
+     "power": 30
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 16,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 17,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Both players use ○."
+   },
+   "model": {
+    "number": 432,
+    "recolour": "ts-333-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX2-032",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/333.png"
+    }
+   }
+  },
+  {
+   "id": 334,
+   "name": "Sangloupmon",
+   "base": 126,
+   "spec": "Darkness",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1040,
+   "attacks": [
+    {
+     "name": "Sticker Blade",
+     "power": 470
+    },
+    {
+     "name": "Black Mind",
+     "power": 340
+    },
+    {
+     "name": "Nightmare II",
+     "power": 100
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 16,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       1
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 17,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       1
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Both players use △."
+   },
+   "model": {
+    "number": 433,
+    "recolour": "ts-334-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT9-073",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/334.png"
+    }
+   }
+  },
+  {
+   "id": 335,
+   "name": "MetalTyrannomon",
+   "base": 8,
+   "spec": "Darkness",
+   "level": "U",
+   "dp": 50,
+   "pp": 20,
+   "hp": 1280,
+   "attacks": [
+    {
+     "name": "Giga Destroyerโ…ก",
+     "power": 850
+    },
+    {
+     "name": "Nuclear Laser",
+     "power": 520
+    },
+    {
+     "name": "Thunder Fall II",
+     "power": 370
+    }
+   ],
+   "xfx": "Ice Foe x3",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       2,
+       0
+      ],
+      "m1": 0,
+      "m2": 2
+     }
+    ],
+    "text": "If own Specialty is Fire, own Attack Power is doubled."
+   },
+   "model": {
+    "number": 434,
+    "recolour": "ts-335-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT1-024",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/335.png"
+    }
+   },
+   "battle": {
+    "offset": 40000,
+    "recolour": "ts-335-fx",
+    "accent": "dark"
+   }
+  },
+  {
+   "id": 336,
+   "name": "Cyberdramon",
+   "base": 116,
+   "spec": "Darkness",
+   "level": "U",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1700,
+   "attacks": [
+    {
+     "name": "Desolation Claw",
+     "power": 690
+    },
+    {
+     "name": "Nanomachine Break II",
+     "power": 590
+    },
+    {
+     "name": "Thunder Fall II",
+     "power": 150
+    }
+   ],
+   "xfx": "None",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       2,
+       0
+      ],
+      "m1": 0,
+      "m2": 3
+     },
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Own HP are halved. Boost own Attack Power +400."
+   },
+   "model": {
+    "number": 435,
+    "recolour": "ts-336-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX3-050",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/336.png"
+    }
+   }
+  },
+  {
+   "id": 337,
+   "name": "Matadormon",
+   "base": 111,
+   "spec": "Darkness",
+   "level": "U",
+   "dp": 50,
+   "pp": 20,
+   "hp": 1100,
+   "attacks": [
+    {
+     "name": "Thousand Arrows",
+     "power": 650
+    },
+    {
+     "name": "Bulldog",
+     "power": 400
+    },
+    {
+     "name": "Earth-Shattering Stomp",
+     "power": 300
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 48,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       500
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Digimon KO'd in battle revives with 500 HP. Battle is still lost."
+   },
+   "model": {
+    "number": 436,
+    "recolour": "ts-337-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT9-077",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/337.png"
     }
    }
   }
