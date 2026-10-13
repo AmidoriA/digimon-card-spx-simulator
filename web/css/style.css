@@ -232,6 +232,25 @@ button, input, select { font: inherit; color: inherit; }
 .ap-fx.none { color: rgba(255, 255, 255, .55); font-weight: 700; }
 .ap-set { background: #5a5a00; color: #c9c94a; font: 900 24px/1 var(--game); letter-spacing: .12em; writing-mode: vertical-rl; display: grid; place-items: center; }
 
+/* Mobile attack controls use CSS pixels, independent of the scaled game board. */
+.attack-picker { display: none; width: 100%; max-width: 640px; }
+.attack-picker h2 { color: var(--accent); margin-bottom: 4px; }
+.attack-picker-mon { font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
+.attack-picker-note { color: var(--ink-2); font-size: 13px; margin-top: 8px; }
+.attack-picker-list { display: grid; gap: 8px; margin-top: 12px; }
+.attack-choice { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 10px; width: 100%; min-height: 64px; padding: 10px 12px; border: 1px solid var(--line-2); border-left: 4px solid var(--attack-color); border-radius: 8px; background: var(--panel-2); color: var(--ink); text-align: left; cursor: pointer; touch-action: manipulation; }
+.attack-choice.a0 { --attack-color: #ff8a80; }
+.attack-choice.a1 { --attack-color: #7dea86; }
+.attack-choice.a2 { --attack-color: #9aa6ff; }
+.attack-choice:active { background: var(--bg-2); border-color: var(--attack-color); }
+.attack-choice:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.attack-choice > .sym { font-size: 24px; text-align: center; margin: 0; }
+.attack-choice-detail { display: grid; gap: 4px; min-width: 0; overflow-wrap: anywhere; }
+.attack-choice-name { font-size: 16px; font-weight: 700; }
+.attack-choice-effect { color: var(--ink-2); font-size: 13px; line-height: 1.4; }
+.attack-choice-power { font: 700 22px/1.2 var(--mono); text-align: right; }
+.attack-choice-power small { display: block; color: var(--ink-2); font: 11px var(--sans); }
+
 .sym { font-family: var(--sans); font-weight: 900; font-size: 1.15em; margin: 0 .12em; }
 .sym.s0 { color: #ff8a80; } .sym.s1 { color: #7dea86; } .sym.s2 { color: #9aa6ff; }
 
@@ -453,6 +472,7 @@ mark { background: rgba(255, 178, 36, .32); color: var(--ink); border-radius: 2p
   .setup-foot .start-note { flex-basis: 100%; order: -1; text-align: left; }
   .setup-foot .start-note:empty, .setup-foot .random-label { display: none; }
   .gamewrap { flex-direction: column; align-items: center; justify-content: flex-start; padding: 6px; min-height: 0; }
+  .attack-picker { display: block; }
   .rail { width: 100%; max-width: 640px; position: static; max-height: 260px; }
   .setup-grid { grid-template-columns: 1fr 1fr; }
   .setup-grid .preview { grid-column: 1 / -1; }

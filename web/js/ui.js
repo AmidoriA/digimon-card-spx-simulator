@@ -717,7 +717,7 @@
         pn.appendChild(dot); pn.appendChild(document.createTextNode(c.name + ' · ' + E.LEVEL[c.level]));
         pn.title = c.name + ' — ' + E.SPEC[v.spec] + ', level ' + E.LEVEL[c.level];
         dyn.appendChild(box(pn, L.pname[p].x, L.pname[p].y, L.pname[p].w, L.pname[p].h));
-        var choosing = p === S.actor && S.step === 'attack' && S.resolve && !A;
+        var choosing = p === S.actor && S.step === 'attack' && S.resolve && !A && !compactSetup.matches;
         for (i = 0; i < 3; i++) {
           var bar = h(choosing ? 'button' : 'div', 'bar a' + i);
           bar.appendChild(h('span', 'ic', E.ATK[i]));
@@ -756,12 +756,14 @@
         if (mv.flip) flip(el); else slide(el, L.sup[p], mv.sup);
       }
     }
-    if (S.step === 'attack' && S.resolve && !A && !S.viewCards) attackPanel(dyn);
+    if (S.step === 'attack' && S.resolve && !A && !S.viewCards && !compactSetup.matches) attackPanel(dyn);
+    renderMobileAttackPicker();
     if (A) A.floats.forEach(function (f) {
       var fe = h('div', 'float' + (f.heal ? ' heal' : ''), f.text);
       dyn.appendChild(box(fe, L.mon[f.p].x - 6, L.mon[f.p].y + 10));
     });
     renderActions();
+    fit();
   }
 
   // The game's attack panel: the three attacks of your Digimon with their powers and
@@ -794,6 +796,32 @@
   }
   function bindAttack(el, i) { el.onclick = function () { act({ t: 'attack', k: i }); }; }
 
+  // Browser layout: keep tap targets outside the board's scale on small screens.
+  function renderMobileAttackPicker() {
+    var picker = clear($('attackPicker'));
+    picker.hidden = !compactSetup.matches || !S.G || S.step !== 'attack' || !S.resolve || !!S.anim;
+    if (picker.hidden) return;
+    var P = S.G.players[S.actor], c = E.top(P), foe = E.top(S.G.players[S.actor ^ 1]);
+    var title = h('h2', null, 'Choose an attack'); title.id = 'attackPickerTitle';
+    picker.appendChild(title);
+    picker.appendChild(h('p', 'attack-picker-mon', name(S.actor) + ' · ' + c.name));
+    if (S.two) picker.appendChild(h('p', 'attack-picker-note', name(S.actor ^ 1) + ', look away!'));
+    var list = h('div', 'attack-picker-list');
+    for (var i = 0; i < 3; i++) {
+      var button = h('button', 'attack-choice a' + i); button.type = 'button';
+      button.appendChild(h('span', 'sym s' + i, E.ATK[i]));
+      var detail = h('span', 'attack-choice-detail');
+      detail.appendChild(h('span', 'attack-choice-name', c.atk[i].name));
+      if (i === 2) detail.appendChild(rich(h('span', 'attack-choice-effect'), c.xfx ? E.XFX[c.xfx] + ': ' + XFX_HELP[c.xfx] : 'No special effect'));
+      button.appendChild(detail);
+      var power = h('span', 'attack-choice-power', String(P.active.base[i]));
+      power.appendChild(h('small', null, 'Power')); button.appendChild(power);
+      bindAttack(button, i); list.appendChild(button);
+    }
+    picker.appendChild(list);
+    picker.appendChild(rich(h('p', 'attack-picker-note'), 'Opponent’s ' + E.ATK[2] + ': ' + (foe.xfx ? E.XFX[foe.xfx] : 'No special effect')));
+  }
+
   function gbtn(label, fn, alt, disabled) {
     var b = h('button', 'gbtn' + (alt ? ' alt' : ''), label);
     b.onclick = fn; b.disabled = !!disabled;
@@ -811,7 +839,7 @@
       case 'target': add('Cancel', { t: 'skip' }, true); break;
       case 'evo': add('Done', { t: 'skip' }); break;
       case 'attack':
-        bx.appendChild(gbtn(S.viewCards ? 'Back to Attacks' : 'View Cards', function () { S.viewCards = !S.viewCards; render(); }, true));
+        if (!compactSetup.matches) bx.appendChild(gbtn(S.viewCards ? 'Back to Attacks' : 'View Cards', function () { S.viewCards = !S.viewCards; render(); }, true));
         break;
       case 'support':
         add('No Support Card', { t: 'support', choice: -1 }, true);
@@ -856,6 +884,7 @@
     var r = S.resolve;
     if (!r) return;
     S.resolve = null; $('info').hidden = true;
+    renderMobileAttackPicker();
     SND.se(x.t === 'skip' && S.step === 'target' ? SE.CANCEL : SE.OK);
     r(x);
   }
@@ -1335,7 +1364,7 @@
   function fit() {
     if ($('game').hidden) return;
     var narrow = window.innerWidth <= 900;
-    var availW = window.innerWidth - (narrow ? 12 : 290 + 44);
+    var availW = document.documentElement.clientWidth - (narrow ? 12 : 290 + 44);
     var availH = narrow ? Infinity : window.innerHeight - 20;
     var k = Math.max(0.2, Math.min(availW / 1280, availH / 960));
     $('stage').style.transform = 'scale(' + k + ')';
@@ -1370,6 +1399,7 @@
   function fitSetupSettings() { $('setupSettings').open = !compactSetup.matches; }
   fitSetupSettings();
   compactSetup.addEventListener('change', fitSetupSettings);
+  compactSetup.addEventListener('change', function () { if (S.G) render(); });
   $('opFilter').oninput = renderSetup;
   Array.prototype.forEach.call($('previewTabs').children, function (b) { b.onclick = function () { S.previewSide = b.dataset.side; renderSetup(); }; });
   $('btnRandom').onclick = function () { S.op = OP_DECKS[Math.floor(Math.random() * OP_DECKS.length)].id; S.previewSide = 'op'; renderSetup(); };
