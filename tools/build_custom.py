@@ -65,6 +65,19 @@ def do_fx(ext, web, c, base, rules):
                 c["name"], sid + b["offset"], sid, len(index["tims"]), len(index["models"])))
 
 
+def new_art_source(ext, entry):
+    """Resolve one modern picture; file coordinates retain the existing behaviour."""
+    from PIL import Image
+    kinds = [key for key in ('file', 'card', 'ref') if key in entry]
+    if len(kinds) != 1:
+        raise ValueError('art.new needs exactly one of file, card or ref')
+    if kinds[0] in ('card', 'ref'):
+        import build_new_art
+        return build_new_art.source(entry, os.path.join(ext, 'newart'))
+    x, y, size = entry['crop']
+    return Image.open(os.path.join(HERE, entry['file'])).convert('RGB').crop((x, y, x + size, y + size))
+
+
 def do_art(ext, web, c, base, rules):
     import comfy
     import tim
@@ -79,8 +92,7 @@ def do_art(ext, web, c, base, rules):
         im.save(os.path.join(web, "assets", folder, name), "WEBP", quality=88, method=6)
     new = art.get("new")
     if new:                                        # as build_new_art.py does for the game's cards
-        x, y, s = new["crop"]
-        src = Image.open(os.path.join(HERE, new["file"])).convert("RGB").crop((x, y, x + s, y + s))
+        src = new_art_source(ext, new)
         up = comfy.upscale(src, ua.MODEL, "custom_new_%03d" % c["id"])
         up.resize((512, 512), Image.LANCZOS).save(os.path.join(web, "assets", "art2", name), "WEBP", quality=88, method=6)
         src.resize((160, 160), Image.LANCZOS).save(os.path.join(web, "assets", "mini2", name), "WEBP", quality=88, method=6)

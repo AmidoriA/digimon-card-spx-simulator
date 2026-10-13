@@ -290,6 +290,8 @@ BlackWarGreymon. Black Fire Heart itself is as the game has it.
   `B/M_CARD.ARC`) recoloured and enlarged 4x through ComfyUI like the other cards'; for
   "New card art" a square of a picture supplied by the owner (`tools/custom/`).
 
+Custom picture sources (`art.new`) accept exactly one of `file` + `crop` (a picture under `tools/`, with native pixel coordinates), `card` + `crop` (the official Digimon Card Game card number, normalized to 430×600), or `ref` (the official Digimon Reference Book slug). For example, `{"card":"BT2-009","crop":[85,90,320]}` or `{"ref":"crescemon"}`. The internet forms reuse `build_new_art.source` and cache downloads in `extracted/newart/cards` or `ref`; they go through the same ComfyUI 4× upscale and 512×512/160×160 output as file sources. Selecting a source does not itself create a custom card.
+
 ## Sound
 
 Music and effects are rendered offline from the disc's own data by `tools/build_audio.py`.

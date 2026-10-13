@@ -20,6 +20,11 @@ README lists every custom card under "Not from the game code".
                                      copied under their number + offset
      "art":    {"recolour": name,                     the game's pictures of the base, recoloured
                 "new": {"file": "custom/x.png", "crop": [x, y, size]}}   picture for "New card art"
+                or new: {"card": "BT2-009", "crop": [x, y, size]}        official card-list image
+                or new: {"ref": "crescemon"}                            official Reference Book image
+                                     Choose exactly one source. File crops use native pixels;
+                                     card crops use the normalized 430x600 image. Internet
+                                     sources cache under <extracted_dir>/newart.
    }],
    "decks": [{                      a deck of the game with some of its cards exchanged; it
      "name": "Black Fire Again",    follows the game's 159 decks and keeps the owner, the rank,

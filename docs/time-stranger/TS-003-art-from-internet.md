@@ -26,10 +26,10 @@ A custom card's "New card art" can come from the card list or the Reference Book
 
 ## Acceptance criteria
 
-- [ ] BlackWarGreymon's `art/301.webp`, `art2/301.webp` and `mini2/301.webp` are unchanged (byte for byte, or the same pixels if WebP encoding differs).
-- [ ] A test entry with `card` and one with `ref` build (try it on a scratch card, do not commit it).
-- [ ] README "Custom cards" says where custom pictures can come from.
-- [ ] `python tools/check_paths.py` passes.
+- [x] BlackWarGreymon's `art/301.webp`, `art2/301.webp` and `mini2/301.webp` are unchanged (byte for byte, or the same pixels if WebP encoding differs).
+- [x] A test entry with `card` and one with `ref` build (try it on a scratch card, do not commit it).
+- [x] README "Custom cards" says where custom pictures can come from.
+- [x] `python tools/check_paths.py` passes.
 
 ## Out of scope
 
@@ -42,3 +42,6 @@ A custom card's "New card art" can come from the card list or the Reference Book
 ## Log
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
+
+- 2026-10-13: `build_custom.new_art_source` now accepts exactly one of file/card/ref; internet inputs share `build_new_art.source` and its download cache. The file source keeps its existing native crop path and output settings. Documented source formats in `custom.py`, README Custom cards, and the create-card skill.
+- 2026-10-13: Ran the actual old and new builders on BlackWarGreymon into ignored scratch folders: all four decoded outputs (art, mini, art2, mini2) were identical. Built uncommitted scratch cards 998 (`card BT2-009` with crop) and 999 (`ref crescemon`) through local RealESRGAN_x4plus; verified 512×512 and 160×160 new-art outputs and inspected them. No existing generated assets or card records changed. `tools/check_paths.py` passed.

@@ -116,13 +116,23 @@ tools/.venv/Scripts/python tools/custom_look.py art extracted 2 blackwargreymon-
 ```
 
 The picture has a background, so a rule for the model usually takes too much here: write a
-separate, narrower recolour. `art.new` names a picture in `tools/custom/` and the square of
-it to use for "New card art"; use one the owner gave, and ask if there is none. Then, with
-ComfyUI running at `http://127.0.0.1:8188`:
+separate, narrower recolour. `art.new` can name a supplied file or an official internet
+picture; see "Pictures from the internet" below. File paths are relative to `tools/`. Then,
+with ComfyUI running at `http://127.0.0.1:8188`:
 
 ```bash
 tools/.venv/Scripts/python tools/build_custom.py extracted web art
 ```
+
+### Pictures from the internet
+
+Use exactly one source in `art.new`:
+
+- `{"file":"custom/x.png","crop":[x,y,size]}` retains native file coordinates.
+- `{"card":"BT2-009","crop":[85,90,320]}` downloads the official card-list picture and uses coordinates in its normalized 430×600 image.
+- `{"ref":"crescemon"}` uses the official Reference Book picture when no suitable card illustration is available.
+
+Downloads are cached under `<extracted_dir>/newart/cards` or `ref`; the existing ComfyUI upscaling/output process is shared. Verify species/colour aliases visually, inspect every crop, keep SAMPLE outside the selected picture, and record sources and edits in the roster/README. `tools/time_stranger_art.json` holds the TS-002 selections; local ComfyUI recipes are in `tools/new_art_edits.json`. The reusable `digimon-card-art` skill describes search and cleanup.
 
 ## 6. Everything, and the checks
 
