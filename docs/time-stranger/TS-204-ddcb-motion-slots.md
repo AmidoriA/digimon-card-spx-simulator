@@ -114,3 +114,11 @@ README under "Not from the game code", Polygon Battle gaps):
 - The entrance (script 999, slot 7) is not played (already listed under staging).
 - Omnimon II (card 35) names hit scripts 2011 and 497, which are not in its model's file
   (`F/180.PAK`) nor in `E/SKILL`; what the game does then was not read.
+
+### 2026-10-14
+
+The roster changed after the table was made: card 329 is now Keramon on the base Tsukaimon
+(135, model 96), which the table did not have. `motion-slots.md` was written again from the
+current roster and now holds its 44 bases; nothing else in it changed, and
+`motion-slots.json` already had every card model. Run the command above again whenever a
+base in `roster.md` changes.
