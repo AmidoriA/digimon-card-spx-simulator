@@ -41,9 +41,7 @@ Know how Time Stranger stores its files and get a working copy of what the model
 
 ## Decisions
 
-- 2026-10-13, the owner: models converted from Time Stranger (`web/assets/models/401-445`)
-  are committed to this repository and published on GitHub Pages like the disc's models.
-  The unpacked Time Stranger files (`extracted_ts/`) stay out of git.
+- 2026-10-13, the owner: models converted from Time Stranger (`web/assets/models/401-445`) are committed to this repository and published on GitHub Pages like the disc's models. The unpacked Time Stranger files (`extracted_ts/`) stay out of git.
 
 ## Log
 

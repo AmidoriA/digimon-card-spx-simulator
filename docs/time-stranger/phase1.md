@@ -34,7 +34,8 @@ recolour.
 ## Art
 
 - `art.recolour`: the base's two game pictures recoloured, for "Legacy" card art.
-- `art.new`: the picture from TS-002 (`card` + `crop`, or `ref`; TS-003).
+- `art.new`: the picture from TS-002 (`card` + `crop`, or `ref`; TS-003), or its ComfyUI-edited
+  version (TS-004) where the row in roster.md says it was edited.
 
 ## Tests
 

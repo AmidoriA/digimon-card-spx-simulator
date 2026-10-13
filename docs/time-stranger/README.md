@@ -8,9 +8,9 @@ tickets so the work can be tracked.
 
 | Phase | What | Needs |
 |---|---|---|
-| 0 Groundwork | Confirm the roster, find the pictures, let custom cards take a picture from the internet | Internet |
+| 0 Groundwork | Confirm the roster, find the pictures and clean them, let custom cards take a picture from the internet | Internet, ComfyUI |
 | 1 Cards | 45 cards with placeholder models (their base recoloured), playable at once | `extracted/`, ComfyUI |
-| 2 Models | Time Stranger's own models, converted to the game's format | The owner's Time Stranger install, the REA skill |
+| 2 Models | Time Stranger's own models, converted to the game's format | The owner's Time Stranger install, the REA skill, ComfyUI for textures |
 | 3 Decks | 15 custom decks, one per new Ultimate | Phase 1 |
 
 Phase 2 can start alongside Phase 1 (TS-201 … TS-206 need no card); TS-207 needs Guilmon
@@ -52,8 +52,9 @@ Phase 2 can start alongside Phase 1 (TS-201 … TS-206 need no card); TS-207 nee
 | ID | Title | Phase | Depends on | Status |
 |---|---|---|---|---|
 | [TS-001](TS-001-verify-roster.md) | Verify the roster against Time Stranger | 0 Groundwork | none | todo |
-| [TS-002](TS-002-find-pictures.md) | Find each card's picture | 0 Groundwork | TS-001 | todo |
+| [TS-002](TS-002-find-pictures.md) | Find each card's picture | 0 Groundwork | TS-001, TS-004 | todo |
 | [TS-003](TS-003-art-from-internet.md) | Let `art.new` take a card-list or Reference Book picture | 0 Groundwork | none | todo |
+| [TS-004](TS-004-comfyui-editing.md) | Picture editing through the local ComfyUI | 0 Groundwork | none | todo |
 | [TS-101](TS-101-fire-cards.md) | Fire cards (302-310) | 1 Cards | TS-001, TS-002, TS-003 | todo |
 | [TS-102](TS-102-ice-cards.md) | Ice cards (311-319) | 1 Cards | TS-001, TS-002, TS-003, TS-101 | todo |
 | [TS-103](TS-103-nature-cards.md) | Nature cards (320-328) | 1 Cards | TS-001, TS-002, TS-003, TS-101 | todo |

@@ -23,7 +23,8 @@ Turn a Time Stranger model into a DDCB model file (`web/assets/models/NNN.*`) th
 2. Decimate the mesh to the base's triangle count, keeping UV seams.
 3. Bake the textures into one sheet no larger than 256x128, quantised to the palette size the format uses, at most 12 rows; split triangles that cross palette regions as the disc models do.
 4. Scale and turn the model to the base's height and facing (base's bounding box in its idle pose).
-5. Write the bind pose as a one-key motion in all 8 slots for now.
+5. Where the reduced texture loses detail that reads at 320x240 (eyes, markings) or shows seams, touch it up through ComfyUI (TS-004) before quantising; log each edit.
+6. Write the bind pose as a one-key motion in all 8 slots for now.
 
 ## Acceptance criteria
 
