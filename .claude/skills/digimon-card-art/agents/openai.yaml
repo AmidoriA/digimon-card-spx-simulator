@@ -1,0 +1,4 @@
+interface:
+  display_name: "Digimon Card Art"
+  short_description: "Find official art and replay ComfyUI card cleanup"
+  default_prompt: "Use $digimon-card-art to find and clean official artwork for the requested Digimon cards."
