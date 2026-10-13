@@ -71,6 +71,7 @@ with progress (goal, context, steps) and what is found (the Log).
 - [roster.md](roster.md): the 45 cards: names, bases, numbers, sources.
 - [decks.md](decks.md): the 15 decks.
 - [phase1.md](phase1.md), [phase3.md](phase3.md): rules shared by the tickets of a phase.
+- [motion-slots.md](motion-slots.md), `motion-slots.json`: what the eight motions of each base last and when its scripts start them (TS-204; written by `tools/motion_slots.py`).
 - `TS-*.md`: one file per ticket, linked to its Trello card.
 
 ## Board

@@ -429,6 +429,54 @@ scripts, then camera and arenas.
   from its current pose to the key over twice the duration, in two halves of constant
   acceleration aimed at the speed the next key needs (`0x80022100`, `0x80021aa8`,
   `0x80021c18`). Part rotation is `Ry·Rx·Rz` (`0x8005cbc4`, checked in the emulator).
+- **The eight motion slots.** A motion's chunk number in the Digimon's file is all the code
+  knows it by (the table at `0x2220` of the model's block, filled by `0x80023094`). Only one
+  is unpacked at a time: starting another frees it and unpacks the new one (`0x8002daac`).
+
+  | Slot | What | Started by | Where |
+  |---|---|---|---|
+  | 0 | Standing | The director: for the Digimon a script is about to play on; for the attacker when the hit script is over; for a target left alive; for an attack that does no damage; when the entrance is over. The scripts: `b.2 [0]`, which the attack scripts end with | `0x801ee00c`; `0x801ee86c`, `0x801ee9ec`; `0x801ee904`, `0x801eea8c`, `0x801eeabc`; `0x801eee50`; `0x801ed934` |
+  | 1, 2, 3 | The card's first, second and third attack | The attack script (`b.2 [1]` … `[3]`, at frame 1 of the script for 563 of the 573 attacks). For an attack that is countered, which has no script, the director: attack number + 1 | interpreter `0x801e8920`; `0x801ee774` → `0x801eebec` |
+  | 4 | Damage | The hit script, which plays on the target (`b.2 [4]`) | interpreter `0x801e8920` |
+  | 5 | KO | Nothing names it: `b.2 [4]` starts 5 when the Digimon's HP (`0x801ef9a4`) is 0 or less | `0x801e892c` … `0x801e896c` |
+  | 6 | Victory | The director, for the winner, shown alone | `0x801eeb0c` |
+  | 7 | Entrance | Script 999 of `A/BATTLE.PAK` (`b.1 [7]` takes its first pose, `b.2 [7]` starts it), which the director plays on each Digimon in turn when the battle opens. It is also the one motion unpacked when a model is loaded, and the pose the model is given then | `0x801ee4e8`, `0x801ee6b8`; loader `0x8002de18` … `0x8002de54` |
+
+  No other number is ever passed: every battle script (those in `F`, `E` and
+  `A/BATTLE.PAK`) was searched for `b.1` and `b.2`, and every call of the start routine in
+  the main program and the seven overlays was read (the
+  evolution scene, the opening, the arenas and the effect models start motion 0 or 1 of
+  their own models).
+- **How long a motion lasts.** The start (`0x80022d34`) aims the model at key 0 from the pose
+  it is in, over 2 × that key's duration: a lead in which it blends in. Then the motion task
+  (`0x80022b98`) takes the keys in turn, key 0 once more first, each over 2 × its duration. So
+  a motion lasts 2 × d0 + Σ 2 × d frames; Agumon's first attack, whose keys add up to 216,
+  takes 240 (the routines were run in the emulator on the disc's motions to check this).
+  After the last key the motion goes on at the key named in the last field of key 0's first
+  record (`0x80022d88`), or stops in its last pose when that is -1. Of the 190 card models,
+  standing loops from key 0 in all but three (Agumon's is one that does not), victory loops
+  in 156, mostly from a later key, two third attacks loop, and nothing else does. Starting a
+  motion always starts it from its first key, also when it is the one playing (`0x8002daac`
+  only skips unpacking it again). A hidden model is not moved on (`0x80022bd0`).
+- **What a key holds besides the pose.** Its sound (the number + 1, 0 for none) is played
+  with the sound call `0x8002b498` when the model starts towards the key (`0x80022184`), so
+  key 0's sound is heard twice, at the start and at the end of the lead; 30 motions have one
+  there. The record after the last part is the camera's (see *Camera* below); it is eased
+  like a part's. Of each record the setup reads the rotation, the show flag (parts only), the
+  offset and the scale; the word after the offset (105 or 64 in every motion) is not read by
+  it or by the routine that takes a pose (`0x80023148`).
+- **Motions and scripts.** A script never waits for a motion. It waits a number of frames
+  (`b.10`), no script in the Digimon files reads the state of one of its objects, and none
+  takes a different time with different random numbers: each is a fixed timeline made for
+  the motion it starts. The director waits for a motion in two places: the target's damage or
+  KO motion must be over before it goes on (`0x801ee87c`, `0x801ee9fc`), and the entrance must
+  be over before the Digimon is put to standing (`0x801ed920`). It does not wait for the
+  victory motion. Scripts hang objects on body parts by their number in the model
+  (`0x801e9494`: variable `0x1b9` the part, `0x1be` whose; the number is not checked against
+  the model's part count). `tools/motion_slots.py` measures every card model: the length, lead,
+  loop and sounds of each slot, and for each attack and hit script when it starts which slot
+  and which parts it uses (`docs/time-stranger/motion-slots.json`; the bases of the Time
+  Stranger cards as a table in `docs/time-stranger/motion-slots.md`).
 - **Which scripts.** A card's attack record is {power, attack script, hit script, name}; the
   loader `0x8002dea0` reads the two script numbers. The director (`0x801ee3d4`) runs the
   attack script for the attacker, then the hit script for the target (not when the attack
@@ -638,7 +686,11 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   arrival at a target is judged by distance travelled. The alternate models in archive `G`
   are not used, and five models whose palette is not in their own file fall back to their
   texture's first palette. Sounds named by motions are not played; sounds named by scripts
-  are, where the sound bank has them.
+  are, where the sound bank has them. Motions are not yet timed as the game times them (see
+  *How long a motion lasts*): here a motion begins at its first key without the lead, so the
+  Digimon moves 2 × d0 frames (4 to 64) ahead of its script's effects; a motion that is
+  started while it is playing is left to run on; and a hidden model keeps moving. The
+  entrance motion (slot 7) is never shown.
 - **Taking back in the Digivolve Phase.** In the game, answering No to "Is it OK to end the
   Digivolve Phase?" (or backing out of the digivolve choice) returns the DP card placed this
   turn and an option card used to no effect to the hand and starts the phase again
@@ -1136,6 +1188,7 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 | `web/js/battle3d.js`, `web/assets/models` | Polygon Battle: model/motion player and the generated models |
 | `tools/pak.py`, `omd.py`, `build_models.py` | PAK chunks, model and motion formats, model export |
 | `tools/bscript.py`, `btrace.py`, `build_battle.py` | Battle script parser, tracer, script and asset export |
+| `tools/motion_slots.py`, `docs/time-stranger/motion-slots.*` | What each model's eight motions last and when the scripts start them, measured from the disc |
 | `web/assets/battle` | Generated: battle scripts and attack effect assets |
 | `tools/lift.py`, `emu.py` | Compact MIPS listing and Unicorn runner used while reading the engine |
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
