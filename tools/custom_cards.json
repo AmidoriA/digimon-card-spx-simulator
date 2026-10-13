@@ -1819,43 +1819,69 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 570,
+   "hp": 590,
    "attacks": [
     {
      "name": "Rock Breaker",
-     "power": 380
+     "power": 370
     },
     {
      "name": "Fire Ball",
-     "power": 200
+     "power": 230
     },
     {
      "name": "Critical Charge",
-     "power": 120
+     "power": 140
     }
    ],
-   "xfx": "○ to 0",
+   "xfx": "1st Attack",
    "support": {
     "prio": 1,
-    "conds": [],
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
     "acts": [
      {
       "op": 4,
       "v": [
+       5,
        0,
-       0,
-       5
+       0
       ],
       "i": [
        0,
-       300,
+       250,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Boost own ○ Attack Power +300."
+    "text": "If own Specialty is Fire, boost own ○ Attack Power +250."
    },
    "model": {
     "number": 401,
@@ -1882,27 +1908,84 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 500,
+   "hp": 520,
    "attacks": [
     {
-     "name": "Corona๏ฝฐKnuckles",
-     "power": 300
+     "name": "CoronaｰKnuckles",
+     "power": 360
     },
     {
      "name": "Corona Flame",
-     "power": 300
+     "power": 250
     },
     {
      "name": "Petit Prominence",
-     "power": 300
+     "power": 120
     }
    ],
-   "xfx": "None",
+   "xfx": "○ to 0",
    "support": {
-    "prio": 0,
-    "conds": [],
-    "acts": [],
-    "text": "None"
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       100,
+       0,
+       0
+      ],
+      "op": 2,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are more than 100, lose 100 HP and boost own Attack Power +250."
    },
    "model": {
     "number": 402,
@@ -1929,32 +2012,58 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 550,
+   "hp": 560,
    "attacks": [
     {
      "name": "Fifth Rush",
-     "power": 350
+     "power": 340
     },
     {
      "name": "Teen Ram",
-     "power": 280
+     "power": 270
     },
     {
      "name": "Pepper Breath",
-     "power": 200
+     "power": 0
     }
    ],
-   "xfx": "None",
+   "xfx": "△ Counter",
    "support": {
     "prio": 1,
-    "conds": [],
+    "conds": [
+     {
+      "v": [
+       17,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
     "acts": [
      {
-      "op": 10,
+      "op": 6,
       "v": [
+       7,
        0,
-       0,
-       11
+       0
       ],
       "i": [
        0,
@@ -1965,7 +2074,7 @@
       "m2": 0
      },
      {
-      "op": 49,
+      "op": 53,
       "v": [
        0,
        0,
@@ -1974,13 +2083,13 @@
       "i": [
        0,
        0,
-       1
+       0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Boost own Attack Power +100. Draw 1 Card."
+    "text": "If own Attack is △, boost own △ Attack Power +100 and attack first."
    },
    "model": {
     "number": 403,
@@ -2007,28 +2116,28 @@
    "level": "C",
    "dp": 40,
    "pp": 10,
-   "hp": 850,
+   "hp": 920,
    "attacks": [
     {
      "name": "Plasma Blade",
-     "power": 600
+     "power": 590
     },
     {
      "name": "Exhaust Flame",
-     "power": 420
+     "power": 430
     },
     {
      "name": "Magma Fall I",
-     "power": 0
+     "power": 180
     }
    ],
-   "xfx": "○ Counter",
+   "xfx": "Ice Foe x3",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       13,
+       1,
        0,
        0,
        0,
@@ -2039,7 +2148,7 @@
        0,
        0,
        0,
-       2,
+       0,
        0,
        0
       ],
@@ -2054,22 +2163,37 @@
     ],
     "acts": [
      {
-      "op": 10,
+      "op": 11,
       "v": [
        0,
        0,
-       11
+       12
       ],
       "i": [
        0,
-       300,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Level is C, boost own Attack Power +300."
+    "text": "If own Specialty is Fire, lower opponent's Attack Power -150 and boost own ○ Attack Power +100."
    },
    "model": {
     "number": 404,
@@ -2094,343 +2218,24 @@
    "base": 19,
    "spec": "Fire",
    "level": "C",
-   "dp": 40,
-   "pp": 10,
-   "hp": 800,
+   "dp": 30,
+   "pp": 20,
+   "hp": 780,
    "attacks": [
     {
      "name": "Flame Dive",
-     "power": 450
-    },
-    {
-     "name": "Fira Claw",
-     "power": 360
-    },
-    {
-     "name": "Fira Bomb",
-     "power": 220
-    }
-   ],
-   "xfx": "Ice Foe x3",
-   "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
-     {
-      "op": 16,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
-      "op": 4,
-      "v": [
-       0,
-       0,
-       5
-      ],
-      "i": [
-       0,
-       400,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     }
-    ],
-    "text": "Use ○ and Boost own ○ Attack Power +400."
-   },
-   "model": {
-    "number": 405,
-    "recolour": "ts-306-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "EX5-008",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/306.png"
-    }
-   }
-  },
-  {
-   "id": 307,
-   "name": "BaoHuckmon",
-   "base": 26,
-   "spec": "Fire",
-   "level": "C",
-   "dp": 20,
-   "pp": 10,
-   "hp": 730,
-   "attacks": [
-    {
-     "name": "Fif Cross",
-     "power": 550
-    },
-    {
-     "name": "Teen Blade",
-     "power": 320
-    },
-    {
-     "name": "Blazing Flame",
-     "power": 240
-    }
-   ],
-   "xfx": "None",
-   "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
-     {
-      "op": 0,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     }
-    ],
-    "text": "Change own Specialty to Fire."
-   },
-   "model": {
-    "number": 406,
-    "recolour": "ts-307-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "BT6-011",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/307.png"
-    }
-   }
-  },
-  {
-   "id": 308,
-   "name": "WarGrowlmon",
-   "base": 9,
-   "spec": "Fire",
-   "level": "U",
-   "dp": 30,
-   "pp": 10,
-   "hp": 1540,
-   "attacks": [
-    {
-     "name": "Double Edge",
-     "power": 720
-    },
-    {
-     "name": "Atomic Blaster",
      "power": 540
     },
     {
-     "name": "Crush Blade II",
-     "power": 0
-    }
-   ],
-   "xfx": "○ Counter",
-   "support": {
-    "prio": 1,
-    "conds": [
-     {
-      "v": [
-       13,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       3,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
-    "acts": [
-     {
-      "op": 10,
-      "v": [
-       0,
-       0,
-       11
-      ],
-      "i": [
-       0,
-       500,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     }
-    ],
-    "text": "If own Level is U, boost own Attack Power +500."
-   },
-   "model": {
-    "number": 407,
-    "recolour": "ts-308-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "EX2-010",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/308.png"
-    }
-   }
-  },
-  {
-   "id": 309,
-   "name": "Flaremon",
-   "base": 7,
-   "spec": "Fire",
-   "level": "U",
-   "dp": 30,
-   "pp": 20,
-   "hp": 1320,
-   "attacks": [
-    {
-     "name": "Crimson Wave of the Beast King",
-     "power": 730
+     "name": "Fira Claw",
+     "power": 400
     },
     {
-     "name": "Crimson Lion Dance",
-     "power": 550
-    },
-    {
-     "name": "Purifying Howl",
-     "power": 320
+     "name": "Fira Bomb",
+     "power": 160
     }
    ],
    "xfx": "1st Attack",
-   "support": {
-    "prio": 1,
-    "conds": [
-     {
-      "v": [
-       17,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
-    "acts": [
-     {
-      "op": 53,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     }
-    ],
-    "text": "If own Attack is ○, attack first."
-   },
-   "model": {
-    "number": 408,
-    "recolour": "ts-309-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "EX5-012",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/309.png"
-    }
-   }
-  },
-  {
-   "id": 310,
-   "name": "SaviorHuckmon",
-   "base": 4,
-   "spec": "Fire",
-   "level": "U",
-   "dp": 30,
-   "pp": 10,
-   "hp": 1230,
-   "attacks": [
-    {
-     "name": "Ledge Stride",
-     "power": 800
-    },
-    {
-     "name": "Meteor Flame",
-     "power": 620
-    },
-    {
-     "name": "Trident Saber",
-     "power": 450
-    }
-   ],
-   "xfx": "✕ to 0",
    "support": {
     "prio": 1,
     "conds": [
@@ -2464,20 +2269,476 @@
      {
       "op": 10,
       "v": [
+       11,
        0,
-       0,
-       11
+       0
       ],
       "i": [
        0,
-       300,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Fire, boost own Attack Power +300."
+    "text": "If own Specialty is Fire, boost own Attack Power +150 and draw 1 Card."
+   },
+   "model": {
+    "number": 405,
+    "recolour": "ts-306-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-008",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/306.png"
+    }
+   }
+  },
+  {
+   "id": 307,
+   "name": "BaoHuckmon",
+   "base": 26,
+   "spec": "Fire",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 850,
+   "attacks": [
+    {
+     "name": "Fif Cross",
+     "power": 580
+    },
+    {
+     "name": "Teen Blade",
+     "power": 450
+    },
+    {
+     "name": "Blazing Flame",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       17,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Attack is △, boost own △ Attack Power +200 and attack first."
+   },
+   "model": {
+    "number": 406,
+    "recolour": "ts-307-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT6-011",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/307.png"
+    }
+   }
+  },
+  {
+   "id": 308,
+   "name": "WarGrowlmon",
+   "base": 9,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 1620,
+   "attacks": [
+    {
+     "name": "Double Edge",
+     "power": 890
+    },
+    {
+     "name": "Atomic Blaster",
+     "power": 670
+    },
+    {
+     "name": "Crush Blade II",
+     "power": 250
+    }
+   ],
+   "xfx": "Crash",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       27,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 32,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       3,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       350,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is Fire and 3 or more Cards remain in own Online Deck, discard 3 Cards from own Online Deck and boost own Attack Power +350."
+   },
+   "model": {
+    "number": 407,
+    "recolour": "ts-308-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX2-010",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/308.png"
+    }
+   }
+  },
+  {
+   "id": 309,
+   "name": "Flaremon",
+   "base": 7,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 40,
+   "pp": 20,
+   "hp": 1480,
+   "attacks": [
+    {
+     "name": "Crimson Wave of the Beast King",
+     "power": 800
+    },
+    {
+     "name": "Crimson Lion Dance",
+     "power": 610
+    },
+    {
+     "name": "Purifying Howl",
+     "power": 280
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is Fire, recover own HP +250 and boost own Attack Power +150."
+   },
+   "model": {
+    "number": 408,
+    "recolour": "ts-309-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-012",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/309.png"
+    }
+   }
+  },
+  {
+   "id": 310,
+   "name": "SaviorHuckmon",
+   "base": 4,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 50,
+   "pp": 20,
+   "hp": 1450,
+   "attacks": [
+    {
+     "name": "Ledge Stride",
+     "power": 860
+    },
+    {
+     "name": "Meteor Flame",
+     "power": 650
+    },
+    {
+     "name": "Trident Saber",
+     "power": 300
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 0,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are less than opponent's HP, recover own HP +200 and boost own Attack Power +400."
    },
    "model": {
     "number": 409,
@@ -2508,23 +2769,105 @@
    "attacks": [
     {
      "name": "Rolling Upper",
-     "power": 350
+     "power": 320
     },
     {
      "name": "Double Backhand",
-     "power": 220
+     "power": 230
     },
     {
      "name": "Gao Rush",
-     "power": 140
+     "power": 160
     }
    ],
-   "xfx": "○ to 0",
+   "xfx": "1st Attack",
    "support": {
-    "prio": 0,
-    "conds": [],
-    "acts": [],
-    "text": "None"
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       17,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       6
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "If own Specialty is Ice and own Attack is △, attack first and lower opponent's ○ Attack Power -100."
    },
    "model": {
     "number": 410,
@@ -2551,28 +2894,28 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 670,
+   "hp": 710,
    "attacks": [
     {
      "name": "Luna Claw",
-     "power": 320
+     "power": 300
     },
     {
      "name": "Tearing Shot",
-     "power": 180
+     "power": 210
     },
     {
      "name": "Lop-Ear Ripple",
-     "power": 0
+     "power": 140
     }
    ],
-   "xfx": "○ Counter",
+   "xfx": "○ to 0",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       2,
+       1,
        0,
        0,
        0,
@@ -2583,7 +2926,7 @@
        0,
        0,
        0,
-       0,
+       1,
        0,
        0
       ],
@@ -2598,22 +2941,37 @@
     ],
     "acts": [
      {
-      "op": 11,
+      "op": 2,
       "v": [
-       0,
+       3,
        0,
        0
       ],
       "i": [
        0,
-       0,
+       150,
        0
       ],
       "m1": 0,
       "m2": 0
+     },
+     {
+      "op": 7,
+      "v": [
+       0,
+       0,
+       8
+      ],
+      "i": [
+       0,
+       80,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
      }
     ],
-    "text": "If opponent's Specialty is Fire, reduce opponent's Attack Power to 0."
+    "text": "If own Specialty is Ice, recover own HP +150 and lower opponent's △ Attack Power -80."
    },
    "model": {
     "number": 411,
@@ -2640,354 +2998,29 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 730,
+   "hp": 770,
    "attacks": [
     {
      "name": "Black Pearl Blast",
-     "power": 300
+     "power": 280
     },
     {
      "name": "Water Pressure",
-     "power": 190
+     "power": 200
     },
     {
      "name": "Hydro Water I",
-     "power": 170
-    }
-   ],
-   "xfx": "○ to 0",
-   "support": {
-    "prio": 1,
-    "conds": [
-     {
-      "v": [
-       3,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       200,
-       0,
-       0
-      ],
-      "op": 1,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
-    "acts": [
-     {
-      "op": 11,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     }
-    ],
-    "text": "If own HP are less than 200, reduce opponent's Attack Power to 0."
-   },
-   "model": {
-    "number": 412,
-    "recolour": "ts-313-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "EX5-056",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/313.png"
-    }
-   }
-  },
-  {
-   "id": 314,
-   "name": "Gaogamon",
-   "base": 46,
-   "spec": "Ice",
-   "level": "C",
-   "dp": 30,
-   "pp": 10,
-   "hp": 1100,
-   "attacks": [
-    {
-     "name": "Dash Double Claw",
-     "power": 350
-    },
-    {
-     "name": "Gaoga Hound",
-     "power": 230
-    },
-    {
-     "name": "Spiral Blow",
      "power": 0
     }
    ],
    "xfx": "○ Counter",
    "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
+    "prio": 1,
+    "conds": [
      {
-      "op": 17,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     }
-    ],
-    "text": "Opponent uses ○."
-   },
-   "model": {
-    "number": 413,
-    "recolour": "ts-314-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "EX4-017",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/314.png"
-    }
-   }
-  },
-  {
-   "id": 315,
-   "name": "Lekismon",
-   "base": 57,
-   "spec": "Ice",
-   "level": "C",
-   "dp": 40,
-   "pp": 10,
-   "hp": 900,
-   "attacks": [
-    {
-     "name": "Moon Night Bomb",
-     "power": 440
-    },
-    {
-     "name": "Tear Arrow",
-     "power": 370
-    },
-    {
-     "name": "Moon Night Kick",
-     "power": 170
-    }
-   ],
-   "xfx": "Jamming",
-   "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
-     {
-      "op": 0,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       1
-      ],
-      "m1": 0,
-      "m2": 0
-     }
-    ],
-    "text": "Change own Specialty to Ice."
-   },
-   "model": {
-    "number": 414,
-    "recolour": "ts-315-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "EX5-017",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/315.png"
-    }
-   }
-  },
-  {
-   "id": 316,
-   "name": "Octomon",
-   "base": 51,
-   "spec": "Ice",
-   "level": "C",
-   "dp": 30,
-   "pp": 10,
-   "hp": 1030,
-   "attacks": [
-    {
-     "name": "Spurting Ink",
-     "power": 400
-    },
-    {
-     "name": "Hydro Water II",
-     "power": 250
-    },
-    {
-     "name": "Void Ray II",
-     "power": 160
-    }
-   ],
-   "xfx": "○ to 0",
-   "support": {
-    "prio": 0,
-    "conds": [],
-    "acts": [],
-    "text": "None"
-   },
-   "model": {
-    "number": 415,
-    "recolour": "ts-316-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "BT6-023",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/316.png"
-    }
-   }
-  },
-  {
-   "id": 317,
-   "name": "MachGaogamon",
-   "base": 39,
-   "spec": "Ice",
-   "level": "U",
-   "dp": 30,
-   "pp": 20,
-   "hp": 1820,
-   "attacks": [
-    {
-     "name": "Gaoga Tornado",
-     "power": 670
-    },
-    {
-     "name": "Winning Knuckle",
-     "power": 500
-    },
-    {
-     "name": "Howling Cannon",
-     "power": 0
-    }
-   ],
-   "xfx": "△ Counter",
-   "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
-     {
-      "op": 2,
       "v": [
        3,
        0,
-       23
-      ],
-      "i": [
-       0,
-       100,
-       0
-      ],
-      "m1": 0,
-      "m2": 2
-     }
-    ],
-    "text": "Add number of DP Cards in DP Slot x100 to own HP."
-   },
-   "model": {
-    "number": 416,
-    "recolour": "ts-317-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "EX4-019",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/317.png"
-    }
-   }
-  },
-  {
-   "id": 318,
-   "name": "Crescemon",
-   "base": 41,
-   "spec": "Ice",
-   "level": "U",
-   "dp": 30,
-   "pp": 20,
-   "hp": 1800,
-   "attacks": [
-    {
-     "name": "Lunatic Dance",
-     "power": 620
-    },
-    {
-     "name": "Ice Archery",
-     "power": 390
-    },
-    {
-     "name": "Dark Archery",
-     "power": 0
-    }
-   ],
-   "xfx": "△ Counter",
-   "support": {
-    "prio": 1,
-    "conds": [
-     {
-      "v": [
-       18,
-       0,
        0,
        0,
        0,
@@ -2997,94 +3030,11 @@
        0,
        0,
        0,
-       1,
+       500,
        0,
        0
       ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
-    "acts": [
-     {
-      "op": 52,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     }
-    ],
-    "text": "△ Counterattack. Attack second."
-   },
-   "model": {
-    "number": 417,
-    "recolour": "ts-318-model"
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "ref": "crescemon"
-    }
-   }
-  },
-  {
-   "id": 319,
-   "name": "Dragomon",
-   "base": 40,
-   "spec": "Ice",
-   "level": "U",
-   "dp": 40,
-   "pp": 20,
-   "hp": 2090,
-   "attacks": [
-    {
-     "name": "Forbidden Trident",
-     "power": 700
-    },
-    {
-     "name": "Hydro Water II",
-     "power": 300
-    },
-    {
-     "name": "Hell Crusher II",
-     "power": 250
-    }
-   ],
-   "xfx": "○ to 0",
-   "support": {
-    "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
+      "op": 1,
       "m": [
        0,
        0,
@@ -3110,7 +3060,660 @@
       "m2": 3
      }
     ],
-    "text": "If own Specialty is Ice, opponent's Attack Power is halved."
+    "text": "If own HP are 500 or less, halve opponent's Attack Power."
+   },
+   "model": {
+    "number": 412,
+    "recolour": "ts-313-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-056",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/313.png"
+    }
+   }
+  },
+  {
+   "id": 314,
+   "name": "Gaogamon",
+   "base": 46,
+   "spec": "Ice",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1120,
+   "attacks": [
+    {
+     "name": "Dash Double Claw",
+     "power": 450
+    },
+    {
+     "name": "Gaoga Hound",
+     "power": 310
+    },
+    {
+     "name": "Spiral Blow",
+     "power": 170
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       17,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is Ice and own Attack is ○, boost own ○ Attack Power +150 and attack first."
+   },
+   "model": {
+    "number": 413,
+    "recolour": "ts-314-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX4-017",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/314.png"
+    }
+   }
+  },
+  {
+   "id": 315,
+   "name": "Lekismon",
+   "base": 57,
+   "spec": "Ice",
+   "level": "C",
+   "dp": 40,
+   "pp": 20,
+   "hp": 980,
+   "attacks": [
+    {
+     "name": "Moon Night Bomb",
+     "power": 430
+    },
+    {
+     "name": "Tear Arrow",
+     "power": 350
+    },
+    {
+     "name": "Moon Night Kick",
+     "power": 150
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is Ice, lower opponent's ○ Attack Power to 0 and recover own HP +100."
+   },
+   "model": {
+    "number": 414,
+    "recolour": "ts-315-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-017",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/315.png"
+    }
+   }
+  },
+  {
+   "id": 316,
+   "name": "Octomon",
+   "base": 51,
+   "spec": "Ice",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1230,
+   "attacks": [
+    {
+     "name": "Spurting Ink",
+     "power": 400
+    },
+    {
+     "name": "Hydro Water II",
+     "power": 280
+    },
+    {
+     "name": "Void Ray II",
+     "power": 170
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       2,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       12
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "If own Specialty is Ice, draw 2 Cards and lower opponent's Attack Power -100."
+   },
+   "model": {
+    "number": 415,
+    "recolour": "ts-316-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT6-023",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/316.png"
+    }
+   }
+  },
+  {
+   "id": 317,
+   "name": "MachGaogamon",
+   "base": 39,
+   "spec": "Ice",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 1900,
+   "attacks": [
+    {
+     "name": "Gaoga Tornado",
+     "power": 750
+    },
+    {
+     "name": "Winning Knuckle",
+     "power": 550
+    },
+    {
+     "name": "Howling Cannon",
+     "power": 260
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is Ice, boost own △ Attack Power +200 and attack first."
+   },
+   "model": {
+    "number": 416,
+    "recolour": "ts-317-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX4-019",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/317.png"
+    }
+   }
+  },
+  {
+   "id": 318,
+   "name": "Crescemon",
+   "base": 41,
+   "spec": "Ice",
+   "level": "U",
+   "dp": 40,
+   "pp": 20,
+   "hp": 1820,
+   "attacks": [
+    {
+     "name": "Lunatic Dance",
+     "power": 650
+    },
+    {
+     "name": "Ice Archery",
+     "power": 490
+    },
+    {
+     "name": "Dark Archery",
+     "power": 240
+    }
+   ],
+   "xfx": "△ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       17,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 6,
+      "v": [
+       0,
+       0,
+       7
+      ],
+      "i": [
+       0,
+       2,
+       0
+      ],
+      "m1": 0,
+      "m2": 2
+     }
+    ],
+    "text": "If own Specialty is Ice and own Attack is △, double own △ Attack Power."
+   },
+   "model": {
+    "number": 417,
+    "recolour": "ts-318-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "ref": "crescemon"
+    }
+   }
+  },
+  {
+   "id": 319,
+   "name": "Dragomon",
+   "base": 40,
+   "spec": "Ice",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 2180,
+   "attacks": [
+    {
+     "name": "Forbidden Trident",
+     "power": 680
+    },
+    {
+     "name": "Hydro Water II",
+     "power": 410
+    },
+    {
+     "name": "Hell Crusher II",
+     "power": 280
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 47,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       12
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "If own Specialty is Ice, change opponent's Attack from ○ to △, △ to ✕, or ✕ to ○, then lower opponent's Attack Power -200."
    },
    "model": {
     "number": 418,
@@ -3136,38 +3739,38 @@
    "spec": "Nature",
    "level": "R",
    "dp": 0,
-   "pp": 30,
-   "hp": 600,
+   "pp": 20,
+   "hp": 580,
    "attacks": [
     {
      "name": "Kohenkyo",
-     "power": 290
+     "power": 330
     },
     {
      "name": "Diamond Storm",
-     "power": 200
+     "power": 230
     },
     {
      "name": "Rune Forest I",
      "power": 0
     }
    ],
-   "xfx": "△ Counter",
+   "xfx": "○ Counter",
    "support": {
-    "prio": 2,
+    "prio": 1,
     "conds": [],
     "acts": [
      {
       "op": 0,
       "v": [
-       0,
+       2,
        0,
        0
       ],
       "i": [
        0,
        0,
-       2
+       0
       ],
       "m1": 0,
       "m2": 0
@@ -3180,15 +3783,15 @@
        0
       ],
       "i": [
+       1,
        0,
-       0,
-       1
+       0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Change own Specialty to Nature. Draw 1 Card."
+    "text": "Change own Specialty to opponent's Specialty and draw 1 Card."
    },
    "model": {
     "number": 419,
@@ -3215,28 +3818,28 @@
    "level": "R",
    "dp": 0,
    "pp": 30,
-   "hp": 600,
+   "hp": 630,
    "attacks": [
     {
      "name": "Terrier Tornado",
-     "power": 330
+     "power": 310
     },
     {
      "name": "Blazing Fire",
-     "power": 160
+     "power": 210
     },
     {
      "name": "Double Typhoon",
-     "power": 0
+     "power": 140
     }
    ],
-   "xfx": "○ Counter",
+   "xfx": "1st Attack",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       2,
+       1,
        0,
        0,
        0,
@@ -3247,7 +3850,7 @@
        0,
        0,
        0,
-       3,
+       2,
        0,
        0
       ],
@@ -3264,13 +3867,13 @@
      {
       "op": 10,
       "v": [
+       11,
        0,
-       0,
-       11
+       66
       ],
       "i": [
        0,
-       2,
+       40,
        0
       ],
       "m1": 0,
@@ -3284,15 +3887,15 @@
        0
       ],
       "i": [
+       1,
        0,
-       0,
-       1
+       0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If foe's Specialty is Darkness, own Attack Power is doubled. Draw 1 Card."
+    "text": "If own Specialty is Nature, add number of Nature Cards in own DP Slot x40 to own Attack Power and draw 1 Card."
    },
    "model": {
     "number": 420,
@@ -3319,27 +3922,84 @@
    "level": "R",
    "dp": 0,
    "pp": 30,
-   "hp": 500,
+   "hp": 650,
    "attacks": [
     {
      "name": "Seed Blast",
-     "power": 370
+     "power": 290
     },
     {
      "name": "Lala Screw",
-     "power": 240
+     "power": 200
     },
     {
      "name": "Sing a Song",
-     "power": 160
+     "power": 100
     }
    ],
-   "xfx": "Eat-up HP",
+   "xfx": "○ to 0",
    "support": {
-    "prio": 0,
-    "conds": [],
-    "acts": [],
-    "text": "None"
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       2,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is Nature, recover own HP +150 and draw 1 Card."
    },
    "model": {
     "number": 421,
@@ -3364,30 +4024,30 @@
    "base": 88,
    "spec": "Nature",
    "level": "C",
-   "dp": 40,
-   "pp": 20,
-   "hp": 950,
+   "dp": 30,
+   "pp": 30,
+   "hp": 840,
    "attacks": [
     {
      "name": "Fox Tail Inferno",
-     "power": 390
+     "power": 400
     },
     {
      "name": "Dragon Wheel",
-     "power": 210
+     "power": 310
     },
     {
      "name": "Mental Break",
-     "power": 150
+     "power": 180
     }
    ],
-   "xfx": "○ to 0",
+   "xfx": "Jamming",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       2,
+       1,
        0,
        0,
        0,
@@ -3398,7 +4058,7 @@
        0,
        0,
        0,
-       3,
+       2,
        0,
        0
       ],
@@ -3417,18 +4077,33 @@
       "v": [
        0,
        0,
+       12
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
        0
       ],
       "i": [
        0,
-       0,
+       100,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If opponent's Specialty is Darkness, lower opponent's Attack Power to 0."
+    "text": "If own Specialty is Nature, lower opponent's Attack Power -150 and recover own HP +100."
    },
    "model": {
     "number": 422,
@@ -3455,31 +4130,31 @@
    "level": "C",
    "dp": 40,
    "pp": 20,
-   "hp": 890,
+   "hp": 950,
    "attacks": [
     {
      "name": "Gatling Arm",
-     "power": 430
+     "power": 530
     },
     {
      "name": "Dumdum Uppercut",
-     "power": 280
+     "power": 390
     },
     {
      "name": "Thunder Fall I",
-     "power": 200
+     "power": 190
     }
    ],
-   "xfx": "None",
+   "xfx": "✕ to 0",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       13,
+       1,
        0,
        0,
-       14,
+       0,
        0,
        0
       ],
@@ -3487,11 +4162,11 @@
        0,
        0,
        0,
-       0,
+       2,
        0,
        0
       ],
-      "op": 0,
+      "op": 5,
       "m": [
        0,
        0,
@@ -3502,22 +4177,37 @@
     ],
     "acts": [
      {
-      "op": 10,
+      "op": 4,
       "v": [
+       5,
        0,
-       0,
-       11
+       0
       ],
       "i": [
        0,
-       500,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 9,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Level is lower, boost own Attack Power +500."
+    "text": "If own Specialty is Nature, boost own ○ Attack Power +250 and lower opponent's ✕ Attack Power to 0."
    },
    "model": {
     "number": 423,
@@ -3544,43 +4234,84 @@
    "level": "C",
    "dp": 30,
    "pp": 30,
-   "hp": 800,
+   "hp": 910,
    "attacks": [
     {
      "name": "Sunshine Beam",
-     "power": 380
+     "power": 450
     },
     {
      "name": "Smiley Slap",
-     "power": 250
+     "power": 280
     },
     {
      "name": "Cactus Tail",
-     "power": 170
+     "power": 180
     }
    ],
-   "xfx": "△ to 0",
+   "xfx": "Eat-up HP",
    "support": {
     "prio": 1,
-    "conds": [],
-    "acts": [
+    "conds": [
      {
-      "op": 10,
       "v": [
+       1,
        0,
        0,
-       11
+       0,
+       0,
+       0
       ],
       "i": [
        0,
-       100,
+       0,
+       0,
+       2,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
        0
       ],
       "m1": 0,
       "m2": 0
+     },
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       66
+      ],
+      "i": [
+       0,
+       50,
+       0
+      ],
+      "m1": 0,
+      "m2": 2
      }
     ],
-    "text": "Boost own Attack Power +100."
+    "text": "If own Specialty is Nature, recover own HP +200 and add number of Nature Cards in own DP Slot x50 to own ○ Attack Power."
    },
    "model": {
     "number": 424,
@@ -3607,28 +4338,28 @@
    "level": "U",
    "dp": 40,
    "pp": 30,
-   "hp": 1370,
+   "hp": 1560,
    "attacks": [
     {
      "name": "Talisman of Light",
-     "power": 720
+     "power": 740
     },
     {
      "name": "Hell Crusher II",
-     "power": 520
+     "power": 530
     },
     {
      "name": "Magic Field",
-     "power": 330
+     "power": 220
     }
    ],
-   "xfx": "Darkness Foe x3",
+   "xfx": "Jamming",
    "support": {
-    "prio": 2,
+    "prio": 3,
     "conds": [
      {
       "v": [
-       2,
+       1,
        0,
        0,
        0,
@@ -3639,7 +4370,7 @@
        0,
        0,
        0,
-       3,
+       2,
        0,
        0
       ],
@@ -3654,22 +4385,52 @@
     ],
     "acts": [
      {
-      "op": 2,
+      "op": 44,
       "v": [
        0,
        0,
-       3
+       0
       ],
       "i": [
        0,
-       500,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       2,
+       0
+      ],
+      "m1": 0,
+      "m2": 3
+     },
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If opponent's Specialty is Darkness, recover own HP by +500."
+    "text": "If own Specialty is Nature, void opponent's Digimon Support Effect, halve own Attack Power and recover own HP +200."
    },
    "model": {
     "number": 425,
@@ -3694,30 +4455,30 @@
    "base": 75,
    "spec": "Nature",
    "level": "U",
-   "dp": 40,
+   "dp": 50,
    "pp": 20,
-   "hp": 1320,
+   "hp": 1440,
    "attacks": [
     {
      "name": "Rapid Fire",
-     "power": 770
+     "power": 820
     },
     {
      "name": "Golden Triangle",
-     "power": 570
+     "power": 600
     },
     {
      "name": "Thunder Fall II",
-     "power": 370
+     "power": 260
     }
    ],
-   "xfx": "Darkness Foe x3",
+   "xfx": "1st Attack",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       2,
+       1,
        0,
        0,
        0,
@@ -3728,7 +4489,7 @@
        0,
        0,
        0,
-       3,
+       2,
        0,
        0
       ],
@@ -3739,26 +4500,81 @@
        0,
        0
       ]
+     },
+     {
+      "v": [
+       23,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
      }
     ],
     "acts": [
      {
-      "op": 10,
+      "op": 36,
       "v": [
        0,
        0,
-       11
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
       ],
       "i": [
        0,
-       500,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If opponent's Specialty is Darkness, boost own Attack Power +500."
+    "text": "If own Specialty is Nature and at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot, boost own Attack Power +200 and attack first."
    },
    "model": {
     "number": 426,
@@ -3783,45 +4599,86 @@
    "base": 78,
    "spec": "Nature",
    "level": "U",
-   "dp": 30,
+   "dp": 40,
    "pp": 30,
-   "hp": 1100,
+   "hp": 1690,
    "attacks": [
     {
      "name": "Lila Shower",
-     "power": 650
+     "power": 680
     },
     {
      "name": "Beauty Slap",
-     "power": 340
+     "power": 450
     },
     {
      "name": "Pollen Spray",
-     "power": 200
+     "power": 240
     }
    ],
-   "xfx": "Eat-up HP",
+   "xfx": "△ to 0",
    "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
+    "prio": 1,
+    "conds": [
      {
-      "op": 2,
       "v": [
+       1,
        0,
        0,
-       3
+       0,
+       0,
+       0
       ],
       "i": [
        0,
-       200,
+       0,
+       0,
+       2,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 48,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       300,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Recover own HP by +200."
+    "text": "If own Specialty is Nature, lower own Attack Power -100. Digimon KO'd in this battle revives with 300 HP; the battle still counts as a loss."
    },
    "model": {
     "number": 427,
@@ -3848,50 +4705,61 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 630,
+   "hp": 510,
    "attacks": [
     {
      "name": "Crazy Giggle",
-     "power": 240
+     "power": 300
     },
     {
      "name": "Venom Trap",
-     "power": 200
+     "power": 230
     },
     {
      "name": "Magic Bind",
-     "power": 160
+     "power": 120
     }
    ],
-   "xfx": "○ to 0",
+   "xfx": "Jamming",
    "support": {
     "prio": 1,
-    "conds": [],
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
     "acts": [
      {
-      "op": 8,
-      "v": [
-       0,
-       0,
-       9
-      ],
-      "i": [
-       0,
-       200,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
-      "op": 4,
+      "op": 33,
       "v": [
        0,
        0,
        0
       ],
       "i": [
-       0,
+       2,
        0,
        0
       ],
@@ -3899,14 +4767,14 @@
       "m2": 0
      },
      {
-      "op": 6,
+      "op": 49,
       "v": [
        0,
        0,
        0
       ],
       "i": [
-       0,
+       1,
        0,
        0
       ],
@@ -3914,7 +4782,7 @@
       "m2": 0
      }
     ],
-    "text": "Boost own ✕ Attack Power +200. ○ & △ Attack Power are 0."
+    "text": "If own Specialty is Darkness, discard 2 Cards from opponent's Online Deck and draw 1 Card."
    },
    "model": {
     "number": 428,
@@ -3940,58 +4808,94 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 550,
+   "hp": 620,
    "attacks": [
     {
      "name": "Crack Bite",
-     "power": 350
+     "power": 360
     },
     {
      "name": "Knuckle Beater",
-     "power": 280
+     "power": 260
     },
     {
      "name": "Comet Hammer I",
-     "power": 200
+     "power": 150
     }
    ],
-   "xfx": "None",
+   "xfx": "○ to 0",
    "support": {
     "prio": 1,
-    "conds": [],
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       400,
+       0,
+       0
+      ],
+      "op": 1,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
     "acts": [
      {
       "op": 10,
       "v": [
-       0,
-       0,
-       11
-      ],
-      "i": [
-       0,
-       100,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
-      "op": 49,
-      "v": [
-       0,
+       11,
        0,
        0
       ],
       "i": [
        0,
-       0,
-       1
+       250,
+       0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Boost own Attack Power +100. Draw 1 Card."
+    "text": "If own Specialty is Darkness and own HP are 400 or less, boost own Attack Power +250."
    },
    "model": {
     "number": 429,
@@ -4023,28 +4927,28 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 490,
+   "hp": 470,
    "attacks": [
     {
      "name": "Eye of Nightmares",
-     "power": 360
+     "power": 330
     },
     {
      "name": "Undead Fang",
-     "power": 200
+     "power": 220
     },
     {
      "name": "Soul Fear I",
-     "power": 190
+     "power": 160
     }
    ],
-   "xfx": "Nature Foe x3",
+   "xfx": "Eat-up HP",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       2,
+       1,
        0,
        0,
        0,
@@ -4055,7 +4959,7 @@
        0,
        0,
        0,
-       2,
+       3,
        0,
        0
       ],
@@ -4070,22 +4974,37 @@
     ],
     "acts": [
      {
-      "op": 10,
+      "op": 17,
       "v": [
        0,
        0,
-       11
+       0
       ],
       "i": [
+       1,
        0,
-       2,
        0
       ],
       "m1": 0,
-      "m2": 2
+      "m2": 0
+     },
+     {
+      "op": 7,
+      "v": [
+       0,
+       0,
+       8
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
      }
     ],
-    "text": "If opponent's Specialty is Nature, own Attack Power is doubled."
+    "text": "If own Specialty is Darkness, opponent uses △ and opponent's △ Attack Power is lowered by 100."
    },
    "model": {
     "number": 430,
@@ -4110,31 +5029,32 @@
    "base": 123,
    "spec": "Darkness",
    "level": "C",
-   "dp": 30,
+   "dp": 40,
    "pp": 10,
-   "hp": 860,
+   "hp": 1100,
    "attacks": [
     {
      "name": "Data Crusher",
-     "power": 450
+     "power": 420
     },
     {
      "name": "Shadow Fang II",
-     "power": 270
+     "power": 300
     },
     {
      "name": "Mental Break",
-     "power": 170
+     "power": 210
     }
    ],
-   "xfx": "Eat-up HP",
+   "xfx": "△ to 0",
    "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
+    "prio": 1,
+    "conds": [
      {
-      "op": 0,
       "v": [
+       1,
+       0,
+       0,
        0,
        0,
        0
@@ -4142,13 +5062,93 @@
       "i": [
        0,
        0,
-       3
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       23,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 36,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 33,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       3,
+       0,
+       0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Change own Specialty to Darkness."
+    "text": "If own Specialty is Darkness and at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot, recover own HP +300 and discard 3 Cards from opponent's Online Deck."
    },
    "model": {
     "number": 431,
@@ -4173,31 +5173,32 @@
    "base": 130,
    "spec": "Darkness",
    "level": "C",
-   "dp": 30,
+   "dp": 40,
    "pp": 10,
-   "hp": 890,
+   "hp": 880,
    "attacks": [
     {
      "name": "Fang Strike",
-     "power": 330
+     "power": 540
     },
     {
      "name": "Crush Blade II",
-     "power": 440
+     "power": 400
     },
     {
      "name": "Heavy Strike II",
-     "power": 30
+     "power": 210
     }
    ],
-   "xfx": "○ to 0",
+   "xfx": "Darkness Foe x3",
    "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
+    "prio": 1,
+    "conds": [
      {
-      "op": 16,
       "v": [
+       2,
+       0,
+       0,
        0,
        0,
        0
@@ -4205,28 +5206,78 @@
       "i": [
        0,
        0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       100,
+       0,
+       0
+      ],
+      "op": 2,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       100,
        0
       ],
       "m1": 0,
-      "m2": 0
+      "m2": 1
      },
      {
-      "op": 17,
+      "op": 10,
       "v": [
-       0,
+       11,
        0,
        0
       ],
       "i": [
        0,
-       0,
+       300,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Both players use ○."
+    "text": "If opponent's Specialty is Darkness and own HP are more than 100, lose 100 HP and boost own Attack Power +300."
    },
    "model": {
     "number": 432,
@@ -4251,30 +5302,56 @@
    "base": 126,
    "spec": "Darkness",
    "level": "C",
-   "dp": 40,
+   "dp": 30,
    "pp": 10,
-   "hp": 1040,
+   "hp": 930,
    "attacks": [
     {
      "name": "Sticker Blade",
-     "power": 470
+     "power": 490
     },
     {
      "name": "Black Mind",
-     "power": 340
+     "power": 360
     },
     {
      "name": "Nightmare II",
-     "power": 100
+     "power": 220
     }
    ],
-   "xfx": "○ to 0",
+   "xfx": "Eat-up HP",
    "support": {
-    "prio": 2,
-    "conds": [],
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
     "acts": [
      {
-      "op": 16,
+      "op": 51,
       "v": [
        0,
        0,
@@ -4283,28 +5360,28 @@
       "i": [
        0,
        0,
-       1
+       0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 17,
+      "op": 5,
       "v": [
        0,
        0,
-       0
+       6
       ],
       "i": [
        0,
-       0,
-       1
+       100,
+       0
       ],
       "m1": 0,
-      "m2": 0
+      "m2": 1
      }
     ],
-    "text": "Both players use △."
+    "text": "If own Specialty is Darkness, own attack gains Eat-up HP and opponent's ○ Attack Power is lowered by 100."
    },
    "model": {
     "number": 433,
@@ -4329,24 +5406,24 @@
    "base": 8,
    "spec": "Darkness",
    "level": "U",
-   "dp": 50,
-   "pp": 20,
-   "hp": 1280,
+   "dp": 60,
+   "pp": 0,
+   "hp": 1870,
    "attacks": [
     {
-     "name": "Giga Destroyerโ…ก",
-     "power": 850
+     "name": "Giga DestroyerⅡ",
+     "power": 930
     },
     {
      "name": "Nuclear Laser",
-     "power": 520
+     "power": 620
     },
     {
      "name": "Thunder Fall II",
-     "power": 370
+     "power": 0
     }
    ],
-   "xfx": "Ice Foe x3",
+   "xfx": "○ Counter",
    "support": {
     "prio": 1,
     "conds": [
@@ -4363,7 +5440,7 @@
        0,
        0,
        0,
-       0,
+       3,
        0,
        0
       ],
@@ -4378,11 +5455,11 @@
     ],
     "acts": [
      {
-      "op": 10,
+      "op": 5,
       "v": [
        0,
        0,
-       11
+       6
       ],
       "i": [
        0,
@@ -4390,10 +5467,25 @@
        0
       ],
       "m1": 0,
-      "m2": 2
+      "m2": 3
+     },
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Fire, own Attack Power is doubled."
+    "text": "If own Specialty is Darkness, halve opponent's ○ Attack Power and boost own ○ Attack Power +150."
    },
    "model": {
     "number": 434,
@@ -4423,42 +5515,68 @@
    "base": 116,
    "spec": "Darkness",
    "level": "U",
-   "dp": 40,
+   "dp": 50,
    "pp": 10,
-   "hp": 1700,
+   "hp": 1750,
    "attacks": [
     {
      "name": "Desolation Claw",
-     "power": 690
+     "power": 850
     },
     {
      "name": "Nanomachine Break II",
-     "power": 590
+     "power": 640
     },
     {
      "name": "Thunder Fall II",
-     "power": 150
+     "power": 300
     }
    ],
-   "xfx": "None",
+   "xfx": "Darkness Foe x3",
    "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
+    "prio": 3,
+    "conds": [
      {
-      "op": 2,
       "v": [
+       2,
        0,
        0,
-       3
+       0,
+       0,
+       0
       ],
       "i": [
        0,
-       2,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 44,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
        0
       ],
       "m1": 0,
-      "m2": 3
+      "m2": 0
      },
      {
       "op": 10,
@@ -4469,14 +5587,14 @@
       ],
       "i": [
        0,
-       400,
+       100,
        0
       ],
       "m1": 0,
-      "m2": 0
+      "m2": 1
      }
     ],
-    "text": "Own HP are halved. Boost own Attack Power +400."
+    "text": "If opponent's Specialty is Darkness, void opponent's Digimon Support Effect and lower own Attack Power -100."
    },
    "model": {
     "number": 435,
@@ -4501,30 +5619,56 @@
    "base": 111,
    "spec": "Darkness",
    "level": "U",
-   "dp": 50,
-   "pp": 20,
-   "hp": 1100,
+   "dp": 40,
+   "pp": 10,
+   "hp": 1460,
    "attacks": [
     {
      "name": "Thousand Arrows",
-     "power": 650
+     "power": 730
     },
     {
      "name": "Bulldog",
-     "power": 400
+     "power": 480
     },
     {
      "name": "Earth-Shattering Stomp",
-     "power": 300
+     "power": 310
     }
    ],
-   "xfx": "Eat-up HP",
+   "xfx": "1st Attack",
    "support": {
     "prio": 1,
-    "conds": [],
+    "conds": [
+     {
+      "v": [
+       4,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 2,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
     "acts": [
      {
-      "op": 48,
+      "op": 51,
       "v": [
        0,
        0,
@@ -4533,13 +5677,28 @@
       "i": [
        0,
        0,
-       500
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Digimon KO'd in battle revives with 500 HP. Battle is still lost."
+    "text": "If opponent's HP are more than own HP, own attack gains Eat-up HP and own △ Attack Power is boosted by 150."
    },
    "model": {
     "number": 436,
@@ -4566,29 +5725,30 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 580,
+   "hp": 550,
    "attacks": [
     {
      "name": "Baby Breath",
-     "power": 270
+     "power": 280
     },
     {
      "name": "Tail Smash",
-     "power": 220
+     "power": 240
     },
     {
      "name": "Great Strike",
-     "power": 50
+     "power": 160
     }
    ],
-   "xfx": "Jamming",
+   "xfx": "Crash",
    "support": {
-    "prio": 3,
-    "conds": [],
-    "acts": [
+    "prio": 1,
+    "conds": [
      {
-      "op": 44,
       "v": [
+       1,
+       0,
+       0,
        0,
        0,
        0
@@ -4596,13 +5756,78 @@
       "i": [
        0,
        0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       300,
+       0,
+       0
+      ],
+      "op": 1,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 11,
+      "v": [
+       12,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Opponent's Support Effect is voided."
+    "text": "If own Specialty is Rare and own HP are 300 or less, boost own Attack Power +200 and opponent's Attack Power +100."
    },
    "model": {
     "number": 437,
@@ -4629,43 +5854,84 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 470,
+   "hp": 640,
    "attacks": [
     {
      "name": "Bear Fist",
-     "power": 250
+     "power": 280
     },
     {
      "name": "Comet Hammer I",
-     "power": 120
+     "power": 220
     },
     {
      "name": "Attack Charge",
-     "power": 90
+     "power": 0
     }
    ],
-   "xfx": "○ to 0",
+   "xfx": "○ Counter",
    "support": {
-    "prio": 2,
-    "conds": [],
-    "acts": [
+    "prio": 1,
+    "conds": [
      {
-      "op": 2,
       "v": [
+       1,
        0,
        0,
-       4
+       0,
+       0,
+       0
       ],
       "i": [
        0,
        0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Own HP become same as opponent's."
+    "text": "If own Specialty is Rare, recover own HP +150 and boost own ○ Attack Power +100."
    },
    "model": {
     "number": 438,
@@ -4692,27 +5958,84 @@
    "level": "R",
    "dp": 0,
    "pp": 20,
-   "hp": 620,
+   "hp": 610,
    "attacks": [
     {
      "name": "Bullet Whirlwind",
-     "power": 260
+     "power": 250
     },
     {
      "name": "Blinding Ray",
-     "power": 220
+     "power": 200
     },
     {
      "name": "Holy Light I",
-     "power": 190
+     "power": 150
     }
    ],
-   "xfx": "Rare Foe x3",
+   "xfx": "Darkness Foe x3",
    "support": {
-    "prio": 0,
-    "conds": [],
-    "acts": [],
-    "text": "None"
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       6
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "If own Specialty is Rare, recover own HP +100 and lower opponent's ○ Attack Power -100."
    },
    "model": {
     "number": 439,
@@ -4739,28 +6062,28 @@
    "level": "C",
    "dp": 40,
    "pp": 10,
-   "hp": 700,
+   "hp": 960,
    "attacks": [
     {
      "name": "Blue Flare Breath",
-     "power": 350
+     "power": 480
     },
     {
      "name": "Strike Bomber",
-     "power": 160
+     "power": 350
     },
     {
-     "name": "Great Strikeโ…ก",
-     "power": 250
+     "name": "Great StrikeⅡ",
+     "power": 190
     }
    ],
-   "xfx": "Rare Foe x3",
+   "xfx": "○ to 0",
    "support": {
-    "prio": 2,
+    "prio": 1,
     "conds": [
      {
       "v": [
-       28,
+       1,
        0,
        0,
        0,
@@ -4771,11 +6094,11 @@
        0,
        0,
        0,
-       0,
+       4,
        0,
        0
       ],
-      "op": 2,
+      "op": 5,
       "m": [
        0,
        0,
@@ -4786,22 +6109,37 @@
     ],
     "acts": [
      {
-      "op": 33,
+      "op": 4,
       "v": [
-       0,
+       5,
        0,
        0
       ],
       "i": [
        0,
-       0,
-       3
+       250,
+       0
       ],
       "m1": 0,
       "m2": 0
+     },
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       6
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
      }
     ],
-    "text": "Discard 3 Cards from opponent's Online Deck."
+    "text": "If own Specialty is Rare, boost own ○ Attack Power +250 and lower opponent's ○ Attack Power -100."
    },
    "model": {
     "number": 440,
@@ -4828,28 +6166,28 @@
    "level": "C",
    "dp": 40,
    "pp": 10,
-   "hp": 1000,
+   "hp": 990,
    "attacks": [
     {
      "name": "Maul Attack",
-     "power": 420
+     "power": 460
     },
     {
      "name": "Comet Hammer II",
-     "power": 240
+     "power": 330
     },
     {
      "name": "Gaia Blaster II",
-     "power": 130
+     "power": 0
     }
    ],
-   "xfx": "○ to 0",
+   "xfx": "○ Counter",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       24,
+       18,
        0,
        0,
        0,
@@ -4860,11 +6198,11 @@
        0,
        0,
        0,
-       2,
+       0,
        0,
        0
       ],
-      "op": 3,
+      "op": 5,
       "m": [
        0,
        0,
@@ -4875,7 +6213,7 @@
     ],
     "acts": [
      {
-      "op": 11,
+      "op": 52,
       "v": [
        0,
        0,
@@ -4888,9 +6226,24 @@
       ],
       "m1": 0,
       "m2": 0
+     },
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
      }
     ],
-    "text": "If opponent has more than 2 Cards in DP Slot, his Attack Power is 0."
+    "text": "If opponent uses ○, counterattack and attack second, and recover own HP +200."
    },
    "model": {
     "number": 441,
@@ -4917,27 +6270,84 @@
    "level": "C",
    "dp": 30,
    "pp": 10,
-   "hp": 800,
+   "hp": 820,
    "attacks": [
     {
      "name": "Rolling Tackle",
-     "power": 430
+     "power": 420
     },
     {
      "name": "Lion Claw",
-     "power": 250
+     "power": 310
     },
     {
      "name": "Razor Wind",
-     "power": 0
+     "power": 150
     }
    ],
-   "xfx": "○ Counter",
+   "xfx": "1st Attack",
    "support": {
-    "prio": 0,
-    "conds": [],
-    "acts": [],
-    "text": "None"
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 7,
+      "v": [
+       0,
+       0,
+       8
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "If own Specialty is Rare, boost own △ Attack Power +150 and lower opponent's △ Attack Power -150."
    },
    "model": {
     "number": 442,
@@ -4964,27 +6374,124 @@
    "level": "U",
    "dp": 50,
    "pp": 10,
-   "hp": 1480,
+   "hp": 1720,
    "attacks": [
     {
      "name": "Blaze Sonic Breath",
-     "power": 900
+     "power": 810
     },
     {
      "name": "Exploding Sonic Lance",
-     "power": 710
+     "power": 650
     },
     {
      "name": "Wing Blast",
-     "power": 550
+     "power": 300
     }
    ],
-   "xfx": "None",
+   "xfx": "1st Attack",
    "support": {
-    "prio": 0,
-    "conds": [],
-    "acts": [],
-    "text": "None"
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       100,
+       0,
+       0
+      ],
+      "op": 2,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is Rare and own HP are more than 100, lose 100 HP, boost own ○ Attack Power +150 and attack first."
    },
    "model": {
     "number": 443,
@@ -5014,31 +6521,32 @@
    "base": 150,
    "spec": "Rare",
    "level": "U",
-   "dp": 40,
-   "pp": 20,
-   "hp": 1480,
+   "dp": 50,
+   "pp": 10,
+   "hp": 1810,
    "attacks": [
     {
      "name": "The King of Fists",
-     "power": 700
+     "power": 830
     },
     {
      "name": "Cyclonic Kick",
-     "power": 530
+     "power": 620
     },
     {
      "name": "Nanomachine Break II",
-     "power": 150
+     "power": 0
     }
    ],
-   "xfx": "Jamming",
+   "xfx": "△ Counter",
    "support": {
     "prio": 1,
-    "conds": [],
-    "acts": [
+    "conds": [
      {
-      "op": 9,
       "v": [
+       1,
+       0,
+       0,
        0,
        0,
        0
@@ -5046,13 +6554,93 @@
       "i": [
        0,
        0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       23,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 36,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "Lower opponent's ✕ Attack Power to 0."
+    "text": "If own Specialty is Rare and at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot, boost own Attack Power +300 and draw 1 Card."
    },
    "model": {
     "number": 444,
@@ -5079,28 +6667,28 @@
    "level": "U",
    "dp": 50,
    "pp": 20,
-   "hp": 2250,
+   "hp": 1980,
    "attacks": [
     {
      "name": "Wind Cutter Sword",
-     "power": 700
+     "power": 750
     },
     {
      "name": "Knowledge of Swiftness",
-     "power": 450
+     "power": 570
     },
     {
      "name": "Holy Wave",
-     "power": 400
+     "power": 310
     }
    ],
-   "xfx": "Fire Foe x3",
+   "xfx": "Darkness Foe x3",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       21,
+       1,
        0,
        0,
        0,
@@ -5111,11 +6699,36 @@
        0,
        0,
        0,
-       3,
+       4,
        0,
        0
       ],
-      "op": 3,
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "v": [
+       3,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 0,
       "m": [
        0,
        0,
@@ -5126,22 +6739,37 @@
     ],
     "acts": [
      {
-      "op": 11,
+      "op": 2,
       "v": [
-       0,
+       3,
        0,
        0
       ],
       "i": [
        0,
-       0,
+       400,
        0
       ],
       "m1": 0,
       "m2": 0
+     },
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       12
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
      }
     ],
-    "text": "If own Cards in Hand 3 or more, opponent's Attack Power becomes 0."
+    "text": "If own Specialty is Rare and own HP are less than opponent's HP, recover own HP +400 and lower opponent's Attack Power -200."
    },
    "model": {
     "number": 445,

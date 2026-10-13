@@ -2,9 +2,9 @@
 
 Owner choice, 2026-10-13: Reference Book names in listed order, first three when more exist;
 missing slots use verified Time Stranger skills. No strength ranking was found in the
-Reference Book. This is a label mapping, not Time Stranger combat rules: every DDCB
-power, support, cross effect and animation remains the selected base's. Some fillers are
-buffs/debuffs in Time Stranger and do not acquire that behavior here.
+Reference Book. This is a label mapping, not Time Stranger combat rules. TS-106 now
+chooses original powers, cross and support effects in card-design.md. Animations remain
+the selected visual base's; filler labels do not import Time Stranger behavior.
 
 Primary local evidence: Steam build 23514637, `app_text01/text/skill_name.mbe`, Sheet1
 (skill ID, English name), and `app_0/data/digimon_status.mbe`, digimon_status_data.
@@ -56,7 +56,7 @@ field guide differs on Keramon's second learned label; installed Magic Bind wins
 ## TS-101 sources and selected names
 
 - **Guilmon (302)**: Rock Breaker / Fire Ball / Critical Charge. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=guilmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/guilmon/).
-- **Coronamon (303)**: Corona๏ฝฐKnuckles / Corona Flame / Petit Prominence. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=coronamon).
+- **Coronamon (303)**: CoronaｰKnuckles / Corona Flame / Petit Prominence. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=coronamon).
 - **Huckmon (304)**: Fifth Rush / Teen Ram / Pepper Breath. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=huckmon).
 - **Growlmon (305)**: Plasma Blade / Exhaust Flame / Magma Fall I. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=growmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/growlmon/).
 - **Firamon (306)**: Flame Dive / Fira Claw / Fira Bomb. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=firamon).
@@ -97,7 +97,7 @@ field guide differs on Keramon's second learned label; installed Magic Bind wins
 - **Kurisarimon (332)**: Data Crusher / Shadow Fang II / Mental Break. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=chrysalimon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/kurisarimon/).
 - **Strikedramon (333)**: Fang Strike / Crush Blade II / Heavy Strike II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=strikedramon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/strikedramon/).
 - **Sangloupmon (334)**: Sticker Blade / Black Mind / Nightmare II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=sangloupmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/sangloupmon/).
-- **MetalTyrannomon (335)**: Giga Destroyerโ…ก / Nuclear Laser / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=metaltyranomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/metaltyrannomon/).
+- **MetalTyrannomon (335)**: Giga DestroyerⅡ / Nuclear Laser / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=metaltyranomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/metaltyrannomon/).
 - **Cyberdramon (336)**: Desolation Claw / Nanomachine Break II / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=cyberdramon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/cyberdramon/).
 - **Matadormon (337)**: Thousand Arrows / Bulldog / Earth-Shattering Stomp. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=matadrmon).
 
@@ -106,7 +106,7 @@ field guide differs on Keramon's second learned label; installed Magic Bind wins
 - **Dracomon (338)**: Baby Breath / Tail Smash / Great Strike. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dracomon).
 - **Bearmon (339)**: Bear Fist / Comet Hammer I / Attack Charge. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=bearmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/bearmon/).
 - **Kudamon (340)**: Bullet Whirlwind / Blinding Ray / Holy Light I. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=kudamon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/kudamon/).
-- **Coredramon (Blue) (341)**: Blue Flare Breath / Strike Bomber / Great Strikeโ…ก. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=coredramon_b).
+- **Coredramon (Blue) (341)**: Blue Flare Breath / Strike Bomber / Great StrikeⅡ. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=coredramon_b).
 - **Grizzlymon (342)**: Maul Attack / Comet Hammer II / Gaia Blaster II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=gryzmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/grizzlymon/).
 - **Reppamon (343)**: Rolling Tackle / Lion Claw / Razor Wind. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=reppamon).
 - **Wingdramon (344)**: Blaze Sonic Breath / Exploding Sonic Lance / Wing Blast. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=wingdramon).
@@ -116,7 +116,8 @@ field guide differs on Keramon's second learned label; installed Magic Bind wins
 ### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
 
 Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
-All its numbers/effects are copied from Tsukaimon. Local char_KERAMON → chr626 is
+Initially its numbers/effects were copied from Tsukaimon; TS-106 supersedes that
+with original gameplay (card-design.md). Local char_KERAMON → chr626 is
 present in both model tables; Phase 2 converts all nine Darkness models. The old
 black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
 restoration and is shared by both art modes. Offset 20000 is retired; the four other

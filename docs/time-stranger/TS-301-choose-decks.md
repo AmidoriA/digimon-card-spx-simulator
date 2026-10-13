@@ -5,13 +5,15 @@
 | Trello | https://trello.com/c/CC15DUlA |
 | Phase | 3 Decks |
 | Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
-| Depends on | TS-101 … TS-105 |
+| Depends on | TS-101 … TS-105, TS-106 |
 
 ## Goal
 
 Plan one custom deck around each new Ultimate (WarGrowlmon, Flaremon, SaviorHuckmon, MachGaogamon, Crescemon, Dragomon, Taomon, Rapidmon, Lilamon, MetalTyrannomon, Cyberdramon, Matadormon, Wingdramon, GrapLeomon, Chirinmon).
 
 ## Context
+
+- [card-design.md](card-design.md): TS-106 original gameplay and Specialty/lore synergies.
 
 - `tools/custom.py` `decks()` and the create-card skill, "A deck with the card": a custom deck is a game deck with cards exchanged by name; it keeps its base's owner, rank, armor form and music, and follows the game's 159 decks as that owner's next deck.
 - `web/js/data/cards.js` `decks`: the game's decks.

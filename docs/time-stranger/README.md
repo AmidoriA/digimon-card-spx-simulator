@@ -9,7 +9,7 @@ tickets so the work can be tracked.
 | Phase | What | Needs |
 |---|---|---|
 | 0 Groundwork | Confirm the roster, find the pictures and clean them, let custom cards take a picture from the internet | Internet, ComfyUI |
-| 1 Cards | 45 cards with placeholder models (their base recoloured), playable at once | `extracted/`, ComfyUI |
+| 1 Cards | 45 cards with original gameplay (TS-106) and recoloured placeholder models | `extracted/`; prepared shared pictures |
 | 2 Models | Time Stranger's own models, converted to the game's format | The owner's Time Stranger install, the REA skill, ComfyUI for textures |
 | 3 Decks | 15 custom decks, one per new Ultimate | Phase 1 |
 
@@ -68,6 +68,7 @@ with progress (goal, context, steps) and what is found (the Log).
 
 ## Files
 
+- [card-design.md](card-design.md): all 45 current stats/effects, Specialty themes and official lore sources.
 - [roster.md](roster.md): the 45 cards: names, bases, numbers, sources.
 - [decks.md](decks.md): the 15 decks.
 - [phase1.md](phase1.md), [phase3.md](phase3.md): rules shared by the tickets of a phase.
@@ -110,8 +111,13 @@ with progress (goal, context, steps) and what is found (the Log).
 ### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
 
 Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
-All its numbers/effects are copied from Tsukaimon. Local char_KERAMON → chr626 is
+Initially its numbers/effects were copied from Tsukaimon; TS-106 supersedes that
+with original gameplay (card-design.md). Local char_KERAMON → chr626 is
 present in both model tables; Phase 2 converts all nine Darkness models. The old
 black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
 restoration and is shared by both art modes. Offset 20000 is retired; the four other
 published offsets remain stable. [Full evidence and current roster](roster.md).
+
+Owner update 2026-10-14: TS-106 supersedes the donor-stat gameplay rule. TS-101–105 remain
+completed initial implementations; TS-106 tracks the new design and validation. Phase 3
+deck choices must use this gameplay design, not the earlier unchanged-base assumptions.

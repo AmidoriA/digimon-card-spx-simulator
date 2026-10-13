@@ -294,8 +294,11 @@ Custom picture sources (`art.new`) accept exactly one of `file` + `crop` (a pict
 
 ### Time Stranger cards
 
-Phase 1 custom cards keep their disc bases' exact DP, +P, HP, three attack powers,
-cross and support effects. Models are recoloured disc placeholders, with the base's
+Owner update (2026-10-14, TS-106): all 45 cards have newly designed HP, DP, +P,
+three attack powers, cross and support effects. Their Specialty themes, cited official
+lore, exact values and tradeoffs are in [card-design.md](docs/time-stranger/card-design.md).
+The initial unchanged-base-stat requirement is superseded. Models are recoloured disc
+placeholders, with the base's
 shape and motions, pending Phase 2. Attack-name evidence and the chosen three-slot
 mapping are in [attack-sources.md](docs/time-stranger/attack-sources.md).
 
@@ -661,7 +664,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   game BK WarGreymon has the one deck, and it plays WarGreymon.
 
 - **Time Stranger Phase 1 cards.** The new labels and palette choices are project additions
-  requested by the owner. Numbers and effects are copied unchanged from disc bases.
+  requested by the owner. TS-106 (2026-10-14) chooses original numbers and effects for
+  all 45 cards, based on Specialty and each Digimon's official lore; see [card-design.md](docs/time-stranger/card-design.md).
+  These are project designs, not canonical Time Stranger numbers or translated mechanics.
   Missing attack labels use verified Time Stranger skills, including a few buff/debuff
   names: these do not add Time Stranger mechanics to DDCB. Reference Book order is
   retained without claiming a verified strength ranking. Both art modes share the
@@ -673,8 +678,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   when a Time Stranger signature attack has a different element. Time Stranger's
   elemental matchups and skill elements do not supply one intrinsic element to copy.
   TS-001 records online field-guide evidence, identity corrections and two replacements;
-  checking the owner's installed game tables follows TS-201/TS-203. This plan does not
-  add playable cards, stats, pictures or models yet.
+  checking the owner's installed game tables follows TS-201/TS-203. That initial roster audit alone did not
+  add playable cards. TS-101–105 made all 45 playable; TS-106 gives them original gameplay.
+  Recoloured models remain placeholders until Phase 2.
   All work stays on the `time-stranger` feature branch; it must not merge to `main`
   until all 45 new cards are complete and their applicable acceptance criteria pass.
   See [the feature workflow](docs/time-stranger/README.md#feature-branch-and-merge-gate).
@@ -1268,6 +1274,7 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 | `tools/build_owners.py`, `web/assets/owner` | The deck owners' pictures of the "VS" screen, and their export |
 | `web/assets/art2`, `mini2` | Generated: new art for the Digimon cards (`tools/build_new_art.py`, `tools/new_art.json`) |
 | `tools/build_levels.py`, `web/assets/ui/level_*.png` | The level letters of the game's board pictures, cut out to lie over new art |
+| `tools/time_stranger_design_test.js` | TS-106 original stat ranges, 113 support scenarios; `--soak` plays 750 temporary mono/three-color deck matches |
 | `tools/check_paths.py` | Checks that every file the page asks for is in git under its exact name |
 | `tools/mips.py` | MIPS disassembly helper for the EXE and overlays (overlay base `0x801DDF38`) |
 | `tools/extract_*.py`, `tim.py`, `comfy.py` | Disc, archive, texture and ComfyUI helpers |
@@ -1301,7 +1308,8 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 ## Time Stranger roster correction (2026-10-13)
 
 The owner replaced the Fire black Agumon variant in the Darkness roster with Keramon
-(329/428). Base Tsukaimon (135) supplies all unchanged numbers/effects and its temporary
+(329/428). Base Tsukaimon (135) originally supplied the numbers/effects; TS-106 now supplies
+new gameplay design. Tsukaimon still supplies the temporary
 mesh/motions; its palette is changed towards Keramon's grey-blue body and green eyes.
 Local char_KERAMON maps to chr626 in both model tables; Phase 2 has all nine Darkness
 models to convert. The old model exception and cloned effect offset 20000 are retired;

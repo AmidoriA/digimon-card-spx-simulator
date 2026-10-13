@@ -331,7 +331,7 @@ test('custom cards follow the 301 cards of the game and leave them as they are',
 
 const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon", "Gaomon", "Lunamon", "Syakomon", "Gaogamon", "Lekismon", "Octomon", "MachGaogamon", "Crescemon", "Dragomon", "Renamon", "Terriermon", "Lalamon", "Kyubimon", "Gargomon", "Sunflowmon", "Taomon", "Rapidmon", "Lilamon", "Keramon", "Monodramon", "Dracmon", "Kurisarimon", "Strikedramon", "Sangloupmon", "MetalTyrannomon", "Cyberdramon", "Matadormon", "Dracomon", "Bearmon", "Kudamon", "Coredramon (Blue)", "Grizzlymon", "Reppamon", "Wingdramon", "GrapLeomon", "Chirinmon"];
 
-test('Time Stranger cards preserve their bases numbers and effects', () => {
+test('Time Stranger visual bases, roster and shared pictures remain intact', () => {
   const names = TIME_STRANGER_NAMES;
   assert.ok(!E.CARDS.some(c => c.name === 'Agumon (Black)'), 'Fire variant removed from this roster');
   names.forEach((name, i) => {
@@ -341,13 +341,21 @@ test('Time Stranger cards preserve their bases numbers and effects', () => {
     assert.strictEqual(c.type, 'digimon');
     assert.ok(base.custom == null);
     if (![330,335,344,346].includes(c.id)) assert.strictEqual(c.spec, base.spec);
-    for (const field of ['level','dp','pp','hp','xfx','prio','conds','acts','text'])
-      assert.deepStrictEqual(c[field], base[field], name + ': ' + field);
-    assert.deepStrictEqual(c.atk.map(a => a.power), base.atk.map(a => a.power), name + ': powers');
+    assert.strictEqual(c.level, base.level, name + ': level');
+    assert.strictEqual(c.model, 401 + i, name + ': model');
+    c.atk.forEach((a,k) => {
+      const offset = {330:30000,335:40000,344:50000,346:60000}[c.id] || 0;
+      assert.strictEqual(a.script, base.atk[k].script + offset, name + ': motion/effect script');
+      assert.strictEqual(a.hit, base.atk[k].hit + offset, name + ': hit script');
+    });
     const fs = require('fs'), assets = path.join(__dirname, '..', 'web', 'assets');
     for (const [a,b] of [['art','art2'],['mini','mini2']])
       assert.ok(fs.readFileSync(path.join(assets,a,c.id+'.webp')).equals(fs.readFileSync(path.join(assets,b,c.id+'.webp'))), name + ': shared picture');
   });
+});
+
+test('Time Stranger original designs activate as documented', () => {
+  require('./time_stranger_design_test.js').verify();
 });
 
 test('custom decks follow the 159 decks of the game; Black Fire Again is Black Fire Heart with BlackWarGreymon', () => {

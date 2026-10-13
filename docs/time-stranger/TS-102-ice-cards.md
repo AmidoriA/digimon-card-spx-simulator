@@ -41,7 +41,7 @@ Add the nine Ice cards of [roster.md](roster.md) as custom cards with placeholde
 ## Acceptance criteria
 
 - [x] `custom.load()` passes: ids 311-319, models 410-418 in sequence.
-- [x] Every card's numbers, ✕ effect and support equal its base's (selftest).
+- [x] Initial donor-stat implementation passed (historical); superseded by TS-106 original stat/effect design.
 - [x] `git status` shows only these cards' files, `cards.js`, `scripts.json.gz` (if a ✱ base), tests, README and docs.
 - [x] `node tools/selftest.js`, `decktest.js`, `sim.js`, `fxtest.js`, `battletest.js` and `python tools/check_paths.py` pass.
 - [x] Seen in the browser: deck editor (both card art styles), on the board, each attack in `battle-preview.html` next to its base; the report says what was seen.
@@ -52,7 +52,7 @@ Add the nine Ice cards of [roster.md](roster.md) as custom cards with placeholde
 
 - Time Stranger models (Phase 2).
 - Decks (Phase 3).
-- Tuning numbers.
+- Further tuning is tracked by [TS-106](TS-106-original-stats-and-effects.md).
 
 ## Questions for the owner
 
@@ -82,3 +82,11 @@ Add the nine Ice cards of [roster.md](roster.md) as custom cards with placeholde
 - Shared-art level badge: native prepared pictures contain no DDCB letter. The generated
   `sharedArt` flag keeps the R/C/U overlay visible in Legacy as well as New, including
   when switching art mid-match. Original Legacy pictures keep their existing behavior.
+
+### 2026-10-14 — owner gameplay update
+
+Original stats, cross effects and support effects are now designed for this ticket's
+nine Digimon under TS-106. The unchanged-base-stat notes above describe the initial
+implementation. [Current design and lore](card-design.md) supersedes them; visual assets
+and motion/script donors still follow this ticket. Acceptance and validation for the
+redesign are tracked separately in TS-106 and Trello.

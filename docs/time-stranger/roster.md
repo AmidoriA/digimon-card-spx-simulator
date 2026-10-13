@@ -7,8 +7,7 @@ policy and changes below. Local game-table confirmation follows TS-201/TS-203.
 
 - Id: card number (custom cards follow BlackWarGreymon, 301). Model: model number (follows
   BlackWarGreymon's 400).
-- Base: the disc card the custom card is made from (its numbers, motions, battle scripts and
-  pictures). ✱ = a base of another Specialty: the card gets a `battle` block with recoloured
+- Base: the disc card the custom card is made from (its temporary model, motions and battle scripts; TS-002 supplies pictures). ✱ = a base of another Specialty: the card gets a `battle` block with recoloured
   effects (offsets 20000, 30000, … in id order; 10000 is BlackWarGreymon's).
 - TS source: a Time Stranger field-guide page, labelled with its field-guide number and
   attribute. The page's stage was checked against Lv (Rookie/R, Champion/C, Ultimate/U).
@@ -27,7 +26,8 @@ policy and changes below. Local game-table confirmation follows TS-201/TS-203.
 
 Bases were chosen by body shape (the 3D model keeps the base's shape until Phase 2), then by
 Specialty, with three different bases in each slot. Note that DDCB's U level also holds
-Megas, so some Ultimates get a Mega's numbers (Chirinmon from MetalGarurumon, for one).
+Megas, but the TS-106 stat/effect designs are now independent of those donors.
+See [card-design.md](card-design.md) for all 45 current values and lore reasoning.
 
 | Id | Spec | Lv | Card | Base (id) | Model | TS source (no. · attribute) | TS element (signature) | Picture | TS model |
 |---|---|---|---|---|---|---|---|---|---|
@@ -239,3 +239,10 @@ Sources: [Reference Book](https://digimon.net/reference_en/detail.php?directory_
 Cards 338–346 are playable with recoloured disc placeholders, unchanged base numbers/effects,
 verified three-slot labels (attack-sources.md), and identical prepared pictures in both
 art modes. Required checks and browser review passed; integrated into time-stranger.
+
+### TS-106 gameplay redesign — 2026-10-14
+
+All 45 cards now have original stat profiles, changed cross effects and distinct supports.
+[card-design.md](card-design.md) holds exact values, source links and tradeoffs. The earlier
+dated base-stat completion notes above are historical and superseded for gameplay.
+Visual bases, local model mappings, source pictures and published effect offsets remain.

@@ -23,3 +23,8 @@ owner's request, and the README says so.
 Test: TS-302 adds one selftest with the list of Time Stranger decks (later tickets add to
 it): each is its base deck with exactly the exchange of decks.md. `node tools/sim.js` then
 plays them.
+
+## Gameplay source (2026-10-14)
+
+Use the original stat/effect designs in [card-design.md](card-design.md), completed under
+TS-106, when choosing decks. Donor ids determine existing visual assets, not new gameplay.

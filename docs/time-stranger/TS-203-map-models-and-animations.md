@@ -178,7 +178,8 @@ classes. The callers pass the number in a variable, and the constants in the cla
 ### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
 
 Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
-All its numbers/effects are copied from Tsukaimon. Local char_KERAMON → chr626 is
+Initially its numbers/effects were copied from Tsukaimon; TS-106 supersedes that
+with original gameplay (card-design.md). Local char_KERAMON → chr626 is
 present in both model tables; Phase 2 converts all nine Darkness models. The old
 black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
 restoration and is shared by both art modes. Offset 20000 is retired; the four other
