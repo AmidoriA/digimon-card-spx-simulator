@@ -326,6 +326,15 @@ checked before every build. Rebuild with `build_custom.py <extracted> web art <i
 | 317 | MachGaogamon | Ice / U | WereGarurumon (39) | 416 | card `EX4-019`, edit 317 | [258 · Data](https://digimon.jsuk.cloud/en/d/machgaogamon/) |
 | 318 | Crescemon | Ice / U | Panjyamon (41) | 417 | ref `crescemon` | [237 · Data](https://digimon.jsuk.cloud/en/d/crescemon/) |
 | 319 | Dragomon | Ice / U | Zudomon (40) | 418 | card `BT6-026`, edit 319 | [282 · Virus](https://digimon.jsuk.cloud/en/d/dragomon/) |
+| 320 | Renamon | Nature / R | Gatomon (184) | 419 | card `BT10-032`, edit 320 | [058 · Data](https://digimon.jsuk.cloud/en/d/renamon/) |
+| 321 | Terriermon | Nature / R | Patamon (183) | 420 | card `EX2-025`, edit 321 | [027 · Vaccine](https://digimon.jsuk.cloud/en/d/terriermon/) |
+| 322 | Lalamon | Nature / R | Palmon (98) | 421 | card `BT4-052`, edit 322 | [056 · Data](https://digimon.jsuk.cloud/en/d/lalamon/) |
+| 323 | Kyubimon | Nature / C | Unimon (88) | 422 | card `BT5-038`, edit 323 | [117 · Data](https://digimon.jsuk.cloud/en/d/kyubimon/) |
+| 324 | Gargomon | Nature / C | Leomon (85) | 423 | card `BT3-048`, edit 324 | [086 · Vaccine](https://digimon.jsuk.cloud/en/d/gargomon/) |
+| 325 | Sunflowmon | Nature / C | Togemon (84) | 424 | card `BT4-054`, edit 325 | [120 · Data](https://digimon.jsuk.cloud/en/d/sunflowmon/) |
+| 326 | Taomon | Nature / U | Angewomon (77) | 425 | card `BT5-041`, edit 326 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) |
+| 327 | Rapidmon | Nature / U | MagnaAngemon (75) | 426 | card `BT3-052`, edit 327 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) |
+| 328 | Lilamon | Nature / U | Lillymon (78) | 427 | card `BT4-059`, edit 328 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) |
 
 ### Local picture restoration (TS-004)
 

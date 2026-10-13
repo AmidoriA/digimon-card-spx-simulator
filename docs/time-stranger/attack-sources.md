@@ -52,3 +52,21 @@ field guide. Its disc placeholder model is retained per the owner's earlier deci
 - **MachGaogamon (317)**: Gaoga Tornado / Winning Knuckle / Howling Cannon. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=machgaogamon).
 - **Crescemon (318)**: Lunatic Dance / Ice Archery / Dark Archery. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=crescemon).
 - **Dragomon (319)**: Forbidden Trident / Hydro Water II / Hell Crusher II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dagomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/dragomon/).
+| 320 | Renamon | Rune Forest I | 30091 | char_RENAMON | [108] |
+| 323 | Kyubimon | Mental Break | 32221 | char_KYUBIMON | [108] |
+| 324 | Gargomon | Thunder Fall I | 30151 | char_GARGOMON | [111] |
+| 326 | Taomon | Hell Crusher II | 30302 | char_TAOMON | [111] |
+| 326 | Taomon | Magic Field | 32091 | char_TAOMON | [108] |
+| 327 | Rapidmon | Thunder Fall II | 30152 | char_RAPIDMON | [111] |
+
+## TS-103 sources and selected names
+
+- **Renamon (320)**: Kohenkyo / Diamond Storm / Rune Forest I. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=renamon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/renamon/).
+- **Terriermon (321)**: Terrier Tornado / Blazing Fire / Double Typhoon. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=terriermon).
+- **Lalamon (322)**: Seed Blast / Lala Screw / Sing a Song. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lalamon).
+- **Kyubimon (323)**: Fox Tail Inferno / Dragon Wheel / Mental Break. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=kyubimon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/kyubimon/).
+- **Gargomon (324)**: Gatling Arm / Dumdum Uppercut / Thunder Fall I. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=galgomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/gargomon/).
+- **Sunflowmon (325)**: Sunshine Beam / Smiley Slap / Cactus Tail. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=sunflowmon).
+- **Taomon (326)**: Talisman of Light / Hell Crusher II / Magic Field. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=taomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/taomon/).
+- **Rapidmon (327)**: Rapid Fire / Golden Triangle / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=rapidmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/rapidmon/).
+- **Lilamon (328)**: Lila Shower / Beauty Slap / Pollen Spray. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lilamon).

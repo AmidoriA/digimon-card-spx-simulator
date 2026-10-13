@@ -781,6 +781,265 @@
      "sat": 0.65
     }
    }
+  ],
+  "ts-320-model": [
+   {
+    "hue": [
+     0,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 45,
+     "sat": 0.9
+    }
+   },
+   {
+    "hue": [
+     80,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 270,
+     "sat": 0.6
+    }
+   }
+  ],
+  "ts-321-model": [
+   {
+    "hue": [
+     25,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 85,
+     "sat": 0.3,
+     "val": 1.1
+    }
+   }
+  ],
+  "ts-322-model": [
+   {
+    "hue": [
+     0,
+     60
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 330,
+     "sat": 0.5
+    }
+   },
+   {
+    "hue": [
+     65,
+     175
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 110,
+     "sat": 0.65
+    }
+   }
+  ],
+  "ts-323-model": [
+   {
+    "hue": [
+     170,
+     290
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 230,
+     "sat": 0.65
+    }
+   },
+   {
+    "hue": [
+     0,
+     90
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 45,
+     "sat": 0.8
+    }
+   }
+  ],
+  "ts-324-model": [
+   {
+    "hue": [
+     10,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 75,
+     "sat": 0.2,
+     "val": 1.2
+    }
+   },
+   {
+    "hue": [
+     80,
+     170
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 120,
+     "sat": 0.7
+    }
+   }
+  ],
+  "ts-325-model": [
+   {
+    "hue": [
+     0,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 48,
+     "sat": 0.9,
+     "val": 1.1
+    }
+   },
+   {
+    "hue": [
+     80,
+     175
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 115,
+     "sat": 0.9
+    }
+   }
+  ],
+  "ts-326-model": [
+   {
+    "hue": [
+     0,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 45,
+     "sat": 0.8
+    }
+   },
+   {
+    "hue": [
+     175,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 250,
+     "sat": 0.5
+    }
+   }
+  ],
+  "ts-327-model": [
+   {
+    "hue": [
+     20,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 100,
+     "sat": 0.8
+    }
+   },
+   {
+    "hue": [
+     175,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 110,
+     "sat": 0.7
+    }
+   }
+  ],
+  "ts-328-model": [
+   {
+    "hue": [
+     20,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 330,
+     "sat": 0.65
+    }
+   },
+   {
+    "hue": [
+     80,
+     175
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 115,
+     "sat": 0.75
+    }
+   }
   ]
  },
  "decks": [
@@ -2178,6 +2437,717 @@
       430
      ],
      "edited": "edited/ts002/319.png"
+    }
+   }
+  },
+  {
+   "id": 320,
+   "name": "Renamon",
+   "base": 184,
+   "spec": "Nature",
+   "level": "R",
+   "dp": 0,
+   "pp": 30,
+   "hp": 600,
+   "attacks": [
+    {
+     "name": "Kohenkyo",
+     "power": 290
+    },
+    {
+     "name": "Diamond Storm",
+     "power": 200
+    },
+    {
+     "name": "Rune Forest I",
+     "power": 0
+    }
+   ],
+   "xfx": "△ Counter",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 0,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       2
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       1
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Change own Specialty to Nature. Draw 1 Card."
+   },
+   "model": {
+    "number": 419,
+    "recolour": "ts-320-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT10-032",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/320.png"
+    }
+   }
+  },
+  {
+   "id": 321,
+   "name": "Terriermon",
+   "base": 183,
+   "spec": "Nature",
+   "level": "R",
+   "dp": 0,
+   "pp": 30,
+   "hp": 600,
+   "attacks": [
+    {
+     "name": "Terrier Tornado",
+     "power": 330
+    },
+    {
+     "name": "Blazing Fire",
+     "power": 160
+    },
+    {
+     "name": "Double Typhoon",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       2,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       2,
+       0
+      ],
+      "m1": 0,
+      "m2": 2
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       1
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If foe's Specialty is Darkness, own Attack Power is doubled. Draw 1 Card."
+   },
+   "model": {
+    "number": 420,
+    "recolour": "ts-321-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX2-025",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/321.png"
+    }
+   }
+  },
+  {
+   "id": 322,
+   "name": "Lalamon",
+   "base": 98,
+   "spec": "Nature",
+   "level": "R",
+   "dp": 0,
+   "pp": 30,
+   "hp": 500,
+   "attacks": [
+    {
+     "name": "Seed Blast",
+     "power": 370
+    },
+    {
+     "name": "Lala Screw",
+     "power": 240
+    },
+    {
+     "name": "Sing a Song",
+     "power": 160
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 0,
+    "conds": [],
+    "acts": [],
+    "text": "None"
+   },
+   "model": {
+    "number": 421,
+    "recolour": "ts-322-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-052",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/322.png"
+    }
+   }
+  },
+  {
+   "id": 323,
+   "name": "Kyubimon",
+   "base": 88,
+   "spec": "Nature",
+   "level": "C",
+   "dp": 40,
+   "pp": 20,
+   "hp": 950,
+   "attacks": [
+    {
+     "name": "Fox Tail Inferno",
+     "power": 390
+    },
+    {
+     "name": "Dragon Wheel",
+     "power": 210
+    },
+    {
+     "name": "Mental Break",
+     "power": 150
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       2,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If opponent's Specialty is Darkness, lower opponent's Attack Power to 0."
+   },
+   "model": {
+    "number": 422,
+    "recolour": "ts-323-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT5-038",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/323.png"
+    }
+   }
+  },
+  {
+   "id": 324,
+   "name": "Gargomon",
+   "base": 85,
+   "spec": "Nature",
+   "level": "C",
+   "dp": 40,
+   "pp": 20,
+   "hp": 890,
+   "attacks": [
+    {
+     "name": "Gatling Arm",
+     "power": 430
+    },
+    {
+     "name": "Dumdum Uppercut",
+     "power": 280
+    },
+    {
+     "name": "Thunder Fall I",
+     "power": 200
+    }
+   ],
+   "xfx": "None",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       13,
+       0,
+       0,
+       14,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 0,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       500,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Level is lower, boost own Attack Power +500."
+   },
+   "model": {
+    "number": 423,
+    "recolour": "ts-324-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT3-048",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/324.png"
+    }
+   }
+  },
+  {
+   "id": 325,
+   "name": "Sunflowmon",
+   "base": 84,
+   "spec": "Nature",
+   "level": "C",
+   "dp": 30,
+   "pp": 30,
+   "hp": 800,
+   "attacks": [
+    {
+     "name": "Sunshine Beam",
+     "power": 380
+    },
+    {
+     "name": "Smiley Slap",
+     "power": 250
+    },
+    {
+     "name": "Cactus Tail",
+     "power": 170
+    }
+   ],
+   "xfx": "△ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own Attack Power +100."
+   },
+   "model": {
+    "number": 424,
+    "recolour": "ts-325-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-054",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/325.png"
+    }
+   }
+  },
+  {
+   "id": 326,
+   "name": "Taomon",
+   "base": 77,
+   "spec": "Nature",
+   "level": "U",
+   "dp": 40,
+   "pp": 30,
+   "hp": 1370,
+   "attacks": [
+    {
+     "name": "Talisman of Light",
+     "power": 720
+    },
+    {
+     "name": "Hell Crusher II",
+     "power": 520
+    },
+    {
+     "name": "Magic Field",
+     "power": 330
+    }
+   ],
+   "xfx": "Darkness Foe x3",
+   "support": {
+    "prio": 2,
+    "conds": [
+     {
+      "v": [
+       2,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       500,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If opponent's Specialty is Darkness, recover own HP by +500."
+   },
+   "model": {
+    "number": 425,
+    "recolour": "ts-326-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT5-041",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/326.png"
+    }
+   }
+  },
+  {
+   "id": 327,
+   "name": "Rapidmon",
+   "base": 75,
+   "spec": "Nature",
+   "level": "U",
+   "dp": 40,
+   "pp": 20,
+   "hp": 1320,
+   "attacks": [
+    {
+     "name": "Rapid Fire",
+     "power": 770
+    },
+    {
+     "name": "Golden Triangle",
+     "power": 570
+    },
+    {
+     "name": "Thunder Fall II",
+     "power": 370
+    }
+   ],
+   "xfx": "Darkness Foe x3",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       2,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       500,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If opponent's Specialty is Darkness, boost own Attack Power +500."
+   },
+   "model": {
+    "number": 426,
+    "recolour": "ts-327-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT3-052",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/327.png"
+    }
+   }
+  },
+  {
+   "id": 328,
+   "name": "Lilamon",
+   "base": 78,
+   "spec": "Nature",
+   "level": "U",
+   "dp": 30,
+   "pp": 30,
+   "hp": 1100,
+   "attacks": [
+    {
+     "name": "Lila Shower",
+     "power": 650
+    },
+    {
+     "name": "Beauty Slap",
+     "power": 340
+    },
+    {
+     "name": "Pollen Spray",
+     "power": 200
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Recover own HP by +200."
+   },
+   "model": {
+    "number": 427,
+    "recolour": "ts-328-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-059",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/328.png"
     }
    }
   }
