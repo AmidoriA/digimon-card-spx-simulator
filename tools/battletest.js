@@ -143,8 +143,27 @@ function mesh(model) {
       was = Array.from(H.p); held++;
     }
     assert.strictEqual(held, 60, 'hit script 401 did not hold the target for 60 frames');
-    await playback; B.paused = false;
-    console.log('PASS: motions last 2 x d0 + the sum of 2 x d frames, start again when started again, wait while hidden or held.');
+    await playback;
+    // effect models are started with the start routine's fourth argument set unless script
+    // variable 0x1cb is 1 (0x801e39d8): a key then lasts 1 x its duration (0x80022784)
+    const models = async (card, n) => {
+      const seen = new Set(), p = B.attack({ models: [card.model, g.model], attacker: 0, first: 0, script: card.atk[n].script, hit: card.atk[n].hit, attack: n, name: card.atk[n].name, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false });
+      await waitFor(() => B.busy());
+      const sc = B._debug();
+      for (let i = 0; i < 1500 && B.busy(); i++) { B.advance(1); sc.extra.forEach(x => seen.add(x)); }
+      await p; return Array.from(seen).filter(x => x.keys);
+    };
+    const plain = await models(c, 0), eased = await models(cards.find(c => c.name === 'Vikemon'), 0);
+    assert(plain.length && plain.every(x => x.linear), "Agumon's effect models are not on the constant-speed path");
+    assert(eased.some(x => !x.linear), 'no effect model of Vikemon is started with variable 0x1cb set');
+    for (const x of plain) {
+      let n = 0;
+      x.visible = true; x.play(0, false);
+      while (x.busy() && n < 2000) { x.step(); n++; }
+      assert.strictEqual(n, x.keys[0].dur + x.keys.reduce((s, q) => s + q.dur, 0), 'an effect model motion does not last d0 + the sum of d');
+    }
+    B.paused = false;
+    console.log('PASS: motions last 2 x d0 + the sum of 2 x d frames, start again when started again, wait while hidden or held; effect models take 1 x.');
   }
   const c = cards.find(c => c.name === 'Agumon'), a = c.atk[0];
   const arenas = JSON.parse(fs.readFileSync(path.join(web,'assets/battle/arenas.json')));

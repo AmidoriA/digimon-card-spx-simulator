@@ -484,7 +484,8 @@ not recovered game behaviour. They require no new downloaded model or texture as
 runs in all three styles with the same random seed, including no-effect misses and countered
 motions. It also plays every motion of Agumon that stops and compares its length with the
 one `tools/motion_slots.py` measured (`docs/time-stranger/motion-slots.json`), and checks
-that a motion started again starts again and that a hidden or a held model waits. It checks CPU
+that a motion started again starts again, that a hidden or a held model waits, and that
+effect models take the constant-speed path. It checks CPU
 animation logic; real shader linking and visual appearance are
 checked separately in `battle-preview.html`. For deliberately uncommitted development,
 `python tools/check_paths.py --working-tree` includes new files; the normal command still
@@ -581,7 +582,16 @@ scripts, then camera and arenas.
   (`0x801e41ac`, drawn by `0x801eb874`), a flat picture facing the viewer that steps through
   the frames of a sprite chunk, 4 x its size, with the GPU's blend modes; an *effect model*
   (`0x801e38a0`), a model with its own motion from the attack's asset file `E/NNN.PAK`, carried
-  by a node and dimmed by its fade; a *light change* (`0x801e76a8`), which swings one of the
+  by a node and dimmed by its fade. Its motion is started by the same start routine as a
+  Digimon's (`0x801e39c4` … `0x801e39dc`), but with the fourth argument set unless the
+  script's variable `0x1cb` is 1 (the scripts set it to 1 in 19 places). With that argument the key setup takes
+  its other path (`0x80022784`): a key is reached in 1 × its duration, not 2 ×, at constant
+  speed, and the step (`0x80021c38`) leaves the parts' speeds alone; so such a motion lasts
+  d0 + Σ d frames. Of the 872 effect models with a motion that the cards' attacks create
+  (each attack counted once), 826 are started this way. Like a Digimon, an effect model is
+  moved on only while its show flag is above 0; its object sets the flag every frame, to 3
+  or to -1 (`0x801e3cc0` … `0x801e3d00`; the port moves it on while its node is on and its
+  brightness is not 0). Also new: a *light change* (`0x801e76a8`), which swings one of the
   three lights' direction and colour for a number of frames; a *screen rectangle*
   (`0x801e6424`), a blended rectangle whose colour steps between two colours, used for flashes.
 - **Movement.** A node's motion type picks how it moves (table `0x800108b0`): fixed, along a
@@ -784,7 +794,10 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   arrival at a target is judged by distance travelled. The alternate models in archive `G`
   are not used, and five models whose palette is not in their own file fall back to their
   texture's first palette. Sounds named by motions are not played; sounds named by scripts
-  are, where the sound bank has them. The entrance motion (slot 7) is never shown. After the
+  are, where the sound bank has them. An effect model on the constant-speed path keeps, in
+  the game, whatever accelerations its whole-model record (the camera's) was left with; they
+  are taken as 0 here (whether the block is cleared when a model is loaded was not read).
+  The entrance motion (slot 7) is never shown. After the
   second strike of a turn the game's director waits 30 frames (`0x801eea98`) where it waits
   20 after the first (`0x801ee910`); here every strike is a scene of its own and waits 20.
 - **Taking back in the Digivolve Phase.** In the game, answering No to "Is it OK to end the

@@ -235,8 +235,10 @@
   }
 
   // ------------------------------------------------------------------ a Digimon in the scene
-  function Actor(model, pos, facing) {
-    this.m = model; this.pos = pos.slice(); this.facing = facing;
+  // linear: the fourth argument of the start routine (0x80022d64 keeps it in the model's block
+  // at 0x26d8), which effect models are given: their keys are set up at constant speed
+  function Actor(model, pos, facing, linear) {
+    this.m = model; this.pos = pos.slice(); this.facing = facing; this.linear = !!linear;
     var n = (model.n + 1) * 9, i;
     this.p = new Float64Array(n); this.v = new Float64Array(n); this.a1 = new Float64Array(n); this.a2 = new Float64Array(n);
     this.cur = -1; this.count = -1; this.phase = 0; this.keys = null; this.loop = -1; this.show = [];
@@ -277,16 +279,20 @@
   Actor.prototype.release = function () { if (this.count < 0) this.count = -this.count; };
   // 0x80022100: aim every channel at the current key. The key after it is the next one of the
   // motion, or after the last one the loop key; the start names it itself (`lead`).
+  // With the model's 0x26d8 set the setup takes its other path (0x80022784): the key is
+  // reached in 1 x its duration at constant speed ((key - pose) / frames), and the step
+  // (0x80021c38) leaves the parts' speeds as they are.
   Actor.prototype.setup = function (lead) {
     if (this.cur < 0) { this.count = -1; return; }
     var key = this.keys[this.cur], D = Math.max(1, key.dur), nx = lead != null ? lead : this.cur + 1 < this.keys.length ? this.cur + 1 : this.loop, i, c;
     if (key.snd > 0 && this.onSound) this.onSound(key.snd - 1);
     var k1 = key.r, k2 = nx >= 0 ? this.keys[nx].r : key.r, Dn = nx >= 0 ? Math.max(1, this.keys[nx].dur * 2) : 1;
-    this.count = 2 * D; this.phase = D; this.cur = nx;
+    this.count = this.linear ? D : 2 * D; this.phase = this.linear ? D >> 1 : D; this.cur = nx;
     for (i = 0; i <= this.m.n; i++) {
       if (i < this.m.n) this.show[i] = k1[i * 11 + 3];
       for (c = 0; c < 9; c++) {
         var j = i * 9 + c, f = i * 11 + FIELD[c];
+        if (this.linear) { this.v[j] = (k1[f] - this.p[j]) / D; this.a1[j] = this.a2[j] = 0; continue; }
         this.p[j] = Math.trunc(this.p[j]);
         var avg = (k1[f] - this.p[j]) / (2 * D), end = ((k2[f] - k1[f]) / Dn + avg) / 2, mid = 2 * avg - (end + this.v[j]) / 2;
         this.a1[j] = (mid - this.v[j]) / D; this.a2[j] = (end - mid) / D;
@@ -1009,7 +1015,9 @@
     this.alpha = C.s16(v[0x3b]);
     this.mode = v[0x4a] & 0xff;
     var m = fx.models[v[0x1ba]];
-    this.actor = m ? new Actor(m, [0, 0, 0], 0) : null;
+    // 0x801e39c4 .. 0x801e39dc: the pose of key 0, then the start with variable 0x1cb ^ 1 as
+    // its fourth argument
+    this.actor = m ? new Actor(m, [0, 0, 0], 0, !v[0x1cb]) : null;
     if (this.actor) { this.actor.visible = false; run.scene.extra.push(this.actor); }
   }
   FxModel.prototype.update = function () {
