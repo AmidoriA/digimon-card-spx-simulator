@@ -27,10 +27,10 @@ Give every Time Stranger card a "New card art" picture from the internet, from t
 
 ## Acceptance criteria
 
-- [ ] Every row has `card` + `crop`, or `ref`.
-- [ ] Every crop was looked at: Digimon centred, no SAMPLE mark inside.
-- [ ] Every picture edited through ComfyUI is marked in roster.md with what was changed; the edited pictures are kept beside the downloads so a rebuild repeats them.
-- [ ] Pictures are cached under `extracted/newart` like the game cards' (not in git).
+- [x] Every row has `card` + `crop`, or `ref`.
+- [x] Every crop was looked at: Digimon centred, no SAMPLE mark inside.
+- [x] Every picture edited through ComfyUI is marked in roster.md with what was changed; the edited pictures are kept beside the downloads so a rebuild repeats them.
+- [x] Pictures are cached under `extracted/newart` like the game cards' (not in git).
 
 ## Out of scope
 
@@ -43,3 +43,7 @@ Give every Time Stranger card a "New card art" picture from the internet, from t
 ## Log
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
+
+- 2026-10-13: Selected and inspected all 45 pictures after TS-001: 44 regular official card illustrations and `ref crescemon`, recorded in roster.md and `tools/time_stranger_art.json`. The Crescemon fallback reflects source suitability: rules hide the legs, and attempted inpainting was rejected for changing anatomy.
+- 2026-10-13: Prepared 44 ComfyUI restorations using the installed `512-inpainting-ema.safetensors` checkpoint and stored `ts002-inpaint.json` graph. Every recipe (source, crop, mask geometry, prompt, seed, model/settings and output path) is in `tools/new_art_edits.json`. `tools/prepare_time_stranger_art.py` downloads, caches/replays and makes review sheets without building game assets.
+- 2026-10-13: Downloaded/edited files remain ignored under `extracted/newart`; 45 sources and 44 edit hashes validated, and all unmasked pixels compared identical. Corrected incomplete multiline text masks and a generated mark on Lunamon, then inspected the final selections. Coronamon repeated with separate uploads gave identical decoded pixels (hash in roster.md); the owner accepted its before/after. Original game cards and custom card records were not rebuilt by this ticket.

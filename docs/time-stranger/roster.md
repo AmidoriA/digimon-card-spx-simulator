@@ -27,51 +27,51 @@ Megas, so some Ultimates get a Mega's numbers (Chirinmon from MetalGarurumon, fo
 
 | Id | Spec | Lv | Card | Base (id) | Model | TS source (no. · attribute) | TS element (signature) | Picture | TS model |
 |---|---|---|---|---|---|---|---|---|---|
-| 302 | Fire | R | Guilmon | Agumon (27) | 401 | [064 · Virus](https://digimon.jsuk.cloud/en/d/guilmon/) | Fire |  |  |
-| 303 | Fire | R | Coronamon | Goburimon (33) | 402 | [024 · Vaccine](https://digimon.jsuk.cloud/en/d/coronamon/) | Fire |  |  |
-| 304 | Fire | R | Huckmon | Veemon (175) | 403 | [052 · Data](https://digimon.jsuk.cloud/en/d/huckmon/) | Neutral |  |  |
-| 305 | Fire | C | Growlmon | Greymon (14) | 404 | [145 · Virus](https://digimon.jsuk.cloud/en/d/growlmon/) | Fire |  |  |
-| 306 | Fire | C | Firamon | Centarumon (19) | 405 | [100 · Vaccine](https://digimon.jsuk.cloud/en/d/firamon/) | Fire |  |  |
-| 307 | Fire | C | BaoHuckmon | Flarerizamon (26) | 406 | [133 · Data](https://digimon.jsuk.cloud/en/d/baohuckmon/) | Neutral |  |  |
-| 308 | Fire | U | WarGrowlmon | MetalGreymon (9) | 407 | [294 · Virus](https://digimon.jsuk.cloud/en/d/wargrowlmon/) | Fire |  |  |
-| 309 | Fire | U | Flaremon | Garudamon (7) | 408 | [219 · Vaccine](https://digimon.jsuk.cloud/en/d/flaremon/) | Fire |  |  |
-| 310 | Fire | U | SaviorHuckmon | Paildramon (4) | 409 | [240 · Data](https://digimon.jsuk.cloud/en/d/saviorhuckmon/) | Neutral |  |  |
-| 311 | Ice | R | Gaomon | Gabumon (62) | 410 | [041 · Data](https://digimon.jsuk.cloud/en/d/gaomon/) | Wind |  |  |
-| 312 | Ice | R | Lunamon | Penguinmon (64) | 411 | [057 · Data](https://digimon.jsuk.cloud/en/d/lunamon/) | Water |  |  |
-| 313 | Ice | R | Syakomon | Betamon (63) | 412 | [067 · Virus](https://digimon.jsuk.cloud/en/d/syakomon/) | Water |  |  |
-| 314 | Ice | C | Gaogamon | Garurumon (46) | 413 | [114 · Data](https://digimon.jsuk.cloud/en/d/gaogamon/) | Wind |  |  |
-| 315 | Ice | C | Lekismon | Sorcerimon (57) | 414 | [137 · Data](https://digimon.jsuk.cloud/en/d/lekismon/) | Water |  |  |
-| 316 | Ice | C | Octomon | Gesomon (51) | 415 | [142 · Virus](https://digimon.jsuk.cloud/en/d/octomon/) | None (debuff) |  |  |
-| 317 | Ice | U | MachGaogamon | WereGarurumon (39) | 416 | [258 · Data](https://digimon.jsuk.cloud/en/d/machgaogamon/) | Wind |  |  |
-| 318 | Ice | U | Crescemon | Panjyamon (41) | 417 | [237 · Data](https://digimon.jsuk.cloud/en/d/crescemon/) | Ice |  |  |
-| 319 | Ice | U | Dragomon | Zudomon (40) | 418 | [282 · Virus](https://digimon.jsuk.cloud/en/d/dragomon/) | Water |  |  |
-| 320 | Nature | R | Renamon | Gatomon (184) | 419 | [058 · Data](https://digimon.jsuk.cloud/en/d/renamon/) | Plant |  |  |
-| 321 | Nature | R | Terriermon | Patamon (183) | 420 | [027 · Vaccine](https://digimon.jsuk.cloud/en/d/terriermon/) | Wind |  |  |
-| 322 | Nature | R | Lalamon | Palmon (98) | 421 | [056 · Data](https://digimon.jsuk.cloud/en/d/lalamon/) | Plant |  |  |
-| 323 | Nature | C | Kyubimon | Unimon (88) | 422 | [117 · Data](https://digimon.jsuk.cloud/en/d/kyubimon/) | Fire |  |  |
-| 324 | Nature | C | Gargomon | Leomon (85) | 423 | [086 · Vaccine](https://digimon.jsuk.cloud/en/d/gargomon/) | Steel |  |  |
-| 325 | Nature | C | Sunflowmon | Togemon (84) | 424 | [120 · Data](https://digimon.jsuk.cloud/en/d/sunflowmon/) | Plant |  |  |
-| 326 | Nature | U | Taomon | Angewomon (77) | 425 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) | Dark |  |  |
-| 327 | Nature | U | Rapidmon | MagnaAngemon (75) | 426 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) | Electric |  |  |
-| 328 | Nature | U | Lilamon | Lillymon (78) | 427 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) | Plant |  |  |
-| 329 | Darkness | R | Agumon (Black) | Agumon (27) ✱ | 428 | [468 · Virus](https://digimon.jsuk.cloud/en/d/agumon-black/) | Fire |  |  |
-| 330 | Darkness | R | Monodramon | Veemon (175) ✱ | 429 | [037 · Vaccine](https://digimon.jsuk.cloud/en/d/monodramon/) | Neutral |  |  |
-| 331 | Darkness | R | Dracmon | DemiDevimon (132) | 430 | [070 · Virus](https://digimon.jsuk.cloud/en/d/dracmon/) | Dark |  |  |
-| 332 | Darkness | C | Kurisarimon | Bakemon (123) | 431 | [178 · Unknown](https://digimon.jsuk.cloud/en/d/kurisarimon/) | Dark |  |  |
-| 333 | Darkness | C | Strikedramon | Darkrizamon (130) | 432 | [093 · Vaccine](https://digimon.jsuk.cloud/en/d/strikedramon/) | Fire |  |  |
-| 334 | Darkness | C | Sangloupmon | Gururumon (126) | 433 | [153 · Virus](https://digimon.jsuk.cloud/en/d/sangloupmon/) | Dark |  |  |
-| 335 | Darkness | U | MetalTyrannomon | MasterTyrannomon (8) ✱ | 434 | [295 · Virus](https://digimon.jsuk.cloud/en/d/metaltyrannomon/) | Electric |  |  |
-| 336 | Darkness | U | Cyberdramon | Andromon (116) | 435 | [210 · Vaccine](https://digimon.jsuk.cloud/en/d/cyberdramon/) | Neutral |  |  |
-| 337 | Darkness | U | Matadormon | Myotismon (111) | 436 | [290 · Virus](https://digimon.jsuk.cloud/en/d/matadormon/) | Dark |  |  |
-| 338 | Rare | R | Dracomon | ClearAgumon (168) | 437 | [049 · Data](https://digimon.jsuk.cloud/en/d/dracomon/) | Fire |  |  |
-| 339 | Rare | R | Bearmon | Psychemon (170) | 438 | [035 · Vaccine](https://digimon.jsuk.cloud/en/d/bearmon/) | Neutral |  |  |
-| 340 | Rare | R | Kudamon | Vi-Elecmon (169) | 439 | [022 · Vaccine](https://digimon.jsuk.cloud/en/d/kudamon/) | None (debuff) |  |  |
-| 341 | Rare | C | Coredramon (Blue) | Rockmon (159) | 440 | [091 · Vaccine](https://digimon.jsuk.cloud/en/d/coredramon-blue/) | Fire |  |  |
-| 342 | Rare | C | Grizzlymon | Ankylomon (151) | 441 | [089 · Vaccine](https://digimon.jsuk.cloud/en/d/grizzlymon/) | Neutral (counter) |  |  |
-| 343 | Rare | C | Reppamon | ShimaUnimon (162) | 442 | [110 · Vaccine](https://digimon.jsuk.cloud/en/d/reppamon/) | Steel |  |  |
-| 344 | Rare | U | Wingdramon | Gigadramon (5) ✱ | 443 | [200 · Vaccine](https://digimon.jsuk.cloud/en/d/wingdramon/) | Fire |  |  |
-| 345 | Rare | U | GrapLeomon | Etemon (150) | 444 | [205 · Vaccine](https://digimon.jsuk.cloud/en/d/grapleomon/) | Wind |  |  |
-| 346 | Rare | U | Chirinmon | MetalGarurumon (37) ✱ | 445 | [213 · Vaccine](https://digimon.jsuk.cloud/en/d/chirinmon/) | Light |  |  |
+| 302 | Fire | R | Guilmon | Agumon (27) | 401 | [064 · Virus](https://digimon.jsuk.cloud/en/d/guilmon/) | Fire | card `BT2-009` crop `[0, 24, 430]`; edit 302 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 303 | Fire | R | Coronamon | Goburimon (33) | 402 | [024 · Vaccine](https://digimon.jsuk.cloud/en/d/coronamon/) | Fire | card `EX5-007` crop `[0, 24, 430]`; edit 303 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 304 | Fire | R | Huckmon | Veemon (175) | 403 | [052 · Data](https://digimon.jsuk.cloud/en/d/huckmon/) | Neutral | card `BT7-009` crop `[0, 24, 430]`; edit 304 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 305 | Fire | C | Growlmon | Greymon (14) | 404 | [145 · Virus](https://digimon.jsuk.cloud/en/d/growlmon/) | Fire | card `BT2-013` crop `[0, 24, 430]`; edit 305 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 306 | Fire | C | Firamon | Centarumon (19) | 405 | [100 · Vaccine](https://digimon.jsuk.cloud/en/d/firamon/) | Fire | card `EX5-008` crop `[0, 24, 430]`; edit 306 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 307 | Fire | C | BaoHuckmon | Flarerizamon (26) | 406 | [133 · Data](https://digimon.jsuk.cloud/en/d/baohuckmon/) | Neutral | card `BT6-011` crop `[0, 24, 430]`; edit 307 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 308 | Fire | U | WarGrowlmon | MetalGreymon (9) | 407 | [294 · Virus](https://digimon.jsuk.cloud/en/d/wargrowlmon/) | Fire | card `EX2-010` crop `[0, 24, 430]`; edit 308 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 309 | Fire | U | Flaremon | Garudamon (7) | 408 | [219 · Vaccine](https://digimon.jsuk.cloud/en/d/flaremon/) | Fire | card `EX5-012` crop `[0, 24, 430]`; edit 309 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 310 | Fire | U | SaviorHuckmon | Paildramon (4) | 409 | [240 · Data](https://digimon.jsuk.cloud/en/d/saviorhuckmon/) | Neutral | card `ST12-08` crop `[0, 24, 430]`; edit 310 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 311 | Ice | R | Gaomon | Gabumon (62) | 410 | [041 · Data](https://digimon.jsuk.cloud/en/d/gaomon/) | Wind | card `BT4-021` crop `[0, 24, 430]`; edit 311 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 312 | Ice | R | Lunamon | Penguinmon (64) | 411 | [057 · Data](https://digimon.jsuk.cloud/en/d/lunamon/) | Water | card `EX5-016` crop `[0, 24, 430]`; edit 312 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 313 | Ice | R | Syakomon | Betamon (63) | 412 | [067 · Virus](https://digimon.jsuk.cloud/en/d/syakomon/) | Water | card `EX5-056` crop `[0, 24, 430]`; edit 313 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 314 | Ice | C | Gaogamon | Garurumon (46) | 413 | [114 · Data](https://digimon.jsuk.cloud/en/d/gaogamon/) | Wind | card `EX4-017` crop `[0, 24, 430]`; edit 314 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 315 | Ice | C | Lekismon | Sorcerimon (57) | 414 | [137 · Data](https://digimon.jsuk.cloud/en/d/lekismon/) | Water | card `EX5-017` crop `[0, 24, 430]`; edit 315 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 316 | Ice | C | Octomon | Gesomon (51) | 415 | [142 · Virus](https://digimon.jsuk.cloud/en/d/octomon/) | None (debuff) | card `BT6-023` crop `[0, 24, 430]`; edit 316 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 317 | Ice | U | MachGaogamon | WereGarurumon (39) | 416 | [258 · Data](https://digimon.jsuk.cloud/en/d/machgaogamon/) | Wind | card `EX4-019` crop `[0, 24, 430]`; edit 317 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 318 | Ice | U | Crescemon | Panjyamon (41) | 417 | [237 · Data](https://digimon.jsuk.cloud/en/d/crescemon/) | Ice | ref `crescemon`; no edit (card rules obscure the legs; rejected inpaint reconstruction) |  |
+| 319 | Ice | U | Dragomon | Zudomon (40) | 418 | [282 · Virus](https://digimon.jsuk.cloud/en/d/dragomon/) | Water | card `BT6-026` crop `[0, 24, 430]`; edit 319 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 320 | Nature | R | Renamon | Gatomon (184) | 419 | [058 · Data](https://digimon.jsuk.cloud/en/d/renamon/) | Plant | card `BT10-032` crop `[0, 24, 430]`; edit 320 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 321 | Nature | R | Terriermon | Patamon (183) | 420 | [027 · Vaccine](https://digimon.jsuk.cloud/en/d/terriermon/) | Wind | card `EX2-025` crop `[0, 24, 430]`; edit 321 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 322 | Nature | R | Lalamon | Palmon (98) | 421 | [056 · Data](https://digimon.jsuk.cloud/en/d/lalamon/) | Plant | card `BT4-052` crop `[0, 24, 430]`; edit 322 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 323 | Nature | C | Kyubimon | Unimon (88) | 422 | [117 · Data](https://digimon.jsuk.cloud/en/d/kyubimon/) | Fire | card `BT5-038` crop `[0, 24, 430]`; edit 323 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 324 | Nature | C | Gargomon | Leomon (85) | 423 | [086 · Vaccine](https://digimon.jsuk.cloud/en/d/gargomon/) | Steel | card `BT3-048` crop `[0, 24, 430]`; edit 324 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 325 | Nature | C | Sunflowmon | Togemon (84) | 424 | [120 · Data](https://digimon.jsuk.cloud/en/d/sunflowmon/) | Plant | card `BT4-054` crop `[0, 24, 430]`; edit 325 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 326 | Nature | U | Taomon | Angewomon (77) | 425 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) | Dark | card `BT5-041` crop `[0, 24, 430]`; edit 326 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 327 | Nature | U | Rapidmon | MagnaAngemon (75) | 426 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) | Electric | card `BT3-052` crop `[0, 24, 430]`; edit 327 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 328 | Nature | U | Lilamon | Lillymon (78) | 427 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) | Plant | card `BT4-059` crop `[0, 24, 430]`; edit 328 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 329 | Darkness | R | Agumon (Black) | Agumon (27) ✱ | 428 | [468 · Virus](https://digimon.jsuk.cloud/en/d/agumon-black/) | Fire | card `BT8-058` crop `[0, 24, 430]`; edit 329 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 330 | Darkness | R | Monodramon | Veemon (175) ✱ | 429 | [037 · Vaccine](https://digimon.jsuk.cloud/en/d/monodramon/) | Neutral | card `BT1-009` crop `[0, 24, 430]`; edit 330 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 331 | Darkness | R | Dracmon | DemiDevimon (132) | 430 | [070 · Virus](https://digimon.jsuk.cloud/en/d/dracmon/) | Dark | card `ST6-04` crop `[0, 24, 430]`; edit 331 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 332 | Darkness | C | Kurisarimon | Bakemon (123) | 431 | [178 · Unknown](https://digimon.jsuk.cloud/en/d/kurisarimon/) | Dark | card `BT2-059` crop `[0, 24, 430]`; edit 332 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 333 | Darkness | C | Strikedramon | Darkrizamon (130) | 432 | [093 · Vaccine](https://digimon.jsuk.cloud/en/d/strikedramon/) | Fire | card `EX2-032` crop `[0, 24, 430]`; edit 333 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 334 | Darkness | C | Sangloupmon | Gururumon (126) | 433 | [153 · Virus](https://digimon.jsuk.cloud/en/d/sangloupmon/) | Dark | card `BT9-073` crop `[0, 24, 430]`; edit 334 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 335 | Darkness | U | MetalTyrannomon | MasterTyrannomon (8) ✱ | 434 | [295 · Virus](https://digimon.jsuk.cloud/en/d/metaltyrannomon/) | Electric | card `BT1-024` crop `[0, 24, 430]`; edit 335 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 336 | Darkness | U | Cyberdramon | Andromon (116) | 435 | [210 · Vaccine](https://digimon.jsuk.cloud/en/d/cyberdramon/) | Neutral | card `EX3-050` crop `[0, 24, 430]`; edit 336 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 337 | Darkness | U | Matadormon | Myotismon (111) | 436 | [290 · Virus](https://digimon.jsuk.cloud/en/d/matadormon/) | Dark | card `BT9-077` crop `[0, 24, 430]`; edit 337 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 338 | Rare | R | Dracomon | ClearAgumon (168) | 437 | [049 · Data](https://digimon.jsuk.cloud/en/d/dracomon/) | Fire | card `ST1-04` crop `[0, 24, 430]`; edit 338 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 339 | Rare | R | Bearmon | Psychemon (170) | 438 | [035 · Vaccine](https://digimon.jsuk.cloud/en/d/bearmon/) | Neutral | card `BT9-057` crop `[0, 24, 430]`; edit 339 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 340 | Rare | R | Kudamon | Vi-Elecmon (169) | 439 | [022 · Vaccine](https://digimon.jsuk.cloud/en/d/kudamon/) | None (debuff) | card `P-043` crop `[0, 24, 430]`; edit 340 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 341 | Rare | C | Coredramon (Blue) | Rockmon (159) | 440 | [091 · Vaccine](https://digimon.jsuk.cloud/en/d/coredramon-blue/) | Fire | card `EX3-018` crop `[0, 24, 430]`; edit 341 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 342 | Rare | C | Grizzlymon | Ankylomon (151) | 441 | [089 · Vaccine](https://digimon.jsuk.cloud/en/d/grizzlymon/) | Neutral (counter) | card `BT9-060` crop `[0, 24, 430]`; edit 342 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 343 | Rare | C | Reppamon | ShimaUnimon (162) | 442 | [110 · Vaccine](https://digimon.jsuk.cloud/en/d/reppamon/) | Steel | card `BT1-051` crop `[0, 24, 430]`; edit 343 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended |  |
+| 344 | Rare | U | Wingdramon | Gigadramon (5) ✱ | 443 | [200 · Vaccine](https://digimon.jsuk.cloud/en/d/wingdramon/) | Fire | card `ST8-07` crop `[0, 24, 430]`; edit 344 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 345 | Rare | U | GrapLeomon | Etemon (150) | 444 | [205 · Vaccine](https://digimon.jsuk.cloud/en/d/grapleomon/) | Wind | card `BT4-057` crop `[0, 24, 430]`; edit 345 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
+| 346 | Rare | U | Chirinmon | MetalGarurumon (37) ✱ | 445 | [213 · Vaccine](https://digimon.jsuk.cloud/en/d/chirinmon/) | Light | card `EX5-031` crop `[0, 24, 430]`; edit 346 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed |  |
 
 ## Specialty policy (owner decision, 2026-10-13)
 
@@ -160,3 +160,13 @@ If later local-game verification requires another change:
 - Nature or Rare: Lopmon → Turuiemon → Antylamon; Falcomon → Peckmon.
 - Rare: Kotemon → Dinohyumon.
 - Ice: Crabmon → Ebidramon.
+
+## Picture audit (TS-002, 2026-10-13)
+
+All 45 final pictures were inspected as contact sheets; unclear text/edges and the variant identities were checked at native size. No selected source contains SAMPLE. The 44 regular official card illustrations use the broad normalized 430×600 crop recorded above. Their original compositions can still be close-ups; restoration does not claim unseen anatomy from the game.
+
+Each `edit <id>` above is the matching recipe in `tools/new_art_edits.json`: model `512-inpainting-ema.safetensors`, stored workflow `tools/comfy_workflows/ts002-inpaint.json`, explicit mask, prompt, seed and sampling settings. Edited native crops, before pictures, masks and hash metadata are cached under `extracted/newart/edited/ts002/<id>.*`; download files stay in `cards/` and `ref/`. `tools/time_stranger_art.json` is the machine-readable selection; it does not add playable cards.
+
+Crescemon is an intentional suitability fallback, not an assertion that it has no card: EX5-020 and its print variants place rules over the legs; attempted restoration changed the anatomy and was rejected. The inspected official Reference Book source is https://digimon.net/reference_en/detail.php?directory_name=crescemon (image `crescemon.jpg`). Agumon (Black) is BT8-058, visibly the black Virus variant; Coredramon (Blue) is EX3-018, visibly blue. Official card titles omit those qualifiers.
+
+Validation: 45 source entries (ids 302–346), 44 cached ComfyUI edits, verified source images and valid crop bounds; every pixel outside every declared mask remains identical to its source. Coronamon edit 303 was independently uploaded and executed twice on this local ComfyUI: decoded pixel SHA-256 `96b5cbc7c0e3e262e468c2c45f8df704771a5fc0207ba1ea7371cb5e666d99ce` both times. Fixed-seed reproducibility on other hardware/software is not asserted. The owner accepted its before/after on 2026-10-13.

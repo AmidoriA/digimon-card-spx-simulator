@@ -1,0 +1,4196 @@
+[
+  {
+    "id": 302,
+    "source": {
+      "card": "BT2-009",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/302.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130304,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing orange fire and purple sparks. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 303,
+    "source": {
+      "card": "EX5-007",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/303.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130305,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing warm orange glowing fire. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          336,
+          400,
+          393
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 304,
+    "source": {
+      "card": "BT7-009",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/304.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130306,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pale stone towers and cloudy sky. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 305,
+    "source": {
+      "card": "BT2-013",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/305.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130307,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing dark industrial building and lightning. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 306,
+    "source": {
+      "card": "EX5-008",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/306.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130308,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing stone walls and muted rocky ground. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          336,
+          400,
+          428
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 307,
+    "source": {
+      "card": "BT6-011",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/307.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130309,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pale sky, rocks and blue icy bursts. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 308,
+    "source": {
+      "card": "EX2-010",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/308.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130310,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing dark red mechanical armor and shadow. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          427
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 309,
+    "source": {
+      "card": "EX5-012",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/309.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130311,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing orange fire and yellow mane. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          336,
+          400,
+          457
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 310,
+    "source": {
+      "card": "ST12-08",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/310.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130312,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing orange light and warm rocky ground. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          405
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 311,
+    "source": {
+      "card": "BT4-021",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/311.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130313,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing wooden boxing ring, blue floor. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 312,
+    "source": {
+      "card": "EX5-016",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/312.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130315,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing dark blue night sky and stars. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          336,
+          400,
+          395
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 313,
+    "source": {
+      "card": "EX5-056",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/313.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130315,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing underwater bubbles, blue and purple water. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          398
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 314,
+    "source": {
+      "card": "EX4-017",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/314.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130316,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing rocky outdoor ground and pale sky. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          400
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 315,
+    "source": {
+      "card": "EX5-017",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/315.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130317,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pale rocky ground and cool blue light. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          336,
+          400,
+          428
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 316,
+    "source": {
+      "card": "BT6-023",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/316.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130318,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing golden water and treasure reflections. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 317,
+    "source": {
+      "card": "EX4-019",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/317.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130319,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pale sky and distant rocky landscape. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          400
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 319,
+    "source": {
+      "card": "BT6-026",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/319.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130321,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing deep dark underwater bubbles. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          410
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 320,
+    "source": {
+      "card": "BT10-032",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/320.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130322,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing traditional Japanese wooden building. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          428
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 321,
+    "source": {
+      "card": "EX2-025",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/321.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130323,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing green leaves blowing in the wind. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          400
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 322,
+    "source": {
+      "card": "BT4-052",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/322.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130324,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pale pink yellow music patterns. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 323,
+    "source": {
+      "card": "BT5-038",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/323.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130325,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing swirling pale blue water and waves. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 324,
+    "source": {
+      "card": "BT3-048",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/324.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130326,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pale green wind and clouds. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 325,
+    "source": {
+      "card": "BT4-054",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/325.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130327,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing yellow sun rays and green foliage. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          445
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 326,
+    "source": {
+      "card": "BT5-041",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/326.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130328,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pale blue white and purple abstract background. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 327,
+    "source": {
+      "card": "BT3-052",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/327.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130329,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing blue sky and pale clouds. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 328,
+    "source": {
+      "card": "BT4-059",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/328.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130330,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pink green and yellow flower sparkles. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          412
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 329,
+    "source": {
+      "card": "BT8-058",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/329.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130331,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing bright orange flames. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          144,
+          87,
+          217
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          435
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 330,
+    "source": {
+      "card": "BT1-009",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/330.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130332,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing green sunlit forest. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 331,
+    "source": {
+      "card": "ST6-04",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/331.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130333,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing colorful urban buildings. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          401
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 332,
+    "source": {
+      "card": "BT2-059",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/332.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130334,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing dark blue abstract digital space. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 333,
+    "source": {
+      "card": "EX2-032",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/333.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130335,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing muted green metallic futuristic background. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          427
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 334,
+    "source": {
+      "card": "BT9-073",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/334.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130336,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing warm wooden room and golden light. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 335,
+    "source": {
+      "card": "BT1-024",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/335.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130337,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing rocky ground, tan sky and pale blue energy. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 336,
+    "source": {
+      "card": "EX3-050",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/336.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130338,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing green glowing energy and purple futuristic patterns. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 337,
+    "source": {
+      "card": "BT9-077",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/337.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130339,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing fiery orange sky and dark branches. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          456
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 338,
+    "source": {
+      "card": "ST1-04",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/338.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130340,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing dark night sky and rocky ground. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 339,
+    "source": {
+      "card": "BT9-057",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/339.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130341,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing green rocky hillside and blue sky. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 340,
+    "source": {
+      "card": "P-043",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/340.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130342,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing soft pastel city and pink blossoms. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          435
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 341,
+    "source": {
+      "card": "EX3-018",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/341.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130343,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing ocean waves and blue sky. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          144,
+          87,
+          217
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          336,
+          400,
+          417
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 342,
+    "source": {
+      "card": "BT9-060",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/342.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130344,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing rocky ground and blue sky. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 343,
+    "source": {
+      "card": "BT1-051",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/343.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130345,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing golden digital geometric lines. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins."
+  },
+  {
+    "id": 344,
+    "source": {
+      "card": "ST8-07",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/344.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130346,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pale lightning, blue sky and clouds. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          427
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 345,
+    "source": {
+      "card": "BT4-057",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/345.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130347,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing warm tan rocky arena. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          385
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  },
+  {
+    "id": 346,
+    "source": {
+      "card": "EX5-031",
+      "crop": [
+        0,
+        24,
+        430
+      ]
+    },
+    "output": "edited/ts002/346.png",
+    "workflow": "comfy_workflows/ts002-inpaint.json",
+    "model": "512-inpainting-ema.safetensors",
+    "seed": 202610130348,
+    "steps": 24,
+    "cfg": 6,
+    "sampler_name": "euler",
+    "scheduler": "normal",
+    "denoise": 1,
+    "prompt": "Seamless restoration of the existing colorful anime monster illustration. Continue the existing pale yellow lightning and white blue sky. Match the surrounding colors, shapes, line art and lighting. Preserve the same monster and pose. Clean uninterrupted illustration.",
+    "mask": [
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          32,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          397,
+          0,
+          430,
+          600
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          0,
+          0,
+          430,
+          35
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          3,
+          3,
+          101,
+          105
+        ]
+      },
+      {
+        "type": "ellipse",
+        "box": [
+          10,
+          89,
+          87,
+          173
+        ]
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            291,
+            0
+          ],
+          [
+            430,
+            0
+          ],
+          [
+            430,
+            73
+          ],
+          [
+            319,
+            73
+          ]
+        ]
+      },
+      {
+        "type": "rectangle",
+        "box": [
+          28,
+          348,
+          400,
+          401
+        ]
+      }
+    ],
+    "changes": "Remove card frame, cost circles and DP/header print; extend the existing background into the side margins; remove rules/digivolution text."
+  }
+]
