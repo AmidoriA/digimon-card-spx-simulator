@@ -329,10 +329,11 @@ test('custom cards follow the 301 cards of the game and leave them as they are',
   assert.strictEqual(E.CARDS.filter((c) => c.custom == null).length, 301);
 });
 
-const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon", "Gaomon", "Lunamon", "Syakomon", "Gaogamon", "Lekismon", "Octomon", "MachGaogamon", "Crescemon", "Dragomon", "Renamon", "Terriermon", "Lalamon", "Kyubimon", "Gargomon", "Sunflowmon", "Taomon", "Rapidmon", "Lilamon", "Keramon", "Monodramon", "Dracmon", "Kurisarimon", "Strikedramon", "Sangloupmon", "MetalTyrannomon", "Cyberdramon", "Matadormon"];
+const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon", "Gaomon", "Lunamon", "Syakomon", "Gaogamon", "Lekismon", "Octomon", "MachGaogamon", "Crescemon", "Dragomon", "Renamon", "Terriermon", "Lalamon", "Kyubimon", "Gargomon", "Sunflowmon", "Taomon", "Rapidmon", "Lilamon", "Keramon", "Monodramon", "Dracmon", "Kurisarimon", "Strikedramon", "Sangloupmon", "MetalTyrannomon", "Cyberdramon", "Matadormon", "Dracomon", "Bearmon", "Kudamon", "Coredramon (Blue)", "Grizzlymon", "Reppamon", "Wingdramon", "GrapLeomon", "Chirinmon"];
 
 test('Time Stranger cards preserve their bases numbers and effects', () => {
   const names = TIME_STRANGER_NAMES;
+  assert.ok(!E.CARDS.some(c => c.name === 'Agumon (Black)'), 'Fire variant removed from this roster');
   names.forEach((name, i) => {
     const c = E.card(302 + i), base = E.card(c.custom);
     assert.strictEqual(c.name, name);

@@ -1366,6 +1366,369 @@
      "val": 0.6
     }
    }
+  ],
+  "ts-338-model": [
+   {
+    "hue": [
+     30,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 170,
+     "sat": 0.6,
+     "val": 0.7
+    }
+   },
+   {
+    "hue": [
+     170,
+     270
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 170,
+     "sat": 0.7,
+     "val": 0.8
+    }
+   },
+   {
+    "hue": [
+     0,
+     30
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.8
+    }
+   }
+  ],
+  "ts-339-model": [
+   {
+    "hue": [
+     300,
+     25
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 30,
+     "sat": 0.35,
+     "val": 0.6
+    }
+   },
+   {
+    "hue": [
+     25,
+     170
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 30,
+     "sat": 0.4,
+     "val": 0.45
+    }
+   },
+   {
+    "hue": [
+     175,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 215,
+     "sat": 0.6,
+     "val": 0.5
+    }
+   }
+  ],
+  "ts-340-model": [
+   {
+    "hue": [
+     0,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 45,
+     "sat": 0.7,
+     "val": 1.2
+    }
+   },
+   {
+    "hue": [
+     85,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 45,
+     "sat": 0.3,
+     "val": 1.25
+    }
+   }
+  ],
+  "ts-341-model": [
+   {
+    "hue": [
+     75,
+     175
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 225,
+     "sat": 0.8
+    }
+   }
+  ],
+  "ts-342-model": [
+   {
+    "hue": [
+     20,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 215,
+     "sat": 0.6,
+     "val": 0.55
+    }
+   },
+   {
+    "hue": [
+     85,
+     170
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 215,
+     "sat": 0.7,
+     "val": 0.6
+    }
+   },
+   {
+    "hue": [
+     175,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.65
+    }
+   }
+  ],
+  "ts-343-model": [
+   {
+    "hue": [
+     0,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.8
+    }
+   },
+   {
+    "hue": [
+     175,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 215,
+     "sat": 0.8
+    }
+   }
+  ],
+  "ts-344-model": [
+   {
+    "hue": [
+     0,
+     90
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 220,
+     "sat": 0.55
+    }
+   },
+   {
+    "hue": [
+     175,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 220,
+     "sat": 0.6,
+     "val": 1.1
+    }
+   }
+  ],
+  "ts-344-fx": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": [
+      42,
+      55
+     ],
+     "sat": 0.8,
+     "val": 1
+    }
+   }
+  ],
+  "ts-345-model": [
+   {
+    "hue": [
+     20,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 42,
+     "sat": 0.8
+    }
+   },
+   {
+    "hue": [
+     85,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 215,
+     "sat": 0.12,
+     "val": 1.2
+    }
+   }
+  ],
+  "ts-346-model": [
+   {
+    "hue": [
+     15,
+     90
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 165,
+     "sat": 0.85
+    }
+   },
+   {
+    "hue": [
+     170,
+     300
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 160,
+     "sat": 0.8
+    }
+   },
+   {
+    "hue": [
+     330,
+     15
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.8
+    }
+   }
+  ],
+  "ts-346-fx": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": [
+      42,
+      55
+     ],
+     "sat": 0.8,
+     "val": 1
+    }
+   }
   ]
  },
  "decks": [
@@ -4193,6 +4556,613 @@
      ],
      "edited": "edited/ts002/337.png"
     }
+   }
+  },
+  {
+   "id": 338,
+   "name": "Dracomon",
+   "base": 168,
+   "spec": "Rare",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 580,
+   "attacks": [
+    {
+     "name": "Baby Breath",
+     "power": 270
+    },
+    {
+     "name": "Tail Smash",
+     "power": 220
+    },
+    {
+     "name": "Great Strike",
+     "power": 50
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 3,
+    "conds": [],
+    "acts": [
+     {
+      "op": 44,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Opponent's Support Effect is voided."
+   },
+   "model": {
+    "number": 437,
+    "recolour": "ts-338-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "ST1-04",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/338.png"
+    }
+   }
+  },
+  {
+   "id": 339,
+   "name": "Bearmon",
+   "base": 170,
+   "spec": "Rare",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 470,
+   "attacks": [
+    {
+     "name": "Bear Fist",
+     "power": 250
+    },
+    {
+     "name": "Comet Hammer I",
+     "power": 120
+    },
+    {
+     "name": "Attack Charge",
+     "power": 90
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       4
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Own HP become same as opponent's."
+   },
+   "model": {
+    "number": 438,
+    "recolour": "ts-339-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT9-057",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/339.png"
+    }
+   }
+  },
+  {
+   "id": 340,
+   "name": "Kudamon",
+   "base": 169,
+   "spec": "Rare",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 620,
+   "attacks": [
+    {
+     "name": "Bullet Whirlwind",
+     "power": 260
+    },
+    {
+     "name": "Blinding Ray",
+     "power": 220
+    },
+    {
+     "name": "Holy Light I",
+     "power": 190
+    }
+   ],
+   "xfx": "Rare Foe x3",
+   "support": {
+    "prio": 0,
+    "conds": [],
+    "acts": [],
+    "text": "None"
+   },
+   "model": {
+    "number": 439,
+    "recolour": "ts-340-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "P-043",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/340.png"
+    }
+   }
+  },
+  {
+   "id": 341,
+   "name": "Coredramon (Blue)",
+   "base": 159,
+   "spec": "Rare",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 700,
+   "attacks": [
+    {
+     "name": "Blue Flare Breath",
+     "power": 350
+    },
+    {
+     "name": "Strike Bomber",
+     "power": 160
+    },
+    {
+     "name": "Great Strikeโ…ก",
+     "power": 250
+    }
+   ],
+   "xfx": "Rare Foe x3",
+   "support": {
+    "prio": 2,
+    "conds": [
+     {
+      "v": [
+       28,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 2,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 33,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       3
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Discard 3 Cards from opponent's Online Deck."
+   },
+   "model": {
+    "number": 440,
+    "recolour": "ts-341-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX3-018",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/341.png"
+    }
+   }
+  },
+  {
+   "id": 342,
+   "name": "Grizzlymon",
+   "base": 151,
+   "spec": "Rare",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1000,
+   "attacks": [
+    {
+     "name": "Maul Attack",
+     "power": 420
+    },
+    {
+     "name": "Comet Hammer II",
+     "power": 240
+    },
+    {
+     "name": "Gaia Blaster II",
+     "power": 130
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       24,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       2,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If opponent has more than 2 Cards in DP Slot, his Attack Power is 0."
+   },
+   "model": {
+    "number": 441,
+    "recolour": "ts-342-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT9-060",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/342.png"
+    }
+   }
+  },
+  {
+   "id": 343,
+   "name": "Reppamon",
+   "base": 162,
+   "spec": "Rare",
+   "level": "C",
+   "dp": 30,
+   "pp": 10,
+   "hp": 800,
+   "attacks": [
+    {
+     "name": "Rolling Tackle",
+     "power": 430
+    },
+    {
+     "name": "Lion Claw",
+     "power": 250
+    },
+    {
+     "name": "Razor Wind",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 0,
+    "conds": [],
+    "acts": [],
+    "text": "None"
+   },
+   "model": {
+    "number": 442,
+    "recolour": "ts-343-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT1-051",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/343.png"
+    }
+   }
+  },
+  {
+   "id": 344,
+   "name": "Wingdramon",
+   "base": 5,
+   "spec": "Rare",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 1480,
+   "attacks": [
+    {
+     "name": "Blaze Sonic Breath",
+     "power": 900
+    },
+    {
+     "name": "Exploding Sonic Lance",
+     "power": 710
+    },
+    {
+     "name": "Wing Blast",
+     "power": 550
+    }
+   ],
+   "xfx": "None",
+   "support": {
+    "prio": 0,
+    "conds": [],
+    "acts": [],
+    "text": "None"
+   },
+   "model": {
+    "number": 443,
+    "recolour": "ts-344-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "ST8-07",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/344.png"
+    }
+   },
+   "battle": {
+    "offset": 50000,
+    "recolour": "ts-344-fx",
+    "accent": "holy"
+   }
+  },
+  {
+   "id": 345,
+   "name": "GrapLeomon",
+   "base": 150,
+   "spec": "Rare",
+   "level": "U",
+   "dp": 40,
+   "pp": 20,
+   "hp": 1480,
+   "attacks": [
+    {
+     "name": "The King of Fists",
+     "power": 700
+    },
+    {
+     "name": "Cyclonic Kick",
+     "power": 530
+    },
+    {
+     "name": "Nanomachine Break II",
+     "power": 150
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 9,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Lower opponent's ✕ Attack Power to 0."
+   },
+   "model": {
+    "number": 444,
+    "recolour": "ts-345-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-057",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/345.png"
+    }
+   }
+  },
+  {
+   "id": 346,
+   "name": "Chirinmon",
+   "base": 37,
+   "spec": "Rare",
+   "level": "U",
+   "dp": 50,
+   "pp": 20,
+   "hp": 2250,
+   "attacks": [
+    {
+     "name": "Wind Cutter Sword",
+     "power": 700
+    },
+    {
+     "name": "Knowledge of Swiftness",
+     "power": 450
+    },
+    {
+     "name": "Holy Wave",
+     "power": 400
+    }
+   ],
+   "xfx": "Fire Foe x3",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       21,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Cards in Hand 3 or more, opponent's Attack Power becomes 0."
+   },
+   "model": {
+    "number": 445,
+    "recolour": "ts-346-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-031",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/346.png"
+    }
+   },
+   "battle": {
+    "offset": 60000,
+    "recolour": "ts-346-fx",
+    "accent": "holy"
    }
   }
  ]

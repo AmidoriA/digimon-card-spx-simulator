@@ -344,6 +344,15 @@ checked before every build. Rebuild with `build_custom.py <extracted> web art <i
 | 335 | MetalTyrannomon | Darkness / U | MasterTyrannomon (8) ✱ | 434 | card `BT1-024`, edit 335 | [295 · Virus](https://digimon.jsuk.cloud/en/d/metaltyrannomon/) |
 | 336 | Cyberdramon | Darkness / U | Andromon (116) | 435 | card `EX3-050`, edit 336 | [210 · Vaccine](https://digimon.jsuk.cloud/en/d/cyberdramon/) |
 | 337 | Matadormon | Darkness / U | Myotismon (111) | 436 | card `BT9-077`, edit 337 | [290 · Virus](https://digimon.jsuk.cloud/en/d/matadormon/) |
+| 338 | Dracomon | Rare / R | ClearAgumon (168) | 437 | card `ST1-04`, edit 338 | [049 · Data](https://digimon.jsuk.cloud/en/d/dracomon/) |
+| 339 | Bearmon | Rare / R | Psychemon (170) | 438 | card `BT9-057`, edit 339 | [035 · Vaccine](https://digimon.jsuk.cloud/en/d/bearmon/) |
+| 340 | Kudamon | Rare / R | Vi-Elecmon (169) | 439 | card `P-043`, edit 340 | [022 · Vaccine](https://digimon.jsuk.cloud/en/d/kudamon/) |
+| 341 | Coredramon (Blue) | Rare / C | Rockmon (159) | 440 | card `EX3-018`, edit 341 | [091 · Vaccine](https://digimon.jsuk.cloud/en/d/coredramon-blue/) |
+| 342 | Grizzlymon | Rare / C | Ankylomon (151) | 441 | card `BT9-060`, edit 342 | [089 · Vaccine](https://digimon.jsuk.cloud/en/d/grizzlymon/) |
+| 343 | Reppamon | Rare / C | ShimaUnimon (162) | 442 | card `BT1-051`, edit 343 | [110 · Vaccine](https://digimon.jsuk.cloud/en/d/reppamon/) |
+| 344 | Wingdramon | Rare / U | Gigadramon (5) ✱ | 443 | card `ST8-07`, edit 344 | [200 · Vaccine](https://digimon.jsuk.cloud/en/d/wingdramon/) |
+| 345 | GrapLeomon | Rare / U | Etemon (150) | 444 | card `BT4-057`, edit 345 | [205 · Vaccine](https://digimon.jsuk.cloud/en/d/grapleomon/) |
+| 346 | Chirinmon | Rare / U | MetalGarurumon (37) ✱ | 445 | card `EX5-031`, edit 346 | [213 · Vaccine](https://digimon.jsuk.cloud/en/d/chirinmon/) |
 
 ### Local picture restoration (TS-004)
 

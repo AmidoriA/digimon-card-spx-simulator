@@ -233,3 +233,9 @@ absence/placeholder decisions below are historical and superseded by this correc
 Sources: [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=keramon),
 [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/keramon/),
 [official card search](https://world.digimoncard.com/cardlist/?search=true&free=Keramon).
+
+### TS-105 Phase 1 — 2026-10-14
+
+Cards 338–346 are playable with recoloured disc placeholders, unchanged base numbers/effects,
+verified three-slot labels (attack-sources.md), and identical prepared pictures in both
+art modes. Required checks and browser review passed; integrated into time-stranger.

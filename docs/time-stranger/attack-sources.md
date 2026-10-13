@@ -22,6 +22,36 @@ field guide differs on Keramon's second learned label; installed Magic Bind wins
 | 302 | Guilmon | Critical Charge | 32061 | char_GUILMON | [108] |
 | 305 | Growlmon | Magma Fall I | 30031 | char_GROWMON | [108] |
 | 308 | WarGrowlmon | Crush Blade II | 30222 | char_MEGAGROWLMON | [111] |
+| 313 | Syakomon | Hydro Water I | 30051 | char_SHAKOMON | [108] |
+| 316 | Octomon | Hydro Water II | 30052 | char_OCTMON | [108] |
+| 316 | Octomon | Void Ray II | 30332 | char_OCTMON | [114] |
+| 319 | Dragomon | Hell Crusher II | 30302 | char_DAGOMON | [111] |
+| 319 | Dragomon | Hydro Water II | 30052 | char_DAGOMON | [108] |
+| 320 | Renamon | Rune Forest I | 30091 | char_RENAMON | [108] |
+| 323 | Kyubimon | Mental Break | 32221 | char_KYUBIMON | [108] |
+| 324 | Gargomon | Thunder Fall I | 30151 | char_GARGOMON | [111] |
+| 326 | Taomon | Hell Crusher II | 30302 | char_TAOMON | [111] |
+| 326 | Taomon | Magic Field | 32091 | char_TAOMON | [108] |
+| 327 | Rapidmon | Thunder Fall II | 30152 | char_RAPIDMON | [111] |
+| 329 | Keramon | Magic Bind | 32151 | char_KERAMON | [111] |
+| 329 | Keramon | Venom Trap | 33011 | char_KERAMON | [108] |
+| 330 | Monodramon | Comet Hammer I | 30161 | char_MONODRAMON | [108] |
+| 330 | Monodramon | Knuckle Beater | 24581 | char_MONODRAMON | [72] |
+| 331 | Dracmon | Soul Fear I | 30304 | char_DRACUMON | [111] |
+| 332 | Kurisarimon | Mental Break | 32221 | char_KURISARIMON | [111] |
+| 332 | Kurisarimon | Shadow Fang II | 30282 | char_KURISARIMON | [108] |
+| 333 | Strikedramon | Crush Blade II | 30222 | char_STRIKEDRAMON | [108] |
+| 333 | Strikedramon | Heavy Strike II | 30312 | char_STRIKEDRAMON | [111] |
+| 334 | Sangloupmon | Nightmare II | 30292 | char_SANGLOUPMON | [114] |
+| 335 | MetalTyrannomon | Thunder Fall II | 30152 | char_METALTYRANNOMON | [108] |
+| 336 | Cyberdramon | Nanomachine Break II | 30132 | char_CYBERDRAMON | [108] |
+| 336 | Cyberdramon | Thunder Fall II | 30152 | char_CYBERDRAMON | [114] |
+| 339 | Bearmon | Attack Charge | 32011 | char_BEARMON | [111] |
+| 339 | Bearmon | Comet Hammer I | 30161 | char_BEARMON | [108] |
+| 340 | Kudamon | Holy Light I | 30261 | char_KUDAMON | [108] |
+| 342 | Grizzlymon | Comet Hammer II | 30162 | char_GRYZMON | [108] |
+| 342 | Grizzlymon | Gaia Blaster II | 30172 | char_GRYZMON | [114] |
+| 345 | GrapLeomon | Nanomachine Break II | 30132 | char_GRAPLEOMON | [108] |
 
 ## TS-101 sources and selected names
 
@@ -34,11 +64,6 @@ field guide differs on Keramon's second learned label; installed Magic Bind wins
 - **WarGrowlmon (308)**: Double Edge / Atomic Blaster / Crush Blade II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=megalogrowmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/wargrowlmon/).
 - **Flaremon (309)**: Crimson Wave of the Beast King / Crimson Lion Dance / Purifying Howl. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=flaremon).
 - **SaviorHuckmon (310)**: Ledge Stride / Meteor Flame / Trident Saber. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=saviorhuckmon).
-| 313 | Syakomon | Hydro Water I | 30051 | char_SHAKOMON | [108] |
-| 316 | Octomon | Hydro Water II | 30052 | char_OCTMON | [108] |
-| 316 | Octomon | Void Ray II | 30332 | char_OCTMON | [114] |
-| 319 | Dragomon | Hydro Water II | 30052 | char_DAGOMON | [108] |
-| 319 | Dragomon | Hell Crusher II | 30302 | char_DAGOMON | [111] |
 
 ## TS-102 sources and selected names
 
@@ -51,12 +76,6 @@ field guide differs on Keramon's second learned label; installed Magic Bind wins
 - **MachGaogamon (317)**: Gaoga Tornado / Winning Knuckle / Howling Cannon. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=machgaogamon).
 - **Crescemon (318)**: Lunatic Dance / Ice Archery / Dark Archery. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=crescemon).
 - **Dragomon (319)**: Forbidden Trident / Hydro Water II / Hell Crusher II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dagomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/dragomon/).
-| 320 | Renamon | Rune Forest I | 30091 | char_RENAMON | [108] |
-| 323 | Kyubimon | Mental Break | 32221 | char_KYUBIMON | [108] |
-| 324 | Gargomon | Thunder Fall I | 30151 | char_GARGOMON | [111] |
-| 326 | Taomon | Hell Crusher II | 30302 | char_TAOMON | [111] |
-| 326 | Taomon | Magic Field | 32091 | char_TAOMON | [108] |
-| 327 | Rapidmon | Thunder Fall II | 30152 | char_RAPIDMON | [111] |
 
 ## TS-103 sources and selected names
 
@@ -69,20 +88,6 @@ field guide differs on Keramon's second learned label; installed Magic Bind wins
 - **Taomon (326)**: Talisman of Light / Hell Crusher II / Magic Field. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=taomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/taomon/).
 - **Rapidmon (327)**: Rapid Fire / Golden Triangle / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=rapidmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/rapidmon/).
 - **Lilamon (328)**: Lila Shower / Beauty Slap / Pollen Spray. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lilamon).
-| 330 | Monodramon | Knuckle Beater | 24581 | char_MONODRAMON | [72] |
-| 330 | Monodramon | Comet Hammer I | 30161 | char_MONODRAMON | [108] |
-| 331 | Dracmon | Soul Fear I | 30304 | char_DRACUMON | [111] |
-| 332 | Kurisarimon | Shadow Fang II | 30282 | char_KURISARIMON | [108] |
-| 332 | Kurisarimon | Mental Break | 32221 | char_KURISARIMON | [111] |
-| 333 | Strikedramon | Crush Blade II | 30222 | char_STRIKEDRAMON | [108] |
-| 333 | Strikedramon | Heavy Strike II | 30312 | char_STRIKEDRAMON | [111] |
-| 334 | Sangloupmon | Nightmare II | 30292 | char_SANGLOUPMON | [114] |
-| 335 | MetalTyrannomon | Thunder Fall II | 30152 | char_METALTYRANNOMON | [108] |
-| 336 | Cyberdramon | Nanomachine Break II | 30132 | char_CYBERDRAMON | [108] |
-| 336 | Cyberdramon | Thunder Fall II | 30152 | char_CYBERDRAMON | [114] |
-
-| 329 | Keramon | Venom Trap | 33011 | char_KERAMON | [108] |
-| 329 | Keramon | Magic Bind | 32151 | char_KERAMON | [111] |
 
 ## TS-104 sources and selected names
 
@@ -95,12 +100,6 @@ field guide differs on Keramon's second learned label; installed Magic Bind wins
 - **MetalTyrannomon (335)**: Giga Destroyerโ…ก / Nuclear Laser / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=metaltyranomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/metaltyrannomon/).
 - **Cyberdramon (336)**: Desolation Claw / Nanomachine Break II / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=cyberdramon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/cyberdramon/).
 - **Matadormon (337)**: Thousand Arrows / Bulldog / Earth-Shattering Stomp. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=matadrmon).
-| 339 | Bearmon | Comet Hammer I | 30161 | char_BEARMON | [108] |
-| 339 | Bearmon | Attack Charge | 32011 | char_BEARMON | [111] |
-| 340 | Kudamon | Holy Light I | 30261 | char_KUDAMON | [108] |
-| 342 | Grizzlymon | Comet Hammer II | 30162 | char_GRYZMON | [108] |
-| 342 | Grizzlymon | Gaia Blaster II | 30172 | char_GRYZMON | [114] |
-| 345 | GrapLeomon | Nanomachine Break II | 30132 | char_GRAPLEOMON | [108] |
 
 ## TS-105 sources and selected names
 
