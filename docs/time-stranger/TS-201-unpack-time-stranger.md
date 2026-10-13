@@ -28,7 +28,7 @@ Know how Time Stranger stores its files and get a working copy of what the model
 
 - [ ] `tools/ts_extract.py` unpacks the archives that hold models, textures and animations.
 - [ ] The README section lets someone with the same build repeat it.
-- [ ] Nothing from the install is committed.
+- [ ] No raw file from the install (archives, unpacked files) is committed; only the converted models are (see Decisions).
 - [ ] If an archive cannot be opened: status `blocked`, with what was tried.
 
 ## Out of scope
@@ -37,7 +37,13 @@ Know how Time Stranger stores its files and get a working copy of what the model
 
 ## Questions for the owner
 
-- May models converted from Time Stranger be committed to this repository and published on GitHub Pages, or should they stay local (built by a tool, not in git)?
+- None.
+
+## Decisions
+
+- 2026-10-13, the owner: models converted from Time Stranger (`web/assets/models/401-445`)
+  are committed to this repository and published on GitHub Pages like the disc's models.
+  The unpacked Time Stranger files (`extracted_ts/`) stay out of git.
 
 ## Log
 
