@@ -502,6 +502,10 @@
     el.dataset.id = id;
     var art = h('div', 'ca');
     art.style.backgroundImage = 'url(' + artUrl(id, true) + ')';
+    // The game paints a Digimon card's level (R, A, C, U; "RP" on the six partners) into
+    // the corner of its board picture. The new art has no letter, so the game's own, cut
+    // out of its pictures (tools/build_levels.py), is laid over it.
+    if (c.type === 'digimon') art.appendChild(h('i', 'lv l' + (E.PARTNERS.indexOf(id) >= 0 ? 'p' : c.level))).hidden = !newArt;
     el.appendChild(art);
     var nm = h('div', 'cn', c.name);
     if (!small) { if (c.name.length > 15) nm.style.fontSize = '14px'; else if (c.name.length > 11) nm.style.fontSize = '17px'; }
@@ -1543,7 +1547,11 @@
     Array.prototype.forEach.call($('dyn').querySelectorAll('.c[data-id] > .ca'), function (a) {
       // swapped once the other picture has arrived, so the card does not blink empty
       var id = +a.parentNode.dataset.id, url = artUrl(id, true), im = new Image();
-      im.onload = function () { if (artUrl(id, true) === url) a.style.backgroundImage = 'url(' + url + ')'; };
+      im.onload = function () {
+        if (artUrl(id, true) !== url) return;
+        a.style.backgroundImage = 'url(' + url + ')';
+        if (a.firstChild) a.firstChild.hidden = !newArt;   // the level letter laid over new art
+      };
       im.src = url;
     });
     $('info').hidden = true;

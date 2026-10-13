@@ -644,6 +644,14 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   the left edge, a line of rules text at the foot) it is left in rather than moving the
   Digimon off centre. The 110 option cards have no counterpart and keep the game's pictures. "Legacy"
   shows the game's pictures for every card.
+  The game paints a Digimon card's level into the upper left corner of its 40x40 board
+  picture (`B/M_CARD.ARC`): R, A, C or U, and "RP" on the six partner Rookies. The new
+  pictures have no letter, so on the board the game's own is laid over them as a separate
+  element. `tools/build_levels.py` cuts each letter out of the game's pictures: the corner
+  of all the pictures of a level, as already enlarged 4x, keeping for every pixel the
+  darkest value any of them has there, which leaves the white letter they share. The dark
+  edge around the letter is this project's, added because the new pictures are often bright
+  where the game's are dark.
 - **Deck editor screen.** The rules above are the game's; the screen, the search, the
   filters, undo, and the list and code a deck is exported as are this project's. The game's
   editor only offers the cards a save holds ("Cards in Stock": a working copy at `0x801f3f48`,
@@ -702,6 +710,7 @@ tools/.venv/Scripts/python tools/build_models.py extracted web      # 3D models,
 tools/.venv/Scripts/python tools/build_battle.py extracted web      # battle scripts, attack assets
 tools/.venv/Scripts/python tools/arena_previews.py web              # arena previews, drawn in a browser
 tools/.venv/Scripts/python tools/build_new_art.py extracted web     # new card art, needs the internet and ComfyUI
+tools/.venv/Scripts/python tools/build_levels.py extracted web      # the level letters laid over new art, from web/assets/mini
 tools/.venv/Scripts/python tools/build_custom.py extracted web      # the custom cards' models, effects and pictures, needs ComfyUI
 ```
 
@@ -734,6 +743,7 @@ out, upscales them 4× through the same ComfyUI model and writes 512×512 and 16
 | `web/assets/art`, `mini`, `ui` | Generated: upscaled card art and battle textures |
 | `tools/build_owners.py`, `web/assets/owner` | The deck owners' pictures of the "VS" screen, and their export |
 | `web/assets/art2`, `mini2` | Generated: new art for the Digimon cards (`tools/build_new_art.py`, `tools/new_art.json`) |
+| `tools/build_levels.py`, `web/assets/ui/level_*.png` | The level letters of the game's board pictures, cut out to lie over new art |
 | `tools/check_paths.py` | Checks that every file the page asks for is in git under its exact name |
 | `tools/mips.py` | MIPS disassembly helper for the EXE and overlays (overlay base `0x801DDF38`) |
 | `tools/extract_*.py`, `tim.py`, `comfy.py` | Disc, archive, texture and ComfyUI helpers |

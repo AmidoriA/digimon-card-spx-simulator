@@ -221,7 +221,14 @@ button, input, select { font: inherit; color: inherit; }
 
 /* cards: 40x48 units, frame colour by Specialty (CARD_F palettes) */
 .c { width: 160px; height: 192px; padding: 5px 5px 0; background: var(--fc, var(--opt)); box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .28), 0 4px 0 rgba(0, 0, 0, .45); display: flex; flex-direction: column; transition: transform .12s ease, filter .12s ease; }
-.c .ca { flex: none; height: 150px; background-size: cover; background-position: center; background-color: #111; }
+.c .ca { flex: none; height: 150px; background-size: cover; background-position: center; background-color: #111; position: relative; }
+/* the level letter of the game's board pictures, over new art: the corner 80x64 of 160x160.
+   The dark edge is this project's: the letter is plain white, and the new art is often bright */
+.c .lv { position: absolute; left: 0; top: 0; width: 50%; height: 40%; background: 0 0 / 100% 100% no-repeat; pointer-events: none;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, .95)) drop-shadow(0 2px 2px rgba(0, 0, 0, .8)); }
+.lv.l0 { background-image: url(../assets/ui/level_r.png); } .lv.l1 { background-image: url(../assets/ui/level_a.png); }
+.lv.l2 { background-image: url(../assets/ui/level_c.png); } .lv.l3 { background-image: url(../assets/ui/level_u.png); }
+.lv.lp { background-image: url(../assets/ui/level_rp.png); }
 .c .cn { flex: 1; display: flex; align-items: center; justify-content: center; font: 800 21px/1 var(--game); color: #111; background: var(--fl, #ececec); margin: 0 -5px; padding: 0 4px; white-space: nowrap; overflow: hidden; }
 .c.fire { --fc: #a02030; --fl: #ffa6b4; } .c.ice { --fc: #2434b0; --fl: #a8b0ff; } .c.nature { --fc: #2c8420; --fl: #a4ec94; }
 .c.dark { --fc: #2a2a2a; --fl: #8a8a8a; } .c.rare { --fc: #a39a30; --fl: #ffffb4; } .c.opt { --fc: #666; --fl: #f2f2f2; }
