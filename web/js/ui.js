@@ -134,21 +134,22 @@
     el.appendChild(img);
     return el;
   }
-  // the cards a deck is recognised by: its strongest Digimon, highest level first
-  var faceCache = {};
-  function deckFaces(d) {
-    if (own(d) || !faceCache[d.id]) { // a deck of the player's changes: not remembered
-      var seen = {}, ids = d.cards.filter(function (id) {
-        if (seen[id] || E.card(id).type !== 'digimon') return false;
-        seen[id] = 1; return true;
-      });
-      ids.sort(function (a, b) { var x = E.card(a), y = E.card(b); return y.level - x.level || y.hp - x.hp || a - b; });
-      faceCache[d.id] = ids.slice(0, 6);
-    }
-    return faceCache[d.id];
+  // The picture of a deck's owner: the one the game puts on the "VS" screen before a battle
+  // (B:\MATCH\NNN.ARC, loaded by the deck's number at 0x801eda84; tools/build_owners.py).
+  // The starter decks and the player's own show the player's picture, and in the second
+  // player's list the second player's of a free battle. A deck the game never sets against
+  // the player has no picture: the back of a card stands in.
+  function ownerPic(d, second) {
+    var el = h('span', 'op'), img,
+      name = own(d) || d.owner === 'Player' ? (second ? 'player2' : 'player') : d.pic != null ? pad3(d.pic) : null;
+    if (name == null) { el.classList.add('none'); return el; }
+    img = document.createElement('img');
+    img.src = 'assets/owner/' + name + '.webp'; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+    el.appendChild(img);
+    return el;
   }
 
-  function fillDeckList(ul, decks, selId, filter, onPick) {
+  function fillDeckList(ul, decks, selId, filter, onPick, second) {
     // the list is rebuilt on every pick: keep its place, and the keyboard's, instead of
     // jumping back to the top
     var top = ul.scrollTop, hadFocus = ul.contains(document.activeElement), focusId = null;
@@ -160,26 +161,28 @@
       li.tabIndex = 0;
       li.setAttribute('role', 'option');
       li.setAttribute('aria-selected', d.id === selId ? 'true' : 'false');
+      li.appendChild(ownerPic(d, second));
       li.appendChild(h('span', 'dn', deckName(d)));
       li.appendChild(h('span', 'do', ownerOf(d)));
       if (own(d)) { if (!K.legal(d.cards)) li.appendChild(h('span', 'dr warn', d.cards.length + ' / ' + K.SIZE)); }
       else if (d.owner !== 'Player') li.appendChild(h('span', 'dr', 'Lv ' + d.rank));
-      var strip = h('span', 'dt');
-      deckFaces(d).forEach(function (id) { var t = thumb(id); t.title = E.card(id).name; strip.appendChild(t); });
-      li.appendChild(strip);
       li.onclick = function () { onPick(d.id); };
       li.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPick(d.id); } };
       ul.appendChild(li);
       if (hadFocus && d.id === selId) focusId = li;
     });
-    if (!ul.firstChild) ul.appendChild(h('li', 'do', 'No decks match.'));
+    if (!ul.firstChild) ul.appendChild(h('li', 'nodeck', 'No decks match.'));
     ul.scrollTop = top;
     if (focusId) focusId.focus({ preventScroll: true });
   }
 
   function renderPreview() {
-    var d = previewed();
-    $('previewTitle').textContent = deckName(d) + ' — ' + d.cards.length + (d.cards.length === 1 ? ' card' : ' cards');
+    var d = previewed(), pic = ownerPic(d, S.two && S.previewSide === 'op');
+    pic.id = 'previewPic'; pic.classList.add('big');
+    $('previewPic').replaceWith(pic);
+    $('previewTitle').textContent = deckName(d);
+    $('previewOwner').textContent = ownerOf(d) + (own(d) || d.owner === 'Player' ? '' : ' · Lv ' + d.rank) +
+      ' · ' + d.cards.length + (d.cards.length === 1 ? ' card' : ' cards');
     var counts = {}, order = [];
     d.cards.forEach(function (id) { if (!counts[id]) { counts[id] = 0; order.push(id); } counts[id]++; });
     var ul = clear($('previewList'));
@@ -263,7 +266,7 @@
     if (foes.every(function (d) { return d.id !== S.op; })) S.op = foes[0].id;
     try { localStorage.setItem('ddcb-deck', String(S.my)); } catch (err) { /* storage unavailable */ }
     fillDeckList($('myDecks'), OWN.concat(MY_DECKS), S.my, $('myFilter').value, function (id) { S.my = id; S.previewSide = 'me'; renderSetup(); });
-    fillDeckList($('opDecks'), foes, S.op, $('opFilter').value, function (id) { S.op = id; S.previewSide = 'op'; renderSetup(); });
+    fillDeckList($('opDecks'), foes, S.op, $('opFilter').value, function (id) { S.op = id; S.previewSide = 'op'; renderSetup(); }, S.two);
     Array.prototype.forEach.call($('previewTabs').children, function (b) { b.classList.toggle('on', b.dataset.side === S.previewSide); });
     renderPreview();
     var bad = K.problems(deckOf(S.my).cards);

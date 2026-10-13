@@ -81,6 +81,31 @@ away, then they swap, and nothing on the board shows a choice until the battle b
 deck tracker is off in this mode: the DECK plates only count the cards. This way of sharing
 a screen is this project's arrangement, not something traced in the game.
 
+## Decks and their owners
+
+Every deck on the start screen is shown with its owner's picture: the one the game puts on
+the "VS" screen before a battle.
+
+- The screen is set up by the task at `0x801eda84` (`P/KAWSEG.BIN`, started from
+  `0x801f003c`, which the battle start calls at `0x8003ed2c`). It loads
+  `B:\MATCH\%3.3d.ARC` and sends every member to video memory at the place its own
+  header names (`0x8001b438`).
+- The number is the opponent's deck number: byte 4 of the opponent block at `[0x8006e054]`,
+  which `0x80041794` sets together with the copy of that deck's `DECK2.DEK` record. A free
+  battle (first argument 0) loads archive 999 instead.
+- An archive has 14 textures. Members 11 and 12 are the two pictures, 128x112 in 256 colours
+  (video memory 320,0 and 320,112): 11 is the player, the same in all 142 archives, and 12
+  the owner. Member 13 is the owner's name as a picture, and in archive 999 member 12 is a
+  second player. Which member is which was read from the files, not from the drawing code.
+- There are archives for decks 0-141 except 76 (Tentomon's "No Can Do"), so 141 decks have
+  a picture, 118 different ones: an owner's decks mostly share one, but Devimon, Myotismon
+  and Gatomon have two, and Apokarimon's first deck has its own.
+- The owner's name is a string at byte 79 of the deck record, copied whole as the
+  opponent's name (the `strcpy` at `0x8003fdd4`).
+
+`tools/build_owners.py` writes the pictures to `web/assets/owner/`, once each under the
+lowest deck number that has it, and `build_data.py` gives each deck that number as `pic`.
+
 ## Deck editor
 
 **New deck** on the start screen opens the deck editor; **Copy and edit** under a deck's
@@ -503,6 +528,18 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   owner supplied; it is only cut square and resized with a plain Lanczos filter, not
   enlarged through ComfyUI.
 
+- **Deck list of the start screen.** The list, its rows and the panel with a deck's
+  contents are this project's; the game has no such screen. The owners' pictures are the
+  game's (see "Decks and their owners"), with these choices of this project's: the whole
+  128x112 texture is shown, as what part of it the "VS" screen draws was not read; the
+  starter decks and the decks you build show the player's picture, and in the second
+  player's list the second player's of the free battle; Tentomon's deck 76, which has no
+  archive, shows the back of a card; a custom deck shows the picture of the deck it was
+  made from. The pictures are stored at the game's own size and are not enlarged: a row
+  shows them at 64x56 CSS pixels and the deck panel at 112x98, so only a screen with more
+  than 1.14 device pixels per CSS pixel makes the browser scale the larger one up. They
+  have not been through ComfyUI (`build_owners.py --upscale` does that, 4x).
+
 - **Mobile setup controls.** On screens up to 900px wide, the sticky setup bar shows
   Settings, Random opponent and Start battle. Settings opens a scrollable panel above
   the bar for the existing battle and graphics options. This is a browser layout choice.
@@ -643,6 +680,7 @@ tools/.venv/Scripts/python -m pip install -r tools/requirements.txt
 python tools/extract_iso.py "<path>/Digimon Digital Card Battle.bin" extracted/disc
 python tools/extract_drv.py extracted/disc extracted/drv
 tools/.venv/Scripts/python tools/build_data.py extracted web        # cards and decks
+tools/.venv/Scripts/python tools/build_owners.py extracted web      # the deck owners' pictures
 tools/.venv/Scripts/python tools/upscale_assets.py extracted web    # art and UI, needs ComfyUI
 tools/.venv/Scripts/python tools/build_audio.py extracted web       # music and sound effects
 tools/.venv/Scripts/python tools/build_effects.py extracted web     # battle effect scripts
@@ -680,6 +718,7 @@ out, upscales them 4× through the same ComfyUI model and writes 512×512 and 16
 | `web/js/data/cards.js` | Generated: the game's 301 cards and 159 decks, and the custom cards and decks |
 | `tools/custom_cards.json`, `custom.py`, `build_custom.py`, `custom_look.py`, `tools/custom/` | The custom cards and decks: their list, the recolouring, the builder, a viewer, their picture sources |
 | `web/assets/art`, `mini`, `ui` | Generated: upscaled card art and battle textures |
+| `tools/build_owners.py`, `web/assets/owner` | The deck owners' pictures of the "VS" screen, and their export |
 | `web/assets/art2`, `mini2` | Generated: new art for the Digimon cards (`tools/build_new_art.py`, `tools/new_art.json`) |
 | `tools/check_paths.py` | Checks that every file the page asks for is in git under its exact name |
 | `tools/mips.py` | MIPS disassembly helper for the EXE and overlays (overlay base `0x801DDF38`) |
@@ -701,4 +740,5 @@ out, upscales them 4× through the same ComfyUI model and writes 512×512 and 16
 - DRV: 32-byte entries `{u8 kind (0x80 dir, 0x01 file), char ext[3], u32 sector, u32 size, u32 time, char name[16]}`.
 - ARC: u32 offset table, members are TIM images.
 - `B/CARD2.CDD`: 191 Digimon records (316 bytes), 102 option records (226), 8 digivolve records (112).
-- `B/DECK2.DEK`: 110-byte records: 30 card ids, deck name, owner, rank, armor byte.
+- `B/DECK2.DEK`: 110-byte records: 30 card ids, deck name (byte 60), owner (byte 79), rank, armor byte.
+- `B/MATCH/NNN.ARC`: the textures of the screen before a battle, by deck number; an ARC of 14 TIM images.

@@ -2,7 +2,8 @@
 
 Usage (venv python):  build_data.py <extracted_dir> <web_dir>
 
-Reads  B/CARD2.CDD  (card database) and B/DECK2.DEK (deck lists).
+Reads  B/CARD2.CDD  (card database), B/DECK2.DEK (deck lists) and which B/MATCH archive
+holds each deck owner's picture (build_owners.py).
 Writes <web>/js/data/cards.js. Card art is produced separately by upscale_assets.py.
 The custom cards of tools/custom_cards.json (custom.py) follow the game's 301, and its
 custom decks the game's 159.
@@ -19,6 +20,7 @@ import struct
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import build_owners  # noqa: E402
 import custom  # noqa: E402
 
 N_DIGI, N_OPT, N_EVO = 191, 102, 8
@@ -122,7 +124,7 @@ def build_cards(cdd):
     return cards
 
 
-def build_decks(dek):
+def build_decks(dek, pics):
     assert dek[:4] == b"30KD"
     n = (len(dek) - 8) // 110
     decks = []
@@ -144,6 +146,11 @@ def build_decks(dek):
             # the 3D battle (0x8002e26c); 0 = none named (free battle picks 147 or 148)
             "bgm3d": r[105],
         })
+        # the owner's picture on the screen before the battle: web/assets/owner/NNN.webp
+        # (build_owners.py). The game loads B:\MATCH\NNN.ARC by the deck's number; decks
+        # that are never an opponent have none
+        if i in pics:
+            decks[-1]["pic"] = pics[i]
     return decks
 
 
@@ -152,7 +159,7 @@ def main():
     cards = build_cards(open(os.path.join(ext, "drv", "B", "CARD2.CDD"), "rb").read())
     cards += custom.cards(cards)
     assert [c["id"] for c in cards] == list(range(len(cards)))
-    decks = build_decks(open(os.path.join(ext, "drv", "B", "DECK2.DEK"), "rb").read())
+    decks = build_decks(open(os.path.join(ext, "drv", "B", "DECK2.DEK"), "rb").read(), build_owners.pictures(ext))
     decks += custom.decks(decks, cards)
     os.makedirs(os.path.join(web, "js", "data"), exist_ok=True)
     os.makedirs(os.path.join(web, "assets"), exist_ok=True)

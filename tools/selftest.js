@@ -347,6 +347,18 @@ test('the name of a deck owner is whole: it is a string copied to its NUL (0x800
     ['Digimon Emperor', 'VenomMyotismon', 'HerculesKabuterimon', 'BK MetalGarurumon']);
 });
 
+test('owner pictures: B:\\MATCH\\NNN.ARC by deck number (0x801eda84), none for deck 76 and the player\'s decks', () => {
+  const fs = require('fs'), web = path.join(__dirname, '..', 'web');
+  const decks = E.DATA.decks, game = decks.filter((d) => d.custom == null);
+  assert.deepStrictEqual(game.filter((d) => d.pic == null).map((d) => d.id), [76].concat(game.filter((d) => d.owner === 'Player').map((d) => d.id)));
+  game.forEach((d) => { if (d.pic != null) assert.ok(d.pic <= d.id && decks[d.pic].pic === d.pic && decks[d.pic].owner === d.owner, d.name); });
+  assert.strictEqual(new Set(game.map((d) => d.pic)).size - 1, 118);
+  decks.filter((d) => d.custom != null).forEach((d) => assert.strictEqual(d.pic, decks[d.custom].pic));
+  decks.forEach((d) => {
+    if (d.pic != null) assert.ok(fs.existsSync(path.join(web, 'assets', 'owner', String(d.pic).padStart(3, '0') + '.webp')), 'no picture ' + d.pic);
+  });
+});
+
 test('BlackWarGreymon (custom): +200 for each Darkness card in the own DP Slot; x3 against Nature', () => {
   const bw = C('BlackWarGreymon'), dark = E.CARDS.filter((c) => c.type === 'digimon' && c.spec === 3).map((c) => c.name);
   assert.deepStrictEqual([E.SPEC[bw.spec], E.LEVEL[bw.level], bw.dp, bw.pp], ['Fire', 'U', 60, 20]);

@@ -68,18 +68,30 @@ button, input, select { font: inherit; color: inherit; }
 .setup-grid .panel { display: flex; flex-direction: column; max-height: calc(100vh - 250px); min-height: 320px; }
 .filter { width: 100%; background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; }
 .decklist, .cardlist { list-style: none; margin: 0; padding: 0; overflow: auto; flex: 1; }
-.decklist li { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: baseline; padding: 7px 9px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; }
+.decklist li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto auto 1fr; gap: 1px 10px; align-items: baseline; padding: 6px 8px 6px 6px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+.decklist li + li { margin-top: 2px; }
 .decklist li:hover { background: var(--panel-2); }
-.decklist li[aria-selected="true"] { background: var(--panel-2); border-color: var(--accent); }
-.decklist .dn { font-weight: 600; overflow-wrap: anywhere; }
-.decklist .do { grid-column: 1; color: var(--ink-3); font-size: 12px; }
-.decklist .dt { grid-column: 1 / -1; display: flex; gap: 4px; margin-top: 5px; min-height: 34px; overflow: hidden; }
-.decklist .dt .th { width: 34px; }
+.decklist li[aria-selected="true"] { background: var(--panel-2); border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.decklist .op { grid-row: 1 / span 3; align-self: start; }
+.decklist .dn { grid-column: 2; font-weight: 600; overflow-wrap: anywhere; line-height: 1.25; padding-top: 2px; }
+.decklist .do { grid-column: 2; color: var(--ink-3); font-size: 12px; }
+.decklist li.nodeck { display: block; padding: 10px; color: var(--ink-3); font-size: 12px; cursor: default; }
+.decklist li.nodeck:hover { background: none; }
+/* a deck owner's picture from the game's "VS" screen: 128x112 there, never drawn larger here */
+.op { display: block; flex: none; width: 64px; aspect-ratio: 8 / 7; border-radius: 5px; overflow: hidden; background: #0c131c; box-shadow: 0 0 0 1px var(--line-2); }
+.op img { display: block; width: 100%; height: 100%; }
+.op.none { background: #0c131c url(../assets/ui/card_back.png) center / auto 86% no-repeat; }
+.op.big { width: 112px; }
+.decklist li[aria-selected="true"] .op { box-shadow: 0 0 0 1px var(--accent); }
+.deck-head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.deck-head-body { min-width: 0; display: grid; gap: 3px; align-content: start; }
+.deck-head h2 { font-size: 18px; line-height: 1.2; letter-spacing: 0; text-transform: none; color: var(--ink); margin: 0; overflow-wrap: anywhere; }
+.deck-owner { color: var(--ink-2); font-size: 12px; }
 .th { position: relative; display: block; flex: none; aspect-ratio: 1; border-radius: 4px; overflow: hidden; background: #0c131c; border: 2px solid var(--tc, var(--opt)); }
 .th img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .th.fire { --tc: var(--fire); } .th.ice { --tc: var(--ice); } .th.nature { --tc: var(--nature); }
 .th.dark { --tc: #555; } .th.rare { --tc: var(--rare); } .th.opt { --tc: var(--opt); }
-.decklist .dr { grid-row: 1 / span 2; grid-column: 2; align-self: center; font: 11px var(--mono); color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 99px; padding: 1px 7px; }
+.decklist .dr { grid-row: 1; grid-column: 3; align-self: start; margin-top: 2px; font: 11px var(--mono); color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 99px; padding: 1px 7px; }
 .tabs { display: flex; gap: 6px; margin-bottom: 8px; }
 .tabs button { flex: 1; background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 5px; cursor: pointer; color: var(--ink-2); }
 .tabs button.on { border-color: var(--accent); color: var(--ink); }

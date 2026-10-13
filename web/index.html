@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0a1018">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.css?v=mobile-attacks-1">
+<link rel="stylesheet" href="css/style.css?v=deck-picker-1">
 <link rel="stylesheet" href="css/battle-graphics.css?v=battle-options-2">
 </head>
 <body>
@@ -42,10 +42,16 @@
         <ul id="opDecks" class="decklist" role="listbox" aria-label="Opponent deck"></ul>
       </div>
       <div class="panel preview">
-        <h2 id="previewTitle">Deck contents</h2>
         <div id="previewTabs" class="tabs">
           <button data-side="me" class="on">Yours</button>
           <button data-side="op">Opponent's</button>
+        </div>
+        <div class="deck-head">
+          <span id="previewPic" class="op big"></span>
+          <div class="deck-head-body">
+            <h2 id="previewTitle">Deck contents</h2>
+            <p id="previewOwner" class="deck-owner"></p>
+          </div>
         </div>
         <div class="deck-acts">
           <button id="btnEdit" class="btn small" type="button">Edit</button>
@@ -303,7 +309,7 @@
 <script src="js/battle3d.js?v=battle-options-2"></script>
 <script src="js/battlegraphics.js?v=battle-options-2"></script>
 <script src="js/decks.js"></script>
-<script src="js/ui.js?v=mobile-attacks-1"></script>
+<script src="js/ui.js?v=deck-picker-1"></script>
 <script src="js/editor.js"></script>
 <script>if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));</script>
 </body>
