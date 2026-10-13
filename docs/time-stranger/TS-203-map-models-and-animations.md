@@ -26,7 +26,7 @@ For all 45 Digimon, know which file is its model and which of its animations are
 ## Acceptance criteria
 
 - [x] All 45 rows have their model file. (44 from Time Stranger; card 329 keeps the disc's Agumon by the owner's decision.)
-- [ ] Guilmon's animation list with the role of each, and where the role was read.
+- [x] Guilmon's animation list with the role of each, and where the role was read.
 - [x] README: the animation format and the table, with sources.
 
 ## Out of scope
@@ -125,9 +125,54 @@ through `0x140c46320`, which calls `0x140c45e50` (numbers to rows 1 to 52 of
 `battle_define_string` in `data/battle_calculate.mbe`) or `0x140c45c00` (rows 53 to 78);
 `0x1409cdb00` fetches the row's string. `0x140a1ba30` fills a unit's 74 slots this way.
 
-**Not done: the roles.** What each number is for (attack, hit, guard, fall, win) was not
-traced: the callers pass the number in a variable, and following it to the battle states
-(`BattleDirectionDead`, `BattleDirectionWin`, `BattleTimetableSlotGuard` and the others,
-whose class names are in the executable) is still to do. The names read as words suggest
-`ba` attack, `bd` damage, `bg` guard, `bn` neutral, `bs` skill, `bv` victory, `br` run;
-that is not the code.
+**The roles** are in the next entry.
+
+### 2026-10-13 — the roles
+
+**The game names its motion numbers itself.** `lua/battle_define.lua` (Lua 5.2 bytecode;
+`tools/ts_luac.py` lists the globals a script sets) has `MOTION_TYPE_IDLE = 0`,
+`MOTION_TYPE_TIRED = 1`, `MOTION_TYPE_ATTACK = 2` … `MOTION_TYPE_ITEM_02 = 49`: 40 names
+in `app_0`, 41 in `patch` (`ITEM_02` is new there). With the code's table of the entry
+above (number to row of `battle_define_string` to motion name) that gives Guilmon's
+motions their roles:
+
+| Motion | Number | The game's name for it |
+|---|---|---|
+| `bn01` | 0 | `MOTION_TYPE_IDLE` |
+| `bn02` | 1 | `MOTION_TYPE_TIRED` |
+| `ba01` | 2 | `MOTION_TYPE_ATTACK` |
+| `ba02` | 5 | `MOTION_TYPE_COMMON_SKILL` |
+| `bg01` | 7 | `MOTION_TYPE_GUARD` |
+| `bg02` | 8 | `MOTION_TYPE_AVOID` |
+| `bd01` | 9 | `MOTION_TYPE_DAMAGE` (and `DAMAGE02`, `DAMAGE03`, the same number) |
+| `bd02` | 10 | `MOTION_TYPE_DOWN` |
+| `bd03` | 11 | `MOTION_TYPE_UP` |
+| `fe02` | 12 | `MOTION_TYPE_HAPPY` |
+| `fe04` | 13 | `MOTION_TYPE_ANGRY` |
+| `bv01` | 31 | `MOTION_TYPE_WIN` |
+| `br01` | 32 | `MOTION_TYPE_RUN` |
+| `bs01` | 34 | `MOTION_TYPE_SPECIAL_SKILL01` |
+
+`bd03` being "up" fits what was drawn: its last frame is Guilmon standing again.
+Guilmon has no motion for `ATTACK02`, `ATTACK03`, `ITEM`, `LOSE` or the others; the code's
+table gives those numbers no row among the first 52.
+
+**How sure.** The names are the script's and the number-to-motion table is the code's
+(`0x140c45e50`). That both use the same numbers was not read from a routine; the scripts of
+single battles show it: `lua/battle_10400200.lua` holds `MOTION_TYPE_IDLE` with `bn01`,
+`TIRED` with `bn02`, `DAMAGE` with `bd01`, `DOWN` with `bd02`, `UP` with `bd03`, `GUARD`
+with `bg01`, as the table has them (it also swaps `ATTACK` and `COMMON_SKILL` for its
+enemy).
+
+**Not read:** `bf01` and the field motions `fe01`, `fe03`, `fq01`, `fq02`, `fn02_01`,
+`f000` have no number in the battle table and no role here.
+
+**Tried before the script was found** (so nobody repeats it): following the callers of
+`0x140c46320` and of the unit's 74 motion slots (`0x140a1ba30`) to the battle state
+classes. The callers pass the number in a variable, and the constants in the classes
+`BattleDirectionWin`, `BattleDirectionDead`, `BattleTimetableSlotGuard` are other things
+(the last returns its own slot type, 7).
+
+**For TS-204 and TS-206:** the candidates for DDCB's slots are `bn01` (idle), `ba01`
+(attack), `ba02` (common skill), `bs01` (special skill), `bg01` (guard), `bd01` (damage),
+`bd02` (down), `bv01` (win), all 30 frames a second.

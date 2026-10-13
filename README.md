@@ -521,7 +521,8 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   read from that game's executable; what was not is listed under "Time Stranger files"
   and "Time Stranger models", each under "Not read from the executable", and in "Time
   Stranger tables" (the column types and the meaning of the columns) and "Time Stranger
-  motions" (the whole layout of a motion file, and what each motion is for).
+  motions" (the whole layout of a motion file; what each motion is for comes from the
+  game's own script and tables).
 
 - **Custom cards.** Nothing about a custom card is the game's but what it is made from.
   BlackWarGreymon's numbers (DP 60, +P 20, HP 1750, attacks 950 / 700 / 400), its attack
@@ -1067,18 +1068,47 @@ tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr090_bn
 
 ### Which motion is for what
 
-Read so far:
+The battle code asks for a motion by a number. Two things say what a number is:
 
-| What | Where |
-|---|---|
-| The battle code asks for a motion by a number; `0x140c45e50` and `0x140c45c00` turn it into a row of `battle_define_string` (`data/battle_calculate.mbe`), whose string is the motion's name. Numbers 0, 1, 2, 5, 7, 8, 9, 10, 11, 12, 13, 31, 32, 34 give `bn01`, `bn02`, `ba01`, `ba02`, `bg01`, `bg02`, `bd01`, `bd02`, `bd03`, `fe02`, `fe04`, `bv01`, `br01`, `bs01` | `0x140c46320` (the caller of both), `0x1409cdb00` (the table lookup) |
-| `bv02`, `bv03` are in the table `battle_extra_win` | `data/battle_motion.mbe` |
-| A Digimon on the field stands with `bn01` and moves with `br01` | `data/field.mbe`, `field_move_animation`, row `default_move_animation` |
+- **Its name.** `lua/battle_define.lua`, a script of the game (Lua 5.2 bytecode; `tools/ts_luac.py`
+  lists the globals it sets), gives the numbers their names: `MOTION_TYPE_IDLE = 0` and so on.
+- **Its motion.** `0x140c46320` turns a number into a row of `battle_define_string`
+  (`data/battle_calculate.mbe`) through `0x140c45e50` (rows 1 to 52) or `0x140c45c00`
+  (rows 53 to 78), and `0x1409cdb00` fetches the row's string, the motion's name.
 
-**Not read:** what each of those numbers is for in the battle code, so which motion is the
-attack, the hit, the guard, the fall. The letters suggest it (`ba` attack, `bd` damage,
-`bg` guard, `bn` neutral, `bs` skill, `bv` victory) but that is the names read as words,
-not the game's code.
+| Number | Name in `battle_define.lua` | Row | Motion |
+|---|---|---|---|
+| 0 | `MOTION_TYPE_IDLE` | 1 | `bn01` |
+| 1 | `MOTION_TYPE_TIRED` | 2 | `bn02` |
+| 2 | `MOTION_TYPE_ATTACK` | 3 | `ba01` |
+| 5 | `MOTION_TYPE_COMMON_SKILL` | 4 | `ba02` |
+| 7 | `MOTION_TYPE_GUARD` | 5 | `bg01` |
+| 8 | `MOTION_TYPE_AVOID` | 6 | `bg02` |
+| 9 | `MOTION_TYPE_DAMAGE` (also `DAMAGE02`, `DAMAGE03`) | 7 | `bd01` |
+| 10 | `MOTION_TYPE_DOWN` | 8 | `bd02` |
+| 11 | `MOTION_TYPE_UP` | 9 | `bd03` |
+| 12 | `MOTION_TYPE_HAPPY` | 10 | `fe02` |
+| 13 | `MOTION_TYPE_ANGRY` | 11 | `fe04` |
+| 31 | `MOTION_TYPE_WIN` | 12 | `bv01` |
+| 32 | `MOTION_TYPE_RUN` | 13 | `br01` |
+| 34 to 41 | `MOTION_TYPE_SPECIAL_SKILL01` to `08` | 14 to 21 | `bs01` to `bs08` |
+
+The other names are `ATTACK02` (3), `ATTACK03` (4), `ITEM` (6), `CHANGE_EXIT` (14), `CHANGE`
+(15), `CHANGE_FOR_DEATH` (16), `CROSS_ARTS_CHARGE_COMPLETE_01` and `_02` (17, 18),
+`CROSS_ARTS_IN` (19), `LOSE` (33), `COLLABO_SKILL` (42), `CHARGE_IDLE` to `CHARGE_FAILED`
+(43 to 48) and, in the `patch` archive's script only, `ITEM_02` (49).
+
+That the script's numbers are the code's numbers was not read from a routine; it shows in
+the scripts of single battles, which pair the same names with the same motions:
+`lua/battle_10400200.lua` holds `MOTION_TYPE_IDLE` with `bn01`, `TIRED` with `bn02`,
+`DAMAGE` with `bd01`, `DOWN` with `bd02`, `UP` with `bd03` and `GUARD` with `bg01` (and
+gives that one enemy `ba02` for `ATTACK` and `ba01` for `COMMON_SKILL`).
+
+Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
+(`data/battle_motion.mbe`), and a Digimon on the field stands with `bn01` and moves with
+`br01` (`data/field.mbe`, `field_move_animation`, row `default_move_animation`). What the
+`f…` motions of the field are for (`fe01`, `fe03`, `fq01`, `fq02`, `fn02_01`, `f000`) and
+`bf01` was not read.
 
 ## Layout
 
@@ -1113,6 +1143,7 @@ not the game's code.
 | `tools/ts_model_read.py` | Time Stranger: reads a `.geom` model and its textures, dumps it as `.glb` or a drawing |
 | `tools/ts_mbe.py` | Time Stranger: reads the tables of a `.mbe` file |
 | `tools/ts_anim_read.py` | Time Stranger: reads a `.anim` motion, lists its channels, draws a model in one of its frames |
+| `tools/ts_luac.py` | Time Stranger: lists the globals and constants of a compiled script (`.lua`) |
 | `extracted_ts/` | Working copy of Time Stranger's files (about 49 GB, not in git, safe to delete) |
 
 ## File formats
