@@ -518,8 +518,8 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 ## Not from the game code
 
 - **Time Stranger's files** are another game's, not the disc's. How they are stored was
-  read from that game's executable; what was not is listed under "Time Stranger files",
-  "Not read from the executable".
+  read from that game's executable; what was not is listed under "Time Stranger files"
+  and "Time Stranger models", each under "Not read from the executable".
 
 - **Custom cards.** Nothing about a custom card is the game's but what it is made from.
   BlackWarGreymon's numbers (DP 60, +P 20, HP 1750, attacks 950 / 700 / 400), its attack
@@ -839,6 +839,133 @@ the unpacker itself needs only the layout.
 - REA's deep analysis (Ghidra) is not set up on the owner's machine; the routines were
   read as disassembly with `tools/x64.py`, not as decompiled code.
 
+## Time Stranger models
+
+How a Time Stranger model is stored, as far as it has been read (TS-202). Addresses are in
+the same executable as above. "Data" in the last column means the field was read from the
+files only, and says how it was checked; everything else names the routine that uses it.
+`tools/ts_model_read.py` reads all 532 `chrNNN.geom` of `app_0` this way.
+
+A Digimon is `chrNNN.geom` (the model), `chrNNN.nlst` (its names as text), its textures
+`images/chrNNN*.img` and its motions `chrNNN_*.anim`. Guilmon is `chr090`: the row of
+`char_GUILMON` in `data/char_info.mbe` and in `data/digimon_status.mbe` holds that name
+(which column means what is TS-203's to read).
+
+### `.geom`
+
+One block; every offset counts from the start of the file. The loader is `0x1402dec00`.
+
+| Where | What | Read at |
+|---|---|---|
+| +0x00 | u32 version, `0x13c`; nothing else is taken | `0x1402dedcf` |
+| +0x04, +0x06 | u16 meshes, u16 materials | `0x1402e075a`; materials: data, the records end where the next table starts |
+| +0x08, +0x0a | u16 counts of two more tables (below) | `0x1402e05a3`, `0x1402e05f0` |
+| +0x0c | u32 bones | data: the skeleton's own count |
+| +0x30 | u32 flags: `0x10` the vertex data is in `<name>.vert`, `0x04` the names are in `<name>.name` | `0x1402dee09`, `0x1402df04d` |
+| +0x38, +0x40 | u32 size of the skeleton block, u32 size of the `.vert` file | `0x1402df309`, `0x1402dee8a` |
+| +0x48 | meshes, 0x80 bytes each | `0x1402df1ca` |
+| +0x50 | materials | `0x1402df51a` |
+| +0x58, +0x60 | two tables of records, 0x80 and 0x38 bytes each; a record starts with the hash of a bone and is tied to that bone. Guilmon has none; what they are was not read | `0x1402e04b3`, `0x1402e0640` |
+| +0x68 | one 3×4 float matrix for each bone: the inverse bind matrix | data: times the bone's rest matrix it gives the unit matrix (to 0.000005) for every bone of 495 of the 532 models; in the other 37 a few face and effect bones are posed otherwise |
+| +0x78 | names, NUL-ended | `0x1402dedf2` |
+| +0x90 | name table: u32 bones, u32 materials, then for each the offset of a list of name offsets | `0x1402def60` |
+| +0x98 | skeleton block, or 0 and it is the file `<name>.skel` | `0x1402df2de`, `0x1402df372` |
+
+**Mesh** (0x80 bytes).
+
+| Where | What | Read at |
+|---|---|---|
+| +0x00, +0x08, +0x10 | vertices, indices (u16), bone palette (u32: skeleton bones) | data: each ends where the next begins, at count × size |
+| +0x20 | vertex attributes | `0x1402df27b` |
+| +0x28, +0x2a, +0x2c | u16 palette size, u16 attributes, u32 bytes a vertex | data |
+| +0x30 | u8 weights a vertex | data: the BLENDWEIGHT attribute has as many |
+| +0x31 | u8, 5 or 1; the loader keeps it for each mesh | `0x1402df1d5`; meaning not read |
+| +0x34, +0x38 | u32 hash of the name, the name | `0x1402df280`; hash: data |
+| +0x40, +0x44, +0x48 | u32 material, u32 vertices, u32 indices | data |
+
+The indices are a **triangle strip**, pieces joined by repeated indices (data: the count is
+seldom a multiple of 3, four in ten of the strip's triangles are empty, and drawn as a
+strip the model is whole).
+
+**Vertex attribute** (8 bytes): u8 kind, u16 components (+2), u16 number type (+4), u16
+offset in the vertex (+6). `0x14035f260` turns them into the Direct3D input layout:
+
+| Kind | Semantic (table `0x14165bd30`) | Seen as |
+|---|---|---|
+| 1 | POSITION | 3 floats (4 in a few meshes) |
+| 2, 3 | NORMAL, TANGENT | 3 and 4 half floats |
+| 4 | BINORMAL | not in any of the 532 |
+| 5, 6, 7, 8 | TEXCOORD 0 to 3 | 2 floats (kind 8 not in any of the 532) |
+| 9 | COLOR | 4 bytes, 0..1 |
+| 10 | BLENDINDICES | 2 to 4 bytes: places in the mesh's bone palette |
+| 11 | BLENDWEIGHT | 2 to 4 half floats |
+
+Number types: 0 byte, 7 16-bit signed normalised (not in any of the 532), 8 half float,
+9 float.
+
+**Material**: +0 u32 hash of its name (data; the name table lists the names in another
+order), +0x320 u8 shader parameters, +0x321 u8 render states, then 0x20 bytes for each of
+them from +0x328, and the next material follows (`0x1402df51a`).
+
+| Where | What |
+|---|---|
+| +0x00 | up to four floats; or, for a texture, s32 name offset and at +8 s32 its length (`0x1402df666`) |
+| +0x10 | u16 id: a row of the shader parameter table at `0x141ac4f00` (0x38 bytes: hash, name, id, kind, size) |
+| +0x12 | u8 number of floats; 0 a texture; 100 a render state |
+
+Guilmon's body material has `ColorSampler` chr090a01, `NormalSampler` chr090a01n,
+`RgbaMaskSampler`, `LightWeightSampler`, `CLUTSampler` and `DiffuseColor` 1 1 1 1. The
+materials of its eyes add `OverlayColorSampler` (chr090p01, the pupils) and
+`OverlayColorSampler2` (chr090b01, the lids), and their meshes have a second and a third
+set of texture coordinates.
+
+**Skeleton**, `60SE`. An offset inside it counts from the field that holds it
+(`0x1402e054a`).
+
+| Where | What | Read at |
+|---|---|---|
+| +0x10 | u16 bones | `0x1402df49f` |
+| +0x18 | offset of the rest pose, 12 floats a bone: rotation x y z w, position x y z 1, scale x y z 1 | data: the inverse bind check above |
+| +0x20 | offset of the bones' name hashes | `0x1402e054a` |
+| +0x3c, +0x40 | u32 pairs, then the pairs: u16 bone, u16 parent (0x7fff none) | data: the same check; bit 15 is set on a few parents and was not read |
+
+A name's hash is CRC-32 without the final inversion (data: every bone name of the 532
+models has the hash the skeleton stores for it, and so have Guilmon's mesh and material
+names).
+
+### `.img`
+
+A DDS file with a DX10 header; BC1 (DXGI 71, 72) and BC7 (98, 99) in Guilmon's.
+
+### Looking at one
+
+```bash
+tools/.venv/Scripts/python -I tools/ts_model_read.py extracted_ts/app_0/chr090.geom
+tools/.venv/Scripts/python -I tools/ts_model_read.py extracted_ts/app_0/chr090.geom --glb guilmon.glb
+tools/.venv/Scripts/python -I tools/ts_model_read.py extracted_ts/app_0/chr090.geom --png guilmon.png --overlays
+```
+
+The first prints the bones, meshes and materials; `--glb` writes a glTF binary with the
+skin and the colour textures; `--png` draws the front and the side.
+
+### Not read from the executable
+
+- **The shaders.** Which texture does what is known by its parameter's name only. The
+  `.glb` carries `ColorSampler` alone and marks every material double-sided; which faces
+  a material hides and the winding were not read. `--overlays` lays the two eye textures
+  over the colour texture the way the pictures suggest, not the way a shader was read to
+  do it. Meshes without a colour texture (the black outline shell, with the parameter
+  `Fat`) and blended ones (the shine over each eye) are left out of the dumps unless
+  `--all` is given.
+- **Meshes of one bone and no weights** (the eyes) are given wholly to that bone in the
+  `.glb`.
+- The mesh byte at +0x31, bit 15 of a parent, the first 0x320 bytes of a material and the
+  fields of a mesh after +0x4c.
+- Models with a `.vert` or `.name` file beside them are refused by the reader; none of
+  the 532 has one.
+- The dump was not compared with the game running; the ticket's log says what it was
+  compared with.
+
 ## Layout
 
 | Path | What |
@@ -869,6 +996,7 @@ the unpacker itself needs only the layout.
 | `tools/lift.py`, `emu.py` | Compact MIPS listing and Unicorn runner used while reading the engine |
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
 | `tools/ts_extract.py`, `x64.py` | Time Stranger: the `.mvgl` unpacker and the x86-64 disassembly helper for its executable |
+| `tools/ts_model_read.py` | Time Stranger: reads a `.geom` model and its textures, dumps it as `.glb` or a drawing |
 | `extracted_ts/` | Working copy of Time Stranger's files (about 49 GB, not in git, safe to delete) |
 
 ## File formats
