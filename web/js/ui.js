@@ -215,33 +215,91 @@
     K.armorForms(d.cards, d.armor).forEach(function (ar) {
       ul.appendChild(h('li', 'note', E.card(ar[0]).name + ' can armor digivolve to ' + E.card(ar[1]).name + ' when it enters.'));
     });
-    grouped(ul, order, counts);
+    grouped(ul, order, counts, 'in this deck.');
     $('btnEdit').textContent = own(d) ? 'Edit' : 'Copy and edit';
     $('btnEdit').title = own(d) ? 'Open this deck in the deck editor' : 'Make a deck of your own from this one and open it in the deck editor';
     $('btnDelete').hidden = !own(d);
   }
   function previewed() { return deckOf(S.previewSide === 'me' ? S.my : S.op); }
+  // ------------------------------------------------------------------ one card in full
+  function kindOf(c) { return c.type === 'digimon' ? E.SPEC[c.spec] + ' · Level ' + E.LEVEL[c.level] : c.type === 'option' ? 'Option card' : 'Digivolve option'; }
+  function effectOf(c) { return c.text === 'None' ? (c.type === 'digimon' ? 'No support effect.' : 'No effect.') : c.text; }
+  function stat(k, v, cl) {
+    var s = h('span', 'st' + (cl ? ' ' + cl : ''));
+    s.appendChild(h('i', null, k)); s.appendChild(document.createTextNode(String(v)));
+    return s;
+  }
+  // Fills `box` with a card: its picture, HP, DP and +P, the three attacks with their power,
+  // the support effect and what the ✕ effect does. The deck editor's side panel and the card
+  // opened from a card list share it. Gives back the block of text, for more lines.
+  function cardInfo(box, id) {
+    var c = E.card(id), k;
+    clear(box);
+    var art = h('div', 'ed-art ' + cls(c)), img = document.createElement('img'), body = h('div', 'ed-ibody');
+    img.src = artUrl(id, false); img.alt = ''; img.decoding = 'async';
+    art.appendChild(img); box.appendChild(art);
+    body.appendChild(h('div', 'ed-iname', c.name));
+    body.appendChild(h('div', 'ed-kind', kindOf(c)));
+    if (c.type === 'digimon') {
+      var st = h('div', 'ed-istats');
+      st.appendChild(stat('HP', c.hp)); st.appendChild(stat('DP', c.dp)); st.appendChild(stat('+P', c.pp));
+      body.appendChild(st);
+      var at = h('div', 'ed-iatk');
+      c.atk.forEach(function (a, i) {
+        at.appendChild(h('span', 'sym s' + i, E.ATK[i])); at.appendChild(h('span', null, a.name)); at.appendChild(h('b', null, String(a.power)));
+      });
+      body.appendChild(at);
+    }
+    box.appendChild(body);
+    var tx = h('div', 'ed-itext');
+    tx.appendChild(h('b', null, c.type === 'digimon' ? 'Support effect' : c.type === 'option' ? 'Option effect' : 'Digivolve option'));
+    tx.appendChild(rich(h('span'), effectOf(c)));
+    if (c.type === 'digimon' && c.xfx) {
+      tx.appendChild(rich(h('b'), E.ATK[2] + ' ' + E.XFX[c.xfx]));
+      tx.appendChild(rich(h('span'), XFX_HELP[c.xfx]));
+    }
+    k = E.PARTNERS.indexOf(id);
+    if (k >= 0) {
+      tx.appendChild(h('b', null, 'Partner'));
+      tx.appendChild(h('span', null, 'Can armor digivolve when it enters, to ' + E.ARMORS[k].filter(Boolean).map(function (x) { return E.card(x).name; }).join(' or ') + ': the Armor choice of the deck says which.'));
+    }
+    box.appendChild(tx);
+    return tx;
+  }
+  // a card of a card list, opened; `note` = a line about where it was opened from
+  function showCard(id, note) {
+    var tx = cardInfo($('cardBox'), id);
+    if (note) tx.appendChild(h('span', 'ed-have', note));
+    $('card').setAttribute('aria-label', E.card(id).name);
+    if (!$('card').open) $('card').showModal();
+  }
+
   var GROUPS = [['Level R', function (c) { return c.type === 'digimon' && c.level === 0; }],
     ['Level C', function (c) { return c.type === 'digimon' && c.level === 2; }],
     ['Level U', function (c) { return c.type === 'digimon' && c.level === 3; }],
     ['Option', function (c) { return c.type !== 'digimon'; }]];
-  // one card of a card list; corner = what to write in its lower corner, if anything
-  function tile(id, corner, cornerCls) {
+  // one card of a card list; corner = what to write in its lower corner, if anything.
+  // A click, or Enter, opens the card with its numbers and effects; note = a line for there
+  function tile(id, corner, cornerCls, note) {
     var c = E.card(id), li = h('li', 'tile'), pic = thumb(id);
     pic.appendChild(h('span', 'badge ' + cls(c), lvl(c)));
     if (corner) pic.appendChild(h('span', cornerCls || 'cnt', corner));
     li.appendChild(pic);
     li.appendChild(h('span', 'tn', c.name));
     li.title = c.name + ' — ' + (c.type === 'digimon' ? ('HP ' + c.hp + ' • ' + c.atk.map(function (a) { return a.power; }).join(' / ') + ' • ' + c.text) : c.text);
+    li.tabIndex = 0; li.setAttribute('role', 'button');
+    li.onclick = function () { showCard(id, note); };
+    li.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showCard(id, note); } };
     return li;
   }
-  // the different cards of `order` by level, each with how many there are
-  function grouped(ul, order, counts) {
+  // the different cards of `order` by level, each with how many there are; where = the
+  // deck or pile they are counted in, for the opened card to say
+  function grouped(ul, order, counts, where) {
     GROUPS.forEach(function (g) {
       var ids = order.filter(function (id) { return g[1](E.card(id)); });
       if (!ids.length) return;
       ul.appendChild(h('li', 'grp', g[0] + ' — ' + ids.reduce(function (t, id) { return t + counts[id]; }, 0)));
-      ids.forEach(function (id) { ul.appendChild(tile(id, '×' + counts[id])); });
+      ids.forEach(function (id) { ul.appendChild(tile(id, '×' + counts[id], null, counts[id] + ' ' + where)); });
     });
   }
 
@@ -270,7 +328,7 @@
     $('pileTitle').textContent = poss(p) + ' Online deck — ' + ids.length + (ids.length === 1 ? ' card' : ' cards') + ' left';
     $('pileNote').textContent = ids.length ? 'The cards still to come, not in the order they will come.' : '';
     if (!ids.length) ul.appendChild(h('li', 'empty', 'The deck is empty.'));
-    grouped(ul, order, counts);
+    grouped(ul, order, counts, 'left in the deck.');
     $('pile').showModal();
   }
   function pilePlate(el, p, show, what) {
@@ -1381,6 +1439,7 @@
   }
 
   function toMenu() {
+    if ($('card').open) $('card').close();
     if ($('pile').open) $('pile').close();
     S.token++; S.G = null; S.resolve = null; S.anim = null;
     SND.stopMusic(); FXV.stop(); B3D.stop();
@@ -1518,5 +1577,6 @@
   }
 
   // what the deck editor (editor.js) shares with this file, and a small hook for automated checks
-  window.DDCB_UI = { state: S, act: act, h: h, clear: clear, thumb: thumb, art: artUrl, rich: rich, cls: cls, lvl: lvl, XFX_HELP: XFX_HELP };
+  window.DDCB_UI = { state: S, act: act, h: h, clear: clear, thumb: thumb, art: artUrl, rich: rich, cls: cls, lvl: lvl, XFX_HELP: XFX_HELP,
+    kindOf: kindOf, effectOf: effectOf, stat: stat, cardInfo: cardInfo, showCard: showCard };
 })();

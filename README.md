@@ -111,6 +111,12 @@ Digimon cards that have it, the most first (a card's Specialty is the high half 
 `0x1A` of its `CARD2.CDD` record; option cards have none). The search boxes over the lists
 find a deck by a Specialty as well as by its name or its owner.
 
+A card in a deck's contents opens with a click (or Enter): its picture, Specialty and
+level, HP, DP and +P, the three attacks with their power, the support effect, what its ✕
+effect does, and how many of it the deck holds. The cards of the Offline pile and of what
+is left of a deck during a battle open the same way. It is the card panel of the deck
+editor, shown in a dialog.
+
 ## Deck editor
 
 **New deck** on the start screen opens the deck editor; **Copy and edit** under a deck's
@@ -545,7 +551,8 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   than 1.14 device pixels per CSS pixel makes the browser scale the larger one up. They
   have not been through ComfyUI (`build_owners.py --upscale` does that, 4x). Counting a
   deck's Digimon cards by Specialty is this project's summary of a deck; the game shows a
-  deck's cards, not such a count.
+  deck's cards, not such a count. The card that opens from a card list shows the card's
+  record as the deck editor does; the wording of what a ✕ effect does is this project's.
 
 - **Mobile setup controls.** On screens up to 900px wide, the sticky setup bar shows
   Settings, Random opponent and Start battle. Settings opens a scrollable panel above

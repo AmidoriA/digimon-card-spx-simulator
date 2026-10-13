@@ -426,8 +426,22 @@ mark { background: rgba(255, 178, 36, .32); color: var(--ink); border-radius: 2p
 .ed-none .row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
 .ed-hint { color: var(--ink-3); font-size: 12px; }
 
-.ed-info { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 12px; align-content: start; height: 248px; overflow: auto; flex: none; }
-.ed-info > .ed-hint { grid-column: 1 / -1; }
+/* one card in full: the editor's side panel, and the card opened from a card list */
+.cardinfo { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 12px; align-content: start; }
+.cardinfo > .ed-hint { grid-column: 1 / -1; }
+.ed-info { height: 248px; overflow: auto; flex: none; }
+.dialog.card-dlg { width: min(460px, 94vw); max-width: none; }
+.card-dlg .cardinfo { grid-template-columns: 128px minmax(0, 1fr); gap: 6px 14px; max-height: 70vh; overflow: auto; }
+.card-dlg .ed-art { width: 128px; height: 128px; }
+.card-dlg .ed-iname { font-size: 20px; }
+.card-dlg .ed-istats { font-size: 14px; gap: 14px; margin: 4px 0; }
+.card-dlg .ed-iatk, .card-dlg .ed-itext { font-size: 13px; }
+.card-dlg .ed-iatk { gap: 2px 8px; }
+.card-dlg .ed-iatk b { font-size: 13px; }
+.cardlist .tile { cursor: pointer; border-radius: 6px; }
+.cardlist .tile:hover .th, .cardlist .tile:focus-visible .th { box-shadow: 0 0 0 2px var(--accent); }
+.cardlist .tile:hover .tn { color: var(--ink); }
+.cardlist .tile:focus-visible { outline: none; }
 .ed-art { width: 96px; height: 96px; border-radius: 6px; overflow: hidden; border: 3px solid var(--tc, var(--opt)); background: #0c131c; }
 .ed-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .ed-art.fire { --tc: var(--fire); } .ed-art.ice { --tc: var(--ice); } .ed-art.nature { --tc: var(--nature); } .ed-art.dark { --tc: #555; } .ed-art.rare { --tc: var(--rare); }
@@ -505,6 +519,8 @@ mark { background: rgba(255, 178, 36, .32); color: var(--ink); border-radius: 2p
   .ed-saved { display: none; }
 }
 @media (max-width: 640px) {
+  .card-dlg .cardinfo { grid-template-columns: 96px minmax(0, 1fr); }
+  .card-dlg .ed-art { width: 96px; height: 96px; }
   .setup-grid { grid-template-columns: 1fr; }
   .setup-grid .panel { max-height: 300px; }
   .ed-main { grid-template-columns: 44px minmax(0, 1fr); }
