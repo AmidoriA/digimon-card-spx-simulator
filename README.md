@@ -32,7 +32,7 @@ exactly that name, capitals included: Pages tells names apart by case and Window
 
 The online copy can be installed from Chrome (Install app / Add to Home screen):
 `web/manifest.webmanifest`, `web/sw.js` and the icons in `web/icons/` (made by
-`tools/build_icons.py` from the game's card back) are what Chrome asks for. The service
+`tools/build_icons.py` from `tools/icon_source.jpg`) are what Chrome asks for. The service
 worker asks the network first and keeps what was loaded as the fallback, so a reload still
 gets the newest scripts and what has been used opens offline; nothing is fetched ahead of time.
 
@@ -498,8 +498,10 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 - **Installable app.** The manifest (names, `standalone` display, the colour `#0a1018` taken
   from the page's own background), the service worker's network-first caching and the app
-  icon (the game's card back centred on that colour, enlarged from the 4x texture with a
-  plain Lanczos resize, not through ComfyUI) are this project's, not the game's.
+  icon are this project's, not the game's. The icon is a crop of `tools/icon_source.jpg`, a
+  picture of a Digimon card game card back (not a texture of the PlayStation game) that the
+  owner supplied; it is only cut square and resized with a plain Lanczos filter, not
+  enlarged through ComfyUI.
 
 - **Mobile setup controls.** On screens up to 900px wide, the sticky setup bar shows
   Settings, Random opponent and Start battle. Settings opens a scrollable panel above
