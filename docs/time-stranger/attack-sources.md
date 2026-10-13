@@ -12,9 +12,8 @@ The table layout uses TS-203's reader (executable 0x140dcf480). By matching the 
 signature/learnable names to each character row: zero-based column 72 is its signature;
 108/111/114/117 are learned IDs, with the following +2 columns matching learn levels.
 These column meanings are inferred from data and cross-checked against the linked pages,
-not traced from executable combat logic. Agumon (Black) is absent locally: its two generic
-skill names exist locally but the character association is verified only by its online
-field guide. Its disc placeholder model is retained per the owner's earlier decision.
+not traced from executable combat logic. All current fillers have local character linkage, including Keramon at 329. The online
+field guide differs on Keramon's second learned label; installed Magic Bind wins.
 
 ## Added fillers
 
@@ -70,8 +69,6 @@ field guide. Its disc placeholder model is retained per the owner's earlier deci
 - **Taomon (326)**: Talisman of Light / Hell Crusher II / Magic Field. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=taomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/taomon/).
 - **Rapidmon (327)**: Rapid Fire / Golden Triangle / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=rapidmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/rapidmon/).
 - **Lilamon (328)**: Lila Shower / Beauty Slap / Pollen Spray. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lilamon).
-| 329 | Agumon (Black) | Wolkenapalm I | 30011 | absent: bonus character | online character association only |
-| 329 | Agumon (Black) | Magic Bind | 32151 | absent: bonus character | online character association only |
 | 330 | Monodramon | Knuckle Beater | 24581 | char_MONODRAMON | [72] |
 | 330 | Monodramon | Comet Hammer I | 30161 | char_MONODRAMON | [108] |
 | 331 | Dracmon | Soul Fear I | 30304 | char_DRACUMON | [111] |
@@ -84,9 +81,12 @@ field guide. Its disc placeholder model is retained per the owner's earlier deci
 | 336 | Cyberdramon | Nanomachine Break II | 30132 | char_CYBERDRAMON | [108] |
 | 336 | Cyberdramon | Thunder Fall II | 30152 | char_CYBERDRAMON | [114] |
 
+| 329 | Keramon | Venom Trap | 33011 | char_KERAMON | [108] |
+| 329 | Keramon | Magic Bind | 32151 | char_KERAMON | [111] |
+
 ## TS-104 sources and selected names
 
-- **Agumon (Black) (329)**: Pepper Breath / Wolkenapalm I / Magic Bind. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=agumon-black); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/agumon-black/).
+- **Keramon (329)**: Crazy Giggle / Venom Trap / Magic Bind. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=keramon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/keramon/). Local learned rows override the guide's mismatched Spirit Bind.
 - **Monodramon (330)**: Crack Bite / Knuckle Beater / Comet Hammer I. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=monodramon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/monodramon/).
 - **Dracmon (331)**: Eye of Nightmares / Undead Fang / Soul Fear I. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dracumon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/dracmon/).
 - **Kurisarimon (332)**: Data Crusher / Shadow Fang II / Mental Break. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=chrysalimon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/kurisarimon/).
@@ -95,3 +95,30 @@ field guide. Its disc placeholder model is retained per the owner's earlier deci
 - **MetalTyrannomon (335)**: Giga Destroyerโ…ก / Nuclear Laser / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=metaltyranomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/metaltyrannomon/).
 - **Cyberdramon (336)**: Desolation Claw / Nanomachine Break II / Thunder Fall II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=cyberdramon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/cyberdramon/).
 - **Matadormon (337)**: Thousand Arrows / Bulldog / Earth-Shattering Stomp. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=matadrmon).
+| 339 | Bearmon | Comet Hammer I | 30161 | char_BEARMON | [108] |
+| 339 | Bearmon | Attack Charge | 32011 | char_BEARMON | [111] |
+| 340 | Kudamon | Holy Light I | 30261 | char_KUDAMON | [108] |
+| 342 | Grizzlymon | Comet Hammer II | 30162 | char_GRYZMON | [108] |
+| 342 | Grizzlymon | Gaia Blaster II | 30172 | char_GRYZMON | [114] |
+| 345 | GrapLeomon | Nanomachine Break II | 30132 | char_GRAPLEOMON | [108] |
+
+## TS-105 sources and selected names
+
+- **Dracomon (338)**: Baby Breath / Tail Smash / Great Strike. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dracomon).
+- **Bearmon (339)**: Bear Fist / Comet Hammer I / Attack Charge. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=bearmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/bearmon/).
+- **Kudamon (340)**: Bullet Whirlwind / Blinding Ray / Holy Light I. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=kudamon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/kudamon/).
+- **Coredramon (Blue) (341)**: Blue Flare Breath / Strike Bomber / Great Strikeโ…ก. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=coredramon_b).
+- **Grizzlymon (342)**: Maul Attack / Comet Hammer II / Gaia Blaster II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=gryzmon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/grizzlymon/).
+- **Reppamon (343)**: Rolling Tackle / Lion Claw / Razor Wind. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=reppamon).
+- **Wingdramon (344)**: Blaze Sonic Breath / Exploding Sonic Lance / Wing Blast. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=wingdramon).
+- **GrapLeomon (345)**: The King of Fists / Cyclonic Kick / Nanomachine Break II. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=grappuleomon); [Time Stranger field guide](https://digimon.jsuk.cloud/en/d/grapleomon/).
+- **Chirinmon (346)**: Wind Cutter Sword / Knowledge of Swiftness / Holy Wave. [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=tyilinmon).
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
+All its numbers/effects are copied from Tsukaimon. Local char_KERAMON → chr626 is
+present in both model tables; Phase 2 converts all nine Darkness models. The old
+black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
+restoration and is shared by both art modes. Offset 20000 is retired; the four other
+published offsets remain stable. [Full evidence and current roster](roster.md).

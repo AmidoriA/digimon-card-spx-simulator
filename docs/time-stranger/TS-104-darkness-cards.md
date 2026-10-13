@@ -13,7 +13,7 @@ Add the nine Darkness cards of [roster.md](roster.md) as custom cards with place
 
 | Id | Lv | Card | Base | Model | Battle block |
 |---|---|---|---|---|---|
-| 329 | R | Agumon (Black) | Agumon (27) ✱ | 428 | offset 20000 |
+| 329 | R | Keramon | Tsukaimon (135) | 428 | none |
 | 330 | R | Monodramon | Veemon (175) ✱ | 429 | offset 30000 |
 | 331 | R | Dracmon | DemiDevimon (132) | 430 | none |
 | 332 | C | Kurisarimon | Bakemon (123) | 431 | none |
@@ -78,3 +78,18 @@ Add the nine Darkness cards of [roster.md](roster.md) as custom cards with place
   Enhanced/Ultra were exercised by battletest; those styles were not visually compared
   for every card. Local screenshots/report: extracted/newart/ts-phase1-browser/g3-*.
 - Integrated into the time-stranger feature branch as this ticket's commit; no main merge.
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
+All its numbers/effects are copied from Tsukaimon. Local char_KERAMON → chr626 is
+present in both model tables; Phase 2 converts all nine Darkness models. The old
+black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
+restoration and is shared by both art modes. Offset 20000 is retired; the four other
+published offsets remain stable. [Full evidence and current roster](roster.md).
+
+- Replacement validation: all six required checks passed; all 228 available Digimon
+  attacks ran in three styles. Keramon was seen in both editor art styles, on the actual
+  board with a manually prepared hand, and its three strikes next to Tsukaimon in
+  battle-preview (six completed runs). The 43 other edited caches still pass their
+  recorded hashes. Skill validation passes. Local proof: keramon-* in the browser folder.

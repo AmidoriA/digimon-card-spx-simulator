@@ -292,14 +292,13 @@
   },
   {
     "id": 329,
-    "name": "Agumon (Black)",
-    "card": "BT8-058",
+    "name": "Keramon",
+    "card": "EX1-044",
     "crop": [
-      0,
-      24,
-      430
-    ],
-    "edited": "edited/ts002/329.png"
+      80,
+      105,
+      320
+    ]
   },
   {
     "id": 330,

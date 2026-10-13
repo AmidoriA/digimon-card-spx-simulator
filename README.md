@@ -300,7 +300,7 @@ shape and motions, pending Phase 2. Attack-name evidence and the chosen three-sl
 mapping are in [attack-sources.md](docs/time-stranger/attack-sources.md).
 
 Owner update (2026-10-13): use one prepared TS-002 picture for Legacy and New.
-`art.shared: true` preserves the approved native crop (430px; Crescemon 320px), writes
+`art.shared: true` preserves the approved native crop (430px; Crescemon and Keramon 320px), writes
 identical full-size files to `art`/`art2` and identical 160px thumbnails to `mini`/`mini2`.
 No separate Legacy recolour, enlargement or new ComfyUI generation is performed.
 Other custom cards retain their existing build path. Cached edited sources are hash
@@ -335,7 +335,7 @@ checked before every build. Rebuild with `build_custom.py <extracted> web art <i
 | 326 | Taomon | Nature / U | Angewomon (77) | 425 | card `BT5-041`, edit 326 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) |
 | 327 | Rapidmon | Nature / U | MagnaAngemon (75) | 426 | card `BT3-052`, edit 327 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) |
 | 328 | Lilamon | Nature / U | Lillymon (78) | 427 | card `BT4-059`, edit 328 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) |
-| 329 | Agumon (Black) | Darkness / R | Agumon (27) ✱ | 428 | card `BT8-058`, edit 329 | [468 · Virus](https://digimon.jsuk.cloud/en/d/agumon-black/) |
+| 329 | Keramon | Darkness / R | Tsukaimon (135) | 428 | card `EX1-044`, crop `[80,105,320]`, unedited | [080 · Unknown](https://digimon.jsuk.cloud/en/d/keramon/) |
 | 330 | Monodramon | Darkness / R | Veemon (175) ✱ | 429 | card `BT1-009`, edit 330 | [037 · Vaccine](https://digimon.jsuk.cloud/en/d/monodramon/) |
 | 331 | Dracmon | Darkness / R | DemiDevimon (132) | 430 | card `ST6-04`, edit 331 | [070 · Virus](https://digimon.jsuk.cloud/en/d/dracmon/) |
 | 332 | Kurisarimon | Darkness / C | Bakemon (123) | 431 | card `BT2-059`, edit 332 | [178 · Unknown](https://digimon.jsuk.cloud/en/d/kurisarimon/) |
@@ -792,7 +792,18 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   darkest value any of them has there, which leaves the white letter they share. The dark
   edge around the letter is this project's, added because the new pictures are often bright
   where the game's are dark.
-- **Time Stranger picture preparation (TS-002).** The planned cards 302–346 have 44 regular illustrations selected from the official card list and Crescemon from the official Reference Book. The latter is a suitability fallback: card rules obscure its legs, and attempted reconstruction was rejected. Every selected card illustration has a recorded local ComfyUI edit to remove its frame/cost/DP print, extend the existing background into the margins, and remove rules text where present. These are illustration restorations, not data read from either game. `docs/time-stranger/roster.md` names every source/edit; `tools/time_stranger_art.json` and `tools/new_art_edits.json` store the selections and recipes. Run `tools/prepare_time_stranger_art.py extracted` to cache/replay them, or add `--review` for contact sheets. The installed model is `512-inpainting-ema.safetensors` (stock inpainting nodes, 24 Euler steps, CFG 6, explicit fixed seeds); `tools/comfy_workflows/ts002-inpaint.json` stores the graph. Downloads and native edited crops/masks/hash metadata stay under `extracted/newart`, outside git. Every pixel outside a mask is kept from the source. No playable Time Stranger cards are added by picture preparation.
+- **Time Stranger picture preparation (TS-002).** The current cards 302–346 use 44
+  regular official illustrations and Reference Book Crescemon. There are 43 recorded
+  ComfyUI restorations; Keramon uses clean EX1-044 crop [80,105,320] without an edit.
+  Crescemon is a suitability fallback: card rules obscure its legs and attempted
+  reconstruction changed its anatomy. These restorations are project additions, not
+  game data. Sources/edits are in roster.md, tools/time_stranger_art.json and
+  tools/new_art_edits.json. tools/prepare_time_stranger_art.py caches/replays the
+  recipes with --review for contact sheets. The stored workflow uses local
+  512-inpainting-ema.safetensors, 24 Euler steps, CFG 6 and explicit seeds. Native
+  images/masks/hash metadata stay ignored under extracted/newart; pixels outside each
+  mask are preserved. Picture preparation itself does not add playable cards.
+
 - **Deck editor screen.** The rules above are the game's; the screen, the search, the
   filters, undo, and the list and code a deck is exported as are this project's. The game's
   editor only offers the cards a save holds ("Cards in Stock": a working copy at `0x801f3f48`,
@@ -1135,10 +1146,10 @@ read.
 | | 4 | a number, `1090` for `chr090` |
 
 That column 3 is the model was not read from a routine: Guilmon's row names `chr090`,
-which the owner confirmed to be Guilmon (TS-202), and the 44 models found this way were
+which the owner confirmed to be Guilmon (TS-202), and the 44 other models plus Keramon/chr626 were
 drawn and are the Digimon their rows name (`docs/time-stranger/img/ts-203-roster-models.png`).
-`docs/time-stranger/roster.md` has the model of each card. Agumon (Black) has no row in
-either table of this build.
+`docs/time-stranger/roster.md` has the model of each card. All 45 current identities now have local model rows. The owner replaced the Fire black
+Agumon variant with Keramon; the former native-model exception no longer applies.
 
 ## Time Stranger motions
 
@@ -1277,3 +1288,13 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 - `B/CARD2.CDD`: 191 Digimon records (316 bytes), 102 option records (226), 8 digivolve records (112).
 - `B/DECK2.DEK`: 110-byte records: 30 card ids, deck name (byte 60), owner (byte 79), rank, armor byte.
 - `B/MATCH/NNN.ARC`: the textures of the screen before a battle, by deck number; an ARC of 14 TIM images.
+
+## Time Stranger roster correction (2026-10-13)
+
+The owner replaced the Fire black Agumon variant in the Darkness roster with Keramon
+(329/428). Base Tsukaimon (135) supplies all unchanged numbers/effects and its temporary
+mesh/motions; its palette is changed towards Keramon's grey-blue body and green eyes.
+Local char_KERAMON maps to chr626 in both model tables; Phase 2 has all nine Darkness
+models to convert. The old model exception and cloned effect offset 20000 are retired;
+other published offsets remain stable. Both art modes use unedited official EX1-044
+crop [80,105,320]. [Full evidence](docs/time-stranger/roster.md).

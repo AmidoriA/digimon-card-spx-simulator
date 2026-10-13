@@ -9,23 +9,24 @@
 
 ## Goal
 
-Convert eight of the nine Darkness Digimon to their model numbers: Monodramon (429), Dracmon (430), Kurisarimon (431), Strikedramon (432), Sangloupmon (433), MetalTyrannomon (434), Cyberdramon (435), Matadormon (436).
+Convert all nine Darkness Digimon to their model numbers: Keramon (428), Monodramon (429), Dracmon (430), Kurisarimon (431), Strikedramon (432), Sangloupmon (433), MetalTyrannomon (434), Cyberdramon (435), Matadormon (436).
 
 ## Context
 
-- Agumon (Black) (428) is not converted: it is not in the owner's Time Stranger build (TS-203) and keeps the disc's Agumon with its texture recoloured (see Decisions).
+- Keramon (428) uses local chr626 (`char_KERAMON`), verified in both model tables.
+  The old black Agumon placeholder exception is superseded.
 - `tools/ts_model.py` as settled in TS-207.
 - [roster.md](roster.md).
 
 ## Steps
 
-1. Convert each of the eight models with the TS-207 settings; drop its `model.recolour`. Leave 428 and its `model.recolour` as they are.
+1. Convert each of the nine models with the TS-207 settings; drop its `model.recolour`, including Keramon/428.
 2. Look at each in `battle-preview.html` (three styles) and fix what is off.
 3. Run the checks; update roster.md Phase 2 status.
 
 ## Acceptance criteria
 
-- [ ] Eight models written (429-436); 428 keeps its recoloured Agumon; card entries otherwise unchanged.
+- [ ] Nine models written (428-436), including Keramon from chr626; card entries otherwise unchanged.
 - [ ] All checks of CLAUDE.md and `battletest.js` pass.
 - [ ] Browser check reported.
 - [ ] One commit, `TS-208d: …`, pushed.
@@ -40,8 +41,18 @@ Convert eight of the nine Darkness Digimon to their model numbers: Monodramon (4
 
 ## Decisions
 
-- 2026-10-13, the owner: Agumon (Black) uses the PS1 game's Agumon with its texture recoloured, not a Time Stranger model.
+- 2026-10-13, owner correction: Keramon replaces the Fire black Agumon variant.
+  Its model chr626 is available locally, so 428 is converted with the other eight.
 
 ## Log
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
+All its numbers/effects are copied from Tsukaimon. Local char_KERAMON → chr626 is
+present in both model tables; Phase 2 converts all nine Darkness models. The old
+black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
+restoration and is shared by both art modes. Offset 20000 is retired; the four other
+published offsets remain stable. [Full evidence and current roster](roster.md).

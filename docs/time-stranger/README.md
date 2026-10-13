@@ -31,8 +31,8 @@ This is the documented working policy, not a GitHub branch-protection rule.
 
 TS-001's verified roster is the source of truth for names, bases, field-guide evidence
 and thematic Specialties. The Phase 1 tables, Phase 2 model lists and Phase 3 deck targets
-now use Huckmon/BaoHuckmon/SaviorHuckmon, Agumon (Black), Coredramon (Blue), Kurisarimon
-and Dragomon. The five current cross-Specialty battle offsets are listed in phase1.md.
+now use Huckmon/BaoHuckmon/SaviorHuckmon, Keramon, Coredramon (Blue), Kurisarimon
+and Dragomon. The four current cross-Specialty battle offsets are listed in phase1.md.
 
 ## How to work a ticket
 
@@ -63,7 +63,7 @@ with progress (goal, context, steps) and what is found (the Log).
 |---|---|---|
 | Card ids | 302 | 346 |
 | Model numbers | 401 | 445 |
-| Battle offsets (✱ bases only) | 20000 | +10000 each, in id order |
+| Battle offsets (✱ bases only) | 30000 | 30000/40000/50000/60000; retired 20000 |
 | Order | Fire, Ice, Nature, Darkness, Rare; in each R, C, U | |
 
 ## Files
@@ -106,3 +106,12 @@ with progress (goal, context, steps) and what is found (the Log).
 | [TS-304](TS-304-nature-decks.md) | Nature decks | 3 Decks | TS-301, TS-103 | [card](https://trello.com/c/LWJsByLx) |
 | [TS-305](TS-305-darkness-decks.md) | Darkness decks | 3 Decks | TS-301, TS-104 | [card](https://trello.com/c/c832rBj3) |
 | [TS-306](TS-306-rare-decks.md) | Rare decks | 3 Decks | TS-301, TS-105 | [card](https://trello.com/c/4tlEb1gi) |
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
+All its numbers/effects are copied from Tsukaimon. Local char_KERAMON → chr626 is
+present in both model tables; Phase 2 converts all nine Darkness models. The old
+black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
+restoration and is shared by both art modes. Offset 20000 is retired; the four other
+published offsets remain stable. [Full evidence and current roster](roster.md).

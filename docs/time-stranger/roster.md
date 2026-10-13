@@ -19,8 +19,8 @@ policy and changes below. Local game-table confirmation follows TS-201/TS-203.
 - TS model: the model in Time Stranger, `chrNNN` (its files are `chrNNN.geom`, `chrNNN_*.anim`,
   `images/chrNNN*.img`), with the Digimon's key in the game's tables. Read in TS-203 from
   `text/char_name.mbe` (English name to key) and `data/char_info.mbe` (key to model) of Steam
-  build 23514637. Agumon (Black) has no row in those tables; the owner decided on 2026-10-13
-  that it keeps the disc's Agumon model with its texture recoloured, as in Phase 1.
+  build 23514637. All 45 current identities have local model rows; card 329 is Keramon
+  (`char_KERAMON` → `chr626`) after the owner's correction.
 - Picture edits made through ComfyUI (TS-004) are noted in the Picture column.
 - Progress is tracked on Trello: each Specialty's Phase 1 and Phase 2 cards hold a checklist
   of its nine Digimon.
@@ -58,7 +58,7 @@ Megas, so some Ultimates get a Mega's numbers (Chirinmon from MetalGarurumon, fo
 | 326 | Nature | U | Taomon | Angewomon (77) | 425 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) | Dark | card `BT5-041` crop `[0, 24, 430]`; edit 326 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended | `chr405` (`char_TAOMON`) |
 | 327 | Nature | U | Rapidmon | MagnaAngemon (75) | 426 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) | Electric | card `BT3-052` crop `[0, 24, 430]`; edit 327 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended | `chr722` (`char_RAPIDMON`) |
 | 328 | Nature | U | Lilamon | Lillymon (78) | 427 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) | Plant | card `BT4-059` crop `[0, 24, 430]`; edit 328 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed | `chr073` (`char_LILAMON`) |
-| 329 | Darkness | R | Agumon (Black) | Agumon (27) ✱ | 428 | [468 · Virus](https://digimon.jsuk.cloud/en/d/agumon-black/) | Fire | card `BT8-058` crop `[0, 24, 430]`; edit 329 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed | none: the disc's Agumon, texture recoloured (owner, 2026-10-13) |
+| 329 | Darkness | R | Keramon | Tsukaimon (135) | 428 | [080 · Unknown](https://digimon.jsuk.cloud/en/d/keramon/) | Dark | card `EX1-044` crop `[80, 105, 320]`; no edit needed | `chr626` (`char_KERAMON`) |
 | 330 | Darkness | R | Monodramon | Veemon (175) ✱ | 429 | [037 · Vaccine](https://digimon.jsuk.cloud/en/d/monodramon/) | Neutral | card `BT1-009` crop `[0, 24, 430]`; edit 330 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended | `chr458` (`char_MONODRAMON`) |
 | 331 | Darkness | R | Dracmon | DemiDevimon (132) | 430 | [070 · Virus](https://digimon.jsuk.cloud/en/d/dracmon/) | Dark | card `ST6-04` crop `[0, 24, 430]`; edit 331 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended; rules text removed | `chr457` (`char_DRACUMON`) |
 | 332 | Darkness | C | Kurisarimon | Bakemon (123) | 431 | [178 · Unknown](https://digimon.jsuk.cloud/en/d/kurisarimon/) | Dark | card `BT2-059` crop `[0, 24, 430]`; edit 332 via `ts002-inpaint`: frame/cost/DP print removed; background margins extended | `chr630` (`char_KURISARIMON`) |
@@ -114,9 +114,9 @@ about a game mechanic. In particular:
 - 304/307/310: Hackmon/BaoHackmon/SaviorHackmon → **Huckmon/BaoHuckmon/SaviorHuckmon**,
   the English names shown by the Time Stranger sources. These are spelling aliases,
   not different species.
-- 329: BlackAgumon → **Agumon (Black)**, field-guide 468. This is the black variant,
-  distinct from the disc's ordinary Agumon (27). Its availability in the owner's
-  installed version must be checked with the local tables in TS-201/TS-203.
+- Historical, superseded 329: BlackAgumon was corrected to **Agumon (Black)**,
+  field-guide 468, distinct from the disc's Agumon. The owner later classified it as
+  Fire and replaced it with Keramon; the old availability/placeholder exception is closed.
 - 341: Coredramon → **Coredramon (Blue)**, field-guide 091. The blue form explicitly
   evolves into Wingdramon, so this resolves the unspecified colour without changing
   the intended dragon family; Coredramon (Green) is a separate field-guide entry (149).
@@ -167,13 +167,15 @@ If later local-game verification requires another change:
 
 ## Picture audit (TS-002, 2026-10-13)
 
-All 45 final pictures were inspected as contact sheets; unclear text/edges and the variant identities were checked at native size. No selected source contains SAMPLE. The 44 regular official card illustrations use the broad normalized 430×600 crop recorded above. Their original compositions can still be close-ups; restoration does not claim unseen anatomy from the game.
+All 45 final pictures were inspected as contact sheets; unclear text/edges and the variant identities were checked at native size. No selected source contains SAMPLE. 43 regular card illustrations use the broad normalized crop and recorded edits;
+Keramon uses the clean EX1-044 crop [80,105,320]. Their original compositions can still be close-ups; restoration does not claim unseen anatomy from the game.
 
 Each `edit <id>` above is the matching recipe in `tools/new_art_edits.json`: model `512-inpainting-ema.safetensors`, stored workflow `tools/comfy_workflows/ts002-inpaint.json`, explicit mask, prompt, seed and sampling settings. Edited native crops, before pictures, masks and hash metadata are cached under `extracted/newart/edited/ts002/<id>.*`; download files stay in `cards/` and `ref/`. `tools/time_stranger_art.json` is the machine-readable selection; it does not add playable cards.
 
-Crescemon is an intentional suitability fallback, not an assertion that it has no card: EX5-020 and its print variants place rules over the legs; attempted restoration changed the anatomy and was rejected. The inspected official Reference Book source is https://digimon.net/reference_en/detail.php?directory_name=crescemon (image `crescemon.jpg`). Agumon (Black) is BT8-058, visibly the black Virus variant; Coredramon (Blue) is EX3-018, visibly blue. Official card titles omit those qualifiers.
+Crescemon is an intentional suitability fallback, not an assertion that it has no card: EX5-020 and its print variants place rules over the legs; attempted restoration changed the anatomy and was rejected. The inspected official Reference Book source is https://digimon.net/reference_en/detail.php?directory_name=crescemon (image `crescemon.jpg`). Current 329 is Keramon, EX1-044 crop [80,105,320], with no card UI print in the crop. The earlier BT8-058 black Agumon selection is superseded. Coredramon (Blue) remains EX3-018, visibly blue; its official card title omits the qualifier.
 
-Validation: 45 source entries (ids 302–346), 44 cached ComfyUI edits, verified source images and valid crop bounds; every pixel outside every declared mask remains identical to its source. Coronamon edit 303 was independently uploaded and executed twice on this local ComfyUI: decoded pixel SHA-256 `96b5cbc7c0e3e262e468c2c45f8df704771a5fc0207ba1ea7371cb5e666d99ce` both times. Fixed-seed reproducibility on other hardware/software is not asserted. The owner accepted its before/after on 2026-10-13.
+Current validation: 45 source entries (ids 302–346), 43 active cached ComfyUI edits
+plus unedited Keramon and Reference Book Crescemon, verified source images and valid crop bounds; every pixel outside every declared mask remains identical to its source. Coronamon edit 303 was independently uploaded and executed twice on this local ComfyUI: decoded pixel SHA-256 `96b5cbc7c0e3e262e468c2c45f8df704771a5fc0207ba1ea7371cb5e666d99ce` both times. Fixed-seed reproducibility on other hardware/software is not asserted. The owner accepted its before/after on 2026-10-13.
 
 ### TS-101 Phase 1 — 2026-10-13
 
@@ -198,3 +200,36 @@ art modes. Required checks and browser review passed; integrated into time-stran
 Cards 329–337 are playable with recoloured disc placeholders, unchanged base numbers/effects,
 verified three-slot labels (attack-sources.md), and identical prepared pictures in both
 art modes. Required checks and browser review passed; integrated into time-stranger.
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+The owner classified the black Agumon variant as Fire and removed it from this Darkness
+slot. Current card 329 is **Keramon**, Darkness/R, base **Tsukaimon (135)**, placeholder
+model **428**. Its shape remains the recoloured PS1 base until Phase 2; this is an
+approximation, not a native Keramon mesh. All numbers/support/cross effects now equal
+Tsukaimon's exactly. No other cards' numbers or effects changed.
+
+Local Steam build 23514637 evidence: `app_text01/text/char_name.mbe` maps Keramon to
+`char_KERAMON`; column 3 in both app_0 and patch `data/char_info.mbe` maps it to `chr626`.
+`chr626.geom` and its animation files exist; the model was read and drawn with overlays.
+`app_0/data/digimon_status.mbe` links skill IDs 26261 / 33011 / 32151 to this character
+(columns 72 / 108 / 111); English labels are Crazy Giggle / Venom Trap / Magic Bind.
+Crazy Giggle's battle_skill row has element 10 in column 28; English `text/element.mbe`
+maps 10 to Dark, agreeing with the online field guide. This column meaning is inferred
+from data, not traced from combat code. The field guide's Spirit Bind label differs from
+the installed row: the local Magic Bind label wins. Labels do not add TS debuff rules.
+
+Official picture **EX1-044**, crop **[80, 105, 320]**, needs no restoration: cost, DP,
+level gauge and rules are outside the crop; the binary digits are its illustration's
+background. The same native crop and 160px mini serve both art modes. Card illustration
+is preferred over the Reference Book; no ComfyUI restart or new generation was needed.
+
+Only four active cross-Specialty rows remain, 330 / 335 / 344 / 346. Offset **20000** is
+retired with card 329's old cloned effects; active offsets stay **30000 / 40000 / 50000 /
+60000** to keep already published asset identifiers stable. TS-208d must convert all
+nine Darkness models, including Keramon's chr626 into 428. Previous Black Agumon
+absence/placeholder decisions below are historical and superseded by this correction.
+
+Sources: [Reference Book](https://digimon.net/reference_en/detail.php?directory_name=keramon),
+[Time Stranger field guide](https://digimon.jsuk.cloud/en/d/keramon/),
+[official card search](https://world.digimoncard.com/cardlist/?search=true&free=Keramon).

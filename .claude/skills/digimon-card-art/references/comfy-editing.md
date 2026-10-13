@@ -65,7 +65,7 @@ cards is not implied by preparing a source crop.
 `tools/comfy.py` now has `inpaint(image, mask, prompt, seed=...)`; the preparer delegates
 to it. Its optional `outpaint(image, padding, prompt, seed=...)` protects all original pixels,
 but the tested Coronamon extensions introduced pale framing and were rejected for use.
-Treat outpaint prompts as unapproved trials until visual review. The 44 chosen TS-002
+Treat outpaint prompts as unapproved trials until visual review. The 43 currently edited TS-002
 restorations extend margins with explicit inpaint masks instead.
 
 Crescemon's EX5-020 rules cover its legs. Large-area and glyph-mask restorations failed

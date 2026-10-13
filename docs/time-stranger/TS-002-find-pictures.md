@@ -47,3 +47,12 @@ Give every Time Stranger card a "New card art" picture from the internet, from t
 - 2026-10-13: Selected and inspected all 45 pictures after TS-001: 44 regular official card illustrations and `ref crescemon`, recorded in roster.md and `tools/time_stranger_art.json`. The Crescemon fallback reflects source suitability: rules hide the legs, and attempted inpainting was rejected for changing anatomy.
 - 2026-10-13: Prepared 44 ComfyUI restorations using the installed `512-inpainting-ema.safetensors` checkpoint and stored `ts002-inpaint.json` graph. Every recipe (source, crop, mask geometry, prompt, seed, model/settings and output path) is in `tools/new_art_edits.json`. `tools/prepare_time_stranger_art.py` downloads, caches/replays and makes review sheets without building game assets.
 - 2026-10-13: Downloaded/edited files remain ignored under `extracted/newart`; 45 sources and 44 edit hashes validated, and all unmasked pixels compared identical. Corrected incomplete multiline text masks and a generated mark on Lunamon, then inspected the final selections. Coronamon repeated with separate uploads gave identical decoded pixels (hash in roster.md); the owner accepted its before/after. Original game cards and custom card records were not rebuilt by this ticket.
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
+All its numbers/effects are copied from Tsukaimon. Local char_KERAMON → chr626 is
+present in both model tables; Phase 2 converts all nine Darkness models. The old
+black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
+restoration and is shared by both art modes. Offset 20000 is retired; the four other
+published offsets remain stable. [Full evidence and current roster](roster.md).

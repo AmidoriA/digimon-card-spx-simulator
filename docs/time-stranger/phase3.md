@@ -6,7 +6,7 @@ owner's request, and the README says so.
 
 - **Card group**: match the first, second or third Rookie/Champion/Ultimate in each
   Specialty's roster slot. These are themed deck groups; do not assume every group is
-  a direct Time Stranger evolution chain. In particular, Agumon (Black), Kurisarimon
+  a direct Time Stranger evolution chain. In particular, Keramon, Kurisarimon
   and MetalTyrannomon form the first Darkness group.
 - **Base deck**: a game deck that holds the Ultimate's base card. Of those, the one that also
   holds the most of the line's Rookie and Champion bases (roster.md); then the one whose

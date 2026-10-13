@@ -37,13 +37,12 @@ recolour.
   a recolour of the effects into the card's Specialty colours and its `accent` (create-card
   skill §4; BlackWarGreymon's `darkfire` is the example).
 
-The offsets follow only the current cross-Specialty rows in card-id order. Same-Specialty
-bases do not consume an offset. TS-001 replaced the former cross-Specialty card 332
-with Kurisarimon/Bakemon, so subsequent offsets shift down by 10000.
+Active offsets are stable once published. Same-Specialty bases do not consume an offset.
+The owner replaced card 329 with Keramon/Tsukaimon; offset 20000 is retired and its old
+effects removed. The four active offsets below retain their published numbers.
 
 | Card id | Card | Battle offset |
 |---|---|---|
-| 329 | Agumon (Black) | 20000 |
 | 330 | Monodramon | 30000 |
 | 335 | MetalTyrannomon | 40000 |
 | 344 | Wingdramon | 50000 |
@@ -52,7 +51,7 @@ with Kurisarimon/Bakemon, so subsequent offsets shift down by 10000.
 ## Art
 
 - Owner update (2026-10-13): no separate Legacy picture. `art.shared: true` writes the same
-  TS-002 native prepared crop to both full-size art folders and identical 160px thumbnails
+  TS-002 native prepared crop (Keramon uses the unedited EX1-044 crop) to both full-size art folders and identical 160px thumbnails
   to both mini folders. No enlargement, new inpainting or ComfyUI restart is needed.
 - `art.new`: the picture from TS-002 (`card` + `crop`, or `ref`; TS-003), or its ComfyUI-edited
   version (TS-004) where the row in roster.md says it was edited.

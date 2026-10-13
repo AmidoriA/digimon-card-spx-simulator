@@ -21,7 +21,10 @@ and artwork section of README before choosing pictures.
   figure and no SAMPLE across it. Regular older cards often avoid SAMPLE; age alone does not
   establish quality or identity.
 - Confirm variants visually: the English card title can omit `Black` from Agumon and the colour
-  from Coredramon. TS-002 used **BT8-058** for Agumon (Black) and **EX3-018** for Coredramon (Blue).
+  from Coredramon. The current roster uses **EX1-044**, crop **[80,105,320]**, for Keramon and
+  **EX3-018** for Coredramon (Blue). The old BT8-058 black Agumon source was retired
+  when the owner classified it as Fire and replaced it in Darkness. A suitable clean
+  crop needs no ComfyUI edit; shared art may reuse that native crop in both modes.
   Official spellings may differ from a game roster; verify the alias rather than guessing.
 - Download from `https://world.digimoncard.com/images/cardlist/card/<NO>.png`. If no suitable
   card illustration exists, use the official Reference Book, verify the species/slug there,

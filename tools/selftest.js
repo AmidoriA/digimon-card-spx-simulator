@@ -329,7 +329,7 @@ test('custom cards follow the 301 cards of the game and leave them as they are',
   assert.strictEqual(E.CARDS.filter((c) => c.custom == null).length, 301);
 });
 
-const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon", "Gaomon", "Lunamon", "Syakomon", "Gaogamon", "Lekismon", "Octomon", "MachGaogamon", "Crescemon", "Dragomon", "Renamon", "Terriermon", "Lalamon", "Kyubimon", "Gargomon", "Sunflowmon", "Taomon", "Rapidmon", "Lilamon", "Agumon (Black)", "Monodramon", "Dracmon", "Kurisarimon", "Strikedramon", "Sangloupmon", "MetalTyrannomon", "Cyberdramon", "Matadormon"];
+const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon", "Gaomon", "Lunamon", "Syakomon", "Gaogamon", "Lekismon", "Octomon", "MachGaogamon", "Crescemon", "Dragomon", "Renamon", "Terriermon", "Lalamon", "Kyubimon", "Gargomon", "Sunflowmon", "Taomon", "Rapidmon", "Lilamon", "Keramon", "Monodramon", "Dracmon", "Kurisarimon", "Strikedramon", "Sangloupmon", "MetalTyrannomon", "Cyberdramon", "Matadormon"];
 
 test('Time Stranger cards preserve their bases numbers and effects', () => {
   const names = TIME_STRANGER_NAMES;
@@ -339,7 +339,7 @@ test('Time Stranger cards preserve their bases numbers and effects', () => {
     assert.strictEqual(c.sharedArt, true, name + ': level badge needed in both art modes');
     assert.strictEqual(c.type, 'digimon');
     assert.ok(base.custom == null);
-    if (![329,330,335,344,346].includes(c.id)) assert.strictEqual(c.spec, base.spec);
+    if (![330,335,344,346].includes(c.id)) assert.strictEqual(c.spec, base.spec);
     for (const field of ['level','dp','pp','hp','xfx','prio','conds','acts','text'])
       assert.deepStrictEqual(c[field], base[field], name + ': ' + field);
     assert.deepStrictEqual(c.atk.map(a => a.power), base.atk.map(a => a.power), name + ': powers');
