@@ -640,6 +640,10 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 ## Not from the game code
 
+- **Time Stranger models made into DDCB models.** How a model is cut into parts, thinned,
+  given its texture sheet and palette rows, sized and placed is this project's own
+  (`tools/ts_model.py`; "Time Stranger models as DDCB models" lists every choice).
+
 - **Time Stranger's files** are another game's, not the disc's. How they are stored was
   read from that game's executable; what was not is listed under "Time Stranger files"
   and "Time Stranger models", each under "Not read from the executable", and in "Time
@@ -1117,6 +1121,35 @@ skin and the colour textures; `--png` draws the front and the side.
 - The dump was not compared with the game running; the ticket's log says what it was
   compared with.
 
+## Time Stranger models as DDCB models
+
+`tools/ts_model.py` turns a Time Stranger model into a model file of this site
+(`web/assets/models/NNN.*`, the format of `tools/build_models.py`), within the figures of
+the card's base model (TS-205). **None of it is the PlayStation game's doing**; every
+choice below is this project's, made to fit what the disc's models are. Those were
+measured over the 211 card models in `web/assets/models`: rigid parts (2 to 31), 380 to
+1,246 triangles, every triangle inside one part, textures of 16 colours a palette row
+(1 to 16 rows), mostly 256×128.
+
+```bash
+tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr090.geom web 3 <out dir> 401 --part 0=J_spine02 --preview look.png
+```
+
+That is Guilmon (`chr090`) on the figures of Agumon's model 3: 16 parts, 690 triangles, a
+256×124 texture, 3 palette rows.
+
+| Step | What the tool does |
+|---|---|
+| Parts | A vertex goes with the bone that weighs most on it. The bone with the fewest vertices is merged into its parent until there are no more parts than the base has. A triangle whose corners fall in different parts goes whole to the part most of them are in |
+| Part numbers | `--part N=<bone>` gives a bone's part the number N. The base's battle scripts hang effects on parts by number (`docs/time-stranger/motion-slots.md`, the "Parts" columns; TS-204): Agumon's first attack names part 0, its chest, so Guilmon's `J_spine02` is part 0 |
+| Triangles | Edges are collapsed onto one of their ends, cheapest first by how far the surface moves (quadric error), down to the base's count. A collapse that would tear the texture mapping at a seam, turn a triangle over or pinch the mesh is refused. The eyes' triangles weigh 30 times more, so they are not the first to go |
+| Texture | The pieces of the texture mapping still in use are laid out again in one sheet of the base's size; pieces that use the same texels share them. All are shrunk by one factor across and one down. The pieces are sorted into as many groups as the base has palette rows by their mean colour, and the texels each group uses are reduced to 16 colours |
+| Size and place | Scaled to the height of the base in key 0 of its standing motion, stood on the same ground, y downward and facing −z as the disc's models |
+| Motions | For now the bind pose held still in all eight slots, each as long as the base's motion in that slot (one key of a quarter of its frames, since a motion lasts 2 × d0 + Σ 2 × d), with the base's camera record. The real motions are TS-206's |
+
+The eyes' two overlay textures are laid over each other as `ts_model_read.py --overlays`
+does; how the game's shader mixes them was not read.
+
 ## Time Stranger tables
 
 The game's tables are `.mbe` files (`data/`, `text/`, `message/`). `tools/ts_mbe.py` reads
@@ -1291,6 +1324,7 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
 | `tools/ts_extract.py`, `x64.py` | Time Stranger: the `.mvgl` unpacker and the x86-64 disassembly helper for its executable |
 | `tools/ts_model_read.py` | Time Stranger: reads a `.geom` model and its textures, dumps it as `.glb` or a drawing |
+| `tools/ts_model.py` | Time Stranger: makes a DDCB model file from a `.geom` within a base model's figures |
 | `tools/ts_mbe.py` | Time Stranger: reads the tables of a `.mbe` file |
 | `tools/ts_anim_read.py` | Time Stranger: reads a `.anim` motion, lists its channels, draws a model in one of its frames |
 | `tools/ts_luac.py` | Time Stranger: lists the globals and constants of a compiled script (`.lua`) |
