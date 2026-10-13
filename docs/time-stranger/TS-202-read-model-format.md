@@ -25,7 +25,7 @@ Read a Time Stranger Digimon model completely: mesh, skeleton, skin weights, mat
 
 ## Acceptance criteria
 
-- [ ] Guilmon's `.glb` shows the right shape, textures and a bind pose matching the game (screenshot in the log).
+- [x] Guilmon's `.glb` shows the right shape, textures and a bind pose matching the game (screenshot in the log).
 - [x] README: the format, field by field, with where it was read.
 
 ## Out of scope
@@ -35,9 +35,12 @@ Read a Time Stranger Digimon model completely: mesh, skeleton, skin weights, mat
 
 ## Questions for the owner
 
-- 2026-10-13: does Guilmon in the two pictures of the log look as it does in the game
-  (shape, colours, the stance with the arms out)? The game was not run here, so the first
-  criterion waits for this.
+- None open. (2026-10-13: whether Guilmon in the two pictures of the log looks as it does
+  in the game; answered under Decisions.)
+
+## Decisions
+
+- 2026-10-13, the owner: Guilmon in the log's pictures matches the game (shape, colours, stance).
 
 ## Log
 
