@@ -528,6 +528,10 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 - **Attack panel.** While you choose an attack, the game's attack panel (texture 13: three
   attack rows and a "SPECIAL EFFECT" field) is drawn over the hand slots, which it matches
   in width exactly; "View Cards" hides it. That placement is inferred from the sizes.
+  On screens up to 900px wide, a panel below the board replaces the scaled attack buttons
+  with full-width buttons at least 64 CSS pixels tall, showing names, power and the ✕ effect.
+  The hand stays visible, and the panel clears as soon as an attack is chosen. This mobile
+  layout is a browser usability choice, including the reminder to look away in two-player mode.
 - **Sound details.** Which of tracks 149/150 is the win and which the loss is inferred
   (150 only plays in one-player mode when a flag is set, so it is used for a loss). Script
   frames are timed at 60 per second. Reverb is not modelled. The 3D battle's track starts
