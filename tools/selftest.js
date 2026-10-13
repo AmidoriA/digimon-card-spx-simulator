@@ -329,13 +329,14 @@ test('custom cards follow the 301 cards of the game and leave them as they are',
   assert.strictEqual(E.CARDS.filter((c) => c.custom == null).length, 301);
 });
 
-const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon"];
+const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon", "Gaomon", "Lunamon", "Syakomon", "Gaogamon", "Lekismon", "Octomon", "MachGaogamon", "Crescemon", "Dragomon"];
 
 test('Time Stranger cards preserve their bases numbers and effects', () => {
   const names = TIME_STRANGER_NAMES;
   names.forEach((name, i) => {
     const c = E.card(302 + i), base = E.card(c.custom);
     assert.strictEqual(c.name, name);
+    assert.strictEqual(c.sharedArt, true, name + ': level badge needed in both art modes');
     assert.strictEqual(c.type, 'digimon');
     assert.ok(base.custom == null);
     if (![329,330,335,344,346].includes(c.id)) assert.strictEqual(c.spec, base.spec);

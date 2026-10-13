@@ -317,6 +317,15 @@ checked before every build. Rebuild with `build_custom.py <extracted> web art <i
 | 308 | WarGrowlmon | Fire / U | MetalGreymon (9) | 407 | card `EX2-010`, edit 308 | [294 · Virus](https://digimon.jsuk.cloud/en/d/wargrowlmon/) |
 | 309 | Flaremon | Fire / U | Garudamon (7) | 408 | card `EX5-012`, edit 309 | [219 · Vaccine](https://digimon.jsuk.cloud/en/d/flaremon/) |
 | 310 | SaviorHuckmon | Fire / U | Paildramon (4) | 409 | card `ST12-08`, edit 310 | [240 · Data](https://digimon.jsuk.cloud/en/d/saviorhuckmon/) |
+| 311 | Gaomon | Ice / R | Gabumon (62) | 410 | card `BT4-021`, edit 311 | [041 · Data](https://digimon.jsuk.cloud/en/d/gaomon/) |
+| 312 | Lunamon | Ice / R | Penguinmon (64) | 411 | card `EX5-016`, edit 312 | [057 · Data](https://digimon.jsuk.cloud/en/d/lunamon/) |
+| 313 | Syakomon | Ice / R | Betamon (63) | 412 | card `EX5-056`, edit 313 | [067 · Virus](https://digimon.jsuk.cloud/en/d/syakomon/) |
+| 314 | Gaogamon | Ice / C | Garurumon (46) | 413 | card `EX4-017`, edit 314 | [114 · Data](https://digimon.jsuk.cloud/en/d/gaogamon/) |
+| 315 | Lekismon | Ice / C | Sorcerimon (57) | 414 | card `EX5-017`, edit 315 | [137 · Data](https://digimon.jsuk.cloud/en/d/lekismon/) |
+| 316 | Octomon | Ice / C | Gesomon (51) | 415 | card `BT6-023`, edit 316 | [142 · Virus](https://digimon.jsuk.cloud/en/d/octomon/) |
+| 317 | MachGaogamon | Ice / U | WereGarurumon (39) | 416 | card `EX4-019`, edit 317 | [258 · Data](https://digimon.jsuk.cloud/en/d/machgaogamon/) |
+| 318 | Crescemon | Ice / U | Panjyamon (41) | 417 | ref `crescemon` | [237 · Data](https://digimon.jsuk.cloud/en/d/crescemon/) |
+| 319 | Dragomon | Ice / U | Zudomon (40) | 418 | card `BT6-026`, edit 319 | [282 · Virus](https://digimon.jsuk.cloud/en/d/dragomon/) |
 
 ### Local picture restoration (TS-004)
 

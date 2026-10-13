@@ -132,6 +132,8 @@ def cards(game_cards):
             "prio": s["prio"], "conds": s["conds"], "acts": s["acts"], "text": s["text"],
             "custom": base["id"],              # not a card of the game: made from this one
         })
+        if c.get("art", {}).get("shared"):
+            out[-1]["sharedArt"] = True
     return out
 
 

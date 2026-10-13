@@ -505,6 +505,282 @@
      "val": 1.1
     }
    }
+  ],
+  "ts-311-model": [
+   {
+    "hue": [
+     25,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 210,
+     "sat": 0.9
+    }
+   },
+   {
+    "hue": [
+     80,
+     170
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 210,
+     "sat": 0.8
+    }
+   }
+  ],
+  "ts-312-model": [
+   {
+    "hue": [
+     170,
+     275
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 265,
+     "sat": 0.45,
+     "val": 1.2
+    }
+   },
+   {
+    "hue": [
+     5,
+     70
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 320,
+     "sat": 0.45
+    }
+   }
+  ],
+  "ts-313-model": [
+   {
+    "hue": [
+     75,
+     165
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 80,
+     "sat": 0.7
+    }
+   },
+   {
+    "hue": [
+     0,
+     60
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 290,
+     "sat": 0.6
+    }
+   }
+  ],
+  "ts-314-model": [
+   {
+    "hue": [
+     175,
+     265
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 210,
+     "sat": 0.8
+    }
+   },
+   {
+    "hue": [
+     0,
+     60
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.65
+    }
+   }
+  ],
+  "ts-315-model": [
+   {
+    "hue": [
+     15,
+     90
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 265,
+     "sat": 0.3,
+     "val": 1.2
+    }
+   },
+   {
+    "hue": [
+     90,
+     175
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 215,
+     "sat": 0.55
+    }
+   }
+  ],
+  "ts-316-model": [
+   {
+    "hue": [
+     0,
+     60
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 30,
+     "sat": 0.8,
+     "val": 0.7
+    }
+   },
+   {
+    "hue": [
+     60,
+     170
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 35,
+     "sat": 0.7
+    }
+   }
+  ],
+  "ts-317-model": [
+   {
+    "hue": [
+     175,
+     270
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 215,
+     "sat": 0.45,
+     "val": 0.55
+    }
+   },
+   {
+    "hue": [
+     0,
+     70
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.8
+    }
+   }
+  ],
+  "ts-318-model": [
+   {
+    "hue": [
+     170,
+     285
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 250,
+     "sat": 0.3,
+     "val": 1.2
+    }
+   },
+   {
+    "hue": [
+     0,
+     75
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 270,
+     "sat": 0.45
+    }
+   }
+  ],
+  "ts-319-model": [
+   {
+    "hue": [
+     0,
+     70
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 275,
+     "sat": 0.85,
+     "val": 0.6
+    }
+   },
+   {
+    "hue": [
+     75,
+     175
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 265,
+     "sat": 0.65
+    }
+   }
   ]
  },
  "decks": [
@@ -1269,6 +1545,639 @@
       430
      ],
      "edited": "edited/ts002/310.png"
+    }
+   }
+  },
+  {
+   "id": 311,
+   "name": "Gaomon",
+   "base": 62,
+   "spec": "Ice",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 680,
+   "attacks": [
+    {
+     "name": "Rolling Upper",
+     "power": 350
+    },
+    {
+     "name": "Double Backhand",
+     "power": 220
+    },
+    {
+     "name": "Gao Rush",
+     "power": 140
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 0,
+    "conds": [],
+    "acts": [],
+    "text": "None"
+   },
+   "model": {
+    "number": 410,
+    "recolour": "ts-311-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-021",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/311.png"
+    }
+   }
+  },
+  {
+   "id": 312,
+   "name": "Lunamon",
+   "base": 64,
+   "spec": "Ice",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 670,
+   "attacks": [
+    {
+     "name": "Luna Claw",
+     "power": 320
+    },
+    {
+     "name": "Tearing Shot",
+     "power": 180
+    },
+    {
+     "name": "Lop-Ear Ripple",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       2,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If opponent's Specialty is Fire, reduce opponent's Attack Power to 0."
+   },
+   "model": {
+    "number": 411,
+    "recolour": "ts-312-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-016",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/312.png"
+    }
+   }
+  },
+  {
+   "id": 313,
+   "name": "Syakomon",
+   "base": 63,
+   "spec": "Ice",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 730,
+   "attacks": [
+    {
+     "name": "Black Pearl Blast",
+     "power": 300
+    },
+    {
+     "name": "Water Pressure",
+     "power": 190
+    },
+    {
+     "name": "Hydro Water I",
+     "power": 170
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       200,
+       0,
+       0
+      ],
+      "op": 1,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are less than 200, reduce opponent's Attack Power to 0."
+   },
+   "model": {
+    "number": 412,
+    "recolour": "ts-313-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-056",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/313.png"
+    }
+   }
+  },
+  {
+   "id": 314,
+   "name": "Gaogamon",
+   "base": 46,
+   "spec": "Ice",
+   "level": "C",
+   "dp": 30,
+   "pp": 10,
+   "hp": 1100,
+   "attacks": [
+    {
+     "name": "Dash Double Claw",
+     "power": 350
+    },
+    {
+     "name": "Gaoga Hound",
+     "power": 230
+    },
+    {
+     "name": "Spiral Blow",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 17,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Opponent uses ○."
+   },
+   "model": {
+    "number": 413,
+    "recolour": "ts-314-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX4-017",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/314.png"
+    }
+   }
+  },
+  {
+   "id": 315,
+   "name": "Lekismon",
+   "base": 57,
+   "spec": "Ice",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 900,
+   "attacks": [
+    {
+     "name": "Moon Night Bomb",
+     "power": 440
+    },
+    {
+     "name": "Tear Arrow",
+     "power": 370
+    },
+    {
+     "name": "Moon Night Kick",
+     "power": 170
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 0,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       1
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Change own Specialty to Ice."
+   },
+   "model": {
+    "number": 414,
+    "recolour": "ts-315-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-017",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/315.png"
+    }
+   }
+  },
+  {
+   "id": 316,
+   "name": "Octomon",
+   "base": 51,
+   "spec": "Ice",
+   "level": "C",
+   "dp": 30,
+   "pp": 10,
+   "hp": 1030,
+   "attacks": [
+    {
+     "name": "Spurting Ink",
+     "power": 400
+    },
+    {
+     "name": "Hydro Water II",
+     "power": 250
+    },
+    {
+     "name": "Void Ray II",
+     "power": 160
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 0,
+    "conds": [],
+    "acts": [],
+    "text": "None"
+   },
+   "model": {
+    "number": 415,
+    "recolour": "ts-316-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT6-023",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/316.png"
+    }
+   }
+  },
+  {
+   "id": 317,
+   "name": "MachGaogamon",
+   "base": 39,
+   "spec": "Ice",
+   "level": "U",
+   "dp": 30,
+   "pp": 20,
+   "hp": 1820,
+   "attacks": [
+    {
+     "name": "Gaoga Tornado",
+     "power": 670
+    },
+    {
+     "name": "Winning Knuckle",
+     "power": 500
+    },
+    {
+     "name": "Howling Cannon",
+     "power": 0
+    }
+   ],
+   "xfx": "△ Counter",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       23
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 2
+     }
+    ],
+    "text": "Add number of DP Cards in DP Slot x100 to own HP."
+   },
+   "model": {
+    "number": 416,
+    "recolour": "ts-317-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX4-019",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/317.png"
+    }
+   }
+  },
+  {
+   "id": 318,
+   "name": "Crescemon",
+   "base": 41,
+   "spec": "Ice",
+   "level": "U",
+   "dp": 30,
+   "pp": 20,
+   "hp": 1800,
+   "attacks": [
+    {
+     "name": "Lunatic Dance",
+     "power": 620
+    },
+    {
+     "name": "Ice Archery",
+     "power": 390
+    },
+    {
+     "name": "Dark Archery",
+     "power": 0
+    }
+   ],
+   "xfx": "△ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       18,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 52,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "△ Counterattack. Attack second."
+   },
+   "model": {
+    "number": 417,
+    "recolour": "ts-318-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "ref": "crescemon"
+    }
+   }
+  },
+  {
+   "id": 319,
+   "name": "Dragomon",
+   "base": 40,
+   "spec": "Ice",
+   "level": "U",
+   "dp": 40,
+   "pp": 20,
+   "hp": 2090,
+   "attacks": [
+    {
+     "name": "Forbidden Trident",
+     "power": 700
+    },
+    {
+     "name": "Hydro Water II",
+     "power": 300
+    },
+    {
+     "name": "Hell Crusher II",
+     "power": 250
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       12
+      ],
+      "i": [
+       0,
+       2,
+       0
+      ],
+      "m1": 0,
+      "m2": 3
+     }
+    ],
+    "text": "If own Specialty is Ice, opponent's Attack Power is halved."
+   },
+   "model": {
+    "number": 418,
+    "recolour": "ts-319-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT6-026",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/319.png"
     }
    }
   }

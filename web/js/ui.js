@@ -505,7 +505,7 @@
     // The game paints a Digimon card's level (R, A, C, U; "RP" on the six partners) into
     // the corner of its board picture. The new art has no letter, so the game's own, cut
     // out of its pictures (tools/build_levels.py), is laid over it.
-    if (c.type === 'digimon') art.appendChild(h('i', 'lv l' + (E.PARTNERS.indexOf(id) >= 0 ? 'p' : c.level))).hidden = !newArt;
+    if (c.type === 'digimon') art.appendChild(h('i', 'lv l' + (E.PARTNERS.indexOf(id) >= 0 ? 'p' : c.level))).hidden = !(newArt || c.sharedArt);
     el.appendChild(art);
     var nm = h('div', 'cn', c.name);
     if (!small) { if (c.name.length > 15) nm.style.fontSize = '14px'; else if (c.name.length > 11) nm.style.fontSize = '17px'; }
@@ -1550,7 +1550,7 @@
       im.onload = function () {
         if (artUrl(id, true) !== url) return;
         a.style.backgroundImage = 'url(' + url + ')';
-        if (a.firstChild) a.firstChild.hidden = !newArt;   // the level letter laid over new art
+        if (a.firstChild) a.firstChild.hidden = !(newArt || E.card(id).sharedArt);   // the level letter laid over new art
       };
       im.src = url;
     });
