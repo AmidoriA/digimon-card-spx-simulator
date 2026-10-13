@@ -1,14 +1,20 @@
-"""Turn a Time Stranger model into a DDCB model file (TS-205).
+"""Turn a Time Stranger model into a DDCB model file (TS-205) with its motions (TS-206).
 
 Usage (run with tools/.venv python):
   python -I ts_model.py <file.geom> <web dir> <base model number> <out dir> <number>
         [--part N=<bone> ...] [--images <dir>] [--preview out.png]
+        [--anims <prefix>] [--motion SLOT=<name> ...] [--poses out.png]
 
 Writes <out dir>/NNN.bin.gz, NNN.png and NNNp.png in the format of tools/build_models.py,
 within the figures of the base model web/assets/models/<base>.bin.gz: no more parts,
 triangles, texture area or palette rows than it has, standing as tall as the base stands
-in its standing motion and facing the way it faces. The eight motions are the bind pose
-held still, each as long as the base's motion in that slot (the motions are TS-206's).
+in its standing motion and facing the way it faces. The eight motions are made from the
+model's Time Stranger motions <prefix><name>.anim (the prefix is the .geom's path without
+its ending and with "_" unless --anims gives another), on the base's own keys.
+
+--motion SLOT=<name> takes another Time Stranger motion for a slot than ROLES names.
+--poses draws the base (upper row of each slot) and the written model (lower row) in six
+keys of every slot, from the side.
 
 --part N=<bone> gives a bone's part the number N. The base's battle scripts hang effects
 on parts by number (docs/time-stranger/motion-slots.md, the "Parts" columns), so the part
@@ -33,6 +39,19 @@ every triangle inside one part; measured over the 211 card models in web/assets/
      disc's models have y downward and face -z).
   The eyes' two overlay textures are laid over each other as ts_model_read.py --overlays
   does; how the game's shader mixes them was not read.
+  5. motions (TS-206): a slot keeps the base's keys: as many, each as long, with the base's
+     sound and camera record, so the motion lasts what the base's lasts and every sound and
+     camera move comes at the base's moment (a motion lasts 2 x d0 + the sum of 2 x d
+     frames; README, "Polygon Battle"). The pose of a key is the Time Stranger motion
+     sampled at the key's place in the slot: key 0 its first frame, the last key its last
+     frame, the others by their time between the two. A slot that goes round from key 0
+     on a Time Stranger motion that ends as it begins is laid on the round instead (the
+     way back to key 0 counted in), so it does not stop at the join. A part moves as its
+     own bone does; the bones merged into it move with it as one piece. The pose is turned
+     into what a key holds for each part (angles in the order Ry Rx Rz, a move added to
+     the part's place, a scale) from the bone's matrix in that frame; the angles of a key
+     are taken as near the key's before as a turn allows, since the game goes from key to
+     key number by number.
 """
 import gzip
 import heapq
@@ -45,9 +64,25 @@ import numpy as np
 from PIL import Image
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ts_anim_read as A
 import ts_model_read as T
 
 EYE_WEIGHT = 30.0
+
+# The Time Stranger motion for each of the game's eight slots (README, "Polygon Battle", has
+# what a slot is; "Time Stranger motions" has the names the other game gives its own):
+#   0 standing  bn01 MOTION_TYPE_IDLE          4 damage   bd01 MOTION_TYPE_DAMAGE
+#   1 attack 1  ba01 MOTION_TYPE_ATTACK        5 KO       bd02 MOTION_TYPE_DOWN
+#   2 attack 2  ba02 MOTION_TYPE_COMMON_SKILL  6 victory  bv01 MOTION_TYPE_WIN
+#   3 attack 3  bs01 MOTION_TYPE_SPECIAL_SKILL01
+#   7 entrance  bn01: Time Stranger's battle table has no motion for coming in; the slot is
+#     given the standing motion, the pose the entrance ends in.
+# Which of the three attack motions goes to which attack is this project's choice: the
+# order the other game numbers them in. A motion the model does not have is replaced by the
+# first of FALLBACK it has.
+ROLES = {0: "bn01", 1: "ba01", 2: "ba02", 3: "bs01", 4: "bd01", 5: "bd02", 6: "bv01", 7: "bn01"}
+FALLBACK = {1: ("ba01", "ba02", "bs01"), 2: ("ba02", "ba01", "bs01"), 3: ("bs01", "ba02", "ba01"),
+            5: ("bd02", "bd01"), 6: ("bv01", "fe02")}
 
 
 # ---- the base: what a disc model costs, how it stands -----------------------------------
@@ -92,7 +127,7 @@ def read_dm(path):
     for i in range(n):
         place(i)
     pos = np.array([mats[k] @ v[i, 0:3] + at[k] for i, k in enumerate(v[:, 11])])
-    return {"parts": n, "triangles": nop + nbl, "width": tw, "height": th, "rows": npal,
+    return {"parts": n, "triangles": nop + nbl, "width": tw, "height": th, "rows": npal, "raw_parts": parts,
             "lo": pos.min(0), "hi": pos.max(0), "motions": motions, "pos": pos, "v": v,
             "tris": w[10 + 4 * n + 13 * nv:10 + 4 * n + 13 * nv + 3 * (nop + nbl)].reshape(-1, 3)}
 
@@ -582,7 +617,130 @@ def convert(geom, images, base, fixed_names, log):
         out_tris.append(ids if flip.prod() > 0 else ids[::-1])
     return {"parts": [(parents[i], offsets[i]) for i in range(len(order))],
             "names": [g["bones"][b]["name"] for b in order], "verts": np.array(verts, np.int64),
-            "tris": np.array(out_tris), "index": index, "palette": palette}
+            "tris": np.array(out_tris), "index": index, "palette": palette,
+            "geom": g, "bones": order, "scale": scale, "flip": flip, "shift": shift, "centre": centre}
+
+
+# ---- motions (TS-206) --------------------------------------------------------------------
+
+def angles_yxz(R):
+    """The angles (4096ths of a turn) rot_yxz makes R from: R = Ry Rx Rz."""
+    x = math.asin(max(-1.0, min(1.0, -R[1, 2])))
+    if abs(R[1, 2]) > 0.999999:                         # looking straight up or down: z is free
+        y, z = math.atan2(-R[2, 0], R[0, 0]), 0.0
+    else:
+        y, z = math.atan2(R[0, 2], R[2, 2]), math.atan2(R[1, 0], R[1, 1])
+    return np.array([x, y, z]) * 2048 / math.pi
+
+
+def near(a, ref):
+    """The same turn as a, written as near ref as it can be (whole turns added, or the
+    other three angles that make the same turn)."""
+    best = None
+    for c in (a, np.array([2048 - a[0], a[1] + 2048, a[2] + 2048])):
+        c = c + np.round((ref - c) / 4096) * 4096
+        d = np.abs(c - ref).sum()
+        if best is None or d < best[0]:
+            best = (d, c)
+    return best[1]
+
+
+def part_pose(m, anim, frame):
+    """What a key holds for each part with the Time Stranger motion at `frame`:
+    (angles, move, scale) a part, as Actor.resolve of web/js/battle3d.js uses them."""
+    g, order = m["geom"], m["bones"]
+    world = T.rest_world(A.posed(g, A.sample(anim, frame)))
+    F, shift = np.diag(m["flip"]), m["shift"]
+    Mw, Tw = [], []
+    for i, b in enumerate(order):
+        S = world[b] @ g["bones"][b]["inverse_bind"]    # where the bone takes a point of the bind pose
+        a = F @ S[:3, :3] @ F
+        Mw.append(a)
+        Tw.append(a @ (m["centre"][i] - shift) + F @ S[:3, 3] * m["scale"] + shift)
+    out = []
+    for i in range(len(order)):
+        parent, off = m["parts"][i]
+        if parent >= 0:
+            inv = np.linalg.inv(Mw[parent])
+            L, move = inv @ Mw[i], inv @ (Tw[i] - Tw[parent]) - off
+        else:
+            L, move = Mw[i], Tw[i] - off
+        scale = np.linalg.norm(L, axis=0)
+        u, _, vt = np.linalg.svd(L / scale)
+        out.append((angles_yxz(u @ vt), move, scale))
+    return out
+
+
+def key_frames(keys, anim, m, log, name):
+    """The frame of the Time Stranger motion each key of the base's slot takes its pose from."""
+    last = anim["frames"] - 1
+    d = [2 * k["dur"] for k in keys]
+    after0 = np.cumsum([0] + d[1:])                     # frames from key 0 to each key
+    if len(keys) == 1 or last == 0:
+        return [0.0] * len(keys), "one pose"
+    loop = int(keys[0]["recs"][0][10])
+    if loop == 0:
+        a, b = part_pose(m, anim, 0), part_pose(m, anim, last)
+        apart = max(max(np.abs(near(x[0], y[0]) - y[0]).max() / 4096 * 360, np.abs(x[1] - y[1]).max() / 10) for x, y in zip(a, b))
+        if apart < 3:                                    # ends as it begins: lay it on the round
+            return list(after0 / (after0[-1] + d[0]) * last), "round, the way back to key 0 counted in"
+        log("%s goes round in the base but does not end as it begins (%.1f apart): the join is a blend" % (name, apart))
+    return list(after0 / after0[-1] * last), "first frame to last"
+
+
+def motions(m, base, prefix, chosen, log):
+    """The eight motions on the base's keys. -> motions, [what was done for each slot]"""
+    n = len(m["parts"])
+    out, notes, cache = [], [], {}
+
+    def load(name):
+        if name not in cache:
+            path = prefix + name + ".anim"
+            cache[name] = A.read(path) if os.path.exists(path) else None
+        return cache[name]
+
+    stand = None
+    for slot, keys in enumerate(base["motions"]):
+        names = [chosen[slot]] if slot in chosen else [ROLES.get(slot, "bn01")] + [x for x in FALLBACK.get(slot, ()) if x != ROLES.get(slot)] + ["bn01"]
+        name = next((x for x in names if load(x)), None)
+        if name is None:
+            log("slot %d: none of %s is there; the bind pose held still" % (slot, " ".join(names)))
+            out.append(still_motions(m, base)[slot])
+            notes.append({"slot": slot, "motion": None})
+            continue
+        if name != names[0]:
+            log("slot %d: no %s; %s takes its place" % (slot, names[0], name))
+        anim = load(name)
+        frames, how = key_frames(keys, anim, m, log, "slot %d (%s)" % (slot, name))
+        made, ref = [], stand
+        for k, f in zip(keys, frames):
+            recs = np.zeros((n + 1, 11), np.int64)
+            pose = part_pose(m, anim, f)
+            turned = []
+            for i, (ang, move, scale) in enumerate(pose):
+                ang = near(ang, ref[i] if ref is not None else np.zeros(3))
+                turned.append(ang)
+                recs[i, 0:3] = np.round(ang)
+                recs[i, 4:7] = np.round(move)
+                recs[i, 7:10] = np.round(scale * 4096)
+            ref = turned
+            if stand is None:
+                stand = turned                          # every motion starts near the standing pose's numbers
+            recs[n] = k["recs"][-1]
+            made.append({"dur": k["dur"], "snd": k["snd"], "recs": recs})
+        made[0]["recs"][0, 10] = keys[0]["recs"][0][10]
+        if np.abs(np.array([x["recs"][:n, 0:10] for x in made])).max() > 32767:
+            raise ValueError("slot %d: a value does not fit 16 bits" % slot)
+        far = np.abs(np.array(ref) - np.array(stand)).max()
+        if far > 2048:
+            log("slot %d (%s) ends more than half a turn from the standing pose in its numbers (%d): the way back will swing round" % (slot, name, far))
+        out.append(made)
+        total = 2 * keys[0]["dur"] + sum(2 * k["dur"] for k in keys)
+        notes.append({"slot": slot, "motion": name, "source": anim["frames"], "fps": anim["fps"], "keys": len(keys),
+                      "frames": total, "how": how, "at": [round(float(f), 1) for f in frames]})
+        log("slot %d: %s, %d frames at %g a second, on %d keys over %d frames here (%s)" % (
+            slot, name, anim["frames"], anim["fps"], len(keys), total, how))
+    return out, notes
 
 
 def still_motions(m, base):
@@ -620,6 +778,54 @@ def write(m, motions, out_dir, num):
     open(os.path.join(out_dir, "%03d.bin.gz" % num), "wb").write(gzip.compress(data, 9, mtime=0))
     Image.fromarray(m["index"], "L").save(os.path.join(out_dir, "%03d.png" % num), optimize=True)
     Image.fromarray(m["palette"].reshape(len(m["palette"]), 256, 4), "RGBA").save(os.path.join(out_dir, "%03dp.png" % num), optimize=True)
+
+
+def posed_dm(parts, verts, recs):
+    """The vertices of a model file with a key's records laid on its parts (Actor.resolve)."""
+    n = len(parts)
+    mats, at = [None] * n, [None] * n
+
+    def place(i):
+        if mats[i] is None:
+            parent, off = parts[i]
+            pm, pt = place(parent) if parent >= 0 else (np.eye(3), np.zeros(3))
+            r = recs[i]
+            mats[i] = pm @ (rot_yxz(r[0:3]) * (r[7:10] / 4096.0))
+            at[i] = pm @ (np.array(off) + r[4:7]) + pt
+        return mats[i], at[i]
+
+    for i in range(n):
+        place(i)
+    return np.array([mats[k] @ v[0:3] + at[k] for v, k in zip(verts, verts[:, 11])])
+
+
+def poses(m, made, base, web, base_num, out, size=110, across=6):
+    """Each slot in `across` of its keys from the side: the base above, the written model below."""
+    bidx = np.asarray(Image.open(os.path.join(web, "assets", "models", "%03d.png" % base_num)))
+    bpal = np.asarray(Image.open(os.path.join(web, "assets", "models", "%03dp.png" % base_num)))
+    bparts = [(int(p[0]), p[1:4]) for p in base["raw_parts"]]
+    canvas = np.full((size * 2 * len(made), size * across, 3), 235, np.uint8)
+    mid = (base["lo"] + base["hi"]) / 2
+    span = (base["hi"] - base["lo"]).max() * 1.9
+    right, toward = np.array([0, 0, -1.0]), np.array([1.0, 0, 0])
+
+    def look(verts, index, pal):
+        def colour(ti, t, w0, w1, w2):
+            u = np.clip((w0 * verts[t[0], 9] + w1 * verts[t[1], 9] + w2 * verts[t[2], 9]).astype(int), 0, index.shape[1] - 1)
+            tv = np.clip((w0 * verts[t[0], 10] + w1 * verts[t[1], 10] + w2 * verts[t[2], 10]).astype(int), 0, index.shape[0] - 1)
+            return pal[verts[t[0], 12]][index[tv, u]][..., :3]
+        return colour
+
+    for slot, keys in enumerate(made):
+        pick = [round(i * (len(keys) - 1) / (across - 1)) for i in range(across)]
+        for col, k in enumerate(pick):
+            for row, (parts, verts, tris, recs, colour) in enumerate((
+                    (bparts, base["v"], base["tris"], base["motions"][slot][k]["recs"], look(base["v"], bidx, bpal)),
+                    (m["parts"], m["verts"], m["tris"], keys[k]["recs"], look(m["verts"], m["index"], m["palette"])))):
+                cell = np.zeros((size, size, 3), np.uint8)
+                raster(cell, posed_dm(parts, verts, recs), tris, colour, 0, size, mid, span, right, toward)
+                canvas[(slot * 2 + row) * size:(slot * 2 + row + 1) * size, col * size:(col + 1) * size] = cell
+    Image.fromarray(canvas).save(out)
 
 
 def raster(canvas, p, tris, colour, x_off, size, mid, span, right, toward):
@@ -684,15 +890,19 @@ def preview(m, base, web, base_num, out, size=240):
 
 def main():
     args = sys.argv[1:]
-    opts, pos, fixed = {}, [], {}
+    opts, pos, fixed, chosen = {}, [], {}, {}
     i = 0
     while i < len(args):
-        if args[i] in ("--images", "--preview"):
+        if args[i] in ("--images", "--preview", "--anims", "--poses"):
             opts[args[i][2:]] = args[i + 1]
             i += 1
         elif args[i] == "--part":
             n, name = args[i + 1].split("=")
             fixed[int(n)] = name
+            i += 1
+        elif args[i] == "--motion":
+            n, name = args[i + 1].split("=")
+            chosen[int(n)] = name
             i += 1
         else:
             pos.append(args[i])
@@ -705,10 +915,17 @@ def main():
         base_num, base["parts"], base["triangles"], base["width"], base["height"], base["rows"]))
     images = opts.get("images") or os.path.join(os.path.dirname(os.path.abspath(geom)), "images")
     m = convert(geom, images, base, fixed, lambda s: print("  " + s))
-    write(m, still_motions(m, base), out_dir, num)
-    print("wrote %03d: %d parts, %d vertices, %d triangles, texture %dx%d, %d palette rows, %d still motions" % (
-        num, len(m["parts"]), len(m["verts"]), len(m["tris"]), m["index"].shape[1], m["index"].shape[0], len(m["palette"]), len(base["motions"])))
+    made, notes = motions(m, base, opts.get("anims") or os.path.splitext(geom)[0] + "_", chosen, lambda s: print("  " + s))
+    write(m, made, out_dir, num)
+    print("wrote %03d: %d parts, %d vertices, %d triangles, texture %dx%d, %d palette rows, %d motions" % (
+        num, len(m["parts"]), len(m["verts"]), len(m["tris"]), m["index"].shape[1], m["index"].shape[0], len(m["palette"]), len(made)))
     print("  parts: " + " ".join("%d=%s" % (i, n) for i, n in enumerate(m["names"])))
+    for x in notes:
+        if x["motion"]:
+            print("  slot %d %s: keys at its frames %s" % (x["slot"], x["motion"], " ".join("%g" % f for f in x["at"])))
+    if "poses" in opts:
+        poses(m, made, base, web, base_num, opts["poses"])
+        print("poses: " + opts["poses"])
     if "preview" in opts:
         preview(m, base, web, base_num, opts["preview"])
         print("preview: " + opts["preview"])

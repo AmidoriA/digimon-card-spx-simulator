@@ -665,7 +665,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 ## Not from the game code
 
 - **Time Stranger models made into DDCB models.** How a model is cut into parts, thinned,
-  given its texture sheet and palette rows, sized and placed is this project's own
+  given its texture sheet and palette rows, sized and placed is this project's own, and so
+  is which of its Time Stranger motions fills which of the game's eight slots and how it is
+  laid on the base's keys
   (`tools/ts_model.py`; "Time Stranger models as DDCB models" lists every choice).
 
 - **Time Stranger's files** are another game's, not the disc's. How they are stored was
@@ -1150,14 +1152,15 @@ skin and the colour textures; `--png` draws the front and the side.
 
 `tools/ts_model.py` turns a Time Stranger model into a model file of this site
 (`web/assets/models/NNN.*`, the format of `tools/build_models.py`), within the figures of
-the card's base model (TS-205). **None of it is the PlayStation game's doing**; every
+the card's base model (TS-205), and gives it eight motions made from its Time Stranger
+motions on the base's keys (TS-206). **None of it is the PlayStation game's doing**; every
 choice below is this project's, made to fit what the disc's models are. Those were
 measured over the 211 card models in `web/assets/models`: rigid parts (2 to 31), 380 to
 1,246 triangles, every triangle inside one part, textures of 16 colours a palette row
 (1 to 16 rows), mostly 256×128.
 
 ```bash
-tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr090.geom web 3 <out dir> 401 --part 0=J_spine02 --preview look.png
+tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr090.geom web 3 <out dir> 401 --part 0=J_spine02 --preview look.png --poses poses.png
 ```
 
 That is Guilmon (`chr090`) on the figures of Agumon's model 3: 16 parts, 690 triangles, a
@@ -1170,7 +1173,43 @@ That is Guilmon (`chr090`) on the figures of Agumon's model 3: 16 parts, 690 tri
 | Triangles | Edges are collapsed onto one of their ends, cheapest first by how far the surface moves (quadric error), down to the base's count. A collapse that would tear the texture mapping at a seam, turn a triangle over or pinch the mesh is refused. The eyes' triangles weigh 30 times more, so they are not the first to go |
 | Texture | The pieces of the texture mapping still in use are laid out again in one sheet of the base's size; pieces that use the same texels share them. All are shrunk by one factor across and one down. The pieces are sorted into as many groups as the base has palette rows by their mean colour, and the texels each group uses are reduced to 16 colours |
 | Size and place | Scaled to the height of the base in key 0 of its standing motion, stood on the same ground, y downward and facing −z as the disc's models |
-| Motions | For now the bind pose held still in all eight slots, each as long as the base's motion in that slot (one key of a quarter of its frames, since a motion lasts 2 × d0 + Σ 2 × d), with the base's camera record. The real motions are TS-206's |
+| Motions | Each of the eight slots keeps the base's keys: as many, each as long, with the base's sound and camera record. So the motion lasts what the base's lasts, and every sound and camera move comes at the base's moment. The pose of each key comes from the model's Time Stranger motion for that slot (table below) |
+
+**Motions** (TS-206). What a slot is and how long a motion lasts is the PlayStation game's
+(above, "Polygon Battle": 2 × d0 + Σ 2 × d frames); which Time Stranger motion fills it,
+and how, is this project's.
+
+| Slot | What | Time Stranger motion | Its name in that game's script |
+|---|---|---|---|
+| 0 | Standing | `bn01` | `MOTION_TYPE_IDLE` |
+| 1 | First attack | `ba01` | `MOTION_TYPE_ATTACK` |
+| 2 | Second attack | `ba02` | `MOTION_TYPE_COMMON_SKILL` |
+| 3 | Third attack | `bs01` | `MOTION_TYPE_SPECIAL_SKILL01` |
+| 4 | Damage | `bd01` | `MOTION_TYPE_DAMAGE` |
+| 5 | KO | `bd02` | `MOTION_TYPE_DOWN` |
+| 6 | Victory | `bv01` | `MOTION_TYPE_WIN` |
+| 7 | Entrance | `bn01` | none: that game's battle table has no motion for coming in, so the slot gets the standing motion, the pose an entrance ends in. The site does not play slot 7 |
+
+- **Which attack is which** is a choice: the three attack motions in the order the other
+  game numbers them (2, 5, 34). A motion the model lacks is replaced by the next of the
+  three, a missing `bd02` by `bd01`, a missing `bv01` by `fe02` (`MOTION_TYPE_HAPPY`), and
+  anything still missing by `bn01`; `--motion SLOT=<name>` names another. The tool prints
+  every replacement.
+- **Time.** Key 0 takes the motion's first frame and the last key its last frame; the keys
+  between take the frame at their share of the time between the two. A slot of the base
+  that goes round from key 0, on a Time Stranger motion that ends as it begins, is laid on
+  the round instead, the way back to key 0 counted in. Nothing puts the strike of an
+  attack at the moment the base's script fires: the Time Stranger files were not searched
+  for when a motion strikes.
+- **Pose.** A part moves as its own bone does (the bone's matrix in that frame times its
+  inverse bind matrix); bones merged into the part move with it as one piece, so a tail
+  merged into the hips does not bend. From that the key gets, for each part, angles in the
+  game's order Ry·Rx·Rz, a move added to the part's place and a scale. The angles of a key
+  are written as near the key before as a whole turn allows, and key 0 of every slot as
+  near the standing pose, because the game goes from key to key number by number. Between
+  keys the game eases those numbers, which is not the path the Time Stranger motion took.
+- **Not used:** the `chrNNNloc_*.anim`, `cam_chrNNN_*.anim` and `ef_b_chrNNN_*.anim` files
+  beside a model's motions, and the motions without a number in the battle table.
 
 The eyes' two overlay textures are laid over each other as `ts_model_read.py --overlays`
 does; how the game's shader mixes them was not read.
