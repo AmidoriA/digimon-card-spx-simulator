@@ -174,3 +174,9 @@ Each `edit <id>` above is the matching recipe in `tools/new_art_edits.json`: mod
 Crescemon is an intentional suitability fallback, not an assertion that it has no card: EX5-020 and its print variants place rules over the legs; attempted restoration changed the anatomy and was rejected. The inspected official Reference Book source is https://digimon.net/reference_en/detail.php?directory_name=crescemon (image `crescemon.jpg`). Agumon (Black) is BT8-058, visibly the black Virus variant; Coredramon (Blue) is EX3-018, visibly blue. Official card titles omit those qualifiers.
 
 Validation: 45 source entries (ids 302–346), 44 cached ComfyUI edits, verified source images and valid crop bounds; every pixel outside every declared mask remains identical to its source. Coronamon edit 303 was independently uploaded and executed twice on this local ComfyUI: decoded pixel SHA-256 `96b5cbc7c0e3e262e468c2c45f8df704771a5fc0207ba1ea7371cb5e666d99ce` both times. Fixed-seed reproducibility on other hardware/software is not asserted. The owner accepted its before/after on 2026-10-13.
+
+### TS-101 Phase 1 — 2026-10-13
+
+Cards 302–310 are playable with recoloured disc placeholders, unchanged base numbers/effects,
+verified three-slot labels (attack-sources.md), and identical prepared pictures in both
+art modes. Required checks and browser review passed; integrated into time-stranger.

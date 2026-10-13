@@ -15,7 +15,13 @@ later.
 
 - `name`: the Digimon's English name as Time Stranger writes it (TS-001's source).
 - Attack names (circle, triangle, cross): the Digimon's moves as the Digimon Reference Book
-  (digimon.net/reference) lists them, strongest first; log the page.
+  (digimon.net/reference) lists them; log the page.
+
+Owner update (2026-10-13): fill missing names with verified Time Stranger skills.
+Keep the Reference Book names first (the first three when more are given). Fillers
+prefer damage skills; a few Digimon only offer buffs/debuffs. These are names only:
+DDCB powers, rules, support and motion remain the base's, including for such labels.
+`attack-sources.md` records English skill IDs and each character's local table linkage.
 
 ## Model (placeholder)
 
@@ -45,7 +51,9 @@ with Kurisarimon/Bakemon, so subsequent offsets shift down by 10000.
 
 ## Art
 
-- `art.recolour`: the base's two game pictures recoloured, for "Legacy" card art.
+- Owner update (2026-10-13): no separate Legacy picture. `art.shared: true` writes the same
+  TS-002 native prepared crop to both full-size art folders and identical 160px thumbnails
+  to both mini folders. No enlargement, new inpainting or ComfyUI restart is needed.
 - `art.new`: the picture from TS-002 (`card` + `crop`, or `ref`; TS-003), or its ComfyUI-edited
   version (TS-004) where the row in roster.md says it was edited.
 

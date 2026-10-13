@@ -1,28 +1,522 @@
 {
  "recolours": {
   "blackwargreymon": [
-   {"colours": [[222, 164, 74], [246, 164, 57]], "to": {"hue": 50, "sat": 1.1}},
-   {"colours": [[246, 246, 238]], "to": {"sat": 0, "val": 0.45}},
-   {"hue": [15, 32], "sat": [0.3, 1], "to": {"hue": 50, "val": 1.1}},
-   {"hue": [32, 70], "sat": [0.25, 1], "to": {"hue": 240, "sat": [0, 0.05], "val": 0.3}},
-   {"hue": [80, 160], "to": {"hue": 52}},
-   {"hue": [220, 290], "to": {"sat": 0.3, "val": 0.5}}
+   {
+    "colours": [
+     [
+      222,
+      164,
+      74
+     ],
+     [
+      246,
+      164,
+      57
+     ]
+    ],
+    "to": {
+     "hue": 50,
+     "sat": 1.1
+    }
+   },
+   {
+    "colours": [
+     [
+      246,
+      246,
+      238
+     ]
+    ],
+    "to": {
+     "sat": 0,
+     "val": 0.45
+    }
+   },
+   {
+    "hue": [
+     15,
+     32
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 50,
+     "val": 1.1
+    }
+   },
+   {
+    "hue": [
+     32,
+     70
+    ],
+    "sat": [
+     0.25,
+     1
+    ],
+    "to": {
+     "hue": 240,
+     "sat": [
+      0,
+      0.05
+     ],
+     "val": 0.3
+    }
+   },
+   {
+    "hue": [
+     80,
+     160
+    ],
+    "to": {
+     "hue": 52
+    }
+   },
+   {
+    "hue": [
+     220,
+     290
+    ],
+    "to": {
+     "sat": 0.3,
+     "val": 0.5
+    }
+   }
   ],
   "blackwargreymon-art": [
-   {"hue": [18, 37], "sat": [0.7, 1], "val": [0.66, 1], "to": {"hue": 50}},
-   {"hue": [36, 70], "sat": [0.3, 1], "to": {"hue": 240, "sat": [0, 0.06], "val": 0.36}},
-   {"hue": [36, 70], "sat": [0.08, 0.3], "val": [0.5, 1], "to": {"sat": 0, "val": 0.55}},
-   {"hue": [220, 290], "to": {"sat": 0.35, "val": 0.7}}
+   {
+    "hue": [
+     18,
+     37
+    ],
+    "sat": [
+     0.7,
+     1
+    ],
+    "val": [
+     0.66,
+     1
+    ],
+    "to": {
+     "hue": 50
+    }
+   },
+   {
+    "hue": [
+     36,
+     70
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 240,
+     "sat": [
+      0,
+      0.06
+     ],
+     "val": 0.36
+    }
+   },
+   {
+    "hue": [
+     36,
+     70
+    ],
+    "sat": [
+     0.08,
+     0.3
+    ],
+    "val": [
+     0.5,
+     1
+    ],
+    "to": {
+     "sat": 0,
+     "val": 0.55
+    }
+   },
+   {
+    "hue": [
+     220,
+     290
+    ],
+    "to": {
+     "sat": 0.35,
+     "val": 0.7
+    }
+   }
   ],
   "darkfire": [
-   {"hue": [330, 70], "sat": [0.15, 1], "to": {"hue": [252, 282], "sat": 0.95, "val": 0.85}}
+   {
+    "hue": [
+     330,
+     70
+    ],
+    "sat": [
+     0.15,
+     1
+    ],
+    "to": {
+     "hue": [
+      252,
+      282
+     ],
+     "sat": 0.95,
+     "val": 0.85
+    }
+   }
+  ],
+  "ts-302-model": [
+   {
+    "hue": [
+     35,
+     75
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.85,
+     "val": 0.9
+    }
+   },
+   {
+    "hue": [
+     80,
+     160
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 52,
+     "sat": 0.85
+    }
+   }
+  ],
+  "ts-303-model": [
+   {
+    "hue": [
+     80,
+     165
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 22,
+     "sat": 1,
+     "val": 1.1
+    }
+   },
+   {
+    "hue": [
+     35,
+     75
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 38,
+     "sat": 1
+    }
+   }
+  ],
+  "ts-304-model": [
+   {
+    "hue": [
+     170,
+     265
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.04,
+     "val": 1.35
+    }
+   },
+   {
+    "hue": [
+     20,
+     75
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.95
+    }
+   }
+  ],
+  "ts-305-model": [
+   {
+    "hue": [
+     30,
+     75
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 4,
+     "sat": 0.9,
+     "val": 0.95
+    }
+   },
+   {
+    "hue": [
+     180,
+     290
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 225,
+     "sat": 0.4,
+     "val": 0.65
+    }
+   }
+  ],
+  "ts-306-model": [
+   {
+    "hue": [
+     10,
+     40
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 10,
+     "sat": 0.85,
+     "val": 1.1
+    }
+   },
+   {
+    "hue": [
+     40,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 42,
+     "sat": 1,
+     "val": 1.1
+    }
+   }
+  ],
+  "ts-307-model": [
+   {
+    "hue": [
+     15,
+     35
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.85
+    }
+   },
+   {
+    "hue": [
+     35,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "sat": 0.05,
+     "val": 1.3
+    }
+   },
+   {
+    "hue": [
+     85,
+     170
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.85
+    }
+   }
+  ],
+  "ts-308-model": [
+   {
+    "hue": [
+     265,
+     335
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.8,
+     "val": 0.9
+    }
+   },
+   {
+    "hue": [
+     30,
+     85
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.85
+    }
+   },
+   {
+    "hue": [
+     175,
+     265
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "sat": 0.08,
+     "val": 0.85
+    }
+   }
+  ],
+  "ts-309-model": [
+   {
+    "hue": [
+     330,
+     20
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 10,
+     "sat": 0.85,
+     "val": 0.95
+    }
+   },
+   {
+    "hue": [
+     25,
+     80
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 42,
+     "sat": 1,
+     "val": 1.1
+    }
+   },
+   {
+    "hue": [
+     180,
+     270
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 225,
+     "sat": 0.4,
+     "val": 0.85
+    }
+   }
+  ],
+  "ts-310-model": [
+   {
+    "hue": [
+     80,
+     165
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 0,
+     "sat": 0.9
+    }
+   },
+   {
+    "hue": [
+     165,
+     265
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "sat": 0.05,
+     "val": 1.3
+    }
+   },
+   {
+    "hue": [
+     265,
+     330
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "sat": 0.05,
+     "val": 1.1
+    }
+   }
   ]
  },
  "decks": [
   {
    "name": "Black Fire Again",
-   "base": {"name": "Black Fire Heart", "owner": "BK WarGreymon"},
-   "replace": {"WarGreymon": "BlackWarGreymon"}
+   "base": {
+    "name": "Black Fire Heart",
+    "owner": "BK WarGreymon"
+   },
+   "replace": {
+    "WarGreymon": "BlackWarGreymon"
+   }
   }
  ],
  "cards": [
@@ -30,22 +524,753 @@
    "id": 301,
    "name": "BlackWarGreymon",
    "base": "WarGreymon",
-   "spec": "Fire", "level": "U", "dp": 60, "pp": 20, "hp": 1750,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 60,
+   "pp": 20,
+   "hp": 1750,
    "attacks": [
-    {"name": "Black Terra Force", "power": 950},
-    {"name": "Black Great Tornado", "power": 700},
-    {"name": "Black Dramon Cutter", "power": 400}
+    {
+     "name": "Black Terra Force",
+     "power": 950
+    },
+    {
+     "name": "Black Great Tornado",
+     "power": 700
+    },
+    {
+     "name": "Black Dramon Cutter",
+     "power": 400
+    }
    ],
    "xfx": "Nature Foe x3",
    "support": {
     "prio": 1,
     "conds": [],
-    "acts": [{"op": 10, "v": [11, 0, 67], "i": [0, 200, 0], "m1": 0, "m2": 2}],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       67
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 2
+     }
+    ],
     "text": "Add number of Darkness Cards in DP Slot x200 to own Attack Power."
    },
-   "model": {"number": 400, "recolour": "blackwargreymon"},
-   "battle": {"offset": 10000, "recolour": "darkfire", "accent": "dark"},
-   "art": {"recolour": "blackwargreymon-art", "new": {"file": "custom/blackwargreymon.png", "crop": [0, 20, 335]}}
+   "model": {
+    "number": 400,
+    "recolour": "blackwargreymon"
+   },
+   "battle": {
+    "offset": 10000,
+    "recolour": "darkfire",
+    "accent": "dark"
+   },
+   "art": {
+    "recolour": "blackwargreymon-art",
+    "new": {
+     "file": "custom/blackwargreymon.png",
+     "crop": [
+      0,
+      20,
+      335
+     ]
+    }
+   }
+  },
+  {
+   "id": 302,
+   "name": "Guilmon",
+   "base": 27,
+   "spec": "Fire",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 570,
+   "attacks": [
+    {
+     "name": "Rock Breaker",
+     "power": 380
+    },
+    {
+     "name": "Fire Ball",
+     "power": 200
+    },
+    {
+     "name": "Critical Charge",
+     "power": 120
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 4,
+      "v": [
+       0,
+       0,
+       5
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own ○ Attack Power +300."
+   },
+   "model": {
+    "number": 401,
+    "recolour": "ts-302-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT2-009",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/302.png"
+    }
+   }
+  },
+  {
+   "id": 303,
+   "name": "Coronamon",
+   "base": 33,
+   "spec": "Fire",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 500,
+   "attacks": [
+    {
+     "name": "Corona๏ฝฐKnuckles",
+     "power": 300
+    },
+    {
+     "name": "Corona Flame",
+     "power": 300
+    },
+    {
+     "name": "Petit Prominence",
+     "power": 300
+    }
+   ],
+   "xfx": "None",
+   "support": {
+    "prio": 0,
+    "conds": [],
+    "acts": [],
+    "text": "None"
+   },
+   "model": {
+    "number": 402,
+    "recolour": "ts-303-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-007",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/303.png"
+    }
+   }
+  },
+  {
+   "id": 304,
+   "name": "Huckmon",
+   "base": 175,
+   "spec": "Fire",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 550,
+   "attacks": [
+    {
+     "name": "Fifth Rush",
+     "power": 350
+    },
+    {
+     "name": "Teen Ram",
+     "power": 280
+    },
+    {
+     "name": "Pepper Breath",
+     "power": 200
+    }
+   ],
+   "xfx": "None",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       1
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own Attack Power +100. Draw 1 Card."
+   },
+   "model": {
+    "number": 403,
+    "recolour": "ts-304-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT7-009",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/304.png"
+    }
+   }
+  },
+  {
+   "id": 305,
+   "name": "Growlmon",
+   "base": 14,
+   "spec": "Fire",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 850,
+   "attacks": [
+    {
+     "name": "Plasma Blade",
+     "power": 600
+    },
+    {
+     "name": "Exhaust Flame",
+     "power": 420
+    },
+    {
+     "name": "Magma Fall I",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       13,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       2,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Level is C, boost own Attack Power +300."
+   },
+   "model": {
+    "number": 404,
+    "recolour": "ts-305-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT2-013",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/305.png"
+    }
+   }
+  },
+  {
+   "id": 306,
+   "name": "Firamon",
+   "base": 19,
+   "spec": "Fire",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 800,
+   "attacks": [
+    {
+     "name": "Flame Dive",
+     "power": 450
+    },
+    {
+     "name": "Fira Claw",
+     "power": 360
+    },
+    {
+     "name": "Fira Bomb",
+     "power": 220
+    }
+   ],
+   "xfx": "Ice Foe x3",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 16,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 4,
+      "v": [
+       0,
+       0,
+       5
+      ],
+      "i": [
+       0,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Use ○ and Boost own ○ Attack Power +400."
+   },
+   "model": {
+    "number": 405,
+    "recolour": "ts-306-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-008",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/306.png"
+    }
+   }
+  },
+  {
+   "id": 307,
+   "name": "BaoHuckmon",
+   "base": 26,
+   "spec": "Fire",
+   "level": "C",
+   "dp": 20,
+   "pp": 10,
+   "hp": 730,
+   "attacks": [
+    {
+     "name": "Fif Cross",
+     "power": 550
+    },
+    {
+     "name": "Teen Blade",
+     "power": 320
+    },
+    {
+     "name": "Blazing Flame",
+     "power": 240
+    }
+   ],
+   "xfx": "None",
+   "support": {
+    "prio": 2,
+    "conds": [],
+    "acts": [
+     {
+      "op": 0,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Change own Specialty to Fire."
+   },
+   "model": {
+    "number": 406,
+    "recolour": "ts-307-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT6-011",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/307.png"
+    }
+   }
+  },
+  {
+   "id": 308,
+   "name": "WarGrowlmon",
+   "base": 9,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 30,
+   "pp": 10,
+   "hp": 1540,
+   "attacks": [
+    {
+     "name": "Double Edge",
+     "power": 720
+    },
+    {
+     "name": "Atomic Blaster",
+     "power": 540
+    },
+    {
+     "name": "Crush Blade II",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       13,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       500,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Level is U, boost own Attack Power +500."
+   },
+   "model": {
+    "number": 407,
+    "recolour": "ts-308-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX2-010",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/308.png"
+    }
+   }
+  },
+  {
+   "id": 309,
+   "name": "Flaremon",
+   "base": 7,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 30,
+   "pp": 20,
+   "hp": 1320,
+   "attacks": [
+    {
+     "name": "Crimson Wave of the Beast King",
+     "power": 730
+    },
+    {
+     "name": "Crimson Lion Dance",
+     "power": 550
+    },
+    {
+     "name": "Purifying Howl",
+     "power": 320
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       17,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Attack is ○, attack first."
+   },
+   "model": {
+    "number": 408,
+    "recolour": "ts-309-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-012",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/309.png"
+    }
+   }
+  },
+  {
+   "id": 310,
+   "name": "SaviorHuckmon",
+   "base": 4,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 30,
+   "pp": 10,
+   "hp": 1230,
+   "attacks": [
+    {
+     "name": "Ledge Stride",
+     "power": 800
+    },
+    {
+     "name": "Meteor Flame",
+     "power": 620
+    },
+    {
+     "name": "Trident Saber",
+     "power": 450
+    }
+   ],
+   "xfx": "✕ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is Fire, boost own Attack Power +300."
+   },
+   "model": {
+    "number": 409,
+    "recolour": "ts-310-model"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "ST12-08",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/310.png"
+    }
+   }
   }
  ]
 }

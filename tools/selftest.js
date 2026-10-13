@@ -329,6 +329,25 @@ test('custom cards follow the 301 cards of the game and leave them as they are',
   assert.strictEqual(E.CARDS.filter((c) => c.custom == null).length, 301);
 });
 
+const TIME_STRANGER_NAMES = ["Guilmon", "Coronamon", "Huckmon", "Growlmon", "Firamon", "BaoHuckmon", "WarGrowlmon", "Flaremon", "SaviorHuckmon"];
+
+test('Time Stranger cards preserve their bases numbers and effects', () => {
+  const names = TIME_STRANGER_NAMES;
+  names.forEach((name, i) => {
+    const c = E.card(302 + i), base = E.card(c.custom);
+    assert.strictEqual(c.name, name);
+    assert.strictEqual(c.type, 'digimon');
+    assert.ok(base.custom == null);
+    if (![329,330,335,344,346].includes(c.id)) assert.strictEqual(c.spec, base.spec);
+    for (const field of ['level','dp','pp','hp','xfx','prio','conds','acts','text'])
+      assert.deepStrictEqual(c[field], base[field], name + ': ' + field);
+    assert.deepStrictEqual(c.atk.map(a => a.power), base.atk.map(a => a.power), name + ': powers');
+    const fs = require('fs'), assets = path.join(__dirname, '..', 'web', 'assets');
+    for (const [a,b] of [['art','art2'],['mini','mini2']])
+      assert.ok(fs.readFileSync(path.join(assets,a,c.id+'.webp')).equals(fs.readFileSync(path.join(assets,b,c.id+'.webp'))), name + ': shared picture');
+  });
+});
+
 test('custom decks follow the 159 decks of the game; Black Fire Again is Black Fire Heart with BlackWarGreymon', () => {
   const decks = E.DATA.decks, own = decks.filter((d) => d.custom != null);
   assert.strictEqual(decks.filter((d) => d.custom == null).length, 159);

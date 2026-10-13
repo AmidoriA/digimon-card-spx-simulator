@@ -83,7 +83,25 @@ def new_art_source(ext, entry):
     return Image.open(os.path.join(HERE, entry['file'])).convert('RGB').crop((x, y, x + size, y + size))
 
 
+def do_shared_art(ext, web, c):
+    """Owner's TS-101 choice: use the prepared native crop in both art modes.
+
+    No new restoration or enlargement is performed; edited sources still pass
+    the recorded-source/hash checks in new_art_source.
+    """
+    from PIL import Image
+    src = new_art_source(ext, c["art"]["new"])
+    name = "%03d.webp" % c["id"]
+    for folders, im in ((("art", "art2"), src),
+                        (("mini", "mini2"), src.resize((160, 160), Image.LANCZOS))):
+        for folder in folders:
+            im.save(os.path.join(web, "assets", folder, name), "WEBP", quality=88, method=6)
+    print("  %s: shared native picture %s (%dx%d)" % (c["name"], name, *src.size))
+
+
 def do_art(ext, web, c, base, rules):
+    if c["art"].get("shared"):
+        return do_shared_art(ext, web, c)
     import comfy
     import tim
     import upscale_assets as ua

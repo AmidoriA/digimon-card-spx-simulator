@@ -292,6 +292,32 @@ BlackWarGreymon. Black Fire Heart itself is as the game has it.
 
 Custom picture sources (`art.new`) accept exactly one of `file` + `crop` (a picture under `tools/`, with native pixel coordinates), `card` + `crop` (the official Digimon Card Game card number, normalized to 430×600), or `ref` (the official Digimon Reference Book slug). For example, `{"card":"BT2-009","crop":[85,90,320]}` or `{"ref":"crescemon"}`. The internet forms reuse `build_new_art.source` and cache downloads in `extracted/newart/cards` or `ref`; they go through the same ComfyUI 4× upscale and 512×512/160×160 output as file sources. Selecting a source does not itself create a custom card.
 
+### Time Stranger cards
+
+Phase 1 custom cards keep their disc bases' exact DP, +P, HP, three attack powers,
+cross and support effects. Models are recoloured disc placeholders, with the base's
+shape and motions, pending Phase 2. Attack-name evidence and the chosen three-slot
+mapping are in [attack-sources.md](docs/time-stranger/attack-sources.md).
+
+Owner update (2026-10-13): use one prepared TS-002 picture for Legacy and New.
+`art.shared: true` preserves the approved native crop (430px; Crescemon 320px), writes
+identical full-size files to `art`/`art2` and identical 160px thumbnails to `mini`/`mini2`.
+No separate Legacy recolour, enlargement or new ComfyUI generation is performed.
+Other custom cards retain their existing build path. Cached edited sources are hash
+checked before every build. Rebuild with `build_custom.py <extracted> web art <ids>`.
+
+| Id | Card | Specialty / level | Base (id) | Placeholder model | Picture | Time Stranger source |
+|---|---|---|---|---|---|---|
+| 302 | Guilmon | Fire / R | Agumon (27) | 401 | card `BT2-009`, edit 302 | [064 · Virus](https://digimon.jsuk.cloud/en/d/guilmon/) |
+| 303 | Coronamon | Fire / R | Goburimon (33) | 402 | card `EX5-007`, edit 303 | [024 · Vaccine](https://digimon.jsuk.cloud/en/d/coronamon/) |
+| 304 | Huckmon | Fire / R | Veemon (175) | 403 | card `BT7-009`, edit 304 | [052 · Data](https://digimon.jsuk.cloud/en/d/huckmon/) |
+| 305 | Growlmon | Fire / C | Greymon (14) | 404 | card `BT2-013`, edit 305 | [145 · Virus](https://digimon.jsuk.cloud/en/d/growlmon/) |
+| 306 | Firamon | Fire / C | Centarumon (19) | 405 | card `EX5-008`, edit 306 | [100 · Vaccine](https://digimon.jsuk.cloud/en/d/firamon/) |
+| 307 | BaoHuckmon | Fire / C | Flarerizamon (26) | 406 | card `BT6-011`, edit 307 | [133 · Data](https://digimon.jsuk.cloud/en/d/baohuckmon/) |
+| 308 | WarGrowlmon | Fire / U | MetalGreymon (9) | 407 | card `EX2-010`, edit 308 | [294 · Virus](https://digimon.jsuk.cloud/en/d/wargrowlmon/) |
+| 309 | Flaremon | Fire / U | Garudamon (7) | 408 | card `EX5-012`, edit 309 | [219 · Vaccine](https://digimon.jsuk.cloud/en/d/flaremon/) |
+| 310 | SaviorHuckmon | Fire / U | Paildramon (4) | 409 | card `ST12-08`, edit 310 | [240 · Data](https://digimon.jsuk.cloud/en/d/saviorhuckmon/) |
+
 ### Local picture restoration (TS-004)
 
 `tools/comfy.py` now exposes `inpaint(image, mask, prompt, seed=...)` with the stored stock-node workflow `tools/comfy_workflows/ts002-inpaint.json` and installed `512-inpainting-ema.safetensors` checkpoint. White mask pixels may change; black mask pixels are preserved exactly. It samples at 512×512 and composites only the masked result back at native size. The existing RealESRGAN_x4plus upscaler is unchanged. The optional `outpaint(image, (left, top, right, bottom), prompt, seed=...)` protects the original image and generates only added padding; its tested Coronamon extensions introduced a pale border and were rejected for use. No selected TS-002 picture uses that outpaint helper: the approved margin restorations use explicitly masked inpainting. New extension jobs require visual review, not blind reuse of that trial.
@@ -598,6 +624,12 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   Fire Again and its name are this project's as well, made at the owner's request; in the
   game BK WarGreymon has the one deck, and it plays WarGreymon.
 
+- **Time Stranger Phase 1 cards.** The new labels and palette choices are project additions
+  requested by the owner. Numbers and effects are copied unchanged from disc bases.
+  Missing attack labels use verified Time Stranger skills, including a few buff/debuff
+  names: these do not add Time Stranger mechanics to DDCB. Reference Book order is
+  retained without claiming a verified strength ranking. Both art modes share the
+  prepared native pictures per the owner's update; no separate Legacy image is built.
 - **Planned Time Stranger roster.** The 45 cards in
   [roster.md](docs/time-stranger/roster.md) are custom additions, not disc cards.
   Their five Specialties and placeholder bases are project choices. On 2026-10-13

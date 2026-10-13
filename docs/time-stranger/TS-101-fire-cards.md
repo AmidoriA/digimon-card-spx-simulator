@@ -40,13 +40,13 @@ Add the nine Fire cards of [roster.md](roster.md) as custom cards with placehold
 
 ## Acceptance criteria
 
-- [ ] `custom.load()` passes: ids 302-310, models 401-409 in sequence.
-- [ ] Every card's numbers, ✕ effect and support equal its base's (selftest).
-- [ ] `git status` shows only these cards' files, `cards.js`, `scripts.json.gz` (if a ✱ base), tests, README and docs.
-- [ ] `node tools/selftest.js`, `decktest.js`, `sim.js`, `fxtest.js`, `battletest.js` and `python tools/check_paths.py` pass.
-- [ ] Seen in the browser: deck editor (both card art styles), on the board, each attack in `battle-preview.html` next to its base; the report says what was seen.
-- [ ] README "Time Stranger cards" rows and "Not from the game code" entry.
-- [ ] One commit, `TS-101: …`, pushed.
+- [x] `custom.load()` passes: ids 302-310, models 401-409 in sequence.
+- [x] Every card's numbers, ✕ effect and support equal its base's (selftest).
+- [x] `git status` shows only these cards' files, `cards.js`, `scripts.json.gz` (if a ✱ base), tests, README and docs.
+- [x] `node tools/selftest.js`, `decktest.js`, `sim.js`, `fxtest.js`, `battletest.js` and `python tools/check_paths.py` pass.
+- [x] Seen in the browser: deck editor (both card art styles), on the board, each attack in `battle-preview.html` next to its base; the report says what was seen.
+- [x] README "Time Stranger cards" rows and "Not from the game code" entry.
+- [x] One commit, `TS-101: …`, pushed.
 
 ## Out of scope
 
@@ -61,3 +61,20 @@ Add the nine Fire cards of [roster.md](roster.md) as custom cards with placehold
 ## Log
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
+
+### 2026-10-13 — Phase 1 complete
+
+- Added nine cards with sequential ids/models, exact base numbers/support/cross effects,
+  three sourced labels and recoloured disc placeholder palettes. See attack-sources.md.
+- Owner update: both art modes use the same prepared native TS-002 picture, with identical
+  160px thumbnails. No separate Legacy recolour or ComfyUI restart was needed.
+- All six required checks passed: selftest (30), decktest (11), 200 simulations without
+  timeouts, all 31 effect scripts, battletest (every card's three attacks × three styles),
+  and check_paths after staging new generated files.
+- Browser: all nine found in the actual deck editor in both art styles; adding a card
+  shows the three labels/powers and support. Each entered/rendered on the actual board
+  using manually prepared hands. All 27 new attacks and 27 base attacks completed in
+  the actual battle-preview page, Stage 1, Original PS1; frame-120 pairs were inspected.
+  Enhanced/Ultra were exercised by battletest; those styles were not visually compared
+  for every card. Local screenshots/report: extracted/newart/ts-phase1-browser/g0-*.
+- Integrated into the time-stranger feature branch as this ticket's commit; no main merge.

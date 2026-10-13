@@ -27,6 +27,7 @@ README lists every custom card under "Not from the game code".
                                      sources cache under <extracted_dir>/newart.
                                      A card/ref source may also name "edited": "edited/ts002/303.png";
                                      the recorded recipe and native edited crop are verified before use.
+                shared: true      optional: same prepared native picture in both art modes
    }],
    "decks": [{                      a deck of the game with some of its cards exchanged; it
      "name": "Black Fire Again",    follows the game's 159 decks and keeps the owner, the rank,
