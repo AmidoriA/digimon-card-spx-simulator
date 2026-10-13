@@ -21,8 +21,9 @@ Several decks of one owner share a picture, so a picture is written once, under 
 deck number that has it; pictures() says which file each deck uses and build_data.py puts
 that number into cards.js as "pic".
 
-Without --upscale the pictures are written at the game's own 128x112. With it they go 4x
-through the local ComfyUI like the card art (upscale_assets.py).
+With --upscale the pictures go 4x through the local ComfyUI like the card art
+(upscale_assets.py), to 512x448: that is how the site has them. Without it they are written
+at the game's own 128x112.
 """
 import os
 import struct

@@ -28,7 +28,7 @@ Run only the one whose input or code you changed. All take `extracted web`.
 | Tool | Makes | Notes |
 |---|---|---|
 | `build_data.py` | `web/js/data/cards.js` | cards and decks |
-| `build_owners.py` | `web/assets/owner/` | the deck owners' pictures at the game's 128x112; `--upscale` sends them 4x through ComfyUI |
+| `build_owners.py` | `web/assets/owner/` | the deck owners' pictures; pass `--upscale`, which sends them 4x through ComfyUI as the site has them (without it they stay at the game's 128x112) |
 | `build_effects.py` | `web/js/data/effects.js` | board effect scripts |
 | `build_audio.py` | `web/assets/audio/`, `web/js/data/audio.js` | pass `--missing`, or every sound file changes |
 | `build_models.py` | `web/assets/models/NNN.*` | Digimon models, textures, motions |

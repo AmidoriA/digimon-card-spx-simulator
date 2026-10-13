@@ -104,7 +104,8 @@ the "VS" screen before a battle.
   opponent's name (the `strcpy` at `0x8003fdd4`).
 
 `tools/build_owners.py` writes the pictures to `web/assets/owner/`, once each under the
-lowest deck number that has it, and `build_data.py` gives each deck that number as `pic`.
+lowest deck number that has it, enlarged 4x to 512x448 through ComfyUI, and `build_data.py`
+gives each deck that number as `pic`.
 
 Under a deck's name are the Specialties it plays, each with the number of the deck's
 Digimon cards that have it, the most first (a card's Specialty is the high half of byte
@@ -546,10 +547,8 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   starter decks and the decks you build show the player's picture, and in the second
   player's list the second player's of the free battle; Tentomon's deck 76, which has no
   archive, shows the back of a card; a custom deck shows the picture of the deck it was
-  made from. The pictures are stored at the game's own size and are not enlarged: a row
-  shows them at 64x56 CSS pixels and the deck panel at 112x98, so only a screen with more
-  than 1.14 device pixels per CSS pixel makes the browser scale the larger one up. They
-  have not been through ComfyUI (`build_owners.py --upscale` does that, 4x). Counting a
+  made from. The pictures are the game's 128x112 enlarged 4x through ComfyUI
+  (`build_owners.py --upscale`), like the card art. Counting a
   deck's Digimon cards by Specialty is this project's summary of a deck; the game shows a
   deck's cards, not such a count. The card that opens from a card list shows the card's
   record as the deck editor does; the wording of what a ✕ effect does is this project's.
@@ -702,7 +701,7 @@ tools/.venv/Scripts/python -m pip install -r tools/requirements.txt
 python tools/extract_iso.py "<path>/Digimon Digital Card Battle.bin" extracted/disc
 python tools/extract_drv.py extracted/disc extracted/drv
 tools/.venv/Scripts/python tools/build_data.py extracted web        # cards and decks
-tools/.venv/Scripts/python tools/build_owners.py extracted web      # the deck owners' pictures
+tools/.venv/Scripts/python tools/build_owners.py extracted web --upscale   # the deck owners' pictures, needs ComfyUI
 tools/.venv/Scripts/python tools/upscale_assets.py extracted web    # art and UI, needs ComfyUI
 tools/.venv/Scripts/python tools/build_audio.py extracted web       # music and sound effects
 tools/.venv/Scripts/python tools/build_effects.py extracted web     # battle effect scripts
