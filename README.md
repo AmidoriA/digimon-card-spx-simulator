@@ -520,7 +520,8 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 - **Time Stranger's files** are another game's, not the disc's. How they are stored was
   read from that game's executable; what was not is listed under "Time Stranger files"
   and "Time Stranger models", each under "Not read from the executable", and in "Time
-  Stranger tables" (the column types and the meaning of the columns).
+  Stranger tables" (the column types and the meaning of the columns) and "Time Stranger
+  motions" (the whole layout of a motion file, and what each motion is for).
 
 - **Custom cards.** Nothing about a custom card is the game's but what it is made from.
   BlackWarGreymon's numbers (DP 60, +P 20, HP 1750, attacks 950 / 700 / 400), its attack
@@ -1016,6 +1017,69 @@ drawn and are the Digimon their rows name (`docs/time-stranger/img/ts-203-roster
 `docs/time-stranger/roster.md` has the model of each card. Agumon (Black) has no row in
 either table of this build.
 
+## Time Stranger motions
+
+A motion is one `.anim` file, `chrNNN_<name>.anim` (TS-203). `tools/ts_anim_read.py` reads
+it; of the 11,333 `chrNNN_*.anim` of `app_0` it reads 11,321 (the other 12 have a kind of
+channel it refuses).
+
+### `.anim`
+
+The loader is `0x1402dcd60`; it reads the file whole. **Nothing below was read from a
+routine**: the layout was worked out from the files, and each part is checked as said.
+An offset marked "rel" counts from the field that holds it.
+
+| Where | What | Checked by |
+|---|---|---|
+| +0x00 | `80AE` | |
+| +0x04, +0x08 | float length in seconds, float frames a second (30 in 11,235 files, 60 in 54, 512 in 32) | length × rate = frames − 1 in Guilmon's |
+| +0x0e, +0x10, +0x12 | u16 bones, u16 frames, u16 chunks | bones: the model's count; frames: the chunks add up to it in every file read |
+| +0x16 | u16 × 8: the channels that do not change (rotation, position, scale, float), then those that do | the lists and blocks below have these sizes |
+| +0x38, +0x3c | rel chunk table (8 bytes a chunk, the second u32 its offset); rel chunk frames (u16 first frame, u16 frames after it) | every chunk ends where the next begins |
+| +0x40, +0x44, +0x48 | rel values of the unchanging rotations (6 bytes each), positions and scales (3 floats each) | |
+| +0x60 | the bone of each channel, u16: a list for each of the eight counts, filled up with the bone count to a multiple of 4 entries (the first list to 8) | the bones of a list are below the bone count and the fill is the bone count, in every file read |
+
+**Chunk.** Eight u32 sizes: the first frame's rotations, positions, scales and floats, then
+the later ones' (the scale and float sizes take in padding). The blocks follow in that
+order, with a table of bits before the later ones: channel after channel, one bit for each
+frame after the chunk's first, the highest bit of a byte first, set where a value is
+stored. Checked in every chunk of every file read: the sizes add up to the chunk, and the
+set bits of the rotation channels × 6 and of the position channels × 12 are exactly the
+stored sizes (other ways of reading the table fit only by chance).
+
+**Rotation**, 6 bytes read as one 48-bit number, highest byte first: the lowest 2 bits say
+which of x, y, z, w was left out (the largest, taken positive); above them three 15-bit
+numbers *n* for the others, each (*n* − 16383) / 16384 / √2; the top bit is unused.
+Checked: of the readings tried this is the one where neighbouring values of a channel stay
+close (their dot product averages 0.9975 and never falls below 0.83 over 4,546 values);
+and Guilmon posed with it stands as a creature should
+(`docs/time-stranger/img/ts-203-guilmon-bn01.png`).
+
+**What the values are** (from that picture, not from a routine): a rotation is the bone's
+whole rotation in its parent; a position is added to the bone's rest position. Between two
+stored values `ts_anim_read.py` goes in a straight line; how the game does it was not read.
+
+```bash
+tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr090_*.anim
+tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr090_bn01.anim --tracks
+tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr090_bn01.anim --png pose.png --geom extracted_ts/app_0/chr090.geom --frame 0
+```
+
+### Which motion is for what
+
+Read so far:
+
+| What | Where |
+|---|---|
+| The battle code asks for a motion by a number; `0x140c45e50` and `0x140c45c00` turn it into a row of `battle_define_string` (`data/battle_calculate.mbe`), whose string is the motion's name. Numbers 0, 1, 2, 5, 7, 8, 9, 10, 11, 12, 13, 31, 32, 34 give `bn01`, `bn02`, `ba01`, `ba02`, `bg01`, `bg02`, `bd01`, `bd02`, `bd03`, `fe02`, `fe04`, `bv01`, `br01`, `bs01` | `0x140c46320` (the caller of both), `0x1409cdb00` (the table lookup) |
+| `bv02`, `bv03` are in the table `battle_extra_win` | `data/battle_motion.mbe` |
+| A Digimon on the field stands with `bn01` and moves with `br01` | `data/field.mbe`, `field_move_animation`, row `default_move_animation` |
+
+**Not read:** what each of those numbers is for in the battle code, so which motion is the
+attack, the hit, the guard, the fall. The letters suggest it (`ba` attack, `bd` damage,
+`bg` guard, `bn` neutral, `bs` skill, `bv` victory) but that is the names read as words,
+not the game's code.
+
 ## Layout
 
 | Path | What |
@@ -1048,6 +1112,7 @@ either table of this build.
 | `tools/ts_extract.py`, `x64.py` | Time Stranger: the `.mvgl` unpacker and the x86-64 disassembly helper for its executable |
 | `tools/ts_model_read.py` | Time Stranger: reads a `.geom` model and its textures, dumps it as `.glb` or a drawing |
 | `tools/ts_mbe.py` | Time Stranger: reads the tables of a `.mbe` file |
+| `tools/ts_anim_read.py` | Time Stranger: reads a `.anim` motion, lists its channels, draws a model in one of its frames |
 | `extracted_ts/` | Working copy of Time Stranger's files (about 49 GB, not in git, safe to delete) |
 
 ## File formats

@@ -27,7 +27,7 @@ For all 45 Digimon, know which file is its model and which of its animations are
 
 - [ ] All 45 rows have their model file.
 - [ ] Guilmon's animation list with the role of each, and where the role was read.
-- [ ] README: the animation format and the table, with sources.
+- [x] README: the animation format and the table, with sources.
 
 ## Out of scope
 
@@ -73,3 +73,56 @@ the Digimon their rows name:
 are Agumon, Agumon (Bond of Bravery), Pagumon, ToyAgumon (two rows) and Agumon & Gatomon.
 The field guide the roster was checked against lists it as no. 468. See the question to
 the owner.
+
+### 2026-10-13 — the motions
+
+**The format** is in the README, "Time Stranger motions". None of it was read from a
+routine (the loader, `0x1402dcd60`, only reads the file in); it was worked out from the
+files and checked: the chunk sizes and the bit table agree exactly in every chunk of the
+11,321 motions `tools/ts_anim_read.py` reads (of 11,333 `chrNNN_*.anim` in `app_0`; the
+other 12 have unchanging float channels and are refused). 30 frames a second in 11,235 of
+them. The packed rotations were settled by which reading keeps neighbouring values close,
+and by posing Guilmon:
+
+![Guilmon in the first frame of bn01](img/ts-203-guilmon-bn01.png)
+
+The last frame of `bd03` and frame 45 of `bv01` were drawn too and are whole poses.
+
+**Guilmon's motions** (`chr090_*.anim`, all 30 frames a second, 37 bones):
+
+| Motion | Frames | Seconds | Number in the battle code | What was read about it |
+|---|---|---|---|---|
+| `bn01` | 41 | 1.333 | 0 | a Digimon on the field stands with it (`field_move_animation`) |
+| `bn02` | 81 | 2.667 | 1 | |
+| `ba01` | 53 | 1.733 | 2 | |
+| `ba02` | 51 | 1.667 | 5 | |
+| `bg01` | 29 | 0.933 | 7 | |
+| `bg02` | 29 | 0.933 | 8 | |
+| `bd01` | 29 | 0.933 | 9 | |
+| `bd02` | 25 | 0.800 | 10 | |
+| `bd03` | 56 | 1.833 | 11 | |
+| `fe02` | 56 | 1.833 | 12 | |
+| `fe04` | 51 | 1.667 | 13 | |
+| `bv01` | 87 | 2.867 | 31 | `bv02`, `bv03` are in the table `battle_extra_win` |
+| `br01` | 25 | 0.800 | 32 | a Digimon on the field moves with it (`field_move_animation`) |
+| `bs01` | 51 | 1.667 | 34 | |
+| `bf01` | 41 | 1.333 | | |
+| `fe01`, `fe03` | 81, 91 | 2.667, 3.000 | | |
+| `fq01`, `fq02` | 41, 49 | 1.333, 1.600 | | |
+| `fn02_01` | 61 | 2.000 | | |
+| `f000` | 401 | 13.333 | | |
+
+Beside them: `chr090.anim` and `chr090_lod_2.anim` (one frame, no channels),
+`chr090loc*.anim`, `cam_chr090_*.anim` and `ef_b_chr090_bs01.anim` (not character motions).
+
+**The numbers.** The battle code keeps a motion for each of 74 numbers and gets its name
+through `0x140c46320`, which calls `0x140c45e50` (numbers to rows 1 to 52 of
+`battle_define_string` in `data/battle_calculate.mbe`) or `0x140c45c00` (rows 53 to 78);
+`0x1409cdb00` fetches the row's string. `0x140a1ba30` fills a unit's 74 slots this way.
+
+**Not done: the roles.** What each number is for (attack, hit, guard, fall, win) was not
+traced: the callers pass the number in a variable, and following it to the battle states
+(`BattleDirectionDead`, `BattleDirectionWin`, `BattleTimetableSlotGuard` and the others,
+whose class names are in the executable) is still to do. The names read as words suggest
+`ba` attack, `bd` damage, `bg` guard, `bn` neutral, `bs` skill, `bv` victory, `br` run;
+that is not the code.
