@@ -4,11 +4,12 @@
 |---|---|
 | Trello | https://trello.com/c/tfBaYtSp |
 | Phase | 3 Decks |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-301, TS-101 |
 
 ## Goal
 
-Build the three decks of decks.md around WarGrowlmon, Flaremon, SaviorHackmon.
+Build the three decks of decks.md around WarGrowlmon, Flaremon, SaviorHuckmon.
 
 ## Context
 

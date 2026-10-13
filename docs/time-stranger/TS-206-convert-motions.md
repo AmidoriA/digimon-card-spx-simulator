@@ -4,6 +4,7 @@
 |---|---|
 | Trello | https://trello.com/c/tzzuM8kp |
 | Phase | 2 Models |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-203, TS-204, TS-205 |
 
 ## Goal
@@ -13,7 +14,7 @@ Give the converted model the eight motions the battle scripts call, taken from i
 ## Context
 
 - TS-203: which Time Stranger animation plays each role.
-- TS-204: the slot table and each base's slot lengths.
+- TS-204: the slot table (README, "Polygon Battle") and each base's slot lengths, key times, loop key, sounds and script timelines: `motion-slots.json`, written by `tools/motion_slots.py` (layout in its docstring), with the bases as a table in [motion-slots.md](motion-slots.md). A motion lasts 2 × d0 + Σ 2 × d frames; the first 2 × d0 are the blend into key 0.
 - Motion key layout in `tools/build_models.py`.
 
 ## Steps

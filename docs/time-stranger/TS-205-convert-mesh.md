@@ -4,6 +4,7 @@
 |---|---|
 | Trello | https://trello.com/c/2nugKL0f |
 | Phase | 2 Models |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-202, TS-204 |
 
 ## Goal
@@ -15,6 +16,7 @@ Turn a Time Stranger model into a DDCB model file (`web/assets/models/NNN.*`) th
 - `tools/build_models.py` docstring: the DM format (rigid parts, vertex = x y z nx ny nz r g b u v part palette-row, opaque then blended triangles, texture as colour indices + palette rows).
 - Budget of the disc's models: 16-23 parts, about 640-880 triangles, texture up to 256x128, up to 12 palette rows; 8 motions each.
 - `js/battlehd.js`: Smooth subdivides x16 and must fit 16-bit indices.
+- TS-204: the base's scripts hang effects on body parts by their number in the model (the "Parts" columns of [motion-slots.md](motion-slots.md)); the converted model needs a part with that number in that place.
 - CLAUDE.md: the scene stays 320x240; no depth buffer in Original PS1.
 
 ## Steps

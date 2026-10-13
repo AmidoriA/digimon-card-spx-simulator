@@ -4,21 +4,22 @@
 |---|---|
 | Trello | https://trello.com/c/v00WU7tG |
 | Phase | 1 Cards |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-001, TS-002, TS-003, TS-101 |
 
 ## Goal
 
-Add the nine Darkness cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The roster as confirmed in TS-001 wins over the table below.
+Add the nine Darkness cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The table below matches the roster verified in TS-001; roster.md remains authoritative if later local-game verification changes it.
 
 | Id | Lv | Card | Base | Model | Battle block |
 |---|---|---|---|---|---|
-| 329 | R | BlackAgumon | Agumon (27) ✱ | 428 | offset 20000 |
+| 329 | R | Agumon (Black) | Agumon (27) ✱ | 428 | offset 20000 |
 | 330 | R | Monodramon | Veemon (175) ✱ | 429 | offset 30000 |
 | 331 | R | Dracmon | DemiDevimon (132) | 430 | none |
-| 332 | C | DarkTyrannomon | Tyrannomon (16) ✱ | 431 | offset 40000 |
+| 332 | C | Kurisarimon | Bakemon (123) | 431 | none |
 | 333 | C | Strikedramon | Darkrizamon (130) | 432 | none |
 | 334 | C | Sangloupmon | Gururumon (126) | 433 | none |
-| 335 | U | MetalTyrannomon | MasterTyrannomon (8) ✱ | 434 | offset 50000 |
+| 335 | U | MetalTyrannomon | MasterTyrannomon (8) ✱ | 434 | offset 40000 |
 | 336 | U | Cyberdramon | Andromon (116) | 435 | none |
 | 337 | U | Matadormon | Myotismon (111) | 436 | none |
 

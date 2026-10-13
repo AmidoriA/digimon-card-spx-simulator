@@ -4,11 +4,12 @@
 |---|---|
 | Trello | https://trello.com/c/CC15DUlA |
 | Phase | 3 Decks |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-101 … TS-105 |
 
 ## Goal
 
-Plan one custom deck around each new Ultimate (WarGrowlmon, Flaremon, SaviorHackmon, MachGaogamon, Crescemon, MarineDevimon, Taomon, Rapidmon, Lilamon, MetalTyrannomon, Cyberdramon, Matadormon, Wingdramon, GrapLeomon, Chirinmon).
+Plan one custom deck around each new Ultimate (WarGrowlmon, Flaremon, SaviorHuckmon, MachGaogamon, Crescemon, Dragomon, Taomon, Rapidmon, Lilamon, MetalTyrannomon, Cyberdramon, Matadormon, Wingdramon, GrapLeomon, Chirinmon).
 
 ## Context
 

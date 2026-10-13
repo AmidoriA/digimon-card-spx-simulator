@@ -429,6 +429,54 @@ scripts, then camera and arenas.
   from its current pose to the key over twice the duration, in two halves of constant
   acceleration aimed at the speed the next key needs (`0x80022100`, `0x80021aa8`,
   `0x80021c18`). Part rotation is `Ry·Rx·Rz` (`0x8005cbc4`, checked in the emulator).
+- **The eight motion slots.** A motion's chunk number in the Digimon's file is all the code
+  knows it by (the table at `0x2220` of the model's block, filled by `0x80023094`). Only one
+  is unpacked at a time: starting another frees it and unpacks the new one (`0x8002daac`).
+
+  | Slot | What | Started by | Where |
+  |---|---|---|---|
+  | 0 | Standing | The director: for the Digimon a script is about to play on; for the attacker when the hit script is over; for a target left alive; for an attack that does no damage; when the entrance is over. The scripts: `b.2 [0]`, which the attack scripts end with | `0x801ee00c`; `0x801ee86c`, `0x801ee9ec`; `0x801ee904`, `0x801eea8c`, `0x801eeabc`; `0x801eee50`; `0x801ed934` |
+  | 1, 2, 3 | The card's first, second and third attack | The attack script (`b.2 [1]` … `[3]`, at frame 1 of the script for 563 of the 573 attacks). For an attack that is countered, which has no script, the director: attack number + 1 | interpreter `0x801e8920`; `0x801ee774` → `0x801eebec` |
+  | 4 | Damage | The hit script, which plays on the target (`b.2 [4]`) | interpreter `0x801e8920` |
+  | 5 | KO | Nothing names it: `b.2 [4]` starts 5 when the Digimon's HP (`0x801ef9a4`) is 0 or less | `0x801e892c` … `0x801e896c` |
+  | 6 | Victory | The director, for the winner, shown alone | `0x801eeb0c` |
+  | 7 | Entrance | Script 999 of `A/BATTLE.PAK` (`b.1 [7]` takes its first pose, `b.2 [7]` starts it), which the director plays on each Digimon in turn when the battle opens. It is also the one motion unpacked when a model is loaded, and the pose the model is given then | `0x801ee4e8`, `0x801ee6b8`; loader `0x8002de18` … `0x8002de54` |
+
+  No other number is ever passed: every battle script (those in `F`, `E` and
+  `A/BATTLE.PAK`) was searched for `b.1` and `b.2`, and every call of the start routine in
+  the main program and the seven overlays was read (the
+  evolution scene, the opening, the arenas and the effect models start motion 0 or 1 of
+  their own models).
+- **How long a motion lasts.** The start (`0x80022d34`) aims the model at key 0 from the pose
+  it is in, over 2 × that key's duration: a lead in which it blends in. Then the motion task
+  (`0x80022b98`) takes the keys in turn, key 0 once more first, each over 2 × its duration. So
+  a motion lasts 2 × d0 + Σ 2 × d frames; Agumon's first attack, whose keys add up to 216,
+  takes 240 (the routines were run in the emulator on the disc's motions to check this).
+  After the last key the motion goes on at the key named in the last field of key 0's first
+  record (`0x80022d88`), or stops in its last pose when that is -1. Of the 190 card models,
+  standing loops from key 0 in all but three (Agumon's is one that does not), victory loops
+  in 156, mostly from a later key, two third attacks loop, and nothing else does. Starting a
+  motion always starts it from its first key, also when it is the one playing (`0x8002daac`
+  only skips unpacking it again). A hidden model is not moved on (`0x80022bd0`).
+- **What a key holds besides the pose.** Its sound (the number + 1, 0 for none) is played
+  with the sound call `0x8002b498` when the model starts towards the key (`0x80022184`), so
+  key 0's sound is heard twice, at the start and at the end of the lead; 30 motions have one
+  there. The record after the last part is the camera's (see *Camera* below); it is eased
+  like a part's. Of each record the setup reads the rotation, the show flag (parts only), the
+  offset and the scale; the word after the offset (105 or 64 in every motion) is not read by
+  it or by the routine that takes a pose (`0x80023148`).
+- **Motions and scripts.** A script never waits for a motion. It waits a number of frames
+  (`b.10`), no script in the Digimon files reads the state of one of its objects, and none
+  takes a different time with different random numbers: each is a fixed timeline made for
+  the motion it starts. The director waits for a motion in two places: the target's damage or
+  KO motion must be over before it goes on (`0x801ee87c`, `0x801ee9fc`), and the entrance must
+  be over before the Digimon is put to standing (`0x801ed920`). It does not wait for the
+  victory motion. Scripts hang objects on body parts by their number in the model
+  (`0x801e9494`: variable `0x1b9` the part, `0x1be` whose; the number is not checked against
+  the model's part count). `tools/motion_slots.py` measures every card model: the length, lead,
+  loop and sounds of each slot, and for each attack and hit script when it starts which slot
+  and which parts it uses (`docs/time-stranger/motion-slots.json`; the bases of the Time
+  Stranger cards as a table in `docs/time-stranger/motion-slots.md`).
 - **Which scripts.** A card's attack record is {power, attack script, hit script, name}; the
   loader `0x8002dea0` reads the two script numbers. The director (`0x801ee3d4`) runs the
   attack script for the attacker, then the hit script for the target (not when the attack
@@ -517,6 +565,13 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 ## Not from the game code
 
+- **Time Stranger's files** are another game's, not the disc's. How they are stored was
+  read from that game's executable; what was not is listed under "Time Stranger files"
+  and "Time Stranger models", each under "Not read from the executable", and in "Time
+  Stranger tables" (the column types and the meaning of the columns) and "Time Stranger
+  motions" (the whole layout of a motion file; what each motion is for comes from the
+  game's own script and tables).
+
 - **Custom cards.** Nothing about a custom card is the game's but what it is made from.
   BlackWarGreymon's numbers (DP 60, +P 20, HP 1750, attacks 950 / 700 / 400), its attack
   names, its colours and its support effect were chosen for this project at the owner's
@@ -532,6 +587,19 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   is; the builder runs both scripts and compares every object's colours). The deck Black
   Fire Again and its name are this project's as well, made at the owner's request; in the
   game BK WarGreymon has the one deck, and it plays WarGreymon.
+
+- **Planned Time Stranger roster.** The 45 cards in
+  [roster.md](docs/time-stranger/roster.md) are custom additions, not disc cards.
+  Their five Specialties and placeholder bases are project choices. On 2026-10-13
+  the owner chose to keep the proposed Specialty where thematically suitable, even
+  when a Time Stranger signature attack has a different element. Time Stranger's
+  elemental matchups and skill elements do not supply one intrinsic element to copy.
+  TS-001 records online field-guide evidence, identity corrections and two replacements;
+  checking the owner's installed game tables follows TS-201/TS-203. This plan does not
+  add playable cards, stats, pictures or models yet.
+  All work stays on the `time-stranger` feature branch; it must not merge to `main`
+  until all 45 new cards are complete and their applicable acceptance criteria pass.
+  See [the feature workflow](docs/time-stranger/README.md#feature-branch-and-merge-gate).
 
 - **Installable app.** The manifest (names, `standalone` display, the colour `#0a1018` taken
   from the page's own background), the service worker's network-first caching and the app
@@ -618,7 +686,11 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   arrival at a target is judged by distance travelled. The alternate models in archive `G`
   are not used, and five models whose palette is not in their own file fall back to their
   texture's first palette. Sounds named by motions are not played; sounds named by scripts
-  are, where the sound bank has them.
+  are, where the sound bank has them. Motions are not yet timed as the game times them (see
+  *How long a motion lasts*): here a motion begins at its first key without the lead, so the
+  Digimon moves 2 × d0 frames (4 to 64) ahead of its script's effects; a motion that is
+  started while it is playing is left to run on; and a hidden model keeps moving. The
+  entrance motion (slot 7) is never shown.
 - **Taking back in the Digivolve Phase.** In the game, answering No to "Is it OK to end the
   Digivolve Phase?" (or backing out of the digivolve choice) returns the DP card placed this
   turn and an option card used to no effect to the hand and starts the phase again
@@ -727,6 +799,369 @@ upscale.
 pictures named in `tools/new_art.json` (once, into `extracted/newart`), cuts the squares
 out, upscales them 4× through the same ComfyUI model and writes 512×512 and 160×160 files.
 
+## Time Stranger files
+
+The models of the Time Stranger cards (`docs/time-stranger/`) are to come from *Digimon
+Story Time Stranger* itself, from the owner's own Steam install. This section is how its
+files are stored and how to get a working copy; nothing of it is on the DDCB disc. The
+unpacked files stay out of git (`extracted_ts/`); only models converted from them are
+committed.
+
+### The build
+
+Everything below was read from one build. Addresses are virtual addresses in its
+executable (image base `0x140000000`).
+
+| | |
+|---|---|
+| Steam app | 1984270, build id `23514637` (`steamapps/appmanifest_1984270.acf`) |
+| Main depot | 1984271, manifest `2791297361435523425` |
+| `Digimon Story Time Stranger.exe` | 30,453,760 bytes, SHA-256 `ff9de825a543bf874cfb7e73ed951256d3ce4e8702957afa3b26ca6487a81688` |
+| `gamedata/app_0.dx11.mvgl` | 13,075,138,986 bytes, SHA-256 `2bebf470a2f42f87258787b8a630199044b8b99265386d4a6cd2f39280c6fdc9` |
+| `gamedata/patch.dx11.mvgl` | 1,371,328,286 bytes, SHA-256 `f7dd8b0be574324847902166729a8a1b08e00a375f15f7b835d1cfa8438f9fb6` |
+
+`gamedata/` holds 102 `.mvgl` and 6 `.cpk` files, 32.4 GB. The size and SHA-256 of each,
+and of the executable, are in `docs/time-stranger/files-23514637.tsv`.
+
+### The archives
+
+**`.mvgl`** holds the game's own files. Every one of the 102 starts with `MDB1`, and
+neither the tables nor the data are encrypted (a mod site says they are; in this build
+they are not).
+
+| What | Where it was read |
+|---|---|
+| The archive of a name is `<name>.dx11.mvgl` | `0x1402b6b00` |
+| Header, 0x20 bytes: `MDB1`, u32 nodes, u32 names, u32 data entries, u64 offset of the file data, u64 archive size | read at `0x1402c3f40`, magic compared at `0x1402c40d2` |
+| Tables at 0x20: the nodes (16 bytes), the names (0x80 bytes), then the data entries (24 bytes) | `0x1402c4240` |
+| Node: s32 bit, u32 data entry, u32 left, u32 right; node *n* has name *n*, node 0 is the root | walked at `0x1402cb030`, built at `0x1402cbbc0` |
+| Name: 4 bytes extension padded with spaces, 124 bytes path without it, backslashes, lowercase | key built at `0x1402c4c60` |
+| Data entry: u64 offset from the file data, u64 size, u64 stored size | `0x1402c46d0` |
+| Stored size equal to size: the bytes are the file. Otherwise one LZ4 block | `0x1402c4813`; `0x140e31400` calls the decoder `0x140e33170` |
+| The file is read with `fopen("rb")`, `fseek`, `fread`; nothing is done to the bytes | `0x1402bfdb0`, `0x1402c0230` |
+
+A file is found by walking the tree with its name as the key (a bit of the key picks left
+or right until the bit number stops growing) and comparing the name where the walk ends.
+The unpacker does not need the walk: it goes through the nodes in order.
+
+**`.cpk`** is CRI's archive. The names in their tables are sound (`.acb`, `.awb`, `.acf`)
+and movies (`.usm`, `.mp4`); they are not unpacked.
+
+### What is in them
+
+196,583 files, 49.3 GB unpacked; 4,204 of them are stored without compression.
+
+| Extension | Files | Bytes | Seen as |
+|---|---|---|---|
+| `geom` | 15,639 | 20.9 GB | models: `chrNNN.geom` (532 in `app_0`), `chrNNN_lod_N.geom`, fields, effects |
+| `img` | 20,416 | 26.1 GB | textures, in `images/` |
+| `anim` | 39,235 | 0.86 GB | motions |
+| `skel` | 25 | 32 KB | skeletons |
+| `nlst` | 15,639 | 54 MB | as many as there are `geom` |
+| `shad` | 79,072 | 0.6 GB | shaders, in `shaders/` |
+| `mbe` | 6,023 | 146 MB | tables and text (`data/`, `text/`, `message/`) |
+| others | | 0.67 GB | `bson`, `lips`, `lua`, `detr`, `phys`, `scen`, `bin`, `sprk`, `note`, `usb`, `name`, `png` |
+
+What each of these formats is inside has not been read; the "Seen as" column is from the
+names only.
+
+### Steps
+
+```bash
+tools/.venv/Scripts/python -m pip install -r tools/requirements.txt
+tools/.venv/Scripts/python -I tools/ts_extract.py "<Steam>/steamapps/common/Digimon Story Time Stranger" extracted_ts
+```
+
+It reads `<install>/gamedata/*.mvgl` and writes each archive to `extracted_ts/<archive>/`,
+with `extracted_ts/_manifest.tsv` (archive, path, offset, size, stored size). The install
+is only read. `--only "chr*.geom"` unpacks what matches, `--archive app_0` one archive,
+`--list` prints the tables and `--test` reads and inflates every file without writing.
+On this build it ends with `196583 files, 49261839878 bytes, 0 failed`. With another
+build, compare the executable's hash first: the addresses here are for this one, though
+the unpacker itself needs only the layout.
+
+`tools/x64.py` is the disassembly helper the addresses were read with
+(`x64.py <exe> dis|func|xref|find|str|imm|bytes`).
+
+### Not read from the executable
+
+- **Which archive wins.** 17,957 paths are in more than one archive (12,098 of them in
+  `app_0` and `patch`). The unpacker keeps each archive in its own folder; the order in
+  which the game looks through them was not traced.
+- **The header's last field** equals the file's size in all 102 archives; the routines
+  read here do not use it.
+- **The `.cpk` files** were only looked at for the names in their tables.
+- REA's deep analysis (Ghidra) is not set up on the owner's machine; the routines were
+  read as disassembly with `tools/x64.py`, not as decompiled code.
+
+## Time Stranger models
+
+How a Time Stranger model is stored, as far as it has been read (TS-202). Addresses are in
+the same executable as above. "Data" in the last column means the field was read from the
+files only, and says how it was checked; everything else names the routine that uses it.
+`tools/ts_model_read.py` reads all 532 `chrNNN.geom` of `app_0` this way.
+
+A Digimon is `chrNNN.geom` (the model), `chrNNN.nlst` (its names as text), its textures
+`images/chrNNN*.img` and its motions `chrNNN_*.anim`. Guilmon is `chr090`: the row of
+`char_GUILMON` in `data/char_info.mbe` and in `data/digimon_status.mbe` holds that name
+(which column means what is TS-203's to read).
+
+### `.geom`
+
+One block; every offset counts from the start of the file. The loader is `0x1402dec00`.
+
+| Where | What | Read at |
+|---|---|---|
+| +0x00 | u32 version, `0x13c`; nothing else is taken | `0x1402dedcf` |
+| +0x04, +0x06 | u16 meshes, u16 materials | `0x1402e075a`; materials: data, the records end where the next table starts |
+| +0x08, +0x0a | u16 counts of two more tables (below) | `0x1402e05a3`, `0x1402e05f0` |
+| +0x0c | u32 bones | data: the skeleton's own count |
+| +0x30 | u32 flags: `0x10` the vertex data is in `<name>.vert`, `0x04` the names are in `<name>.name` | `0x1402dee09`, `0x1402df04d` |
+| +0x38, +0x40 | u32 size of the skeleton block, u32 size of the `.vert` file | `0x1402df309`, `0x1402dee8a` |
+| +0x48 | meshes, 0x80 bytes each | `0x1402df1ca` |
+| +0x50 | materials | `0x1402df51a` |
+| +0x58, +0x60 | two tables of records, 0x80 and 0x38 bytes each; a record starts with the hash of a bone and is tied to that bone. Guilmon has none; what they are was not read | `0x1402e04b3`, `0x1402e0640` |
+| +0x68 | one 3×4 float matrix for each bone: the inverse bind matrix | data: times the bone's rest matrix it gives the unit matrix (to 0.000005) for every bone of 495 of the 532 models; in the other 37 a few face and effect bones are posed otherwise |
+| +0x78 | names, NUL-ended | `0x1402dedf2` |
+| +0x90 | name table: u32 bones, u32 materials, then for each the offset of a list of name offsets | `0x1402def60` |
+| +0x98 | skeleton block, or 0 and it is the file `<name>.skel` | `0x1402df2de`, `0x1402df372` |
+
+**Mesh** (0x80 bytes).
+
+| Where | What | Read at |
+|---|---|---|
+| +0x00, +0x08, +0x10 | vertices, indices (u16), bone palette (u32: skeleton bones) | data: each ends where the next begins, at count × size |
+| +0x20 | vertex attributes | `0x1402df27b` |
+| +0x28, +0x2a, +0x2c | u16 palette size, u16 attributes, u32 bytes a vertex | data |
+| +0x30 | u8 weights a vertex | data: the BLENDWEIGHT attribute has as many |
+| +0x31 | u8, 5 or 1; the loader keeps it for each mesh | `0x1402df1d5`; meaning not read |
+| +0x34, +0x38 | u32 hash of the name, the name | `0x1402df280`; hash: data |
+| +0x40, +0x44, +0x48 | u32 material, u32 vertices, u32 indices | data |
+
+The indices are a **triangle strip**, pieces joined by repeated indices (data: the count is
+seldom a multiple of 3, four in ten of the strip's triangles are empty, and drawn as a
+strip the model is whole).
+
+**Vertex attribute** (8 bytes): u8 kind, u16 components (+2), u16 number type (+4), u16
+offset in the vertex (+6). `0x14035f260` turns them into the Direct3D input layout:
+
+| Kind | Semantic (table `0x14165bd30`) | Seen as |
+|---|---|---|
+| 1 | POSITION | 3 floats (4 in a few meshes) |
+| 2, 3 | NORMAL, TANGENT | 3 and 4 half floats |
+| 4 | BINORMAL | not in any of the 532 |
+| 5, 6, 7, 8 | TEXCOORD 0 to 3 | 2 floats (kind 8 not in any of the 532) |
+| 9 | COLOR | 4 bytes, 0..1 |
+| 10 | BLENDINDICES | 2 to 4 bytes: places in the mesh's bone palette |
+| 11 | BLENDWEIGHT | 2 to 4 half floats |
+
+Number types: 0 byte, 7 16-bit signed normalised (not in any of the 532), 8 half float,
+9 float.
+
+**Material**: +0 u32 hash of its name (data; the name table lists the names in another
+order), +0x320 u8 shader parameters, +0x321 u8 render states, then 0x20 bytes for each of
+them from +0x328, and the next material follows (`0x1402df51a`).
+
+| Where | What |
+|---|---|
+| +0x00 | up to four floats; or, for a texture, s32 name offset and at +8 s32 its length (`0x1402df666`) |
+| +0x10 | u16 id: a row of the shader parameter table at `0x141ac4f00` (0x38 bytes: hash, name, id, kind, size) |
+| +0x12 | u8 number of floats; 0 a texture; 100 a render state |
+
+Guilmon's body material has `ColorSampler` chr090a01, `NormalSampler` chr090a01n,
+`RgbaMaskSampler`, `LightWeightSampler`, `CLUTSampler` and `DiffuseColor` 1 1 1 1. The
+materials of its eyes add `OverlayColorSampler` (chr090p01, the pupils) and
+`OverlayColorSampler2` (chr090b01, the lids), and their meshes have a second and a third
+set of texture coordinates.
+
+**Skeleton**, `60SE`. An offset inside it counts from the field that holds it
+(`0x1402e054a`).
+
+| Where | What | Read at |
+|---|---|---|
+| +0x10 | u16 bones | `0x1402df49f` |
+| +0x18 | offset of the rest pose, 12 floats a bone: rotation x y z w, position x y z 1, scale x y z 1 | data: the inverse bind check above |
+| +0x20 | offset of the bones' name hashes | `0x1402e054a` |
+| +0x3c, +0x40 | u32 pairs, then the pairs: u16 bone, u16 parent (0x7fff none) | data: the same check; bit 15 is set on a few parents and was not read |
+
+A name's hash is CRC-32 without the final inversion (data: every bone name of the 532
+models has the hash the skeleton stores for it, and so have Guilmon's mesh and material
+names).
+
+### `.img`
+
+A DDS file with a DX10 header; BC1 (DXGI 71, 72) and BC7 (98, 99) in Guilmon's.
+
+### Looking at one
+
+```bash
+tools/.venv/Scripts/python -I tools/ts_model_read.py extracted_ts/app_0/chr090.geom
+tools/.venv/Scripts/python -I tools/ts_model_read.py extracted_ts/app_0/chr090.geom --glb guilmon.glb
+tools/.venv/Scripts/python -I tools/ts_model_read.py extracted_ts/app_0/chr090.geom --png guilmon.png --overlays
+```
+
+The first prints the bones, meshes and materials; `--glb` writes a glTF binary with the
+skin and the colour textures; `--png` draws the front and the side.
+
+### Not read from the executable
+
+- **The shaders.** Which texture does what is known by its parameter's name only. The
+  `.glb` carries `ColorSampler` alone and marks every material double-sided; which faces
+  a material hides and the winding were not read. `--overlays` lays the two eye textures
+  over the colour texture the way the pictures suggest, not the way a shader was read to
+  do it. Meshes without a colour texture (the black outline shell, with the parameter
+  `Fat`) and blended ones (the shine over each eye) are left out of the dumps unless
+  `--all` is given.
+- **Meshes of one bone and no weights** (the eyes) are given wholly to that bone in the
+  `.glb`.
+- The mesh byte at +0x31, bit 15 of a parent, the first 0x320 bytes of a material and the
+  fields of a mesh after +0x4c.
+- Models with a `.vert` or `.name` file beside them are refused by the reader; none of
+  the 532 has one.
+- The dump was not compared with the game running; the ticket's log says what it was
+  compared with.
+
+## Time Stranger tables
+
+The game's tables are `.mbe` files (`data/`, `text/`, `message/`). `tools/ts_mbe.py` reads
+them (TS-203).
+
+### `.mbe`
+
+The reader in the executable is `0x140dcf480`: it checks `EXPA` (`0x140dcf6cf`) and `CHNK`
+(`0x140dcf992`) and takes each table's row size from the file.
+
+- `EXPA`, u32 tables. For each table: u32 length of its name, the name, u32 columns, a u32
+  type for each column, u32 row size, u32 rows. The rows start at the next multiple of 8
+  and each takes the row size rounded up to a multiple of 8.
+- `CHNK`, u32 entries. For each: u32 offset in the file, u32 length, the string. The string
+  belongs to the 8 bytes at that offset, which lie in a row.
+
+Walked this way, all 740 `.mbe` files of `app_0/data` reach `CHNK` right after their last
+table.
+
+The column types were worked out from the rows, not read from the executable:
+
+| Type | What |
+|---|---|
+| 2, 3, 4 | an integer of 32, 16 and 8 bits |
+| 5 | a float |
+| 6, 7, 8 | a string: 8 bytes, filled through `CHNK` |
+| 9 | one bit; a run of such columns shares 32-bit words (which bit comes first was not checked) |
+| 10 | nothing: the column takes no room in the row |
+
+A column starts at a multiple of its own size and unused bytes hold `0xcc`. With these
+sizes the columns fill the row size, and every `CHNK` offset falls on a string column, in
+2,787 of the 2,788 tables of `app_0/data`. The one left has a column of type 0 and is not
+read.
+
+### Which model is whose
+
+| Table | Column | What |
+|---|---|---|
+| `text/char_name.mbe`, `Sheet1` (`app_text01`: English) | 0, 1 | the Digimon's key (`char_GUILMON`), its name |
+| `data/char_info.mbe`, `char_info` | 0 | the key |
+| | 3 | the model, `chr090` |
+| | 4 | a number, `1090` for `chr090` |
+
+That column 3 is the model was not read from a routine: Guilmon's row names `chr090`,
+which the owner confirmed to be Guilmon (TS-202), and the 44 models found this way were
+drawn and are the Digimon their rows name (`docs/time-stranger/img/ts-203-roster-models.png`).
+`docs/time-stranger/roster.md` has the model of each card. Agumon (Black) has no row in
+either table of this build.
+
+## Time Stranger motions
+
+A motion is one `.anim` file, `chrNNN_<name>.anim` (TS-203). `tools/ts_anim_read.py` reads
+it; of the 11,333 `chrNNN_*.anim` of `app_0` it reads 11,321 (the other 12 have a kind of
+channel it refuses).
+
+### `.anim`
+
+The loader is `0x1402dcd60`; it reads the file whole. **Nothing below was read from a
+routine**: the layout was worked out from the files, and each part is checked as said.
+An offset marked "rel" counts from the field that holds it.
+
+| Where | What | Checked by |
+|---|---|---|
+| +0x00 | `80AE` | |
+| +0x04, +0x08 | float length in seconds, float frames a second (30 in 11,235 files, 60 in 54, 512 in 32) | length × rate = frames − 1 in Guilmon's |
+| +0x0e, +0x10, +0x12 | u16 bones, u16 frames, u16 chunks | bones: the model's count; frames: the chunks add up to it in every file read |
+| +0x16 | u16 × 8: the channels that do not change (rotation, position, scale, float), then those that do | the lists and blocks below have these sizes |
+| +0x38, +0x3c | rel chunk table (8 bytes a chunk, the second u32 its offset); rel chunk frames (u16 first frame, u16 frames after it) | every chunk ends where the next begins |
+| +0x40, +0x44, +0x48 | rel values of the unchanging rotations (6 bytes each), positions and scales (3 floats each) | |
+| +0x60 | the bone of each channel, u16: a list for each of the eight counts, filled up with the bone count to a multiple of 4 entries (the first list to 8) | the bones of a list are below the bone count and the fill is the bone count, in every file read |
+
+**Chunk.** Eight u32 sizes: the first frame's rotations, positions, scales and floats, then
+the later ones' (the scale and float sizes take in padding). The blocks follow in that
+order, with a table of bits before the later ones: channel after channel, one bit for each
+frame after the chunk's first, the highest bit of a byte first, set where a value is
+stored. Checked in every chunk of every file read: the sizes add up to the chunk, and the
+set bits of the rotation channels × 6 and of the position channels × 12 are exactly the
+stored sizes (other ways of reading the table fit only by chance).
+
+**Rotation**, 6 bytes read as one 48-bit number, highest byte first: the lowest 2 bits say
+which of x, y, z, w was left out (the largest, taken positive); above them three 15-bit
+numbers *n* for the others, each (*n* − 16383) / 16384 / √2; the top bit is unused.
+Checked: of the readings tried this is the one where neighbouring values of a channel stay
+close (their dot product averages 0.9975 and never falls below 0.83 over 4,546 values);
+and Guilmon posed with it stands as a creature should
+(`docs/time-stranger/img/ts-203-guilmon-bn01.png`).
+
+**What the values are** (from that picture, not from a routine): a rotation is the bone's
+whole rotation in its parent; a position is added to the bone's rest position. Between two
+stored values `ts_anim_read.py` goes in a straight line; how the game does it was not read.
+
+```bash
+tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr090_*.anim
+tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr090_bn01.anim --tracks
+tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr090_bn01.anim --png pose.png --geom extracted_ts/app_0/chr090.geom --frame 0
+```
+
+### Which motion is for what
+
+The battle code asks for a motion by a number. Two things say what a number is:
+
+- **Its name.** `lua/battle_define.lua`, a script of the game (Lua 5.2 bytecode; `tools/ts_luac.py`
+  lists the globals it sets), gives the numbers their names: `MOTION_TYPE_IDLE = 0` and so on.
+- **Its motion.** `0x140c46320` turns a number into a row of `battle_define_string`
+  (`data/battle_calculate.mbe`) through `0x140c45e50` (rows 1 to 52) or `0x140c45c00`
+  (rows 53 to 78), and `0x1409cdb00` fetches the row's string, the motion's name.
+
+| Number | Name in `battle_define.lua` | Row | Motion |
+|---|---|---|---|
+| 0 | `MOTION_TYPE_IDLE` | 1 | `bn01` |
+| 1 | `MOTION_TYPE_TIRED` | 2 | `bn02` |
+| 2 | `MOTION_TYPE_ATTACK` | 3 | `ba01` |
+| 5 | `MOTION_TYPE_COMMON_SKILL` | 4 | `ba02` |
+| 7 | `MOTION_TYPE_GUARD` | 5 | `bg01` |
+| 8 | `MOTION_TYPE_AVOID` | 6 | `bg02` |
+| 9 | `MOTION_TYPE_DAMAGE` (also `DAMAGE02`, `DAMAGE03`) | 7 | `bd01` |
+| 10 | `MOTION_TYPE_DOWN` | 8 | `bd02` |
+| 11 | `MOTION_TYPE_UP` | 9 | `bd03` |
+| 12 | `MOTION_TYPE_HAPPY` | 10 | `fe02` |
+| 13 | `MOTION_TYPE_ANGRY` | 11 | `fe04` |
+| 31 | `MOTION_TYPE_WIN` | 12 | `bv01` |
+| 32 | `MOTION_TYPE_RUN` | 13 | `br01` |
+| 34 to 41 | `MOTION_TYPE_SPECIAL_SKILL01` to `08` | 14 to 21 | `bs01` to `bs08` |
+
+The other names are `ATTACK02` (3), `ATTACK03` (4), `ITEM` (6), `CHANGE_EXIT` (14), `CHANGE`
+(15), `CHANGE_FOR_DEATH` (16), `CROSS_ARTS_CHARGE_COMPLETE_01` and `_02` (17, 18),
+`CROSS_ARTS_IN` (19), `LOSE` (33), `COLLABO_SKILL` (42), `CHARGE_IDLE` to `CHARGE_FAILED`
+(43 to 48) and, in the `patch` archive's script only, `ITEM_02` (49).
+
+That the script's numbers are the code's numbers was not read from a routine; it shows in
+the scripts of single battles, which pair the same names with the same motions:
+`lua/battle_10400200.lua` holds `MOTION_TYPE_IDLE` with `bn01`, `TIRED` with `bn02`,
+`DAMAGE` with `bd01`, `DOWN` with `bd02`, `UP` with `bd03` and `GUARD` with `bg01` (and
+gives that one enemy `ba02` for `ATTACK` and `ba01` for `COMMON_SKILL`).
+
+Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
+(`data/battle_motion.mbe`), and a Digimon on the field stands with `bn01` and moves with
+`br01` (`data/field.mbe`, `field_move_animation`, row `default_move_animation`). What the
+`f…` motions of the field are for (`fe01`, `fe03`, `fq01`, `fq02`, `fn02_01`, `f000`) and
+`bf01` was not read.
+
 ## Layout
 
 | Path | What |
@@ -753,9 +1188,16 @@ out, upscales them 4× through the same ComfyUI model and writes 512×512 and 16
 | `web/js/battle3d.js`, `web/assets/models` | Polygon Battle: model/motion player and the generated models |
 | `tools/pak.py`, `omd.py`, `build_models.py` | PAK chunks, model and motion formats, model export |
 | `tools/bscript.py`, `btrace.py`, `build_battle.py` | Battle script parser, tracer, script and asset export |
+| `tools/motion_slots.py`, `docs/time-stranger/motion-slots.*` | What each model's eight motions last and when the scripts start them, measured from the disc |
 | `web/assets/battle` | Generated: battle scripts and attack effect assets |
 | `tools/lift.py`, `emu.py` | Compact MIPS listing and Unicorn runner used while reading the engine |
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
+| `tools/ts_extract.py`, `x64.py` | Time Stranger: the `.mvgl` unpacker and the x86-64 disassembly helper for its executable |
+| `tools/ts_model_read.py` | Time Stranger: reads a `.geom` model and its textures, dumps it as `.glb` or a drawing |
+| `tools/ts_mbe.py` | Time Stranger: reads the tables of a `.mbe` file |
+| `tools/ts_anim_read.py` | Time Stranger: reads a `.anim` motion, lists its channels, draws a model in one of its frames |
+| `tools/ts_luac.py` | Time Stranger: lists the globals and constants of a compiled script (`.lua`) |
+| `extracted_ts/` | Working copy of Time Stranger's files (about 49 GB, not in git, safe to delete) |
 
 ## File formats
 

@@ -6,10 +6,10 @@ Filled by TS-301 following [phase3.md](phase3.md); built by TS-302 … TS-306.
 |---|---|---|---|---|---|
 | WarGrowlmon | Fire | | | | |
 | Flaremon | Fire | | | | |
-| SaviorHackmon | Fire | | | | |
+| SaviorHuckmon | Fire | | | | |
 | MachGaogamon | Ice | | | | |
 | Crescemon | Ice | | | | |
-| MarineDevimon | Ice | | | | |
+| Dragomon | Ice | | | | |
 | Taomon | Nature | | | | |
 | Rapidmon | Nature | | | | |
 | Lilamon | Nature | | | | |

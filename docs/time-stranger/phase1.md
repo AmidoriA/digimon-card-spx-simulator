@@ -27,9 +27,21 @@ recolour.
 ## Battle
 
 - Base of the same Specialty: no `battle` block; the base's attack effects are used.
-- Base of another Specialty (✱ in roster.md): `battle` with the offset given in the ticket,
+- Base of another Specialty (✱ in roster.md): `battle` with the current offset in the table below,
   a recolour of the effects into the card's Specialty colours and its `accent` (create-card
   skill §4; BlackWarGreymon's `darkfire` is the example).
+
+The offsets follow only the current cross-Specialty rows in card-id order. Same-Specialty
+bases do not consume an offset. TS-001 replaced the former cross-Specialty card 332
+with Kurisarimon/Bakemon, so subsequent offsets shift down by 10000.
+
+| Card id | Card | Battle offset |
+|---|---|---|
+| 329 | Agumon (Black) | 20000 |
+| 330 | Monodramon | 30000 |
+| 335 | MetalTyrannomon | 40000 |
+| 344 | Wingdramon | 50000 |
+| 346 | Chirinmon | 60000 |
 
 ## Art
 

@@ -29,7 +29,9 @@ Mesh (drawn by 0x800202d8 / 0x8001f3c0 / 0x8001f94c): u32 groups; each group is
 Motion chunk (0x80023148, 0x80022100): u32 keys; each key 772 bytes: s16 duration,
   s16 sound + 1, then 32 records of 24 bytes {s16 rot x, y, z, s16 show, s16 move x, y, z,
   s16 ?, s16 scale x, y, z, s16 next}. Record i drives part i; record `parts` is the whole
-  model. The model eases from its current pose to the key over 2 x duration frames.
+  model. The model eases from its current pose to the key over 2 x duration frames. What the
+  eight motions are for, how long they last and the loop key ("next" of key 0's first record)
+  are in motion_slots.py.
 """
 import os
 import struct
