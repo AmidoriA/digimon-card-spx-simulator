@@ -517,6 +517,10 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 ## Not from the game code
 
+- **Time Stranger's files** are another game's, not the disc's. How they are stored was
+  read from that game's executable; what was not is listed under "Time Stranger files",
+  "Not read from the executable".
+
 - **Custom cards.** Nothing about a custom card is the game's but what it is made from.
   BlackWarGreymon's numbers (DP 60, +P 20, HP 1750, attacks 950 / 700 / 400), its attack
   names, its colours and its support effect were chosen for this project at the owner's
@@ -740,6 +744,101 @@ upscale.
 pictures named in `tools/new_art.json` (once, into `extracted/newart`), cuts the squares
 out, upscales them 4× through the same ComfyUI model and writes 512×512 and 160×160 files.
 
+## Time Stranger files
+
+The models of the Time Stranger cards (`docs/time-stranger/`) are to come from *Digimon
+Story Time Stranger* itself, from the owner's own Steam install. This section is how its
+files are stored and how to get a working copy; nothing of it is on the DDCB disc. The
+unpacked files stay out of git (`extracted_ts/`); only models converted from them are
+committed.
+
+### The build
+
+Everything below was read from one build. Addresses are virtual addresses in its
+executable (image base `0x140000000`).
+
+| | |
+|---|---|
+| Steam app | 1984270, build id `23514637` (`steamapps/appmanifest_1984270.acf`) |
+| Main depot | 1984271, manifest `2791297361435523425` |
+| `Digimon Story Time Stranger.exe` | 30,453,760 bytes, SHA-256 `ff9de825a543bf874cfb7e73ed951256d3ce4e8702957afa3b26ca6487a81688` |
+| `gamedata/app_0.dx11.mvgl` | 13,075,138,986 bytes, SHA-256 `2bebf470a2f42f87258787b8a630199044b8b99265386d4a6cd2f39280c6fdc9` |
+| `gamedata/patch.dx11.mvgl` | 1,371,328,286 bytes, SHA-256 `f7dd8b0be574324847902166729a8a1b08e00a375f15f7b835d1cfa8438f9fb6` |
+
+`gamedata/` holds 102 `.mvgl` and 6 `.cpk` files, 32.4 GB. The size and SHA-256 of each,
+and of the executable, are in `docs/time-stranger/files-23514637.tsv`.
+
+### The archives
+
+**`.mvgl`** holds the game's own files. Every one of the 102 starts with `MDB1`, and
+neither the tables nor the data are encrypted (a mod site says they are; in this build
+they are not).
+
+| What | Where it was read |
+|---|---|
+| The archive of a name is `<name>.dx11.mvgl` | `0x1402b6b00` |
+| Header, 0x20 bytes: `MDB1`, u32 nodes, u32 names, u32 data entries, u64 offset of the file data, u64 archive size | read at `0x1402c3f40`, magic compared at `0x1402c40d2` |
+| Tables at 0x20: the nodes (16 bytes), the names (0x80 bytes), then the data entries (24 bytes) | `0x1402c4240` |
+| Node: s32 bit, u32 data entry, u32 left, u32 right; node *n* has name *n*, node 0 is the root | walked at `0x1402cb030`, built at `0x1402cbbc0` |
+| Name: 4 bytes extension padded with spaces, 124 bytes path without it, backslashes, lowercase | key built at `0x1402c4c60` |
+| Data entry: u64 offset from the file data, u64 size, u64 stored size | `0x1402c46d0` |
+| Stored size equal to size: the bytes are the file. Otherwise one LZ4 block | `0x1402c4813`; `0x140e31400` calls the decoder `0x140e33170` |
+| The file is read with `fopen("rb")`, `fseek`, `fread`; nothing is done to the bytes | `0x1402bfdb0`, `0x1402c0230` |
+
+A file is found by walking the tree with its name as the key (a bit of the key picks left
+or right until the bit number stops growing) and comparing the name where the walk ends.
+The unpacker does not need the walk: it goes through the nodes in order.
+
+**`.cpk`** is CRI's archive. The names in their tables are sound (`.acb`, `.awb`, `.acf`)
+and movies (`.usm`, `.mp4`); they are not unpacked.
+
+### What is in them
+
+196,583 files, 49.3 GB unpacked; 4,204 of them are stored without compression.
+
+| Extension | Files | Bytes | Seen as |
+|---|---|---|---|
+| `geom` | 15,639 | 20.9 GB | models: `chrNNN.geom` (532 in `app_0`), `chrNNN_lod_N.geom`, fields, effects |
+| `img` | 20,416 | 26.1 GB | textures, in `images/` |
+| `anim` | 39,235 | 0.86 GB | motions |
+| `skel` | 25 | 32 KB | skeletons |
+| `nlst` | 15,639 | 54 MB | as many as there are `geom` |
+| `shad` | 79,072 | 0.6 GB | shaders, in `shaders/` |
+| `mbe` | 6,023 | 146 MB | tables and text (`data/`, `text/`, `message/`) |
+| others | | 0.67 GB | `bson`, `lips`, `lua`, `detr`, `phys`, `scen`, `bin`, `sprk`, `note`, `usb`, `name`, `png` |
+
+What each of these formats is inside has not been read; the "Seen as" column is from the
+names only.
+
+### Steps
+
+```bash
+tools/.venv/Scripts/python -m pip install -r tools/requirements.txt
+tools/.venv/Scripts/python -I tools/ts_extract.py "<Steam>/steamapps/common/Digimon Story Time Stranger" extracted_ts
+```
+
+It reads `<install>/gamedata/*.mvgl` and writes each archive to `extracted_ts/<archive>/`,
+with `extracted_ts/_manifest.tsv` (archive, path, offset, size, stored size). The install
+is only read. `--only "chr*.geom"` unpacks what matches, `--archive app_0` one archive,
+`--list` prints the tables and `--test` reads and inflates every file without writing.
+On this build it ends with `196583 files, 49261839878 bytes, 0 failed`. With another
+build, compare the executable's hash first: the addresses here are for this one, though
+the unpacker itself needs only the layout.
+
+`tools/x64.py` is the disassembly helper the addresses were read with
+(`x64.py <exe> dis|func|xref|find|str|imm|bytes`).
+
+### Not read from the executable
+
+- **Which archive wins.** 17,957 paths are in more than one archive (12,098 of them in
+  `app_0` and `patch`). The unpacker keeps each archive in its own folder; the order in
+  which the game looks through them was not traced.
+- **The header's last field** equals the file's size in all 102 archives; the routines
+  read here do not use it.
+- **The `.cpk` files** were only looked at for the names in their tables.
+- REA's deep analysis (Ghidra) is not set up on the owner's machine; the routines were
+  read as disassembly with `tools/x64.py`, not as decompiled code.
+
 ## Layout
 
 | Path | What |
@@ -769,6 +868,8 @@ out, upscales them 4× through the same ComfyUI model and writes 512×512 and 16
 | `web/assets/battle` | Generated: battle scripts and attack effect assets |
 | `tools/lift.py`, `emu.py` | Compact MIPS listing and Unicorn runner used while reading the engine |
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
+| `tools/ts_extract.py`, `x64.py` | Time Stranger: the `.mvgl` unpacker and the x86-64 disassembly helper for its executable |
+| `extracted_ts/` | Working copy of Time Stranger's files (about 49 GB, not in git, safe to delete) |
 
 ## File formats
 

@@ -1,5 +1,7 @@
 # working copy of the disc and disassembly notes
 extracted/
+# working copy of Time Stranger's files (tools/ts_extract.py); never committed
+extracted_ts/
 # local tooling
 tools/.venv/
 __pycache__/
