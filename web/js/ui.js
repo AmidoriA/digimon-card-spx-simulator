@@ -134,52 +134,80 @@
     el.appendChild(img);
     return el;
   }
-  // the cards a deck is recognised by: its strongest Digimon, highest level first
-  var faceCache = {};
-  function deckFaces(d) {
-    if (own(d) || !faceCache[d.id]) { // a deck of the player's changes: not remembered
-      var seen = {}, ids = d.cards.filter(function (id) {
-        if (seen[id] || E.card(id).type !== 'digimon') return false;
-        seen[id] = 1; return true;
-      });
-      ids.sort(function (a, b) { var x = E.card(a), y = E.card(b); return y.level - x.level || y.hp - x.hp || a - b; });
-      faceCache[d.id] = ids.slice(0, 6);
-    }
-    return faceCache[d.id];
+  // The picture of a deck's owner: the one the game puts on the "VS" screen before a battle
+  // (B:\MATCH\NNN.ARC, loaded by the deck's number at 0x801eda84; tools/build_owners.py).
+  // The starter decks and the player's own show the player's picture, and in the second
+  // player's list the second player's of a free battle. A deck the game never sets against
+  // the player has no picture: the back of a card stands in.
+  function ownerPic(d, second) {
+    var el = h('span', 'op'), img,
+      name = own(d) || d.owner === 'Player' ? (second ? 'player2' : 'player') : d.pic != null ? pad3(d.pic) : null;
+    if (name == null) { el.classList.add('none'); return el; }
+    img = document.createElement('img');
+    img.src = 'assets/owner/' + name + '.webp'; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+    el.appendChild(img);
+    return el;
   }
 
-  function fillDeckList(ul, decks, selId, filter, onPick) {
+  // The Specialties a deck plays: how many of its Digimon cards are of each, most first.
+  // Option cards have none.
+  function specMix(d) {
+    var per = [0, 0, 0, 0, 0];
+    d.cards.forEach(function (id) { var c = E.card(id); if (c.type === 'digimon') per[c.spec]++; });
+    return per.map(function (n, i) { return [i, n]; }).filter(function (x) { return x[1]; })
+      .sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
+  }
+  function specNames(d) { return specMix(d).map(function (x) { return E.SPEC[x[0]]; }).join(' '); }
+  function specChips(box, d) {
+    var mix = specMix(d);
+    clear(box);
+    box.setAttribute('role', 'img');
+    box.setAttribute('aria-label', mix.length ? 'Digimon by Specialty: ' + mix.map(function (x) { return E.SPEC[x[0]] + ' ' + x[1]; }).join(', ') : 'No Digimon cards');
+    mix.forEach(function (x) {
+      var s = h('span', 'el ' + SPEC_CLS[x[0]], E.SPEC[x[0]]);
+      s.appendChild(h('b', null, String(x[1])));
+      s.title = E.SPEC[x[0]] + ': ' + x[1] + (x[1] === 1 ? ' Digimon card' : ' Digimon cards');
+      box.appendChild(s);
+    });
+    return box;
+  }
+
+  function fillDeckList(ul, decks, selId, filter, onPick, second) {
     // the list is rebuilt on every pick: keep its place, and the keyboard's, instead of
     // jumping back to the top
     var top = ul.scrollTop, hadFocus = ul.contains(document.activeElement), focusId = null;
     clear(ul);
     var f = (filter || '').toLowerCase();
     decks.forEach(function (d) {
-      if (f && (d.name + ' ' + ownerOf(d)).toLowerCase().indexOf(f) < 0) return;
+      if (f && (d.name + ' ' + ownerOf(d) + ' ' + specNames(d)).toLowerCase().indexOf(f) < 0) return;
       var li = h('li');
       li.tabIndex = 0;
       li.setAttribute('role', 'option');
       li.setAttribute('aria-selected', d.id === selId ? 'true' : 'false');
+      li.appendChild(ownerPic(d, second));
       li.appendChild(h('span', 'dn', deckName(d)));
       li.appendChild(h('span', 'do', ownerOf(d)));
       if (own(d)) { if (!K.legal(d.cards)) li.appendChild(h('span', 'dr warn', d.cards.length + ' / ' + K.SIZE)); }
       else if (d.owner !== 'Player') li.appendChild(h('span', 'dr', 'Lv ' + d.rank));
-      var strip = h('span', 'dt');
-      deckFaces(d).forEach(function (id) { var t = thumb(id); t.title = E.card(id).name; strip.appendChild(t); });
-      li.appendChild(strip);
+      li.appendChild(specChips(h('span', 'de'), d));
       li.onclick = function () { onPick(d.id); };
       li.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPick(d.id); } };
       ul.appendChild(li);
       if (hadFocus && d.id === selId) focusId = li;
     });
-    if (!ul.firstChild) ul.appendChild(h('li', 'do', 'No decks match.'));
+    if (!ul.firstChild) ul.appendChild(h('li', 'nodeck', 'No decks match.'));
     ul.scrollTop = top;
     if (focusId) focusId.focus({ preventScroll: true });
   }
 
   function renderPreview() {
-    var d = previewed();
-    $('previewTitle').textContent = deckName(d) + ' — ' + d.cards.length + (d.cards.length === 1 ? ' card' : ' cards');
+    var d = previewed(), pic = ownerPic(d, S.two && S.previewSide === 'op');
+    pic.id = 'previewPic'; pic.classList.add('big');
+    $('previewPic').replaceWith(pic);
+    $('previewTitle').textContent = deckName(d);
+    $('previewOwner').textContent = ownerOf(d) + (own(d) || d.owner === 'Player' ? '' : ' · Lv ' + d.rank) +
+      ' · ' + d.cards.length + (d.cards.length === 1 ? ' card' : ' cards');
+    specChips($('previewMix'), d);
     var counts = {}, order = [];
     d.cards.forEach(function (id) { if (!counts[id]) { counts[id] = 0; order.push(id); } counts[id]++; });
     var ul = clear($('previewList'));
@@ -187,33 +215,91 @@
     K.armorForms(d.cards, d.armor).forEach(function (ar) {
       ul.appendChild(h('li', 'note', E.card(ar[0]).name + ' can armor digivolve to ' + E.card(ar[1]).name + ' when it enters.'));
     });
-    grouped(ul, order, counts);
+    grouped(ul, order, counts, 'in this deck.');
     $('btnEdit').textContent = own(d) ? 'Edit' : 'Copy and edit';
     $('btnEdit').title = own(d) ? 'Open this deck in the deck editor' : 'Make a deck of your own from this one and open it in the deck editor';
     $('btnDelete').hidden = !own(d);
   }
   function previewed() { return deckOf(S.previewSide === 'me' ? S.my : S.op); }
+  // ------------------------------------------------------------------ one card in full
+  function kindOf(c) { return c.type === 'digimon' ? E.SPEC[c.spec] + ' · Level ' + E.LEVEL[c.level] : c.type === 'option' ? 'Option card' : 'Digivolve option'; }
+  function effectOf(c) { return c.text === 'None' ? (c.type === 'digimon' ? 'No support effect.' : 'No effect.') : c.text; }
+  function stat(k, v, cl) {
+    var s = h('span', 'st' + (cl ? ' ' + cl : ''));
+    s.appendChild(h('i', null, k)); s.appendChild(document.createTextNode(String(v)));
+    return s;
+  }
+  // Fills `box` with a card: its picture, HP, DP and +P, the three attacks with their power,
+  // the support effect and what the ✕ effect does. The deck editor's side panel and the card
+  // opened from a card list share it. Gives back the block of text, for more lines.
+  function cardInfo(box, id) {
+    var c = E.card(id), k;
+    clear(box);
+    var art = h('div', 'ed-art ' + cls(c)), img = document.createElement('img'), body = h('div', 'ed-ibody');
+    img.src = artUrl(id, false); img.alt = ''; img.decoding = 'async';
+    art.appendChild(img); box.appendChild(art);
+    body.appendChild(h('div', 'ed-iname', c.name));
+    body.appendChild(h('div', 'ed-kind', kindOf(c)));
+    if (c.type === 'digimon') {
+      var st = h('div', 'ed-istats');
+      st.appendChild(stat('HP', c.hp)); st.appendChild(stat('DP', c.dp)); st.appendChild(stat('+P', c.pp));
+      body.appendChild(st);
+      var at = h('div', 'ed-iatk');
+      c.atk.forEach(function (a, i) {
+        at.appendChild(h('span', 'sym s' + i, E.ATK[i])); at.appendChild(h('span', null, a.name)); at.appendChild(h('b', null, String(a.power)));
+      });
+      body.appendChild(at);
+    }
+    box.appendChild(body);
+    var tx = h('div', 'ed-itext');
+    tx.appendChild(h('b', null, c.type === 'digimon' ? 'Support effect' : c.type === 'option' ? 'Option effect' : 'Digivolve option'));
+    tx.appendChild(rich(h('span'), effectOf(c)));
+    if (c.type === 'digimon' && c.xfx) {
+      tx.appendChild(rich(h('b'), E.ATK[2] + ' ' + E.XFX[c.xfx]));
+      tx.appendChild(rich(h('span'), XFX_HELP[c.xfx]));
+    }
+    k = E.PARTNERS.indexOf(id);
+    if (k >= 0) {
+      tx.appendChild(h('b', null, 'Partner'));
+      tx.appendChild(h('span', null, 'Can armor digivolve when it enters, to ' + E.ARMORS[k].filter(Boolean).map(function (x) { return E.card(x).name; }).join(' or ') + ': the Armor choice of the deck says which.'));
+    }
+    box.appendChild(tx);
+    return tx;
+  }
+  // a card of a card list, opened; `note` = a line about where it was opened from
+  function showCard(id, note) {
+    var tx = cardInfo($('cardBox'), id);
+    if (note) tx.appendChild(h('span', 'ed-have', note));
+    $('card').setAttribute('aria-label', E.card(id).name);
+    if (!$('card').open) $('card').showModal();
+  }
+
   var GROUPS = [['Level R', function (c) { return c.type === 'digimon' && c.level === 0; }],
     ['Level C', function (c) { return c.type === 'digimon' && c.level === 2; }],
     ['Level U', function (c) { return c.type === 'digimon' && c.level === 3; }],
     ['Option', function (c) { return c.type !== 'digimon'; }]];
-  // one card of a card list; corner = what to write in its lower corner, if anything
-  function tile(id, corner, cornerCls) {
+  // one card of a card list; corner = what to write in its lower corner, if anything.
+  // A click, or Enter, opens the card with its numbers and effects; note = a line for there
+  function tile(id, corner, cornerCls, note) {
     var c = E.card(id), li = h('li', 'tile'), pic = thumb(id);
     pic.appendChild(h('span', 'badge ' + cls(c), lvl(c)));
     if (corner) pic.appendChild(h('span', cornerCls || 'cnt', corner));
     li.appendChild(pic);
     li.appendChild(h('span', 'tn', c.name));
     li.title = c.name + ' — ' + (c.type === 'digimon' ? ('HP ' + c.hp + ' • ' + c.atk.map(function (a) { return a.power; }).join(' / ') + ' • ' + c.text) : c.text);
+    li.tabIndex = 0; li.setAttribute('role', 'button');
+    li.onclick = function () { showCard(id, note); };
+    li.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showCard(id, note); } };
     return li;
   }
-  // the different cards of `order` by level, each with how many there are
-  function grouped(ul, order, counts) {
+  // the different cards of `order` by level, each with how many there are; where = the
+  // deck or pile they are counted in, for the opened card to say
+  function grouped(ul, order, counts, where) {
     GROUPS.forEach(function (g) {
       var ids = order.filter(function (id) { return g[1](E.card(id)); });
       if (!ids.length) return;
       ul.appendChild(h('li', 'grp', g[0] + ' — ' + ids.reduce(function (t, id) { return t + counts[id]; }, 0)));
-      ids.forEach(function (id) { ul.appendChild(tile(id, '×' + counts[id])); });
+      ids.forEach(function (id) { ul.appendChild(tile(id, '×' + counts[id], null, counts[id] + ' ' + where)); });
     });
   }
 
@@ -242,7 +328,7 @@
     $('pileTitle').textContent = poss(p) + ' Online deck — ' + ids.length + (ids.length === 1 ? ' card' : ' cards') + ' left';
     $('pileNote').textContent = ids.length ? 'The cards still to come, not in the order they will come.' : '';
     if (!ids.length) ul.appendChild(h('li', 'empty', 'The deck is empty.'));
-    grouped(ul, order, counts);
+    grouped(ul, order, counts, 'left in the deck.');
     $('pile').showModal();
   }
   function pilePlate(el, p, show, what) {
@@ -263,7 +349,7 @@
     if (foes.every(function (d) { return d.id !== S.op; })) S.op = foes[0].id;
     try { localStorage.setItem('ddcb-deck', String(S.my)); } catch (err) { /* storage unavailable */ }
     fillDeckList($('myDecks'), OWN.concat(MY_DECKS), S.my, $('myFilter').value, function (id) { S.my = id; S.previewSide = 'me'; renderSetup(); });
-    fillDeckList($('opDecks'), foes, S.op, $('opFilter').value, function (id) { S.op = id; S.previewSide = 'op'; renderSetup(); });
+    fillDeckList($('opDecks'), foes, S.op, $('opFilter').value, function (id) { S.op = id; S.previewSide = 'op'; renderSetup(); }, S.two);
     Array.prototype.forEach.call($('previewTabs').children, function (b) { b.classList.toggle('on', b.dataset.side === S.previewSide); });
     renderPreview();
     var bad = K.problems(deckOf(S.my).cards);
@@ -416,6 +502,10 @@
     el.dataset.id = id;
     var art = h('div', 'ca');
     art.style.backgroundImage = 'url(' + artUrl(id, true) + ')';
+    // The game paints a Digimon card's level (R, A, C, U; "RP" on the six partners) into
+    // the corner of its board picture. The new art has no letter, so the game's own, cut
+    // out of its pictures (tools/build_levels.py), is laid over it.
+    if (c.type === 'digimon') art.appendChild(h('i', 'lv l' + (E.PARTNERS.indexOf(id) >= 0 ? 'p' : c.level))).hidden = !newArt;
     el.appendChild(art);
     var nm = h('div', 'cn', c.name);
     if (!small) { if (c.name.length > 15) nm.style.fontSize = '14px'; else if (c.name.length > 11) nm.style.fontSize = '17px'; }
@@ -1353,6 +1443,7 @@
   }
 
   function toMenu() {
+    if ($('card').open) $('card').close();
     if ($('pile').open) $('pile').close();
     S.token++; S.G = null; S.resolve = null; S.anim = null;
     SND.stopMusic(); FXV.stop(); B3D.stop();
@@ -1456,7 +1547,11 @@
     Array.prototype.forEach.call($('dyn').querySelectorAll('.c[data-id] > .ca'), function (a) {
       // swapped once the other picture has arrived, so the card does not blink empty
       var id = +a.parentNode.dataset.id, url = artUrl(id, true), im = new Image();
-      im.onload = function () { if (artUrl(id, true) === url) a.style.backgroundImage = 'url(' + url + ')'; };
+      im.onload = function () {
+        if (artUrl(id, true) !== url) return;
+        a.style.backgroundImage = 'url(' + url + ')';
+        if (a.firstChild) a.firstChild.hidden = !newArt;   // the level letter laid over new art
+      };
       im.src = url;
     });
     $('info').hidden = true;
@@ -1490,5 +1585,6 @@
   }
 
   // what the deck editor (editor.js) shares with this file, and a small hook for automated checks
-  window.DDCB_UI = { state: S, act: act, h: h, clear: clear, thumb: thumb, art: artUrl, rich: rich, cls: cls, lvl: lvl, XFX_HELP: XFX_HELP };
+  window.DDCB_UI = { state: S, act: act, h: h, clear: clear, thumb: thumb, art: artUrl, rich: rich, cls: cls, lvl: lvl, XFX_HELP: XFX_HELP,
+    kindOf: kindOf, effectOf: effectOf, stat: stat, cardInfo: cardInfo, showCard: showCard };
 })();

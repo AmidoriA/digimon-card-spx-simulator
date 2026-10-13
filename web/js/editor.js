@@ -48,15 +48,9 @@
     if (pos < text.length) put(text.slice(pos));
     return el;
   }
-  function kindOf(c) { return c.type === 'digimon' ? E.SPEC[c.spec] + ' · Level ' + E.LEVEL[c.level] : c.type === 'option' ? 'Option card' : 'Digivolve option'; }
-  function effectOf(c) { return c.text === 'None' ? (c.type === 'digimon' ? 'No support effect.' : 'No effect.') : c.text; }
+  var kindOf = UI.kindOf, effectOf = UI.effectOf, stat = UI.stat;
 
   // ------------------------------------------------------------------ card list
-  function stat(k, v, cl) {
-    var s = h('span', 'st' + (cl ? ' ' + cl : ''));
-    s.appendChild(h('i', null, k)); s.appendChild(document.createTextNode(String(v)));
-    return s;
-  }
   function stepper(c) {
     var step = h('span', 'ed-step'), sub = h('button', 'ed-sub', '−'), cnt = h('span', 'ed-cnt'), add = h('button', 'ed-plus', '+');
     sub.type = add.type = 'button'; sub.tabIndex = add.tabIndex = -1;
@@ -302,44 +296,14 @@
 
   // ------------------------------------------------------------------ card detail
   function drawInfo(id) {
-    var box = $('edInfo'), c = E.card(id), k;
+    var box = $('edInfo');
     if (id === cur && box.firstChild) { inDeck(); return; }
     cur = id;
-    clear(box);
-    if (!c) {
-      box.appendChild(h('p', 'ed-hint', 'Point at a card, or move to it with the arrow keys, to see it here.'));
+    if (!E.card(id)) {
+      clear(box).appendChild(h('p', 'ed-hint', 'Point at a card, or move to it with the arrow keys, to see it here.'));
       return;
     }
-    var art = h('div', 'ed-art ' + UI.cls(c)), img = document.createElement('img'), body = h('div', 'ed-ibody');
-    img.src = UI.art(id, false); img.alt = ''; img.decoding = 'async';
-    art.appendChild(img); box.appendChild(art);
-    body.appendChild(h('div', 'ed-iname', c.name));
-    body.appendChild(h('div', 'ed-kind', kindOf(c)));
-    if (c.type === 'digimon') {
-      var st = h('div', 'ed-istats');
-      st.appendChild(stat('HP', c.hp)); st.appendChild(stat('DP', c.dp)); st.appendChild(stat('+P', c.pp));
-      body.appendChild(st);
-      var at = h('div', 'ed-iatk');
-      c.atk.forEach(function (a, i) {
-        at.appendChild(h('span', 'sym s' + i, E.ATK[i])); at.appendChild(h('span', null, a.name)); at.appendChild(h('b', null, String(a.power)));
-      });
-      body.appendChild(at);
-    }
-    box.appendChild(body);
-    var tx = h('div', 'ed-itext');
-    tx.appendChild(h('b', null, c.type === 'digimon' ? 'Support effect' : c.type === 'option' ? 'Option effect' : 'Digivolve option'));
-    tx.appendChild(UI.rich(h('span'), effectOf(c)));
-    if (c.type === 'digimon' && c.xfx) {
-      tx.appendChild(UI.rich(h('b'), E.ATK[2] + ' ' + E.XFX[c.xfx]));
-      tx.appendChild(UI.rich(h('span'), UI.XFX_HELP[c.xfx]));
-    }
-    k = E.PARTNERS.indexOf(id);
-    if (k >= 0) {
-      tx.appendChild(h('b', null, 'Partner'));
-      tx.appendChild(h('span', null, 'Can armor digivolve when it enters, to ' + E.ARMORS[k].filter(Boolean).map(function (x) { return E.card(x).name; }).join(' or ') + ': the Armor choice of the deck says which.'));
-    }
-    tx.appendChild(h('span', 'ed-have'));
-    box.appendChild(tx);
+    UI.cardInfo(box, id).appendChild(h('span', 'ed-have'));
     inDeck();
   }
   function inDeck() {

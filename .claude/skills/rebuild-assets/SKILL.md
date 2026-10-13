@@ -28,11 +28,13 @@ Run only the one whose input or code you changed. All take `extracted web`.
 | Tool | Makes | Notes |
 |---|---|---|
 | `build_data.py` | `web/js/data/cards.js` | cards and decks |
+| `build_owners.py` | `web/assets/owner/` | the deck owners' pictures; pass `--upscale`, which sends them 4x through ComfyUI as the site has them (without it they stay at the game's 128x112) |
 | `build_effects.py` | `web/js/data/effects.js` | board effect scripts |
 | `build_audio.py` | `web/assets/audio/`, `web/js/data/audio.js` | pass `--missing`, or every sound file changes |
 | `build_models.py` | `web/assets/models/NNN.*` | Digimon models, textures, motions |
 | `build_battle.py` | `web/assets/battle/` and `web/assets/models/bgNNN.*` | battle scripts, attack effect files, arenas, overlay |
 | `upscale_assets.py` | `web/assets/art/`, `mini/`, `ui/`, `battle/overlay4.png` | needs the owner's ComfyUI running at `http://127.0.0.1:8188`; name a part (`art`, `mini`, `ui`, `overlay`) to do only that |
+| `build_levels.py` | `web/assets/ui/level_*.png` | the level letters laid over new art; made from `web/assets/mini`, so run it after `upscale_assets.py ... mini` |
 | `build_custom.py` | the custom cards' models, effect files and pictures, and `cards.js` and `scripts.json.gz` again | `build_data.py` and `build_battle.py` already write the custom cards' records and scripts with the game's; name a part (`data`, `model`, `battle`, `art`), only `art` needs ComfyUI. See the `create-card` skill |
 | `arena_previews.py web` | `web/assets/battle/arena/` | serves a page that draws each arena in a browser and saves it; pass `--no-open` and open the address it prints yourself |
 

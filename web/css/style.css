@@ -68,18 +68,38 @@ button, input, select { font: inherit; color: inherit; }
 .setup-grid .panel { display: flex; flex-direction: column; max-height: calc(100vh - 250px); min-height: 320px; }
 .filter { width: 100%; background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; }
 .decklist, .cardlist { list-style: none; margin: 0; padding: 0; overflow: auto; flex: 1; }
-.decklist li { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: baseline; padding: 7px 9px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; }
+.decklist li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto auto 1fr; gap: 1px 10px; align-items: baseline; padding: 6px 8px 6px 6px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+.decklist li + li { margin-top: 2px; }
 .decklist li:hover { background: var(--panel-2); }
-.decklist li[aria-selected="true"] { background: var(--panel-2); border-color: var(--accent); }
-.decklist .dn { font-weight: 600; overflow-wrap: anywhere; }
-.decklist .do { grid-column: 1; color: var(--ink-3); font-size: 12px; }
-.decklist .dt { grid-column: 1 / -1; display: flex; gap: 4px; margin-top: 5px; min-height: 34px; overflow: hidden; }
-.decklist .dt .th { width: 34px; }
+.decklist li[aria-selected="true"] { background: var(--panel-2); border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.decklist .op { grid-row: 1 / span 3; align-self: start; }
+.decklist .dn { grid-column: 2; font-weight: 600; overflow-wrap: anywhere; line-height: 1.25; padding-top: 2px; }
+.decklist .do { grid-column: 2; color: var(--ink-3); font-size: 12px; }
+.decklist li.nodeck { display: block; padding: 10px; color: var(--ink-3); font-size: 12px; cursor: default; }
+.decklist li.nodeck:hover { background: none; }
+/* a deck owner's picture from the game's "VS" screen: 128x112 there, enlarged 4x by build_owners.py */
+.op { display: block; flex: none; width: 64px; aspect-ratio: 8 / 7; border-radius: 5px; overflow: hidden; background: #0c131c; box-shadow: 0 0 0 1px var(--line-2); }
+.op img { display: block; width: 100%; height: 100%; }
+.op.none { background: #0c131c url(../assets/ui/card_back.png) center / auto 86% no-repeat; }
+.op.big { width: 112px; }
+.decklist li[aria-selected="true"] .op { box-shadow: 0 0 0 1px var(--accent); }
+.deck-head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.deck-head-body { min-width: 0; display: grid; gap: 3px; align-content: start; }
+.deck-head h2 { font-size: 18px; line-height: 1.2; letter-spacing: 0; text-transform: none; color: var(--ink); margin: 0; overflow-wrap: anywhere; }
+.deck-owner { color: var(--ink-2); font-size: 12px; }
+/* the Specialties of a deck's Digimon cards, with how many of each */
+.de { display: flex; flex-wrap: wrap; gap: 3px 4px; }
+.decklist .de { grid-column: 2 / -1; align-self: start; margin-top: 4px; }
+.deck-head .de { margin-top: 4px; }
+.el { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; line-height: 17px; color: var(--ink-2); white-space: nowrap; border-radius: 99px; padding: 0 7px 0 5px;
+  border: 1px solid color-mix(in srgb, var(--dot) 55%, var(--line)); background: color-mix(in srgb, var(--dot) 14%, transparent); }
+.el::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); }
+.el b { font: 700 11px var(--mono); color: var(--ink); }
 .th { position: relative; display: block; flex: none; aspect-ratio: 1; border-radius: 4px; overflow: hidden; background: #0c131c; border: 2px solid var(--tc, var(--opt)); }
 .th img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .th.fire { --tc: var(--fire); } .th.ice { --tc: var(--ice); } .th.nature { --tc: var(--nature); }
 .th.dark { --tc: #555; } .th.rare { --tc: var(--rare); } .th.opt { --tc: var(--opt); }
-.decklist .dr { grid-row: 1 / span 2; grid-column: 2; align-self: center; font: 11px var(--mono); color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 99px; padding: 1px 7px; }
+.decklist .dr { grid-row: 1; grid-column: 3; align-self: start; margin-top: 2px; font: 11px var(--mono); color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 99px; padding: 1px 7px; }
 .tabs { display: flex; gap: 6px; margin-bottom: 8px; }
 .tabs button { flex: 1; background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 5px; cursor: pointer; color: var(--ink-2); }
 .tabs button.on { border-color: var(--accent); color: var(--ink); }
@@ -201,7 +221,14 @@ button, input, select { font: inherit; color: inherit; }
 
 /* cards: 40x48 units, frame colour by Specialty (CARD_F palettes) */
 .c { width: 160px; height: 192px; padding: 5px 5px 0; background: var(--fc, var(--opt)); box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .28), 0 4px 0 rgba(0, 0, 0, .45); display: flex; flex-direction: column; transition: transform .12s ease, filter .12s ease; }
-.c .ca { flex: none; height: 150px; background-size: cover; background-position: center; background-color: #111; }
+.c .ca { flex: none; height: 150px; background-size: cover; background-position: center; background-color: #111; position: relative; }
+/* the level letter of the game's board pictures, over new art: the corner 80x64 of 160x160.
+   The dark edge is this project's: the letter is plain white, and the new art is often bright */
+.c .lv { position: absolute; left: 0; top: 0; width: 50%; height: 40%; background: 0 0 / 100% 100% no-repeat; pointer-events: none;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, .95)) drop-shadow(0 2px 2px rgba(0, 0, 0, .8)); }
+.lv.l0 { background-image: url(../assets/ui/level_r.png); } .lv.l1 { background-image: url(../assets/ui/level_a.png); }
+.lv.l2 { background-image: url(../assets/ui/level_c.png); } .lv.l3 { background-image: url(../assets/ui/level_u.png); }
+.lv.lp { background-image: url(../assets/ui/level_rp.png); }
 .c .cn { flex: 1; display: flex; align-items: center; justify-content: center; font: 800 21px/1 var(--game); color: #111; background: var(--fl, #ececec); margin: 0 -5px; padding: 0 4px; white-space: nowrap; overflow: hidden; }
 .c.fire { --fc: #a02030; --fl: #ffa6b4; } .c.ice { --fc: #2434b0; --fl: #a8b0ff; } .c.nature { --fc: #2c8420; --fl: #a4ec94; }
 .c.dark { --fc: #2a2a2a; --fl: #8a8a8a; } .c.rare { --fc: #a39a30; --fl: #ffffb4; } .c.opt { --fc: #666; --fl: #f2f2f2; }
@@ -360,7 +387,7 @@ kbd { font: 12px var(--mono); background: var(--bg-2); border: 1px solid var(--l
 .chip.on .n { color: inherit; opacity: .75; }
 .chip:disabled { opacity: .35; cursor: default; }
 .chip.fire::before, .chip.ice::before, .chip.nature::before, .chip.dark::before, .chip.rare::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); }
-.chip.fire { --dot: #e5484d; } .chip.ice { --dot: #3b9eff; } .chip.nature { --dot: #46a758; } .chip.dark { --dot: #555; } .chip.rare { --dot: #e2b714; }
+.chip.fire, .el.fire { --dot: #e5484d; } .chip.ice, .el.ice { --dot: #3b9eff; } .chip.nature, .el.nature { --dot: #46a758; } .chip.dark, .el.dark { --dot: #555; } .chip.rare, .el.rare { --dot: #e2b714; }
 .chip .sym { margin: 0; }
 .chip.on .sym { color: inherit; }
 .ed-count { display: flex; align-items: baseline; gap: 14px; margin: 10px 0 6px; color: var(--ink-2); font-size: 12px; }
@@ -406,8 +433,22 @@ mark { background: rgba(255, 178, 36, .32); color: var(--ink); border-radius: 2p
 .ed-none .row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
 .ed-hint { color: var(--ink-3); font-size: 12px; }
 
-.ed-info { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 12px; align-content: start; height: 248px; overflow: auto; flex: none; }
-.ed-info > .ed-hint { grid-column: 1 / -1; }
+/* one card in full: the editor's side panel, and the card opened from a card list */
+.cardinfo { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 12px; align-content: start; }
+.cardinfo > .ed-hint { grid-column: 1 / -1; }
+.ed-info { height: 248px; overflow: auto; flex: none; }
+.dialog.card-dlg { width: min(460px, 94vw); max-width: none; }
+.card-dlg .cardinfo { grid-template-columns: 128px minmax(0, 1fr); gap: 6px 14px; max-height: 70vh; overflow: auto; }
+.card-dlg .ed-art { width: 128px; height: 128px; }
+.card-dlg .ed-iname { font-size: 20px; }
+.card-dlg .ed-istats { font-size: 14px; gap: 14px; margin: 4px 0; }
+.card-dlg .ed-iatk, .card-dlg .ed-itext { font-size: 13px; }
+.card-dlg .ed-iatk { gap: 2px 8px; }
+.card-dlg .ed-iatk b { font-size: 13px; }
+.cardlist .tile { cursor: pointer; border-radius: 6px; }
+.cardlist .tile:hover .th, .cardlist .tile:focus-visible .th { box-shadow: 0 0 0 2px var(--accent); }
+.cardlist .tile:hover .tn { color: var(--ink); }
+.cardlist .tile:focus-visible { outline: none; }
 .ed-art { width: 96px; height: 96px; border-radius: 6px; overflow: hidden; border: 3px solid var(--tc, var(--opt)); background: #0c131c; }
 .ed-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .ed-art.fire { --tc: var(--fire); } .ed-art.ice { --tc: var(--ice); } .ed-art.nature { --tc: var(--nature); } .ed-art.dark { --tc: #555; } .ed-art.rare { --tc: var(--rare); }
@@ -485,6 +526,8 @@ mark { background: rgba(255, 178, 36, .32); color: var(--ink); border-radius: 2p
   .ed-saved { display: none; }
 }
 @media (max-width: 640px) {
+  .card-dlg .cardinfo { grid-template-columns: 96px minmax(0, 1fr); }
+  .card-dlg .ed-art { width: 96px; height: 96px; }
   .setup-grid { grid-template-columns: 1fr; }
   .setup-grid .panel { max-height: 300px; }
   .ed-main { grid-template-columns: 44px minmax(0, 1fr); }
