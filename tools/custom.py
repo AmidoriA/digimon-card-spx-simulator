@@ -25,6 +25,8 @@ README lists every custom card under "Not from the game code".
                                      Choose exactly one source. File crops use native pixels;
                                      card crops use the normalized 430x600 image. Internet
                                      sources cache under <extracted_dir>/newart.
+                                     A card/ref source may also name "edited": "edited/ts002/303.png";
+                                     the recorded recipe and native edited crop are verified before use.
    }],
    "decks": [{                      a deck of the game with some of its cards exchanged; it
      "name": "Black Fire Again",    follows the game's 159 decks and keeps the owner, the rank,

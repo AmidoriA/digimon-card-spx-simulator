@@ -71,6 +71,11 @@ def new_art_source(ext, entry):
     kinds = [key for key in ('file', 'card', 'ref') if key in entry]
     if len(kinds) != 1:
         raise ValueError('art.new needs exactly one of file, card or ref')
+    if 'edited' in entry:
+        if kinds[0] == 'file':
+            raise ValueError('recorded edited cache needs its official card/ref source')
+        from prepare_time_stranger_art import edited_source
+        return edited_source(entry, os.path.join(ext, 'newart'))
     if kinds[0] in ('card', 'ref'):
         import build_new_art
         return build_new_art.source(entry, os.path.join(ext, 'newart'))

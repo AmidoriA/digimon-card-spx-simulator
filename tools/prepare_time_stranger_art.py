@@ -9,14 +9,10 @@ same coordinates. Only masked pixels change; output is a square at the crop's na
 """
 import argparse
 import hashlib
-import io
 import json
 from pathlib import Path
-import time
-import urllib.parse
-import uuid
 
-from PIL import Image, ImageDraw, ImageFilter, ImageOps
+from PIL import Image, ImageDraw
 import build_new_art
 import comfy
 
@@ -26,36 +22,10 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 def edit(source, mask, recipe, tag):
-    # Native crop is resized only for the model, then composited at native size.
-    model_image = source.resize((512, 512), Image.Resampling.LANCZOS).convert('RGBA')
-    model_mask = mask.resize((512, 512), Image.Resampling.NEAREST)
-    model_image.putalpha(ImageOps.invert(model_mask))
-    name = comfy._upload(model_image, 'ts002_' + tag + '_' + uuid.uuid4().hex + '.png')
-    graph = json.loads((TOOLS / recipe['workflow']).read_text(encoding='utf8'))
-    graph['1']['inputs']['image'] = name
-    graph['2']['inputs']['ckpt_name'] = recipe['model']
-    graph['3']['inputs']['text'] = recipe['prompt']
-    graph['6']['inputs'].update({key: recipe[key] for key in ('seed', 'steps', 'cfg', 'sampler_name', 'scheduler', 'denoise')})
-    graph['8']['inputs']['filename_prefix'] = 'ddcb/ts002_' + tag
-    pid = comfy._post_json('/prompt', {'prompt': graph, 'client_id': 'ddcb-ts002'})['prompt_id']
-    started = time.monotonic()
-    while time.monotonic() - started < 600:
-        history = json.loads(comfy._get('/history/' + pid))
-        if pid in history:
-            result = history[pid]
-            if result.get('status', {}).get('status_str') == 'error':
-                raise RuntimeError('ComfyUI failed: ' + json.dumps(result['status']))
-            outputs = result.get('outputs', {}).get('8', {}).get('images', [])
-            if outputs:
-                query = urllib.parse.urlencode({key: outputs[0][key] for key in ('filename', 'subfolder', 'type')})
-                generated = Image.open(io.BytesIO(comfy._get('/view?' + query))).convert('RGB')
-                generated = generated.resize(source.size, Image.Resampling.LANCZOS)
-                # A 1px soft seam stays entirely within the declared mask.
-                feather = mask.filter(ImageFilter.GaussianBlur(1))
-                feather = Image.composite(feather, Image.new('L', mask.size), mask)
-                return Image.composite(generated, source, feather), pid
-        time.sleep(0.5)
-    raise TimeoutError('ComfyUI did not finish ' + tag)
+    output = comfy.inpaint(source, mask, recipe['prompt'], workflow=TOOLS / recipe['workflow'],
+                           tag='ts002_' + tag, **{key: recipe[key] for key in
+                           ('seed','model','steps','cfg','sampler_name','scheduler','denoise')})
+    return output, output.info['comfy_prompt_id']
 
 def make_mask(entry, recipe):
     canvas = Image.new('L', (430, 600), 0)
@@ -65,14 +35,40 @@ def make_mask(entry, recipe):
     x, y, size = entry['crop']
     return canvas.crop((x, y, x + size, y + size))
 
+def edit_identity(source, mask, recipe):
+    return {'source_pixels_sha256': digest(source.tobytes()), 'mask_pixels_sha256': digest(mask.tobytes()),
+            'recipe_sha256': digest(json.dumps(recipe, sort_keys=True).encode()),
+            'workflow_sha256': digest((TOOLS / recipe['workflow']).read_bytes())}
+
+def edited_source(entry, cache):
+    """Load a recorded native edited crop, refusing missing, mismatched or stale results."""
+    cache = Path(cache).resolve()
+    output = (cache / entry['edited']).resolve()
+    if not output.is_relative_to(cache):
+        raise ValueError('edited art must be inside extracted/newart')
+    recipes = json.loads((TOOLS / 'new_art_edits.json').read_text(encoding='utf8'))
+    matches = [r for r in recipes if r['output'] == entry['edited']]
+    source_entry = {key: entry[key] for key in ('card','ref','crop') if key in entry}
+    if len(matches) != 1 or matches[0]['source'] != source_entry:
+        raise ValueError('edited art does not match its recorded source and crop')
+    if not output.exists() or not output.with_suffix('.json').exists():
+        raise FileNotFoundError('Prepare the edited art with tools/prepare_time_stranger_art.py first')
+    recipe = matches[0]
+    source = build_new_art.source(entry, str(cache))
+    mask = make_mask(entry, recipe)
+    identity = edit_identity(source, mask, recipe)
+    saved = json.loads(output.with_suffix('.json').read_text(encoding='utf8'))
+    picture = Image.open(output).convert('RGB')
+    if picture.size != source.size or any(saved.get(key) != value for key, value in identity.items()) or saved.get('output_pixels_sha256') != digest(picture.tobytes()):
+        raise ValueError('Edited art cache is stale or damaged; rerun tools/prepare_time_stranger_art.py')
+    return picture
+
 def prepare(entry, recipe, cache, force=False):
     source = build_new_art.source(entry, str(cache))
     out = cache / recipe['output']
     meta = out.with_suffix('.json')
     mask = make_mask(entry, recipe)
-    identity = {'source_pixels_sha256': digest(source.tobytes()), 'mask_pixels_sha256': digest(mask.tobytes()),
-                'recipe_sha256': digest(json.dumps(recipe, sort_keys=True).encode()),
-                'workflow_sha256': digest((TOOLS / recipe['workflow']).read_bytes())}
+    identity = edit_identity(source, mask, recipe)
     if out.exists() and meta.exists() and not force:
         saved = json.loads(meta.read_text())
         if all(saved.get(key) == value for key, value in identity.items()):

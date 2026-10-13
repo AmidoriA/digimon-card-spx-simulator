@@ -132,7 +132,7 @@ Use exactly one source in `art.new`:
 - `{"card":"BT2-009","crop":[85,90,320]}` downloads the official card-list picture and uses coordinates in its normalized 430×600 image.
 - `{"ref":"crescemon"}` uses the official Reference Book picture when no suitable card illustration is available.
 
-Downloads are cached under `<extracted_dir>/newart/cards` or `ref`; the existing ComfyUI upscaling/output process is shared. Verify species/colour aliases visually, inspect every crop, keep SAMPLE outside the selected picture, and record sources and edits in the roster/README. `tools/time_stranger_art.json` holds the TS-002 selections; local ComfyUI recipes are in `tools/new_art_edits.json`. The reusable `digimon-card-art` skill describes search and cleanup.
+Downloads are cached under `<extracted_dir>/newart/cards` or `ref`; the existing ComfyUI upscaling/output process is shared. Verify species/colour aliases visually, inspect every crop, keep SAMPLE outside the selected picture, and record sources and edits in the roster/README. `tools/time_stranger_art.json` holds the TS-002 selections; local ComfyUI recipes are in `tools/new_art_edits.json`. The reusable `digimon-card-art` skill describes search and cleanup. For a prepared official-source crop, add `edited` (for example `edited/ts002/303.png`) alongside its original card/crop fields. The builder verifies the recipe/cache before using that native crop, without cropping it again; run `tools/prepare_time_stranger_art.py` first if absent or stale.
 
 ## 6. Everything, and the checks
 

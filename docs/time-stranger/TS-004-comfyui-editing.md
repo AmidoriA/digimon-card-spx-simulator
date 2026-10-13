@@ -27,10 +27,10 @@ The owner's local ComfyUI is used to edit pictures, not only to enlarge them: cl
 
 ## Acceptance criteria
 
-- [ ] `tools/comfy.py` can inpaint (and outpaint, if needed) with a stored workflow and a fixed seed.
-- [ ] Running the same recipe twice gives the same picture.
-- [ ] The installed models used are named in the README.
-- [ ] The owner has seen one before/after and agrees with the result.
+- [x] `tools/comfy.py` can inpaint (and outpaint, if needed) with a stored workflow and a fixed seed.
+- [x] Running the same recipe twice gives the same picture.
+- [x] The installed models used are named in the README.
+- [x] The owner has seen one before/after and agrees with the result.
 
 ## Out of scope
 
@@ -43,3 +43,8 @@ The owner's local ComfyUI is used to edit pictures, not only to enlarge them: cl
 ## Log
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
+
+- 2026-10-13: Inspected local `/object_info`; the installed `512-inpainting-ema.safetensors` checkpoint and stock InpaintModelConditioning/KSampler nodes fit card-print removal. No model was downloaded. Added public `comfy.inpaint` and optional `outpaint`, using the stored `tools/comfy_workflows/ts002-inpaint.json` graph, explicit seeds and native-size masked compositing. Existing upscaling is unchanged.
+- 2026-10-13: TS-002 prepared 44 selected edits with recipes, masks, before/after and hash metadata; Crescemon uses its unedited official Reference Book picture because attempted leg restoration failed visual review. The preparer now uses the public API. `build_custom.new_art_source` loads recorded edited crops only after source/crop, recipe/workflow and pixel-hash verification; tested all 44 caches, missing and mismatched sources, outside-cache paths, mask-size errors and an empty-mask no-op. An actual scratch custom-card build using edit 303 produced its new-art files.
+- 2026-10-13: Two independent public-API uploads with the same seed/source/mask gave the accepted decoded SHA-256 `96b5cbc7c0e3e262e468c2c45f8df704771a5fc0207ba1ea7371cb5e666d99ce`. One initial run after model switching differed; no cross-reload or cross-hardware pixel determinism is claimed. Verified chosen cached pictures are kept for exact rebuilds. Padding-only outpaint trials preserved every original pixel but introduced pale framing, so those trials are not selected assets; no selected picture needs this optional helper.
+- 2026-10-13: Shown Coronamon EX5-007 before/after; the owner replied "ยอมรับผลนี้". README names the installed models, source/edit accounting, commands and measured limits.
