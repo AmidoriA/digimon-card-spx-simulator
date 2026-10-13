@@ -533,6 +533,16 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   Fire Again and its name are this project's as well, made at the owner's request; in the
   game BK WarGreymon has the one deck, and it plays WarGreymon.
 
+- **Planned Time Stranger roster.** The 45 cards in
+  [roster.md](docs/time-stranger/roster.md) are custom additions, not disc cards.
+  Their five Specialties and placeholder bases are project choices. On 2026-10-13
+  the owner chose to keep the proposed Specialty where thematically suitable, even
+  when a Time Stranger signature attack has a different element. Time Stranger's
+  elemental matchups and skill elements do not supply one intrinsic element to copy.
+  TS-001 records online field-guide evidence, identity corrections and two replacements;
+  checking the owner's installed game tables follows TS-201/TS-203. This plan does not
+  add playable cards, stats, pictures or models yet.
+
 - **Installable app.** The manifest (names, `standalone` display, the colour `#0a1018` taken
   from the page's own background), the service worker's network-first caching and the app
   icon are this project's, not the game's. The icon is a crop of `tools/icon_source.jpg`, a
