@@ -149,6 +149,29 @@
     return el;
   }
 
+  // The Specialties a deck plays: how many of its Digimon cards are of each, most first.
+  // Option cards have none.
+  function specMix(d) {
+    var per = [0, 0, 0, 0, 0];
+    d.cards.forEach(function (id) { var c = E.card(id); if (c.type === 'digimon') per[c.spec]++; });
+    return per.map(function (n, i) { return [i, n]; }).filter(function (x) { return x[1]; })
+      .sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
+  }
+  function specNames(d) { return specMix(d).map(function (x) { return E.SPEC[x[0]]; }).join(' '); }
+  function specChips(box, d) {
+    var mix = specMix(d);
+    clear(box);
+    box.setAttribute('role', 'img');
+    box.setAttribute('aria-label', mix.length ? 'Digimon by Specialty: ' + mix.map(function (x) { return E.SPEC[x[0]] + ' ' + x[1]; }).join(', ') : 'No Digimon cards');
+    mix.forEach(function (x) {
+      var s = h('span', 'el ' + SPEC_CLS[x[0]], E.SPEC[x[0]]);
+      s.appendChild(h('b', null, String(x[1])));
+      s.title = E.SPEC[x[0]] + ': ' + x[1] + (x[1] === 1 ? ' Digimon card' : ' Digimon cards');
+      box.appendChild(s);
+    });
+    return box;
+  }
+
   function fillDeckList(ul, decks, selId, filter, onPick, second) {
     // the list is rebuilt on every pick: keep its place, and the keyboard's, instead of
     // jumping back to the top
@@ -156,7 +179,7 @@
     clear(ul);
     var f = (filter || '').toLowerCase();
     decks.forEach(function (d) {
-      if (f && (d.name + ' ' + ownerOf(d)).toLowerCase().indexOf(f) < 0) return;
+      if (f && (d.name + ' ' + ownerOf(d) + ' ' + specNames(d)).toLowerCase().indexOf(f) < 0) return;
       var li = h('li');
       li.tabIndex = 0;
       li.setAttribute('role', 'option');
@@ -166,6 +189,7 @@
       li.appendChild(h('span', 'do', ownerOf(d)));
       if (own(d)) { if (!K.legal(d.cards)) li.appendChild(h('span', 'dr warn', d.cards.length + ' / ' + K.SIZE)); }
       else if (d.owner !== 'Player') li.appendChild(h('span', 'dr', 'Lv ' + d.rank));
+      li.appendChild(specChips(h('span', 'de'), d));
       li.onclick = function () { onPick(d.id); };
       li.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPick(d.id); } };
       ul.appendChild(li);
@@ -183,6 +207,7 @@
     $('previewTitle').textContent = deckName(d);
     $('previewOwner').textContent = ownerOf(d) + (own(d) || d.owner === 'Player' ? '' : ' · Lv ' + d.rank) +
       ' · ' + d.cards.length + (d.cards.length === 1 ? ' card' : ' cards');
+    specChips($('previewMix'), d);
     var counts = {}, order = [];
     d.cards.forEach(function (id) { if (!counts[id]) { counts[id] = 0; order.push(id); } counts[id]++; });
     var ul = clear($('previewList'));

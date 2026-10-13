@@ -87,6 +87,14 @@ button, input, select { font: inherit; color: inherit; }
 .deck-head-body { min-width: 0; display: grid; gap: 3px; align-content: start; }
 .deck-head h2 { font-size: 18px; line-height: 1.2; letter-spacing: 0; text-transform: none; color: var(--ink); margin: 0; overflow-wrap: anywhere; }
 .deck-owner { color: var(--ink-2); font-size: 12px; }
+/* the Specialties of a deck's Digimon cards, with how many of each */
+.de { display: flex; flex-wrap: wrap; gap: 3px 4px; }
+.decklist .de { grid-column: 2 / -1; align-self: start; margin-top: 4px; }
+.deck-head .de { margin-top: 4px; }
+.el { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; line-height: 17px; color: var(--ink-2); white-space: nowrap; border-radius: 99px; padding: 0 7px 0 5px;
+  border: 1px solid color-mix(in srgb, var(--dot) 55%, var(--line)); background: color-mix(in srgb, var(--dot) 14%, transparent); }
+.el::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); }
+.el b { font: 700 11px var(--mono); color: var(--ink); }
 .th { position: relative; display: block; flex: none; aspect-ratio: 1; border-radius: 4px; overflow: hidden; background: #0c131c; border: 2px solid var(--tc, var(--opt)); }
 .th img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .th.fire { --tc: var(--fire); } .th.ice { --tc: var(--ice); } .th.nature { --tc: var(--nature); }
@@ -372,7 +380,7 @@ kbd { font: 12px var(--mono); background: var(--bg-2); border: 1px solid var(--l
 .chip.on .n { color: inherit; opacity: .75; }
 .chip:disabled { opacity: .35; cursor: default; }
 .chip.fire::before, .chip.ice::before, .chip.nature::before, .chip.dark::before, .chip.rare::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); }
-.chip.fire { --dot: #e5484d; } .chip.ice { --dot: #3b9eff; } .chip.nature { --dot: #46a758; } .chip.dark { --dot: #555; } .chip.rare { --dot: #e2b714; }
+.chip.fire, .el.fire { --dot: #e5484d; } .chip.ice, .el.ice { --dot: #3b9eff; } .chip.nature, .el.nature { --dot: #46a758; } .chip.dark, .el.dark { --dot: #555; } .chip.rare, .el.rare { --dot: #e2b714; }
 .chip .sym { margin: 0; }
 .chip.on .sym { color: inherit; }
 .ed-count { display: flex; align-items: baseline; gap: 14px; margin: 10px 0 6px; color: var(--ink-2); font-size: 12px; }

@@ -106,6 +106,11 @@ the "VS" screen before a battle.
 `tools/build_owners.py` writes the pictures to `web/assets/owner/`, once each under the
 lowest deck number that has it, and `build_data.py` gives each deck that number as `pic`.
 
+Under a deck's name are the Specialties it plays, each with the number of the deck's
+Digimon cards that have it, the most first (a card's Specialty is the high half of byte
+`0x1A` of its `CARD2.CDD` record; option cards have none). The search boxes over the lists
+find a deck by a Specialty as well as by its name or its owner.
+
 ## Deck editor
 
 **New deck** on the start screen opens the deck editor; **Copy and edit** under a deck's
@@ -538,7 +543,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   made from. The pictures are stored at the game's own size and are not enlarged: a row
   shows them at 64x56 CSS pixels and the deck panel at 112x98, so only a screen with more
   than 1.14 device pixels per CSS pixel makes the browser scale the larger one up. They
-  have not been through ComfyUI (`build_owners.py --upscale` does that, 4x).
+  have not been through ComfyUI (`build_owners.py --upscale` does that, 4x). Counting a
+  deck's Digimon cards by Specialty is this project's summary of a deck; the game shows a
+  deck's cards, not such a count.
 
 - **Mobile setup controls.** On screens up to 900px wide, the sticky setup bar shows
   Settings, Random opponent and Start battle. Settings opens a scrollable panel above
