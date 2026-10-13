@@ -16,7 +16,10 @@ policy and changes below. Local game-table confirmation follows TS-201/TS-203.
   None (debuff) means the signature skill has no damage element; Neutral (counter) means
   a buff whose counterattack does Neutral damage. These do not force a Specialty change.
 - Picture: `card <NO> crop [x, y, size]` or `ref <slug>` (TS-002).
-- TS model: the model file in Time Stranger (TS-203).
+- TS model: the model in Time Stranger, `chrNNN` (its files are `chrNNN.geom`, `chrNNN_*.anim`,
+  `images/chrNNN*.img`), with the Digimon's key in the game's tables. Read in TS-203 from
+  `text/char_name.mbe` (English name to key) and `data/char_info.mbe` (key to model) of Steam
+  build 23514637.
 - Picture edits made through ComfyUI (TS-004) are noted in the Picture column.
 - Progress is tracked on Trello: each Specialty's Phase 1 and Phase 2 cards hold a checklist
   of its nine Digimon.
@@ -27,51 +30,51 @@ Megas, so some Ultimates get a Mega's numbers (Chirinmon from MetalGarurumon, fo
 
 | Id | Spec | Lv | Card | Base (id) | Model | TS source (no. · attribute) | TS element (signature) | Picture | TS model |
 |---|---|---|---|---|---|---|---|---|---|
-| 302 | Fire | R | Guilmon | Agumon (27) | 401 | [064 · Virus](https://digimon.jsuk.cloud/en/d/guilmon/) | Fire |  |  |
-| 303 | Fire | R | Coronamon | Goburimon (33) | 402 | [024 · Vaccine](https://digimon.jsuk.cloud/en/d/coronamon/) | Fire |  |  |
-| 304 | Fire | R | Huckmon | Veemon (175) | 403 | [052 · Data](https://digimon.jsuk.cloud/en/d/huckmon/) | Neutral |  |  |
-| 305 | Fire | C | Growlmon | Greymon (14) | 404 | [145 · Virus](https://digimon.jsuk.cloud/en/d/growlmon/) | Fire |  |  |
-| 306 | Fire | C | Firamon | Centarumon (19) | 405 | [100 · Vaccine](https://digimon.jsuk.cloud/en/d/firamon/) | Fire |  |  |
-| 307 | Fire | C | BaoHuckmon | Flarerizamon (26) | 406 | [133 · Data](https://digimon.jsuk.cloud/en/d/baohuckmon/) | Neutral |  |  |
-| 308 | Fire | U | WarGrowlmon | MetalGreymon (9) | 407 | [294 · Virus](https://digimon.jsuk.cloud/en/d/wargrowlmon/) | Fire |  |  |
-| 309 | Fire | U | Flaremon | Garudamon (7) | 408 | [219 · Vaccine](https://digimon.jsuk.cloud/en/d/flaremon/) | Fire |  |  |
-| 310 | Fire | U | SaviorHuckmon | Paildramon (4) | 409 | [240 · Data](https://digimon.jsuk.cloud/en/d/saviorhuckmon/) | Neutral |  |  |
-| 311 | Ice | R | Gaomon | Gabumon (62) | 410 | [041 · Data](https://digimon.jsuk.cloud/en/d/gaomon/) | Wind |  |  |
-| 312 | Ice | R | Lunamon | Penguinmon (64) | 411 | [057 · Data](https://digimon.jsuk.cloud/en/d/lunamon/) | Water |  |  |
-| 313 | Ice | R | Syakomon | Betamon (63) | 412 | [067 · Virus](https://digimon.jsuk.cloud/en/d/syakomon/) | Water |  |  |
-| 314 | Ice | C | Gaogamon | Garurumon (46) | 413 | [114 · Data](https://digimon.jsuk.cloud/en/d/gaogamon/) | Wind |  |  |
-| 315 | Ice | C | Lekismon | Sorcerimon (57) | 414 | [137 · Data](https://digimon.jsuk.cloud/en/d/lekismon/) | Water |  |  |
-| 316 | Ice | C | Octomon | Gesomon (51) | 415 | [142 · Virus](https://digimon.jsuk.cloud/en/d/octomon/) | None (debuff) |  |  |
-| 317 | Ice | U | MachGaogamon | WereGarurumon (39) | 416 | [258 · Data](https://digimon.jsuk.cloud/en/d/machgaogamon/) | Wind |  |  |
-| 318 | Ice | U | Crescemon | Panjyamon (41) | 417 | [237 · Data](https://digimon.jsuk.cloud/en/d/crescemon/) | Ice |  |  |
-| 319 | Ice | U | Dragomon | Zudomon (40) | 418 | [282 · Virus](https://digimon.jsuk.cloud/en/d/dragomon/) | Water |  |  |
-| 320 | Nature | R | Renamon | Gatomon (184) | 419 | [058 · Data](https://digimon.jsuk.cloud/en/d/renamon/) | Plant |  |  |
-| 321 | Nature | R | Terriermon | Patamon (183) | 420 | [027 · Vaccine](https://digimon.jsuk.cloud/en/d/terriermon/) | Wind |  |  |
-| 322 | Nature | R | Lalamon | Palmon (98) | 421 | [056 · Data](https://digimon.jsuk.cloud/en/d/lalamon/) | Plant |  |  |
-| 323 | Nature | C | Kyubimon | Unimon (88) | 422 | [117 · Data](https://digimon.jsuk.cloud/en/d/kyubimon/) | Fire |  |  |
-| 324 | Nature | C | Gargomon | Leomon (85) | 423 | [086 · Vaccine](https://digimon.jsuk.cloud/en/d/gargomon/) | Steel |  |  |
-| 325 | Nature | C | Sunflowmon | Togemon (84) | 424 | [120 · Data](https://digimon.jsuk.cloud/en/d/sunflowmon/) | Plant |  |  |
-| 326 | Nature | U | Taomon | Angewomon (77) | 425 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) | Dark |  |  |
-| 327 | Nature | U | Rapidmon | MagnaAngemon (75) | 426 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) | Electric |  |  |
-| 328 | Nature | U | Lilamon | Lillymon (78) | 427 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) | Plant |  |  |
-| 329 | Darkness | R | Agumon (Black) | Agumon (27) ✱ | 428 | [468 · Virus](https://digimon.jsuk.cloud/en/d/agumon-black/) | Fire |  |  |
-| 330 | Darkness | R | Monodramon | Veemon (175) ✱ | 429 | [037 · Vaccine](https://digimon.jsuk.cloud/en/d/monodramon/) | Neutral |  |  |
-| 331 | Darkness | R | Dracmon | DemiDevimon (132) | 430 | [070 · Virus](https://digimon.jsuk.cloud/en/d/dracmon/) | Dark |  |  |
-| 332 | Darkness | C | Kurisarimon | Bakemon (123) | 431 | [178 · Unknown](https://digimon.jsuk.cloud/en/d/kurisarimon/) | Dark |  |  |
-| 333 | Darkness | C | Strikedramon | Darkrizamon (130) | 432 | [093 · Vaccine](https://digimon.jsuk.cloud/en/d/strikedramon/) | Fire |  |  |
-| 334 | Darkness | C | Sangloupmon | Gururumon (126) | 433 | [153 · Virus](https://digimon.jsuk.cloud/en/d/sangloupmon/) | Dark |  |  |
-| 335 | Darkness | U | MetalTyrannomon | MasterTyrannomon (8) ✱ | 434 | [295 · Virus](https://digimon.jsuk.cloud/en/d/metaltyrannomon/) | Electric |  |  |
-| 336 | Darkness | U | Cyberdramon | Andromon (116) | 435 | [210 · Vaccine](https://digimon.jsuk.cloud/en/d/cyberdramon/) | Neutral |  |  |
-| 337 | Darkness | U | Matadormon | Myotismon (111) | 436 | [290 · Virus](https://digimon.jsuk.cloud/en/d/matadormon/) | Dark |  |  |
-| 338 | Rare | R | Dracomon | ClearAgumon (168) | 437 | [049 · Data](https://digimon.jsuk.cloud/en/d/dracomon/) | Fire |  |  |
-| 339 | Rare | R | Bearmon | Psychemon (170) | 438 | [035 · Vaccine](https://digimon.jsuk.cloud/en/d/bearmon/) | Neutral |  |  |
-| 340 | Rare | R | Kudamon | Vi-Elecmon (169) | 439 | [022 · Vaccine](https://digimon.jsuk.cloud/en/d/kudamon/) | None (debuff) |  |  |
-| 341 | Rare | C | Coredramon (Blue) | Rockmon (159) | 440 | [091 · Vaccine](https://digimon.jsuk.cloud/en/d/coredramon-blue/) | Fire |  |  |
-| 342 | Rare | C | Grizzlymon | Ankylomon (151) | 441 | [089 · Vaccine](https://digimon.jsuk.cloud/en/d/grizzlymon/) | Neutral (counter) |  |  |
-| 343 | Rare | C | Reppamon | ShimaUnimon (162) | 442 | [110 · Vaccine](https://digimon.jsuk.cloud/en/d/reppamon/) | Steel |  |  |
-| 344 | Rare | U | Wingdramon | Gigadramon (5) ✱ | 443 | [200 · Vaccine](https://digimon.jsuk.cloud/en/d/wingdramon/) | Fire |  |  |
-| 345 | Rare | U | GrapLeomon | Etemon (150) | 444 | [205 · Vaccine](https://digimon.jsuk.cloud/en/d/grapleomon/) | Wind |  |  |
-| 346 | Rare | U | Chirinmon | MetalGarurumon (37) ✱ | 445 | [213 · Vaccine](https://digimon.jsuk.cloud/en/d/chirinmon/) | Light |  |  |
+| 302 | Fire | R | Guilmon | Agumon (27) | 401 | [064 · Virus](https://digimon.jsuk.cloud/en/d/guilmon/) | Fire |  | `chr090` (`char_GUILMON`) |
+| 303 | Fire | R | Coronamon | Goburimon (33) | 402 | [024 · Vaccine](https://digimon.jsuk.cloud/en/d/coronamon/) | Fire |  | `chr136` (`char_CORONAMON`) |
+| 304 | Fire | R | Huckmon | Veemon (175) | 403 | [052 · Data](https://digimon.jsuk.cloud/en/d/huckmon/) | Neutral |  | `chr687` (`char_HACKMON`) |
+| 305 | Fire | C | Growlmon | Greymon (14) | 404 | [145 · Virus](https://digimon.jsuk.cloud/en/d/growlmon/) | Fire |  | `chr078` (`char_GROWMON`) |
+| 306 | Fire | C | Firamon | Centarumon (19) | 405 | [100 · Vaccine](https://digimon.jsuk.cloud/en/d/firamon/) | Fire |  | `chr137` (`char_FIRAMON`) |
+| 307 | Fire | C | BaoHuckmon | Flarerizamon (26) | 406 | [133 · Data](https://digimon.jsuk.cloud/en/d/baohuckmon/) | Neutral |  | `chr115` (`char_BAOHUCKMON`) |
+| 308 | Fire | U | WarGrowlmon | MetalGreymon (9) | 407 | [294 · Virus](https://digimon.jsuk.cloud/en/d/wargrowlmon/) | Fire |  | `chr134` (`char_MEGAGROWLMON`) |
+| 309 | Fire | U | Flaremon | Garudamon (7) | 408 | [219 · Vaccine](https://digimon.jsuk.cloud/en/d/flaremon/) | Fire |  | `chr138` (`char_FLAREMON`) |
+| 310 | Fire | U | SaviorHuckmon | Paildramon (4) | 409 | [240 · Data](https://digimon.jsuk.cloud/en/d/saviorhuckmon/) | Neutral |  | `chr116` (`char_SAVIORHUCKMON`) |
+| 311 | Ice | R | Gaomon | Gabumon (62) | 410 | [041 · Data](https://digimon.jsuk.cloud/en/d/gaomon/) | Wind |  | `chr055` (`char_GAOMON`) |
+| 312 | Ice | R | Lunamon | Penguinmon (64) | 411 | [057 · Data](https://digimon.jsuk.cloud/en/d/lunamon/) | Water |  | `chr002` (`char_LUNAMON`) |
+| 313 | Ice | R | Syakomon | Betamon (63) | 412 | [067 · Virus](https://digimon.jsuk.cloud/en/d/syakomon/) | Water |  | `chr709` (`char_SHAKOMON`) |
+| 314 | Ice | C | Gaogamon | Garurumon (46) | 413 | [114 · Data](https://digimon.jsuk.cloud/en/d/gaogamon/) | Wind |  | `chr068` (`char_GAOGAMON`) |
+| 315 | Ice | C | Lekismon | Sorcerimon (57) | 414 | [137 · Data](https://digimon.jsuk.cloud/en/d/lekismon/) | Water |  | `chr003` (`char_LEKISMON`) |
+| 316 | Ice | C | Octomon | Gesomon (51) | 415 | [142 · Virus](https://digimon.jsuk.cloud/en/d/octomon/) | None (debuff) |  | `chr240` (`char_OCTMON`) |
+| 317 | Ice | U | MachGaogamon | WereGarurumon (39) | 416 | [258 · Data](https://digimon.jsuk.cloud/en/d/machgaogamon/) | Wind |  | `chr074` (`char_MACHGAOGAMON`) |
+| 318 | Ice | U | Crescemon | Panjyamon (41) | 417 | [237 · Data](https://digimon.jsuk.cloud/en/d/crescemon/) | Ice |  | `chr004` (`char_CRESCEMON`) |
+| 319 | Ice | U | Dragomon | Zudomon (40) | 418 | [282 · Virus](https://digimon.jsuk.cloud/en/d/dragomon/) | Water |  | `chr129` (`char_DAGOMON`) |
+| 320 | Nature | R | Renamon | Gatomon (184) | 419 | [058 · Data](https://digimon.jsuk.cloud/en/d/renamon/) | Plant |  | `chr391` (`char_RENAMON`) |
+| 321 | Nature | R | Terriermon | Patamon (183) | 420 | [027 · Vaccine](https://digimon.jsuk.cloud/en/d/terriermon/) | Wind |  | `chr701` (`char_TERRIERMON`) |
+| 322 | Nature | R | Lalamon | Palmon (98) | 421 | [056 · Data](https://digimon.jsuk.cloud/en/d/lalamon/) | Plant |  | `chr056` (`char_LALAMON`) |
+| 323 | Nature | C | Kyubimon | Unimon (88) | 422 | [117 · Data](https://digimon.jsuk.cloud/en/d/kyubimon/) | Fire |  | `chr395` (`char_KYUBIMON`) |
+| 324 | Nature | C | Gargomon | Leomon (85) | 423 | [086 · Vaccine](https://digimon.jsuk.cloud/en/d/gargomon/) | Steel |  | `chr710` (`char_GARGOMON`) |
+| 325 | Nature | C | Sunflowmon | Togemon (84) | 424 | [120 · Data](https://digimon.jsuk.cloud/en/d/sunflowmon/) | Plant |  | `chr058` (`char_SUNFLOWMON`) |
+| 326 | Nature | U | Taomon | Angewomon (77) | 425 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) | Dark |  | `chr405` (`char_TAOMON`) |
+| 327 | Nature | U | Rapidmon | MagnaAngemon (75) | 426 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) | Electric |  | `chr722` (`char_RAPIDMON`) |
+| 328 | Nature | U | Lilamon | Lillymon (78) | 427 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) | Plant |  | `chr073` (`char_LILAMON`) |
+| 329 | Darkness | R | Agumon (Black) | Agumon (27) ✱ | 428 | [468 · Virus](https://digimon.jsuk.cloud/en/d/agumon-black/) | Fire |  | not in build 23514637 |
+| 330 | Darkness | R | Monodramon | Veemon (175) ✱ | 429 | [037 · Vaccine](https://digimon.jsuk.cloud/en/d/monodramon/) | Neutral |  | `chr458` (`char_MONODRAMON`) |
+| 331 | Darkness | R | Dracmon | DemiDevimon (132) | 430 | [070 · Virus](https://digimon.jsuk.cloud/en/d/dracmon/) | Dark |  | `chr457` (`char_DRACUMON`) |
+| 332 | Darkness | C | Kurisarimon | Bakemon (123) | 431 | [178 · Unknown](https://digimon.jsuk.cloud/en/d/kurisarimon/) | Dark |  | `chr630` (`char_KURISARIMON`) |
+| 333 | Darkness | C | Strikedramon | Darkrizamon (130) | 432 | [093 · Vaccine](https://digimon.jsuk.cloud/en/d/strikedramon/) | Fire |  | `chr016` (`char_STRIKEDRAMON`) |
+| 334 | Darkness | C | Sangloupmon | Gururumon (126) | 433 | [153 · Virus](https://digimon.jsuk.cloud/en/d/sangloupmon/) | Dark |  | `chr030` (`char_SANGLOUPMON`) |
+| 335 | Darkness | U | MetalTyrannomon | MasterTyrannomon (8) ✱ | 434 | [295 · Virus](https://digimon.jsuk.cloud/en/d/metaltyrannomon/) | Electric |  | `chr364` (`char_METALTYRANNOMON`) |
+| 336 | Darkness | U | Cyberdramon | Andromon (116) | 435 | [210 · Vaccine](https://digimon.jsuk.cloud/en/d/cyberdramon/) | Neutral |  | `chr719` (`char_CYBERDRAMON`) |
+| 337 | Darkness | U | Matadormon | Myotismon (111) | 436 | [290 · Virus](https://digimon.jsuk.cloud/en/d/matadormon/) | Dark |  | `chr031` (`char_MATADRMON`) |
+| 338 | Rare | R | Dracomon | ClearAgumon (168) | 437 | [049 · Data](https://digimon.jsuk.cloud/en/d/dracomon/) | Fire |  | `chr208` (`char_DRACOMON`) |
+| 339 | Rare | R | Bearmon | Psychemon (170) | 438 | [035 · Vaccine](https://digimon.jsuk.cloud/en/d/bearmon/) | Neutral |  | `chr234` (`char_BEARMON`) |
+| 340 | Rare | R | Kudamon | Vi-Elecmon (169) | 439 | [022 · Vaccine](https://digimon.jsuk.cloud/en/d/kudamon/) | None (debuff) |  | `chr053` (`char_KUDAMON`) |
+| 341 | Rare | C | Coredramon (Blue) | Rockmon (159) | 440 | [091 · Vaccine](https://digimon.jsuk.cloud/en/d/coredramon-blue/) | Fire |  | `chr218` (`char_COREDRAMON_BL`) |
+| 342 | Rare | C | Grizzlymon | Ankylomon (151) | 441 | [089 · Vaccine](https://digimon.jsuk.cloud/en/d/grizzlymon/) | Neutral (counter) |  | `chr235` (`char_GRYZMON`) |
+| 343 | Rare | C | Reppamon | ShimaUnimon (162) | 442 | [110 · Vaccine](https://digimon.jsuk.cloud/en/d/reppamon/) | Steel |  | `chr077` (`char_REPPAMON`) |
+| 344 | Rare | U | Wingdramon | Gigadramon (5) ✱ | 443 | [200 · Vaccine](https://digimon.jsuk.cloud/en/d/wingdramon/) | Fire |  | `chr210` (`char_WINGDRAMON`) |
+| 345 | Rare | U | GrapLeomon | Etemon (150) | 444 | [205 · Vaccine](https://digimon.jsuk.cloud/en/d/grapleomon/) | Wind |  | `chr403` (`char_GRAPLEOMON`) |
+| 346 | Rare | U | Chirinmon | MetalGarurumon (37) ✱ | 445 | [213 · Vaccine](https://digimon.jsuk.cloud/en/d/chirinmon/) | Light |  | `chr084` (`char_TYILINMON`) |
 
 ## Specialty policy (owner decision, 2026-10-13)
 

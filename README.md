@@ -519,7 +519,8 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 - **Time Stranger's files** are another game's, not the disc's. How they are stored was
   read from that game's executable; what was not is listed under "Time Stranger files"
-  and "Time Stranger models", each under "Not read from the executable".
+  and "Time Stranger models", each under "Not read from the executable", and in "Time
+  Stranger tables" (the column types and the meaning of the columns).
 
 - **Custom cards.** Nothing about a custom card is the game's but what it is made from.
   BlackWarGreymon's numbers (DP 60, +P 20, HP 1750, attacks 950 / 700 / 400), its attack
@@ -966,6 +967,55 @@ skin and the colour textures; `--png` draws the front and the side.
 - The dump was not compared with the game running; the ticket's log says what it was
   compared with.
 
+## Time Stranger tables
+
+The game's tables are `.mbe` files (`data/`, `text/`, `message/`). `tools/ts_mbe.py` reads
+them (TS-203).
+
+### `.mbe`
+
+The reader in the executable is `0x140dcf480`: it checks `EXPA` (`0x140dcf6cf`) and `CHNK`
+(`0x140dcf992`) and takes each table's row size from the file.
+
+- `EXPA`, u32 tables. For each table: u32 length of its name, the name, u32 columns, a u32
+  type for each column, u32 row size, u32 rows. The rows start at the next multiple of 8
+  and each takes the row size rounded up to a multiple of 8.
+- `CHNK`, u32 entries. For each: u32 offset in the file, u32 length, the string. The string
+  belongs to the 8 bytes at that offset, which lie in a row.
+
+Walked this way, all 740 `.mbe` files of `app_0/data` reach `CHNK` right after their last
+table.
+
+The column types were worked out from the rows, not read from the executable:
+
+| Type | What |
+|---|---|
+| 2, 3, 4 | an integer of 32, 16 and 8 bits |
+| 5 | a float |
+| 6, 7, 8 | a string: 8 bytes, filled through `CHNK` |
+| 9 | one bit; a run of such columns shares 32-bit words (which bit comes first was not checked) |
+| 10 | nothing: the column takes no room in the row |
+
+A column starts at a multiple of its own size and unused bytes hold `0xcc`. With these
+sizes the columns fill the row size, and every `CHNK` offset falls on a string column, in
+2,787 of the 2,788 tables of `app_0/data`. The one left has a column of type 0 and is not
+read.
+
+### Which model is whose
+
+| Table | Column | What |
+|---|---|---|
+| `text/char_name.mbe`, `Sheet1` (`app_text01`: English) | 0, 1 | the Digimon's key (`char_GUILMON`), its name |
+| `data/char_info.mbe`, `char_info` | 0 | the key |
+| | 3 | the model, `chr090` |
+| | 4 | a number, `1090` for `chr090` |
+
+That column 3 is the model was not read from a routine: Guilmon's row names `chr090`,
+which the owner confirmed to be Guilmon (TS-202), and the 44 models found this way were
+drawn and are the Digimon their rows name (`docs/time-stranger/img/ts-203-roster-models.png`).
+`docs/time-stranger/roster.md` has the model of each card. Agumon (Black) has no row in
+either table of this build.
+
 ## Layout
 
 | Path | What |
@@ -997,6 +1047,7 @@ skin and the colour textures; `--png` draws the front and the side.
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
 | `tools/ts_extract.py`, `x64.py` | Time Stranger: the `.mvgl` unpacker and the x86-64 disassembly helper for its executable |
 | `tools/ts_model_read.py` | Time Stranger: reads a `.geom` model and its textures, dumps it as `.glb` or a drawing |
+| `tools/ts_mbe.py` | Time Stranger: reads the tables of a `.mbe` file |
 | `extracted_ts/` | Working copy of Time Stranger's files (about 49 GB, not in git, safe to delete) |
 
 ## File formats
