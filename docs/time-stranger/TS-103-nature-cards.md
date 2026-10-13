@@ -4,11 +4,12 @@
 |---|---|
 | Trello | https://trello.com/c/AKMIGtfK |
 | Phase | 1 Cards |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-001, TS-002, TS-003, TS-101 |
 
 ## Goal
 
-Add the nine Nature cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The roster as confirmed in TS-001 wins over the table below.
+Add the nine Nature cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The table below matches the roster verified in TS-001; roster.md remains authoritative if later local-game verification changes it.
 
 | Id | Lv | Card | Base | Model | Battle block |
 |---|---|---|---|---|---|

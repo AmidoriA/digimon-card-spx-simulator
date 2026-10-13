@@ -4,6 +4,7 @@
 |---|---|
 | Trello | https://trello.com/c/4tlEb1gi |
 | Phase | 3 Decks |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-301, TS-105 |
 
 ## Goal

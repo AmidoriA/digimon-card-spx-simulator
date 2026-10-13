@@ -4,6 +4,7 @@
 |---|---|
 | Trello | https://trello.com/c/sFJRSkSQ |
 | Phase | 0 Groundwork |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | none |
 
 ## Goal
@@ -68,7 +69,7 @@ Make sure each of the 45 proposed Digimon is in *Digimon Story: Time Stranger*, 
   [DigimonWiki's field guide](https://digimon.fandom.com/wiki/Digimon_Story:_Time_Stranger/Field_Guide).
   Kurisarimon was already an allowed alternate, is Champion, and has a Dark signature.
   Base Tyrannomon (16) ✱ → Bakemon (123), a closer floating placeholder in Darkness;
-  removing this cross-Specialty base leaves six ✱ rows. This themed column is not
+  removing this cross-Specialty base leaves five ✱ rows. This themed column is not
   claimed to be a direct evolution chain.
 - 319: MarineDevimon → [Dragomon (282)](https://digimon.jsuk.cloud/en/d/dragomon/).
   MarineDevimon is also absent from both indexes. Dragomon is an aquatic Ultimate
@@ -82,3 +83,18 @@ Make sure each of the 45 proposed Digimon is in *Digimon Story: Time Stranger*, 
   Agumon variant's availability in the installed version. The online audit needs no
   models or assets and does not implement any later ticket.
 - Validation: all 29 self-tests and 11 deck tests passed; 200 simulated matches ended with zero timeouts; all board-effect scripts and the asset-path check passed. The change is documentation only, so there is no changed browser screen to inspect.
+
+
+### 2026-10-13 — dependent tickets and feature branch
+
+- Owner requested a shared `time-stranger` feature branch and explicitly authorized
+  pushing to GitHub. All ticket work starts from this feature branch and returns to it;
+  do not merge it to `main` until every one of the 45 new cards is complete and validated.
+- Synchronized the Phase 1 ticket tables, Phase 2 model lists, deck target list and
+  Fire/Ice deck tickets with the verified roster. Model/card ids remain unchanged.
+- Corrected the earlier note's cross-Specialty count from six to five. The actual ✱
+  rows are 329/330/335/344/346, so battle offsets are 20000/30000/40000/50000/60000.
+  Kurisarimon's same-Specialty Bakemon base does not consume a battle offset.
+- Updated linked ticket/roster/deck addresses and affected Digimon checklist names
+  on Trello, preserving unfinished ticket state. TS-001 moves to Done after the push;
+  this does not mean any of the 45 cards has been implemented yet.

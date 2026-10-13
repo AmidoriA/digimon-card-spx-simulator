@@ -4,6 +4,7 @@
 |---|---|
 | Trello | https://trello.com/c/fkaEh4xz |
 | Phase | 2 Models |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-201 |
 
 ## Goal

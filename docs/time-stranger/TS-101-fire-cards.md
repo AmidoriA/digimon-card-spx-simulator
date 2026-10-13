@@ -4,23 +4,24 @@
 |---|---|
 | Trello | https://trello.com/c/Xk0ypoEh |
 | Phase | 1 Cards |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-001, TS-002, TS-003 |
 
 ## Goal
 
-Add the nine Fire cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The roster as confirmed in TS-001 wins over the table below.
+Add the nine Fire cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The table below matches the roster verified in TS-001; roster.md remains authoritative if later local-game verification changes it.
 
 | Id | Lv | Card | Base | Model | Battle block |
 |---|---|---|---|---|---|
 | 302 | R | Guilmon | Agumon (27) | 401 | none |
 | 303 | R | Coronamon | Goburimon (33) | 402 | none |
-| 304 | R | Hackmon | Veemon (175) | 403 | none |
+| 304 | R | Huckmon | Veemon (175) | 403 | none |
 | 305 | C | Growlmon | Greymon (14) | 404 | none |
 | 306 | C | Firamon | Centarumon (19) | 405 | none |
-| 307 | C | BaoHackmon | Flarerizamon (26) | 406 | none |
+| 307 | C | BaoHuckmon | Flarerizamon (26) | 406 | none |
 | 308 | U | WarGrowlmon | MetalGreymon (9) | 407 | none |
 | 309 | U | Flaremon | Garudamon (7) | 408 | none |
-| 310 | U | SaviorHackmon | Paildramon (4) | 409 | none |
+| 310 | U | SaviorHuckmon | Paildramon (4) | 409 | none |
 
 ## Context
 

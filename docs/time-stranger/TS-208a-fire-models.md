@@ -4,11 +4,12 @@
 |---|---|
 | Trello | https://trello.com/c/zTdFN9Xd |
 | Phase | 2 Models |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-207, TS-101 |
 
 ## Goal
 
-Convert the nine Fire Digimon to their model numbers: Guilmon (401), Coronamon (402), Hackmon (403), Growlmon (404), Firamon (405), BaoHackmon (406), WarGrowlmon (407), Flaremon (408), SaviorHackmon (409).
+Convert the nine Fire Digimon to their model numbers: Guilmon (401), Coronamon (402), Huckmon (403), Growlmon (404), Firamon (405), BaoHuckmon (406), WarGrowlmon (407), Flaremon (408), SaviorHuckmon (409).
 
 ## Context
 

@@ -4,6 +4,7 @@
 |---|---|
 | Trello | https://trello.com/c/gCoH4rVv |
 | Phase | 0 Groundwork |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | none |
 
 ## Goal

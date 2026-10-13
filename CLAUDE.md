@@ -23,6 +23,15 @@ its section for the area you are about to touch before changing it.
 5. **Check it running.** A change that shows on screen is looked at in the browser before it
    is called done, and the report says what was seen and what was not.
 
+## Time Stranger feature branch
+
+Owner decision (2026-10-13): all Time Stranger tickets target `time-stranger`. Start
+ticket worktrees from its latest commit; integrate ticket branches into `time-stranger`.
+Do not merge the feature into `main` until all 45 new cards are complete and their
+applicable acceptance criteria and validation pass. TS-001 being Done is not feature
+completion. Push finished work to the feature branch, keep the ticket commits separate,
+and use the synchronized roster/ticket documents and Trello cards.
+
 ## Where things are
 
 | Path | What |

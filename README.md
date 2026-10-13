@@ -542,6 +542,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   TS-001 records online field-guide evidence, identity corrections and two replacements;
   checking the owner's installed game tables follows TS-201/TS-203. This plan does not
   add playable cards, stats, pictures or models yet.
+  All work stays on the `time-stranger` feature branch; it must not merge to `main`
+  until all 45 new cards are complete and their applicable acceptance criteria pass.
+  See [the feature workflow](docs/time-stranger/README.md#feature-branch-and-merge-gate).
 
 - **Installable app.** The manifest (names, `standalone` display, the colour `#0a1018` taken
   from the page's own background), the service worker's network-first caching and the app

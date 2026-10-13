@@ -4,11 +4,12 @@
 |---|---|
 | Trello | https://trello.com/c/EzPc1GY6 |
 | Phase | 2 Models |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-207, TS-104 |
 
 ## Goal
 
-Convert the nine Darkness Digimon to their model numbers: BlackAgumon (428), Monodramon (429), Dracmon (430), DarkTyrannomon (431), Strikedramon (432), Sangloupmon (433), MetalTyrannomon (434), Cyberdramon (435), Matadormon (436).
+Convert the nine Darkness Digimon to their model numbers: Agumon (Black) (428), Monodramon (429), Dracmon (430), Kurisarimon (431), Strikedramon (432), Sangloupmon (433), MetalTyrannomon (434), Cyberdramon (435), Matadormon (436).
 
 ## Context
 

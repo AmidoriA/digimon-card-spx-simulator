@@ -16,6 +16,24 @@ tickets so the work can be tracked.
 Phase 2 can start alongside Phase 1 (TS-201 … TS-206 need no card); TS-207 needs Guilmon
 (TS-101). Phase 3 needs only Phase 1.
 
+## Feature branch and merge gate
+
+All Time Stranger work belongs to [`time-stranger`](https://github.com/AmidoriA/digimon-card-spx-simulator/tree/time-stranger)
+(owner decision, 2026-10-13). Start each ticket worktree from the latest feature branch;
+if a ticket uses its own branch, integrate it back into `time-stranger`. Push completed
+ticket work to this feature branch, with each ticket's commits kept separate.
+
+**Do not merge this feature into `main` until all 45 new cards are complete and their
+applicable acceptance criteria and validation pass.** A completed groundwork ticket such
+as TS-001 does not open that gate. Main remains the published game during the feature's
+development; the Pages workflow's automatic deployment is limited to pushes to `main`.
+This is the documented working policy, not a GitHub branch-protection rule.
+
+TS-001's verified roster is the source of truth for names, bases, field-guide evidence
+and thematic Specialties. The Phase 1 tables, Phase 2 model lists and Phase 3 deck targets
+now use Huckmon/BaoHuckmon/SaviorHuckmon, Agumon (Black), Coredramon (Blue), Kurisarimon
+and Dragomon. The five current cross-Specialty battle offsets are listed in phase1.md.
+
 ## How to work a ticket
 
 **Status lives on Trello**, <https://trello.com/b/6XCl7ca0/my-trello-board>: one card per ticket in the lists Todo, Doing, Blocked
@@ -24,7 +42,8 @@ Phase 1 and Phase 2 cards, its nine Digimon). Labels give the phase: green 0 Gro
 yellow 1 Cards, orange 2 Models, purple 3 Decks. The files here hold what does not change
 with progress (goal, context, steps) and what is found (the Log).
 
-- Pick a card in Todo whose dependencies are in Done; move it to Doing.
+- Pick a card in Todo whose dependencies are in Done; move it to Doing. Create its
+  worktree from `time-stranger`, not `main` or the superseded planning branch.
 - If it waits on the owner, move it to Blocked and write the question in the ticket's
   "Questions for the owner" and as a comment on the card.
 - Commit messages start with the ticket id: `TS-101: Add the Fire Time Stranger cards`.
@@ -32,7 +51,7 @@ with progress (goal, context, steps) and what is found (the Log).
   request, one commit).
 - Tick the card's checklist as each criterion is met. In the ticket's last commit write
   its Log (what was done, what was found and where: addresses, URLs, commits) and update
-  [roster.md](roster.md) or [decks.md](decks.md); after the push, move the card to Done
+  [roster.md](roster.md) or [decks.md](decks.md); after the work is pushed/integrated into `time-stranger`, move the card to Done
   and comment the commit.
 - The rules of `CLAUDE.md` hold for every ticket: nothing guessed, say where it comes from,
   list what is not from the game code in the README, check in the browser before calling it

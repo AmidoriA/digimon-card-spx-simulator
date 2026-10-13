@@ -4,11 +4,12 @@
 |---|---|
 | Trello | https://trello.com/c/vUoHDXbM |
 | Phase | 2 Models |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-207, TS-102 |
 
 ## Goal
 
-Convert the nine Ice Digimon to their model numbers: Gaomon (410), Lunamon (411), Syakomon (412), Gaogamon (413), Lekismon (414), Octomon (415), MachGaogamon (416), Crescemon (417), MarineDevimon (418).
+Convert the nine Ice Digimon to their model numbers: Gaomon (410), Lunamon (411), Syakomon (412), Gaogamon (413), Lekismon (414), Octomon (415), MachGaogamon (416), Crescemon (417), Dragomon (418).
 
 ## Context
 

@@ -4,11 +4,12 @@
 |---|---|
 | Trello | https://trello.com/c/Qdbd1HXO |
 | Phase | 1 Cards |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-001, TS-002, TS-003, TS-101 |
 
 ## Goal
 
-Add the nine Ice cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The roster as confirmed in TS-001 wins over the table below.
+Add the nine Ice cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The table below matches the roster verified in TS-001; roster.md remains authoritative if later local-game verification changes it.
 
 | Id | Lv | Card | Base | Model | Battle block |
 |---|---|---|---|---|---|
@@ -20,7 +21,7 @@ Add the nine Ice cards of [roster.md](roster.md) as custom cards with placeholde
 | 316 | C | Octomon | Gesomon (51) | 415 | none |
 | 317 | U | MachGaogamon | WereGarurumon (39) | 416 | none |
 | 318 | U | Crescemon | Panjyamon (41) | 417 | none |
-| 319 | U | MarineDevimon | WaruSeadramon (43) | 418 | none |
+| 319 | U | Dragomon | Zudomon (40) | 418 | none |
 
 ## Context
 

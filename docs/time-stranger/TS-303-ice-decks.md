@@ -4,11 +4,12 @@
 |---|---|
 | Trello | https://trello.com/c/aAJwuQS9 |
 | Phase | 3 Decks |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-301, TS-102 |
 
 ## Goal
 
-Build the three decks of decks.md around MachGaogamon, Crescemon, MarineDevimon.
+Build the three decks of decks.md around MachGaogamon, Crescemon, Dragomon.
 
 ## Context
 

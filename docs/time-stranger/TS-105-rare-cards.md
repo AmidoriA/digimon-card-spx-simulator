@@ -4,23 +4,24 @@
 |---|---|
 | Trello | https://trello.com/c/ZhfaqmM9 |
 | Phase | 1 Cards |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-001, TS-002, TS-003, TS-101 |
 
 ## Goal
 
-Add the nine Rare cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The roster as confirmed in TS-001 wins over the table below.
+Add the nine Rare cards of [roster.md](roster.md) as custom cards with placeholder models (their base recoloured), playable in every mode. The table below matches the roster verified in TS-001; roster.md remains authoritative if later local-game verification changes it.
 
 | Id | Lv | Card | Base | Model | Battle block |
 |---|---|---|---|---|---|
 | 338 | R | Dracomon | ClearAgumon (168) | 437 | none |
 | 339 | R | Bearmon | Psychemon (170) | 438 | none |
 | 340 | R | Kudamon | Vi-Elecmon (169) | 439 | none |
-| 341 | C | Coredramon | Rockmon (159) | 440 | none |
+| 341 | C | Coredramon (Blue) | Rockmon (159) | 440 | none |
 | 342 | C | Grizzlymon | Ankylomon (151) | 441 | none |
 | 343 | C | Reppamon | ShimaUnimon (162) | 442 | none |
-| 344 | U | Wingdramon | Gigadramon (5) ✱ | 443 | offset 60000 |
+| 344 | U | Wingdramon | Gigadramon (5) ✱ | 443 | offset 50000 |
 | 345 | U | GrapLeomon | Etemon (150) | 444 | none |
-| 346 | U | Chirinmon | MetalGarurumon (37) ✱ | 445 | offset 70000 |
+| 346 | U | Chirinmon | MetalGarurumon (37) ✱ | 445 | offset 60000 |
 
 ## Context
 

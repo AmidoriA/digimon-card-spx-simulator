@@ -4,11 +4,12 @@
 |---|---|
 | Trello | https://trello.com/c/7IcLCqJO |
 | Phase | 2 Models |
+| Feature branch | `time-stranger` (all 45 new cards complete before merging to `main`) |
 | Depends on | TS-207, TS-105 |
 
 ## Goal
 
-Convert the nine Rare Digimon to their model numbers: Dracomon (437), Bearmon (438), Kudamon (439), Coredramon (440), Grizzlymon (441), Reppamon (442), Wingdramon (443), GrapLeomon (444), Chirinmon (445).
+Convert the nine Rare Digimon to their model numbers: Dracomon (437), Bearmon (438), Kudamon (439), Coredramon (Blue) (440), Grizzlymon (441), Reppamon (442), Wingdramon (443), GrapLeomon (444), Chirinmon (445).
 
 ## Context
 

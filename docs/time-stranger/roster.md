@@ -79,7 +79,8 @@ The owner chose **"Keep the proposed Specialty when thematically suitable"** aft
 sources showed that Time Stranger has elemental matchups and skill elements, rather than
 one elemental label on a Digimon. The original strict element-to-Specialty rule is therefore
 superseded for this roster. The Specialties remain Fire, Ice, Nature, Darkness and Rare,
-with nine cards each; no card is moved solely because of its signature skill's element.
+with nine cards each. Work stays on `time-stranger` until all 45 new cards are complete;
+no card is moved solely because of its signature skill's element.
 
 The mapping Fire → Fire; Water/Ice → Ice; Plant/Wind/Earth/Light/Electric → Nature;
 Dark → Darkness; Neutral/Steel/other → Rare is a guide to thematic choices, not a claim
@@ -142,10 +143,11 @@ each page includes Basic Info, matchups, skills and a linked in-game field-guide
   not its black variant, and disc Lillymon is not Lilamon.
 - Checked card ids 302–346, model ids 401–445, three rows and three distinct base ids
   in each of the 15 slots, exact base names/ids, and every cross-Specialty ✱ marker.
-  There are six ✱ bases after replacing DarkTyrannomon; Phase 1 derives their battle
+  There are five ✱ bases after replacing DarkTyrannomon; Phase 1 derives their battle
   offsets in card-id order as described above. No stats, assets or game code changed.
-- Roster.md is authoritative for later tickets: their original proposal tables contain
-  the old aliases, MarineDevimon and DarkTyrannomon. Use the replacements and bases here.
+- Roster.md is authoritative for later tickets. Their Phase 1 tables, Phase 2 model
+  lists and Phase 3 deck targets are now synchronized with these names and bases;
+  phase1.md records the five current cross-Specialty battle offsets.
 - After TS-201/TS-203 can read the owner's install, check these identities, availability
   and skills against its tables and record any discrepancy. No local tables were read
   for TS-001; this later check remains open without being a dependency of the online audit.
