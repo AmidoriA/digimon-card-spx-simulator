@@ -69,6 +69,10 @@ def wanted():
         html = open(os.path.join(WEB, page), encoding="utf-8").read()
         for m in re.finditer(r'(?:src|href)="([^"#:]+)"', html):
             add(m.group(1).split("?")[0], page)
+    manifest = json.load(open(os.path.join(WEB, "manifest.webmanifest"), encoding="utf-8"))
+    for icon in manifest["icons"]:
+        add(icon["src"], "manifest.webmanifest")
+    add("sw.js", "the service worker that index.html registers")
     css = open(os.path.join(WEB, "css", "style.css"), encoding="utf-8").read()
     for m in re.finditer(r"url\(([^)]+)\)", css):
         add(os.path.join("css", m.group(1).strip("'\"")), "css/style.css")

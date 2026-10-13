@@ -30,6 +30,12 @@ GitHub Pages on every push that changes it (the repository's Pages source is set
 `tools/check_paths.py`, which checks that every file the page asks for is in git under
 exactly that name, capitals included: Pages tells names apart by case and Windows does not.
 
+The online copy can be installed from Chrome (Install app / Add to Home screen):
+`web/manifest.webmanifest`, `web/sw.js` and the icons in `web/icons/` (made by
+`tools/build_icons.py` from the game's card back) are what Chrome asks for. The service
+worker asks the network first and keeps what was loaded as the fallback, so a reload still
+gets the newest scripts and what has been used opens offline; nothing is fetched ahead of time.
+
 "Card art" on the start screen, and the "New card art" box in the side rail during a match,
 switch the Digimon cards between new illustrations and the game's own pictures. The choice
 is remembered.
@@ -489,6 +495,11 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   is; the builder runs both scripts and compares every object's colours). The deck Black
   Fire Again and its name are this project's as well, made at the owner's request; in the
   game BK WarGreymon has the one deck, and it plays WarGreymon.
+
+- **Installable app.** The manifest (names, `standalone` display, the colour `#0a1018` taken
+  from the page's own background), the service worker's network-first caching and the app
+  icon (the game's card back centred on that colour, enlarged from the 4x texture with a
+  plain Lanczos resize, not through ComfyUI) are this project's, not the game's.
 
 - **Mobile setup controls.** On screens up to 900px wide, the sticky setup bar shows
   Settings, Random opponent and Start battle. Settings opens a scrollable panel above

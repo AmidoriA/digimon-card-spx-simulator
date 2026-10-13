@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Digital Card Battle</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0a1018">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css?v=mobile-setup-1">
 <link rel="stylesheet" href="css/battle-graphics.css?v=battle-options-2">
 </head>
@@ -299,5 +303,6 @@
 <script src="js/decks.js"></script>
 <script src="js/ui.js?v=mobile-setup-1"></script>
 <script src="js/editor.js"></script>
+<script>if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));</script>
 </body>
 </html>
