@@ -22,7 +22,7 @@ Build the three decks of decks.md around MachGaogamon, Crescemon, MarineDevimon.
 2. `tools/.venv/Scripts/python tools/build_custom.py extracted web data`.
 3. Extend the Time Stranger deck selftest's list.
 4. Run the checks; look in the browser.
-5. README; decks.md and board status.
+5. README; fill decks.md.
 
 ## Acceptance criteria
 

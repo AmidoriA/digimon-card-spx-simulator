@@ -24,7 +24,7 @@ Settle the look on one card with the owner before converting the other 44.
 
 - [ ] The owner approves the result.
 - [ ] All checks of CLAUDE.md and `battletest.js` pass.
-- [ ] roster.md Phase 2 status for Guilmon is done.
+- [ ] Guilmon is ticked on TS-208a's Digimon checklist on Trello.
 
 ## Out of scope
 

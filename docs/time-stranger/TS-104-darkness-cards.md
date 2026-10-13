@@ -35,7 +35,7 @@ Add the nine Darkness cards of [roster.md](roster.md) as custom cards with place
 3. `tools/.venv/Scripts/python tools/build_custom.py extracted web` (or limited to these card numbers).
 4. Extend the Time Stranger selftest's list and the `decktest.js` count.
 5. Run the checks and look in the browser (phase1.md).
-6. README rows; roster.md Phase 1 status; board status.
+6. README rows; tick each Digimon on the Trello card's Digimon checklist.
 
 ## Acceptance criteria
 

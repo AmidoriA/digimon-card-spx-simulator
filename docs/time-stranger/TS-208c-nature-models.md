@@ -19,7 +19,7 @@ Convert the nine Nature Digimon to their model numbers: Renamon (419), Terriermo
 
 1. Convert each model with the TS-207 settings; drop its `model.recolour`.
 2. Look at each in `battle-preview.html` (three styles) and fix what is off.
-3. Run the checks; update roster.md Phase 2 status.
+3. Run the checks; tick each Digimon on the Trello card's Digimon checklist.
 
 ## Acceptance criteria
 

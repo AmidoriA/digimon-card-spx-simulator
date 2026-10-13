@@ -22,7 +22,7 @@ Build the three decks of decks.md around WarGrowlmon, Flaremon, SaviorHackmon.
 2. `tools/.venv/Scripts/python tools/build_custom.py extracted web data`.
 3. Add the Time Stranger deck selftest (phase3.md).
 4. Run the checks; look in the browser.
-5. README; decks.md and board status.
+5. README; fill decks.md.
 
 ## Acceptance criteria
 
