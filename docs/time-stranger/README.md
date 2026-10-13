@@ -25,6 +25,10 @@ yellow 1 Cards, orange 2 Models, purple 3 Decks. The files here hold what does n
 with progress (goal, context, steps) and what is found (the Log).
 
 - Pick a card in Todo whose dependencies are in Done; move it to Doing.
+- Not every card is filled yet: only TS-001 … TS-004 and TS-101 have their checklists, and
+  no card has its phase label. When you start a ticket, first bring its card up to date
+  from the ticket file: an "Acceptance criteria" checklist, for TS-101 … TS-105 and
+  TS-208a … e a "Digimon" checklist of its nine Digimon, and the phase label.
 - If it waits on the owner, move it to Blocked and write the question in the ticket's
   "Questions for the owner" and as a comment on the card.
 - Commit messages start with the ticket id: `TS-101: Add the Fire Time Stranger cards`.
