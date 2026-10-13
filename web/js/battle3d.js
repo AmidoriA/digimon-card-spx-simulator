@@ -268,8 +268,13 @@
     this.cur = 0; this.setup(0);
   };
   // what the director waits on (0x801ee8a0, 0x801eea20): the frame count is below 0 once the
-  // motion has stopped
+  // motion has stopped, and while it is held
   Actor.prototype.busy = function () { return this.count >= 0; };
+  // 0x80022ca4: hold the motion where it is. The frame count is turned below 0, which the
+  // task passes over; starting a motion sets it anew.
+  Actor.prototype.hold = function () { this.count = this.count > 0 ? -this.count : -1; };
+  // 0x80022d00: let a held motion go on
+  Actor.prototype.release = function () { if (this.count < 0) this.count = -this.count; };
   // 0x80022100: aim every channel at the current key. The key after it is the next one of the
   // motion, or after the last one the loop key; the start names it itself (`lead`).
   Actor.prototype.setup = function (lead) {
@@ -289,7 +294,7 @@
     }
   };
   // The motion task (0x80022b98) passes over a model that is not shown (0x80022bd0: its show
-  // flag is not above 0) and one whose motion has stopped: a hidden model stays in its pose.
+  // flag is not above 0) and one whose motion has stopped or is held: it stays in its pose.
   Actor.prototype.step = function () {
     if (this.visible && this.count >= 0) {
       this.count--;
@@ -1116,8 +1121,8 @@
     var v = this.v, a0 = c.length > 3 ? C.s16(c[2] ? v[c[3]] : c[3]) : 0, a1 = c.length > 5 ? C.s16(c[4] ? v[c[5]] : c[5]) : 0, s, a;
     if (c[0] === 0x0a) {
       switch (c[1]) {
-        case 7: a = this.actor(v[0x1be]); if (a) a.visible = false; break;       // 0x80022ca4
-        case 8: a = this.actor(v[0x1be]); if (a) a.visible = true; break;        // 0x80022d00
+        case 7: a = this.actor(v[0x1be]); if (a) a.hold(); break;                // 0x801e880c
+        case 8: a = this.actor(v[0x1be]); if (a) a.release(); break;             // 0x801e8830
         case 9: v[0x1a0] = -Math.round(Math.atan2(v[0x197] - v[0x19a], v[0x19c] - v[0x199]) * 2048 / Math.PI); break;
       }
     } else if (c[0] === 0x0b) {

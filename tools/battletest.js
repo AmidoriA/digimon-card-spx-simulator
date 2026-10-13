@@ -127,8 +127,24 @@ function mesh(model) {
     }
     assert(!B.busy(), 'the attack with hit script 402 did not end');
     assert.strictEqual(starts, 2, 'hit script 402 did not start the damage motion twice');
+    await playback;
+    // hit script 401 holds the target's motion for 60 frames (a.7, a.8: 0x80022ca4, 0x80022d00);
+    // the target stays on screen
+    const g = cards.find(c => c.name === 'Garurumon'), e = cards.find(c => c.atk.some(a => a.hit === 401)), j = e.atk.findIndex(a => a.hit === 401);
+    playback = B.attack({ models: [e.model, g.model], attacker: 0, first: 0, script: e.atk[j].script, hit: 401, attack: j, name: e.atk[j].name, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false });
+    await waitFor(() => B.busy());
+    const H = B._debug().actors[1]; let held = 0, was = null;
+    assert(H.keys[0].r[10] >= 0, 'the test needs a target whose standing motion repeats');
+    for (let i = 0; i < 1500 && B.busy(); i++) {
+      B.advance(1);
+      if (H.count >= 0) { was = null; continue; }
+      assert(H.visible, 'a held Digimon is not on screen');
+      if (was) assert(H.p.every((v, i) => v === was[i]), 'a held motion moved on');
+      was = Array.from(H.p); held++;
+    }
+    assert.strictEqual(held, 60, 'hit script 401 did not hold the target for 60 frames');
     await playback; B.paused = false;
-    console.log('PASS: motions last 2 x d0 + the sum of 2 x d frames, start again when started again, and wait while hidden.');
+    console.log('PASS: motions last 2 x d0 + the sum of 2 x d frames, start again when started again, wait while hidden or held.');
   }
   const c = cards.find(c => c.name === 'Agumon'), a = c.atk[0];
   const arenas = JSON.parse(fs.readFileSync(path.join(web,'assets/battle/arenas.json')));

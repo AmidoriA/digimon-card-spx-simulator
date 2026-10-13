@@ -484,7 +484,7 @@ not recovered game behaviour. They require no new downloaded model or texture as
 runs in all three styles with the same random seed, including no-effect misses and countered
 motions. It also plays every motion of Agumon that stops and compares its length with the
 one `tools/motion_slots.py` measured (`docs/time-stranger/motion-slots.json`), and checks
-that a motion started again starts again and that a hidden model waits. It checks CPU
+that a motion started again starts again and that a hidden or a held model waits. It checks CPU
 animation logic; real shader linking and visual appearance are
 checked separately in `battle-preview.html`. For deliberately uncommitted development,
 `python tools/check_paths.py --working-tree` includes new files; the normal command still
@@ -571,7 +571,11 @@ scripts, then camera and arenas.
   prints a script's timeline). A script runs in the frame of its Digimon (`0x801ea258`: origin
   at its feet, turned to its facing), first sets everything up in one go, then says it is
   ready and runs frame by frame. Commands start a motion (the damage motion 4 becomes the KO
-  motion 5 when HP is 0), show one Digimon and hide the other, wait, play sounds, and create
+  motion 5 when HP is 0), hold a Digimon's motion where it is and let it go on (`a.7` and
+  `a.8`, handlers `0x801e880c` and `0x801e8830`: `0x80022ca4` turns the motion's frame count
+  below 0, which the motion task passes over, and `0x80022d00` turns it back; 26 scripts do
+  this, the ice attacks to freeze the target under the ice), show one Digimon and hide the
+  other (`b.14`), wait, play sounds, and create
   objects that hang on the script's frame, on another object or on a body part of a Digimon.
 - **Objects.** Rings, particles and plain nodes are the board ones. New here: a *sprite*
   (`0x801e41ac`, drawn by `0x801eb874`), a flat picture facing the viewer that steps through
