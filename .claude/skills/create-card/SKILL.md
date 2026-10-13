@@ -161,6 +161,27 @@ Add a check to `tools/selftest.js` that the deck is its base with the exchange, 
 `node tools/sim.js` (it now plays the deck), look for it in the opponent list on the start
 screen, and name it in the README next to the card.
 
+## Many cards at once
+
+When the owner asks for a set of cards (the Time Stranger cards in `docs/time-stranger/`
+are 45), plan before writing any entry:
+
+- **Numbers in blocks.** Give the whole set its card ids, model numbers and battle offsets
+  up front, in a fixed order (Specialty, then level), and write them down; `custom.load()`
+  refuses gaps, so a card dropped later means renumbering the ones after it.
+- **One group, one commit.** Build, test and commit a group (one Specialty, say) at a time,
+  not the whole set in one go, so each push is small enough to check in the browser.
+- **Numbers the owner did not give** are the base's, unchanged: DP, +P, HP, the attack
+  powers, the ✕ effect and the support record. Only the names change. That keeps the game's
+  balance, and the README says the names are this project's and the numbers the base's.
+  Choose other numbers only when the owner asks, as in section 1.
+- **Choosing a base.** Body shape first, since the model keeps the base's shape; then a base
+  of the same Specialty, so its attack effects fit; and three different bases for the three
+  cards of a (Specialty, level) slot, so they do not play alike. A base of another Specialty
+  needs a `battle` block (offset, recolour, `accent`) so its effects take the card's colours.
+- **One selftest for the set.** List the set's names in one check that compares each card
+  with its base, instead of one check per card.
+
 ## Traps
 
 - **The page keeps old files.** After a rebuild, fetch the model, the effect files and
