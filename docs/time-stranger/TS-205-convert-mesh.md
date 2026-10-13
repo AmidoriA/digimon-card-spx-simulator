@@ -30,9 +30,9 @@ Turn a Time Stranger model into a DDCB model file (`web/assets/models/NNN.*`) th
 
 ## Acceptance criteria
 
-- [ ] Guilmon written as model 401 stands in `battle-preview.html` in Original PS1, Enhanced and Smooth (screenshots in the log).
-- [ ] Parts, triangles, texture size and palette rows within the base's figures.
-- [ ] `node tools/battletest.js` validates it.
+- [x] Guilmon written as model 401 stands in `battle-preview.html` in Original PS1, Enhanced and Smooth (screenshots in the log). (Checked with the files in place, then put back: see the log.)
+- [x] Parts, triangles, texture size and palette rows within the base's figures.
+- [x] `node tools/battletest.js` validates it.
 
 ## Out of scope
 
@@ -45,3 +45,68 @@ Turn a Time Stranger model into a DDCB model file (`web/assets/models/NNN.*`) th
 ## Log
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
+
+### 2026-10-14
+
+**The tool.** `tools/ts_model.py <file.geom> <web dir> <base model number> <out dir>
+<number> [--part N=<bone>] [--preview out.png]` (the ticket's shorter call would have to
+look the files up; this one is given them). What it does at each step, and that every
+choice in it is this project's and not the game's, is in the README, "Time Stranger models
+as DDCB models".
+
+**What the disc's models cost**, measured over the 211 card models of `web/assets/models`:
+2 to 31 parts (median 20), 380 to 1,246 triangles (median 710), 1 to 16 palette rows, every
+texture 16 colours a row, 83 of them 256×128, and no triangle with corners in different
+parts. The ticket's "about 640-880 triangles, up to 12 rows" is the middle of that.
+
+**Guilmon** (`chr090`) on Agumon's model 3 (16 parts, 690 triangles, 256×124, 3 rows):
+
+| | Base | Guilmon |
+|---|---|---|
+| Parts | 16 | 16 |
+| Triangles | 690 | 690 (from 7,754; 12 of them the eyes') |
+| Vertices | 937 | 699 |
+| Texture | 256×124 | 256×124 |
+| Palette rows | 3 | 3 |
+
+- Parts: 33 bones carry vertices; 17 were merged into their parents, smallest first (the
+  five tail bones, spine, neck, collars, elbows, thighs, nails and ears). Left: `J_spine02`
+  (0), `J_center`, knees, feet, toes, head, arms, mouth, hands, fingers.
+- Part 0 is `J_spine02`: Agumon's first attack (script 554) hangs an object on part 0
+  (`motion-slots.json`). By its place in Agumon's model that part is the chest: 27
+  vertices, the parent of the head's part and of both arms'.
+- Texture: 28 pieces in 3 groups of shared texels (the body's one big piece, each eye),
+  shrunk to 0.254 across and 0.102 down. Row 0 is the body's 16 colours, rows 1 and 2 the
+  two eyes'.
+- Scale 115.66: 2.170 high in Time Stranger, 251 here; Agumon stands from y −249 to 1.
+
+![Agumon as it stands and Guilmon as converted, front and side](img/ts-205-guilmon-base.png)
+
+**Seen in the browser.** The converted files were put in place of
+`web/assets/models/401.*` and looked at in `battle-preview.html` (Guilmon against
+Garurumon, stage 13, Rock Breaker, paused at frame 31) in the presets Original PS1,
+Enhanced and Enhanced Ultra, which draw the model as written, refined and smooth
+(`preset()` in `web/js/battle3d.js`): Guilmon stands in the arena on the ground, upright, the right size beside
+the stage, textured, in the bind pose with its arms out. No console errors.
+
+![Guilmon as model 401 in the three styles](img/ts-205-guilmon-preview.png)
+
+`node tools/battletest.js` with the converted 401 in place: both lines PASS (237 Digimon,
+711 attacks × three styles; Smooth meshes).
+
+**Not committed: model 401 itself.** The files in `web/assets/models/401.*` were put back
+to the recoloured Agumon after the check. A Guilmon that holds one pose would take the
+place of a card that plays today, and `tools/build_custom.py` writes 401 from the card's
+recolour anyway; putting the converted model into the build is TS-207's.
+
+**Not done or not right yet:**
+
+- Step 5, the touch-up through ComfyUI: not done. At 320×240 the eyes are a few pixels
+  (12 triangles, 326 texels each) and do not read; whether to repaint them into the sheet
+  is for the pilot (TS-207).
+- The two eyes take a palette row each though their colours are the same, while the whole
+  body has one row of 16 colours. A triangle takes its row from its texture piece, and
+  the body is one piece; splitting it by colour would need its texels twice.
+- A triangle is given whole to one part, as on the disc, so where two parts meet there is
+  no skin to stretch: when the motions come (TS-206) joints may open.
+- Looked at only in the bind pose and only for Guilmon.
