@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/sFJRSkSQ |
 | Phase | 0 Groundwork |
 | Depends on | none |
 

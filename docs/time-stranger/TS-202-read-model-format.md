@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/fkaEh4xz |
 | Phase | 2 Models |
 | Depends on | TS-201 |
 

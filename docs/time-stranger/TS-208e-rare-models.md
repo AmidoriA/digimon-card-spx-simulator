@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/7IcLCqJO |
 | Phase | 2 Models |
 | Depends on | TS-207, TS-105 |
 

@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/Clemd8tm |
 | Phase | 2 Models |
 | Depends on | TS-207, TS-103 |
 

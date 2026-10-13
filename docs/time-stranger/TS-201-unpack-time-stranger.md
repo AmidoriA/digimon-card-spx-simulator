@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/7uOsB4s1 |
 | Phase | 2 Models |
 | Depends on | none |
 

@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/ZhfaqmM9 |
 | Phase | 1 Cards |
 | Depends on | TS-001, TS-002, TS-003, TS-101 |
 

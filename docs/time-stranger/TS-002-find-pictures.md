@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/k5VoEA4W |
 | Phase | 0 Groundwork |
 | Depends on | TS-001, TS-004 |
 

@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/tfBaYtSp |
 | Phase | 3 Decks |
 | Depends on | TS-301, TS-101 |
 

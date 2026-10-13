@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/CC15DUlA |
 | Phase | 3 Decks |
 | Depends on | TS-101 … TS-105 |
 

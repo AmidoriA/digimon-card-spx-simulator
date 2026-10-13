@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | todo |
+| Trello | https://trello.com/c/tzzuM8kp |
 | Phase | 2 Models |
 | Depends on | TS-203, TS-204, TS-205 |
 
