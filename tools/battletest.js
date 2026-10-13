@@ -87,6 +87,49 @@ function mesh(model) {
     const result = await B.attack({ models: [c.model, c.model], attacker: 0, script: a.script, hit: a.hit, mode, dry: true });
     assert(result.frames < 4000 && result.sprites === 0 && result.quads === 0, mode + ' emitted attacks');
   }
+  // How the game times a motion (start 0x80022d34, key setup 0x80022100, task 0x80022b98):
+  // 2 x d0 of lead, then every key over 2 x its duration; the lengths are the ones
+  // tools/motion_slots.py measured from the disc.
+  {
+    const slots = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'docs/time-stranger/motion-slots.json')));
+    const c = cards.find(c => c.name === 'Agumon'), a = c.atk[0];
+    B.setStyle('legacy'); B.paused = true;
+    let playback = B.attack({ models: [c.model, c.model], attacker: 0, script: a.script, hit: a.hit, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false });
+    await waitFor(() => B.busy());
+    const X = B._debug().actors[1], want = slots[c.model].slots;
+    assert.strictEqual(want[1].frames, 240, 'Agumon attack 1 is not the 240 frames read from the game');
+    for (let m = 0; m < 8; m++) {
+      if (want[m].loop >= 0) continue;
+      const heard = []; let n = 0;
+      X.onSound = s => heard.push(s);
+      X.play(m, true);
+      while (X.busy() && n < 2000) { X.step(); n++; }
+      assert.strictEqual(n, want[m].frames, 'motion ' + m + ' does not last as long as in the game');
+      assert.strictEqual(heard.length, want[m].sounds.length, 'motion ' + m + ' names its sounds another number of times');
+    }
+    X.onSound = null;
+    X.play(1, true); for (let i = 0; i < 30; i++) X.step();
+    X.play(1, true);
+    assert(X.cur === 0 && X.count === 2 * X.keys[0].dur, 'starting the motion that is playing did not start it again');
+    X.visible = false;
+    const pose = Array.from(X.p), left = X.count;
+    for (let i = 0; i < 30; i++) X.step();
+    assert(X.count === left && X.p.every((v, i) => v === pose[i]), 'a hidden model moved on');
+    B.stop(); await playback;
+    // hit script 402 starts the damage motion twice (script command b.2, 0x8002daac)
+    const d = cards.find(c => c.atk.some(a => a.hit === 402)), k = d.atk.findIndex(a => a.hit === 402);
+    playback = B.attack({ models: [d.model, c.model], attacker: 0, first: 0, script: d.atk[k].script, hit: 402, attack: k, name: d.atk[k].name, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false });
+    await waitFor(() => B.busy());
+    const T = B._debug().actors[1]; let starts = 0;
+    for (let i = 0; i < 1500 && B.busy(); i++) {
+      B.advance(1);
+      if (T.motion === 4 && T.cur === 0 && T.count === 2 * T.keys[0].dur) starts++;
+    }
+    assert(!B.busy(), 'the attack with hit script 402 did not end');
+    assert.strictEqual(starts, 2, 'hit script 402 did not start the damage motion twice');
+    await playback; B.paused = false;
+    console.log('PASS: motions last 2 x d0 + the sum of 2 x d frames, start again when started again, and wait while hidden.');
+  }
   const c = cards.find(c => c.name === 'Agumon'), a = c.atk[0];
   const arenas = JSON.parse(fs.readFileSync(path.join(web,'assets/battle/arenas.json')));
   const sample = { models: [c.model, cards[0].model], attacker: 0, script: a.script, hit: a.hit, arena: arenas[0],

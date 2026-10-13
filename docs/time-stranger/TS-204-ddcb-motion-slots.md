@@ -114,3 +114,9 @@ README under "Not from the game code", Polygon Battle gaps):
 - The entrance (script 999, slot 7) is not played (already listed under staging).
 - Omnimon II (card 35) names hit scripts 2011 and 497, which are not in its model's file
   (`F/180.PAK`) nor in `E/SKILL`; what the game does then was not read.
+
+### 2026-10-14
+
+The first three of these are ported now (`Actor.play`, `setup`, `step` and script command
+`b.2` in `web/js/battle3d.js`), with the director's own starts of the standing motion around
+the scripts; `tools/battletest.js` compares the motion lengths with `motion-slots.json`.

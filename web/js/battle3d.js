@@ -255,19 +255,26 @@
     for (i = 0; i <= this.m.n; i++) for (c = 0; c < 9; c++) { this.p[i * 9 + c] = k[i * 11 + FIELD[c]]; this.v[i * 9 + c] = 0; }
   };
   // 0x80022d34: start a motion from the current pose. With loop = true the motion's own
-  // "next key" field decides whether it repeats.
+  // "next key" field decides whether it repeats. The start aims the model at key 0 with key 0
+  // as the key after it (it calls the key setup with (0, -1)), so the model first blends into
+  // key 0 over 2 x that key's duration; the task then sets up key 0 once more and goes through
+  // the keys. A motion lasts 2 x d0 + the sum of 2 x d frames, and key 0's sound is asked for
+  // twice.
   Actor.prototype.play = function (mot, loop) {
     this.keys = this.m.motions[mot] || this.m.motions[0];
     this.motion = this.m.motions[mot] ? mot : 0;
     if (!this.keys) return;
     this.loop = loop ? this.keys[0].r[10] : -1;
-    this.cur = 0; this.count = 0;
+    this.cur = 0; this.setup(0);
   };
-  Actor.prototype.busy = function () { return this.cur >= 0 || this.count > 0; };
-  // 0x80022100: aim every channel at the current key
-  Actor.prototype.setup = function () {
+  // what the director waits on (0x801ee8a0, 0x801eea20): the frame count is below 0 once the
+  // motion has stopped
+  Actor.prototype.busy = function () { return this.count >= 0; };
+  // 0x80022100: aim every channel at the current key. The key after it is the next one of the
+  // motion, or after the last one the loop key; the start names it itself (`lead`).
+  Actor.prototype.setup = function (lead) {
     if (this.cur < 0) { this.count = -1; return; }
-    var key = this.keys[this.cur], D = Math.max(1, key.dur), nx = this.cur + 1 < this.keys.length ? this.cur + 1 : this.loop, i, c;
+    var key = this.keys[this.cur], D = Math.max(1, key.dur), nx = lead != null ? lead : this.cur + 1 < this.keys.length ? this.cur + 1 : this.loop, i, c;
     if (key.snd > 0 && this.onSound) this.onSound(key.snd - 1);
     var k1 = key.r, k2 = nx >= 0 ? this.keys[nx].r : key.r, Dn = nx >= 0 ? Math.max(1, this.keys[nx].dur * 2) : 1;
     this.count = 2 * D; this.phase = D; this.cur = nx;
@@ -281,12 +288,14 @@
       }
     }
   };
+  // The motion task (0x80022b98) passes over a model that is not shown (0x80022bd0: its show
+  // flag is not above 0) and one whose motion has stopped: a hidden model stays in its pose.
   Actor.prototype.step = function () {
-    if (this.count >= 0) {
+    if (this.visible && this.count >= 0) {
       this.count--;
       if (this.count <= 0) this.setup();
     }
-    var n = this.m.n, j, live = this.count > 0;
+    var n = this.m.n, j, live = this.visible && this.count > 0;
     if (live) {
       for (j = 0; j < (n + 1) * 9; j++) this.p[j] += this.v[j];
       this.phase--;
@@ -1117,7 +1126,7 @@
           a = this.actor(v[0x1be]);
           if (a) {
             var mot = a0 === 4 && this.scene.hp[this.scene.actors.indexOf(a)] <= 0 ? 5 : a0;
-            if (a.motion !== mot) a.play(mot, true);          // 0x8002daac: not if it is already in it
+            a.play(mot, true);          // 0x8002daac: from its first key, also when it is already in it
           }
           break;
         case 1: a = this.actor(v[0x1be]); if (a && a.m.motions[a0]) a.snap(a0); break;       // 0x8002db58
@@ -1320,8 +1329,18 @@
           function only(a) { act.forEach(function (x) { x.visible = x === a; }); sc.focus = a; sc.focusOwner = null; }
           function next() {
             if (run) run.end();
-            if (++k >= list.length) { run = null; return; }
+            if (++k >= list.length) {
+              // 0x801ee860, 0x801ee86c: the hit script over, the attacker takes its standing pose
+              // and stands
+              if (run && list.length === 2 && k === 2) { A.snap(0); A.play(0, true); }
+              run = null; return;
+            }
             act.forEach(function (a) { a.visible = true; });
+            // 0x801ee00c .. 0x801ee060: the Digimon a script is about to play on stands; the one
+            // the script before played on is hidden and takes its standing pose
+            var on = act[list[k][1]], before = k > 0 ? act[list[k - 1][1]] : null;
+            on.play(0, true);
+            if (before && before !== on) { before.visible = false; before.snap(0); }
             cut(sc, list[k][1]);
             run = new Run(list[k][0], list[k][1], sc, fxs[k]);
             if (k === 0) sc.overlays.push(new AttackOverlay(banner));
@@ -1338,7 +1357,11 @@
               only(A); A.play(6, true);
               sc.overlays.push(new WinnerOverlay(label(opts.attacker)));
               phase = 'winner';
-            } else { phase = 'end'; hold = mode === 'normal' ? 20 : 8; }
+            } else {
+              // 0x801ee904: a target left alive stands, and the director waits 20 frames
+              if (mode === 'normal' && list.length === 2) T.play(0, true);
+              phase = 'end'; hold = mode === 'normal' ? 20 : 8;
+            }
           }
           cut(sc, opts.attacker);
           if (mode === 'zero') { only(A); A.play(0, true); sc.overlays.push(new AttackOverlay(banner)); }
@@ -1348,7 +1371,7 @@
             sc.overlays = sc.overlays.filter(function (o) { return o.step(); });
             if (run) { if (!run.step()) next(); return; }
             if (phase === 'scripts') {
-              // the director waits for the target's damage motion before it goes on
+              // the director waits for the target's damage motion before it goes on (0x801ee87c)
               if (sc.overlays.length || (mode === 'normal' && T.motion >= 4 && T.busy())) return;
               if (mode === 'normal' && opts.heal > 0 && scripts['998']) {
                 // 0x801eec3c: the attacker with script 998 and "Eat-Up HP" while its HP counts up

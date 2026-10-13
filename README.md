@@ -482,7 +482,10 @@ not recovered game behaviour. They require no new downloaded model or texture as
 
 `node tools/battletest.js` validates every card model and compares all 576 attack/hit script
 runs in all three styles with the same random seed, including no-effect misses and countered
-motions. It checks CPU animation logic; real shader linking and visual appearance are
+motions. It also plays every motion of Agumon that stops and compares its length with the
+one `tools/motion_slots.py` measured (`docs/time-stranger/motion-slots.json`), and checks
+that a motion started again starts again and that a hidden model waits. It checks CPU
+animation logic; real shader linking and visual appearance are
 checked separately in `battle-preview.html`. For deliberately uncommitted development,
 `python tools/check_paths.py --working-tree` includes new files; the normal command still
 requires every website file to be in Git before publication.
@@ -532,7 +535,14 @@ scripts, then camera and arenas.
   standing loops from key 0 in all but three (Agumon's is one that does not), victory loops
   in 156, mostly from a later key, two third attacks loop, and nothing else does. Starting a
   motion always starts it from its first key, also when it is the one playing (`0x8002daac`
-  only skips unpacking it again). A hidden model is not moved on (`0x80022bd0`).
+  only skips unpacking it again). A hidden model is not moved on (`0x80022bd0`: the task
+  passes over a model whose show flag, byte `0x114` + its number of the block at
+  `[0x801d6a4c]`, is not above 0; `b.14` and the director set that flag). `Actor.play`,
+  `setup` and `step` in `js/battle3d.js` do the same, and the port's director makes the
+  starts the table above gives it around the scripts: standing for the Digimon a script is
+  about to play on, with the one the script before played on hidden in its standing pose
+  (`0x801ee00c` … `0x801ee060`), standing for the attacker when the hit script is over
+  (`0x801ee860`, `0x801ee86c`) and for a target left alive (`0x801ee904`).
 - **What a key holds besides the pose.** Its sound (the number + 1, 0 for none) is played
   with the sound call `0x8002b498` when the model starts towards the key (`0x80022184`), so
   key 0's sound is heard twice, at the start and at the end of the lead; 30 motions have one
@@ -770,11 +780,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   arrival at a target is judged by distance travelled. The alternate models in archive `G`
   are not used, and five models whose palette is not in their own file fall back to their
   texture's first palette. Sounds named by motions are not played; sounds named by scripts
-  are, where the sound bank has them. Motions are not yet timed as the game times them (see
-  *How long a motion lasts*): here a motion begins at its first key without the lead, so the
-  Digimon moves 2 × d0 frames (4 to 64) ahead of its script's effects; a motion that is
-  started while it is playing is left to run on; and a hidden model keeps moving. The
-  entrance motion (slot 7) is never shown.
+  are, where the sound bank has them. The entrance motion (slot 7) is never shown. After the
+  second strike of a turn the game's director waits 30 frames (`0x801eea98`) where it waits
+  20 after the first (`0x801ee910`); here every strike is a scene of its own and waits 20.
 - **Taking back in the Digivolve Phase.** In the game, answering No to "Is it OK to end the
   Digivolve Phase?" (or backing out of the digivolve choice) returns the DP card placed this
   turn and an option card used to no effect to the hand and starts the phase again
