@@ -129,7 +129,9 @@ def build_decks(dek):
     for i in range(n):
         r = dek[8 + i * 110:8 + (i + 1) * 110]
         decks.append({
-            "id": i, "name": cstr(r[60:79]), "owner": cstr(r[79:92]),
+            # the owner's name runs to its NUL: the battle start copies it whole from byte
+            # 79 as the opponent's name (the strcpy at 0x8003fdd4); the longest is 19 letters
+            "id": i, "name": cstr(r[60:79]), "owner": cstr(r[79:100]),
             "cards": list(struct.unpack_from("<30H", r, 0)),
             "rank": r[108],
             # which armor form the deck's partner Rookie can take (0 = none); see the

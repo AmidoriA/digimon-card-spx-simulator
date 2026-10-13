@@ -341,6 +341,12 @@ test('custom decks follow the 159 decks of the game; Black Fire Again is Black F
   assert.deepStrictEqual([again.rank, again.armor, again.bgm, again.bgm3d], [heart.rank, heart.armor, heart.bgm, heart.bgm3d]);
 });
 
+test('the name of a deck owner is whole: it is a string copied to its NUL (0x8003fdd4), not 13 letters', () => {
+  const owner = (name) => E.DATA.decks.find((d) => d.name === name).owner;
+  assert.deepStrictEqual(['Binding Chain', 'Evil King', 'Beetle Cross', 'Patriot'].map(owner),
+    ['Digimon Emperor', 'VenomMyotismon', 'HerculesKabuterimon', 'BK MetalGarurumon']);
+});
+
 test('BlackWarGreymon (custom): +200 for each Darkness card in the own DP Slot; x3 against Nature', () => {
   const bw = C('BlackWarGreymon'), dark = E.CARDS.filter((c) => c.type === 'digimon' && c.spec === 3).map((c) => c.name);
   assert.deepStrictEqual([E.SPEC[bw.spec], E.LEVEL[bw.level], bw.dp, bw.pp], ['Fire', 'U', 60, 20]);
