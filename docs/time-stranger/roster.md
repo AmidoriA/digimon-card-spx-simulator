@@ -19,7 +19,8 @@ policy and changes below. Local game-table confirmation follows TS-201/TS-203.
 - TS model: the model in Time Stranger, `chrNNN` (its files are `chrNNN.geom`, `chrNNN_*.anim`,
   `images/chrNNN*.img`), with the Digimon's key in the game's tables. Read in TS-203 from
   `text/char_name.mbe` (English name to key) and `data/char_info.mbe` (key to model) of Steam
-  build 23514637.
+  build 23514637. Agumon (Black) has no row in those tables; the owner decided on 2026-10-13
+  that it keeps the disc's Agumon model with its texture recoloured, as in Phase 1.
 - Picture edits made through ComfyUI (TS-004) are noted in the Picture column.
 - Progress is tracked on Trello: each Specialty's Phase 1 and Phase 2 cards hold a checklist
   of its nine Digimon.
@@ -57,7 +58,7 @@ Megas, so some Ultimates get a Mega's numbers (Chirinmon from MetalGarurumon, fo
 | 326 | Nature | U | Taomon | Angewomon (77) | 425 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) | Dark |  | `chr405` (`char_TAOMON`) |
 | 327 | Nature | U | Rapidmon | MagnaAngemon (75) | 426 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) | Electric |  | `chr722` (`char_RAPIDMON`) |
 | 328 | Nature | U | Lilamon | Lillymon (78) | 427 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) | Plant |  | `chr073` (`char_LILAMON`) |
-| 329 | Darkness | R | Agumon (Black) | Agumon (27) ✱ | 428 | [468 · Virus](https://digimon.jsuk.cloud/en/d/agumon-black/) | Fire |  | not in build 23514637 |
+| 329 | Darkness | R | Agumon (Black) | Agumon (27) ✱ | 428 | [468 · Virus](https://digimon.jsuk.cloud/en/d/agumon-black/) | Fire |  | none: the disc's Agumon, texture recoloured (owner, 2026-10-13) |
 | 330 | Darkness | R | Monodramon | Veemon (175) ✱ | 429 | [037 · Vaccine](https://digimon.jsuk.cloud/en/d/monodramon/) | Neutral |  | `chr458` (`char_MONODRAMON`) |
 | 331 | Darkness | R | Dracmon | DemiDevimon (132) | 430 | [070 · Virus](https://digimon.jsuk.cloud/en/d/dracmon/) | Dark |  | `chr457` (`char_DRACUMON`) |
 | 332 | Darkness | C | Kurisarimon | Bakemon (123) | 431 | [178 · Unknown](https://digimon.jsuk.cloud/en/d/kurisarimon/) | Dark |  | `chr630` (`char_KURISARIMON`) |

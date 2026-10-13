@@ -25,7 +25,7 @@ For all 45 Digimon, know which file is its model and which of its animations are
 
 ## Acceptance criteria
 
-- [ ] All 45 rows have their model file.
+- [x] All 45 rows have their model file. (44 from Time Stranger; card 329 keeps the disc's Agumon by the owner's decision.)
 - [ ] Guilmon's animation list with the role of each, and where the role was read.
 - [x] README: the animation format and the table, with sources.
 
@@ -35,9 +35,14 @@ For all 45 Digimon, know which file is its model and which of its animations are
 
 ## Questions for the owner
 
-- 2026-10-13: Agumon (Black), card 329, has no row in the tables of Steam build 23514637
-  and so no model here. Is it in a DLC or a later update that this install does not have,
-  or should card 329 be another Digimon? Until then the first criterion stands at 44 of 45.
+- None open. (2026-10-13: Agumon (Black), card 329, has no row in the tables of Steam build
+  23514637; answered under Decisions.)
+
+## Decisions
+
+- 2026-10-13, the owner: Agumon (Black) uses the PS1 game's Agumon with its texture
+  recoloured, not a Time Stranger model. Card 329 and model 428 stay as Phase 1 makes them;
+  TS-208d converts the other eight Darkness models only.
 
 ## Log
 
