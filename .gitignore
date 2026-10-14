@@ -6,3 +6,5 @@ extracted_ts/
 tools/.venv/
 __pycache__/
 *.pyc
+# pictures the page makes while a model is checked (tools/sheet_server.py)
+sheets/

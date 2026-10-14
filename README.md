@@ -669,7 +669,12 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   is which of its Time Stranger motions fills which of the game's eight slots and how it is
   laid on the base's keys
   (`tools/ts_model.py`; "Time Stranger models as DDCB models" lists every choice).
-  Three of those choices leave what the disc's models are: a converted model has triangles
+  In short: the model, its texture and its motions are Time Stranger's. Its bones are
+  merged down to at most 30 rigid parts, its triangles thinned to under a thousand, its
+  texture laid out again in a 256×128 sheet of 16-colour palette rows, its motions sampled
+  at the keys of the base's motions so that each lasts what the base's lasts, and the
+  camera record and the sound of every key are the base's, since Time Stranger's motions
+  have neither. Three of those choices leave what the disc's models are: a converted model has triangles
   between two parts, which no model of the game has; it may cost what Angewomon's model
   costs whatever its base costs (the owner's choice, 2026-10-14); and it is sized against
   its base by the two Digimon's sizes in Time Stranger. **Guilmon (302) is the first card
@@ -1197,7 +1202,7 @@ tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr090.geom w
 | Part numbers | `--part N=<bone>` (the card's `parts`) gives a bone's part the number N. The base's battle scripts hang effects on parts by number (`docs/time-stranger/motion-slots.md`, the "Parts" columns; TS-204): Agumon's first attack names part 0, its chest, so Guilmon's `J_spine02` is part 0 |
 | Triangles | Edges are collapsed onto one of their ends, cheapest first by how far the surface moves (quadric error), down to the figure. A collapse that would tear the texture mapping at a seam, turn a triangle over or pinch the mesh is refused. The eyes' triangles weigh 30 times more, so they are not the first to go |
 | Texture | The pieces of the texture mapping still in use are laid out again in one sheet, each by its own shape (the texels its triangles touch and one around), the largest first, at the first free place from the top left; pieces on the same texels (the two sides of a model painted once) share them. All are shrunk by the same factor, the eyes' pieces half as much (1.5 times as large). The pieces are sorted into as many groups as there are palette rows by their mean colour, and the texels of each group are reduced to 16 colours. Guilmon: 28 pieces, 14 after sharing, at 0.153 of their size, 65% of the sheet used |
-| Size and place | With `--against <the base's own Time Stranger model>` (the card's `against`) the model is as large against the base as it is in Time Stranger: Agumon is 1.743 high there and Guilmon 2.170, so Guilmon stands 1.24 times as tall as the disc's Agumon, 312 against 251. Without it (a base that Time Stranger does not have) it is as tall as the base in key 0 of its standing motion. Stood on the base's ground, y downward and facing −z as the disc's models |
+| Size and place | With `--against <the base's own Time Stranger model>` (the card's `against`) the model is as large against the base as it is in Time Stranger: Agumon is 1.743 high there and Guilmon 2.170, so Guilmon stands 1.24 times as tall as the disc's Agumon, 312 against 251. Without it it is as tall as the base in key 0 of its standing motion. The two games do not size their Digimon alike, so `--against` is for where it fits: Coronamon would come out a third of Goburimon's height. `--size K` (the card's `size`) makes the model K times as large as either rule does, a number chosen by eye. Stood on the base's ground, y downward and facing −z as the disc's models |
 | Motions | Each of the eight slots keeps the base's keys: as many, each as long, with the base's sound and camera record. So the motion lasts what the base's lasts, and every sound and camera move comes at the base's moment. The pose of each key comes from the model's Time Stranger motion for that slot (table below) |
 
 **Motions** (TS-206). What a slot is and how long a motion lasts is the PlayStation game's
@@ -1235,6 +1240,15 @@ and how, is this project's.
   keys the game eases those numbers, which is not the path the Time Stranger motion took.
 - **Not used:** the `chrNNNloc_*.anim`, `cam_chrNNN_*.anim` and `ef_b_chrNNN_*.anim` files
   beside a model's motions, and the motions without a number in the battle table.
+
+**Looking at a converted model.** `tools/ts_model.py --preview look.png --show 0,6` draws
+the base and the new model as built with the parts of those numbers in plain colours: what
+body part a number is in the base and where it lies in the new model. In the battle,
+`tools/sheet_server.py` serves the site without caching and hands the page
+`tools/model_sheet.js`, which steps a scene frame by frame and draws a sheet of chosen
+frames, a row for each card in each style, with the frames at which the model's motions
+start and end. The pictures of TS-207 were made with it. Both are for checking and not
+part of the site. The steps for one more model are in the skill `import-ts-model`.
 
 The eyes' two overlay textures are laid over each other as `ts_model_read.py --overlays`
 does; how the game's shader mixes them was not read.

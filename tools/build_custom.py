@@ -55,12 +55,14 @@ def do_ts_model(web, c, base, ts_dir):
     made = ts_model.make(geom, web, base["model"], os.path.join(web, "assets", "models"), m["number"],
                          {int(k): v for k, v in m.get("parts", {}).items()},
                          {int(k): v for k, v in m.get("motions", {}).items()}, log=lines.append,
-                         figures=m.get("figures"), detail=m.get("detail", custom.TS_DETAIL), against=against)[0]
+                         figures=m.get("figures"), detail=m.get("detail", custom.TS_DETAIL), against=against,
+                         size=m.get("size", 1.0))[0]
     print("  %s: model %d from Time Stranger %s on the keys of %d, %d parts, %d vertices, %d triangles, texture %dx%d, %d palette rows" % (
         c["name"], m["number"], m["ts"], base["model"], len(made["parts"]), len(made["verts"]), len(made["tris"]),
         made["index"].shape[1], made["index"].shape[0], len(made["palette"])))
     for x in lines:
-        if any(k in x for k in ("swing round", "takes its place", "held still", "as large against", "texture pieces", "does not end as it begins")):
+        if any(k in x for k in ("swing round", "takes its place", "held still", "as large against", "times that size", "scale ",
+                                "texture pieces", "does not end as it begins")):
             print("   " + x.strip())
 
 

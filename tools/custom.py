@@ -19,12 +19,13 @@ README lists every custom card under "Not from the game code".
                     "against": "chr050",               on the base's keys (ts_model.py): its file;
                     "parts": {"0": "J_spine02"},       the base's own model of that game, if it has
                     "motions": {"3": "ba02"},          one (the model is then as large against the
-                    "detail": 170,                     base as it is there, else as tall as the
+                    "detail": 170, "size": 1.2,        base as it is there, else as tall as the
                     "figures": {"triangles": 800}}     base); the bones whose parts must carry a
                                      number the base's scripts name; and, optional: another Time
                                      Stranger motion for a slot than ts_model.ROLES gives, the
-                                     disc model whose figures it may cost (TS_DETAIL without it)
-                                     and single figures (parts, triangles, width, height, rows)
+                                     disc model whose figures it may cost (TS_DETAIL without it),
+                                     a factor on its size and single figures (parts, triangles,
+                                     width, height, rows)
      "battle": {"offset": 10000, "recolour": name, "accent": "dark"},
                                      the base's attack and hit scripts and their effect files,
                                      copied under their number + offset

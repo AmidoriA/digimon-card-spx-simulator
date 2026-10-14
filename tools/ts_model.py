@@ -5,8 +5,8 @@ Usage (run with tools/.venv python; tools/build_custom.py calls make() for a car
 "model" names a Time Stranger model):
   python -I ts_model.py <file.geom> <web dir> <base model number> <out dir> <number>
         [--detail <model number>] [--parts N] [--triangles N] [--width N] [--height N] [--rows N]
-        [--against <the base's own .geom>] [--part N=<bone> ...] [--motion SLOT=<name> ...]
-        [--images <dir>] [--anims <prefix>] [--preview out.png] [--poses out.png]
+        [--against <the base's own .geom>] [--size K] [--part N=<bone> ...] [--motion SLOT=<name> ...]
+        [--images <dir>] [--anims <prefix>] [--preview out.png [--show N,N]] [--poses out.png]
 
 Writes <out dir>/NNN.bin.gz, NNN.png and NNNp.png in the format of tools/build_models.py.
 The eight motions are made from the model's Time Stranger motions <prefix><name>.anim (the
@@ -17,14 +17,19 @@ on the keys of the base model web/assets/models/<base>.bin.gz.
 texture size and palette rows (FIGURES). Without it they are the base's. --parts and the
 others give single figures; none may be more than the most a disc model has (MOST).
 --against names the Time Stranger model of the base's own Digimon: the new model is then
-as large against the base as it is in that game. Without it, as tall as the base.
+as large against the base as it is in that game. Without it, as tall as the base. The
+two games do not size their Digimon alike (Coronamon is a third of Goburimon's height in
+Time Stranger), so look at what it gives. --size K makes the model K times as large as
+either rule does: a number chosen by eye, to be named in the README.
 --part N=<bone> gives a bone's part the number N. The base's battle scripts hang effects
 on parts by number (docs/time-stranger/motion-slots.md, the "Parts" columns), so the part
 that plays that role in the new model has to carry it.
 --motion SLOT=<name> takes another Time Stranger motion for a slot than ROLES names.
---preview draws the base and the written model as they are built, front and side; --poses
-draws the base (upper row of each slot) and the written model (lower row) in six keys of
-every slot, from the side.
+--preview draws the base and the written model as they are built, front and side; with
+--show N,N the parts of those numbers are painted in plain colours in both (magenta, cyan,
+green, yellow), to see what body part a number is in the base and where it lies in the new
+model. --poses draws the base (upper row of each slot) and the written model (lower row)
+in six keys of every slot, from the side.
 
 How it is made. None of this is the PlayStation game's doing: the choices are this
 project's, made to fit what the disc's models are (rigid parts, 16-colour palette rows;
@@ -80,6 +85,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ts_anim_read as A
 import ts_model_read as T
 
+SHOW = ((255, 0, 255), (0, 255, 255), (0, 255, 0), (255, 255, 0))      # --show: the colours of the parts named
 EYE_WEIGHT = 30.0
 EYE_TEXELS = 1.5
 SHAPE_SIDE = 512       # a texture piece's shape is drawn no larger than this before it is laid out
@@ -696,7 +702,7 @@ def source_height(geom):
     return float(y.max() - y.min())
 
 
-def convert(geom, images, base, fixed_names, log, anims=(), figures=None, against=None):
+def convert(geom, images, base, fixed_names, log, anims=(), figures=None, against=None, size=1.0):
     g = T.read_geom(geom)
     names = {b["name"]: i for i, b in enumerate(g["bones"])}
     fixed = {}
@@ -735,6 +741,9 @@ def convert(geom, images, base, fixed_names, log, anims=(), figures=None, agains
             against, hi[1] - lo[1], (hi[1] - lo[1]) / against))
     else:
         scale = (base["hi"][1] - base["lo"][1]) / (hi[1] - lo[1])
+    if size != 1.0:
+        scale *= size
+        log("and %.2f times that size, as asked" % size)
     flip = np.array([-1.0, -1.0, -1.0])
     shift = np.array([0.0, base["hi"][1] - (-lo[1] * scale), 0.0])
     log("scale %.2f: %.3f high there, %d here (the base stands from y %d to %d)" % (scale, hi[1] - lo[1], round((hi[1] - lo[1]) * scale), base["lo"][1], base["hi"][1]))
@@ -1036,7 +1045,7 @@ def raster(canvas, p, tris, colour, x_off, size, mid, span, right, toward):
     canvas[:, x_off:x_off + size] = col.astype(np.uint8)
 
 
-def preview(m, base, web, base_num, out, size=240):
+def preview(m, base, web, base_num, out, size=240, show=()):
     """The base as it stands (left pair) and the written model (right pair), front and side,
     each drawn as its file says: texels through the palette rows, no lighting."""
     centre = [None] * len(m["parts"])
@@ -1060,7 +1069,9 @@ def preview(m, base, web, base_num, out, size=240):
         def colour(ti, t, w0, w1, w2):
             u = np.clip((w0 * verts[t[0], 9] + w1 * verts[t[1], 9] + w2 * verts[t[2], 9]).astype(int), 0, index.shape[1] - 1)
             tv = np.clip((w0 * verts[t[0], 10] + w1 * verts[t[1], 10] + w2 * verts[t[2], 10]).astype(int), 0, index.shape[0] - 1)
-            return pal[verts[t[0], 12]][index[tv, u]][..., :3]
+            c = pal[verts[t[0], 12]][index[tv, u]][..., :3]
+            hit = [SHOW[show.index(int(verts[i, 11])) % len(SHOW)] for i in t if int(verts[i, 11]) in show]
+            return c if not hit else np.broadcast_to(np.array(hit[0], np.uint8), c.shape)   # --show: the part in a plain colour
         return colour
 
     views = ((np.array([-1.0, 0, 0]), np.array([0, 0, -1.0])), (np.array([0, 0, -1.0]), np.array([1.0, 0, 0])))
@@ -1071,11 +1082,12 @@ def preview(m, base, web, base_num, out, size=240):
 
 
 def make(geom, web, base_num, out_dir, num, fixed=None, chosen=None, images=None, anims=None, log=print, figures=None,
-         detail=None, against=None):
+         detail=None, against=None, size=1.0):
     """Convert <geom> on the keys of the base model and write it as model <num>
     (tools/build_custom.py calls this for a card whose "model" names a Time Stranger model).
     detail: the disc model whose figures it may cost (the base's without it); figures:
-    single figures given outright; against: the .geom of the base's own Time Stranger model."""
+    single figures given outright; against: the .geom of the base's own Time Stranger model;
+    size: a factor on the size that comes of that."""
     base = read_dm(os.path.join(web, "assets", "models", "%03d.bin.gz" % base_num))
     log("base %03d: %d parts, %d triangles, texture %dx%d, %d palette rows" % (
         base_num, base["parts"], base["triangles"], base["width"], base["height"], base["rows"]))
@@ -1090,7 +1102,7 @@ def make(geom, web, base_num, out_dir, num, fixed=None, chosen=None, images=None
         if k not in FIGURES or not 0 < v <= MOST[k]:
             raise ValueError("%s %s: the disc's models have at most %s" % (k, v, MOST.get(k, "no such figure")))
     m = convert(geom, images, base, fixed or {}, lambda s: log("  " + s), slot_anims(base, prefix, chosen), figures,
-                source_height(against) if against else None)
+                source_height(against) if against else None, size)
     made, notes = motions(m, base, prefix, chosen, lambda s: log("  " + s))
     write(m, made, out_dir, num)
     return m, made, notes, base
@@ -1101,7 +1113,7 @@ def main():
     opts, pos, fixed, chosen, figures = {}, [], {}, {}, {}
     i = 0
     while i < len(args):
-        if args[i] in ("--images", "--preview", "--anims", "--poses", "--detail", "--against"):
+        if args[i] in ("--images", "--preview", "--anims", "--poses", "--detail", "--against", "--show", "--size"):
             opts[args[i][2:]] = args[i + 1]
             i += 1
         elif args[i][2:] in FIGURES:
@@ -1123,7 +1135,7 @@ def main():
     geom, web, base_num, out_dir, num = pos[0], pos[1], int(pos[2]), pos[3], int(pos[4])
     m, made, notes, base = make(geom, web, base_num, out_dir, num, fixed, chosen, opts.get("images"), opts.get("anims"),
                                 figures=figures, detail=int(opts["detail"]) if "detail" in opts else None,
-                                against=opts.get("against"))
+                                against=opts.get("against"), size=float(opts.get("size", 1)))
     print("wrote %03d: %d parts, %d vertices, %d triangles, texture %dx%d, %d palette rows, %d motions" % (
         num, len(m["parts"]), len(m["verts"]), len(m["tris"]), m["index"].shape[1], m["index"].shape[0], len(m["palette"]), len(made)))
     print("  parts: " + " ".join("%d=%s" % (i, n) for i, n in enumerate(m["names"])))
@@ -1134,7 +1146,7 @@ def main():
         poses(m, made, base, web, base_num, opts["poses"])
         print("poses: " + opts["poses"])
     if "preview" in opts:
-        preview(m, base, web, base_num, opts["preview"])
+        preview(m, base, web, base_num, opts["preview"], show=[int(x) for x in opts.get("show", "").split(",") if x])
         print("preview: " + opts["preview"])
 
 

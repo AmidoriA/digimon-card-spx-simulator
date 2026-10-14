@@ -81,7 +81,9 @@ tools/.venv/Scripts/python tools/custom_look.py model web 400 look.png
 ```
 
 Read the picture, change the rules, build again. A different shape is not something this
-does: there is no modelling tool here, only the game's meshes. A texture drawn anew would
+does: there is no modelling tool here, only the game's meshes. (A card whose Digimon is in
+Digimon Story Time Stranger can take that game's model and motions instead of a recolour:
+the `import-ts-model` skill.) A texture drawn anew would
 have to keep the model's layout and its 16 colours a palette; say so if that is asked for.
 
 ## 4. The battle effects
