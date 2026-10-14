@@ -318,6 +318,12 @@ variable, not a value recovered from the disc. Renamon and Taomon now use projec
 operation **0x36** to give both active Digimon one shared random Specialty, chosen
 uniformly from all five colors, instead of forcing only the enemy to Darkness.
 The roll can keep a current color; both changes persist until evolution or replacement.
+Lilamon's project operation **0x37** gives the opponent one random Online Digimon as
+DP, alongside the existing 300 HP recovery and Eat-up HP. It samples eligible copies
+uniformly, excludes Options and respects the eight-card DP cap; an impossible transfer
+does nothing. Lilamon has 1,240 HP with Lillymon's other stats: 30 DP / +30 P and
+650 / 340 / 200 attack powers. Sunflowmon support heals 250 HP and lowers own attack
+by 100, without granting Eat-up HP; its cross effect remains unchanged.
 Other effect operations and cross types already exist. Terriermon, Gargomon and Rapidmon have zero-power
 Triangle Counter cross attacks. No visual assets or attack animations are rebuilt.
 

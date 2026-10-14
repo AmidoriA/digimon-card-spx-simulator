@@ -150,3 +150,37 @@ across both art modes, and a prepared board support playback with both sides' at
 values reduced and no own recycle. No page errors or missing assets. The playback
 capture was visually inspected. Local artifacts: `sheets/ts-phase3/crescemon/`.
 Earlier descriptions of Crescemon recycling its own pile are superseded.
+
+
+## Lilamon and Sunflowmon balance revision — 2026-10-15
+
+Owner-requested final Lilamon stats: **1,240 HP, 30 DP / +30 P, 650 / 340 / 200**.
+HP is the owner's explicit value; other stats match Lillymon. Lilamon's support
+still heals 300 HP and grants Eat-up HP, and now moves one random opponent Online
+Digimon into that opponent's DP Slot. Project operation 0x37 samples Digimon copies
+uniformly, never Options, and preserves all card copies. Full DP (eight cards), an
+empty deck or no eligible Digimon leaves the transfer inactive without a random
+roll; the healing and Eat-up benefit still apply. The board log identifies the card
+transferred. Sunflowmon support heals 250 HP and reduces own attack by 100, with no
+Eat-up HP flag; its native cross effect remains Eat-up HP. Deck composition stays
+the same; Lilamon's documented evolution requirement is now 30 DP.
+
+Final validation: 32 selftests including **375** independent effect scenarios,
+11 deck checks including real evolution routes, 31 effect scripts and asset paths
+pass. New effect cases cover both player seats, duplicate Digimon copies, Options,
+first/last eligible selection, seven/eight DP cards, empty/no-Digimon decks and
+Sunflowmon's absence of support healing on hit.
+
+Per the owner's shorter simulation request, the final build ran **100** seeded
+matches, each including Flower Bloom Again, against original and themed opponents
+with both seating orders. All finished without intervention or timeout: 1,264 turns,
+12.6 average / 33 maximum, 73 successful Lilamon supports and 73 DP transfers. Full
+card inventories and zone capacities were checked throughout. Match seeds 42000–42099;
+AI randomness seed 1000. This checks stability, not equal competitive strength.
+
+Browser: six card previews across both art modes, full 30-card deck listing and
+match start pass without missing assets/page errors. Two prepared board fixtures
+verify Sunflowmon heals 250 without Eat-up, and Lilamon heals 300, grants Eat-up and
+moves Palmon from a mixed Online Deck into the opponent's DP Slot. These fixtures
+use deliberately prepared positions rather than naturally drawn games. Visual
+playback confirms the new enemy DP card and transfer log.

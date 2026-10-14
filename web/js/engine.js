@@ -467,6 +467,17 @@
         emit(G, ev, { t: 'spec', p: s });
         emit(G, ev, { t: 'spec', p: o });
         break;
+      case 0x37: { // Project effect: feed one random enemy Online Digimon to their DP Slot.
+        if (O.dp.length >= DP_MAX) break;
+        var eligible = [];
+        for (k = 0; k < O.deck.length; k++) if (card(O.deck[k]).type === 'digimon') eligible.push(k);
+        if (!eligible.length) break;
+        k = eligible[Math.floor(G.rng() * eligible.length)];
+        var moved = O.deck.splice(k, 1)[0];
+        O.dp.push(moved);
+        emit(G, ev, { t: 'deckDP', p: o, card: moved });
+        break;
+      }
     }
   }
 

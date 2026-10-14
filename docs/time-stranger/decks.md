@@ -169,7 +169,7 @@ Owner/portrait: **Rapidmon**, card #327. Base provenance:
 
 ## Lilamon — Flower Bloom Again
 
-Heal repeatedly and eat enemy HP through attacks. Palmon adds another Eat-up HP attacker, while Gotsumon rewards the HP lead.
+Heal repeatedly and eat enemy HP through attacks. Palmon adds another Eat-up HP attacker, while Gotsumon rewards the HP lead. Lilamon support accelerates enemy evolution by moving a random enemy Online Digimon into their DP Slot. Sunflowmon support only heals and reduces own attack.
 
 - **Rookie:** Lalamon ×4; Palmon ×3; Gotsumon ×2.
 - **Champion:** Sunflowmon ×3; Airdramon ×3.

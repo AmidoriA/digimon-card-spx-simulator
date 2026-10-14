@@ -2892,24 +2892,9 @@
       ],
       "m1": 0,
       "m2": 1
-     },
-     {
-      "op": 51,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
      }
     ],
-    "text": "Recover own HP +250, lower own Attack Power -100 and own attack gains Eat-up HP."
+    "text": "Recover own HP +250 and lower own Attack Power -100."
    },
    "model": {
     "number": 424,
@@ -3142,21 +3127,21 @@
    "base": 78,
    "spec": "Nature",
    "level": "U",
-   "dp": 40,
+   "dp": 30,
    "pp": 30,
-   "hp": 1690,
+   "hp": 1240,
    "attacks": [
     {
      "name": "Lila Shower",
-     "power": 680
+     "power": 650
     },
     {
      "name": "Beauty Slap",
-     "power": 450
+     "power": 340
     },
     {
      "name": "Pollen Spray",
-     "power": 240
+     "power": 200
     }
    ],
    "xfx": "Eat-up HP",
@@ -3193,9 +3178,24 @@
       ],
       "m1": 0,
       "m2": 0
+     },
+     {
+      "op": 55,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
      }
     ],
-    "text": "Recover own HP +300 and own attack gains Eat-up HP."
+    "text": "Recover own HP +300 and own attack gains Eat-up HP. Move 1 random Digimon from opponent's Online deck to their DP Slot."
    },
    "model": {
     "number": 427,

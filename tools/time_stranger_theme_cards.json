@@ -9,7 +9,8 @@
     "Custom effect variable0x50 returns own currently selected Attack Power; it is a project extension, not a disc variable.",
     "Evolution help in Dragomon supports means drawing/recycling stages and Options, not evolving during Battle Phase. Evolution Options are independently required in all decks.",
     "The old requirement that every cross effect differ from its donor is superseded by the requested deck themes.",
-    "Owner balance correction: custom operation 0x36 uses one seeded uniform roll over all five Specialties and applies the same result to both active Digimon; Renamon and Taomon use it instead of forcing the enemy to Darkness."
+    "Owner balance correction: custom operation 0x36 uses one seeded uniform roll over all five Specialties and applies the same result to both active Digimon; Renamon and Taomon use it instead of forcing the enemy to Darkness.",
+    "Owner balance correction 2026-10-15: Lilamon project operation 0x37 moves one uniformly sampled Digimon copy from enemy Online deck into enemy DP, respecting the eight-card cap. No eligible card or full DP means no transfer and no random roll. Sunflowmon support no longer grants Eat-up HP; its cross effect is unchanged."
   ],
   "cards": [
     {
@@ -1725,24 +1726,9 @@
             ],
             "m1": 0,
             "m2": 1
-          },
-          {
-            "op": 51,
-            "v": [
-              0,
-              0,
-              0
-            ],
-            "i": [
-              0,
-              0,
-              0
-            ],
-            "m1": 0,
-            "m2": 0
           }
         ],
-        "text": "Recover own HP +250, lower own Attack Power -100 and own attack gains Eat-up HP."
+        "text": "Recover own HP +250 and lower own Attack Power -100."
       },
       "expect": {
         "pass": {
@@ -1753,8 +1739,7 @@
               300,
               200,
               100
-            ],
-            "flag": "eatup"
+            ]
           }
         },
         "fail": [],
@@ -1972,22 +1957,47 @@
             ],
             "m1": 0,
             "m2": 0
+          },
+          {
+            "op": 55,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
           }
         ],
-        "text": "Recover own HP +300 and own attack gains Eat-up HP."
+        "text": "Recover own HP +300 and own attack gains Eat-up HP. Move 1 random Digimon from opponent's Online deck to their DP Slot."
       },
       "expect": {
         "pass": {
           "patch": {},
           "result": {
             "hp": 900,
-            "flag": "eatup"
+            "flag": "eatup",
+            "foeDeck": 26,
+            "foeDp": 3
           }
         },
         "fail": [],
         "allSpecialties": true
       },
-      "design": "Lilamon theme; all changes are project-authored tuning."
+      "design": "Owner balance correction: heal and Eat-up HP now accelerate the opponent's evolution by giving them a random Online Digimon as DP.",
+      "hp": 1240,
+      "dp": 30,
+      "pp": 30,
+      "powers": [
+        650,
+        340,
+        200
+      ]
     },
     {
       "id": 329,

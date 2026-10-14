@@ -271,7 +271,7 @@ Pure Nature. Heal directly and recover additional HP through the existing Eat-up
 |---|---|---:|---:|---:|---|---|
 | 322 | Lalamon / R | 650 | 0 | 30 | 290 / 200 / 100 | Eat-up HP |
 | 325 | Sunflowmon / C | 910 | 30 | 30 | 450 / 280 / 180 | Eat-up HP |
-| 328 | Lilamon / U | 1690 | 40 | 30 | 680 / 450 / 240 | Eat-up HP |
+| 328 | Lilamon / U | 1240 | 30 | 30 | 650 / 340 / 200 | Eat-up HP |
 
 ### Lalamon (322)
 
@@ -281,13 +281,13 @@ Pure Nature. Heal directly and recover additional HP through the existing Eat-up
 
 ### Sunflowmon (325)
 
-**Support:** Recover own HP +250, lower own Attack Power -100 and own attack gains Eat-up HP.
+**Support:** Recover own HP +250 and lower own Attack Power -100.
 
 **Retained species summary:** Sunlight feeds its energy and attacks, while a thorn-covered stalk protects it. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=sunflowmon).
 
 ### Lilamon (328)
 
-**Support:** Recover own HP +300 and own attack gains Eat-up HP.
+**Support:** Recover own HP +300 and own attack gains Eat-up HP. Move 1 random Digimon from opponent's Online deck to their DP Slot.
 
 **Retained species summary:** A lilac pixie associated with death and rebirth, poison and entrancing pollen. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lilamon).
 
@@ -492,3 +492,10 @@ also checks original disc records, theme deck composition, simulations and brows
 Passing those checks establishes implemented behavior and stability; it does not establish
 that all fifteen decks have equal competitive strength. Match play remains necessary for
 further numerical balance changes.
+
+
+**Project operation 0x37 — owner balance correction (2026-10-15):** Lilamon moves one random Digimon copy from the opponent's Online Deck into their DP Slot. Sampling is uniform over eligible copies and excludes Options. An eight-card DP Slot or a deck without Digimon makes this transfer a no-op without consuming randomness; healing and Eat-up HP still apply. Sunflowmon support no longer grants Eat-up HP; its printed cross effect remains Eat-up HP. These are project-authored balance changes.
+
+Lilamon starting HP is 1,240 by owner request (2026-10-15), reduced from 1,690.
+
+Lilamon now follows Lillymon's 30 DP / +30 P and 650 / 340 / 200 attack powers, while retaining the owner's explicit 1,240 HP request (Lillymon has 1,100 HP). Move names and Eat-up HP cross effect remain as designed. This supersedes the earlier 40 DP and 680 / 450 / 240 profile.

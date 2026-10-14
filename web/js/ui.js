@@ -1255,6 +1255,7 @@
         case 'discard':
           log(vb(e.p, 'discard') + ' ' + cards(e.n) + ' from ' + ({ hand: 'hand', deck: 'the Online deck', dp: 'the DP Slot' })[e.from] + '.', who(e.p)); d = 500; break;
         case 'draw': log(vb(e.p, 'draw') + ' ' + cards(e.n) + '.', who(e.p)); d = 500; break;
+        case 'deckDP': log(vb(e.p, 'move') + ' ' + E.card(e.card).name + ' from the Online deck to the DP Slot.', who(e.p)); d = 500; break;
         case 'return': log(vb(e.p, 'return') + ' ' + cards(e.n) + ' to the Online deck.', who(e.p)); break;
         case 'recycle': log(vb(e.p, 'move') + ' ' + cards(e.n) + ' from Offline to the Online deck.', who(e.p)); break;
         case 'shuffle': log(vb(e.p, 'shuffle') + ' the Online deck.', who(e.p)); break;

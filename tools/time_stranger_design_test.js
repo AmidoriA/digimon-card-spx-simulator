@@ -63,6 +63,8 @@ function verify(){
     const c=E.card(row.id),donor=E.card(c.custom);assert.strictEqual(c.name,row.name);assert.strictEqual(E.XFX[c.xfx],row.xfx,row.name+': intended cross');
     if(row.dp!=null)assert.strictEqual(c.dp,row.dp,row.name+': requested DP');
     if(row.pp!=null)assert.strictEqual(c.pp,row.pp,row.name+': requested added DP');
+    if(row.hp!=null)assert.strictEqual(c.hp,row.hp,row.name+': requested HP');
+    if(row.powers)assert.deepStrictEqual(c.atk.map(a=>a.power),row.powers,row.name+': requested powers');
     assert.deepStrictEqual({prio:c.prio,conds:c.conds,acts:c.acts,text:c.text},row.support,row.name+': exported support agrees with plan');
     assert.notDeepStrictEqual([c.hp,c.dp,c.pp,...c.atk.map(a=>a.power)],[donor.hp,donor.dp,donor.pp,...donor.atk.map(a=>a.power)],row.name+': not a stat clone');
     const peers=E.CARDS.filter(a=>a.custom==null&&a.type==='digimon'&&a.spec===c.spec&&a.level===c.level);
@@ -132,6 +134,18 @@ function verify(){
     const r=setup(id,q.patch);assert.strictEqual(r.order.s[1].dp.length,2,'healing support never discards enemy DP');assert.strictEqual(r.order.s[1].deck,27,'healing support never mills enemy deck');scenarios++;
   }
   const moon=setup(318,{ownAtk:[100,150,10],foeAtk:[80,150,0]});assert.deepStrictEqual(moon.order.s.map(p=>p.atk),[[0,0,0],[0,0,0]],'Crescemon lowers both sides with a zero floor');assert.strictEqual(moon.order.s[0].deck,26);assert.strictEqual(moon.order.s[0].offline,3);assert(!moon.events.some(e=>e.t==='recycle'&&e.p===0),'Crescemon never recycles its user’s pile');assert.deepStrictEqual([E.card(318).dp,E.card(318).pp],[40,10]);scenarios++;
+  // Owner-requested Lilamon drawback: uniformly sample Digimon copies, never Options.
+  const option=byName('Recovery Floppy'),inventory=P=>[...P.deck,...P.hand,...P.dp,...P.offline,...(P.active?.stack||[]),...(P.sup?[P.sup.id]:[])].sort((a,b)=>a-b);
+  for(const [roll,index] of [[0,1],[0.34,3],[0.999999,4]]){
+    const G=fixture(328),O=G.players[1],deck=[option,FILL,option,FILL,NATURE];O.deck=deck.slice();const before=inventory(O);let rolls=0;G.rng=()=>{rolls++;return roll;};
+    const r=resolve(G),moved=r.events.find(e=>e.t==='deckDP');assert.strictEqual(rolls,1);assert.strictEqual(moved.card,deck[index]);assert.strictEqual(moved.p,1);assert.deepStrictEqual(O.deck,deck.filter((_,i)=>i!==index));assert.deepStrictEqual(O.dp,[NATURE,NATURE,deck[index]]);assert.deepStrictEqual(inventory(O),before,'transfer preserves exact card copies');assert.strictEqual(r.order.s[0].hp,900);scenarios++;
+  }
+  for(const [deck,dp,transfers] of [[[FILL],7,1],[[FILL],8,0],[[option,option],2,0],[[],2,0]]){
+    const G=fixture(328,{foeDp:dp});G.players[1].deck=deck.slice();let rolls=0;G.rng=()=>{rolls++;return 0;};const r=resolve(G);
+    assert.strictEqual(rolls,transfers);assert.strictEqual(r.events.filter(e=>e.t==='deckDP').length,transfers);assert.strictEqual(r.order.s[1].dp.length,dp+transfers);assert.strictEqual(r.order.s[1].deck,deck.length-transfers);assert.strictEqual(r.order.s[0].hp,900);assert(r.events.some(e=>e.t==='flag'&&e.flag==='eatup'));scenarios++;
+  }
+  const sun=setup(325);assert(!sun.events.some(e=>e.t==='flag'&&e.flag==='eatup'),'Sunflowmon support must not grant Eat-up HP');assert.strictEqual(sun.events.find(e=>e.t==='attack'&&e.p===0).heal,0);assert.strictEqual(E.card(325).xfx,9,'native cross effect remains Eat-up HP');scenarios++;
+  const reverse=fixture(328);reverse.players.reverse();const reverseEvents=E.resolveBattle(reverse,[0,0],[]);assert(reverseEvents.some(e=>e.t==='deckDP'&&e.p===0));assert.strictEqual(reverse.players[0].dp.length,3);scenarios++;
   assert.strictEqual(E.card(303).atk[0].name,'Corona\uff70Knuckles');assert.strictEqual(E.card(335).atk[0].name,'Giga Destroyer\u2161');assert.strictEqual(E.card(341).atk[2].name,'Great Strike\u2161');
   console.log('PASS: 45 themed cards; '+scenarios+' independent support/cross scenarios, permitted Specialties, failed gates, costs and revival.');return scenarios;
 }
