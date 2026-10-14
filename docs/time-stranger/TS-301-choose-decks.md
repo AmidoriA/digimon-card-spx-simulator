@@ -29,18 +29,39 @@ Plan one custom deck around each new Ultimate (WarGrowlmon, Flaremon, SaviorHuck
 
 ## Acceptance criteria
 
-- [ ] decks.md has 15 rows: Ultimate, base deck (name, owner), exchange map, name, reason.
-- [ ] Every exchange keeps 30 cards and at most 4 copies.
-- [ ] The owner has seen the list.
+- [x] decks.md has 15 rows: Ultimate, base deck (name, owner), exchange map, name, reason.
+- [x] Every exchange keeps 30 cards and at most 4 copies.
+- [x] The owner has seen the list.
 
 ## Out of scope
 
 - Building them (TS-302 … TS-306).
 
-## Questions for the owner
-
-- Are the names and the owners right?
+The complete list is in [decks.md](decks.md); all names contain at most 18 characters
+and are unique against the existing 160 deck names. The owner requested TS-301–306 to
+be completed with dependency-aware subagents, authorizing routine deck design choices.
+The parent task presents the finished name/owner list to satisfy the final visibility item.
 
 ## Log
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
+
+- 2026-10-14: TS-101–TS-106 are complete on `time-stranger` (TS-106 `a2e69da`).
+  Audited all 159 original decks (IDs 0–158), with complete ranked R/C/U copy counts
+  and target-Specialty counts in [decks.md](decks.md). Excluded custom Black Fire Again.
+- Chose one base/exchange map per Ultimate. No disc deck contains Panjyamon (41) or
+  MetalGarurumon (37); Crescemon/Chirinmon therefore use deterministically ranked
+  same-Specialty Ultimate alternatives. MetalTyrannomon/Wingdramon need same-level
+  cross-Specialty R/C donors. The complete exception policy is recorded in
+  [phase3.md](phase3.md), including one whole donor per level to retain the four-copy cap.
+- Skipped Matadormon's otherwise best #36 because it contains no Champions; chose #52.
+  Skipped Flaremon's otherwise best #158 Practice because `ui.js` excludes Player decks
+  from `OP_DECKS`; chose #42 First Attack (Birdramon) so TS-302 can appear as an opponent.
+- Added `tools/time_stranger_decks.json`: ordered exchanges with source/target IDs and
+  counts, all candidates and reasons, IDs 160–174, ticket groups, and frozen SHA-256
+  snapshots of all pre-Phase-3 cards/decks for independent regression checks.
+- Applied all fifteen maps in memory: each retains exactly 30 cards, at most four copies,
+  unchanged ordered Options, and all R/C/U group members. Names pass length/uniqueness.
+  TS-302–TS-306 perform the runtime build, gameplay/simulation and browser verification.
+
+- 2026-10-14: Presented all fifteen finished deck names and owners in the parent chat.
