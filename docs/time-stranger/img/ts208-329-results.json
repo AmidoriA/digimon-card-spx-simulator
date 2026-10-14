@@ -1,0 +1,758 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-329-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Tsukaimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Keramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Tsukaimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Keramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Tsukaimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Keramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      74,
+      146,
+      218,
+      290
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-329-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Tsukaimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          286,
+          2,
+          "ended"
+        ]
+      ],
+      "Keramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          286,
+          2,
+          "ended"
+        ]
+      ],
+      "Tsukaimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          286,
+          2,
+          "ended"
+        ]
+      ],
+      "Keramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          286,
+          2,
+          "ended"
+        ]
+      ],
+      "Tsukaimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          286,
+          2,
+          "ended"
+        ]
+      ],
+      "Keramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          286,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      73,
+      144,
+      215,
+      286
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-329-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Tsukaimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Keramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Tsukaimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Keramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Tsukaimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Keramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-329-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Tsukaimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Keramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Tsukaimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Keramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Tsukaimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Keramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      337,
+      367,
+      397,
+      427
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-329-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Tsukaimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Keramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Tsukaimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Keramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Tsukaimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Keramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      354,
+      401,
+      448,
+      495
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-329-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Tsukaimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          363,
+          0,
+          "runs"
+        ],
+        [
+          625,
+          6,
+          "runs"
+        ]
+      ],
+      "Keramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          363,
+          0,
+          "runs"
+        ],
+        [
+          625,
+          6,
+          "runs"
+        ]
+      ],
+      "Tsukaimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          363,
+          0,
+          "runs"
+        ],
+        [
+          625,
+          6,
+          "runs"
+        ]
+      ],
+      "Keramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          363,
+          0,
+          "runs"
+        ],
+        [
+          625,
+          6,
+          "runs"
+        ]
+      ],
+      "Tsukaimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          363,
+          0,
+          "runs"
+        ],
+        [
+          625,
+          6,
+          "runs"
+        ]
+      ],
+      "Keramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          363,
+          0,
+          "runs"
+        ],
+        [
+          625,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      625,
+      670,
+      715,
+      760,
+      805
+    ]
+  }
+]

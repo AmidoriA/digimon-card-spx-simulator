@@ -1,0 +1,758 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-335-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MasterTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      71,
+      140,
+      209,
+      278
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-335-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MasterTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      65,
+      128,
+      191,
+      254
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-335-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MasterTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "MetalTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-335-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MasterTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      335,
+      363,
+      391,
+      419
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-335-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MasterTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      365,
+      423,
+      481,
+      539
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-335-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MasterTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          320,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "MetalTyrannomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          320,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          320,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          320,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "MasterTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          320,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "MetalTyrannomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          320,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      543,
+      588,
+      633,
+      678,
+      723
+    ]
+  }
+]

@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-331-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "DemiDevimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Dracmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      58,
+      114,
+      170,
+      226
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-331-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "DemiDevimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "Dracmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      64,
+      126,
+      188,
+      250
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-331-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "DemiDevimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "Dracmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      63,
+      124,
+      185,
+      246
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-331-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "DemiDevimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          431,
+          4,
+          "ended"
+        ]
+      ],
+      "Dracmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          431,
+          4,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          431,
+          4,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          431,
+          4,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          431,
+          4,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          431,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      338,
+      369,
+      400,
+      431
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-331-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "DemiDevimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          455,
+          5,
+          "ended"
+        ]
+      ],
+      "Dracmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          455,
+          5,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          455,
+          5,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          455,
+          5,
+          "ended"
+        ]
+      ],
+      "DemiDevimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          455,
+          5,
+          "ended"
+        ]
+      ],
+      "Dracmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          455,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      344,
+      381,
+      418,
+      455
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-331-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "DemiDevimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          241,
+          0,
+          "runs"
+        ],
+        [
+          485,
+          6,
+          "runs"
+        ]
+      ],
+      "Dracmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          241,
+          0,
+          "runs"
+        ],
+        [
+          485,
+          6,
+          "runs"
+        ]
+      ],
+      "DemiDevimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          241,
+          0,
+          "runs"
+        ],
+        [
+          485,
+          6,
+          "runs"
+        ]
+      ],
+      "Dracmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          241,
+          0,
+          "runs"
+        ],
+        [
+          485,
+          6,
+          "runs"
+        ]
+      ],
+      "DemiDevimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          241,
+          0,
+          "runs"
+        ],
+        [
+          485,
+          6,
+          "runs"
+        ]
+      ],
+      "Dracmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          241,
+          0,
+          "runs"
+        ],
+        [
+          485,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      485,
+      530,
+      575,
+      620,
+      665
+    ]
+  }
+]

@@ -1,0 +1,818 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-337-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Myotismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "Matadormon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      69,
+      136,
+      203,
+      270
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-337-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Myotismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          206,
+          2,
+          "ended"
+        ]
+      ],
+      "Matadormon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          206,
+          2,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          206,
+          2,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          206,
+          2,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          206,
+          2,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          206,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      53,
+      104,
+      155,
+      206
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-337-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Myotismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          149,
+          0,
+          "runs"
+        ]
+      ],
+      "Matadormon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          149,
+          0,
+          "runs"
+        ]
+      ],
+      "Myotismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          149,
+          0,
+          "runs"
+        ]
+      ],
+      "Matadormon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          149,
+          0,
+          "runs"
+        ]
+      ],
+      "Myotismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          149,
+          0,
+          "runs"
+        ]
+      ],
+      "Matadormon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          149,
+          0,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-337-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Myotismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Matadormon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      336,
+      365,
+      394,
+      423
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-337-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Myotismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          535,
+          5,
+          "ended"
+        ]
+      ],
+      "Matadormon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          535,
+          5,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          535,
+          5,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          535,
+          5,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          535,
+          5,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          535,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      364,
+      421,
+      478,
+      535
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-337-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Myotismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          368,
+          0,
+          "runs"
+        ],
+        [
+          614,
+          6,
+          "runs"
+        ],
+        [
+          806,
+          6,
+          "ended"
+        ]
+      ],
+      "Matadormon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          368,
+          0,
+          "runs"
+        ],
+        [
+          614,
+          6,
+          "runs"
+        ],
+        [
+          806,
+          6,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          368,
+          0,
+          "runs"
+        ],
+        [
+          614,
+          6,
+          "runs"
+        ],
+        [
+          806,
+          6,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          368,
+          0,
+          "runs"
+        ],
+        [
+          614,
+          6,
+          "runs"
+        ],
+        [
+          806,
+          6,
+          "ended"
+        ]
+      ],
+      "Myotismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          368,
+          0,
+          "runs"
+        ],
+        [
+          614,
+          6,
+          "runs"
+        ],
+        [
+          806,
+          6,
+          "ended"
+        ]
+      ],
+      "Matadormon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          368,
+          0,
+          "runs"
+        ],
+        [
+          614,
+          6,
+          "runs"
+        ],
+        [
+          806,
+          6,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      614,
+      662,
+      710,
+      758,
+      806
+    ]
+  }
+]

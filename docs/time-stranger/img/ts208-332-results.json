@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-332-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Bakemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ]
+      ],
+      "Bakemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ]
+      ],
+      "Bakemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      12,
+      55,
+      98,
+      141,
+      184
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-332-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Bakemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          202,
+          2,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          202,
+          2,
+          "ended"
+        ]
+      ],
+      "Bakemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          202,
+          2,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          202,
+          2,
+          "ended"
+        ]
+      ],
+      "Bakemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          202,
+          2,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          202,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      52,
+      102,
+      152,
+      202
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-332-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Bakemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          167,
+          0,
+          "runs"
+        ]
+      ],
+      "Kurisarimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          167,
+          0,
+          "runs"
+        ]
+      ],
+      "Bakemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          167,
+          0,
+          "runs"
+        ]
+      ],
+      "Kurisarimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          167,
+          0,
+          "runs"
+        ]
+      ],
+      "Bakemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          167,
+          0,
+          "runs"
+        ]
+      ],
+      "Kurisarimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          167,
+          0,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-332-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Bakemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Bakemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Bakemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      335,
+      363,
+      391,
+      419
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-332-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Bakemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Bakemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Bakemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Kurisarimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      355,
+      403,
+      451,
+      499
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-332-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Bakemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ],
+        [
+          242,
+          0,
+          "runs"
+        ],
+        [
+          473,
+          6,
+          "runs"
+        ]
+      ],
+      "Kurisarimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ],
+        [
+          242,
+          0,
+          "runs"
+        ],
+        [
+          473,
+          6,
+          "runs"
+        ]
+      ],
+      "Bakemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ],
+        [
+          242,
+          0,
+          "runs"
+        ],
+        [
+          473,
+          6,
+          "runs"
+        ]
+      ],
+      "Kurisarimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ],
+        [
+          242,
+          0,
+          "runs"
+        ],
+        [
+          473,
+          6,
+          "runs"
+        ]
+      ],
+      "Bakemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ],
+        [
+          242,
+          0,
+          "runs"
+        ],
+        [
+          473,
+          6,
+          "runs"
+        ]
+      ],
+      "Kurisarimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          12,
+          1,
+          "runs"
+        ],
+        [
+          184,
+          1,
+          "ended"
+        ],
+        [
+          242,
+          0,
+          "runs"
+        ],
+        [
+          473,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      473,
+      518,
+      563,
+      608,
+      653
+    ]
+  }
+]
