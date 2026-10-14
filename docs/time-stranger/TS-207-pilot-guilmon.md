@@ -67,7 +67,7 @@ battle, that model tore open at every joint and looked thin and small beside Agu
 | Enhanced and Smooth shredded the model once it had such triangles | `refine` (`web/js/battlehd.js`) put a new corner halfway between two corners that are in different parts' coordinates | It measures such a side in the model's coordinates and gives the new corner to the same part from both triangles of the side. All other models' meshes are unchanged (same hash over 256 model files before and after) |
 | The tail a broad fan in Enhanced and Smooth | The thinning had made triangles from the hips to the tail's end; their new corners go with one end | A collapse may not join two bones that no edge of the model joins (196 refused for Guilmon) |
 | Low detail next to the disc's better models | The figures were Agumon's: 16 parts, 690 triangles, 3 palette rows | **The owner (2026-10-14): Agumon has low detail, compare with Angewomon.** A converted model takes the figures of Angewomon's model 170: 30 parts, 976 triangles, 256×128, 14 rows (`custom.TS_DETAIL`; a card can name another) |
-| A blurred, banded texture, eyes that do not read | The whole body was one piece of the sheet, shrunk to 0.254 across and 0.102 down, with one row of 16 colours | Every piece is laid out by its own shape and takes the palette row that fits its colour: 0.154 both ways, 65% of the sheet used, 14 rows. The eyes' pieces are 1.5 times as large |
+| A blurred, banded texture, eyes that do not read | The whole body was one piece of the sheet, shrunk to 0.254 across and 0.102 down, with one row of 16 colours | Every piece is laid out by its own shape and takes the palette row that fits its colour: 0.159 both ways, 69% of the sheet used, 14 rows. The eyes' pieces are 1.5 times as large |
 | Guilmon small beside Agumon | Scaled to Agumon's height, ears and all | Sized against the base as in Time Stranger, where Agumon (`chr050`, found in `data/char_info.mbe`) is 1.743 high and Guilmon 2.170: 312 here against Agumon's 251 |
 
 **Guilmon as built:** 30 parts (33 bones carry vertices; the neck and the two collars were
@@ -95,8 +95,9 @@ motions from 307, the victory motion from 476.
 
 ![Victory](img/ts-207-guilmon-victory.jpg)
 
-- Guilmon is whole in all three styles: body, limbs and tail joined, the tail bending,
-  the face with its white muzzle, black marks and yellow eyes.
+- Guilmon is whole in all three styles: body, limbs and tail joined, the tail bending;
+  a red face with black marks and yellow eyes, a white belly with its mark, white claws,
+  black bands on arms, legs and tail.
 - Attacks 1 and 2: Guilmon swings at about frame 110 and is nearly standing again when the
   script's fire comes at 192, at its chest. At frame 150 the camera's close-up, made for
   Agumon's head, shows only Guilmon's raised arm and the top of its head.
@@ -111,6 +112,52 @@ Digimon, 711 attacks in three styles, with a new check that a refined mesh's new
 lie on their sides (it fails on the old `refine` with "a new corner lies 20.0 from the
 middle of its side").
 
+### 2026-10-14, the owner's first look: the paint was wrong
+
+**The owner:** the face looks odd, as if the texture were mapped wrongly; the real Guilmon
+has a red face with its mark. Right, and it was not this ticket's converter but the
+reader of TS-202: it took a texture coordinate's second number from the top row of the
+picture, and it counts from the bottom row. Every model drawn since TS-202 was painted
+upside down within its picture; it looked like a Digimon because most of a picture is one
+colour.
+
+How it was found: the top of Guilmon's snout has v 0.88 to 0.99, which lands on a white
+piece at the bottom of `chr090a01`; at 1 − v it lands on the red piece with the forehead
+mark. Drawn with v turned, the source model has the red face with its marks, the white
+belly with the whole hazard mark, white claws and round eyes (the first row of the eye
+sheet, where the reader had shown the last, narrowed row). Agumon, Coronamon and
+Goburimon were drawn both ways: wrong before, themselves after. That the other half of a
+model has u + 1 was looked at too: it is a repeat, not a mirror (1,878 of Guilmon's
+mirrored vertex pairs differ by exactly 1 in u, 7 fit a mirror).
+
+`tools/ts_model_read.py` now gives v turned; README, "Time Stranger models", says so as
+data, not read from the executable. Model 401 was built again (same figures; the texture
+pieces now at 0.159 of their size, 69% of the sheet) and every picture above was made
+again. The pictures of TS-202 and TS-203 were made again too; those of TS-205 and TS-206
+show the old paint and say so.
+
+![Guilmon after the correction, in the three styles](img/ts-207-guilmon-paint.jpg)
+
+### 2026-10-14, the owner's second look: one ear hung down
+
+**The owner:** why does one of Guilmon's ears hang in the battle? Again a reader's fault,
+this time `tools/ts_anim_read.py` (TS-203): it took a motion's rotation for the bone's
+whole rotation. It is made after the bone's rest rotation, as a motion's position is
+added to the rest position. For nearly every bone that is the same, since its rest
+rotation is none. Guilmon's right ear, `J_ear_r`, has one (half a turn about x; the left
+ear has none), and the motions store the same values for both ears, so the right ear lost
+its half turn and hung down in every motion.
+
+Tried on three motions, two frames each, by how far the right ear is from the left ear's
+mirror image (in the model's units; it is 2.17 high): taken whole 0.72 to 0.97; rest ×
+motion 0.000 every time; motion × rest 0.06 to 0.21. The reader now does rest × motion.
+389 of the 532 models have such bones with vertices on them, 28 of the roster's 45
+(Coronamon's arms and hands among them), so this would have bent most of TS-208's models.
+
+Model 401 was built again and every picture of this log made again: both ears stand in
+all motions (`img/ts-207-guilmon-paint.jpg`, frames 195 and 570). The poses and frames of
+TS-206's log were made with the old reading.
+
 **Not done, not right yet, or for the owner to say:**
 
 - **Timing.** Nothing lays Guilmon's strike on the script's moment: the keys are spread
@@ -118,7 +165,7 @@ middle of its side").
   not looked for in that game's files.
 - **The scripts are Agumon's**: a fireball under "Rock Breaker". That is the card's base
   (TS-101), not the converter's.
-- **Colours.** The red is the texture's own, a brick red (`984537`); it is duller than
+- **Colours.** The red is the texture's own, a brick red; it is duller than
   Agumon's yellow. How Time Stranger's shader lights it was not read. A recolour on top of
   a converted model is not built.
 - **Camera.** It is the base's, so a close-up made for Agumon's shape can cut Guilmon.

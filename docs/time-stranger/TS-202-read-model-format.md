@@ -46,6 +46,14 @@ Read a Time Stranger Digimon model completely: mesh, skeleton, skin weights, mat
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
 
+### 2026-10-14, correction (TS-207)
+
+**The pictures of this ticket that show a model's paint were wrong until today.** The
+reader took a texture coordinate's second number from the picture's top row; it counts
+from the bottom row (README, "Time Stranger models", "Attributes"). `img/ts-202-guilmon.png` was made again
+with the corrected reader. `img/ts-202-guilmon-glb.jpg` was not: it shows the old paint (a
+white snout, narrowed eyes). A `.glb` written now has the right coordinates.
+
 ### 2026-10-13
 
 **Guilmon's model is `chr090`.** The row of `char_GUILMON` in `data/char_info.mbe` holds

@@ -41,6 +41,16 @@ Give the converted model the eight motions the battle scripts call, taken from i
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
 
+### 2026-10-14, correction (TS-207)
+
+**The pictures of this ticket that show a model's paint were wrong until today.** The
+reader took a texture coordinate's second number from the picture's top row; it counts
+from the bottom row (README, "Time Stranger models", "Attributes"). The picture of the poses below
+shows Guilmon with the old paint and the parts of the converter before TS-207; it is left
+as the record of that state. The frames and timings do not depend on the paint.
+The poses were also read wrongly for a bone with a rest rotation (Guilmon's right ear
+hangs in them): README, "Time Stranger motions".
+
 ### 2026-10-14
 
 **The tool.** `tools/ts_model.py` now writes the eight motions too (it wrote the bind pose

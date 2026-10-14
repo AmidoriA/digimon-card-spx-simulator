@@ -1098,6 +1098,20 @@ offset in the vertex (+6). `0x14035f260` turns them into the Direct3D input layo
 Number types: 0 byte, 7 16-bit signed normalised (not in any of the 532), 8 half float,
 9 float.
 
+**A texture coordinate is (u, v) with v counted from the picture's bottom row**, where the
+`.img` (a DDS, first row on top) is decoded top row first. This is from the data, not from
+the executable, and it was read wrongly until TS-207: taken from the top row every model
+is painted wrongly, and it only shows where the picture is not the same upside down. The
+owner saw it on Guilmon: a white face where the real one is red with its mark. The white
+was the jaw's, the belly had lost its mark, and the eyes took the last row of the eye
+sheet, the narrowed ones, instead of the first. Counted from the bottom, Guilmon, Agumon,
+Coronamon and Goburimon are painted as those Digimon are, the two halves of a mark that
+is cut at a picture's edge meet, and all 45 roster models are themselves
+(`docs/time-stranger/img/ts-203-roster-models.png`). `tools/ts_model_read.py` gives v
+already turned (1 − v), so everything made from it counts rows from the top. Within one
+half of a model that is painted once, the other half has u + 1: the picture is repeated,
+not mirrored (1,878 of Guilmon's mirrored vertex pairs differ by exactly 1 in u).
+
 **Material**: +0 u32 hash of its name (data; the name table lists the names in another
 order), +0x320 u8 shader parameters, +0x321 u8 render states, then 0x20 bytes for each of
 them from +0x328, and the next material follows (`0x1402df51a`).
@@ -1201,7 +1215,7 @@ tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr090.geom w
 | Skin | A triangle whose corners are in different parts keeps them there and is stretched between the parts like skin, so no joint opens when the model moves. **The disc's models have no such triangle** (none in any of the game's model files here); whether the game's own drawing routine could draw one was not read. The port moves a model vertex by vertex (`web/js/battle3d.js`), so it can. The first try (TS-205) gave a triangle whole to one part: every joint tore open in the motions. Enhanced and Smooth had to learn it too: `refine` in `web/js/battlehd.js` measured a new corner in one part's coordinates and now measures it in the model's where a side runs between two parts. The meshes it makes of all other models are byte for byte what they were (checked by hash over the 256 other models; `tools/battletest.js` checks that a new corner lies on its side) |
 | Part numbers | `--part N=<bone>` (the card's `parts`) gives a bone's part the number N. The base's battle scripts hang effects on parts by number (`docs/time-stranger/motion-slots.md`, the "Parts" columns; TS-204): Agumon's first attack names part 0, its chest, so Guilmon's `J_spine02` is part 0 |
 | Triangles | Edges are collapsed onto one of their ends, cheapest first by how far the surface moves (quadric error), down to the figure. A collapse that would tear the texture mapping at a seam, turn a triangle over or pinch the mesh is refused. The eyes' triangles weigh 30 times more, so they are not the first to go |
-| Texture | The pieces of the texture mapping still in use are laid out again in one sheet, each by its own shape (the texels its triangles touch and one around), the largest first, at the first free place from the top left; pieces on the same texels (the two sides of a model painted once) share them. All are shrunk by the same factor, the eyes' pieces half as much (1.5 times as large). The pieces are sorted into as many groups as there are palette rows by their mean colour, and the texels of each group are reduced to 16 colours. Guilmon: 28 pieces, 14 after sharing, at 0.153 of their size, 65% of the sheet used |
+| Texture | The pieces of the texture mapping still in use are laid out again in one sheet, each by its own shape (the texels its triangles touch and one around), the largest first, at the first free place from the top left; pieces on the same texels (the two sides of a model painted once) share them. All are shrunk by the same factor, the eyes' pieces half as much (1.5 times as large). The pieces are sorted into as many groups as there are palette rows by their mean colour, and the texels of each group are reduced to 16 colours. Guilmon: 28 pieces, 14 after sharing, at 0.159 of their size, 69% of the sheet used |
 | Size and place | With `--against <the base's own Time Stranger model>` (the card's `against`) the model is as large against the base as it is in Time Stranger: Agumon is 1.743 high there and Guilmon 2.170, so Guilmon stands 1.24 times as tall as the disc's Agumon, 312 against 251. Without it it is as tall as the base in key 0 of its standing motion. The two games do not size their Digimon alike, so `--against` is for where it fits: Coronamon would come out a third of Goburimon's height. `--size K` (the card's `size`) makes the model K times as large as either rule does, a number chosen by eye. Stood on the base's ground, y downward and facing −z as the disc's models |
 | Motions | Each of the eight slots keeps the base's keys: as many, each as long, with the base's sound and camera record. So the motion lasts what the base's lasts, and every sound and camera move comes at the base's moment. The pose of each key comes from the model's Time Stranger motion for that slot (table below) |
 
@@ -1340,9 +1354,19 @@ close (their dot product averages 0.9975 and never falls below 0.83 over 4,546 v
 and Guilmon posed with it stands as a creature should
 (`docs/time-stranger/img/ts-203-guilmon-bn01.png`).
 
-**What the values are** (from that picture, not from a routine): a rotation is the bone's
-whole rotation in its parent; a position is added to the bone's rest position. Between two
-stored values `ts_anim_read.py` goes in a straight line; how the game does it was not read.
+**What the values are** (from the data, not from a routine): what the motion changes of
+the rest pose. A position is added to the bone's rest position, and a rotation is made
+after the bone's rest rotation (rest × motion). Most bones have no rest rotation, so the
+rotation looks like the bone's whole rotation in its parent, and it was taken for that
+until TS-207. The owner saw the fault in the battle: one of Guilmon's ears hung down.
+Guilmon's right ear is its one bone with a rest rotation (half a turn about x) and has
+the same stored values as the left ear: taken whole it hangs in every motion; made after
+the rest rotation it is the left ear's mirror image to three decimals in every frame
+tried (`bn01`, `ba01`, `bv01`); the other order, motion × rest, is not (0.06 to 0.21
+off). 389 of the 532 models have bones with a rest rotation that carry vertices, among
+them 28 of the 45 roster models (Coronamon's arms and hands, WarGrowlmon's arms and
+legs). Between two stored values `ts_anim_read.py` goes in a straight line; how the game
+does it was not read.
 
 ```bash
 tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr090_*.anim

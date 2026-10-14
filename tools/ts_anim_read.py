@@ -31,9 +31,15 @@ Stranger motions", says how each part was checked. Offsets in the header that ar
         which of x y z w was left out (the largest, taken positive), above them three
         15-bit numbers n for the others in their order, each (n - 16383) / 16384 /
         sqrt(2); the highest bit is not used.
-A position is added to the bone's rest position and a rotation is the bone's whole
-rotation; between two stored values the reader interpolates in a straight line, which is
-this reader's choice, not something read.
+A position is added to the bone's rest position, and a rotation is made after the bone's
+rest rotation (rest x motion): both are what the motion changes of the rest pose. Data:
+nearly every bone's rest rotation is none, so the rotation looks like the bone's whole
+rotation, which this reader took it for until TS-207. Guilmon's right ear has a rest
+rotation (half a turn about x; the left ear has none) and the same stored values as the
+left: taken whole, the right ear hangs down in every motion; made after the rest rotation
+it is the left ear's mirror image to three decimals in every frame tried, and the other
+order (motion x rest) is not. Between two stored values the reader interpolates in a
+straight line, which is this reader's choice, not something read.
 """
 import os
 import struct
@@ -156,13 +162,21 @@ def sample(anim, frame):
     return out
 
 
+def turned(a, b):
+    """The rotation b made after a, both (x, y, z, w): a x b."""
+    ax, ay, az, aw = a
+    bx, by, bz, bw = b
+    return (aw * bx + ax * bw + ay * bz - az * by, aw * by - ax * bz + ay * bw + az * bx,
+            aw * bz + ax * by - ay * bx + az * bw, aw * bw - ax * bx - ay * by - az * bz)
+
+
 def posed(g, pose):
     """The model's bones with a sampled pose laid over the rest pose."""
     bones = []
     for i, b in enumerate(g["bones"]):
         nb = dict(b)
         if ("rotation", i) in pose:
-            nb["rotation"] = pose[("rotation", i)]
+            nb["rotation"] = turned(b["rotation"], pose[("rotation", i)])
         if ("position", i) in pose:
             nb["position"] = tuple(np.array(b["position"]) + np.array(pose[("position", i)]))
         if ("scale", i) in pose:

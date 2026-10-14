@@ -46,6 +46,14 @@ Turn a Time Stranger model into a DDCB model file (`web/assets/models/NNN.*`) th
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
 
+### 2026-10-14, correction (TS-207)
+
+**The pictures of this ticket that show a model's paint were wrong until today.** The
+reader took a texture coordinate's second number from the picture's top row; it counts
+from the bottom row (README, "Time Stranger models", "Attributes"). The two pictures below show
+Guilmon with the old paint, and the figures are those of the converter before TS-207
+changed it; they are left as the record of that state.
+
 ### 2026-10-14
 
 **The tool.** `tools/ts_model.py <file.geom> <web dir> <base model number> <out dir>

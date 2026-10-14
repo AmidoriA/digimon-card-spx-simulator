@@ -45,6 +45,13 @@ Stranger models", has the same in full.
           11 BLENDWEIGHT; number types 7 s16 normalised, 8 half float, 9 float; COLOR
           and BLENDINDICES of type 0 are bytes)
     +0x28 u16 palette size, +0x2a u16 attributes, +0x2c u32 bytes a vertex (data)
+          A TEXCOORD is (u, v) with v counted from the bottom row of the picture (data:
+          taken from the top row, as this reader did until TS-207, every model is wrongly
+          painted but for what is the same upside down: Guilmon's face got its jaw's white,
+          its belly lost its mark, its eyes took the last row of the eye sheet, the narrowed
+          ones, instead of the first. Turned, Guilmon, Agumon, Coronamon and Goburimon are
+          each painted as the Digimon is, and the halves of marks that are cut at a
+          picture's edge meet). read_geom gives v already turned, 1 - v.
     +0x30 u8 weights a vertex (data), +0x31 u8 5 or 1, kept for each mesh by the loader
           (0x1402df1d5), meaning not read. The indices are a triangle strip with repeated
           indices between its pieces whichever it is (data: the count is seldom a
@@ -212,7 +219,15 @@ def read_geom(path):
         for i in range(nattr):
             kind, comps, number, off = struct.unpack_from("<BxHHH", d, p_attr + 8 * i)
             a = np.ndarray((nvert, comps), NUMBER[number], d, p_vert + off, (stride, np.dtype(NUMBER[number]).itemsize))
-            attrs[KINDS.get(kind, "kind%d" % kind)] = np.array(a)
+            a = np.array(a)
+            if 5 <= kind <= 8:
+                # A texture coordinate's second number counts from the picture's LAST row: 0 is
+                # the bottom of the picture as its .img (a DDS, first row on top) is decoded.
+                # Given here turned (1 - v), so that it counts rows from the top like u counts
+                # columns. Data, not read from the executable: see the note at the top.
+                a = a.astype(np.float64)
+                a[:, 1] = 1.0 - a[:, 1]
+            attrs[KINDS.get(kind, "kind%d" % kind)] = a
         strip = np.frombuffer(d, "<u2", nidx, p_idx)
         meshes.append({"name": text(p_name), "material": mat, "weights": nweight,
                        "attributes": attrs, "strip": strip, "triangles": strip_triangles(strip),

@@ -46,6 +46,21 @@ For all 45 Digimon, know which file is its model and which of its animations are
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
 
+### 2026-10-14, correction (TS-207)
+
+**The pictures of this ticket that show a model's paint were wrong until today.** The
+reader took a texture coordinate's second number from the picture's top row; it counts
+from the bottom row (README, "Time Stranger models", "Attributes"). Both pictures below were made
+again with the corrected reader. In the sheet of the 45 models each is now painted as its
+Digimon is, which the earlier sheet could not show; that each row names the right model
+stands as it was found.
+
+**The motion reader was wrong in one thing too**: a motion's rotation is not the bone's
+whole rotation but is made after its rest rotation (README, "Time Stranger motions").
+Guilmon posed "as a creature should" with one ear hanging, which nobody saw until it
+stood in the battle. `tools/ts_anim_read.py` is corrected and the picture of `bn01` made
+again.
+
 ### 2026-10-13 — the models
 
 **The tables.** `.mbe` files are `EXPA` tables with their strings in a `CHNK` block;
