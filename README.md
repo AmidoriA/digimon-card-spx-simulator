@@ -282,6 +282,9 @@ evolution chains. The exact exchanges, ranked bases and disc-data exceptions are
 | Taomon | Divine Fox Again | Divine Monster | Nefertimon |
 | Rapidmon | Rapid Hope Again | Call of Destiny | Gatomon |
 | Lilamon | Flower Bloom Again | Flower Fairies | Lillymon |
+| MetalTyrannomon | Dark Steel Again | Go Go Dinosaur | Veemon |
+| Cyberdramon | Machine Fang Again | Machine Empire | Machinedramon |
+| Matadormon | Night Dance Again | Dark Revival | Myotismon |
 
 `node tools/time_stranger_deck_test.js` checks exact exchanges, original-data hashes,
 metadata, legality and both themed evolution steps. `node tools/time_stranger_deck_sim.js`

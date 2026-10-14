@@ -368,6 +368,42 @@
     "Togemon": "Sunflowmon",
     "Lillymon": "Lilamon"
    }
+  },
+  {
+   "name": "Dark Steel Again",
+   "base": {
+    "name": "Go Go Dinosaur",
+    "owner": "Veemon"
+   },
+   "replace": {
+    "Agumon": "Keramon",
+    "Greymon": "Kurisarimon",
+    "MasterTyrannomon": "MetalTyrannomon"
+   }
+  },
+  {
+   "name": "Machine Fang Again",
+   "base": {
+    "name": "Machine Empire",
+    "owner": "Machinedramon"
+   },
+   "replace": {
+    "Kokuwamon": "Monodramon",
+    "Guardromon": "Strikedramon",
+    "Andromon": "Cyberdramon"
+   }
+  },
+  {
+   "name": "Night Dance Again",
+   "base": {
+    "name": "Dark Revival",
+    "owner": "Myotismon"
+   },
+   "replace": {
+    "DemiDevimon": "Dracmon",
+    "Devidramon": "Sangloupmon",
+    "Myotismon": "Matadormon"
+   }
   }
  ],
  "cards": [
