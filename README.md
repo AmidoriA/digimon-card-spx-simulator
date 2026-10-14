@@ -572,6 +572,17 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   motions" (the whole layout of a motion file; what each motion is for comes from the
   game's own script and tables).
 
+- **Asset loading.** A dimmed board with three bouncing card backs appears when battle
+  assets take longer than 180 ms to prepare, including in attack previews. Reduced-motion
+  preferences keep the cards still. This loading animation and proactive downloads are
+  browser presentation choices. With Battle animation enabled, changing either active
+  Digimon warms its model, all three attacks' effect packs, the shared battle labels and
+  the selected arena. Existing/in-flight assets are reused; effect packs download with
+  two workers. Background preloads leave the board usable, and disabling Battle animation
+  prevents new preloads. Failed effect downloads can be retried by a later load.
+  `node tools/loadingtest.js` checks disabled/background preloads, asset reuse, slow
+  loading, cancellation, superseded failures and retries with real battle asset files.
+
 - **Custom cards.** Nothing about a custom card is the game's but what it is made from.
   BlackWarGreymon's numbers (DP 60, +P 20, HP 1750, attacks 950 / 700 / 400), its attack
   names, its colours and its support effect were chosen for this project at the owner's

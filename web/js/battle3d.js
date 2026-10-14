@@ -37,6 +37,29 @@
   var C = window.DDCB_FXCORE, MAP = C.MAP_BATTLE, SND = window.DDCB_SND;
   var canvas = null, gl = null, prog = null, loc = {}, cache = {}, timer = 0, last = 0;
   var scene = null, sceneRequest = 0;
+  // Authored loading UI: background preloads never cover the board. Tokens keep a
+  // cancelled or superseded request from hiding a newer request's overlay.
+  var loadingCount = 0, loadingGeneration = 0, loadingTimer = 0;
+  function clearLoading() {
+    loadingGeneration++; loadingCount = 0;
+    if (loadingTimer) { clearTimeout(loadingTimer); loadingTimer = 0; }
+    var el = document.getElementById('assetLoading');
+    if (el) { el.hidden = true; el.parentNode.removeAttribute('aria-busy'); }
+  }
+  function beginLoading() {
+    var el = document.getElementById('assetLoading');
+    if (!el) return function () {};
+    var generation = loadingGeneration, done = false;
+    if (++loadingCount === 1) {
+      el.parentNode.setAttribute('aria-busy', 'true');
+      loadingTimer = setTimeout(function () { loadingTimer = 0; el.hidden = false; }, 180);
+    }
+    return function () {
+      if (done || generation !== loadingGeneration) return;
+      done = true;
+      if (--loadingCount === 0) clearLoading();
+    };
+  }
   var api = { enabled: true, style: 'enhanced' }, HD = window.DDCB_BATTLE_HD;
   var targetW = W, targetH = HGT, depth = null, depthFormat = null, hdScale = 3, slowFrames = 0, inspecting = false;
   var ULTRA = window.DDCB_BATTLE_ULTRA, shadows = null, shadowTried = false;
@@ -180,7 +203,7 @@
           fx.models[k] = m;
         }
         return fx;
-      }).catch(function () { return { sprites: {}, tims: {}, models: {} }; });
+      }).catch(function () { delete fxCache[id]; return { sprites: {}, tims: {}, models: {} }; });
     return fxCache[id];
   }
   // num: a Digimon's model number, or 'bg912' for an arena
@@ -1241,6 +1264,7 @@
   var held = false;
   function stop(keep) {
     sceneRequest++;
+    clearLoading();
     if (timer) { clearInterval(timer); timer = 0; }
     if (scene && scene.finish) { var f = scene.finish; scene.finish = null; f(false); }
     scene = null;
@@ -1285,6 +1309,7 @@
     if (!(api.enabled || opts.dry) || !initGL()) return Promise.resolve(false);
     stop(held);
     var request = ++sceneRequest;
+    var loaded = opts.dry ? function () {} : beginLoading();
     hdScale = requestedScale(); slowFrames = 0;
     var arenaP = opts.arena ? load('bg' + opts.arena.file).then(function(m){return opts.dry||arenaScale()===1?m:loadArenaHD(m,opts.arena.file);}).catch(function () { return null; }) : Promise.resolve(null);
     return Promise.all([load(opts.models[0]), load(opts.models[1]), loadScripts(), arenaP, opts.dry ? null : loadOverlay()]).then(function (r) {
@@ -1384,10 +1409,13 @@
             return;
           }
           canvas.hidden = false; held = false;
+          loaded();
           if (opts.shown) opts.shown();
           // If the user changed arena quality while the attack was loading, finish loading
           // the current choice without restarting or advancing its animation.
-          if(arena&&arenaScale()>1&&!detailedArena(arena.actor.m))loadArenaHD(arena.actor.m,arena.file).then(function(){if(scene===sc)render();});
+          if(arena&&arenaScale()>1&&!detailedArena(arena.actor.m)){
+            var arenaLoaded=beginLoading();loadArenaHD(arena.actor.m,arena.file).then(function(){arenaLoaded();if(scene===sc)render();});
+          }
           OV.canvas = document.getElementById('b3dui');
           if (OV.canvas) { OV.ctx = OV.canvas.getContext('2d'); OV.canvas.hidden = false; }
           last = performance.now();
@@ -1395,7 +1423,44 @@
           render();
         });
       });
-    }).catch(function () { stop(); return false; });
+    }).catch(function () { if (request === sceneRequest) stop(); loaded(); return false; });
+  };
+  // Warm only the active cards and chosen arena, sharing the exact promises used
+  // by attack(). Deduplicate effect packs and fetch them with two workers.
+  var preloadCards = [], preloadArena = null, preloadGeneration = 0, preloadKey = '', preloadP = null;
+  api.preload = function (cards, arena) {
+    preloadCards = cards || []; preloadArena = arena || null;
+    if (!api.enabled || !initGL()) return Promise.resolve(false);
+    var active = preloadCards.filter(function (c) { return c && c.model != null; });
+    var key = active.map(function (c) { return c.model + ':' + c.atk.map(function (a) { return a.script + ',' + a.hit; }).join(';'); }).join('/') + '/' + (arena ? arena.file : '') + '/' + arenaScale();
+    if (key === preloadKey && preloadP) return preloadP;
+    preloadKey = key;
+    var generation = ++preloadGeneration;
+    var jobs = active.map(function (c) { return load(c.model); });
+    jobs.push(loadOverlay());
+    if (arena) jobs.push(load('bg' + arena.file).then(function (m) { return arenaScale() > 1 ? loadArenaHD(m, arena.file) : m; }));
+    if (active.length) jobs.push(loadScripts().then(function (scripts) {
+      var packs = [], cursor = 0;
+      active.forEach(function (card) {
+        card.atk.forEach(function (attack) {
+          [attack.script, attack.hit].forEach(function (id) {
+            var commands = scripts[id] || [];
+            var pack = commands.find(function (q) { return q[0] === 0x0b && q[1] === 16 && !q[2]; });
+            if (pack && packs.indexOf(pack[3]) < 0) packs.push(pack[3]);
+          });
+        });
+      });
+      function next() {
+        if (!api.enabled || generation !== preloadGeneration || cursor >= packs.length) return Promise.resolve();
+        return loadFx(packs[cursor++]).then(next);
+      }
+      return Promise.all([next(), next()]);
+    }));
+    preloadP = Promise.all(jobs).then(function () { return generation === preloadGeneration; }, function () {
+      if (generation === preloadGeneration) { preloadKey = ''; preloadP = null; }
+      return false;
+    });
+    return preloadP;
   };
   // A picture of an arena by itself, as the scene draws it: the view turned by yaw and pitch
   // (4096 = a full turn), with a projection distance of its own to take in more than the
@@ -1416,7 +1481,9 @@
       return small.toDataURL('image/png');
     });
   };
-  api.stop = function () { stop(); };
+  api.stop = function () {
+    stop(); preloadGeneration++; preloadKey = ''; preloadP = null; preloadCards = []; preloadArena = null;
+  };
   // whether a scene can be shown at all: the animation is on and the browser has WebGL
   api.available = function () { return api.enabled && initGL(); };
   api.setStyle = function (style) {
@@ -1435,8 +1502,9 @@
     if(api.style!==graphics.effects){api.style=graphics.effects;if(scene&&scene.modern)scene.modern.length=0;if(scene&&scene.rings)scene.rings.length=0;}
     if(previous!==graphics.resolution){hdScale=requestedScale();slowFrames=0;}
     if(arenaScale()>1&&scene&&scene.arena&&scene.arena.file&&!detailedArena(scene.arena.actor.m)){
-      var sc=scene;loadArenaHD(sc.arena.actor.m,sc.arena.file).then(function(){if(scene===sc)render();});
+      var sc=scene, loaded=beginLoading();loadArenaHD(sc.arena.actor.m,sc.arena.file).then(function(){loaded();if(scene===sc)render();});
     }
+    else if (api.enabled && preloadArena) api.preload(preloadCards, preloadArena);
     if(gl&&scene)render();return api.getGraphics();
   };
   // Preview controls can inspect the same animation moment in both styles.
