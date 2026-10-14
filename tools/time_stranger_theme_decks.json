@@ -784,50 +784,50 @@
         "Nature",
         "Rare"
       ],
-      "theme": "Randomize both active Digimon to one shared Specialty, disrupting evolution on both sides, while discarding enemy DP and milling.",
+      "theme": "Healing and shared random Specialties. Nine recovery Options, HP-copy Psychemon and durable MudFrigimon replace all enemy deck milling and DP discard.",
       "counts": {
         "Renamon": 4,
-        "Armadillomon": 3,
+        "Psychemon": 3,
         "ClearAgumon": 2,
         "Kyubimon": 3,
-        "Numemon": 3,
+        "MudFrigimon": 3,
         "Taomon": 3,
         "Special Digivolve": 3,
-        "Evil Program": 3,
-        "Rare Altar": 3,
-        "Digimon Grave": 3
+        "Recovery Floppy": 3,
+        "Sup. Rec. Floppy": 3,
+        "Med. Rec. Floppy": 3
       },
       "cards": [
         320,
         320,
         320,
         320,
-        190,
-        190,
-        190,
+        170,
+        170,
+        170,
         168,
         168,
         323,
         323,
         323,
-        157,
-        157,
-        157,
+        163,
+        163,
+        163,
         326,
         326,
         326,
         295,
         295,
         295,
-        214,
-        214,
-        214,
-        220,
-        220,
-        220,
-        255,
-        255,
-        255
+        266,
+        266,
+        266,
+        221,
+        221,
+        221,
+        246,
+        246,
+        246
       ],
       "ratio": {
         "R": 9,
@@ -845,7 +845,7 @@
         ],
         "paths": [
           {
-            "from": "Armadillomon",
+            "from": "Psychemon",
             "to": "Kyubimon",
             "option": "Special Digivolve",
             "dpCards": [
@@ -857,7 +857,7 @@
           },
           {
             "from": "Renamon",
-            "to": "Numemon",
+            "to": "MudFrigimon",
             "option": "Special Digivolve",
             "dpCards": [
               "Renamon"
@@ -867,7 +867,7 @@
             "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
           },
           {
-            "from": "Numemon",
+            "from": "MudFrigimon",
             "to": "Taomon",
             "option": "Special Digivolve",
             "dpCards": [

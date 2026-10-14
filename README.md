@@ -299,6 +299,11 @@ canonical evolution chains.
 | GrapLeomon | Beast Fist Again | Steel Gate | GrapLeomon |
 | Chirinmon | Holy Beast Revived | Steel Gate | Chirinmon |
 
+Taomon's current Nature/Rare list focuses on healing: nine recovery Options plus
+three Special Digivolve. Psychemon and MudFrigimon replace the milling/DP-discard
+partners, and Kyubimon/Taomon heal instead of discarding enemy DP. The shared random
+Specialty effect remains. Full current counts are in the deck list above.
+
 The card supports and cross effects follow the requested themes in
 [card-design.md](docs/time-stranger/card-design.md). Ordinary own-active Specialty
 restrictions are removed from the 45 new cards. The Wingdramon group deliberately

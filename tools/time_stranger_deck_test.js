@@ -51,6 +51,10 @@ function verify(expectedCount=15){
     const line=row.line.map(n=>byName(n).id);assert.strictEqual(line[2],d.ownerCard);assert.deepStrictEqual(line.map(id=>E.card(id).level),[0,2,3]);line.forEach(id=>assert([3,4].includes(copies(d.cards,id)),d.name+': 3–4 copies '+E.card(id).name));assert.deepStrictEqual([...new Set(d.cards.filter(id=>id>=302))].sort((a,b)=>a-b),line.slice().sort((a,b)=>a-b));
     const ratio={R:mons.filter(c=>c.level===0).length,C:mons.filter(c=>c.level===2).length,U:mons.filter(c=>c.level===3).length,option:d.cards.length-mons.length};assert.deepStrictEqual(ratio,row.ratio);for(const [key,min,max] of [['R',8,10],['C',5,7],['U',3,6],['option',8,12]])assert(ratio[key]>=min&&ratio[key]<=max,d.name+': '+key+' ratio');
     const evo=d.cards.map(E.card).filter(c=>c.type==='digivolve');assert(evo.length>0,d.name+': evolution options');assert.deepStrictEqual([...new Set(evo.map(c=>c.id))].sort((a,b)=>a-b),row.evolution.options.map(o=>o.id).sort((a,b)=>a-b));row.evolution.options.forEach(o=>{assert.strictEqual(byName(o.name).id,o.id);assert.strictEqual(copies(d.cards,o.id),o.count);});if(specs.length>1)assert(row.evolution.paths.some(p=>byName(p.from).spec!==byName(p.to).spec),d.name+': a real cross-Specialty option path');
+    if(row.ultimate==='Taomon'){
+      [221,246,266].forEach(id=>assert.strictEqual(copies(d.cards,id),3,d.name+': three copies of each recovery option'));
+      d.cards.forEach(id=>assert(!(E.card(id).acts||[]).some(a=>[0x21,0x25].includes(a.op)),d.name+': no enemy deck milling or DP discard'));
+    }
     verifyEvolution(d,line);row.evolution.paths.forEach(p=>{verifyOptionPath(d,p);optionPaths++;});
   }
   return {decks:15,evolutionSteps:30,optionPaths};

@@ -399,15 +399,15 @@
    "ownerCard": "Taomon",
    "cards": {
     "Renamon": 4,
-    "Armadillomon": 3,
+    "Psychemon": 3,
     "ClearAgumon": 2,
     "Kyubimon": 3,
-    "Numemon": 3,
+    "MudFrigimon": 3,
     "Taomon": 3,
     "Special Digivolve": 3,
-    "Evil Program": 3,
-    "Rare Altar": 3,
-    "Digimon Grave": 3
+    "Recovery Floppy": 3,
+    "Sup. Rec. Floppy": 3,
+    "Med. Rec. Floppy": 3
    }
   },
   {
@@ -2695,15 +2695,15 @@
     "conds": [],
     "acts": [
      {
-      "op": 37,
+      "op": 2,
       "v": [
-       0,
+       3,
        0,
        0
       ],
       "i": [
-       1,
        0,
+       200,
        0
       ],
       "m1": 0,
@@ -2725,7 +2725,7 @@
       "m2": 1
      }
     ],
-    "text": "Discard 1 Card from opponent's DP Slot and lower opponent's Attack Power -100."
+    "text": "Recover own HP +200 and lower opponent's Attack Power -100."
    },
    "model": {
     "number": 422,
@@ -2979,15 +2979,15 @@
       "m2": 0
      },
      {
-      "op": 37,
+      "op": 2,
       "v": [
-       0,
+       3,
        0,
        0
       ],
       "i": [
-       2,
        0,
+       400,
        0
       ],
       "m1": 0,
@@ -3009,7 +3009,7 @@
       "m2": 1
      }
     ],
-    "text": "Change both Digimon to the same random Specialty, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100."
+    "text": "Change both Digimon to the same random Specialty, recover own HP +400 and lower own Attack Power -100."
    },
    "model": {
     "number": 425,

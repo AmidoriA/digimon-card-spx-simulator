@@ -209,7 +209,7 @@ Pure Ice. Draw and recycle stages or evolution Options to support fast evolution
 
 ## Taomon
 
-Nature with Rare partners. Renamon and Taomon give both active Digimon one shared random Specialty, so color disruption is a risk for both players. Taomon also discards enemy DP. Its Darkness Foe x3 is now a conditional opportunity, not a guaranteed color-setting combo.
+Nature with Rare partners, healing and shared random colors. Kyubimon and Taomon recover HP instead of discarding enemy DP. Renamon and Taomon still give both active Digimon one shared random Specialty, so color disruption is a risk for both players. Its Darkness Foe x3 remains conditional rather than a guaranteed setup.
 
 | Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
 |---|---|---:|---:|---:|---|---|
@@ -225,13 +225,13 @@ Nature with Rare partners. Renamon and Taomon give both active Digimon one share
 
 ### Kyubimon (323)
 
-**Support:** Discard 1 Card from opponent's DP Slot and lower opponent's Attack Power -100.
+**Support:** Recover own HP +200 and lower opponent's Attack Power -100.
 
 **Retained species summary:** A nine-tailed fox that lacks physical power but excels in spiritual energy and spells. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=kyubimon).
 
 ### Taomon (326)
 
-**Support:** Change both Digimon to the same random Specialty, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100.
+**Support:** Change both Digimon to the same random Specialty, recover own HP +400 and lower own Attack Power -100.
 
 **Retained species summary:** A quiet Taoist specializing in charms, curses, talismans and hidden implements. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=taomon).
 
@@ -479,7 +479,7 @@ one draw from the match's seeded RNG to select uniformly among all five Specialt
 Both active Digimon receive that same result, with a separate board event for each.
 Current colors may be rolled again. This explicitly custom operation replaces the
 one-sided forced Darkness conversion; it is not a discovered original-game operation.
-Kyubimon's DP removal remains unchanged. Taomon's Darkness Foe x3 now depends on the
+The later healing revision replaces Kyubimon and Taomon's enemy DP removal with HP recovery. Taomon's Darkness Foe x3 now depends on the
 actual resulting enemy color instead of an automatic Darkness setup.
 
 Behavioral verification covers all 45 supports, every ordinary own Specialty, all four

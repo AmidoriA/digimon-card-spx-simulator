@@ -141,13 +141,16 @@ Owner/portrait: **Dragomon**, card #319. Base provenance:
 
 ## Taomon — Divine Fox Again
 
-Give both active Digimon one shared random Specialty, risking evolution disruption for
-both sides. Taomon still discards enemy DP. Rare partners add DP removal, draw and milling.
+Heal while giving both active Digimon one shared random Specialty. Nine recovery
+Options replace the milling/disruption package; Kyubimon and Taomon now heal instead
+of discarding enemy DP. Psychemon can recover lost HP by matching the opponent, while
+MudFrigimon supplies a durable Rare Champion. No card in this list mills the enemy deck
+or discards enemy DP.
 
-- **Rookie:** Renamon ×4; Armadillomon ×3; ClearAgumon ×2.
-- **Champion:** Kyubimon ×3; Numemon ×3.
+- **Rookie:** Renamon ×4; Psychemon ×3; ClearAgumon ×2.
+- **Champion:** Kyubimon ×3; MudFrigimon ×3.
 - **Ultimate:** Taomon ×3.
-- **Options:** Special Digivolve ×3; Evil Program ×3; Rare Altar ×3; Digimon Grave ×3.
+- **Options:** Special Digivolve ×3; Recovery Floppy ×3; Sup. Rec. Floppy ×3; Med. Rec. Floppy ×3.
 
 Owner/portrait: **Taomon**, card #326. Base provenance:
 **Divine Monster** (#74; original owner Nefertimon).

@@ -1556,15 +1556,15 @@
         "conds": [],
         "acts": [
           {
-            "op": 37,
+            "op": 2,
             "v": [
-              0,
+              3,
               0,
               0
             ],
             "i": [
-              1,
               0,
+              200,
               0
             ],
             "m1": 0,
@@ -1586,25 +1586,24 @@
             "m2": 1
           }
         ],
-        "text": "Discard 1 Card from opponent's DP Slot and lower opponent's Attack Power -100."
+        "text": "Recover own HP +200 and lower opponent's Attack Power -100."
       },
       "expect": {
         "pass": {
           "patch": {},
           "result": {
-            "foeDp": 1,
-            "foeOffline": 4,
             "foeAtk": [
               260,
               140,
               20
-            ]
+            ],
+            "hp": 800
           }
         },
         "fail": [],
         "allSpecialties": true
       },
-      "design": "Taomon theme; all changes are project-authored tuning."
+      "design": "Owner healing revision, 2026-10-15: replace enemy DP discard with recovery; retain shared random colors on Taomon and the existing attack tradeoffs."
     },
     {
       "id": 324,
@@ -1783,15 +1782,15 @@
             "m2": 0
           },
           {
-            "op": 37,
+            "op": 2,
             "v": [
-              0,
+              3,
               0,
               0
             ],
             "i": [
-              2,
               0,
+              400,
               0
             ],
             "m1": 0,
@@ -1813,7 +1812,7 @@
             "m2": 1
           }
         ],
-        "text": "Change both Digimon to the same random Specialty, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100."
+        "text": "Change both Digimon to the same random Specialty, recover own HP +400 and lower own Attack Power -100."
       },
       "expect": {
         "pass": {
@@ -1823,20 +1822,19 @@
           },
           "result": {
             "foeSpec": 2,
-            "foeDp": 0,
-            "foeOffline": 5,
             "atk": [
               300,
               200,
               100
             ],
-            "spec": 2
+            "spec": 2,
+            "hp": 1000
           }
         },
         "fail": [],
         "allSpecialties": true
       },
-      "design": "Owner balance correction: a single uniform roll gives both active Digimon the same random Specialty, including the possibility of their current Specialty. Color disruption affects both sides."
+      "design": "Owner healing revision, 2026-10-15: replace enemy DP discard with recovery; retain shared random colors on Taomon and the existing attack tradeoffs."
     },
     {
       "id": 327,

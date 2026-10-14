@@ -116,14 +116,18 @@ function verify(){
   }
   // Disruption must affect an actual future evolution, not just a printed battle
   // snapshot. Enemy starts with a legal Fire R→C and two real +20 DP cards.
-  for(const id of [320,323,326]){
+  for(const id of [320,326]){
     const G=fixture(id,{rngValue:0.4}),O=G.players[1],rookie=byName('Agumon'),champion=byName('Greymon'),special=byName('Special Digivolve');
     O.active={stack:[rookie],armor:-1,hp:2000,spec:0,base:[100,0,0],abn:0};O.hand=[champion,special];O.dp=[NATURE,NATURE];
     assert(E.evoLegal(O,champion,-1),'normal evolution initially legal');resolve(G);E.endTurn(G);
     assert(!E.evoLegal(O,champion,-1),'theme support disrupts prepared normal evolution');
-    if(id===323){assert.strictEqual(O.active.spec,0);assert.strictEqual(O.dp.length,1);O.dp.push(NATURE);assert(E.evoLegal(O,champion,-1),'restoring DP permits normal evolution');}
-    else {assert.strictEqual(O.active.spec,2,'enemy retains the sampled Nature Specialty');assert.strictEqual(G.players[0].active.spec,2,'the user also takes the sampled Specialty');if(id===326){assert.strictEqual(O.dp.length,0);assert(!E.evoLegal(O,champion,special),'DP mill also denies an underfunded Special');O.dp=[NATURE,NATURE];}assert(E.evoLegal(O,champion,special),'Special can recover from changed Specialty with enough DP');G.tp=1;assert(E.digivolve(G,1,{kind:'option',target:0,opt:1}));assert.strictEqual(O.active.spec,0,'successful evolution resets Specialty to new card');}
+    assert.strictEqual(O.active.spec,2,'enemy retains the sampled Nature Specialty');assert.strictEqual(G.players[0].active.spec,2,'the user also takes the sampled Specialty');assert.strictEqual(O.dp.length,2,'color-changing support leaves enemy DP intact');assert(E.evoLegal(O,champion,special),'Special can recover from changed Specialty with enough DP');G.tp=1;assert(E.digivolve(G,1,{kind:'option',target:0,opt:1}));assert.strictEqual(O.active.spec,0,'successful evolution resets Specialty to new card');
     scenarios++;
+  }
+  for(const id of [323,326]){
+    const row=design.cards.find(r=>r.id===id),q=row.expect.pass;
+    expectPass(row,{...q.patch,hp:9900},{...q.result,hp:9990});scenarios++;
+    const r=setup(id,q.patch);assert.strictEqual(r.order.s[1].dp.length,2,'healing support never discards enemy DP');assert.strictEqual(r.order.s[1].deck,27,'healing support never mills enemy deck');scenarios++;
   }
   assert.strictEqual(E.card(303).atk[0].name,'Corona\uff70Knuckles');assert.strictEqual(E.card(335).atk[0].name,'Giga Destroyer\u2161');assert.strictEqual(E.card(341).atk[2].name,'Great Strike\u2161');
   console.log('PASS: 45 themed cards; '+scenarios+' independent support/cross scenarios, permitted Specialties, failed gates, costs and revival.');return scenarios;

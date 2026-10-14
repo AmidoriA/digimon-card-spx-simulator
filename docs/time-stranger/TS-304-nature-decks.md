@@ -169,3 +169,26 @@ explicitly prepared positions with a controlled Fire roll: both Nature Digimon b
 Fire, and Taomon still removed enemy DP. No page errors or missing assets. The Taomon
 playback screenshot was inspected. Local artifacts: `sheets/ts-phase3/taomon/`.
 The earlier fixed-Darkness evidence in this document is historical.
+
+## Taomon healing revision — owner request, 2026-10-15
+
+Taomon shifts from milling/discard disruption to recovery. The list now carries
+Recovery Floppy ×3, Sup. Rec. Floppy ×3 and Med. Rec. Floppy ×3, alongside Special
+Digivolve ×3. Psychemon ×3 replaces Armadillomon ×3; MudFrigimon ×3 replaces Numemon ×3.
+Evil Program, Rare Altar and Digimon Grave are removed. No card in this list mills
+the enemy deck or discards enemy DP. Featured line 4/3/3 and total 9R/6C/3U/12 options
+remain; all three cross-color evolution routes use actual remaining cards.
+
+Kyubimon now heals 200 HP and lowers enemy attacks by 100. Taomon keeps the shared
+random color, heals 400 HP and lowers its own attacks by 100. Neither discards enemy DP.
+Renamon's shared random color/draw support is unchanged. Psychemon copies the enemy HP,
+so it helps when behind but can lower HP when ahead; Med. Rec. Floppy trades damage
+for healing. The theme does not rely on an unconditional free healing loop.
+
+Validation: 32 selftests with 366 effect scenarios, 11 deck checks, 31 effect scripts
+and asset paths pass. All 51 option evolution routes remain legal. The 200 standard
+and 360 directed matches finish without timeouts; this standard run uses zero
+stalemate explorations. Taomon evolves naturally in five of its 24 directed games.
+Browser list/ratios/counts, six Taomon-line previews across both art modes and two
+prepared Kyubimon/Taomon board healing playbacks pass without errors or missing assets.
+The earlier Taomon milling/DP-discard descriptions are historical and superseded.
