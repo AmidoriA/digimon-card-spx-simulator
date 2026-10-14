@@ -15,16 +15,35 @@ README lists every custom card under "Not from the game code".
      "xfx": "Nature Foe x3",         the cross attack's effect, by its name in engine.js (XFX)
      "support": {"prio", "conds", "acts", "text"},   the support effect, as in cards.js
      "model":  {"number": 400, "recolour": name},    web/assets/models/400.*
+                or {"number": 401, "ts": "chr090", "native": true,
+                    "against": "chr050", "parts": {"0": "J_spine02"},
+                    "motions": {"3": "ba02"}, "size": 1.2},
+                                     full source geometry, skeleton/four-weight skin and RGBA;
+                                     donor key timing/camera/sound, optional effect anchor aliases,
+                                     motion substitutions and size/ground placement. Without native,
+                                     ts_model.py is the optional historical reduced converter.
      "battle": {"offset": 10000, "recolour": name, "accent": "dark"},
                                      the base's attack and hit scripts and their effect files,
                                      copied under their number + offset
      "art":    {"recolour": name,                     the game's pictures of the base, recoloured
                 "new": {"file": "custom/x.png", "crop": [x, y, size]}}   picture for "New card art"
+                or new: {"card": "BT2-009", "crop": [x, y, size]}        official card-list image
+                or new: {"ref": "crescemon"}                            official Reference Book image
+                                     Choose exactly one source. File crops use native pixels;
+                                     card crops use the normalized 430x600 image. Internet
+                                     sources cache under <extracted_dir>/newart.
+                                     A card/ref source may also name "edited": "edited/ts002/303.png";
+                                     the recorded recipe and native edited crop are verified before use.
+                shared: true      optional: same prepared native picture in both art modes
    }],
    "decks": [{                      a deck of the game with some of its cards exchanged; it
      "name": "Black Fire Again",    follows the game's 159 decks and keeps the owner, the rank,
      "base": {"name": "Black Fire Heart", "owner": "BK WarGreymon"},     the armor form and
      "replace": {"WarGreymon": "BlackWarGreymon"}                        the music of its base
+     "owner": "BlackWarGreymon",   optional display name, otherwise the base's owner
+     "ownerCard": "BlackWarGreymon" optional in-deck Digimon card used for its portrait
+     "cards": {"Huckmon": 4, ...}  optional complete 30-card named-count composition;
+                                     replaces the exchange recipe, keeps base metadata
    }]}
 
 A recolour is a list of rules; the first rule that takes a colour changes it, a colour no
@@ -54,6 +73,10 @@ XFX = ["None", "1st Attack", "○ to 0", "△ to 0", "✕ to 0", "○ Counter", 
        "Eat-up HP", "Jamming", "Fire Foe x3", "Ice Foe x3", "Nature Foe x3", "Darkness Foe x3", "Rare Foe x3"]
 FIRST_ID = 301          # the game's cards end at 300
 FIRST_MODEL = 400       # the game's models end at 300
+# What a model converted from Time Stranger may cost: the figures of Angewomon's model 170
+# (30 parts, 976 triangles, a 256x128 texture, 14 palette rows), one of the disc's detailed
+# ones. The owner's choice (2026-10-14, TS-207): Agumon's own figures are low.
+TS_DETAIL = 170
 
 
 def load():
@@ -66,6 +89,7 @@ def load():
         if "model" in c:
             n = c["model"]["number"]
             assert FIRST_MODEL <= n < 1000 and n not in models, "model number %s" % n
+            assert ("ts" in c["model"]) != ("recolour" in c["model"]), "model %s: a recolour or a Time Stranger model" % n
             models.add(n)
         if "battle" in c:
             o = c["battle"]["offset"]
@@ -94,12 +118,32 @@ def decks(game_decks, all_cards):
         base = [x for x in game_decks if x["name"] == d["base"]["name"] and x["owner"] == d["base"]["owner"]]
         assert base, "base deck %r" % (d["base"],)
         base = base[0]
-        swap = {ids[a]: ids[b] for a, b in d["replace"].items()}
-        assert all(a in base["cards"] for a in swap), "deck %s: a card to replace is not in %s" % (d["name"], base["name"])
+        if "cards" in d:
+            assert "replace" not in d, "deck %s: choose a full list or an exchange recipe" % d["name"]
+            composition = []
+            for name, count in d["cards"].items():
+                assert name in ids, "deck %s: unknown card %s" % (d["name"], name)
+                assert type(count) is int and 1 <= count <= 4, "deck %s: invalid copies of %s" % (d["name"], name)
+                composition.extend([ids[name]] * count)
+            assert len(composition) == 30, "deck %s: expected 30 cards" % d["name"]
+            chosen = [c for c in all_cards if c["id"] in composition]
+            assert any(c["type"] == "digimon" for c in chosen), "deck %s: no Digimon" % d["name"]
+            assert all(c.get("level") != 1 for c in chosen), "deck %s: armor forms cannot be in a deck" % d["name"]
+        else:
+            swap = {ids[a]: ids[b] for a, b in d["replace"].items()}
+            assert all(a in base["cards"] for a in swap), "deck %s: a card to replace is not in %s" % (d["name"], base["name"])
+            composition = [swap.get(i, i) for i in base["cards"]]
         assert len(d["name"]) <= 18 and not any(x["name"] == d["name"] for x in game_decks + out), "deck name %s" % d["name"]
         out.append(dict(base, id=len(game_decks) + len(out), name=d["name"],
-                        cards=[swap.get(i, i) for i in base["cards"]],
+                        cards=composition,
                         custom=base["id"]))                # not a deck of the game: made from this one
+        if "owner" in d:
+            assert isinstance(d["owner"], str) and d["owner"].strip(), "deck owner %s" % d["name"]
+            out[-1]["owner"] = d["owner"]
+        if "ownerCard" in d:
+            card = next((c for c in all_cards if c["id"] == ids[d["ownerCard"]]), None)
+            assert card and card["type"] == "digimon" and card["id"] in out[-1]["cards"], "deck portrait %s" % d["name"]
+            out[-1]["ownerCard"] = card["id"]
     return out
 
 
@@ -124,6 +168,8 @@ def cards(game_cards):
             "prio": s["prio"], "conds": s["conds"], "acts": s["acts"], "text": s["text"],
             "custom": base["id"],              # not a card of the game: made from this one
         })
+        if c.get("art", {}).get("shared"):
+            out[-1]["sharedArt"] = True
     return out
 
 

@@ -9,7 +9,7 @@ tickets so the work can be tracked.
 | Phase | What | Needs |
 |---|---|---|
 | 0 Groundwork | Confirm the roster, find the pictures and clean them, let custom cards take a picture from the internet | Internet, ComfyUI |
-| 1 Cards | 45 cards with placeholder models (their base recoloured), playable at once | `extracted/`, ComfyUI |
+| 1 Cards | 45 cards with original gameplay (TS-106) and recoloured placeholder models | `extracted/`; prepared shared pictures |
 | 2 Models | Time Stranger's own models, converted to the game's format | The owner's Time Stranger install, the REA skill, ComfyUI for textures |
 | 3 Decks | 15 custom decks, one per new Ultimate | Phase 1 |
 
@@ -29,10 +29,17 @@ as TS-001 does not open that gate. Main remains the published game during the fe
 development; the Pages workflow's automatic deployment is limited to pushes to `main`.
 This is the documented working policy, not a GitHub branch-protection rule.
 
+**Feature accepted (2026-10-15):** the owner explicitly approved merging the completed
+Time Stranger feature into main after the Lilamon/Sunflowmon balance revision. All 45
+cards, native models and 15 themed decks are complete. The integration retains main's
+battle loading overlay/preloading changes and the feature's native model renderer.
+The historical development gate above is fulfilled for this release. Validation and
+final balance details are recorded in [theme-validation.md](theme-validation.md).
+
 TS-001's verified roster is the source of truth for names, bases, field-guide evidence
 and thematic Specialties. The Phase 1 tables, Phase 2 model lists and Phase 3 deck targets
-now use Huckmon/BaoHuckmon/SaviorHuckmon, Agumon (Black), Coredramon (Blue), Kurisarimon
-and Dragomon. The five current cross-Specialty battle offsets are listed in phase1.md.
+now use Huckmon/BaoHuckmon/SaviorHuckmon, Keramon, Coredramon (Blue), Kurisarimon
+and Dragomon. The four current cross-Specialty battle offsets are listed in phase1.md.
 
 ## How to work a ticket
 
@@ -67,11 +74,12 @@ with progress (goal, context, steps) and what is found (the Log).
 |---|---|---|
 | Card ids | 302 | 346 |
 | Model numbers | 401 | 445 |
-| Battle offsets (✱ bases only) | 20000 | +10000 each, in id order |
+| Battle offsets (✱ bases only) | 30000 | 30000/40000/50000/60000; retired 20000 |
 | Order | Fire, Ice, Nature, Darkness, Rare; in each R, C, U | |
 
 ## Files
 
+- [card-design.md](card-design.md): all 45 current stats/effects, Specialty themes and official lore sources.
 - [roster.md](roster.md): the 45 cards: names, bases, numbers, sources.
 - [decks.md](decks.md): the 15 decks.
 - [phase1.md](phase1.md), [phase3.md](phase3.md): rules shared by the tickets of a phase.
@@ -98,11 +106,11 @@ with progress (goal, context, steps) and what is found (the Log).
 | [TS-205](TS-205-convert-mesh.md) | Converter: mesh and texture to the DDCB model format | 2 Models | TS-202, TS-204 | [card](https://trello.com/c/2nugKL0f) |
 | [TS-206](TS-206-convert-motions.md) | Converter: motions | 2 Models | TS-203, TS-204, TS-205 | [card](https://trello.com/c/tzzuM8kp) |
 | [TS-207](TS-207-pilot-guilmon.md) | Pilot: Guilmon (302) with its Time Stranger model | 2 Models | TS-101, TS-205, TS-206 | [card](https://trello.com/c/Br9ZwXGj) |
-| [TS-208a](TS-208a-fire-models.md) | Fire models from Time Stranger | 2 Models | TS-207, TS-101 | [card](https://trello.com/c/zTdFN9Xd) |
-| [TS-208b](TS-208b-ice-models.md) | Ice models from Time Stranger | 2 Models | TS-207, TS-102 | [card](https://trello.com/c/vUoHDXbM) |
-| [TS-208c](TS-208c-nature-models.md) | Nature models from Time Stranger | 2 Models | TS-207, TS-103 | [card](https://trello.com/c/Clemd8tm) |
-| [TS-208d](TS-208d-darkness-models.md) | Darkness models from Time Stranger | 2 Models | TS-207, TS-104 | [card](https://trello.com/c/EzPc1GY6) |
-| [TS-208e](TS-208e-rare-models.md) | Rare models from Time Stranger | 2 Models | TS-207, TS-105 | [card](https://trello.com/c/7IcLCqJO) |
+| [TS-208a](TS-208a-fire-models.md) | Fire models from Time Stranger | 2 Models | TS-207, TS-209, TS-101 | [card](https://trello.com/c/zTdFN9Xd) |
+| [TS-208b](TS-208b-ice-models.md) | Ice models from Time Stranger | 2 Models | TS-207, TS-209, TS-102 | [card](https://trello.com/c/vUoHDXbM) |
+| [TS-208c](TS-208c-nature-models.md) | Nature models from Time Stranger | 2 Models | TS-207, TS-209, TS-103 | [card](https://trello.com/c/Clemd8tm) |
+| [TS-208d](TS-208d-darkness-models.md) | Darkness models from Time Stranger | 2 Models | TS-207, TS-209, TS-104 | [card](https://trello.com/c/EzPc1GY6) |
+| [TS-208e](TS-208e-rare-models.md) | Rare models from Time Stranger | 2 Models | TS-207, TS-209, TS-105 | [card](https://trello.com/c/7IcLCqJO) |
 | [TS-209](TS-209-import-skill-and-readme.md) | Skill `import-ts-model` and the README | 2 Models | TS-207 | [card](https://trello.com/c/Q68gsJGz) |
 | [TS-301](TS-301-choose-decks.md) | Choose the 15 base decks and exchanges | 3 Decks | TS-101 … TS-105 | [card](https://trello.com/c/CC15DUlA) |
 | [TS-302](TS-302-fire-decks.md) | Fire decks | 3 Decks | TS-301, TS-101 | [card](https://trello.com/c/tfBaYtSp) |
@@ -110,3 +118,17 @@ with progress (goal, context, steps) and what is found (the Log).
 | [TS-304](TS-304-nature-decks.md) | Nature decks | 3 Decks | TS-301, TS-103 | [card](https://trello.com/c/LWJsByLx) |
 | [TS-305](TS-305-darkness-decks.md) | Darkness decks | 3 Decks | TS-301, TS-104 | [card](https://trello.com/c/c832rBj3) |
 | [TS-306](TS-306-rare-decks.md) | Rare decks | 3 Decks | TS-301, TS-105 | [card](https://trello.com/c/4tlEb1gi) |
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
+Initially its numbers/effects were copied from Tsukaimon; TS-106 supersedes that
+with original gameplay (card-design.md). Local char_KERAMON → chr626 is
+present in both model tables; Phase 2 converts all nine Darkness models. The old
+black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
+restoration and is shared by both art modes. Offset 20000 is retired; the four other
+published offsets remain stable. [Full evidence and current roster](roster.md).
+
+Owner update 2026-10-14: TS-106 supersedes the donor-stat gameplay rule. TS-101–105 remain
+completed initial implementations; TS-106 tracks the new design and validation. Phase 3
+deck choices must use this gameplay design, not the earlier unchanged-base assumptions.

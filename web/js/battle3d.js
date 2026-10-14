@@ -63,6 +63,7 @@
   var api = { enabled: true, style: 'enhanced' }, HD = window.DDCB_BATTLE_HD;
   var targetW = W, targetH = HGT, depth = null, depthFormat = null, hdScale = 3, slowFrames = 0, inspecting = false;
   var ULTRA = window.DDCB_BATTLE_ULTRA, shadows = null, shadowTried = false;
+  var NATIVE = window.DDCB_BATTLE_NATIVE, inspectNoRender = false;
   var graphics = {lighting:'enhanced',model:'refined',resolution:'auto',arena:'4x',effects:'enhanced'}, smoothCache = [];
   var choices = {lighting:['legacy','enhanced','ultra'],model:['original','refined','smooth'],resolution:['auto','ps1','medium','high','maximum'],arena:['original','2x','4x'],effects:['legacy','enhanced','ultra']};
   function preset(style) { return {lighting:style,model:style==='legacy'?'original':style==='ultra'?'smooth':'refined',resolution:style==='legacy'?'ps1':'auto',arena:style==='legacy'?'original':'4x',effects:style}; }
@@ -73,6 +74,7 @@
   function arenaScale() { return graphics.arena==='2x'?2:graphics.arena==='4x'?4:1; }
   function detailedArena(m) { return arenaScale()>1 && m.arenaTex && m.arenaScale===arenaScale(); }
   function modelMesh(m) {
+    if (m.native) return m;
     if (m.material<0 || m.material==null || graphics.model==='original') return m;
     if (graphics.model==='refined') { if(!m.hd)m.hd=buffers(HD.refine(m));return m.hd; }
     if(!m.smooth)m.smooth=buffers(HD.smooth(m));
@@ -137,6 +139,7 @@
     return t;
   }
   function parse(buf) {
+    if (new Uint8Array(buf)[0] === 123) { if (!NATIVE) throw new Error('native model support missing'); return NATIVE.parse(JSON.parse(new TextDecoder().decode(buf))); }
     var w = new Int16Array(buf), u = new Uint16Array(buf), p = 0, i, k;
     if (u[0] !== 0x4d44) throw new Error('not a model file');
     var m = { n: w[2], nmot: w[3], nv: u[4], nto: u[5], ntb: u[6], tw: w[7], th: w[8], npal: w[9], parents: [], offsets: [], motions: [] };
@@ -210,14 +213,18 @@
   function load(num) {
     if (cache[num]) return cache[num];
     var base = 'assets/models/' + (typeof num === 'number' ? ('00' + num).slice(-3) : num);
-    cache[num] = Promise.all([
-      fetch(base + '.bin.gz').then(function (r) { if (!r.ok) throw new Error('no model ' + num); return r.arrayBuffer(); }).then(inflate),
-      image(base + '.png'), image(base + 'p.png')
-    ]).then(function (a) {
-      var m = buffers(parse(a[0]));
-      m.material = typeof num === 'number' && HD ? HD.material(num) : -1;
-      m.tex = texture(a[1]); m.pal = texture(a[2]);
-      return m;
+    cache[num] = fetch(base + '.bin.gz').then(function (r) { if (!r.ok) throw new Error('no model ' + num); return r.arrayBuffer(); }).then(inflate).then(function (buf) {
+      var m = parse(buf); m.material = typeof num === 'number' && HD ? HD.material(num) : -1;
+      if (m.native) return Promise.all(m.materials.map(function (material) {
+        return image('assets/models/' + material.texture).then(function (im) {
+          if (im.width > gl.getParameter(gl.MAX_TEXTURE_SIZE) || im.height > gl.getParameter(gl.MAX_TEXTURE_SIZE)) throw new Error('native texture exceeds this GPU');
+          material.tex = texture(im);
+          gl.bindTexture(gl.TEXTURE_2D, material.tex);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+          return material;
+        });
+      })).then(function () { m.pal = rawTexture(gl.RGBA, 1, 1, new Uint8Array([255,255,255,255])); return m; });
+      return Promise.all([image(base + '.png'), image(base + 'p.png')]).then(function (ims) { buffers(m); m.tex = texture(ims[0]); m.pal = texture(ims[1]); return m; });
     });
     cache[num].catch(function () { delete cache[num]; });
     return cache[num];
@@ -258,8 +265,10 @@
   }
 
   // ------------------------------------------------------------------ a Digimon in the scene
-  function Actor(model, pos, facing) {
-    this.m = model; this.pos = pos.slice(); this.facing = facing;
+  // linear: the fourth argument of the start routine (0x80022d64 keeps it in the model's block
+  // at 0x26d8), which effect models are given: their keys are set up at constant speed
+  function Actor(model, pos, facing, linear) {
+    this.m = model; this.pos = pos.slice(); this.facing = facing; this.linear = !!linear;
     var n = (model.n + 1) * 9, i;
     this.p = new Float64Array(n); this.v = new Float64Array(n); this.a1 = new Float64Array(n); this.a2 = new Float64Array(n);
     this.cur = -1; this.count = -1; this.phase = 0; this.keys = null; this.loop = -1; this.show = [];
@@ -275,41 +284,65 @@
   // 0x80023148: take the pose of the motion's first key at once
   Actor.prototype.snap = function (mot) {
     var k = this.m.motions[mot][0].r, i, c;
+    if (this.m.native) this.nativeQuat = new Float64Array(this.m.motions[mot][0].q);
     for (i = 0; i <= this.m.n; i++) for (c = 0; c < 9; c++) { this.p[i * 9 + c] = k[i * 11 + FIELD[c]]; this.v[i * 9 + c] = 0; }
   };
   // 0x80022d34: start a motion from the current pose. With loop = true the motion's own
-  // "next key" field decides whether it repeats.
+  // "next key" field decides whether it repeats. The start aims the model at key 0 with key 0
+  // as the key after it (it calls the key setup with (0, -1)), so the model first blends into
+  // key 0 over 2 x that key's duration; the task then sets up key 0 once more and goes through
+  // the keys. A motion lasts 2 x d0 + the sum of 2 x d frames, and key 0's sound is asked for
+  // twice.
   Actor.prototype.play = function (mot, loop) {
     this.keys = this.m.motions[mot] || this.m.motions[0];
     this.motion = this.m.motions[mot] ? mot : 0;
     if (!this.keys) return;
     this.loop = loop ? this.keys[0].r[10] : -1;
-    this.cur = 0; this.count = 0;
+    this.cur = 0; this.setup(0);
   };
-  Actor.prototype.busy = function () { return this.cur >= 0 || this.count > 0; };
-  // 0x80022100: aim every channel at the current key
-  Actor.prototype.setup = function () {
+  // what the director waits on (0x801ee8a0, 0x801eea20): the frame count is below 0 once the
+  // motion has stopped, and while it is held
+  Actor.prototype.busy = function () { return this.count >= 0; };
+  // 0x80022ca4: hold the motion where it is. The frame count is turned below 0, which the
+  // task passes over; starting a motion sets it anew.
+  Actor.prototype.hold = function () { this.count = this.count > 0 ? -this.count : -1; };
+  // 0x80022d00: let a held motion go on
+  Actor.prototype.release = function () { if (this.count < 0) this.count = -this.count; };
+  // 0x80022100: aim every channel at the current key. The key after it is the next one of the
+  // motion, or after the last one the loop key; the start names it itself (`lead`).
+  // With the model's 0x26d8 set the setup takes its other path (0x80022784): the key is
+  // reached in 1 x its duration at constant speed ((key - pose) / frames), and the step
+  // (0x80021c38) leaves the parts' speeds as they are.
+  Actor.prototype.setup = function (lead) {
     if (this.cur < 0) { this.count = -1; return; }
-    var key = this.keys[this.cur], D = Math.max(1, key.dur), nx = this.cur + 1 < this.keys.length ? this.cur + 1 : this.loop, i, c;
+    var key = this.keys[this.cur], D = Math.max(1, key.dur), nx = lead != null ? lead : this.cur + 1 < this.keys.length ? this.cur + 1 : this.loop, i, c;
     if (key.snd > 0 && this.onSound) this.onSound(key.snd - 1);
     var k1 = key.r, k2 = nx >= 0 ? this.keys[nx].r : key.r, Dn = nx >= 0 ? Math.max(1, this.keys[nx].dur * 2) : 1;
-    this.count = 2 * D; this.phase = D; this.cur = nx;
+    this.count = this.linear ? D : 2 * D; this.phase = this.linear ? D >> 1 : D; this.cur = nx;
+    if (this.m.native) { this.nativeFrom = new Float64Array(this.nativeQuat); this.nativeTo = key.q; this.nativeDuration = this.count; this.nativeElapsed = 0; }
     for (i = 0; i <= this.m.n; i++) {
       if (i < this.m.n) this.show[i] = k1[i * 11 + 3];
       for (c = 0; c < 9; c++) {
         var j = i * 9 + c, f = i * 11 + FIELD[c];
-        this.p[j] = Math.trunc(this.p[j]);
+        if (this.linear) { this.v[j] = (k1[f] - this.p[j]) / D; this.a1[j] = this.a2[j] = 0; continue; }
+        if (!this.m.native || i === this.m.n) this.p[j] = Math.trunc(this.p[j]);
         var avg = (k1[f] - this.p[j]) / (2 * D), end = ((k2[f] - k1[f]) / Dn + avg) / 2, mid = 2 * avg - (end + this.v[j]) / 2;
         this.a1[j] = (mid - this.v[j]) / D; this.a2[j] = (end - mid) / D;
       }
     }
   };
+  // The motion task (0x80022b98) passes over a model that is not shown (0x80022bd0: its show
+  // flag is not above 0) and one whose motion has stopped or is held: it stays in its pose.
   Actor.prototype.step = function () {
-    if (this.count >= 0) {
+    if (this.visible && this.count >= 0) {
+      if (this.m.native && this.nativeDuration) {
+        var qt = Math.min(1, ++this.nativeElapsed / this.nativeDuration); qt = qt * qt * (3 - 2 * qt);
+        for (var qb = 0; qb < this.m.n; qb++) this.nativeQuat.set(NATIVE.slerp(this.nativeFrom.subarray(qb*4,qb*4+4), this.nativeTo.subarray(qb*4,qb*4+4), qt), qb*4);
+      }
       this.count--;
       if (this.count <= 0) this.setup();
     }
-    var n = this.m.n, j, live = this.count > 0;
+    var n = this.m.n, j, live = this.visible && this.count > 0;
     if (live) {
       for (j = 0; j < (n + 1) * 9; j++) this.p[j] += this.v[j];
       this.phase--;
@@ -326,18 +359,21 @@
       if (done[i]) return done[i];
       if (guard++ > 4096) return { m: base, t: self.pos };
       var par = self.m.parents[i], pm = par >= 0 ? part(par) : { m: base, t: self.pos }, j = i * 9;
-      var lm = rotYXZ([Math.trunc(self.p[j]), Math.trunc(self.p[j + 1]), Math.trunc(self.p[j + 2])]), s = [self.p[j + 6] / 4096, self.p[j + 7] / 4096, self.p[j + 8] / 4096];
+      var lm = self.m.native ? NATIVE.quatMatrix(self.nativeQuat.subarray(i*4,i*4+4)) : rotYXZ([Math.trunc(self.p[j]), Math.trunc(self.p[j + 1]), Math.trunc(self.p[j + 2])]), s = [self.p[j + 6] / 4096, self.p[j + 7] / 4096, self.p[j + 8] / 4096];
       lm = [lm[0] * s[0], lm[1] * s[1], lm[2] * s[2], lm[3] * s[0], lm[4] * s[1], lm[5] * s[2], lm[6] * s[0], lm[7] * s[1], lm[8] * s[2]];
-      var lt = [self.m.offsets[i][0] + Math.trunc(self.p[j + 3]), self.m.offsets[i][1] + Math.trunc(self.p[j + 4]), self.m.offsets[i][2] + Math.trunc(self.p[j + 5])];
+      var lt = [0,1,2].map(function(k) { return self.m.offsets[i][k] + (self.m.native ? self.p[j+3+k] : Math.trunc(self.p[j+3+k])); });
       done[i] = { m: mul3(pm.m, lm), t: xf(pm.m, pm.t, lt) };
       return done[i];
     }
     for (i = 0; i < n; i++) part(i);
     this.mats = done;
+    if (this.m.native) { this.skinMats = done; this.mats = done.slice(); this.nativePoseVersion = (this.nativePoseVersion || 0) + 1;
+      Object.keys(this.m.anchors || {}).forEach(function(k) { self.mats[+k] = done[self.m.anchors[k]]; }); }
   };
 
   // box around the model in its current pose: [min x, y, z, max x, y, z]
   Actor.prototype.bounds = function () {
+    if (this.m.native) return NATIVE.bounds(this);
     var b = [1e9, 1e9, 1e9, -1e9, -1e9, -1e9], vb = this.m.vb, i, k;
     for (i = 0; i < this.m.nv; i++) {
       var mt = this.mats[vb[i * 13 + 11]], w = xf(mt.m, mt.t, [vb[i * 13], vb[i * 13 + 1], vb[i * 13 + 2]]);
@@ -356,19 +392,19 @@
   // keeps its own distance as w, so a polygon that reaches behind the camera is cut off there
   // by the GPU; the arena, which stands around the camera, always has such polygons.
   var DEPTH = '#define DA 1.000488\n#define DB -32.007815\n';
-  var VS = DEPTH + 'attribute vec3 aP,aN,aC;attribute vec4 aT;uniform mat3 uM[32];uniform vec3 uT[32];uniform float uShow[32];uniform mat3 uV;uniform vec3 uVT;uniform vec2 uTex;uniform float uPalN,uBright,uF;' +
+  var VS = DEPTH + 'attribute vec3 aP,aN,aC;attribute vec4 aT;uniform mat3 uM[32];uniform vec3 uT[32];uniform float uShow[32];uniform mat3 uV;uniform vec3 uVT;uniform vec2 uTex;uniform float uPalN,uBright,uF,uRGBA;' +
     'varying vec3 vN,vE,vBase,vLocal;uniform mat4 uLight;varying vec4 vShadow;' +
     'uniform vec3 uLD[3];uniform vec3 uLC[3];uniform vec3 uBK;varying vec3 vC;varying vec2 vUV;varying float vPal,vTex;' +
     'void main(){int i=int(aT.z+0.5);mat3 m=uM[i];vec3 w=m*aP+uT[i];vec3 e=uV*w+uVT;' +
     'vec3 lit=vec3(1.0);if(dot(aN,aN)>0.5){vec3 n=normalize(m*aN);lit=uBK;for(int k=0;k<3;k++)lit+=uLC[k]*max(0.0,dot(n,uLD[k]));lit=clamp(lit,0.0,2.0);}' +
-    'vShadow=uLight*vec4(w,1.0);vN=m*aN;vE=e;vLocal=aP;vBase=aC/128.0*uBright;vC=vBase*lit;vTex=aT.x<0.0?0.0:1.0;vUV=(aT.xy+0.5)/uTex;vPal=(aT.w+0.5)/uPalN;' +
+    'vShadow=uLight*vec4(w,1.0);vN=m*aN;vE=e;vLocal=aP;vBase=aC/128.0*uBright;vC=vBase*lit;vTex=uRGBA>0.5?1.0:(aT.x<0.0?0.0:1.0);vUV=(aT.xy+0.5)/uTex;vPal=(aT.w+0.5)/uPalN;' +
     'gl_Position=vec4(e.x*uF/160.0,-e.y*uF/120.0,e.z*DA+DB,e.z);if(uShow[i]>0.5)gl_Position=vec4(2.0,2.0,2.0,1.0);}';
   var PAL_GLSL = HD ? HD.paletteGLSL : 'vec4 palSample(vec2 uv){float ix=texture2D(uS,uv).r*255.0;return texture2D(uP,vec2((ix+0.5)/256.0,PAL));}vec4 smoothPal(vec2 uv){return palSample(uv);}';
-  var FS = 'precision highp float;uniform sampler2D uS,uP;uniform vec2 uTex;uniform float uEnhanced,uFilter,uMaterial,uUltra,uShadowReady,uArenaHD;uniform vec4 uArenaUV;uniform mat3 uV;uniform vec4 uFxPos[2];uniform vec3 uFxColor;' +
+  var FS = 'precision highp float;uniform sampler2D uS,uP;uniform vec2 uTex;uniform float uEnhanced,uFilter,uMaterial,uUltra,uShadowReady,uArenaHD,uRGBA;uniform vec4 uArenaUV;uniform mat3 uV;uniform vec4 uFxPos[2];uniform vec3 uFxColor;' +
     'uniform vec3 uLD[3],uLC[3],uBK;varying vec3 vC,vN,vE,vBase,vLocal;varying vec2 vUV;varying float vPal,vTex;' +
     (ULTRA ? ULTRA.shadowGLSL : 'varying vec4 vShadow;float shadowMask(float bias){return 0.0;}') +
     PAL_GLSL.replace(/PAL/g, 'vPal') +
-    'void main(){vec2 arenaUV=clamp(vUV,0.5/uTex,1.0-0.5/uTex)*uArenaUV.zw+uArenaUV.xy;vec4 c=vTex<0.5?vec4(0.5,0.5,0.5,1.0):(uArenaHD>0.5?texture2D(uS,arenaUV):(uFilter>0.5?smoothPal(vUV):palSample(vUV)));if(c.a<0.5)discard;' +
+    'void main(){vec2 arenaUV=clamp(vUV,0.5/uTex,1.0-0.5/uTex)*uArenaUV.zw+uArenaUV.xy;vec4 c=vTex<0.5?vec4(0.5,0.5,0.5,1.0):(uRGBA>0.5?texture2D(uS,vUV):(uArenaHD>0.5?texture2D(uS,arenaUV):(uFilter>0.5?smoothPal(vUV):palSample(vUV))));if(c.a<0.5)discard;' +
     'vec3 col=c.rgb*vC;if(uEnhanced>0.5&&uMaterial>=0.0&&dot(vN,vN)>0.01){vec3 n=normalize(vN);vec3 eye=normalize(-vE);vec3 en=normalize(uV*n);' +
     'float shade=0.0;if(uUltra>0.5&&uShadowReady>0.5)shade=shadowMask(0.0025+0.003*(1.0-abs(n.y)));' +
     'vec3 lit=uBK+vec3(0.14,0.16,0.2);for(int k=0;k<3;k++)lit+=uLC[k]*max(0.0,dot(n,uLD[k]))*(1.0-shade*0.65);' +
@@ -418,7 +454,7 @@
     if (!gl) return false;
     prog = program(VS, FS);
     ['aP', 'aN', 'aC', 'aT'].forEach(function (a) { loc[a] = gl.getAttribLocation(prog, a); });
-    ['uM', 'uT', 'uShow', 'uV', 'uVT', 'uTex', 'uPalN', 'uS', 'uP', 'uBright', 'uLD', 'uLC', 'uBK', 'uF', 'uEnhanced', 'uFilter', 'uMaterial', 'uUltra', 'uLight', 'uShadow', 'uShadowReady', 'uFxPos', 'uFxColor', 'uArenaHD', 'uArenaUV'].forEach(function (u) { loc[u] = gl.getUniformLocation(prog, u); });
+    ['uM', 'uT', 'uShow', 'uV', 'uVT', 'uTex', 'uPalN', 'uS', 'uP', 'uBright', 'uLD', 'uLC', 'uBK', 'uF', 'uEnhanced', 'uFilter', 'uMaterial', 'uUltra', 'uLight', 'uShadow', 'uShadowReady', 'uFxPos', 'uFxColor', 'uArenaHD', 'uArenaUV', 'uRGBA'].forEach(function (u) { loc[u] = gl.getUniformLocation(prog, u); });
     pprog = program(PVS, PFS); ploc = { p: gl.getAttribLocation(pprog, 'p'), c: gl.getAttribLocation(pprog, 'c') };
     sprog = program(SVS, SFS);
     sloc = { p: gl.getAttribLocation(sprog, 'p'), t: gl.getAttribLocation(sprog, 't') };
@@ -440,7 +476,37 @@
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     return true;
   }
+  // Full native TS geometry is skinned on the CPU, then drawn per original RGBA
+  // material with drawArrays: no 32-bone uniform or 16-bit expanded-index limits.
+  function nativeMeshes(a) {
+    if (!a.m.native) return null;
+    var meshes = NATIVE.skin(a);
+    a.nativeGPU = a.nativeGPU || [];
+    return meshes.map(function (mesh, i) {
+      var gpu = a.nativeGPU[i] || (a.nativeGPU[i] = { vbo: gl.createBuffer() });
+      if (gpu.version !== a.nativePoseVersion) { gl.bindBuffer(gl.ARRAY_BUFFER, gpu.vbo); gl.bufferData(gl.ARRAY_BUFFER, mesh.vb, gl.DYNAMIC_DRAW); gpu.version = a.nativePoseVersion; }
+      gpu.nv = mesh.nv; gpu.nto = mesh.nto; gpu.ntb = 0; gpu.material = a.m.materials[mesh.materialIndex == null ? mesh.material : mesh.materialIndex]; return gpu;
+    });
+  }
+  function drawNative(a) {
+    var M = new Float32Array(288), T = new Float32Array(96), S = new Float32Array(32); M[0]=M[4]=M[8]=1;
+    gl.uniformMatrix3fv(loc.uM,false,M); gl.uniform3fv(loc.uT,T); gl.uniform1fv(loc.uShow,S);
+    gl.uniform1f(loc.uRGBA,1); gl.uniform1f(loc.uArenaHD,0); gl.uniform1f(loc.uPalN,1); gl.uniform1f(loc.uBright,a.bright);
+    gl.uniform1f(loc.uEnhanced,lighting()?1:0); gl.uniform1f(loc.uFilter,filtering()?1:0); gl.uniform1f(loc.uMaterial,a.m.material==null?-1:a.m.material);
+    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D,a.m.pal); gl.uniform1i(loc.uP,1);
+    gl.disable(gl.BLEND);
+    nativeMeshes(a).forEach(function(mesh) {
+      var material=mesh.material; gl.uniform2f(loc.uTex,material.width,material.height);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,material.tex); gl.uniform1i(loc.uS,0);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,filtering()?gl.LINEAR:gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,filtering()?gl.LINEAR:gl.NEAREST);
+      gl.bindBuffer(gl.ARRAY_BUFFER,mesh.vbo);
+      [['aP',3,0],['aN',3,12],['aC',3,24],['aT',4,36]].forEach(function(x){gl.enableVertexAttribArray(loc[x[0]]);gl.vertexAttribPointer(loc[x[0]],x[1],gl.FLOAT,false,52,x[2]);});
+      gl.drawArrays(gl.TRIANGLES,0,mesh.nv);
+    });
+  }
   function drawActor(a, order) {
+    if (a.m.native) { drawNative(a); return; }
+    gl.uniform1f(loc.uRGBA,0);
     var m = a.m, mesh = m, M = new Float32Array(32 * 9), T = new Float32Array(32 * 3), S = new Float32Array(32), i, k;
     var arenaHD = detailedArena(m) && order;
     if (!order) mesh=modelMesh(m);
@@ -664,7 +730,7 @@
     if (ultraLighting() && ULTRA && visible.length) {
       if (!shadowTried) { shadowTried = true; try { shadows = ULTRA.create(gl,program); } catch (err) { console.warn('Ultra shadows unavailable',err); } }
       if (shadows) {
-        shadowFrame = shadows.draw(visible,modelMesh);
+        shadowFrame = shadows.draw(visible,modelMesh,nativeMeshes);
       }
     }
     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
@@ -1018,7 +1084,9 @@
     this.alpha = C.s16(v[0x3b]);
     this.mode = v[0x4a] & 0xff;
     var m = fx.models[v[0x1ba]];
-    this.actor = m ? new Actor(m, [0, 0, 0], 0) : null;
+    // 0x801e39c4 .. 0x801e39dc: the pose of key 0, then the start with variable 0x1cb ^ 1 as
+    // its fourth argument
+    this.actor = m ? new Actor(m, [0, 0, 0], 0, !v[0x1cb]) : null;
     if (this.actor) { this.actor.visible = false; run.scene.extra.push(this.actor); }
   }
   FxModel.prototype.update = function () {
@@ -1130,8 +1198,8 @@
     var v = this.v, a0 = c.length > 3 ? C.s16(c[2] ? v[c[3]] : c[3]) : 0, a1 = c.length > 5 ? C.s16(c[4] ? v[c[5]] : c[5]) : 0, s, a;
     if (c[0] === 0x0a) {
       switch (c[1]) {
-        case 7: a = this.actor(v[0x1be]); if (a) a.visible = false; break;       // 0x80022ca4
-        case 8: a = this.actor(v[0x1be]); if (a) a.visible = true; break;        // 0x80022d00
+        case 7: a = this.actor(v[0x1be]); if (a) a.hold(); break;                // 0x801e880c
+        case 8: a = this.actor(v[0x1be]); if (a) a.release(); break;             // 0x801e8830
         case 9: v[0x1a0] = -Math.round(Math.atan2(v[0x197] - v[0x19a], v[0x19c] - v[0x199]) * 2048 / Math.PI); break;
       }
     } else if (c[0] === 0x0b) {
@@ -1140,7 +1208,7 @@
           a = this.actor(v[0x1be]);
           if (a) {
             var mot = a0 === 4 && this.scene.hp[this.scene.actors.indexOf(a)] <= 0 ? 5 : a0;
-            if (a.motion !== mot) a.play(mot, true);          // 0x8002daac: not if it is already in it
+            a.play(mot, true);          // 0x8002daac: from its first key, also when it is already in it
           }
           break;
         case 1: a = this.actor(v[0x1be]); if (a && a.m.motions[a0]) a.snap(a0); break;       // 0x8002db58
@@ -1258,11 +1326,12 @@
       if (scene === sc) stepModern(sc);
     }
     core.project = keep.project; core.bill = keep.bill; core.origin = keep.origin;
-    if (scene === sc) render();
+    if (scene === sc) if (!inspectNoRender) render();
   }
   // keep: leave the last picture up, for a scene that another follows at once
   var held = false;
   function stop(keep) {
+    if(scene&&gl)scene.actors.forEach(function(a){(a.nativeGPU||[]).forEach(function(mesh){gl.deleteBuffer(mesh.vbo);});a.nativeGPU=null;});
     sceneRequest++;
     clearLoading();
     if (timer) { clearInterval(timer); timer = 0; }
@@ -1345,8 +1414,18 @@
           function only(a) { act.forEach(function (x) { x.visible = x === a; }); sc.focus = a; sc.focusOwner = null; }
           function next() {
             if (run) run.end();
-            if (++k >= list.length) { run = null; return; }
+            if (++k >= list.length) {
+              // 0x801ee860, 0x801ee86c: the hit script over, the attacker takes its standing pose
+              // and stands
+              if (run && list.length === 2 && k === 2) { A.snap(0); A.play(0, true); }
+              run = null; return;
+            }
             act.forEach(function (a) { a.visible = true; });
+            // 0x801ee00c .. 0x801ee060: the Digimon a script is about to play on stands; the one
+            // the script before played on is hidden and takes its standing pose
+            var on = act[list[k][1]], before = k > 0 ? act[list[k - 1][1]] : null;
+            on.play(0, true);
+            if (before && before !== on) { before.visible = false; before.snap(0); }
             cut(sc, list[k][1]);
             run = new Run(list[k][0], list[k][1], sc, fxs[k]);
             if (k === 0) sc.overlays.push(new AttackOverlay(banner));
@@ -1363,7 +1442,11 @@
               only(A); A.play(6, true);
               sc.overlays.push(new WinnerOverlay(label(opts.attacker)));
               phase = 'winner';
-            } else { phase = 'end'; hold = mode === 'normal' ? 20 : 8; }
+            } else {
+              // 0x801ee904: a target left alive stands, and the director waits 20 frames
+              if (mode === 'normal' && list.length === 2) T.play(0, true);
+              phase = 'end'; hold = mode === 'normal' ? 20 : 8;
+            }
           }
           cut(sc, opts.attacker);
           if (mode === 'zero') { only(A); A.play(0, true); sc.overlays.push(new AttackOverlay(banner)); }
@@ -1373,7 +1456,7 @@
             sc.overlays = sc.overlays.filter(function (o) { return o.step(); });
             if (run) { if (!run.step()) next(); return; }
             if (phase === 'scripts') {
-              // the director waits for the target's damage motion before it goes on
+              // the director waits for the target's damage motion before it goes on (0x801ee87c)
               if (sc.overlays.length || (mode === 'normal' && T.motion >= 4 && T.busy())) return;
               if (mode === 'normal' && opts.heal > 0 && scripts['998']) {
                 // 0x801eec3c: the attacker with script 998 and "Eat-Up HP" while its HP counts up
@@ -1519,6 +1602,12 @@
       api.paused = paused; inspecting = false;
     }
   };
+  api.advanceInspect = function(frames,onFrame) {
+    var paused=api.paused; api.paused=false; inspecting=true; inspectNoRender=true;
+    try { for(var i=0;i<Math.max(0,frames)&&scene;i++){last=performance.now()-FRAME_MS*1.01;tick();if(onFrame)onFrame(scene);} }
+    finally{api.paused=paused;inspecting=false;inspectNoRender=false;}
+  };
+  api.renderInspect = function(){if(scene)render();};
   api.busy = function () { return !!scene; };
   api._debug = function () { return scene; };
   api.stats = function () {

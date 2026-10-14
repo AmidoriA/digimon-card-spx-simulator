@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-334-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gururumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      74,
+      146,
+      218,
+      290
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-334-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gururumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          266,
+          2,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          266,
+          2,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          266,
+          2,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          266,
+          2,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          266,
+          2,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          266,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      68,
+      134,
+      200,
+      266
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-334-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gururumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      73,
+      144,
+      215,
+      286
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-334-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gururumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      336,
+      365,
+      394,
+      423
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-334-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gururumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          519,
+          5,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          519,
+          5,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          519,
+          5,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          519,
+          5,
+          "ended"
+        ]
+      ],
+      "Gururumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          519,
+          5,
+          "ended"
+        ]
+      ],
+      "Sangloupmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          519,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      360,
+      413,
+      466,
+      519
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-334-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gururumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          533,
+          6,
+          "runs"
+        ]
+      ],
+      "Sangloupmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          533,
+          6,
+          "runs"
+        ]
+      ],
+      "Gururumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          533,
+          6,
+          "runs"
+        ]
+      ],
+      "Sangloupmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          533,
+          6,
+          "runs"
+        ]
+      ],
+      "Gururumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          533,
+          6,
+          "runs"
+        ]
+      ],
+      "Sangloupmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          290,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          533,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      533,
+      578,
+      623,
+      668,
+      713
+    ]
+  }
+]

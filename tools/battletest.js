@@ -33,7 +33,7 @@ const sandbox = {
   setInterval: fn => { interval = fn; return 1; }, clearInterval: () => { interval = null; }
 };
 vm.createContext(sandbox);
-for (const f of ['data/effects.js', 'effects.js', 'battlehd.js', 'battleultra.js', 'battle3d.js']) vm.runInContext(fs.readFileSync(path.join(web, 'js', f), 'utf8'), sandbox);
+for (const f of ['data/effects.js', 'effects.js', 'battlehd.js', 'battleultra.js', 'battlenative.js', 'battle3d.js']) vm.runInContext(fs.readFileSync(path.join(web, 'js', f), 'utf8'), sandbox);
 const B = sandbox.window.DDCB_B3D, HD = sandbox.window.DDCB_BATTLE_HD;
 const cards = data.cards.filter(c => c.type === 'digimon');
 async function waitFor(check) {
@@ -42,18 +42,48 @@ async function waitFor(check) {
 }
 function mesh(model) {
   const bytes = zlib.gunzipSync(fs.readFileSync(path.join(web, 'assets/models', String(model).padStart(3, '0') + '.bin.gz')));
+  if(bytes[0]===123)return sandbox.window.DDCB_BATTLE_NATIVE.parse(JSON.parse(bytes.toString('utf8')));
   const w = new Int16Array(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
   const u = new Uint16Array(w.buffer), nv = u[4], nto = u[5], ntb = u[6], off = 10 + w[2] * 4;
-  return { n: w[2], nv, nto, ntb, vb: new Float32Array(w.slice(off, off + nv * 13)), ib: u.slice(off + nv * 13, off + nv * 13 + (nto + ntb) * 3) };
+  const parents = [], offsets = [];
+  for (let i = 0; i < w[2]; i++) { parents.push(w[10 + i * 4]); offsets.push([w[11 + i * 4], w[12 + i * 4], w[13 + i * 4]]); }
+  return { n: w[2], nv, nto, ntb, parents, offsets, vb: new Float32Array(w.slice(off, off + nv * 13)), ib: u.slice(off + nv * 13, off + nv * 13 + (nto + ntb) * 3) };
+}
+// Where a vertex of a mesh is in the model as it is built: its part's offsets added up.
+function built(m, mesh, n) {
+  let part = mesh.vb[n * 13 + 11], p = [mesh.vb[n * 13], mesh.vb[n * 13 + 1], mesh.vb[n * 13 + 2]];
+  for (let guard = 0; part >= 0 && guard < 64; part = m.parents[part], guard++) for (let k = 0; k < 3; k++) p[k] += m.offsets[part][k];
+  return p;
+}
+// A refined mesh has six corners for each triangle it was made from: the three it had and
+// one on each side. A corner on a side must lie near the middle of that side, also where
+// the side runs between two parts (the models converted from Time Stranger, TS-207).
+function sidesHold(m, mesh, name) {
+  for (let t = 0; t < mesh.nv; t += 6) [[0, 1, 3], [1, 2, 4], [2, 0, 5]].forEach(e => {
+    const a = built(m, mesh, t + e[0]), b = built(m, mesh, t + e[1]), c = built(m, mesh, t + e[2]);
+    const off = Math.hypot(c[0] - (a[0] + b[0]) / 2, c[1] - (a[1] + b[1]) / 2, c[2] - (a[2] + b[2]) / 2);
+    assert(off <= 0.3 * Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2]) + 1e-3, name + ': a new corner lies ' + off.toFixed(1) + ' from the middle of its side');
+  });
 }
 (async () => {
-  let vertices = 0, triangles = 0;
+  let vertices = 0, triangles = 0, between = 0;
+  const skinned = new Set();
   for (const model of new Set(cards.map(c => c.model))) {
-    const m = mesh(model), before = m.vb.slice(), hd = HD.refine(m), smooth = HD.smooth(m);
+    const m = mesh(model);
+    if(m.native){
+      assert(m.ib.length===m.nto*3 && m.ib.every(i=>i<m.nv),'native geometry lost or index out of bounds '+model);
+      assert(m.motions.length===8,'native motion slots '+model);
+      for(const material of m.materials)assert(fs.existsSync(path.join(web,'assets/models',material.texture)),'native RGBA missing '+model);
+      for(const mesh of m.meshes){const drawn=new Set(mesh.indices);for(let v=0;v<mesh.nv;v++){let total=0;for(let k=0;k<4;k++)total+=mesh.weights[v*4+k];assert(Math.abs(total-1)<1e-6 || (!drawn.has(v)&&total===0),'native weights '+model);}}
+      vertices+=m.nv;triangles+=m.nto;continue;
+    }
+    const before = m.vb.slice(), hd = HD.refine(m), smooth = HD.smooth(m);
     assert(hd.vb.every(Number.isFinite), 'non-finite mesh ' + model);
     assert(hd.ib.every(i => i < hd.vb.length / 13), 'invalid index ' + model);
     assert(hd.ib.length === (hd.nto + hd.ntb) * 3);
     assert.deepStrictEqual(m.vb, before, 'modified original mesh ' + model);
+    sidesHold(m, hd, 'refined mesh ' + model); sidesHold(m, smooth, 'Smooth mesh ' + model);
+    for (let t = 0; t < m.ib.length; t += 3) if (m.vb[m.ib[t] * 13 + 11] !== m.vb[m.ib[t + 1] * 13 + 11] || m.vb[m.ib[t] * 13 + 11] !== m.vb[m.ib[t + 2] * 13 + 11]) { between++; skinned.add(model); }
     assert(smooth.vb.every(Number.isFinite), 'non-finite Smooth mesh ' + model);
     assert(smooth.ib.every(i => i < smooth.nv), 'invalid Smooth index ' + model);
     assert(smooth.ib.length === m.ib.length * 16, 'Smooth did not subdivide twice ' + model);
@@ -68,6 +98,9 @@ function mesh(model) {
     vertices += hd.vb.length / 13; triangles += hd.ib.length / 3;
   }
   console.log('Refined all %d card models: %d vertices, %d triangles; original meshes preserved.', new Set(cards.map(c => c.model)).size, vertices, triangles);
+  // the disc's models keep every triangle inside one part; only converted ones may not
+  for (const model of skinned) assert(cards.some(c => c.model === model && c.custom != null), 'a model of the game has triangles between parts: ' + model);
+  console.log('%d triangles between parts, in the converted models %s; their new corners lie on their sides.', between, [...skinned].join(' ') || '(none)');
   let count = 0, max = 0;
   for (const c of cards) for (let k = 0; k < 3; k++) {
     const atk = c.atk[k], opts = { models: [c.model, cards[0].model], attacker: 0, first: 0, script: atk.script, hit: atk.hit,
@@ -86,6 +119,84 @@ function mesh(model) {
     const c = cards[0], a = c.atk[0];
     const result = await B.attack({ models: [c.model, c.model], attacker: 0, script: a.script, hit: a.hit, mode, dry: true });
     assert(result.frames < 4000 && result.sprites === 0 && result.quads === 0, mode + ' emitted attacks');
+  }
+  // How the game times a motion (start 0x80022d34, key setup 0x80022100, task 0x80022b98):
+  // 2 x d0 of lead, then every key over 2 x its duration; the lengths are the ones
+  // tools/motion_slots.py measured from the disc.
+  {
+    const slots = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'docs/time-stranger/motion-slots.json')));
+    const c = cards.find(c => c.name === 'Agumon'), a = c.atk[0];
+    B.setStyle('legacy'); B.paused = true;
+    let playback = B.attack({ models: [c.model, c.model], attacker: 0, script: a.script, hit: a.hit, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false });
+    await waitFor(() => B.busy());
+    const X = B._debug().actors[1], want = slots[c.model].slots;
+    assert.strictEqual(want[1].frames, 240, 'Agumon attack 1 is not the 240 frames read from the game');
+    for (let m = 0; m < 8; m++) {
+      if (want[m].loop >= 0) continue;
+      const heard = []; let n = 0;
+      X.onSound = s => heard.push(s);
+      X.play(m, true);
+      while (X.busy() && n < 2000) { X.step(); n++; }
+      assert.strictEqual(n, want[m].frames, 'motion ' + m + ' does not last as long as in the game');
+      assert.strictEqual(heard.length, want[m].sounds.length, 'motion ' + m + ' names its sounds another number of times');
+    }
+    X.onSound = null;
+    X.play(1, true); for (let i = 0; i < 30; i++) X.step();
+    X.play(1, true);
+    assert(X.cur === 0 && X.count === 2 * X.keys[0].dur, 'starting the motion that is playing did not start it again');
+    X.visible = false;
+    const pose = Array.from(X.p), left = X.count;
+    for (let i = 0; i < 30; i++) X.step();
+    assert(X.count === left && X.p.every((v, i) => v === pose[i]), 'a hidden model moved on');
+    B.stop(); await playback;
+    // hit script 402 starts the damage motion twice (script command b.2, 0x8002daac)
+    const d = cards.find(c => c.atk.some(a => a.hit === 402)), k = d.atk.findIndex(a => a.hit === 402);
+    playback = B.attack({ models: [d.model, c.model], attacker: 0, first: 0, script: d.atk[k].script, hit: 402, attack: k, name: d.atk[k].name, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false });
+    await waitFor(() => B.busy());
+    const T = B._debug().actors[1]; let starts = 0;
+    for (let i = 0; i < 1500 && B.busy(); i++) {
+      B.advance(1);
+      if (T.motion === 4 && T.cur === 0 && T.count === 2 * T.keys[0].dur) starts++;
+    }
+    assert(!B.busy(), 'the attack with hit script 402 did not end');
+    assert.strictEqual(starts, 2, 'hit script 402 did not start the damage motion twice');
+    await playback;
+    // hit script 401 holds the target's motion for 60 frames (a.7, a.8: 0x80022ca4, 0x80022d00);
+    // the target stays on screen
+    const g = cards.find(c => c.name === 'Garurumon'), e = cards.find(c => c.atk.some(a => a.hit === 401)), j = e.atk.findIndex(a => a.hit === 401);
+    playback = B.attack({ models: [e.model, g.model], attacker: 0, first: 0, script: e.atk[j].script, hit: 401, attack: j, name: e.atk[j].name, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false });
+    await waitFor(() => B.busy());
+    const H = B._debug().actors[1]; let held = 0, was = null;
+    assert(H.keys[0].r[10] >= 0, 'the test needs a target whose standing motion repeats');
+    for (let i = 0; i < 1500 && B.busy(); i++) {
+      B.advance(1);
+      if (H.count >= 0) { was = null; continue; }
+      assert(H.visible, 'a held Digimon is not on screen');
+      if (was) assert(H.p.every((v, i) => v === was[i]), 'a held motion moved on');
+      was = Array.from(H.p); held++;
+    }
+    assert.strictEqual(held, 60, 'hit script 401 did not hold the target for 60 frames');
+    await playback;
+    // effect models are started with the start routine's fourth argument set unless script
+    // variable 0x1cb is 1 (0x801e39d8): a key then lasts 1 x its duration (0x80022784)
+    const models = async (card, n) => {
+      const seen = new Set(), p = B.attack({ models: [card.model, g.model], attacker: 0, first: 0, script: card.atk[n].script, hit: card.atk[n].hit, attack: n, name: card.atk[n].name, hp: [1000, 700], hpBefore: 1000, damage: 300, sound: false });
+      await waitFor(() => B.busy());
+      const sc = B._debug();
+      for (let i = 0; i < 1500 && B.busy(); i++) { B.advance(1); sc.extra.forEach(x => seen.add(x)); }
+      await p; return Array.from(seen).filter(x => x.keys);
+    };
+    const plain = await models(c, 0), eased = await models(cards.find(c => c.name === 'Vikemon'), 0);
+    assert(plain.length && plain.every(x => x.linear), "Agumon's effect models are not on the constant-speed path");
+    assert(eased.some(x => !x.linear), 'no effect model of Vikemon is started with variable 0x1cb set');
+    for (const x of plain) {
+      let n = 0;
+      x.visible = true; x.play(0, false);
+      while (x.busy() && n < 2000) { x.step(); n++; }
+      assert.strictEqual(n, x.keys[0].dur + x.keys.reduce((s, q) => s + q.dur, 0), 'an effect model motion does not last d0 + the sum of d');
+    }
+    B.paused = false;
+    console.log('PASS: motions last 2 x d0 + the sum of 2 x d frames, start again when started again, wait while hidden or held; effect models take 1 x.');
   }
   const c = cards.find(c => c.name === 'Agumon'), a = c.atk[0];
   const arenas = JSON.parse(fs.readFileSync(path.join(web,'assets/battle/arenas.json')));

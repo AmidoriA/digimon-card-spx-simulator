@@ -1,28 +1,589 @@
 {
  "recolours": {
   "blackwargreymon": [
-   {"colours": [[222, 164, 74], [246, 164, 57]], "to": {"hue": 50, "sat": 1.1}},
-   {"colours": [[246, 246, 238]], "to": {"sat": 0, "val": 0.45}},
-   {"hue": [15, 32], "sat": [0.3, 1], "to": {"hue": 50, "val": 1.1}},
-   {"hue": [32, 70], "sat": [0.25, 1], "to": {"hue": 240, "sat": [0, 0.05], "val": 0.3}},
-   {"hue": [80, 160], "to": {"hue": 52}},
-   {"hue": [220, 290], "to": {"sat": 0.3, "val": 0.5}}
+   {
+    "colours": [
+     [
+      222,
+      164,
+      74
+     ],
+     [
+      246,
+      164,
+      57
+     ]
+    ],
+    "to": {
+     "hue": 50,
+     "sat": 1.1
+    }
+   },
+   {
+    "colours": [
+     [
+      246,
+      246,
+      238
+     ]
+    ],
+    "to": {
+     "sat": 0,
+     "val": 0.45
+    }
+   },
+   {
+    "hue": [
+     15,
+     32
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 50,
+     "val": 1.1
+    }
+   },
+   {
+    "hue": [
+     32,
+     70
+    ],
+    "sat": [
+     0.25,
+     1
+    ],
+    "to": {
+     "hue": 240,
+     "sat": [
+      0,
+      0.05
+     ],
+     "val": 0.3
+    }
+   },
+   {
+    "hue": [
+     80,
+     160
+    ],
+    "to": {
+     "hue": 52
+    }
+   },
+   {
+    "hue": [
+     220,
+     290
+    ],
+    "to": {
+     "sat": 0.3,
+     "val": 0.5
+    }
+   }
   ],
   "blackwargreymon-art": [
-   {"hue": [18, 37], "sat": [0.7, 1], "val": [0.66, 1], "to": {"hue": 50}},
-   {"hue": [36, 70], "sat": [0.3, 1], "to": {"hue": 240, "sat": [0, 0.06], "val": 0.36}},
-   {"hue": [36, 70], "sat": [0.08, 0.3], "val": [0.5, 1], "to": {"sat": 0, "val": 0.55}},
-   {"hue": [220, 290], "to": {"sat": 0.35, "val": 0.7}}
+   {
+    "hue": [
+     18,
+     37
+    ],
+    "sat": [
+     0.7,
+     1
+    ],
+    "val": [
+     0.66,
+     1
+    ],
+    "to": {
+     "hue": 50
+    }
+   },
+   {
+    "hue": [
+     36,
+     70
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": 240,
+     "sat": [
+      0,
+      0.06
+     ],
+     "val": 0.36
+    }
+   },
+   {
+    "hue": [
+     36,
+     70
+    ],
+    "sat": [
+     0.08,
+     0.3
+    ],
+    "val": [
+     0.5,
+     1
+    ],
+    "to": {
+     "sat": 0,
+     "val": 0.55
+    }
+   },
+   {
+    "hue": [
+     220,
+     290
+    ],
+    "to": {
+     "sat": 0.35,
+     "val": 0.7
+    }
+   }
   ],
   "darkfire": [
-   {"hue": [330, 70], "sat": [0.15, 1], "to": {"hue": [252, 282], "sat": 0.95, "val": 0.85}}
+   {
+    "hue": [
+     330,
+     70
+    ],
+    "sat": [
+     0.15,
+     1
+    ],
+    "to": {
+     "hue": [
+      252,
+      282
+     ],
+     "sat": 0.95,
+     "val": 0.85
+    }
+   }
+  ],
+  "ts-330-fx": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": [
+      255,
+      280
+     ],
+     "sat": 0.8,
+     "val": 1
+    }
+   }
+  ],
+  "ts-335-fx": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": [
+      255,
+      280
+     ],
+     "sat": 0.8,
+     "val": 1
+    }
+   }
+  ],
+  "ts-344-fx": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": [
+      42,
+      55
+     ],
+     "sat": 0.8,
+     "val": 1
+    }
+   }
+  ],
+  "ts-346-fx": [
+   {
+    "hue": [
+     0,
+     360
+    ],
+    "sat": [
+     0.3,
+     1
+    ],
+    "to": {
+     "hue": [
+      42,
+      55
+     ],
+     "sat": 0.8,
+     "val": 1
+    }
+   }
   ]
  },
  "decks": [
   {
    "name": "Black Fire Again",
-   "base": {"name": "Black Fire Heart", "owner": "BK WarGreymon"},
-   "replace": {"WarGreymon": "BlackWarGreymon"}
+   "base": {
+    "name": "Black Fire Heart",
+    "owner": "BK WarGreymon"
+   },
+   "replace": {
+    "WarGreymon": "BlackWarGreymon"
+   }
+  },
+  {
+   "name": "Crimson Fire Again",
+   "base": {
+    "name": "Go Go Dinosaur",
+    "owner": "Veemon"
+   },
+   "owner": "WarGrowlmon",
+   "ownerCard": "WarGrowlmon",
+   "cards": {
+    "Guilmon": 4,
+    "Agumon": 3,
+    "Biyomon": 2,
+    "Growlmon": 3,
+    "Tankmon": 3,
+    "WarGrowlmon": 3,
+    "Speed Digivolve": 3,
+    "Devil's Chip": 3,
+    "Mega Hand": 2,
+    "Chain Saw": 2,
+    "Training Manual": 2
+   }
+  },
+  {
+   "name": "Solar Flame Again",
+   "base": {
+    "name": "First Attack",
+    "owner": "Birdramon"
+   },
+   "owner": "Flaremon",
+   "ownerCard": "Flaremon",
+   "cards": {
+    "Coronamon": 4,
+    "Veemon": 3,
+    "Biyomon": 2,
+    "Firamon": 3,
+    "Akatorimon": 3,
+    "Flaremon": 3,
+    "Speed Digivolve": 3,
+    "Attack Chip": 3,
+    "Training Manual": 3,
+    "Digi-Diamond": 3
+   }
+  },
+  {
+   "name": "Brave Fire Revived",
+   "base": {
+    "name": "Fire Heart",
+    "owner": "Davis"
+   },
+   "owner": "SaviorHuckmon",
+   "ownerCard": "SaviorHuckmon",
+   "cards": {
+    "Huckmon": 4,
+    "Hawkmon": 3,
+    "Muchomon": 2,
+    "BaoHuckmon": 3,
+    "Airdramon": 3,
+    "SaviorHuckmon": 3,
+    "Special Digivolve": 3,
+    "Attack Disk ○": 3,
+    "Attack Disk △": 3,
+    "Training Manual": 3
+   }
+  },
+  {
+   "name": "Lunar Howl Again",
+   "base": {
+    "name": "Shoot Everything!",
+    "owner": "MetalGarurumon"
+   },
+   "owner": "MachGaogamon",
+   "ownerCard": "MachGaogamon",
+   "cards": {
+    "Gaomon": 4,
+    "Gomamon": 3,
+    "Betamon": 2,
+    "Gaogamon": 3,
+    "Frigimon": 3,
+    "MachGaogamon": 3,
+    "Speed Digivolve": 3,
+    "Sup. Rec. Floppy": 3,
+    "Dark Lord's Cape": 3,
+    "Recovery Floppy": 3
+   }
+  },
+  {
+   "name": "Moonlight Revived",
+   "base": {
+    "name": "Fightback",
+    "owner": "Garurumon"
+   },
+   "owner": "Crescemon",
+   "ownerCard": "Crescemon",
+   "cards": {
+    "Lunamon": 4,
+    "Armadillomon": 3,
+    "Gomamon": 2,
+    "Lekismon": 3,
+    "Rockmon": 3,
+    "Crescemon": 3,
+    "Special Digivolve": 3,
+    "Digimon Grave": 3,
+    "Digimon Analyzer": 3,
+    "High Speed Disk": 3
+   }
+  },
+  {
+   "name": "Deep Sea Revived",
+   "base": {
+    "name": "First Aid",
+    "owner": "Joe"
+   },
+   "owner": "Dragomon",
+   "ownerCard": "Dragomon",
+   "cards": {
+    "Syakomon": 4,
+    "Gomamon": 3,
+    "Betamon": 2,
+    "Octomon": 3,
+    "Seadramon": 3,
+    "Dragomon": 3,
+    "Speed Digivolve": 3,
+    "Warp Digivolve": 2,
+    "Training Manual": 3,
+    "Attack Chip": 2,
+    "Recovery Floppy": 2
+   }
+  },
+  {
+   "name": "Divine Fox Again",
+   "base": {
+    "name": "Divine Monster",
+    "owner": "Nefertimon"
+   },
+   "owner": "Taomon",
+   "ownerCard": "Taomon",
+   "cards": {
+    "Renamon": 4,
+    "Psychemon": 3,
+    "ClearAgumon": 2,
+    "Kyubimon": 3,
+    "MudFrigimon": 3,
+    "Taomon": 3,
+    "Special Digivolve": 3,
+    "Recovery Floppy": 3,
+    "Sup. Rec. Floppy": 3,
+    "Med. Rec. Floppy": 3
+   }
+  },
+  {
+   "name": "Rapid Hope Again",
+   "base": {
+    "name": "Call of Destiny",
+    "owner": "Gatomon"
+   },
+   "owner": "Rapidmon",
+   "ownerCard": "Rapidmon",
+   "cards": {
+    "Terriermon": 4,
+    "Tentomon": 3,
+    "Hawkmon": 2,
+    "Gargomon": 3,
+    "Kuwagamon": 3,
+    "Rapidmon": 3,
+    "Speed Digivolve": 3,
+    "Defense Disk ○": 3,
+    "Disrupt Ray": 3,
+    "Triangle Hitter": 3
+   }
+  },
+  {
+   "name": "Flower Bloom Again",
+   "base": {
+    "name": "Flower Fairies",
+    "owner": "Lillymon"
+   },
+   "owner": "Lilamon",
+   "ownerCard": "Lilamon",
+   "cards": {
+    "Lalamon": 4,
+    "Palmon": 3,
+    "Gotsumon": 2,
+    "Sunflowmon": 3,
+    "Airdramon": 3,
+    "Lilamon": 3,
+    "Speed Digivolve": 3,
+    "Dark Bone": 3,
+    "Recovery Floppy": 3,
+    "Beetle Diamond": 3
+   }
+  },
+  {
+   "name": "Dark Steel Again",
+   "base": {
+    "name": "Go Go Dinosaur",
+    "owner": "Veemon"
+   },
+   "owner": "MetalTyrannomon",
+   "ownerCard": "MetalTyrannomon",
+   "cards": {
+    "Keramon": 4,
+    "Agumon": 3,
+    "Kokuwamon": 2,
+    "Kurisarimon": 3,
+    "Tyrannomon": 3,
+    "MetalTyrannomon": 3,
+    "Special Digivolve": 3,
+    "Attack Chip": 3,
+    "Metal Parts": 2,
+    "Speed Digivolve": 2,
+    "Training Manual": 2
+   }
+  },
+  {
+   "name": "Machine Fang Again",
+   "base": {
+    "name": "Machine Empire",
+    "owner": "Machinedramon"
+   },
+   "owner": "Cyberdramon",
+   "ownerCard": "Cyberdramon",
+   "cards": {
+    "Monodramon": 4,
+    "ClearAgumon": 3,
+    "Wormmon": 2,
+    "Strikedramon": 3,
+    "Starmon": 3,
+    "Cyberdramon": 3,
+    "Special Digivolve": 3,
+    "Mutant Digivolve": 1,
+    "Attack Chip": 2,
+    "Training Manual": 3,
+    "Silver Ball": 1,
+    "Speed Digivolve": 2
+   }
+  },
+  {
+   "name": "Night Dance Again",
+   "base": {
+    "name": "Dark Revival",
+    "owner": "Myotismon"
+   },
+   "owner": "Matadormon",
+   "ownerCard": "Matadormon",
+   "cards": {
+    "Dracmon": 4,
+    "Sharmamon": 3,
+    "Kokuwamon": 2,
+    "Sangloupmon": 3,
+    "Guardromon": 3,
+    "Matadormon": 3,
+    "Speed Digivolve": 3,
+    "Miracle Ruby": 3,
+    "Chain Saw": 2,
+    "Metallic Banana": 2,
+    "Recovery Floppy": 2
+   }
+  },
+  {
+   "name": "Sky Dragon Again",
+   "base": {
+    "name": "Mega Giga",
+    "owner": "Gigadramon"
+   },
+   "owner": "Wingdramon",
+   "ownerCard": "Wingdramon",
+   "cards": {
+    "Dracomon": 4,
+    "Gomamon": 3,
+    "Hawkmon": 2,
+    "Coredramon (Blue)": 3,
+    "Airdramon": 2,
+    "Seadramon": 1,
+    "Wingdramon": 3,
+    "Special Digivolve": 4,
+    "Mutant Digivolve": 2,
+    "Attack Chip": 2,
+    "Training Manual": 2,
+    "Short Lance": 2
+   }
+  },
+  {
+   "name": "Beast Fist Again",
+   "base": {
+    "name": "Steel Gate",
+    "owner": "MetalEtemon"
+   },
+   "owner": "GrapLeomon",
+   "ownerCard": "GrapLeomon",
+   "cards": {
+    "Bearmon": 4,
+    "Salamon": 3,
+    "Hawkmon": 2,
+    "Grizzlymon": 3,
+    "Kuwagamon": 3,
+    "GrapLeomon": 3,
+    "Special Digivolve": 3,
+    "Golden Banana": 3,
+    "Beam Gun": 2,
+    "Recovery Floppy": 2,
+    "Attack Chip": 2
+   }
+  },
+  {
+   "name": "Holy Beast Revived",
+   "base": {
+    "name": "Steel Gate",
+    "owner": "MetalEtemon"
+   },
+   "owner": "Chirinmon",
+   "ownerCard": "Chirinmon",
+   "cards": {
+    "Kudamon": 4,
+    "ClearAgumon": 3,
+    "Vi-Elecmon": 2,
+    "Reppamon": 3,
+    "SandYanmamon": 3,
+    "Chirinmon": 3,
+    "Speed Digivolve": 3,
+    "Beetle Diamond": 3,
+    "Attack Chip": 3,
+    "Triangle Hitter": 3
+   }
   }
  ],
  "cards": [
@@ -30,22 +591,4666 @@
    "id": 301,
    "name": "BlackWarGreymon",
    "base": "WarGreymon",
-   "spec": "Fire", "level": "U", "dp": 60, "pp": 20, "hp": 1750,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 60,
+   "pp": 20,
+   "hp": 1750,
    "attacks": [
-    {"name": "Black Terra Force", "power": 950},
-    {"name": "Black Great Tornado", "power": 700},
-    {"name": "Black Dramon Cutter", "power": 400}
+    {
+     "name": "Black Terra Force",
+     "power": 950
+    },
+    {
+     "name": "Black Great Tornado",
+     "power": 700
+    },
+    {
+     "name": "Black Dramon Cutter",
+     "power": 400
+    }
    ],
    "xfx": "Nature Foe x3",
    "support": {
     "prio": 1,
     "conds": [],
-    "acts": [{"op": 10, "v": [11, 0, 67], "i": [0, 200, 0], "m1": 0, "m2": 2}],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       67
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 2
+     }
+    ],
     "text": "Add number of Darkness Cards in DP Slot x200 to own Attack Power."
    },
-   "model": {"number": 400, "recolour": "blackwargreymon"},
-   "battle": {"offset": 10000, "recolour": "darkfire", "accent": "dark"},
-   "art": {"recolour": "blackwargreymon-art", "new": {"file": "custom/blackwargreymon.png", "crop": [0, 20, 335]}}
+   "model": {
+    "number": 400,
+    "recolour": "blackwargreymon"
+   },
+   "battle": {
+    "offset": 10000,
+    "recolour": "darkfire",
+    "accent": "dark"
+   },
+   "art": {
+    "recolour": "blackwargreymon-art",
+    "new": {
+     "file": "custom/blackwargreymon.png",
+     "crop": [
+      0,
+      20,
+      335
+     ]
+    }
+   }
+  },
+  {
+   "id": 302,
+   "name": "Guilmon",
+   "base": 27,
+   "spec": "Fire",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 590,
+   "attacks": [
+    {
+     "name": "Rock Breaker",
+     "power": 370
+    },
+    {
+     "name": "Fire Ball",
+     "power": 230
+    },
+    {
+     "name": "Critical Charge",
+     "power": 140
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       100,
+       0,
+       0
+      ],
+      "op": 2,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are more than 100, lose 100 HP and boost own Attack Power +250."
+   },
+   "model": {
+    "number": 401,
+    "ts": "chr090",
+    "native": true,
+    "against": "chr050",
+    "parts": {
+     "0": "J_spine02"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT2-009",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/302.png"
+    }
+   }
+  },
+  {
+   "id": 303,
+   "name": "Coronamon",
+   "base": 33,
+   "spec": "Fire",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 520,
+   "attacks": [
+    {
+     "name": "CoronaｰKnuckles",
+     "power": 360
+    },
+    {
+     "name": "Corona Flame",
+     "power": 250
+    },
+    {
+     "name": "Petit Prominence",
+     "power": 120
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own Attack Power +100 and draw 1 Card."
+   },
+   "model": {
+    "number": 402,
+    "ts": "chr136",
+    "parts": {
+     "6": "J_hand_r"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-007",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/303.png"
+    }
+   }
+  },
+  {
+   "id": 304,
+   "name": "Huckmon",
+   "base": 175,
+   "spec": "Fire",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 560,
+   "attacks": [
+    {
+     "name": "Fifth Rush",
+     "power": 340
+    },
+    {
+     "name": "Teen Ram",
+     "power": 270
+    },
+    {
+     "name": "Pepper Breath",
+     "power": 0
+    }
+   ],
+   "xfx": "△ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       17,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 1,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Attack is ○ or △, boost own ○ and △ Attack Power +150."
+   },
+   "model": {
+    "number": 403,
+    "ts": "chr687",
+    "native": true,
+    "parts": {
+     "0": "J_center",
+     "9": "J_te_L"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT7-009",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/304.png"
+    }
+   }
+  },
+  {
+   "id": 305,
+   "name": "Growlmon",
+   "base": 14,
+   "spec": "Fire",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 920,
+   "attacks": [
+    {
+     "name": "Plasma Blade",
+     "power": 590
+    },
+    {
+     "name": "Exhaust Flame",
+     "power": 430
+    },
+    {
+     "name": "Magma Fall I",
+     "power": 180
+    }
+   ],
+   "xfx": "Ice Foe x3",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       200,
+       0,
+       0
+      ],
+      "op": 2,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       350,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are more than 200, lose 200 HP and boost own Attack Power +350."
+   },
+   "model": {
+    "number": 404,
+    "ts": "chr078",
+    "parts": {
+     "0": "J_spine2",
+     "2": "J_head",
+     "3": "J_mouth"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT2-013",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/305.png"
+    }
+   }
+  },
+  {
+   "id": 306,
+   "name": "Firamon",
+   "base": 19,
+   "spec": "Fire",
+   "level": "C",
+   "dp": 30,
+   "pp": 20,
+   "hp": 780,
+   "attacks": [
+    {
+     "name": "Flame Dive",
+     "power": 540
+    },
+    {
+     "name": "Fira Claw",
+     "power": 400
+    },
+    {
+     "name": "Fira Bomb",
+     "power": 160
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own Attack Power +150 and draw 1 Card."
+   },
+   "model": {
+    "number": 405,
+    "ts": "chr137",
+    "parts": {
+     "0": "J_spine02",
+     "6": "J_hand_l",
+     "7": "J_center",
+     "18": "J_foot01_r",
+     "22": "J_foot01_l"
+    },
+    "motions": {
+     "6": "fe02",
+     "3": "ba02"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-008",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/306.png"
+    }
+   }
+  },
+  {
+   "id": 307,
+   "name": "BaoHuckmon",
+   "base": 26,
+   "spec": "Fire",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 850,
+   "attacks": [
+    {
+     "name": "Fif Cross",
+     "power": 580
+    },
+    {
+     "name": "Teen Blade",
+     "power": 450
+    },
+    {
+     "name": "Blazing Flame",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       17,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 1,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Attack is ○ or △, boost own ○ and △ Attack Power +250."
+   },
+   "model": {
+    "number": 406,
+    "ts": "chr115",
+    "parts": {
+     "0": "J_spine03",
+     "7": "J_f_leg_r",
+     "10": "J_f_leg_l",
+     "11": "J_spine01"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT6-011",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/307.png"
+    }
+   }
+  },
+  {
+   "id": 308,
+   "name": "WarGrowlmon",
+   "base": 9,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 1620,
+   "attacks": [
+    {
+     "name": "Double Edge",
+     "power": 890
+    },
+    {
+     "name": "Atomic Blaster",
+     "power": 670
+    },
+    {
+     "name": "Crush Blade II",
+     "power": 250
+    }
+   ],
+   "xfx": "Crash",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       27,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 32,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       3,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       450,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If 3 or more Cards remain in own Online Deck, discard 3 Cards from own Online Deck and boost own Attack Power +450."
+   },
+   "model": {
+    "number": 407,
+    "ts": "chr134",
+    "parts": {
+     "0": "J_breast",
+     "6": "J_hand_r"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX2-010",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/308.png"
+    }
+   }
+  },
+  {
+   "id": 309,
+   "name": "Flaremon",
+   "base": 7,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 40,
+   "pp": 20,
+   "hp": 1480,
+   "attacks": [
+    {
+     "name": "Crimson Wave of the Beast King",
+     "power": 800
+    },
+    {
+     "name": "Crimson Lion Dance",
+     "power": 610
+    },
+    {
+     "name": "Purifying Howl",
+     "power": 280
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       21,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       2,
+       0,
+       0
+      ],
+      "op": 1,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       2,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If 2 or less Cards are in own Hand, boost own Attack Power +200 and draw 2 Cards."
+   },
+   "model": {
+    "number": 408,
+    "ts": "chr138",
+    "parts": {
+     "0": "J_spine02",
+     "12": "J_hand_l",
+     "21": "J_foot02_l"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-012",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/309.png"
+    }
+   }
+  },
+  {
+   "id": 310,
+   "name": "SaviorHuckmon",
+   "base": 4,
+   "spec": "Fire",
+   "level": "U",
+   "dp": 50,
+   "pp": 20,
+   "hp": 1450,
+   "attacks": [
+    {
+     "name": "Ledge Stride",
+     "power": 860
+    },
+    {
+     "name": "Meteor Flame",
+     "power": 650
+    },
+    {
+     "name": "Trident Saber",
+     "power": 300
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       17,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 1,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       350,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       350,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Attack is ○ or △, boost own ○ and △ Attack Power +350 and attack first."
+   },
+   "model": {
+    "number": 409,
+    "ts": "chr116",
+    "parts": {
+     "0": "J_head",
+     "7": "J_elbow_l",
+     "10": "J_elbow_r",
+     "16": "J_knee02_r",
+     "28": "J_weapon_l",
+     "29": "J_weapon_r"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "ST12-08",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/310.png"
+    }
+   }
+  },
+  {
+   "id": 311,
+   "name": "Gaomon",
+   "base": 62,
+   "spec": "Ice",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 680,
+   "attacks": [
+    {
+     "name": "Rolling Upper",
+     "power": 320
+    },
+    {
+     "name": "Double Backhand",
+     "power": 230
+    },
+    {
+     "name": "Gao Rush",
+     "power": 160
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       6
+      ],
+      "i": [
+       0,
+       80,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "Recover own HP +200 and lower opponent's ○ Attack Power -80."
+   },
+   "model": {
+    "number": 410,
+    "ts": "chr055",
+    "parts": {
+     "1": "J_joint12",
+     "0": "J_joint11"
+    },
+    "against": "chr151",
+    "motions": {
+     "3": "ba01"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-021",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/311.png"
+    }
+   }
+  },
+  {
+   "id": 312,
+   "name": "Lunamon",
+   "base": 64,
+   "spec": "Ice",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 710,
+   "attacks": [
+    {
+     "name": "Luna Claw",
+     "power": 300
+    },
+    {
+     "name": "Tearing Shot",
+     "power": 210
+    },
+    {
+     "name": "Lop-Ear Ripple",
+     "power": 140
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       12
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 33,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Lower opponent's Attack Power -100 and discard 1 Card from opponent's Online Deck."
+   },
+   "model": {
+    "number": 411,
+    "ts": "chr002",
+    "parts": {
+     "0": "J_spine01"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-016",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/312.png"
+    }
+   }
+  },
+  {
+   "id": 313,
+   "name": "Syakomon",
+   "base": 63,
+   "spec": "Ice",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 770,
+   "attacks": [
+    {
+     "name": "Black Pearl Blast",
+     "power": 280
+    },
+    {
+     "name": "Water Pressure",
+     "power": 200
+    },
+    {
+     "name": "Hydro Water I",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       6
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "Draw 1 Card and lower opponent's ○ Attack Power -100."
+   },
+   "model": {
+    "number": 412,
+    "ts": "chr709",
+    "parts": {
+     "7": "J_shell02",
+     "0": "J_center",
+     "1": "J_spine01"
+    },
+    "against": "chr389",
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-056",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/313.png"
+    }
+   }
+  },
+  {
+   "id": 314,
+   "name": "Gaogamon",
+   "base": 46,
+   "spec": "Ice",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1120,
+   "attacks": [
+    {
+     "name": "Dash Double Claw",
+     "power": 450
+    },
+    {
+     "name": "Gaoga Hound",
+     "power": 310
+    },
+    {
+     "name": "Spiral Blow",
+     "power": 170
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are at least opponent's HP, recover own HP +150 and boost own Attack Power +250."
+   },
+   "model": {
+    "number": 413,
+    "ts": "chr068",
+    "parts": {
+     "0": "J_body2",
+     "2": "J_head",
+     "11": "J_b_leg0_r"
+    },
+    "against": "chr012",
+    "native": true,
+    "size": 1.6
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX4-017",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/314.png"
+    }
+   }
+  },
+  {
+   "id": 315,
+   "name": "Lekismon",
+   "base": 57,
+   "spec": "Ice",
+   "level": "C",
+   "dp": 40,
+   "pp": 20,
+   "hp": 980,
+   "attacks": [
+    {
+     "name": "Moon Night Bomb",
+     "power": 430
+    },
+    {
+     "name": "Tear Arrow",
+     "power": 350
+    },
+    {
+     "name": "Moon Night Kick",
+     "power": 150
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 34,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       2,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Lower opponent's ○ Attack Power to 0 and return up to 2 Cards from own Offline Pile to own Online Deck."
+   },
+   "model": {
+    "number": 414,
+    "ts": "chr003",
+    "parts": {
+     "0": "J_spine02",
+     "6": "J_hand_r",
+     "9": "J_hand_r"
+    },
+    "against": "chr755",
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-017",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/315.png"
+    }
+   }
+  },
+  {
+   "id": 316,
+   "name": "Octomon",
+   "base": 51,
+   "spec": "Ice",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1230,
+   "attacks": [
+    {
+     "name": "Spurting Ink",
+     "power": 400
+    },
+    {
+     "name": "Hydro Water II",
+     "power": 280
+    },
+    {
+     "name": "Void Ray II",
+     "power": 170
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       2,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Draw 2 Cards."
+   },
+   "model": {
+    "number": 415,
+    "ts": "chr240",
+    "parts": {
+     "0": "J_head"
+    },
+    "native": true,
+    "motions": {
+     "6": "fe02"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT6-023",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/316.png"
+    }
+   }
+  },
+  {
+   "id": 317,
+   "name": "MachGaogamon",
+   "base": 39,
+   "spec": "Ice",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 1900,
+   "attacks": [
+    {
+     "name": "Gaoga Tornado",
+     "power": 750
+    },
+    {
+     "name": "Winning Knuckle",
+     "power": 550
+    },
+    {
+     "name": "Howling Cannon",
+     "power": 260
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 0,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       12
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "If own HP are less than opponent's HP, recover own HP +400 and lower opponent's Attack Power -100."
+   },
+   "model": {
+    "number": 416,
+    "ts": "chr074",
+    "parts": {
+     "0": "J_tail0",
+     "5": "J_jnt_rh0",
+     "8": "J_jnt_lh0",
+     "13": "J_foot_r",
+     "17": "J_toe_l"
+    },
+    "against": "chr140",
+    "native": true,
+    "ground": 0.013540250225618833
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX4-019",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/317.png"
+    }
+   }
+  },
+  {
+   "id": 318,
+   "name": "Crescemon",
+   "base": 41,
+   "spec": "Ice",
+   "level": "U",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1820,
+   "attacks": [
+    {
+     "name": "Lunatic Dance",
+     "power": 650
+    },
+    {
+     "name": "Ice Archery",
+     "power": 490
+    },
+    {
+     "name": "Dark Archery",
+     "power": 240
+    }
+   ],
+   "xfx": "△ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       12
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 33,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       3,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Lower both players' Attack Power -150 and discard 3 Cards from opponent's Online Deck."
+   },
+   "model": {
+    "number": 417,
+    "ts": "chr004",
+    "parts": {
+     "0": "J_spine02",
+     "8": "J_hand_l",
+     "20": "J_foot_l"
+    },
+    "native": true,
+    "motions": {
+     "3": "ba02"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "ref": "crescemon"
+    }
+   }
+  },
+  {
+   "id": 319,
+   "name": "Dragomon",
+   "base": 40,
+   "spec": "Ice",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 2180,
+   "attacks": [
+    {
+     "name": "Forbidden Trident",
+     "power": 680
+    },
+    {
+     "name": "Hydro Water II",
+     "power": 410
+    },
+    {
+     "name": "Hell Crusher II",
+     "power": 280
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 34,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       3,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       2,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Lower own Attack Power -100, return up to 3 Cards from own Offline Pile to own Online Deck and draw 2 Cards."
+   },
+   "model": {
+    "number": 418,
+    "ts": "chr129",
+    "parts": {
+     "0": "J_spine02",
+     "2": "J_head_center",
+     "9": "J_hand_l"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT6-026",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/319.png"
+    }
+   }
+  },
+  {
+   "id": 320,
+   "name": "Renamon",
+   "base": 184,
+   "spec": "Nature",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 580,
+   "attacks": [
+    {
+     "name": "Kohenkyo",
+     "power": 330
+    },
+    {
+     "name": "Diamond Storm",
+     "power": 230
+    },
+    {
+     "name": "Rune Forest I",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 54,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Change both Digimon to the same random Specialty and draw 1 Card."
+   },
+   "model": {
+    "number": 419,
+    "ts": "chr391",
+    "native": true,
+    "parts": {
+     "0": "J_spine",
+     "9": "J_toeR",
+     "11": "J_toeL"
+    },
+    "against": "chr092"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT10-032",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/320.png"
+    }
+   }
+  },
+  {
+   "id": 321,
+   "name": "Terriermon",
+   "base": 183,
+   "spec": "Nature",
+   "level": "R",
+   "dp": 0,
+   "pp": 30,
+   "hp": 630,
+   "attacks": [
+    {
+     "name": "Terrier Tornado",
+     "power": 310
+    },
+    {
+     "name": "Blazing Fire",
+     "power": 210
+    },
+    {
+     "name": "Double Typhoon",
+     "power": 0
+    }
+   ],
+   "xfx": "△ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 17,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Opponent uses △."
+   },
+   "model": {
+    "number": 420,
+    "ts": "chr701",
+    "native": true,
+    "parts": {
+     "0": "J_center",
+     "4": "J_ear03_r",
+     "7": "J_ear03_l"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX2-025",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/321.png"
+    }
+   }
+  },
+  {
+   "id": 322,
+   "name": "Lalamon",
+   "base": 98,
+   "spec": "Nature",
+   "level": "R",
+   "dp": 0,
+   "pp": 30,
+   "hp": 650,
+   "attacks": [
+    {
+     "name": "Seed Blast",
+     "power": 290
+    },
+    {
+     "name": "Lala Screw",
+     "power": 200
+    },
+    {
+     "name": "Sing a Song",
+     "power": 100
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Recover own HP +200."
+   },
+   "model": {
+    "number": 421,
+    "ts": "chr056",
+    "native": true,
+    "parts": {
+     "0": "J_center",
+     "6": "J_joint13",
+     "9": "J_joint9"
+    },
+    "against": "chr348"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-052",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/322.png"
+    }
+   }
+  },
+  {
+   "id": 323,
+   "name": "Kyubimon",
+   "base": 88,
+   "spec": "Nature",
+   "level": "C",
+   "dp": 30,
+   "pp": 30,
+   "hp": 840,
+   "attacks": [
+    {
+     "name": "Fox Tail Inferno",
+     "power": 400
+    },
+    {
+     "name": "Dragon Wheel",
+     "power": 310
+    },
+    {
+     "name": "Mental Break",
+     "power": 180
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 11,
+      "v": [
+       0,
+       0,
+       12
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "Recover own HP +200 and lower opponent's Attack Power -100."
+   },
+   "model": {
+    "number": 422,
+    "ts": "chr395",
+    "native": true,
+    "parts": {
+     "0": "J_spine1",
+     "1": "J_neck",
+     "2": "J_head",
+     "3": "J_mouth"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT5-038",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/323.png"
+    }
+   }
+  },
+  {
+   "id": 324,
+   "name": "Gargomon",
+   "base": 85,
+   "spec": "Nature",
+   "level": "C",
+   "dp": 40,
+   "pp": 20,
+   "hp": 950,
+   "attacks": [
+    {
+     "name": "Gatling Arm",
+     "power": 530
+    },
+    {
+     "name": "Dumdum Uppercut",
+     "power": 390
+    },
+    {
+     "name": "Thunder Fall I",
+     "power": 0
+    }
+   ],
+   "xfx": "△ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Lower opponent's ○ Attack Power to 0 and boost own △ Attack Power +150."
+   },
+   "model": {
+    "number": 423,
+    "ts": "chr710",
+    "native": true,
+    "parts": {
+     "0": "J_spine02",
+     "5": "J_weapon_r",
+     "8": "J_weapon_l"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT3-048",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/324.png"
+    }
+   }
+  },
+  {
+   "id": 325,
+   "name": "Sunflowmon",
+   "base": 84,
+   "spec": "Nature",
+   "level": "C",
+   "dp": 30,
+   "pp": 30,
+   "hp": 910,
+   "attacks": [
+    {
+     "name": "Sunshine Beam",
+     "power": 450
+    },
+    {
+     "name": "Smiley Slap",
+     "power": 280
+    },
+    {
+     "name": "Cactus Tail",
+     "power": 180
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "Recover own HP +250 and lower own Attack Power -100."
+   },
+   "model": {
+    "number": 424,
+    "ts": "chr058",
+    "native": true,
+    "parts": {
+     "0": "J_chest",
+     "4": "J_hand_r",
+     "7": "J_hand_l"
+    },
+    "against": "chr349"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-054",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/325.png"
+    }
+   }
+  },
+  {
+   "id": 326,
+   "name": "Taomon",
+   "base": 77,
+   "spec": "Nature",
+   "level": "U",
+   "dp": 40,
+   "pp": 30,
+   "hp": 1560,
+   "attacks": [
+    {
+     "name": "Talisman of Light",
+     "power": 740
+    },
+    {
+     "name": "Hell Crusher II",
+     "power": 530
+    },
+    {
+     "name": "Magic Field",
+     "power": 220
+    }
+   ],
+   "xfx": "Darkness Foe x3",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 54,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "Change both Digimon to the same random Specialty, recover own HP +400 and lower own Attack Power -100."
+   },
+   "model": {
+    "number": 425,
+    "ts": "chr405",
+    "native": true,
+    "parts": {
+     "0": "J_spine2",
+     "5": "J_handR",
+     "9": "J_handL",
+     "13": "J_center"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT5-041",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/326.png"
+    }
+   }
+  },
+  {
+   "id": 327,
+   "name": "Rapidmon",
+   "base": 75,
+   "spec": "Nature",
+   "level": "U",
+   "dp": 50,
+   "pp": 20,
+   "hp": 1440,
+   "attacks": [
+    {
+     "name": "Rapid Fire",
+     "power": 820
+    },
+    {
+     "name": "Golden Triangle",
+     "power": 600
+    },
+    {
+     "name": "Thunder Fall II",
+     "power": 0
+    }
+   ],
+   "xfx": "△ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 17,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 4,
+      "v": [
+       0,
+       0,
+       5
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     }
+    ],
+    "text": "Opponent uses △, opponent's ○ Attack Power becomes 0, and own ○ Attack Power is lowered by 100."
+   },
+   "model": {
+    "number": 426,
+    "ts": "chr722",
+    "native": true,
+    "parts": {
+     "0": "J_spine03",
+     "15": "J_weapon_l",
+     "20": "J_foot_r",
+     "25": "J_spine03"
+    },
+    "against": "chr101"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT3-052",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/327.png"
+    }
+   }
+  },
+  {
+   "id": 328,
+   "name": "Lilamon",
+   "base": 78,
+   "spec": "Nature",
+   "level": "U",
+   "dp": 30,
+   "pp": 30,
+   "hp": 1240,
+   "attacks": [
+    {
+     "name": "Lila Shower",
+     "power": 650
+    },
+    {
+     "name": "Beauty Slap",
+     "power": 340
+    },
+    {
+     "name": "Pollen Spray",
+     "power": 200
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 51,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 55,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Recover own HP +300 and own attack gains Eat-up HP. Move 1 random Digimon from opponent's Online deck to their DP Slot."
+   },
+   "model": {
+    "number": 427,
+    "ts": "chr073",
+    "native": true,
+    "parts": {
+     "0": "J_chest",
+     "7": "J_hand_r",
+     "10": "J_hand_l"
+    },
+    "size": 1.8
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-059",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/328.png"
+    }
+   }
+  },
+  {
+   "id": 329,
+   "name": "Keramon",
+   "base": 135,
+   "spec": "Darkness",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 510,
+   "attacks": [
+    {
+     "name": "Crazy Giggle",
+     "power": 300
+    },
+    {
+     "name": "Venom Trap",
+     "power": 230
+    },
+    {
+     "name": "Magic Bind",
+     "power": 120
+    }
+   ],
+   "xfx": "Jamming",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       27,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 32,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If at least 1 Card remains in own Online Deck, discard 1 Card from own Online Deck and boost own Attack Power +150."
+   },
+   "model": {
+    "number": 428,
+    "ts": "chr626",
+    "parts": {
+     "0": "J_mune",
+     "1": "J_atama",
+     "7": "J_paipu01_L"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX1-044",
+     "crop": [
+      80,
+      105,
+      320
+     ]
+    }
+   }
+  },
+  {
+   "id": 330,
+   "name": "Monodramon",
+   "base": 175,
+   "spec": "Darkness",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 620,
+   "attacks": [
+    {
+     "name": "Crack Bite",
+     "power": 360
+    },
+    {
+     "name": "Knuckle Beater",
+     "power": 260
+    },
+    {
+     "name": "Comet Hammer I",
+     "power": 150
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 0,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are less than opponent's HP, boost own Attack Power +250."
+   },
+   "model": {
+    "number": 429,
+    "ts": "chr458",
+    "parts": {
+     "0": "J_center"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT1-009",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/330.png"
+    }
+   },
+   "battle": {
+    "offset": 30000,
+    "recolour": "ts-330-fx",
+    "accent": "dark"
+   }
+  },
+  {
+   "id": 331,
+   "name": "Dracmon",
+   "base": 132,
+   "spec": "Darkness",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 470,
+   "attacks": [
+    {
+     "name": "Eye of Nightmares",
+     "power": 330
+    },
+    {
+     "name": "Undead Fang",
+     "power": 220
+    },
+    {
+     "name": "Soul Fear I",
+     "power": 160
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 0,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 51,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are less than opponent's HP, own attack gains Eat-up HP and own △ Attack Power is boosted by 100."
+   },
+   "model": {
+    "number": 430,
+    "ts": "chr457",
+    "parts": {
+     "0": "J_atama",
+     "2": "J_kakato_L",
+     "7": "J_te_L",
+     "10": "J_te_R"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "ST6-04",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/331.png"
+    }
+   }
+  },
+  {
+   "id": 332,
+   "name": "Kurisarimon",
+   "base": 123,
+   "spec": "Darkness",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1100,
+   "attacks": [
+    {
+     "name": "Data Crusher",
+     "power": 420
+    },
+    {
+     "name": "Shadow Fang II",
+     "power": 300
+    },
+    {
+     "name": "Mental Break",
+     "power": 210
+    }
+   ],
+   "xfx": "△ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       23,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 36,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot and boost own Attack Power +250."
+   },
+   "model": {
+    "number": 431,
+    "ts": "chr630",
+    "parts": {
+     "0": "J_mune"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT2-059",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/332.png"
+    }
+   }
+  },
+  {
+   "id": 333,
+   "name": "Strikedramon",
+   "base": 130,
+   "spec": "Darkness",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 880,
+   "attacks": [
+    {
+     "name": "Fang Strike",
+     "power": 540
+    },
+    {
+     "name": "Crush Blade II",
+     "power": 400
+    },
+    {
+     "name": "Heavy Strike II",
+     "power": 210
+    }
+   ],
+   "xfx": "Darkness Foe x3",
+   "support": {
+    "prio": 3,
+    "conds": [
+     {
+      "v": [
+       2,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       3,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 44,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If opponent's Specialty is Darkness, void opponent's Digimon Support Effect and boost own Attack Power +150."
+   },
+   "model": {
+    "number": 432,
+    "ts": "chr016",
+    "parts": {
+     "0": "J_spine02",
+     "7": "J_elbow_r",
+     "10": "J_armor_r",
+     "11": "J_elbow_l"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX2-032",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/333.png"
+    }
+   }
+  },
+  {
+   "id": 334,
+   "name": "Sangloupmon",
+   "base": 126,
+   "spec": "Darkness",
+   "level": "C",
+   "dp": 30,
+   "pp": 10,
+   "hp": 930,
+   "attacks": [
+    {
+     "name": "Sticker Blade",
+     "power": 490
+    },
+    {
+     "name": "Black Mind",
+     "power": 360
+    },
+    {
+     "name": "Nightmare II",
+     "power": 220
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 0,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 48,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       200,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are less than opponent's HP, boost own Attack Power +250. Digimon KO'd in this battle revives with 200 HP; the battle still counts as a loss."
+   },
+   "model": {
+    "number": 433,
+    "ts": "chr030",
+    "parts": {
+     "0": "J_spine03",
+     "6": "J_foot01_r",
+     "9": "J_foot01_l",
+     "11": "J_leg02_r",
+     "13": "J_foot02_r",
+     "16": "J_foot02_l"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT9-073",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/334.png"
+    }
+   }
+  },
+  {
+   "id": 335,
+   "name": "MetalTyrannomon",
+   "base": 8,
+   "spec": "Darkness",
+   "level": "U",
+   "dp": 60,
+   "pp": 0,
+   "hp": 1870,
+   "attacks": [
+    {
+     "name": "Giga DestroyerⅡ",
+     "power": 930
+    },
+    {
+     "name": "Nuclear Laser",
+     "power": 620
+    },
+    {
+     "name": "Thunder Fall II",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       200,
+       0,
+       0
+      ],
+      "op": 2,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are more than 200, lose 200 HP, boost own ○ Attack Power +400 and own △ Attack Power +300."
+   },
+   "model": {
+    "number": 434,
+    "ts": "chr364",
+    "parts": {
+     "0": "J_spine1",
+     "2": "J_hed",
+     "19": "J_indexL",
+     "20": "J_middleL",
+     "21": "J_thumbL"
+    },
+    "native": true
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT1-024",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/335.png"
+    }
+   },
+   "battle": {
+    "offset": 40000,
+    "recolour": "ts-335-fx",
+    "accent": "dark"
+   }
+  },
+  {
+   "id": 336,
+   "name": "Cyberdramon",
+   "base": 116,
+   "spec": "Darkness",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 1750,
+   "attacks": [
+    {
+     "name": "Desolation Claw",
+     "power": 850
+    },
+    {
+     "name": "Nanomachine Break II",
+     "power": 640
+    },
+    {
+     "name": "Thunder Fall II",
+     "power": 300
+    }
+   ],
+   "xfx": "Darkness Foe x3",
+   "support": {
+    "prio": 3,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       100,
+       0,
+       0
+      ],
+      "op": 2,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 44,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are more than 100, lose 100 HP, void opponent's Digimon Support Effect and boost own Attack Power +300."
+   },
+   "model": {
+    "number": 435,
+    "ts": "chr719",
+    "parts": {
+     "0": "J_spine01",
+     "3": "J_elbow_r",
+     "6": "J_elbow_l",
+     "10": "J_knee_r",
+     "13": "J_knee_l"
+    },
+    "native": true,
+    "against": "chr342"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX3-050",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/336.png"
+    }
+   }
+  },
+  {
+   "id": 337,
+   "name": "Matadormon",
+   "base": 111,
+   "spec": "Darkness",
+   "level": "U",
+   "dp": 40,
+   "pp": 10,
+   "hp": 1460,
+   "attacks": [
+    {
+     "name": "Thousand Arrows",
+     "power": 730
+    },
+    {
+     "name": "Bulldog",
+     "power": 480
+    },
+    {
+     "name": "Earth-Shattering Stomp",
+     "power": 310
+    }
+   ],
+   "xfx": "Eat-up HP",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       3,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 0,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 48,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       400,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own HP are less than opponent's HP, boost own Attack Power +400. Digimon KO'd in this battle revives with 400 HP; the battle still counts as a loss."
+   },
+   "model": {
+    "number": 436,
+    "ts": "chr031",
+    "parts": {
+     "0": "J_chest",
+     "10": "J_thumb_r",
+     "11": "J_hand_r",
+     "14": "J_thumb_l",
+     "15": "J_hand_l"
+    },
+    "native": true,
+    "against": "chr085"
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT9-077",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/337.png"
+    }
+   }
+  },
+  {
+   "id": 338,
+   "name": "Dracomon",
+   "base": 168,
+   "spec": "Rare",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 550,
+   "attacks": [
+    {
+     "name": "Baby Breath",
+     "power": 280
+    },
+    {
+     "name": "Tail Smash",
+     "power": 240
+    },
+    {
+     "name": "Great Strike",
+     "power": 160
+    }
+   ],
+   "xfx": "Crash",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "op": 4,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is not Rare, boost own Attack Power +200 and attack first."
+   },
+   "model": {
+    "number": 437,
+    "ts": "chr208",
+    "native": true,
+    "parts": {
+     "0": "J_center"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "ST1-04",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/338.png"
+    }
+   }
+  },
+  {
+   "id": 339,
+   "name": "Bearmon",
+   "base": 170,
+   "spec": "Rare",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 640,
+   "attacks": [
+    {
+     "name": "Bear Fist",
+     "power": 280
+    },
+    {
+     "name": "Comet Hammer I",
+     "power": 220
+    },
+    {
+     "name": "Attack Charge",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       80,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 2,
+      "v": [
+       3,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own current Attack Power is 0, boost own Attack Power +250 and recover own HP +100."
+   },
+   "model": {
+    "number": 438,
+    "ts": "chr234",
+    "native": true,
+    "parts": {
+     "0": "J_spine01",
+     "1": "J_head",
+     "2": "J_jaw",
+     "9": "J_hand_l"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT9-057",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/339.png"
+    }
+   }
+  },
+  {
+   "id": 340,
+   "name": "Kudamon",
+   "base": 169,
+   "spec": "Rare",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 610,
+   "attacks": [
+    {
+     "name": "Bullet Whirlwind",
+     "power": 250
+    },
+    {
+     "name": "Blinding Ray",
+     "power": 200
+    },
+    {
+     "name": "Holy Light I",
+     "power": 150
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own ○ Attack Power +100 and attack first."
+   },
+   "model": {
+    "number": 439,
+    "ts": "chr053",
+    "native": true,
+    "parts": {
+     "0": "J_center",
+     "13": "J_spine",
+     "14": "J_spine1",
+     "15": "J_spine2",
+     "16": "J_spine3",
+     "17": "J_spine4",
+     "18": "J_spine5",
+     "19": "J_spine6",
+     "20": "J_spine7",
+     "21": "J_spine8"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "P-043",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/340.png"
+    }
+   }
+  },
+  {
+   "id": 341,
+   "name": "Coredramon (Blue)",
+   "base": 159,
+   "spec": "Rare",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 960,
+   "attacks": [
+    {
+     "name": "Blue Flare Breath",
+     "power": 480
+    },
+    {
+     "name": "Strike Bomber",
+     "power": 350
+    },
+    {
+     "name": "Great StrikeⅡ",
+     "power": 190
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "op": 4,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       350,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is not Rare, boost own ○ Attack Power +350, own △ Attack Power +250 and draw 1 Card."
+   },
+   "model": {
+    "number": 440,
+    "ts": "chr218",
+    "native": true,
+    "parts": {
+     "0": "J_spine01",
+     "4": "J_hand_r",
+     "7": "J_hand_l"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX3-018",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/341.png"
+    }
+   }
+  },
+  {
+   "id": 342,
+   "name": "Grizzlymon",
+   "base": 151,
+   "spec": "Rare",
+   "level": "C",
+   "dp": 40,
+   "pp": 10,
+   "hp": 990,
+   "attacks": [
+    {
+     "name": "Maul Attack",
+     "power": 460
+    },
+    {
+     "name": "Comet Hammer II",
+     "power": 330
+    },
+    {
+     "name": "Gaia Blaster II",
+     "power": 0
+    }
+   ],
+   "xfx": "○ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       80,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       350,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own current Attack Power is 0, boost own Attack Power +350 and attack first."
+   },
+   "model": {
+    "number": 441,
+    "ts": "chr235",
+    "native": true,
+    "parts": {
+     "0": "J_spine02",
+     "5": "J_hand_r",
+     "11": "J_foot_r",
+     "14": "J_foot_l",
+     "17": "J_tail"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT9-060",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/342.png"
+    }
+   }
+  },
+  {
+   "id": 343,
+   "name": "Reppamon",
+   "base": 162,
+   "spec": "Rare",
+   "level": "C",
+   "dp": 30,
+   "pp": 10,
+   "hp": 820,
+   "attacks": [
+    {
+     "name": "Rolling Tackle",
+     "power": 420
+    },
+    {
+     "name": "Lion Claw",
+     "power": 310
+    },
+    {
+     "name": "Razor Wind",
+     "power": 150
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own Attack Power +150 and attack first."
+   },
+   "model": {
+    "number": 442,
+    "ts": "chr077",
+    "native": true,
+    "parts": {
+     "0": "spine2",
+     "2": "head",
+     "3": "mouth"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT1-051",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/343.png"
+    }
+   }
+  },
+  {
+   "id": 344,
+   "name": "Wingdramon",
+   "base": 5,
+   "spec": "Rare",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 1720,
+   "attacks": [
+    {
+     "name": "Blaze Sonic Breath",
+     "power": 810
+    },
+    {
+     "name": "Exploding Sonic Lance",
+     "power": 650
+    },
+    {
+     "name": "Wing Blast",
+     "power": 300
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       1,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       4,
+       0,
+       0
+      ],
+      "op": 4,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       300,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own Specialty is not Rare, boost own ○ Attack Power +400, own △ Attack Power +300 and attack first."
+   },
+   "model": {
+    "number": 443,
+    "ts": "chr210",
+    "native": true,
+    "parts": {
+     "0": "J_spain03",
+     "5": "J_arm_r",
+     "7": "J_hand_r",
+     "10": "J_arm_l",
+     "11": "J_elbow_l",
+     "12": "J_hand_l",
+     "13": "J_finger03_l",
+     "16": "J_spain01"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "ST8-07",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/344.png"
+    }
+   },
+   "battle": {
+    "offset": 50000,
+    "recolour": "ts-344-fx",
+    "accent": "holy"
+   }
+  },
+  {
+   "id": 345,
+   "name": "GrapLeomon",
+   "base": 150,
+   "spec": "Rare",
+   "level": "U",
+   "dp": 50,
+   "pp": 10,
+   "hp": 1810,
+   "attacks": [
+    {
+     "name": "The King of Fists",
+     "power": 830
+    },
+    {
+     "name": "Cyclonic Kick",
+     "power": 620
+    },
+    {
+     "name": "Nanomachine Break II",
+     "power": 0
+    }
+   ],
+   "xfx": "△ Counter",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       80,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "op": 5,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       500,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If own current Attack Power is 0, boost own Attack Power +500 and attack first."
+   },
+   "model": {
+    "number": 444,
+    "ts": "chr403",
+    "native": true,
+    "against": "chr311",
+    "parts": {
+     "0": "J_spine02",
+     "5": "J_hand_r",
+     "8": "J_hand_l",
+     "15": "J_foot_r"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT4-057",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/345.png"
+    }
+   }
+  },
+  {
+   "id": 346,
+   "name": "Chirinmon",
+   "base": 37,
+   "spec": "Rare",
+   "level": "U",
+   "dp": 50,
+   "pp": 20,
+   "hp": 1980,
+   "attacks": [
+    {
+     "name": "Wind Cutter Sword",
+     "power": 750
+    },
+    {
+     "name": "Knowledge of Swiftness",
+     "power": 570
+    },
+    {
+     "name": "Holy Wave",
+     "power": 310
+    }
+   ],
+   "xfx": "1st Attack",
+   "support": {
+    "prio": 1,
+    "conds": [
+     {
+      "v": [
+       27,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0,
+       2,
+       0,
+       0
+      ],
+      "op": 3,
+      "m": [
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    ],
+    "acts": [
+     {
+      "op": 32,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       2,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "If 2 or more Cards remain in own Online Deck, discard 2 Cards from own Online Deck, boost own Attack Power +250 and attack first."
+   },
+   "model": {
+    "number": 445,
+    "ts": "chr084",
+    "native": true,
+    "against": "chr135",
+    "parts": {
+     "0": "J_spine02",
+     "2": "J_head"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "EX5-031",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/346.png"
+    }
+   },
+   "battle": {
+    "offset": 60000,
+    "recolour": "ts-346-fx",
+    "accent": "holy"
+   }
   }
  ]
 }

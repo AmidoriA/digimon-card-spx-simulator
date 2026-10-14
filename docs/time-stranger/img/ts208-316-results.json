@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-316-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gesomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Octomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      63,
+      124,
+      185,
+      246
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-316-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gesomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          222,
+          2,
+          "ended"
+        ]
+      ],
+      "Octomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          222,
+          2,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          222,
+          2,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          222,
+          2,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          222,
+          2,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          222,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      57,
+      112,
+      167,
+      222
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-316-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gesomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          194,
+          3,
+          "ended"
+        ]
+      ],
+      "Octomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          194,
+          3,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          194,
+          3,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          194,
+          3,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          194,
+          3,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          194,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      50,
+      98,
+      146,
+      194
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-316-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gesomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          411,
+          4,
+          "ended"
+        ]
+      ],
+      "Octomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          411,
+          4,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          411,
+          4,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          411,
+          4,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          411,
+          4,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          411,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      333,
+      359,
+      385,
+      411
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-316-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gesomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Octomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Gesomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Octomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      342,
+      377,
+      412,
+      447
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-316-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gesomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          520,
+          6,
+          "runs"
+        ]
+      ],
+      "Octomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          520,
+          6,
+          "runs"
+        ]
+      ],
+      "Gesomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          520,
+          6,
+          "runs"
+        ]
+      ],
+      "Octomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          520,
+          6,
+          "runs"
+        ]
+      ],
+      "Gesomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          520,
+          6,
+          "runs"
+        ]
+      ],
+      "Octomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          520,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      520,
+      565,
+      610,
+      655,
+      700
+    ]
+  }
+]

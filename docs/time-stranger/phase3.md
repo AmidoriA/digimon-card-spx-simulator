@@ -1,25 +1,59 @@
-# Phase 3 rules (TS-301 … TS-306)
+# Phase 3: owner-directed themed deck rebuild
 
-One custom deck per new Ultimate: fifteen decks. Use TS-001's verified names and bases
-in roster.md; the Ice aquatic Ultimate is Dragomon, and the Fire Ultimate is SaviorHuckmon. They are this project's, made at the
-owner's request, and the README says so.
+Updated 2026-10-14. The latest owner request replaces the initial TS-301…TS-306 rule that
+only exchanged existing base cards. Keep the fifteen existing custom deck identities
+(#160–174) and fully rebuild their compositions around their new themes.
 
-- **Card group**: match the first, second or third Rookie/Champion/Ultimate in each
-  Specialty's roster slot. These are themed deck groups; do not assume every group is
-  a direct Time Stranger evolution chain. In particular, Agumon (Black), Kurisarimon
-  and MetalTyrannomon form the first Darkness group.
-- **Base deck**: a game deck that holds the Ultimate's base card. Of those, the one that also
-  holds the most of the line's Rookie and Champion bases (roster.md); then the one whose
-  Specialties best match.
-- **Exchange**: every copy of the Ultimate's base → the new Ultimate; every copy of the
-  line's R and C bases → the new R and C cards. If the deck has no copy of a line base, the
-  deck's cards of the same Specialty and level are exchanged for the line's card instead,
-  and the reason is logged. Copy counts stay, so the deck stays 30 cards with at most 4 of
-  one card; option cards stay as they are.
-- **Name**: at most 18 letters, unique among all decks, in the manner of the game's second
-  decks ("Black Fire Again", "Evil Fire Revived").
-- **Owner, rank, armor form, music**: the base deck's (that is how custom decks work).
+## Active requirements
 
-Test: TS-302 adds one selftest with the list of Time Stranger decks (later tickets add to
-it): each is its base deck with exactly the exchange of decks.md. `node tools/sim.js` then
-plays them.
+- Each deck has 30 cards and at most four copies of one card.
+- Each featured Rookie, Champion and Ultimate appears three to four times. The current
+  build uses 4/3/3 for every themed group.
+- Follow the owner's normal range: R 8–10, C 5–7, U 3–6, Options 8–12. The current build
+  uses R 9, C 6, U 3, Options 12 for all fifteen decks.
+- Follow the requested pure or mixed Specialty set exactly. Every requested color in a
+  mixed deck has useful Rookie/Champion representation, not just a token support card.
+- Every deck contains evolution Options. Mixed decks include at least three Special
+  Digivolve for genuine cross-Specialty R→C and C→U routes. Pure decks use Speed
+  Digivolve; Dragomon adds Warp Digivolve for its fast-evolution theme. MetalTyrannomon
+  and Cyberdramon also have two Speed Digivolve to preserve DP for their attack plans,
+  alongside the existing mixed-Specialty evolution bridges.
+- Ban the seven Sevens cards (#285–291) and Download Digivolve (#293). Do not confuse
+  this with ordinary effects that have a seven-card discard cost.
+- Remove new-card own-active Specialty restrictions unless a powerful, intentional
+  cross-Specialty theme needs them. Avoid vanilla own-Specialty-gated support donors
+  and Options in these lists. Wingdramon specifically rewards a different active
+  Specialty, making Ice and Nature partners purposeful.
+- Preserve names, featured-Ultimate owner and portrait. Preserve rank, armor, music and
+  base provenance. Original decks #0–158 and Black Fire Again #159 remain unchanged.
+
+## Sources and ownership
+
+`tools/time_stranger_theme_decks.json` is the current composition source: explicit named
+counts, complete ordered card IDs, ratios, themes, requested Specialties, preserved base
+provenance, and constructive evolution paths with DP evidence.
+
+[decks.md](decks.md) documents the current lists. [card-design.md](card-design.md) documents
+the 45 custom effect designs; `tools/custom_cards.json` is their executable source.
+These stats, supports and deck compositions are intentional project designs rather than
+rules found on the original disc.
+
+The original `tools/time_stranger_decks.json` remains an archived audit of the TS-301
+base-selection candidates, copy substitutions, original-data hashes and justified donor
+fallbacks. Its exact replacement lists no longer define the playable deck compositions.
+The earlier restrictions to preserve Option counts, retain inherited owners, or exchange
+only one donor's copies are superseded by the owner's newer instructions.
+
+## Dependencies and completion
+
+1. Implement and validate custom effects, including any required support-only variable.
+2. Load the new deck lists into the normal custom-data exporter and regenerate data.
+3. Check line copies, ratios, exact color sets, banned IDs, owner/portrait metadata,
+   original-data preservation and actual engine execution of evolution routes.
+4. Run behavioral checks, repository checks and themed matchup simulations.
+5. Inspect the selector, a deck preview and a started match using freshly loaded data.
+
+The test-server view must use this worktree's generated assets after the rebuild.
+Compositions may be prepared concurrently with effect design because existing IDs,
+Specialties, stages and evolution rules remain stable; behavioral tests and simulations
+must wait for the new effects and generated data.

@@ -142,9 +142,12 @@
   function ownerPic(d, second) {
     var el = h('span', 'op'), img,
       name = own(d) || d.owner === 'Player' ? (second ? 'player2' : 'player') : d.pic != null ? pad3(d.pic) : null;
-    if (name == null) { el.classList.add('none'); return el; }
+    // Owner request: TS decks use their featured Ultimate's prepared card illustration.
+    var cardPortrait = !own(d) && d.owner !== 'Player' && d.ownerCard != null;
+    if (name == null && !cardPortrait) { el.classList.add('none'); return el; }
     img = document.createElement('img');
-    img.src = 'assets/owner/' + name + '.webp'; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+    img.src = cardPortrait ? artUrl(d.ownerCard, false) : 'assets/owner/' + name + '.webp';
+    img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
     el.appendChild(img);
     return el;
   }
@@ -505,7 +508,7 @@
     // The game paints a Digimon card's level (R, A, C, U; "RP" on the six partners) into
     // the corner of its board picture. The new art has no letter, so the game's own, cut
     // out of its pictures (tools/build_levels.py), is laid over it.
-    if (c.type === 'digimon') art.appendChild(h('i', 'lv l' + (E.PARTNERS.indexOf(id) >= 0 ? 'p' : c.level))).hidden = !newArt;
+    if (c.type === 'digimon') art.appendChild(h('i', 'lv l' + (E.PARTNERS.indexOf(id) >= 0 ? 'p' : c.level))).hidden = !(newArt || c.sharedArt);
     el.appendChild(art);
     var nm = h('div', 'cn', c.name);
     if (!small) { if (c.name.length > 15) nm.style.fontSize = '14px'; else if (c.name.length > 11) nm.style.fontSize = '17px'; }
@@ -1262,6 +1265,7 @@
         case 'discard':
           log(vb(e.p, 'discard') + ' ' + cards(e.n) + ' from ' + ({ hand: 'hand', deck: 'the Online deck', dp: 'the DP Slot' })[e.from] + '.', who(e.p)); d = 500; break;
         case 'draw': log(vb(e.p, 'draw') + ' ' + cards(e.n) + '.', who(e.p)); d = 500; break;
+        case 'deckDP': log(vb(e.p, 'move') + ' ' + E.card(e.card).name + ' from the Online deck to the DP Slot.', who(e.p)); d = 500; break;
         case 'return': log(vb(e.p, 'return') + ' ' + cards(e.n) + ' to the Online deck.', who(e.p)); break;
         case 'recycle': log(vb(e.p, 'move') + ' ' + cards(e.n) + ' from Offline to the Online deck.', who(e.p)); break;
         case 'shuffle': log(vb(e.p, 'shuffle') + ' the Online deck.', who(e.p)); break;
@@ -1562,7 +1566,7 @@
       im.onload = function () {
         if (artUrl(id, true) !== url) return;
         a.style.backgroundImage = 'url(' + url + ')';
-        if (a.firstChild) a.firstChild.hidden = !newArt;   // the level letter laid over new art
+        if (a.firstChild) a.firstChild.hidden = !(newArt || E.card(id).sharedArt);   // the level letter laid over new art
       };
       im.src = url;
     });

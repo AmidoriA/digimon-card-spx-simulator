@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8765", "--bind", "127.0.0.1", "--directory", "web"],
       "port": 8765
+    },
+    {
+      "name": "model-sheets",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["tools/sheet_server.py", "web", "8766", "sheets"],
+      "port": 8766
     }
   ]
 }

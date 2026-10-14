@@ -383,6 +383,9 @@
     // number of cards of Specialty v - 0x40 in the own DP Slot, 0x48-0x4c in the opponent's.
     if (v >= 0x40 && v <= 0x44) return dpOfSpec(S, v - 0x40);
     if (v >= 0x48 && v <= 0x4c) return dpOfSpec(O, v - 0x48);
+    // Project effect variable: GrapLeomon's requested zero-power support checks the
+    // selected attack, after earlier supports, rather than always checking Circle.
+    if (v === 0x50) return S.b ? S.b.atk[S.b.choice] : 0;
     return 0;
   }
   function dpOfSpec(P, spec) {
@@ -457,6 +460,24 @@
       case 0x33: S.b.eatup = true; emit(G, ev, { t: 'flag', p: s, flag: 'eatup' }); break;
       case 0x34: S.b.counter = true; O.b.counter = false; emit(G, ev, { t: 'flag', p: s, flag: 'counter' }); break;
       case 0x35: S.b.first = true; emit(G, ev, { t: 'flag', p: s, flag: 'first' }); break;
+      case 0x36: // Project effect: one shared random Specialty for both active Digimon.
+        k = Math.floor(G.rng() * SPEC.length);
+        if (S.active) S.active.spec = k;
+        if (O.active) O.active.spec = k;
+        emit(G, ev, { t: 'spec', p: s });
+        emit(G, ev, { t: 'spec', p: o });
+        break;
+      case 0x37: { // Project effect: feed one random enemy Online Digimon to their DP Slot.
+        if (O.dp.length >= DP_MAX) break;
+        var eligible = [];
+        for (k = 0; k < O.deck.length; k++) if (card(O.deck[k]).type === 'digimon') eligible.push(k);
+        if (!eligible.length) break;
+        k = eligible[Math.floor(G.rng() * eligible.length)];
+        var moved = O.deck.splice(k, 1)[0];
+        O.dp.push(moved);
+        emit(G, ev, { t: 'deckDP', p: o, card: moved });
+        break;
+      }
     }
   }
 

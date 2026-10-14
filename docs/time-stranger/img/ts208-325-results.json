@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-325-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Togemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      67,
+      132,
+      197,
+      262
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-325-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Togemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      66,
+      130,
+      194,
+      258
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-325-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Togemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          246,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      63,
+      124,
+      185,
+      246
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-325-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Togemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      335,
+      363,
+      391,
+      419
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-325-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Togemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          491,
+          5,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          491,
+          5,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          491,
+          5,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          491,
+          5,
+          "ended"
+        ]
+      ],
+      "Togemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          491,
+          5,
+          "ended"
+        ]
+      ],
+      "Sunflowmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          491,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      353,
+      399,
+      445,
+      491
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-325-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Togemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          265,
+          0,
+          "runs"
+        ],
+        [
+          493,
+          6,
+          "runs"
+        ]
+      ],
+      "Sunflowmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          265,
+          0,
+          "runs"
+        ],
+        [
+          493,
+          6,
+          "runs"
+        ]
+      ],
+      "Togemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          265,
+          0,
+          "runs"
+        ],
+        [
+          493,
+          6,
+          "runs"
+        ]
+      ],
+      "Sunflowmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          265,
+          0,
+          "runs"
+        ],
+        [
+          493,
+          6,
+          "runs"
+        ]
+      ],
+      "Togemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          265,
+          0,
+          "runs"
+        ],
+        [
+          493,
+          6,
+          "runs"
+        ]
+      ],
+      "Sunflowmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          265,
+          0,
+          "runs"
+        ],
+        [
+          493,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      493,
+      538,
+      583,
+      628,
+      673
+    ]
+  }
+]

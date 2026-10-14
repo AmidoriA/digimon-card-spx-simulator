@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-343-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ShimaUnimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "Reppamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "ShimaUnimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "Reppamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "ShimaUnimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "Reppamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      72,
+      142,
+      212,
+      282
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-343-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ShimaUnimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          158,
+          0,
+          "runs"
+        ]
+      ],
+      "Reppamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          158,
+          0,
+          "runs"
+        ]
+      ],
+      "ShimaUnimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          158,
+          0,
+          "runs"
+        ]
+      ],
+      "Reppamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          158,
+          0,
+          "runs"
+        ]
+      ],
+      "ShimaUnimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          158,
+          0,
+          "runs"
+        ]
+      ],
+      "Reppamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          158,
+          0,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-343-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ShimaUnimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "Reppamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "ShimaUnimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "Reppamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "ShimaUnimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ],
+      "Reppamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          286,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      73,
+      144,
+      215,
+      286
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-343-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ShimaUnimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Reppamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "ShimaUnimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Reppamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "ShimaUnimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Reppamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      335,
+      363,
+      391,
+      419
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-343-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ShimaUnimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Reppamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "ShimaUnimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Reppamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "ShimaUnimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Reppamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      355,
+      403,
+      451,
+      499
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-343-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ShimaUnimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          552,
+          6,
+          "runs"
+        ]
+      ],
+      "Reppamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          552,
+          6,
+          "runs"
+        ]
+      ],
+      "ShimaUnimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          552,
+          6,
+          "runs"
+        ]
+      ],
+      "Reppamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          552,
+          6,
+          "runs"
+        ]
+      ],
+      "ShimaUnimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          552,
+          6,
+          "runs"
+        ]
+      ],
+      "Reppamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          306,
+          0,
+          "runs"
+        ],
+        [
+          552,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      552,
+      597,
+      642,
+      687,
+      732
+    ]
+  }
+]

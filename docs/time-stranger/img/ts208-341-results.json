@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-341-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Rockmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      68,
+      134,
+      200,
+      266
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-341-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Rockmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          242,
+          2,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          242,
+          2,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          242,
+          2,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          242,
+          2,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          242,
+          2,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          242,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      62,
+      122,
+      182,
+      242
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-341-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Rockmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          266,
+          3,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          266,
+          3,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          266,
+          3,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          266,
+          3,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          266,
+          3,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          266,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      68,
+      134,
+      200,
+      266
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-341-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Rockmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      337,
+      367,
+      397,
+      427
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-341-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Rockmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "Rockmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      348,
+      389,
+      430,
+      471
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-341-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Rockmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ],
+        [
+          270,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Coredramon (Blue) / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ],
+        [
+          270,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Rockmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ],
+        [
+          270,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ],
+        [
+          270,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Rockmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ],
+        [
+          270,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Coredramon (Blue) / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          266,
+          1,
+          "ended"
+        ],
+        [
+          270,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      514,
+      559,
+      604,
+      649,
+      694
+    ]
+  }
+]

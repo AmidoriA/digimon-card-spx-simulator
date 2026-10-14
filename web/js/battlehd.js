@@ -12,17 +12,41 @@
     return style === 'ultra' ? { scale: 3, minScale: 2, particles: 448, quads: 768, emitters: 24, spawn: 5, burst: 96 } :
       { scale: style === 'legacy' ? 1 : 3, minScale: 2, particles: 112, quads: 160, emitters: 5, spawn: 2, burst: 32 };
   }
+  // Where each part's own coordinates begin in the model as it is built (the offsets added
+  // up along the tree, no part turned). Only a triangle between two parts needs it.
+  function partOrigins(m) {
+    if (!m.offsets || !m.parents) return null;
+    var at = [], i;
+    function origin(i, depth) {
+      if (at[i]) return at[i];
+      var o = m.offsets[i], p = m.parents[i] >= 0 && depth < 64 ? origin(m.parents[i], depth + 1) : [0, 0, 0];
+      return (at[i] = [o[0] + p[0], o[1] + p[1], o[2] + p[2]]);
+    }
+    for (i = 0; i < m.offsets.length; i++) origin(i, 0);
+    return at;
+  }
   // Weld only within a rigid body part. A crease keeps teeth, blades and armor edges sharp.
   // One curved subdivision adds four triangles per source triangle, without new assets.
+  // The disc's models keep every triangle inside one part. A model converted from Time
+  // Stranger (tools/ts_model.py) has triangles between parts, stretched like skin: their
+  // corners are in different parts' coordinates, so those are measured in the model's.
   function refine(m, options) {
     var crease = options ? options.crease : 0.62, curve = options ? options.curve : 0.12;
-    var vb = m.vb, ib = m.ib, faces = [], weld = {}, keys = [], i, j;
+    var vb = m.vb, ib = m.ib, faces = [], weld = {}, keys = [], i, j, origins = partOrigins(m);
     function key(n) { var p = n * 13; return [vb[p + 11], vb[p], vb[p + 1], vb[p + 2]].join(':'); }
     for (i = 0; i < m.nv; i++) keys[i] = key(i);
+    // the shift from a part's coordinates to another's, or null inside one part
+    function between(from, to) {
+      if (from === to || !origins || !origins[from] || !origins[to]) return null;
+      return [origins[from][0] - origins[to][0], origins[from][1] - origins[to][1], origins[from][2] - origins[to][2]];
+    }
     for (i = 0; i < ib.length; i += 3) {
       var a = ib[i] * 13, b = ib[i + 1] * 13, c = ib[i + 2] * 13;
+      var sb = between(vb[b + 11], vb[a + 11]), sc = between(vb[c + 11], vb[a + 11]);
       var u = [vb[b] - vb[a], vb[b + 1] - vb[a + 1], vb[b + 2] - vb[a + 2]];
       var v = [vb[c] - vb[a], vb[c + 1] - vb[a + 1], vb[c + 2] - vb[a + 2]];
+      if (sb) { u[0] += sb[0]; u[1] += sb[1]; u[2] += sb[2]; }
+      if (sc) { v[0] += sc[0]; v[1] += sc[1]; v[2] += sc[2]; }
       var n = unit([u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]]);
       var source = [vb[a + 3] + vb[b + 3] + vb[c + 3], vb[a + 4] + vb[b + 4] + vb[c + 4], vb[a + 5] + vb[b + 5] + vb[c + 5]];
       if (dot(n, source) < 0) n = n.map(function (x) { return -x; });
@@ -46,7 +70,13 @@
       }
       if (subdivide) {
         [[0, 1], [1, 2], [2, 0]].forEach(function (edge) {
-          var a = corners[edge[0]], b = corners[edge[1]], p = a.map(function (x, k) { return (x + b[k]) / 2; });
+          var a = corners[edge[0]], b = corners[edge[1]];
+          // between two parts the new corner belongs to one of them, the same one from
+          // both triangles of the edge, and b is brought into that part's coordinates
+          if (a[11] !== b[11] && keys[ib[i + edge[0]]] > keys[ib[i + edge[1]]]) { var swap = a; a = b; b = swap; }
+          var across = between(b[11], a[11]);
+          if (across) { b = b.slice(); b[0] += across[0]; b[1] += across[1]; b[2] += across[2]; }
+          var p = a.map(function (x, k) { return (x + b[k]) / 2; });
           var na = a.slice(3, 6), nb = b.slice(3, 6), d = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
           // Conservative curvature; keep part and palette indices discrete.
           var da = dot(d, na), db = dot(d, nb);
@@ -65,8 +95,9 @@
       (subdivide ? [0, 3, 5, 3, 1, 4, 5, 4, 2, 3, 4, 5] : [0, 1, 2]).forEach(function (n) { ids.push(base + n); });
     }
     // The source models fit 16-bit indices. Fall back to their mesh for larger inputs.
-    if (out.length / 13 > 65535) return { vb: vb, ib: ib, nv:m.nv, nto: m.nto, ntb: m.ntb };
-    return { vb: new Float32Array(out), ib: new Uint16Array(ids), nv:out.length/13, nto: m.nto * (subdivide ? 4 : 1), ntb: m.ntb * (subdivide ? 4 : 1) };
+    if (out.length / 13 > 65535) return { vb: vb, ib: ib, nv:m.nv, nto: m.nto, ntb: m.ntb, parents: m.parents, offsets: m.offsets };
+    return { vb: new Float32Array(out), ib: new Uint16Array(ids), nv:out.length/13, nto: m.nto * (subdivide ? 4 : 1), ntb: m.ntb * (subdivide ? 4 : 1),
+      parents: m.parents, offsets: m.offsets };
   }
   // Two curved passes round silhouettes and blend broad body facets, while retaining
   // body-part seams, UV seams and the sharper edges of teeth and armor. All card models

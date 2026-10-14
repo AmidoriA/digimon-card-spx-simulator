@@ -45,6 +45,13 @@ Stranger models", has the same in full.
           11 BLENDWEIGHT; number types 7 s16 normalised, 8 half float, 9 float; COLOR
           and BLENDINDICES of type 0 are bytes)
     +0x28 u16 palette size, +0x2a u16 attributes, +0x2c u32 bytes a vertex (data)
+          A TEXCOORD is (u, v) with v counted from the bottom row of the picture (data:
+          taken from the top row, as this reader did until TS-207, every model is wrongly
+          painted but for what is the same upside down: Guilmon's face got its jaw's white,
+          its belly lost its mark, its eyes took the last row of the eye sheet, the narrowed
+          ones, instead of the first. Turned, Guilmon, Agumon, Coronamon and Goburimon are
+          each painted as the Digimon is, and the halves of marks that are cut at a
+          picture's edge meet). read_geom gives v already turned, 1 - v.
     +0x30 u8 weights a vertex (data), +0x31 u8 5 or 1, kept for each mesh by the loader
           (0x1402df1d5), meaning not read. The indices are a triangle strip with repeated
           indices between its pieces whichever it is (data: the count is seldom a
@@ -212,7 +219,15 @@ def read_geom(path):
         for i in range(nattr):
             kind, comps, number, off = struct.unpack_from("<BxHHH", d, p_attr + 8 * i)
             a = np.ndarray((nvert, comps), NUMBER[number], d, p_vert + off, (stride, np.dtype(NUMBER[number]).itemsize))
-            attrs[KINDS.get(kind, "kind%d" % kind)] = np.array(a)
+            a = np.array(a)
+            if 5 <= kind <= 8:
+                # A texture coordinate's second number counts from the picture's LAST row: 0 is
+                # the bottom of the picture as its .img (a DDS, first row on top) is decoded.
+                # Given here turned (1 - v), so that it counts rows from the top like u counts
+                # columns. Data, not read from the executable: see the note at the top.
+                a = a.astype(np.float64)
+                a[:, 1] = 1.0 - a[:, 1]
+            attrs[KINDS.get(kind, "kind%d" % kind)] = a
         strip = np.frombuffer(d, "<u2", nidx, p_idx)
         meshes.append({"name": text(p_name), "material": mat, "weights": nweight,
                        "attributes": attrs, "strip": strip, "triangles": strip_triangles(strip),
@@ -307,12 +322,45 @@ def info(g, images):
                 print("      %-24s %s" % (p["name"], " ".join("%x" % v for v in p["value"])))
 
 
+def rigid_bones(mesh):
+    """Bone of each unweighted vertex, from the data's rigid palette index.
+
+    POSITION has three components on single-bone meshes. On rigid multi-bone
+    meshes its fourth component is an integer index into the mesh's bone palette,
+    not homogeneous w. All such drawn meshes in the 532-model install validate;
+    Coredramon's teeth/claws then follow jaw/finger/toe bones instead of its head.
+    """
+    a = mesh["attributes"]
+    if "BLENDINDICES" in a:
+        raise ValueError("rigid_bones called for a weighted mesh")
+    palette = np.asarray(mesh["palette"], np.int64)
+    pos = a["POSITION"]
+    if pos.shape[1] == 4:
+        value = pos[:, 3]
+        if (not np.isfinite(value).all() or not np.equal(value, np.round(value)).all()
+                or np.any(value < 0) or np.any(value >= len(palette))):
+            raise ValueError("POSITION.w is not a valid rigid bone-palette index")
+        return palette[value.astype(np.int64)]
+    if pos.shape[1] != 3 or len(palette) != 1:
+        raise ValueError("an unweighted three-component mesh must name one bone")
+    return np.full(len(pos), palette[0], np.int64)
+
+
 def drawn(g, everything):
     """The meshes to show: unless asked for, not those without a colour texture or drawn blended."""
     def plain(m):
         mat = g["materials"][m["material"]]
         return param(mat, "ColorSampler") and not (param(mat, "blend_enable") or (0,))[0]
     return [m for m in g["meshes"] if everything or plain(m)]
+
+
+def drawn_positions(g):
+    """Positions referenced by rendered faces; unused vertices do not affect fitting."""
+    arrays = [m["attributes"]["POSITION"][np.unique(m["triangles"]), :3]
+              for m in drawn(g, False) if len(m["triangles"])]
+    if not arrays:
+        raise ValueError("source has no rendered triangle positions")
+    return np.concatenate(arrays)
 
 
 def write_glb(g, images, out, outline):
@@ -402,9 +450,9 @@ def write_glb(g, images, out, outline):
             j[:, :a["BLENDINDICES"].shape[1]] = palette[a["BLENDINDICES"].astype(np.int64)]
             j[w == 0] = 0
             w /= np.maximum(w.sum(1, keepdims=True), 1e-8)
-        else:  # one bone and no weights: the whole mesh goes with that bone
+        else:  # rigid: one palette bone per vertex (POSITION.w on multi-bone meshes)
             j = np.zeros((nv, 4), np.uint16)
-            j[:, 0] = palette[0]
+            j[:, 0] = rigid_bones(m)
             w = np.zeros((nv, 4), np.float32)
             w[:, 0] = 1
         prim["attributes"]["JOINTS_0"] = add(j.astype(np.uint16), 34962)

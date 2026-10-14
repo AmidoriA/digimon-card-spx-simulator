@@ -81,7 +81,9 @@ tools/.venv/Scripts/python tools/custom_look.py model web 400 look.png
 ```
 
 Read the picture, change the rules, build again. A different shape is not something this
-does: there is no modelling tool here, only the game's meshes. A texture drawn anew would
+does: there is no modelling tool here, only the game's meshes. (A card whose Digimon is in
+Digimon Story Time Stranger can take that game's model and motions instead of a recolour:
+the `import-ts-model` skill.) A texture drawn anew would
 have to keep the model's layout and its 16 colours a palette; say so if that is asked for.
 
 ## 4. The battle effects
@@ -116,13 +118,28 @@ tools/.venv/Scripts/python tools/custom_look.py art extracted 2 blackwargreymon-
 ```
 
 The picture has a background, so a rule for the model usually takes too much here: write a
-separate, narrower recolour. `art.new` names a picture in `tools/custom/` and the square of
-it to use for "New card art"; use one the owner gave, and ask if there is none. Then, with
-ComfyUI running at `http://127.0.0.1:8188`:
+separate, narrower recolour. `art.new` can name a supplied file or an official internet
+picture; see "Pictures from the internet" below. File paths are relative to `tools/`. Then,
+with ComfyUI running at `http://127.0.0.1:8188`:
 
 ```bash
 tools/.venv/Scripts/python tools/build_custom.py extracted web art
 ```
+
+### Pictures from the internet
+
+Use exactly one source in `art.new`:
+
+- `{"file":"custom/x.png","crop":[x,y,size]}` retains native file coordinates.
+- `{"card":"BT2-009","crop":[85,90,320]}` downloads the official card-list picture and uses coordinates in its normalized 430×600 image.
+- `{"ref":"crescemon"}` uses the official Reference Book picture when no suitable card illustration is available.
+
+Downloads are cached under `<extracted_dir>/newart/cards` or `ref`; the existing ComfyUI upscaling/output process is shared. Verify species/colour aliases visually, inspect every crop, keep SAMPLE outside the selected picture, and record sources and edits in the roster/README. `tools/time_stranger_art.json` holds the TS-002 selections; local ComfyUI recipes are in `tools/new_art_edits.json`. The reusable `digimon-card-art` skill describes search and cleanup. For a prepared official-source crop, add `edited` (for example `edited/ts002/303.png`) alongside its original card/crop fields. The builder verifies the recipe/cache before using that native crop, without cropping it again; run `tools/prepare_time_stranger_art.py` first if absent or stale.
+
+Time Stranger owner choice (2026-10-13): `art.shared: true` uses the prepared
+TS-002 source at its native resolution for both art modes, with identical mini pictures.
+Use this instead of `art.recolour` and a separate Legacy build for TS-101–105.
+It does not need ComfyUI; the other cards keep the existing ComfyUI path.
 
 ## 6. Everything, and the checks
 

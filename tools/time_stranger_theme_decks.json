@@ -1,0 +1,1872 @@
+{
+  "schemaVersion": 2,
+  "source": "Owner-requested Time Stranger theme rebuild, 2026-10-14. Original base selection audit remains archived in tools/time_stranger_decks.json.",
+  "scope": {
+    "deckIds": [
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174
+    ],
+    "preserve": "Original disc decks 0–158 and preexisting Black Fire Again #159 are unchanged.",
+    "copyPolicy": "Each deck has 30 cards, at most 4 copies per card, and its complete featured R/C/U group at 4/3/3 copies.",
+    "ratioTarget": {
+      "R": [
+        8,
+        10
+      ],
+      "C": [
+        5,
+        7
+      ],
+      "U": [
+        3,
+        6
+      ],
+      "option": [
+        8,
+        12
+      ]
+    },
+    "specialtyPolicy": "Exact stated Digimon Specialties. Avoid own-active Specialty gates except powerful, purposeful cross-Specialty Wingdramon support."
+  },
+  "bannedCardIds": [
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    291,
+    293
+  ],
+  "bannedCards": [
+    "Wild Sevens",
+    "Holy Sevens",
+    "Dark Sevens",
+    "Grand Sevens",
+    "Mystic Sevens",
+    "Speed Sevens",
+    "Reverse Sevens",
+    "Download Digivolve"
+  ],
+  "evolutionRules": {
+    "source": "web/js/engine.js evoLegal (ported 0x801e9f5c); no engine rule change.",
+    "special": "Special Digivolve #295 ignores Specialty for R→C and C→U, adding 20 DP. R is level 0, C is level 2, U is level 3.",
+    "mutant": "Mutant Digivolve #296 ignores Specialty at the same level but still needs target DP.",
+    "speed": "Speed Digivolve #299 ignores DP and matches Specialty; requires abn 0, established by entering as Rookie.",
+    "warp": "Warp Digivolve #297 matches Specialty and skips from Rookie to Ultimate, requiring target DP."
+  },
+  "decks": [
+    {
+      "id": 160,
+      "name": "Crimson Fire Again",
+      "ultimate": "WarGrowlmon",
+      "owner": "WarGrowlmon",
+      "ownerCard": 308,
+      "base": {
+        "id": 6,
+        "name": "Go Go Dinosaur",
+        "owner": "Veemon"
+      },
+      "line": [
+        "Guilmon",
+        "Growlmon",
+        "WarGrowlmon"
+      ],
+      "specialties": [
+        "Fire"
+      ],
+      "theme": "Spend HP, cards and deck resources for large attack boosts. Tankmon and Chain Saw are deliberate high-risk finishers.",
+      "counts": {
+        "Guilmon": 4,
+        "Agumon": 3,
+        "Biyomon": 2,
+        "Growlmon": 3,
+        "Tankmon": 3,
+        "WarGrowlmon": 3,
+        "Speed Digivolve": 3,
+        "Devil's Chip": 3,
+        "Mega Hand": 2,
+        "Chain Saw": 2,
+        "Training Manual": 2
+      },
+      "cards": [
+        302,
+        302,
+        302,
+        302,
+        27,
+        27,
+        27,
+        29,
+        29,
+        305,
+        305,
+        305,
+        21,
+        21,
+        21,
+        308,
+        308,
+        308,
+        299,
+        299,
+        299,
+        192,
+        192,
+        192,
+        230,
+        230,
+        227,
+        227,
+        248,
+        248
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Guilmon",
+            "to": "Growlmon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Guilmon",
+            "to": "Tankmon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Growlmon",
+            "to": "WarGrowlmon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 50,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 161,
+      "name": "Solar Flame Again",
+      "ultimate": "Flaremon",
+      "owner": "Flaremon",
+      "ownerCard": 309,
+      "base": {
+        "id": 42,
+        "name": "First Attack",
+        "owner": "Birdramon"
+      },
+      "line": [
+        "Coronamon",
+        "Firamon",
+        "Flaremon"
+      ],
+      "specialties": [
+        "Fire"
+      ],
+      "theme": "Repeated attack boosts plus draw effects keep the hand stocked; Veemon and the Flaremon group supply both pressure and cards.",
+      "counts": {
+        "Coronamon": 4,
+        "Veemon": 3,
+        "Biyomon": 2,
+        "Firamon": 3,
+        "Akatorimon": 3,
+        "Flaremon": 3,
+        "Speed Digivolve": 3,
+        "Attack Chip": 3,
+        "Training Manual": 3,
+        "Digi-Diamond": 3
+      },
+      "cards": [
+        303,
+        303,
+        303,
+        303,
+        175,
+        175,
+        175,
+        29,
+        29,
+        306,
+        306,
+        306,
+        24,
+        24,
+        24,
+        309,
+        309,
+        309,
+        299,
+        299,
+        299,
+        264,
+        264,
+        264,
+        248,
+        248,
+        248,
+        276,
+        276,
+        276
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Coronamon",
+            "to": "Firamon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 30,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Coronamon",
+            "to": "Akatorimon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 30,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Firamon",
+            "to": "Flaremon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 162,
+      "name": "Brave Fire Revived",
+      "ultimate": "SaviorHuckmon",
+      "owner": "SaviorHuckmon",
+      "ownerCard": 310,
+      "base": {
+        "id": 27,
+        "name": "Fire Heart",
+        "owner": "Davis"
+      },
+      "line": [
+        "Huckmon",
+        "BaoHuckmon",
+        "SaviorHuckmon"
+      ],
+      "specialties": [
+        "Fire",
+        "Nature"
+      ],
+      "theme": "Red core with green draw and healing; choose Circle or Triangle and amplify it through the whole Huckmon group.",
+      "counts": {
+        "Huckmon": 4,
+        "Hawkmon": 3,
+        "Muchomon": 2,
+        "BaoHuckmon": 3,
+        "Airdramon": 3,
+        "SaviorHuckmon": 3,
+        "Special Digivolve": 3,
+        "Attack Disk ○": 3,
+        "Attack Disk △": 3,
+        "Training Manual": 3
+      },
+      "cards": [
+        304,
+        304,
+        304,
+        304,
+        182,
+        182,
+        182,
+        30,
+        30,
+        307,
+        307,
+        307,
+        87,
+        87,
+        87,
+        310,
+        310,
+        310,
+        295,
+        295,
+        295,
+        267,
+        267,
+        267,
+        268,
+        268,
+        268,
+        248,
+        248,
+        248
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 295,
+            "name": "Special Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Hawkmon",
+            "to": "BaoHuckmon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Huckmon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Huckmon",
+            "to": "Airdramon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Huckmon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Airdramon",
+            "to": "SaviorHuckmon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Huckmon",
+              "Huckmon"
+            ],
+            "dp": 40,
+            "requiredDp": 50,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 163,
+      "name": "Lunar Howl Again",
+      "ultimate": "MachGaogamon",
+      "owner": "MachGaogamon",
+      "ownerCard": 317,
+      "base": {
+        "id": 88,
+        "name": "Shoot Everything!",
+        "owner": "MetalGarurumon"
+      },
+      "line": [
+        "Gaomon",
+        "Gaogamon",
+        "MachGaogamon"
+      ],
+      "specialties": [
+        "Ice"
+      ],
+      "theme": "Gain HP to unlock favorable own-versus-enemy HP comparisons; recover while behind and gain attack while ahead.",
+      "counts": {
+        "Gaomon": 4,
+        "Gomamon": 3,
+        "Betamon": 2,
+        "Gaogamon": 3,
+        "Frigimon": 3,
+        "MachGaogamon": 3,
+        "Speed Digivolve": 3,
+        "Sup. Rec. Floppy": 3,
+        "Dark Lord's Cape": 3,
+        "Recovery Floppy": 3
+      },
+      "cards": [
+        311,
+        311,
+        311,
+        311,
+        61,
+        61,
+        61,
+        63,
+        63,
+        314,
+        314,
+        314,
+        52,
+        52,
+        52,
+        317,
+        317,
+        317,
+        299,
+        299,
+        299,
+        221,
+        221,
+        221,
+        199,
+        199,
+        199,
+        266,
+        266,
+        266
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Gaomon",
+            "to": "Gaogamon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Gaomon",
+            "to": "Frigimon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 30,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Gaogamon",
+            "to": "MachGaogamon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 50,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 164,
+      "name": "Moonlight Revived",
+      "ultimate": "Crescemon",
+      "owner": "Crescemon",
+      "ownerCard": 318,
+      "base": {
+        "id": 13,
+        "name": "Fightback",
+        "owner": "Garurumon"
+      },
+      "line": [
+        "Lunamon",
+        "Lekismon",
+        "Crescemon"
+      ],
+      "specialties": [
+        "Ice",
+        "Rare"
+      ],
+      "theme": "Crescemon lowers both players’ attacks and mills three enemy cards without self-recycling. Lekismon retains its own smaller recycle support; Rare partners reinforce enemy milling. Crescemon uses DP40/+P10.",
+      "counts": {
+        "Lunamon": 4,
+        "Armadillomon": 3,
+        "Gomamon": 2,
+        "Lekismon": 3,
+        "Rockmon": 3,
+        "Crescemon": 3,
+        "Special Digivolve": 3,
+        "Digimon Grave": 3,
+        "Digimon Analyzer": 3,
+        "High Speed Disk": 3
+      },
+      "cards": [
+        312,
+        312,
+        312,
+        312,
+        190,
+        190,
+        190,
+        61,
+        61,
+        315,
+        315,
+        315,
+        159,
+        159,
+        159,
+        318,
+        318,
+        318,
+        295,
+        295,
+        295,
+        255,
+        255,
+        255,
+        247,
+        247,
+        247,
+        265,
+        265,
+        265
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 295,
+            "name": "Special Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Armadillomon",
+            "to": "Lekismon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Lunamon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Lunamon",
+            "to": "Rockmon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Lunamon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Rockmon",
+            "to": "Crescemon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Lunamon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 165,
+      "name": "Deep Sea Revived",
+      "ultimate": "Dragomon",
+      "owner": "Dragomon",
+      "ownerCard": 319,
+      "base": {
+        "id": 91,
+        "name": "First Aid",
+        "owner": "Joe"
+      },
+      "line": [
+        "Syakomon",
+        "Octomon",
+        "Dragomon"
+      ],
+      "specialties": [
+        "Ice"
+      ],
+      "theme": "Pure Ice fast evolution through five evolution Options, with draw, recycling and attack reduction to keep the engine moving.",
+      "counts": {
+        "Syakomon": 4,
+        "Gomamon": 3,
+        "Betamon": 2,
+        "Octomon": 3,
+        "Seadramon": 3,
+        "Dragomon": 3,
+        "Speed Digivolve": 3,
+        "Warp Digivolve": 2,
+        "Training Manual": 3,
+        "Attack Chip": 2,
+        "Recovery Floppy": 2
+      },
+      "cards": [
+        313,
+        313,
+        313,
+        313,
+        61,
+        61,
+        61,
+        63,
+        63,
+        316,
+        316,
+        316,
+        50,
+        50,
+        50,
+        319,
+        319,
+        319,
+        299,
+        299,
+        299,
+        297,
+        297,
+        248,
+        248,
+        248,
+        264,
+        264,
+        266,
+        266
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 3
+          },
+          {
+            "id": 297,
+            "name": "Warp Digivolve",
+            "count": 2
+          }
+        ],
+        "paths": [
+          {
+            "from": "Syakomon",
+            "to": "Octomon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Syakomon",
+            "to": "Seadramon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Octomon",
+            "to": "Dragomon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 50,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Syakomon",
+            "to": "Dragomon",
+            "option": "Warp Digivolve",
+            "dpCards": [
+              "Syakomon",
+              "Syakomon",
+              "Syakomon"
+            ],
+            "dp": 60,
+            "requiredDp": 50,
+            "reason": "Same-Specialty Rookie directly to Ultimate with sufficient DP."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 166,
+      "name": "Divine Fox Again",
+      "ultimate": "Taomon",
+      "owner": "Taomon",
+      "ownerCard": 326,
+      "base": {
+        "id": 74,
+        "name": "Divine Monster",
+        "owner": "Nefertimon"
+      },
+      "line": [
+        "Renamon",
+        "Kyubimon",
+        "Taomon"
+      ],
+      "specialties": [
+        "Nature",
+        "Rare"
+      ],
+      "theme": "Healing and shared random Specialties. Nine recovery Options, HP-copy Psychemon and durable MudFrigimon replace all enemy deck milling and DP discard.",
+      "counts": {
+        "Renamon": 4,
+        "Psychemon": 3,
+        "ClearAgumon": 2,
+        "Kyubimon": 3,
+        "MudFrigimon": 3,
+        "Taomon": 3,
+        "Special Digivolve": 3,
+        "Recovery Floppy": 3,
+        "Sup. Rec. Floppy": 3,
+        "Med. Rec. Floppy": 3
+      },
+      "cards": [
+        320,
+        320,
+        320,
+        320,
+        170,
+        170,
+        170,
+        168,
+        168,
+        323,
+        323,
+        323,
+        163,
+        163,
+        163,
+        326,
+        326,
+        326,
+        295,
+        295,
+        295,
+        266,
+        266,
+        266,
+        221,
+        221,
+        221,
+        246,
+        246,
+        246
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 295,
+            "name": "Special Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Psychemon",
+            "to": "Kyubimon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Renamon"
+            ],
+            "dp": 20,
+            "requiredDp": 30,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Renamon",
+            "to": "MudFrigimon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Renamon"
+            ],
+            "dp": 20,
+            "requiredDp": 30,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "MudFrigimon",
+            "to": "Taomon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Renamon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 167,
+      "name": "Rapid Hope Again",
+      "ultimate": "Rapidmon",
+      "owner": "Rapidmon",
+      "ownerCard": 327,
+      "base": {
+        "id": 73,
+        "name": "Call of Destiny",
+        "owner": "Gatomon"
+      },
+      "line": [
+        "Terriermon",
+        "Gargomon",
+        "Rapidmon"
+      ],
+      "specialties": [
+        "Nature"
+      ],
+      "theme": "Force enemy Triangle for zero-power Triangle Counter, and answer enemy Circle with effects that reduce it to zero. Kuwagamon provides another native Triangle Counter.",
+      "counts": {
+        "Terriermon": 4,
+        "Tentomon": 3,
+        "Hawkmon": 2,
+        "Gargomon": 3,
+        "Kuwagamon": 3,
+        "Rapidmon": 3,
+        "Speed Digivolve": 3,
+        "Defense Disk ○": 3,
+        "Disrupt Ray": 3,
+        "Triangle Hitter": 3
+      },
+      "cards": [
+        321,
+        321,
+        321,
+        321,
+        97,
+        97,
+        97,
+        182,
+        182,
+        324,
+        324,
+        324,
+        90,
+        90,
+        90,
+        327,
+        327,
+        327,
+        299,
+        299,
+        299,
+        270,
+        270,
+        270,
+        263,
+        263,
+        263,
+        250,
+        250,
+        250
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Terriermon",
+            "to": "Gargomon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Terriermon",
+            "to": "Kuwagamon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Gargomon",
+            "to": "Rapidmon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 50,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 168,
+      "name": "Flower Bloom Again",
+      "ultimate": "Lilamon",
+      "owner": "Lilamon",
+      "ownerCard": 328,
+      "base": {
+        "id": 85,
+        "name": "Flower Fairies",
+        "owner": "Lillymon"
+      },
+      "line": [
+        "Lalamon",
+        "Sunflowmon",
+        "Lilamon"
+      ],
+      "specialties": [
+        "Nature"
+      ],
+      "theme": "Heal repeatedly and eat enemy HP through attacks. Palmon adds another Eat-up HP attacker, while Gotsumon rewards the HP lead. Lilamon support accelerates enemy evolution by moving a random enemy Online Digimon into their DP Slot. Sunflowmon support only heals and reduces own attack.",
+      "counts": {
+        "Lalamon": 4,
+        "Palmon": 3,
+        "Gotsumon": 2,
+        "Sunflowmon": 3,
+        "Airdramon": 3,
+        "Lilamon": 3,
+        "Speed Digivolve": 3,
+        "Dark Bone": 3,
+        "Recovery Floppy": 3,
+        "Beetle Diamond": 3
+      },
+      "cards": [
+        322,
+        322,
+        322,
+        322,
+        98,
+        98,
+        98,
+        101,
+        101,
+        325,
+        325,
+        325,
+        87,
+        87,
+        87,
+        328,
+        328,
+        328,
+        299,
+        299,
+        299,
+        205,
+        205,
+        205,
+        266,
+        266,
+        266,
+        204,
+        204,
+        204
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Lalamon",
+            "to": "Sunflowmon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 30,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Lalamon",
+            "to": "Airdramon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Sunflowmon",
+            "to": "Lilamon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 30,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 169,
+      "name": "Dark Steel Again",
+      "ultimate": "MetalTyrannomon",
+      "owner": "MetalTyrannomon",
+      "ownerCard": 335,
+      "base": {
+        "id": 6,
+        "name": "Go Go Dinosaur",
+        "owner": "Veemon"
+      },
+      "line": [
+        "Keramon",
+        "Kurisarimon",
+        "MetalTyrannomon"
+      ],
+      "specialties": [
+        "Fire",
+        "Darkness"
+      ],
+      "theme": "Dinosaur and machine partners convert HP, hand and DP resources into attack gains. Fire Tyrannomon and Agumon pair with the Darkness machine group.",
+      "counts": {
+        "Keramon": 4,
+        "Agumon": 3,
+        "Kokuwamon": 2,
+        "Kurisarimon": 3,
+        "Tyrannomon": 3,
+        "MetalTyrannomon": 3,
+        "Special Digivolve": 3,
+        "Attack Chip": 3,
+        "Metal Parts": 2,
+        "Speed Digivolve": 2,
+        "Training Manual": 2
+      },
+      "cards": [
+        329,
+        329,
+        329,
+        329,
+        27,
+        27,
+        27,
+        134,
+        134,
+        332,
+        332,
+        332,
+        16,
+        16,
+        16,
+        335,
+        335,
+        335,
+        295,
+        295,
+        295,
+        264,
+        264,
+        264,
+        228,
+        228,
+        299,
+        299,
+        248,
+        248
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 295,
+            "name": "Special Digivolve",
+            "count": 3
+          },
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 2
+          }
+        ],
+        "paths": [
+          {
+            "from": "Agumon",
+            "to": "Kurisarimon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Keramon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Keramon",
+            "to": "Tyrannomon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Keramon"
+            ],
+            "dp": 20,
+            "requiredDp": 30,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Tyrannomon",
+            "to": "MetalTyrannomon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Keramon",
+              "Keramon"
+            ],
+            "dp": 40,
+            "requiredDp": 60,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Keramon",
+            "to": "Kurisarimon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Same-Specialty themed group route without DP costs; active stack entered as Rookie (abn 0). Preserves DP while the mixed deck also retains Special Digivolve bridges."
+          },
+          {
+            "from": "Kurisarimon",
+            "to": "MetalTyrannomon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 60,
+            "reason": "Same-Specialty themed group route without DP costs; active stack entered as Rookie (abn 0). Preserves DP while the mixed deck also retains Special Digivolve bridges."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 170,
+      "name": "Machine Fang Again",
+      "ultimate": "Cyberdramon",
+      "owner": "Cyberdramon",
+      "ownerCard": 336,
+      "base": {
+        "id": 100,
+        "name": "Machine Empire",
+        "owner": "Machinedramon"
+      },
+      "line": [
+        "Monodramon",
+        "Strikedramon",
+        "Cyberdramon"
+      ],
+      "specialties": [
+        "Darkness",
+        "Rare"
+      ],
+      "theme": "Balanced Dark/Rare suppression and attack pressure. ClearAgumon voids supports, Starmon complements enemy-Darkness disruption, and Wormmon draws.",
+      "counts": {
+        "Monodramon": 4,
+        "ClearAgumon": 3,
+        "Wormmon": 2,
+        "Strikedramon": 3,
+        "Starmon": 3,
+        "Cyberdramon": 3,
+        "Special Digivolve": 3,
+        "Mutant Digivolve": 1,
+        "Attack Chip": 2,
+        "Training Manual": 3,
+        "Silver Ball": 1,
+        "Speed Digivolve": 2
+      },
+      "cards": [
+        330,
+        330,
+        330,
+        330,
+        168,
+        168,
+        168,
+        187,
+        187,
+        333,
+        333,
+        333,
+        152,
+        152,
+        152,
+        336,
+        336,
+        336,
+        295,
+        295,
+        295,
+        296,
+        264,
+        264,
+        248,
+        248,
+        248,
+        235,
+        299,
+        299
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 295,
+            "name": "Special Digivolve",
+            "count": 3
+          },
+          {
+            "id": 296,
+            "name": "Mutant Digivolve",
+            "count": 1
+          },
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 2
+          }
+        ],
+        "paths": [
+          {
+            "from": "ClearAgumon",
+            "to": "Strikedramon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Monodramon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Monodramon",
+            "to": "Starmon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Monodramon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Starmon",
+            "to": "Cyberdramon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Monodramon",
+              "Monodramon"
+            ],
+            "dp": 40,
+            "requiredDp": 50,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Monodramon",
+            "to": "Strikedramon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Same-Specialty themed group route without DP costs; active stack entered as Rookie (abn 0). Preserves DP while the mixed deck also retains Special Digivolve bridges."
+          },
+          {
+            "from": "Strikedramon",
+            "to": "Cyberdramon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 50,
+            "reason": "Same-Specialty themed group route without DP costs; active stack entered as Rookie (abn 0). Preserves DP while the mixed deck also retains Special Digivolve bridges."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 171,
+      "name": "Night Dance Again",
+      "ultimate": "Matadormon",
+      "owner": "Matadormon",
+      "ownerCard": 337,
+      "base": {
+        "id": 52,
+        "name": "Dark Revival",
+        "owner": "Myotismon"
+      },
+      "line": [
+        "Dracmon",
+        "Sangloupmon",
+        "Matadormon"
+      ],
+      "specialties": [
+        "Darkness"
+      ],
+      "theme": "Explosive effects while behind on HP, backed by repeated revival. Guardromon and the risky Options deliberately lower HP.",
+      "counts": {
+        "Dracmon": 4,
+        "Sharmamon": 3,
+        "Kokuwamon": 2,
+        "Sangloupmon": 3,
+        "Guardromon": 3,
+        "Matadormon": 3,
+        "Speed Digivolve": 3,
+        "Miracle Ruby": 3,
+        "Chain Saw": 2,
+        "Metallic Banana": 2,
+        "Recovery Floppy": 2
+      },
+      "cards": [
+        331,
+        331,
+        331,
+        331,
+        138,
+        138,
+        138,
+        134,
+        134,
+        334,
+        334,
+        334,
+        124,
+        124,
+        124,
+        337,
+        337,
+        337,
+        299,
+        299,
+        299,
+        239,
+        239,
+        239,
+        227,
+        227,
+        195,
+        195,
+        266,
+        266
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Dracmon",
+            "to": "Sangloupmon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 30,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Dracmon",
+            "to": "Guardromon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 20,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Sangloupmon",
+            "to": "Matadormon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 40,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 172,
+      "name": "Sky Dragon Again",
+      "ultimate": "Wingdramon",
+      "owner": "Wingdramon",
+      "ownerCard": 344,
+      "base": {
+        "id": 38,
+        "name": "Mega Giga",
+        "owner": "Gigadramon"
+      },
+      "line": [
+        "Dracomon",
+        "Coredramon (Blue)",
+        "Wingdramon"
+      ],
+      "specialties": [
+        "Ice",
+        "Rare",
+        "Nature"
+      ],
+      "theme": "Rare dragon support gives powerful bonuses to active Ice or Nature Digimon; all three Specialties have live evolution targets.",
+      "counts": {
+        "Dracomon": 4,
+        "Gomamon": 3,
+        "Hawkmon": 2,
+        "Coredramon (Blue)": 3,
+        "Airdramon": 2,
+        "Seadramon": 1,
+        "Wingdramon": 3,
+        "Special Digivolve": 4,
+        "Mutant Digivolve": 2,
+        "Attack Chip": 2,
+        "Training Manual": 2,
+        "Short Lance": 2
+      },
+      "cards": [
+        338,
+        338,
+        338,
+        338,
+        61,
+        61,
+        61,
+        182,
+        182,
+        341,
+        341,
+        341,
+        87,
+        87,
+        50,
+        344,
+        344,
+        344,
+        295,
+        295,
+        295,
+        295,
+        296,
+        296,
+        264,
+        264,
+        248,
+        248,
+        245,
+        245
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 295,
+            "name": "Special Digivolve",
+            "count": 4
+          },
+          {
+            "id": 296,
+            "name": "Mutant Digivolve",
+            "count": 2
+          }
+        ],
+        "paths": [
+          {
+            "from": "Gomamon",
+            "to": "Coredramon (Blue)",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Dracomon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Dracomon",
+            "to": "Airdramon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Dracomon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Dracomon",
+            "to": "Seadramon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Dracomon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Airdramon",
+            "to": "Wingdramon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Dracomon",
+              "Dracomon"
+            ],
+            "dp": 40,
+            "requiredDp": 50,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 173,
+      "name": "Beast Fist Again",
+      "ultimate": "GrapLeomon",
+      "owner": "GrapLeomon",
+      "ownerCard": 345,
+      "base": {
+        "id": 51,
+        "name": "Steel Gate",
+        "owner": "MetalEtemon"
+      },
+      "line": [
+        "Bearmon",
+        "Grizzlymon",
+        "GrapLeomon"
+      ],
+      "specialties": [
+        "Rare",
+        "Nature"
+      ],
+      "theme": "Counterattack with zero-base-power Cross attacks, or use GrapLeomon group supports to turn a selected zero-power attack into a direct attack. Nature partners provide both Circle and Triangle Counter.",
+      "counts": {
+        "Bearmon": 4,
+        "Salamon": 3,
+        "Hawkmon": 2,
+        "Grizzlymon": 3,
+        "Kuwagamon": 3,
+        "GrapLeomon": 3,
+        "Special Digivolve": 3,
+        "Golden Banana": 3,
+        "Beam Gun": 2,
+        "Recovery Floppy": 2,
+        "Attack Chip": 2
+      },
+      "cards": [
+        339,
+        339,
+        339,
+        339,
+        99,
+        99,
+        99,
+        182,
+        182,
+        342,
+        342,
+        342,
+        90,
+        90,
+        90,
+        345,
+        345,
+        345,
+        295,
+        295,
+        295,
+        191,
+        191,
+        191,
+        226,
+        226,
+        266,
+        266,
+        264,
+        264
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 295,
+            "name": "Special Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Salamon",
+            "to": "Grizzlymon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Bearmon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Bearmon",
+            "to": "Kuwagamon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Bearmon"
+            ],
+            "dp": 20,
+            "requiredDp": 40,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          },
+          {
+            "from": "Kuwagamon",
+            "to": "GrapLeomon",
+            "option": "Special Digivolve",
+            "dpCards": [
+              "Bearmon",
+              "Bearmon"
+            ],
+            "dp": 40,
+            "requiredDp": 50,
+            "reason": "Ignores active Specialty, advances one normal stage, and adds 20 to available DP."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    },
+    {
+      "id": 174,
+      "name": "Holy Beast Revived",
+      "ultimate": "Chirinmon",
+      "owner": "Chirinmon",
+      "ownerCard": 346,
+      "base": {
+        "id": 51,
+        "name": "Steel Gate",
+        "owner": "MetalEtemon"
+      },
+      "line": [
+        "Kudamon",
+        "Reppamon",
+        "Chirinmon"
+      ],
+      "specialties": [
+        "Rare"
+      ],
+      "theme": "Attack first and stack attack gains. SandYanmamon adds native first strike, while ClearAgumon protects the attack plan from enemy supports.",
+      "counts": {
+        "Kudamon": 4,
+        "ClearAgumon": 3,
+        "Vi-Elecmon": 2,
+        "Reppamon": 3,
+        "SandYanmamon": 3,
+        "Chirinmon": 3,
+        "Speed Digivolve": 3,
+        "Beetle Diamond": 3,
+        "Attack Chip": 3,
+        "Triangle Hitter": 3
+      },
+      "cards": [
+        340,
+        340,
+        340,
+        340,
+        168,
+        168,
+        168,
+        169,
+        169,
+        343,
+        343,
+        343,
+        164,
+        164,
+        164,
+        346,
+        346,
+        346,
+        299,
+        299,
+        299,
+        204,
+        204,
+        204,
+        264,
+        264,
+        264,
+        250,
+        250,
+        250
+      ],
+      "ratio": {
+        "R": 9,
+        "C": 6,
+        "U": 3,
+        "option": 12
+      },
+      "evolution": {
+        "options": [
+          {
+            "id": 299,
+            "name": "Speed Digivolve",
+            "count": 3
+          }
+        ],
+        "paths": [
+          {
+            "from": "Kudamon",
+            "to": "Reppamon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 30,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Kudamon",
+            "to": "SandYanmamon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 20,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          },
+          {
+            "from": "Reppamon",
+            "to": "Chirinmon",
+            "option": "Speed Digivolve",
+            "dpCards": [],
+            "dp": 0,
+            "requiredDp": 50,
+            "reason": "Ignores DP, requires matching Specialty and an active stack that entered at Rookie (abn 0)."
+          }
+        ]
+      },
+      "reason": "Owner-requested theme rebuild supersedes the original exact base-card exchanges; preserve base rank, armor, music and provenance, and preserve the featured Ultimate owner and portrait."
+    }
+  ]
+}

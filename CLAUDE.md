@@ -32,6 +32,10 @@ applicable acceptance criteria and validation pass. TS-001 being Done is not fea
 completion. Push finished work to the feature branch, keep the ticket commits separate,
 and use the synchronized roster/ticket documents and Trello cards.
 
+The owner accepted the completed feature and explicitly authorized its merge to main
+on 2026-10-15, after the Lilamon/Sunflowmon balance revision. The gate above is fulfilled
+for that release; retain this history when documenting later work.
+
 ## Where things are
 
 | Path | What |
@@ -42,7 +46,7 @@ and use the synchronized roster/ticket documents and Trello cards.
 | `tools/custom_cards.json` | The cards that are not on the disc, each made from one that is (`tools/build_custom.py`; the `create-card` skill). They are the one place where numbers are chosen, not read: the README names each under "Not from the game code" |
 | `docs/time-stranger/` | The plan for the Time Stranger cards, their models and decks, one file per ticket. Their status is on the owner's Trello board (linked from each ticket): move the card as the work goes and tick its checklist |
 | `extracted/` | The unpacked disc. Not in git: made with `tools/extract_iso.py` and `tools/extract_drv.py` from the owner's image (hashes in the README) |
-| `.claude/skills/` | How to read the game code, how to rebuild the assets, how to check a change in the browser, how to add a custom card |
+| `.claude/skills/` | How to read the game code, how to rebuild the assets, how to check a change in the browser, how to add a custom card, how to give a custom card its Time Stranger model (`import-ts-model`) |
 
 Python tools run with `tools/.venv/Scripts/python`; the tests run with `node`.
 

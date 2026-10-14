@@ -1,0 +1,10 @@
+{
+  "1": {"class_type": "LoadImage", "inputs": {"image": "INPUT_IMAGE"}},
+  "2": {"class_type": "CheckpointLoaderSimple", "inputs": {"ckpt_name": "512-inpainting-ema.safetensors"}},
+  "3": {"class_type": "CLIPTextEncode", "inputs": {"clip": ["2", 1], "text": "POSITIVE_PROMPT"}},
+  "4": {"class_type": "CLIPTextEncode", "inputs": {"clip": ["2", 1], "text": "(text:1.5), (letters:1.5), (numbers:1.3), watermark, logo, border, card frame, duplicate character, extra limbs, human, photorealistic"}},
+  "5": {"class_type": "InpaintModelConditioning", "inputs": {"positive": ["3", 0], "negative": ["4", 0], "vae": ["2", 2], "pixels": ["1", 0], "mask": ["1", 1], "noise_mask": true}},
+  "6": {"class_type": "KSampler", "inputs": {"model": ["2", 0], "positive": ["5", 0], "negative": ["5", 1], "latent_image": ["5", 2], "seed": 302002, "steps": 24, "cfg": 6, "sampler_name": "euler", "scheduler": "normal", "denoise": 1}},
+  "7": {"class_type": "VAEDecode", "inputs": {"samples": ["6", 0], "vae": ["2", 2]}},
+  "8": {"class_type": "SaveImage", "inputs": {"images": ["7", 0], "filename_prefix": "ddcb/ts002"}}
+}

@@ -93,8 +93,19 @@ Make sure each of the 45 proposed Digimon is in *Digimon Story: Time Stranger*, 
 - Synchronized the Phase 1 ticket tables, Phase 2 model lists, deck target list and
   Fire/Ice deck tickets with the verified roster. Model/card ids remain unchanged.
 - Corrected the earlier note's cross-Specialty count from six to five. The actual ✱
-  rows are 329/330/335/344/346, so battle offsets are 20000/30000/40000/50000/60000.
+  rows were 329/330/335/344/346 at that audit. The later Keramon/Tsukaimon
+  correction retires 20000; active rows are 330/335/344/346 at 30000/40000/50000/60000.
   Kurisarimon's same-Specialty Bakemon base does not consume a battle offset.
 - Updated linked ticket/roster/deck addresses and affected Digimon checklist names
   on Trello, preserving unfinished ticket state. TS-001 moves to Done after the push;
   this does not mean any of the 45 cards has been implemented yet.
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
+Initially its numbers/effects were copied from Tsukaimon; TS-106 supersedes that
+with original gameplay (card-design.md). Local char_KERAMON → chr626 is
+present in both model tables; Phase 2 converts all nine Darkness models. The old
+black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
+restoration and is shared by both art modes. Offset 20000 is retired; the four other
+published offsets remain stable. [Full evidence and current roster](roster.md).

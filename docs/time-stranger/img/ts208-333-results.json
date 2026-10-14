@@ -1,0 +1,758 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-333-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Darkrizamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Darkrizamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Darkrizamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      58,
+      114,
+      170,
+      226
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-333-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Darkrizamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Strikedramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Darkrizamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Strikedramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Darkrizamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Strikedramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-333-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Darkrizamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          264,
+          3,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          264,
+          3,
+          "ended"
+        ]
+      ],
+      "Darkrizamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          264,
+          3,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          264,
+          3,
+          "ended"
+        ]
+      ],
+      "Darkrizamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          264,
+          3,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          264,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      68,
+      133,
+      199,
+      264
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-333-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Darkrizamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Darkrizamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Darkrizamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      336,
+      365,
+      394,
+      423
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-333-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Darkrizamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Darkrizamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Darkrizamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Strikedramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      354,
+      401,
+      448,
+      495
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-333-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Darkrizamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          479,
+          6,
+          "runs"
+        ]
+      ],
+      "Strikedramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          479,
+          6,
+          "runs"
+        ]
+      ],
+      "Darkrizamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          479,
+          6,
+          "runs"
+        ]
+      ],
+      "Strikedramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          479,
+          6,
+          "runs"
+        ]
+      ],
+      "Darkrizamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          479,
+          6,
+          "runs"
+        ]
+      ],
+      "Strikedramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          479,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      479,
+      524,
+      569,
+      614,
+      659
+    ]
+  }
+]

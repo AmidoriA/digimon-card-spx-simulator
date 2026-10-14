@@ -1,0 +1,758 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-305-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Greymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ]
+      ],
+      "Growlmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ]
+      ],
+      "Greymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ]
+      ],
+      "Growlmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ]
+      ],
+      "Greymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ]
+      ],
+      "Growlmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      54,
+      106,
+      158,
+      210
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-305-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Greymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Growlmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Greymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Growlmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Greymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Growlmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-305-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Greymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          218,
+          3,
+          "ended"
+        ]
+      ],
+      "Growlmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          218,
+          3,
+          "ended"
+        ]
+      ],
+      "Greymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          218,
+          3,
+          "ended"
+        ]
+      ],
+      "Growlmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          218,
+          3,
+          "ended"
+        ]
+      ],
+      "Greymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          218,
+          3,
+          "ended"
+        ]
+      ],
+      "Growlmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          218,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      56,
+      110,
+      164,
+      218
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-305-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Greymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          391,
+          4,
+          "ended"
+        ]
+      ],
+      "Growlmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          391,
+          4,
+          "ended"
+        ]
+      ],
+      "Greymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          391,
+          4,
+          "ended"
+        ]
+      ],
+      "Growlmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          391,
+          4,
+          "ended"
+        ]
+      ],
+      "Greymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          391,
+          4,
+          "ended"
+        ]
+      ],
+      "Growlmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          391,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      328,
+      349,
+      370,
+      391
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-305-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Greymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Growlmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Greymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Growlmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Greymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Growlmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      352,
+      397,
+      442,
+      487
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-305-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Greymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          450,
+          6,
+          "runs"
+        ]
+      ],
+      "Growlmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          450,
+          6,
+          "runs"
+        ]
+      ],
+      "Greymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          450,
+          6,
+          "runs"
+        ]
+      ],
+      "Growlmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          450,
+          6,
+          "runs"
+        ]
+      ],
+      "Greymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          450,
+          6,
+          "runs"
+        ]
+      ],
+      "Growlmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          210,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          450,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      450,
+      495,
+      540,
+      585,
+      630
+    ]
+  }
+]

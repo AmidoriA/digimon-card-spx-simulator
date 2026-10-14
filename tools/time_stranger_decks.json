@@ -1,0 +1,2180 @@
+{
+  "schemaVersion": 1,
+  "source": "web/js/data/cards.js from time-stranger a2e69da (original deck IDs 0-158)",
+  "selectionPolicy": {
+    "candidateOrder": [
+      "Must contain Ultimate visual donor; if absent from all 159 original decks, contain an Ultimate of target Specialty",
+      "Descending exact Rookie + Champion visual-donor copy count",
+      "Descending number of Digimon cards matching target Specialty",
+      "Ascending original deck ID"
+    ],
+    "viability": "Opponent-eligible (owner is not Player) and containing a Rookie, Champion and Ultimate; never consume an Option or a different level.",
+    "fallbackOrder": [
+      "Exact visual donor whenever present (including cross-Specialty donors)",
+      "For a missing slot, choose one target-Specialty card of that level, descending copy count then ascending card ID",
+      "If no target-Specialty donor exists at that level, choose its most populous Specialty, tie ascending Specialty ID, then descending copies and ascending card ID"
+    ],
+    "copyPolicy": "Replace every copy of exactly one donor per R/C/U slot. Never aggregate multiple donors into more than four copies."
+  },
+  "baseline": {
+    "cardsSha256": "751350b2c17ff4fb4927309edb5e040a3f36ea51731fc8b75c48e541da823e29",
+    "decksSha256": "40d0c0b403a0ba98beac89db8e7633c58d87f490e57531484f28c8d8c3d83830",
+    "existingCustomCardsSha256": "2e4fce3b15f39aa7bb7d47761a35513e5679fc12ed03955fcc7b2172cebf3a02",
+    "existingCustomDecksSha256": "27ff33ea981bc18f9e0ccebb260d28e8adeaf1395a9be44d21d9a4f9df24929b",
+    "allCardsSha256": "42d7c82772004f142492d7062cc75419182c747894a815718b6196ee42bfb004",
+    "allDecksSha256": "37eae01e84695292da73612549ccab95a32a51f7df154b01eb1041814b428277"
+  },
+  "decks": [
+    {
+      "ticket": "TS-302",
+      "ultimate": "WarGrowlmon",
+      "spec": "Fire",
+      "name": "Crimson Fire Again",
+      "id": 160,
+      "base": {
+        "id": 6,
+        "name": "Go Go Dinosaur",
+        "owner": "Veemon"
+      },
+      "rosterBases": [
+        {
+          "id": 27,
+          "name": "Agumon"
+        },
+        {
+          "id": 14,
+          "name": "Greymon"
+        },
+        {
+          "id": 9,
+          "name": "MetalGreymon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Agumon": "Guilmon",
+        "Greymon": "Growlmon",
+        "MetalGreymon": "WarGrowlmon"
+      },
+      "exchanges": [
+        {
+          "from": "Agumon",
+          "fromId": 27,
+          "to": "Guilmon",
+          "toId": 302,
+          "count": 4,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Greymon",
+          "fromId": 14,
+          "to": "Growlmon",
+          "toId": 305,
+          "count": 3,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "MetalGreymon",
+          "fromId": 9,
+          "to": "WarGrowlmon",
+          "toId": 308,
+          "count": 2,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 6,
+          "name": "Go Go Dinosaur",
+          "owner": "Veemon",
+          "rookieCopies": 4,
+          "championCopies": 3,
+          "ultimateCopies": 2,
+          "lineCopies": 7,
+          "specialtyCopies": 25,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 27,
+          "name": "Fire Heart",
+          "owner": "Davis",
+          "rookieCopies": 3,
+          "championCopies": 2,
+          "ultimateCopies": 1,
+          "lineCopies": 5,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 7 exact R/C copies, 25 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "WarGrowlmon",
+      "ownerCard": 308
+    },
+    {
+      "ticket": "TS-302",
+      "ultimate": "Flaremon",
+      "spec": "Fire",
+      "name": "Solar Flame Again",
+      "id": 161,
+      "base": {
+        "id": 42,
+        "name": "First Attack",
+        "owner": "Birdramon"
+      },
+      "rosterBases": [
+        {
+          "id": 33,
+          "name": "Goburimon"
+        },
+        {
+          "id": 19,
+          "name": "Centarumon"
+        },
+        {
+          "id": 7,
+          "name": "Garudamon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Goburimon": "Coronamon",
+        "Birdramon": "Firamon",
+        "Garudamon": "Flaremon"
+      },
+      "exchanges": [
+        {
+          "from": "Goburimon",
+          "fromId": 33,
+          "to": "Coronamon",
+          "toId": 303,
+          "count": 3,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Birdramon",
+          "fromId": 20,
+          "to": "Firamon",
+          "toId": 306,
+          "count": 4,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        },
+        {
+          "from": "Garudamon",
+          "fromId": 7,
+          "to": "Flaremon",
+          "toId": 309,
+          "count": 2,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 158,
+          "name": "Practice",
+          "owner": "Player",
+          "rookieCopies": 4,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 4,
+          "specialtyCopies": 16,
+          "viable": false,
+          "opponentEligible": false,
+          "skipReason": "Player deck excluded from opponent list"
+        },
+        {
+          "id": 42,
+          "name": "First Attack",
+          "owner": "Birdramon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 3,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 82,
+          "name": "Sun's Gift",
+          "owner": "Garudamon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 4,
+          "lineCopies": 0,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 135,
+          "name": "Sun's Gift",
+          "owner": "Garudamon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 4,
+          "lineCopies": 0,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 83,
+          "name": "Hyper Digivolution",
+          "owner": "Sora",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 4,
+          "lineCopies": 0,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 58,
+          "name": "Storm Bringer",
+          "owner": "Aquilamon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 0,
+          "specialtyCopies": 11,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 3,
+          "name": "New Power",
+          "owner": "Babamon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 0,
+          "specialtyCopies": 6,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Skip #158 Practice: Player owner is excluded from opponent list (ui.js OP_DECKS), so it cannot meet TS-302 opponent/match acceptance. Next candidate #42 ranks 3 exact R/C copies and 20 Fire Digimon copies; Birdramon supplies missing Centarumon.",
+      "owner": "Flaremon",
+      "ownerCard": 309
+    },
+    {
+      "ticket": "TS-302",
+      "ultimate": "SaviorHuckmon",
+      "spec": "Fire",
+      "name": "Brave Fire Revived",
+      "id": 162,
+      "base": {
+        "id": 27,
+        "name": "Fire Heart",
+        "owner": "Davis"
+      },
+      "rosterBases": [
+        {
+          "id": 175,
+          "name": "Veemon"
+        },
+        {
+          "id": 26,
+          "name": "Flarerizamon"
+        },
+        {
+          "id": 4,
+          "name": "Paildramon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Veemon": "Huckmon",
+        "Flarerizamon": "BaoHuckmon",
+        "Paildramon": "SaviorHuckmon"
+      },
+      "exchanges": [
+        {
+          "from": "Veemon",
+          "fromId": 175,
+          "to": "Huckmon",
+          "toId": 304,
+          "count": 1,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Flarerizamon",
+          "fromId": 26,
+          "to": "BaoHuckmon",
+          "toId": 307,
+          "count": 1,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Paildramon",
+          "fromId": 4,
+          "to": "SaviorHuckmon",
+          "toId": 310,
+          "count": 2,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 27,
+          "name": "Fire Heart",
+          "owner": "Davis",
+          "rookieCopies": 1,
+          "championCopies": 1,
+          "ultimateCopies": 2,
+          "lineCopies": 2,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 103,
+          "name": "Miracle Knight's",
+          "owner": "Magnamon",
+          "rookieCopies": 1,
+          "championCopies": 0,
+          "ultimateCopies": 3,
+          "lineCopies": 1,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 81,
+          "name": "Three Signs",
+          "owner": "Paildramon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 4,
+          "lineCopies": 0,
+          "specialtyCopies": 19,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 2 exact R/C copies, 21 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "SaviorHuckmon",
+      "ownerCard": 310
+    },
+    {
+      "ticket": "TS-303",
+      "ultimate": "MachGaogamon",
+      "spec": "Ice",
+      "name": "Lunar Howl Again",
+      "id": 163,
+      "base": {
+        "id": 88,
+        "name": "Shoot Everything!",
+        "owner": "MetalGarurumon"
+      },
+      "rosterBases": [
+        {
+          "id": 62,
+          "name": "Gabumon"
+        },
+        {
+          "id": 46,
+          "name": "Garurumon"
+        },
+        {
+          "id": 39,
+          "name": "WereGarurumon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Gabumon": "Gaomon",
+        "Garurumon": "Gaogamon",
+        "WereGarurumon": "MachGaogamon"
+      },
+      "exchanges": [
+        {
+          "from": "Gabumon",
+          "fromId": 62,
+          "to": "Gaomon",
+          "toId": 311,
+          "count": 4,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Garurumon",
+          "fromId": 46,
+          "to": "Gaogamon",
+          "toId": 314,
+          "count": 4,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "WereGarurumon",
+          "fromId": 39,
+          "to": "MachGaogamon",
+          "toId": 317,
+          "count": 1,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 88,
+          "name": "Shoot Everything!",
+          "owner": "MetalGarurumon",
+          "rookieCopies": 4,
+          "championCopies": 4,
+          "ultimateCopies": 1,
+          "lineCopies": 8,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 136,
+          "name": "Shooter",
+          "owner": "MetalGarurumon",
+          "rookieCopies": 4,
+          "championCopies": 4,
+          "ultimateCopies": 1,
+          "lineCopies": 8,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 13,
+          "name": "Fightback",
+          "owner": "Garurumon",
+          "rookieCopies": 3,
+          "championCopies": 4,
+          "ultimateCopies": 1,
+          "lineCopies": 7,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 138,
+          "name": "Fightback",
+          "owner": "Garurumon",
+          "rookieCopies": 3,
+          "championCopies": 4,
+          "ultimateCopies": 1,
+          "lineCopies": 7,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 43,
+          "name": "Howl to the Moon",
+          "owner": "WereGarurumon",
+          "rookieCopies": 3,
+          "championCopies": 4,
+          "ultimateCopies": 4,
+          "lineCopies": 7,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 91,
+          "name": "First Aid",
+          "owner": "Joe",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 0,
+          "specialtyCopies": 27,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 8 exact R/C copies, 22 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "MachGaogamon",
+      "ownerCard": 317
+    },
+    {
+      "ticket": "TS-303",
+      "ultimate": "Crescemon",
+      "spec": "Ice",
+      "name": "Moonlight Revived",
+      "id": 164,
+      "base": {
+        "id": 13,
+        "name": "Fightback",
+        "owner": "Garurumon"
+      },
+      "rosterBases": [
+        {
+          "id": 64,
+          "name": "Penguinmon"
+        },
+        {
+          "id": 57,
+          "name": "Sorcerimon"
+        },
+        {
+          "id": 41,
+          "name": "Panjyamon"
+        }
+      ],
+      "missingUltimate": true,
+      "replace": {
+        "Penguinmon": "Lunamon",
+        "Garurumon": "Lekismon",
+        "Zudomon": "Crescemon"
+      },
+      "exchanges": [
+        {
+          "from": "Penguinmon",
+          "fromId": 64,
+          "to": "Lunamon",
+          "toId": 312,
+          "count": 3,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Garurumon",
+          "fromId": 46,
+          "to": "Lekismon",
+          "toId": 315,
+          "count": 4,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        },
+        {
+          "from": "Zudomon",
+          "fromId": 40,
+          "to": "Crescemon",
+          "toId": 318,
+          "count": 2,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 13,
+          "name": "Fightback",
+          "owner": "Garurumon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 47,
+          "name": "Mega Flood",
+          "owner": "MegaSeadramon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 116,
+          "name": "Patriot",
+          "owner": "BK MetalGarurumon",
+          "rookieCopies": 0,
+          "championCopies": 3,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 138,
+          "name": "Fightback",
+          "owner": "Garurumon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 41,
+          "name": "Anti-Fire",
+          "owner": "Ikkakumon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 43,
+          "name": "Howl to the Moon",
+          "owner": "WereGarurumon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 11,
+          "name": "Hearty Meal",
+          "owner": "Frigimon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 19,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 90,
+          "name": "Armed",
+          "owner": "Zudomon",
+          "rookieCopies": 0,
+          "championCopies": 2,
+          "ultimateCopies": 0,
+          "lineCopies": 2,
+          "specialtyCopies": 19,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 134,
+          "name": "Armed",
+          "owner": "Zudomon",
+          "rookieCopies": 0,
+          "championCopies": 2,
+          "ultimateCopies": 0,
+          "lineCopies": 2,
+          "specialtyCopies": 19,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 89,
+          "name": "Bonding",
+          "owner": "Matt",
+          "rookieCopies": 2,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 2,
+          "specialtyCopies": 13,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 31,
+          "name": "Magic Strike",
+          "owner": "Wizardmon",
+          "rookieCopies": 0,
+          "championCopies": 2,
+          "ultimateCopies": 0,
+          "lineCopies": 2,
+          "specialtyCopies": 6,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 113,
+          "name": "Blue Star Red Moon",
+          "owner": "Omnimon",
+          "rookieCopies": 1,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 1,
+          "specialtyCopies": 11,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 3,
+          "name": "New Power",
+          "owner": "Babamon",
+          "rookieCopies": 0,
+          "championCopies": 1,
+          "ultimateCopies": 0,
+          "lineCopies": 1,
+          "specialtyCopies": 6,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 91,
+          "name": "First Aid",
+          "owner": "Joe",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 27,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 12,
+          "name": "Guarding Sea",
+          "owner": "Whamon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 88,
+          "name": "Shoot Everything!",
+          "owner": "MetalGarurumon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 98,
+          "name": "Rough Sea King",
+          "owner": "MetalSeadramon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 136,
+          "name": "Shooter",
+          "owner": "MetalGarurumon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 112,
+          "name": "Permafrost",
+          "owner": "Vikemon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 13,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 87,
+          "name": "Yellow Submarine",
+          "owner": "Submarimon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 11,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 75,
+          "name": "Swirling Light",
+          "owner": "Tylomon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 10,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 22,
+          "name": "Bad Luck Wind",
+          "owner": "Quetzalmon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 9,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 102,
+          "name": "4 Strong Monsters",
+          "owner": "Piedmon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 6,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 110,
+          "name": "Invincible Emperor",
+          "owner": "Imperialdramon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 6,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 141,
+          "name": "Pick Up",
+          "owner": "Betamon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 2,
+          "viable": false,
+          "opponentEligible": true,
+          "skipReason": "missing Rookie or Champion level"
+        }
+      ],
+      "reason": "Ultimate roster donor appears in no original deck; rank same-Specialty Ultimate alternatives. Rank 3 exact R/C copies, 22 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Crescemon",
+      "ownerCard": 318
+    },
+    {
+      "ticket": "TS-303",
+      "ultimate": "Dragomon",
+      "spec": "Ice",
+      "name": "Deep Sea Revived",
+      "id": 165,
+      "base": {
+        "id": 91,
+        "name": "First Aid",
+        "owner": "Joe"
+      },
+      "rosterBases": [
+        {
+          "id": 63,
+          "name": "Betamon"
+        },
+        {
+          "id": 51,
+          "name": "Gesomon"
+        },
+        {
+          "id": 40,
+          "name": "Zudomon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Betamon": "Syakomon",
+        "Ikkakumon": "Octomon",
+        "Zudomon": "Dragomon"
+      },
+      "exchanges": [
+        {
+          "from": "Betamon",
+          "fromId": 63,
+          "to": "Syakomon",
+          "toId": 313,
+          "count": 4,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Ikkakumon",
+          "fromId": 47,
+          "to": "Octomon",
+          "toId": 316,
+          "count": 3,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        },
+        {
+          "from": "Zudomon",
+          "fromId": 40,
+          "to": "Dragomon",
+          "toId": 319,
+          "count": 2,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 91,
+          "name": "First Aid",
+          "owner": "Joe",
+          "rookieCopies": 4,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 4,
+          "specialtyCopies": 27,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 12,
+          "name": "Guarding Sea",
+          "owner": "Whamon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 3,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 13,
+          "name": "Fightback",
+          "owner": "Garurumon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 0,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 138,
+          "name": "Fightback",
+          "owner": "Garurumon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 0,
+          "specialtyCopies": 22,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 41,
+          "name": "Anti-Fire",
+          "owner": "Ikkakumon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 0,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 90,
+          "name": "Armed",
+          "owner": "Zudomon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 4,
+          "lineCopies": 0,
+          "specialtyCopies": 19,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 134,
+          "name": "Armed",
+          "owner": "Zudomon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 4,
+          "lineCopies": 0,
+          "specialtyCopies": 19,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 3,
+          "name": "New Power",
+          "owner": "Babamon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 0,
+          "specialtyCopies": 6,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 4 exact R/C copies, 27 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Dragomon",
+      "ownerCard": 319
+    },
+    {
+      "ticket": "TS-304",
+      "ultimate": "Taomon",
+      "spec": "Nature",
+      "name": "Divine Fox Again",
+      "id": 166,
+      "base": {
+        "id": 74,
+        "name": "Divine Monster",
+        "owner": "Nefertimon"
+      },
+      "rosterBases": [
+        {
+          "id": 184,
+          "name": "Gatomon"
+        },
+        {
+          "id": 88,
+          "name": "Unimon"
+        },
+        {
+          "id": 77,
+          "name": "Angewomon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Gatomon": "Renamon",
+        "Unimon": "Kyubimon",
+        "Angewomon": "Taomon"
+      },
+      "exchanges": [
+        {
+          "from": "Gatomon",
+          "fromId": 184,
+          "to": "Renamon",
+          "toId": 320,
+          "count": 1,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Unimon",
+          "fromId": 88,
+          "to": "Kyubimon",
+          "toId": 323,
+          "count": 3,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Angewomon",
+          "fromId": 77,
+          "to": "Taomon",
+          "toId": 326,
+          "count": 2,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 74,
+          "name": "Divine Monster",
+          "owner": "Nefertimon",
+          "rookieCopies": 1,
+          "championCopies": 3,
+          "ultimateCopies": 2,
+          "lineCopies": 4,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 95,
+          "name": "Shining Goddess",
+          "owner": "Angewomon",
+          "rookieCopies": 1,
+          "championCopies": 2,
+          "ultimateCopies": 4,
+          "lineCopies": 3,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 26,
+          "name": "Evil Slayer",
+          "owner": "Angemon",
+          "rookieCopies": 0,
+          "championCopies": 2,
+          "ultimateCopies": 2,
+          "lineCopies": 2,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 30,
+          "name": "Wings of Hope",
+          "owner": "T.K.",
+          "rookieCopies": 0,
+          "championCopies": 2,
+          "ultimateCopies": 1,
+          "lineCopies": 2,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 34,
+          "name": "Ladies' Night",
+          "owner": "Kari",
+          "rookieCopies": 1,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 1,
+          "specialtyCopies": 19,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 4 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Taomon",
+      "ownerCard": 326
+    },
+    {
+      "ticket": "TS-304",
+      "ultimate": "Rapidmon",
+      "spec": "Nature",
+      "name": "Rapid Hope Again",
+      "id": 167,
+      "base": {
+        "id": 73,
+        "name": "Call of Destiny",
+        "owner": "Gatomon"
+      },
+      "rosterBases": [
+        {
+          "id": 183,
+          "name": "Patamon"
+        },
+        {
+          "id": 85,
+          "name": "Leomon"
+        },
+        {
+          "id": 75,
+          "name": "MagnaAngemon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Salamon": "Terriermon",
+        "Leomon": "Gargomon",
+        "MagnaAngemon": "Rapidmon"
+      },
+      "exchanges": [
+        {
+          "from": "Salamon",
+          "fromId": 99,
+          "to": "Terriermon",
+          "toId": 321,
+          "count": 3,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        },
+        {
+          "from": "Leomon",
+          "fromId": 85,
+          "to": "Gargomon",
+          "toId": 324,
+          "count": 3,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "MagnaAngemon",
+          "fromId": 75,
+          "to": "Rapidmon",
+          "toId": 327,
+          "count": 2,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 73,
+          "name": "Call of Destiny",
+          "owner": "Gatomon",
+          "rookieCopies": 0,
+          "championCopies": 3,
+          "ultimateCopies": 2,
+          "lineCopies": 3,
+          "specialtyCopies": 17,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 72,
+          "name": "Great Hope",
+          "owner": "Pegasusmon",
+          "rookieCopies": 1,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 1,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 94,
+          "name": "Divine Sword",
+          "owner": "MagnaAngemon",
+          "rookieCopies": 1,
+          "championCopies": 0,
+          "ultimateCopies": 3,
+          "lineCopies": 1,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 106,
+          "name": "Heaven's Gate",
+          "owner": "Seraphimon",
+          "rookieCopies": 1,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 1,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 30,
+          "name": "Wings of Hope",
+          "owner": "T.K.",
+          "rookieCopies": 1,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 1,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 71,
+          "name": "Twin Meteor",
+          "owner": "Baronmon",
+          "rookieCopies": 1,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 1,
+          "specialtyCopies": 11,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 26,
+          "name": "Evil Slayer",
+          "owner": "Angemon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 0,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 89,
+          "name": "Bonding",
+          "owner": "Matt",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 0,
+          "specialtyCopies": 8,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 3 exact R/C copies, 17 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Rapidmon",
+      "ownerCard": 327
+    },
+    {
+      "ticket": "TS-304",
+      "ultimate": "Lilamon",
+      "spec": "Nature",
+      "name": "Flower Bloom Again",
+      "id": 168,
+      "base": {
+        "id": 85,
+        "name": "Flower Fairies",
+        "owner": "Lillymon"
+      },
+      "rosterBases": [
+        {
+          "id": 98,
+          "name": "Palmon"
+        },
+        {
+          "id": 84,
+          "name": "Togemon"
+        },
+        {
+          "id": 78,
+          "name": "Lillymon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Palmon": "Lalamon",
+        "Togemon": "Sunflowmon",
+        "Lillymon": "Lilamon"
+      },
+      "exchanges": [
+        {
+          "from": "Palmon",
+          "fromId": 98,
+          "to": "Lalamon",
+          "toId": 322,
+          "count": 4,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Togemon",
+          "fromId": 84,
+          "to": "Sunflowmon",
+          "toId": 325,
+          "count": 4,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Lillymon",
+          "fromId": 78,
+          "to": "Lilamon",
+          "toId": 328,
+          "count": 4,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 85,
+          "name": "Flower Fairies",
+          "owner": "Lillymon",
+          "rookieCopies": 4,
+          "championCopies": 4,
+          "ultimateCopies": 4,
+          "lineCopies": 8,
+          "specialtyCopies": 30,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 132,
+          "name": "Flower Fairies",
+          "owner": "Lillymon",
+          "rookieCopies": 4,
+          "championCopies": 4,
+          "ultimateCopies": 4,
+          "lineCopies": 8,
+          "specialtyCopies": 30,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 39,
+          "name": "Spiky",
+          "owner": "Togemon",
+          "rookieCopies": 4,
+          "championCopies": 4,
+          "ultimateCopies": 2,
+          "lineCopies": 8,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 34,
+          "name": "Ladies' Night",
+          "owner": "Kari",
+          "rookieCopies": 4,
+          "championCopies": 3,
+          "ultimateCopies": 1,
+          "lineCopies": 7,
+          "specialtyCopies": 19,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 86,
+          "name": "Princess",
+          "owner": "Mimi",
+          "rookieCopies": 4,
+          "championCopies": 3,
+          "ultimateCopies": 4,
+          "lineCopies": 7,
+          "specialtyCopies": 11,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 7,
+          "name": "Quick Digivolve",
+          "owner": "Vegiemon",
+          "rookieCopies": 4,
+          "championCopies": 2,
+          "ultimateCopies": 2,
+          "lineCopies": 6,
+          "specialtyCopies": 30,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 3,
+          "name": "New Power",
+          "owner": "Babamon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 0,
+          "specialtyCopies": 6,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 8 exact R/C copies, 30 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Lilamon",
+      "ownerCard": 328
+    },
+    {
+      "ticket": "TS-305",
+      "ultimate": "MetalTyrannomon",
+      "spec": "Darkness",
+      "name": "Dark Steel Again",
+      "id": 169,
+      "base": {
+        "id": 6,
+        "name": "Go Go Dinosaur",
+        "owner": "Veemon"
+      },
+      "rosterBases": [
+        {
+          "id": 135,
+          "name": "Tsukaimon"
+        },
+        {
+          "id": 123,
+          "name": "Bakemon"
+        },
+        {
+          "id": 8,
+          "name": "MasterTyrannomon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Agumon": "Keramon",
+        "Greymon": "Kurisarimon",
+        "MasterTyrannomon": "MetalTyrannomon"
+      },
+      "exchanges": [
+        {
+          "from": "Agumon",
+          "fromId": 27,
+          "to": "Keramon",
+          "toId": 329,
+          "count": 4,
+          "reason": "roster and target-Specialty donors absent; dominant-Specialty same-level fallback (Fire)"
+        },
+        {
+          "from": "Greymon",
+          "fromId": 14,
+          "to": "Kurisarimon",
+          "toId": 332,
+          "count": 3,
+          "reason": "roster and target-Specialty donors absent; dominant-Specialty same-level fallback (Fire)"
+        },
+        {
+          "from": "MasterTyrannomon",
+          "fromId": 8,
+          "to": "MetalTyrannomon",
+          "toId": 335,
+          "count": 1,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 6,
+          "name": "Go Go Dinosaur",
+          "owner": "Veemon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 0,
+          "specialtyCopies": 0,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 25,
+          "name": "Paleo-Energy",
+          "owner": "Tyrannomon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 3,
+          "lineCopies": 0,
+          "specialtyCopies": 0,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 0 exact R/C copies, 0 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "MetalTyrannomon",
+      "ownerCard": 335
+    },
+    {
+      "ticket": "TS-305",
+      "ultimate": "Cyberdramon",
+      "spec": "Darkness",
+      "name": "Machine Fang Again",
+      "id": 170,
+      "base": {
+        "id": 100,
+        "name": "Machine Empire",
+        "owner": "Machinedramon"
+      },
+      "rosterBases": [
+        {
+          "id": 175,
+          "name": "Veemon"
+        },
+        {
+          "id": 130,
+          "name": "Darkrizamon"
+        },
+        {
+          "id": 116,
+          "name": "Andromon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Kokuwamon": "Monodramon",
+        "Guardromon": "Strikedramon",
+        "Andromon": "Cyberdramon"
+      },
+      "exchanges": [
+        {
+          "from": "Kokuwamon",
+          "fromId": 134,
+          "to": "Monodramon",
+          "toId": 330,
+          "count": 4,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        },
+        {
+          "from": "Guardromon",
+          "fromId": 124,
+          "to": "Strikedramon",
+          "toId": 333,
+          "count": 4,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        },
+        {
+          "from": "Andromon",
+          "fromId": 116,
+          "to": "Cyberdramon",
+          "toId": 336,
+          "count": 1,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 100,
+          "name": "Machine Empire",
+          "owner": "Machinedramon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 0,
+          "specialtyCopies": 13,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 0 exact R/C copies, 13 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Cyberdramon",
+      "ownerCard": 336
+    },
+    {
+      "ticket": "TS-305",
+      "ultimate": "Matadormon",
+      "spec": "Darkness",
+      "name": "Night Dance Again",
+      "id": 171,
+      "base": {
+        "id": 52,
+        "name": "Dark Revival",
+        "owner": "Myotismon"
+      },
+      "rosterBases": [
+        {
+          "id": 132,
+          "name": "DemiDevimon"
+        },
+        {
+          "id": 126,
+          "name": "Gururumon"
+        },
+        {
+          "id": 111,
+          "name": "Myotismon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "DemiDevimon": "Dracmon",
+        "Devidramon": "Sangloupmon",
+        "Myotismon": "Matadormon"
+      },
+      "exchanges": [
+        {
+          "from": "DemiDevimon",
+          "fromId": 132,
+          "to": "Dracmon",
+          "toId": 331,
+          "count": 4,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "Devidramon",
+          "fromId": 119,
+          "to": "Sangloupmon",
+          "toId": 334,
+          "count": 3,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        },
+        {
+          "from": "Myotismon",
+          "fromId": 111,
+          "to": "Matadormon",
+          "toId": 337,
+          "count": 4,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 36,
+          "name": "Dark Digivolution",
+          "owner": "DemiDevimon",
+          "rookieCopies": 4,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 4,
+          "specialtyCopies": 26,
+          "viable": false,
+          "opponentEligible": true,
+          "skipReason": "missing Rookie or Champion level"
+        },
+        {
+          "id": 52,
+          "name": "Dark Revival",
+          "owner": "Myotismon",
+          "rookieCopies": 4,
+          "championCopies": 0,
+          "ultimateCopies": 4,
+          "lineCopies": 4,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 69,
+          "name": "Dark Prince",
+          "owner": "Myotismon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 4,
+          "lineCopies": 3,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 21,
+          "name": "Evil Fire Revived",
+          "owner": "Shadramon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 0,
+          "specialtyCopies": 14,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Skip higher candidate lacking a Rookie or Champion level. Rank 4 exact R/C copies, 21 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Matadormon",
+      "ownerCard": 337
+    },
+    {
+      "ticket": "TS-306",
+      "ultimate": "Wingdramon",
+      "spec": "Rare",
+      "name": "Sky Dragon Again",
+      "id": 172,
+      "base": {
+        "id": 38,
+        "name": "Mega Giga",
+        "owner": "Gigadramon"
+      },
+      "rosterBases": [
+        {
+          "id": 168,
+          "name": "ClearAgumon"
+        },
+        {
+          "id": 159,
+          "name": "Rockmon"
+        },
+        {
+          "id": 5,
+          "name": "Gigadramon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Agumon": "Dracomon",
+        "Flarerizamon": "Coredramon (Blue)",
+        "Gigadramon": "Wingdramon"
+      },
+      "exchanges": [
+        {
+          "from": "Agumon",
+          "fromId": 27,
+          "to": "Dracomon",
+          "toId": 338,
+          "count": 3,
+          "reason": "roster and target-Specialty donors absent; dominant-Specialty same-level fallback (Fire)"
+        },
+        {
+          "from": "Flarerizamon",
+          "fromId": 26,
+          "to": "Coredramon (Blue)",
+          "toId": 341,
+          "count": 3,
+          "reason": "roster and target-Specialty donors absent; dominant-Specialty same-level fallback (Fire)"
+        },
+        {
+          "from": "Gigadramon",
+          "fromId": 5,
+          "to": "Wingdramon",
+          "toId": 344,
+          "count": 2,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 38,
+          "name": "Mega Giga",
+          "owner": "Gigadramon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 0,
+          "specialtyCopies": 0,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 115,
+          "name": "Black Fire Heart",
+          "owner": "BK WarGreymon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 1,
+          "lineCopies": 0,
+          "specialtyCopies": 0,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 0 exact R/C copies, 0 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Wingdramon",
+      "ownerCard": 344
+    },
+    {
+      "ticket": "TS-306",
+      "ultimate": "GrapLeomon",
+      "spec": "Rare",
+      "name": "Beast Fist Again",
+      "id": 173,
+      "base": {
+        "id": 51,
+        "name": "Steel Gate",
+        "owner": "MetalEtemon"
+      },
+      "rosterBases": [
+        {
+          "id": 170,
+          "name": "Psychemon"
+        },
+        {
+          "id": 151,
+          "name": "Ankylomon"
+        },
+        {
+          "id": 150,
+          "name": "Etemon"
+        }
+      ],
+      "missingUltimate": false,
+      "replace": {
+        "Psychemon": "Bearmon",
+        "ShimaUnimon": "Grizzlymon",
+        "Etemon": "GrapLeomon"
+      },
+      "exchanges": [
+        {
+          "from": "Psychemon",
+          "fromId": 170,
+          "to": "Bearmon",
+          "toId": 339,
+          "count": 3,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "ShimaUnimon",
+          "fromId": 162,
+          "to": "Grizzlymon",
+          "toId": 342,
+          "count": 2,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        },
+        {
+          "from": "Etemon",
+          "fromId": 150,
+          "to": "GrapLeomon",
+          "toId": 345,
+          "count": 2,
+          "reason": "exact roster donor"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 51,
+          "name": "Steel Gate",
+          "owner": "MetalEtemon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 2,
+          "lineCopies": 3,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        }
+      ],
+      "reason": "Rank 3 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "GrapLeomon",
+      "ownerCard": 345
+    },
+    {
+      "ticket": "TS-306",
+      "ultimate": "Chirinmon",
+      "spec": "Rare",
+      "name": "Holy Beast Revived",
+      "id": 174,
+      "base": {
+        "id": 51,
+        "name": "Steel Gate",
+        "owner": "MetalEtemon"
+      },
+      "rosterBases": [
+        {
+          "id": 169,
+          "name": "Vi-Elecmon"
+        },
+        {
+          "id": 162,
+          "name": "ShimaUnimon"
+        },
+        {
+          "id": 37,
+          "name": "MetalGarurumon"
+        }
+      ],
+      "missingUltimate": true,
+      "replace": {
+        "Vi-Elecmon": "Kudamon",
+        "ShimaUnimon": "Reppamon",
+        "MetalEtemon": "Chirinmon"
+      },
+      "exchanges": [
+        {
+          "from": "Vi-Elecmon",
+          "fromId": 169,
+          "to": "Kudamon",
+          "toId": 340,
+          "count": 3,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "ShimaUnimon",
+          "fromId": 162,
+          "to": "Reppamon",
+          "toId": 343,
+          "count": 2,
+          "reason": "exact roster donor"
+        },
+        {
+          "from": "MetalEtemon",
+          "fromId": 141,
+          "to": "Chirinmon",
+          "toId": 346,
+          "count": 3,
+          "reason": "roster donor absent; target-Specialty same-level fallback"
+        }
+      ],
+      "candidates": [
+        {
+          "id": 51,
+          "name": "Steel Gate",
+          "owner": "MetalEtemon",
+          "rookieCopies": 3,
+          "championCopies": 2,
+          "ultimateCopies": 0,
+          "lineCopies": 5,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 65,
+          "name": "Star Force",
+          "owner": "SuperStarmon",
+          "rookieCopies": 4,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 4,
+          "specialtyCopies": 24,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 105,
+          "name": "Ancient Legend",
+          "owner": "Shakkoumon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 119,
+          "name": "Who Are You?",
+          "owner": "Nanimon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 128,
+          "name": "Who Are You?",
+          "owner": "Nanimon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 129,
+          "name": "Who Are You?",
+          "owner": "Nanimon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 130,
+          "name": "Who Are You?",
+          "owner": "Nanimon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 131,
+          "name": "Who Are You?",
+          "owner": "Nanimon",
+          "rookieCopies": 3,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 3,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 15,
+          "name": "Toy Party",
+          "owner": "Hagurumon",
+          "rookieCopies": 2,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 2,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 61,
+          "name": "Rock Head",
+          "owner": "Ankylomon",
+          "rookieCopies": 2,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 2,
+          "specialtyCopies": 21,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 63,
+          "name": "Blitzkrieg",
+          "owner": "Thundermon",
+          "rookieCopies": 2,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 2,
+          "specialtyCopies": 19,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 62,
+          "name": "Mountain CrusherDX",
+          "owner": "Digmon",
+          "rookieCopies": 2,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 2,
+          "specialtyCopies": 16,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 99,
+          "name": "Toy Castle",
+          "owner": "Puppetmon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 23,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 29,
+          "name": "Ready To Go",
+          "owner": "Cody",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 20,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 64,
+          "name": "Bean Stalk",
+          "owner": "MetalMamemon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 18,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 102,
+          "name": "4 Strong Monsters",
+          "owner": "Piedmon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 10,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 87,
+          "name": "Yellow Submarine",
+          "owner": "Submarimon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 8,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 112,
+          "name": "Permafrost",
+          "owner": "Vikemon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 7,
+          "viable": true,
+          "opponentEligible": true
+        },
+        {
+          "id": 141,
+          "name": "Pick Up",
+          "owner": "Betamon",
+          "rookieCopies": 0,
+          "championCopies": 0,
+          "ultimateCopies": 0,
+          "lineCopies": 0,
+          "specialtyCopies": 2,
+          "viable": false,
+          "opponentEligible": true,
+          "skipReason": "missing Rookie or Champion level"
+        }
+      ],
+      "reason": "Ultimate roster donor appears in no original deck; rank same-Specialty Ultimate alternatives. Rank 5 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Chirinmon",
+      "ownerCard": 346
+    }
+  ],
+  "status": "Historical donor-selection audit; current compositions superseded by owner theme redesign.",
+  "supersededBy": "tools/time_stranger_theme_decks.json"
+}

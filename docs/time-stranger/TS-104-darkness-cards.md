@@ -13,7 +13,7 @@ Add the nine Darkness cards of [roster.md](roster.md) as custom cards with place
 
 | Id | Lv | Card | Base | Model | Battle block |
 |---|---|---|---|---|---|
-| 329 | R | Agumon (Black) | Agumon (27) ✱ | 428 | offset 20000 |
+| 329 | R | Keramon | Tsukaimon (135) | 428 | none |
 | 330 | R | Monodramon | Veemon (175) ✱ | 429 | offset 30000 |
 | 331 | R | Dracmon | DemiDevimon (132) | 430 | none |
 | 332 | C | Kurisarimon | Bakemon (123) | 431 | none |
@@ -40,19 +40,19 @@ Add the nine Darkness cards of [roster.md](roster.md) as custom cards with place
 
 ## Acceptance criteria
 
-- [ ] `custom.load()` passes: ids 329-337, models 428-436 in sequence.
-- [ ] Every card's numbers, ✕ effect and support equal its base's (selftest).
-- [ ] `git status` shows only these cards' files, `cards.js`, `scripts.json.gz` (if a ✱ base), tests, README and docs.
-- [ ] `node tools/selftest.js`, `decktest.js`, `sim.js`, `fxtest.js`, `battletest.js` and `python tools/check_paths.py` pass.
-- [ ] Seen in the browser: deck editor (both card art styles), on the board, each attack in `battle-preview.html` next to its base; the report says what was seen.
-- [ ] README "Time Stranger cards" rows and "Not from the game code" entry.
-- [ ] One commit, `TS-104: …`, pushed.
+- [x] `custom.load()` passes: ids 329-337, models 428-436 in sequence.
+- [x] Initial donor-stat implementation passed (historical); superseded by TS-106 original stat/effect design.
+- [x] `git status` shows only these cards' files, `cards.js`, `scripts.json.gz` (if a ✱ base), tests, README and docs.
+- [x] `node tools/selftest.js`, `decktest.js`, `sim.js`, `fxtest.js`, `battletest.js` and `python tools/check_paths.py` pass.
+- [x] Seen in the browser: deck editor (both card art styles), on the board, each attack in `battle-preview.html` next to its base; the report says what was seen.
+- [x] README "Time Stranger cards" rows and "Not from the game code" entry.
+- [x] One commit, `TS-104: …`, pushed.
 
 ## Out of scope
 
 - Time Stranger models (Phase 2).
 - Decks (Phase 3).
-- Tuning numbers.
+- Further tuning is tracked by [TS-106](TS-106-original-stats-and-effects.md).
 
 ## Questions for the owner
 
@@ -61,3 +61,44 @@ Add the nine Darkness cards of [roster.md](roster.md) as custom cards with place
 ## Log
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
+
+### 2026-10-13 — Phase 1 complete
+
+- Added nine cards with sequential ids/models, exact base numbers/support/cross effects,
+  three sourced labels and recoloured disc placeholder palettes. See attack-sources.md.
+- Owner update: both art modes use the same prepared native TS-002 picture, with identical
+  160px thumbnails. No separate Legacy recolour or ComfyUI restart was needed.
+- All six required checks passed: selftest (30), decktest (11), 200 simulations without
+  timeouts, all 31 effect scripts, battletest (every card's three attacks × three styles),
+  and check_paths after staging new generated files.
+- Browser: all nine found in the actual deck editor in both art styles; adding a card
+  shows the three labels/powers and support. Each entered/rendered on the actual board
+  using manually prepared hands. All 27 new attacks and 27 base attacks completed in
+  the actual battle-preview page, Stage 1, Original PS1; frame-120 pairs were inspected.
+  Enhanced/Ultra were exercised by battletest; those styles were not visually compared
+  for every card. Local screenshots/report: extracted/newart/ts-phase1-browser/g3-*.
+- Integrated into the time-stranger feature branch as this ticket's commit; no main merge.
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
+Initially its numbers/effects were copied from Tsukaimon; TS-106 supersedes that
+with original gameplay (card-design.md). Local char_KERAMON → chr626 is
+present in both model tables; Phase 2 converts all nine Darkness models. The old
+black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
+restoration and is shared by both art modes. Offset 20000 is retired; the four other
+published offsets remain stable. [Full evidence and current roster](roster.md).
+
+- Replacement validation: all six required checks passed; all 228 available Digimon
+  attacks ran in three styles. Keramon was seen in both editor art styles, on the actual
+  board with a manually prepared hand, and its three strikes next to Tsukaimon in
+  battle-preview (six completed runs). The 43 other edited caches still pass their
+  recorded hashes. Skill validation passes. Local proof: keramon-* in the browser folder.
+
+### 2026-10-14 — owner gameplay update
+
+Original stats, cross effects and support effects are now designed for this ticket's
+nine Digimon under TS-106. The unchanged-base-stat notes above describe the initial
+implementation. [Current design and lore](card-design.md) supersedes them; visual assets
+and motion/script donors still follow this ticket. Acceptance and validation for the
+redesign are tracked separately in TS-106 and Trello.

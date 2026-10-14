@@ -1,0 +1,490 @@
+[
+  {
+    "id": 302,
+    "name": "Guilmon",
+    "card": "BT2-009",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/302.png"
+  },
+  {
+    "id": 303,
+    "name": "Coronamon",
+    "card": "EX5-007",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/303.png"
+  },
+  {
+    "id": 304,
+    "name": "Huckmon",
+    "card": "BT7-009",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/304.png"
+  },
+  {
+    "id": 305,
+    "name": "Growlmon",
+    "card": "BT2-013",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/305.png"
+  },
+  {
+    "id": 306,
+    "name": "Firamon",
+    "card": "EX5-008",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/306.png"
+  },
+  {
+    "id": 307,
+    "name": "BaoHuckmon",
+    "card": "BT6-011",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/307.png"
+  },
+  {
+    "id": 308,
+    "name": "WarGrowlmon",
+    "card": "EX2-010",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/308.png"
+  },
+  {
+    "id": 309,
+    "name": "Flaremon",
+    "card": "EX5-012",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/309.png"
+  },
+  {
+    "id": 310,
+    "name": "SaviorHuckmon",
+    "card": "ST12-08",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/310.png"
+  },
+  {
+    "id": 311,
+    "name": "Gaomon",
+    "card": "BT4-021",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/311.png"
+  },
+  {
+    "id": 312,
+    "name": "Lunamon",
+    "card": "EX5-016",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/312.png"
+  },
+  {
+    "id": 313,
+    "name": "Syakomon",
+    "card": "EX5-056",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/313.png"
+  },
+  {
+    "id": 314,
+    "name": "Gaogamon",
+    "card": "EX4-017",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/314.png"
+  },
+  {
+    "id": 315,
+    "name": "Lekismon",
+    "card": "EX5-017",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/315.png"
+  },
+  {
+    "id": 316,
+    "name": "Octomon",
+    "card": "BT6-023",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/316.png"
+  },
+  {
+    "id": 317,
+    "name": "MachGaogamon",
+    "card": "EX4-019",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/317.png"
+  },
+  {
+    "id": 318,
+    "name": "Crescemon",
+    "ref": "crescemon"
+  },
+  {
+    "id": 319,
+    "name": "Dragomon",
+    "card": "BT6-026",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/319.png"
+  },
+  {
+    "id": 320,
+    "name": "Renamon",
+    "card": "BT10-032",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/320.png"
+  },
+  {
+    "id": 321,
+    "name": "Terriermon",
+    "card": "EX2-025",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/321.png"
+  },
+  {
+    "id": 322,
+    "name": "Lalamon",
+    "card": "BT4-052",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/322.png"
+  },
+  {
+    "id": 323,
+    "name": "Kyubimon",
+    "card": "BT5-038",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/323.png"
+  },
+  {
+    "id": 324,
+    "name": "Gargomon",
+    "card": "BT3-048",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/324.png"
+  },
+  {
+    "id": 325,
+    "name": "Sunflowmon",
+    "card": "BT4-054",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/325.png"
+  },
+  {
+    "id": 326,
+    "name": "Taomon",
+    "card": "BT5-041",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/326.png"
+  },
+  {
+    "id": 327,
+    "name": "Rapidmon",
+    "card": "BT3-052",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/327.png"
+  },
+  {
+    "id": 328,
+    "name": "Lilamon",
+    "card": "BT4-059",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/328.png"
+  },
+  {
+    "id": 329,
+    "name": "Keramon",
+    "card": "EX1-044",
+    "crop": [
+      80,
+      105,
+      320
+    ]
+  },
+  {
+    "id": 330,
+    "name": "Monodramon",
+    "card": "BT1-009",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/330.png"
+  },
+  {
+    "id": 331,
+    "name": "Dracmon",
+    "card": "ST6-04",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/331.png"
+  },
+  {
+    "id": 332,
+    "name": "Kurisarimon",
+    "card": "BT2-059",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/332.png"
+  },
+  {
+    "id": 333,
+    "name": "Strikedramon",
+    "card": "EX2-032",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/333.png"
+  },
+  {
+    "id": 334,
+    "name": "Sangloupmon",
+    "card": "BT9-073",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/334.png"
+  },
+  {
+    "id": 335,
+    "name": "MetalTyrannomon",
+    "card": "BT1-024",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/335.png"
+  },
+  {
+    "id": 336,
+    "name": "Cyberdramon",
+    "card": "EX3-050",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/336.png"
+  },
+  {
+    "id": 337,
+    "name": "Matadormon",
+    "card": "BT9-077",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/337.png"
+  },
+  {
+    "id": 338,
+    "name": "Dracomon",
+    "card": "ST1-04",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/338.png"
+  },
+  {
+    "id": 339,
+    "name": "Bearmon",
+    "card": "BT9-057",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/339.png"
+  },
+  {
+    "id": 340,
+    "name": "Kudamon",
+    "card": "P-043",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/340.png"
+  },
+  {
+    "id": 341,
+    "name": "Coredramon (Blue)",
+    "card": "EX3-018",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/341.png"
+  },
+  {
+    "id": 342,
+    "name": "Grizzlymon",
+    "card": "BT9-060",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/342.png"
+  },
+  {
+    "id": 343,
+    "name": "Reppamon",
+    "card": "BT1-051",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/343.png"
+  },
+  {
+    "id": 344,
+    "name": "Wingdramon",
+    "card": "ST8-07",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/344.png"
+  },
+  {
+    "id": 345,
+    "name": "GrapLeomon",
+    "card": "BT4-057",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/345.png"
+  },
+  {
+    "id": 346,
+    "name": "Chirinmon",
+    "card": "EX5-031",
+    "crop": [
+      0,
+      24,
+      430
+    ],
+    "edited": "edited/ts002/346.png"
+  }
+]

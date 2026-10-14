@@ -159,7 +159,7 @@ dropped; it says what it understood before anything is kept, names a card it doe
 with the nearest name, and leaves out what the rules do not allow. A deck that is not
 complete yet is kept, opens in the editor and cannot start a battle.
 
-`node tools/decktest.js` checks the rules against all 159 decks of the game and the custom one, the search and
+`node tools/decktest.js` checks the rules against all 159 decks of the game and the custom decks, the search and
 filters, and that every deck comes back the same from both exported forms.
 
 ## Rules, as traced in the game code
@@ -260,11 +260,84 @@ the game's from 400, and their battle scripts and effect files carry the number 
 script they were made from plus 10000 for the first custom card, 20000 for the second.
 The deck editor offers them like any other card; no deck of the game holds one.
 
-A **custom deck** is a deck of the game with some of its cards exchanged; the list names it
-with its base and the exchange. It follows the game's 159 decks and keeps its base's owner,
-rank, armor form and music. There is one: **Black Fire Again**, BK WarGreymon's second
-deck, which is his Black Fire Heart with its four WarGreymon exchanged for four
-BlackWarGreymon. Black Fire Heart itself is as the game has it.
+A **custom deck** follows the game's 159 decks and retains its base's rank, armor
+form and music. Its source entry can exchange cards from that base or provide an
+explicit 30-card named-count list. Owner and portrait can be chosen separately.
+The first is **Black Fire Again**, BK WarGreymon's Black Fire Heart with its four
+WarGreymon exchanged for BlackWarGreymon.
+
+The fifteen Time Stranger decks now use complete theme-based compositions, requested
+by the owner on 2026-10-14, instead of the initial donor swaps. Each carries **4 Rookies,
+3 Champions and 3 Ultimates from its featured group**, within **9 R / 6 C / 3 U /
+12 options**, with no more than four copies of any card. All seven Sevens cards and
+Download Digivolve are excluded from these fifteen lists. Every deck has evolution
+options; every mixed-Specialty list has Special Digivolve for actual cross-Specialty
+R→C and C→U routes. Full lists, themes and verified routes are in
+[decks.md](docs/time-stranger/decks.md), sourced from
+`tools/time_stranger_theme_decks.json`. Original disc decks and Black Fire Again retain
+their existing compositions.
+
+Each deck's displayed owner is its featured Ultimate, with that card's prepared
+portrait. The table's base identifies metadata provenance. Theme groups do not claim
+canonical evolution chains.
+
+| Ultimate | Custom deck | Base deck | Owner |
+|---|---|---|---|
+| WarGrowlmon | Crimson Fire Again | Go Go Dinosaur | WarGrowlmon |
+| Flaremon | Solar Flame Again | First Attack | Flaremon |
+| SaviorHuckmon | Brave Fire Revived | Fire Heart | SaviorHuckmon |
+| MachGaogamon | Lunar Howl Again | Shoot Everything! | MachGaogamon |
+| Crescemon | Moonlight Revived | Fightback | Crescemon |
+| Dragomon | Deep Sea Revived | First Aid | Dragomon |
+| Taomon | Divine Fox Again | Divine Monster | Taomon |
+| Rapidmon | Rapid Hope Again | Call of Destiny | Rapidmon |
+| Lilamon | Flower Bloom Again | Flower Fairies | Lilamon |
+| MetalTyrannomon | Dark Steel Again | Go Go Dinosaur | MetalTyrannomon |
+| Cyberdramon | Machine Fang Again | Machine Empire | Cyberdramon |
+| Matadormon | Night Dance Again | Dark Revival | Matadormon |
+| Wingdramon | Sky Dragon Again | Mega Giga | Wingdramon |
+| GrapLeomon | Beast Fist Again | Steel Gate | GrapLeomon |
+| Chirinmon | Holy Beast Revived | Steel Gate | Chirinmon |
+
+Taomon's current Nature/Rare list focuses on healing: nine recovery Options plus
+three Special Digivolve. Psychemon and MudFrigimon replace the milling/DP-discard
+partners, and Kyubimon/Taomon heal instead of discarding enemy DP. The shared random
+Specialty effect remains. Full current counts are in the deck list above.
+
+Crescemon's current support lowers both players' attack powers by 150 and discards
+three enemy deck cards, with no self-recycling. Its DP/+P is 40/+10. Lekismon's separate
+recycling support remains.
+
+The card supports and cross effects follow the requested themes in
+[card-design.md](docs/time-stranger/card-design.md). Ordinary own-active Specialty
+restrictions are removed from the 45 new cards. The Wingdramon group deliberately
+offers powerful cross-Specialty support when the active Digimon is not Rare.
+GrapLeomon's group rewards a selected attack whose power is zero; project effect
+variable **0x50** reads that attack after earlier supports. This is a custom interpreter
+variable, not a value recovered from the disc. Renamon and Taomon now use project
+operation **0x36** to give both active Digimon one shared random Specialty, chosen
+uniformly from all five colors, instead of forcing only the enemy to Darkness.
+The roll can keep a current color; both changes persist until evolution or replacement.
+Lilamon's project operation **0x37** gives the opponent one random Online Digimon as
+DP, alongside the existing 300 HP recovery and Eat-up HP. It samples eligible copies
+uniformly, excludes Options and respects the eight-card DP cap; an impossible transfer
+does nothing. Lilamon has 1,240 HP with Lillymon's other stats: 30 DP / +30 P and
+650 / 340 / 200 attack powers. Sunflowmon support heals 250 HP and lowers own attack
+by 100, without granting Eat-up HP; its cross effect remains unchanged.
+Other effect operations and cross types already exist. Terriermon, Gargomon and Rapidmon have zero-power
+Triangle Counter cross attacks. No visual assets or attack animations are rebuilt.
+
+`node tools/time_stranger_design_test.js` checks effect outcomes, costs and failed gates.
+`node tools/time_stranger_deck_test.js` checks compositions, ratios, bans, color identities
+and actual evolution paths. `node tools/time_stranger_deck_sim.js` exercises every deck
+against original and themed opponents. Runtime checks establish playable mechanics;
+they do not establish equal competitive strength. See the
+[theme validation report](docs/time-stranger/theme-validation.md) for results and limits.
+
+The standard `sim.js` engine soak seeds AI noise and reports `staleExplorations` if it
+tries another legal attack after 20 identical positions. Original MegaSeadramon counter
+mirrors can otherwise stagnate; `--strict-ai` retains the unassisted policy. The directed
+theme-deck suite uses the live AI policy without those interventions.
 
 | | BlackWarGreymon (301) | WarGreymon (2), which it is made from |
 |---|---|---|
@@ -289,6 +362,81 @@ BlackWarGreymon. Black Fire Heart itself is as the game has it.
 - **Pictures.** The game's two pictures of WarGreymon (`B/CARD/LC002.TIM`, member 2 of
   `B/M_CARD.ARC`) recoloured and enlarged 4x through ComfyUI like the other cards'; for
   "New card art" a square of a picture supplied by the owner (`tools/custom/`).
+
+Custom picture sources (`art.new`) accept exactly one of `file` + `crop` (a picture under `tools/`, with native pixel coordinates), `card` + `crop` (the official Digimon Card Game card number, normalized to 430×600), or `ref` (the official Digimon Reference Book slug). For example, `{"card":"BT2-009","crop":[85,90,320]}` or `{"ref":"crescemon"}`. The internet forms reuse `build_new_art.source` and cache downloads in `extracted/newart/cards` or `ref`; they go through the same ComfyUI 4× upscale and 512×512/160×160 output as file sources. Selecting a source does not itself create a custom card.
+
+### Time Stranger cards
+
+Owner update (2026-10-14, TS-106): all 45 cards have newly designed HP, DP, +P,
+three attack powers, cross and support effects. Their Specialty themes, cited official
+lore, exact values and tradeoffs are in [card-design.md](docs/time-stranger/card-design.md).
+The initial unchanged-base-stat requirement is superseded. Models are recoloured disc
+placeholders, with the base's
+shape and motions, pending Phase 2. Attack-name evidence and the chosen three-slot
+mapping are in [attack-sources.md](docs/time-stranger/attack-sources.md).
+
+Owner update (2026-10-13): use one prepared TS-002 picture for Legacy and New.
+`art.shared: true` preserves the approved native crop (430px; Crescemon and Keramon 320px), writes
+identical full-size files to `art`/`art2` and identical 160px thumbnails to `mini`/`mini2`.
+No separate Legacy recolour, enlargement or new ComfyUI generation is performed.
+Other custom cards retain their existing build path. Cached edited sources are hash
+checked before every build. Rebuild with `build_custom.py <extracted> web art <ids>`.
+
+| Id | Card | Specialty / level | Base (id) | Placeholder model | Picture | Time Stranger source |
+|---|---|---|---|---|---|---|
+| 302 | Guilmon | Fire / R | Agumon (27) | 401 | card `BT2-009`, edit 302 | [064 · Virus](https://digimon.jsuk.cloud/en/d/guilmon/) |
+| 303 | Coronamon | Fire / R | Goburimon (33) | 402 | card `EX5-007`, edit 303 | [024 · Vaccine](https://digimon.jsuk.cloud/en/d/coronamon/) |
+| 304 | Huckmon | Fire / R | Veemon (175) | 403 | card `BT7-009`, edit 304 | [052 · Data](https://digimon.jsuk.cloud/en/d/huckmon/) |
+| 305 | Growlmon | Fire / C | Greymon (14) | 404 | card `BT2-013`, edit 305 | [145 · Virus](https://digimon.jsuk.cloud/en/d/growlmon/) |
+| 306 | Firamon | Fire / C | Centarumon (19) | 405 | card `EX5-008`, edit 306 | [100 · Vaccine](https://digimon.jsuk.cloud/en/d/firamon/) |
+| 307 | BaoHuckmon | Fire / C | Flarerizamon (26) | 406 | card `BT6-011`, edit 307 | [133 · Data](https://digimon.jsuk.cloud/en/d/baohuckmon/) |
+| 308 | WarGrowlmon | Fire / U | MetalGreymon (9) | 407 | card `EX2-010`, edit 308 | [294 · Virus](https://digimon.jsuk.cloud/en/d/wargrowlmon/) |
+| 309 | Flaremon | Fire / U | Garudamon (7) | 408 | card `EX5-012`, edit 309 | [219 · Vaccine](https://digimon.jsuk.cloud/en/d/flaremon/) |
+| 310 | SaviorHuckmon | Fire / U | Paildramon (4) | 409 | card `ST12-08`, edit 310 | [240 · Data](https://digimon.jsuk.cloud/en/d/saviorhuckmon/) |
+| 311 | Gaomon | Ice / R | Gabumon (62) | 410 | card `BT4-021`, edit 311 | [041 · Data](https://digimon.jsuk.cloud/en/d/gaomon/) |
+| 312 | Lunamon | Ice / R | Penguinmon (64) | 411 | card `EX5-016`, edit 312 | [057 · Data](https://digimon.jsuk.cloud/en/d/lunamon/) |
+| 313 | Syakomon | Ice / R | Betamon (63) | 412 | card `EX5-056`, edit 313 | [067 · Virus](https://digimon.jsuk.cloud/en/d/syakomon/) |
+| 314 | Gaogamon | Ice / C | Garurumon (46) | 413 | card `EX4-017`, edit 314 | [114 · Data](https://digimon.jsuk.cloud/en/d/gaogamon/) |
+| 315 | Lekismon | Ice / C | Sorcerimon (57) | 414 | card `EX5-017`, edit 315 | [137 · Data](https://digimon.jsuk.cloud/en/d/lekismon/) |
+| 316 | Octomon | Ice / C | Gesomon (51) | 415 | card `BT6-023`, edit 316 | [142 · Virus](https://digimon.jsuk.cloud/en/d/octomon/) |
+| 317 | MachGaogamon | Ice / U | WereGarurumon (39) | 416 | card `EX4-019`, edit 317 | [258 · Data](https://digimon.jsuk.cloud/en/d/machgaogamon/) |
+| 318 | Crescemon | Ice / U | Panjyamon (41) | 417 | ref `crescemon` | [237 · Data](https://digimon.jsuk.cloud/en/d/crescemon/) |
+| 319 | Dragomon | Ice / U | Zudomon (40) | 418 | card `BT6-026`, edit 319 | [282 · Virus](https://digimon.jsuk.cloud/en/d/dragomon/) |
+| 320 | Renamon | Nature / R | Gatomon (184) | 419 | card `BT10-032`, edit 320 | [058 · Data](https://digimon.jsuk.cloud/en/d/renamon/) |
+| 321 | Terriermon | Nature / R | Patamon (183) | 420 | card `EX2-025`, edit 321 | [027 · Vaccine](https://digimon.jsuk.cloud/en/d/terriermon/) |
+| 322 | Lalamon | Nature / R | Palmon (98) | 421 | card `BT4-052`, edit 322 | [056 · Data](https://digimon.jsuk.cloud/en/d/lalamon/) |
+| 323 | Kyubimon | Nature / C | Unimon (88) | 422 | card `BT5-038`, edit 323 | [117 · Data](https://digimon.jsuk.cloud/en/d/kyubimon/) |
+| 324 | Gargomon | Nature / C | Leomon (85) | 423 | card `BT3-048`, edit 324 | [086 · Vaccine](https://digimon.jsuk.cloud/en/d/gargomon/) |
+| 325 | Sunflowmon | Nature / C | Togemon (84) | 424 | card `BT4-054`, edit 325 | [120 · Data](https://digimon.jsuk.cloud/en/d/sunflowmon/) |
+| 326 | Taomon | Nature / U | Angewomon (77) | 425 | card `BT5-041`, edit 326 | [242 · Data](https://digimon.jsuk.cloud/en/d/taomon/) |
+| 327 | Rapidmon | Nature / U | MagnaAngemon (75) | 426 | card `BT3-052`, edit 327 | [227 · Vaccine](https://digimon.jsuk.cloud/en/d/rapidmon/) |
+| 328 | Lilamon | Nature / U | Lillymon (78) | 427 | card `BT4-059`, edit 328 | [262 · Data](https://digimon.jsuk.cloud/en/d/lilamon/) |
+| 329 | Keramon | Darkness / R | Tsukaimon (135) | 428 | card `EX1-044`, crop `[80,105,320]`, unedited | [080 · Unknown](https://digimon.jsuk.cloud/en/d/keramon/) |
+| 330 | Monodramon | Darkness / R | Veemon (175) ✱ | 429 | card `BT1-009`, edit 330 | [037 · Vaccine](https://digimon.jsuk.cloud/en/d/monodramon/) |
+| 331 | Dracmon | Darkness / R | DemiDevimon (132) | 430 | card `ST6-04`, edit 331 | [070 · Virus](https://digimon.jsuk.cloud/en/d/dracmon/) |
+| 332 | Kurisarimon | Darkness / C | Bakemon (123) | 431 | card `BT2-059`, edit 332 | [178 · Unknown](https://digimon.jsuk.cloud/en/d/kurisarimon/) |
+| 333 | Strikedramon | Darkness / C | Darkrizamon (130) | 432 | card `EX2-032`, edit 333 | [093 · Vaccine](https://digimon.jsuk.cloud/en/d/strikedramon/) |
+| 334 | Sangloupmon | Darkness / C | Gururumon (126) | 433 | card `BT9-073`, edit 334 | [153 · Virus](https://digimon.jsuk.cloud/en/d/sangloupmon/) |
+| 335 | MetalTyrannomon | Darkness / U | MasterTyrannomon (8) ✱ | 434 | card `BT1-024`, edit 335 | [295 · Virus](https://digimon.jsuk.cloud/en/d/metaltyrannomon/) |
+| 336 | Cyberdramon | Darkness / U | Andromon (116) | 435 | card `EX3-050`, edit 336 | [210 · Vaccine](https://digimon.jsuk.cloud/en/d/cyberdramon/) |
+| 337 | Matadormon | Darkness / U | Myotismon (111) | 436 | card `BT9-077`, edit 337 | [290 · Virus](https://digimon.jsuk.cloud/en/d/matadormon/) |
+| 338 | Dracomon | Rare / R | ClearAgumon (168) | 437 | card `ST1-04`, edit 338 | [049 · Data](https://digimon.jsuk.cloud/en/d/dracomon/) |
+| 339 | Bearmon | Rare / R | Psychemon (170) | 438 | card `BT9-057`, edit 339 | [035 · Vaccine](https://digimon.jsuk.cloud/en/d/bearmon/) |
+| 340 | Kudamon | Rare / R | Vi-Elecmon (169) | 439 | card `P-043`, edit 340 | [022 · Vaccine](https://digimon.jsuk.cloud/en/d/kudamon/) |
+| 341 | Coredramon (Blue) | Rare / C | Rockmon (159) | 440 | card `EX3-018`, edit 341 | [091 · Vaccine](https://digimon.jsuk.cloud/en/d/coredramon-blue/) |
+| 342 | Grizzlymon | Rare / C | Ankylomon (151) | 441 | card `BT9-060`, edit 342 | [089 · Vaccine](https://digimon.jsuk.cloud/en/d/grizzlymon/) |
+| 343 | Reppamon | Rare / C | ShimaUnimon (162) | 442 | card `BT1-051`, edit 343 | [110 · Vaccine](https://digimon.jsuk.cloud/en/d/reppamon/) |
+| 344 | Wingdramon | Rare / U | Gigadramon (5) ✱ | 443 | card `ST8-07`, edit 344 | [200 · Vaccine](https://digimon.jsuk.cloud/en/d/wingdramon/) |
+| 345 | GrapLeomon | Rare / U | Etemon (150) | 444 | card `BT4-057`, edit 345 | [205 · Vaccine](https://digimon.jsuk.cloud/en/d/grapleomon/) |
+| 346 | Chirinmon | Rare / U | MetalGarurumon (37) ✱ | 445 | card `EX5-031`, edit 346 | [213 · Vaccine](https://digimon.jsuk.cloud/en/d/chirinmon/) |
+
+### Local picture restoration (TS-004)
+
+`tools/comfy.py` now exposes `inpaint(image, mask, prompt, seed=...)` with the stored stock-node workflow `tools/comfy_workflows/ts002-inpaint.json` and installed `512-inpainting-ema.safetensors` checkpoint. White mask pixels may change; black mask pixels are preserved exactly. It samples at 512×512 and composites only the masked result back at native size. The existing RealESRGAN_x4plus upscaler is unchanged. The optional `outpaint(image, (left, top, right, bottom), prompt, seed=...)` protects the original image and generates only added padding; its tested Coronamon extensions introduced a pale border and were rejected for use. No selected TS-002 picture uses that outpaint helper: the approved margin restorations use explicitly masked inpainting. New extension jobs require visual review, not blind reuse of that trial.
+
+Recipes are in `tools/new_art_edits.json`; original downloads, chosen edited PNGs, before/mask PNGs and hash metadata stay in `extracted/newart/edited/ts002`. `tools/prepare_time_stranger_art.py` reuses a verified result unless `--force` is requested. To use a recorded edited crop, add `"edited":"edited/ts002/303.png"` to its `art.new` card/crop source. `build_custom.py` verifies the recorded source/crop, recipe/workflow and cached pixel hashes before using the already-cropped image; it does not crop it a second time. Missing, stale, mismatched or outside-cache references fail with a preparation instruction.
+
+Two independently uploaded Coronamon jobs through the public inpaint API produced identical decoded pixels, SHA-256 `96b5cbc7c0e3e262e468c2c45f8df704771a5fc0207ba1ea7371cb5e666d99ce`, matching the earlier accepted result. One initial job after switching between upscaling and inpainting models had a different pixel hash, then consecutive independent runs matched again. A fixed seed is therefore not a guarantee across model reloads, GPU execution or software changes; the chosen cached PNG and its verified hashes are authoritative for exact rebuilds. The owner saw and accepted Coronamon before/after on 2026-10-13. Every selected restoration is named in roster.md and the picture-preparation entry under "Not from the game code".
 
 ## Sound
 
@@ -407,7 +555,11 @@ not recovered game behaviour. They require no new downloaded model or texture as
 
 `node tools/battletest.js` validates every card model and compares all 576 attack/hit script
 runs in all three styles with the same random seed, including no-effect misses and countered
-motions. It checks CPU animation logic; real shader linking and visual appearance are
+motions. It also plays every motion of Agumon that stops and compares its length with the
+one `tools/motion_slots.py` measured (`docs/time-stranger/motion-slots.json`), and checks
+that a motion started again starts again, that a hidden or a held model waits, and that
+effect models take the constant-speed path. It checks CPU
+animation logic; real shader linking and visual appearance are
 checked separately in `battle-preview.html`. For deliberately uncommitted development,
 `python tools/check_paths.py --working-tree` includes new files; the normal command still
 requires every website file to be in Git before publication.
@@ -457,7 +609,14 @@ scripts, then camera and arenas.
   standing loops from key 0 in all but three (Agumon's is one that does not), victory loops
   in 156, mostly from a later key, two third attacks loop, and nothing else does. Starting a
   motion always starts it from its first key, also when it is the one playing (`0x8002daac`
-  only skips unpacking it again). A hidden model is not moved on (`0x80022bd0`).
+  only skips unpacking it again). A hidden model is not moved on (`0x80022bd0`: the task
+  passes over a model whose show flag, byte `0x114` + its number of the block at
+  `[0x801d6a4c]`, is not above 0; `b.14` and the director set that flag). `Actor.play`,
+  `setup` and `step` in `js/battle3d.js` do the same, and the port's director makes the
+  starts the table above gives it around the scripts: standing for the Digimon a script is
+  about to play on, with the one the script before played on hidden in its standing pose
+  (`0x801ee00c` … `0x801ee060`), standing for the attacker when the hit script is over
+  (`0x801ee860`, `0x801ee86c`) and for a target left alive (`0x801ee904`).
 - **What a key holds besides the pose.** Its sound (the number + 1, 0 for none) is played
   with the sound call `0x8002b498` when the model starts towards the key (`0x80022184`), so
   key 0's sound is heard twice, at the start and at the end of the lead; 30 motions have one
@@ -486,13 +645,26 @@ scripts, then camera and arenas.
   prints a script's timeline). A script runs in the frame of its Digimon (`0x801ea258`: origin
   at its feet, turned to its facing), first sets everything up in one go, then says it is
   ready and runs frame by frame. Commands start a motion (the damage motion 4 becomes the KO
-  motion 5 when HP is 0), show one Digimon and hide the other, wait, play sounds, and create
+  motion 5 when HP is 0), hold a Digimon's motion where it is and let it go on (`a.7` and
+  `a.8`, handlers `0x801e880c` and `0x801e8830`: `0x80022ca4` turns the motion's frame count
+  below 0, which the motion task passes over, and `0x80022d00` turns it back; 26 scripts do
+  this, the ice attacks to freeze the target under the ice), show one Digimon and hide the
+  other (`b.14`), wait, play sounds, and create
   objects that hang on the script's frame, on another object or on a body part of a Digimon.
 - **Objects.** Rings, particles and plain nodes are the board ones. New here: a *sprite*
   (`0x801e41ac`, drawn by `0x801eb874`), a flat picture facing the viewer that steps through
   the frames of a sprite chunk, 4 x its size, with the GPU's blend modes; an *effect model*
   (`0x801e38a0`), a model with its own motion from the attack's asset file `E/NNN.PAK`, carried
-  by a node and dimmed by its fade; a *light change* (`0x801e76a8`), which swings one of the
+  by a node and dimmed by its fade. Its motion is started by the same start routine as a
+  Digimon's (`0x801e39c4` … `0x801e39dc`), but with the fourth argument set unless the
+  script's variable `0x1cb` is 1 (the scripts set it to 1 in 19 places). With that argument the key setup takes
+  its other path (`0x80022784`): a key is reached in 1 × its duration, not 2 ×, at constant
+  speed, and the step (`0x80021c38`) leaves the parts' speeds alone; so such a motion lasts
+  d0 + Σ d frames. Of the 872 effect models with a motion that the cards' attacks create
+  (each attack counted once), 826 are started this way. Like a Digimon, an effect model is
+  moved on only while its show flag is above 0; its object sets the flag every frame, to 3
+  or to -1 (`0x801e3cc0` … `0x801e3d00`; the port moves it on while its node is on and its
+  brightness is not 0). Also new: a *light change* (`0x801e76a8`), which swings one of the
   three lights' direction and colour for a number of frames; a *screen rectangle*
   (`0x801e6424`), a blended rectangle whose colour steps between two colours, used for flashes.
 - **Movement.** A node's motion type picks how it moves (table `0x800108b0`): fixed, along a
@@ -565,6 +737,20 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 ## Not from the game code
 
+- **Full Time Stranger models in the web battle.** Cards 302–346 now use their own
+  Time Stranger models 401–445, including the revised Guilmon and Firamon. The owner's
+  final 2026-10-14 choice retains full visible source geometry, RGBA texture resolution
+  and the whole skeleton with all four skin weights; polygon/texture/bone budgets are
+  postponed. Source poses fill the base's eight motion slots on its original key times,
+  sounds and cameras. The slot choices, size/ground placement, interpolation, effect
+  anchor aliases and native web skin/material renderer are this project's. The source
+  lighting/reflection/outline shaders remain unread and eye overlays use the reader's
+  full-resolution composition. Source leaps can leave inherited close-ups and strike
+  moments can differ from the script's fire. [Format and rebuild](docs/time-stranger/native-model-format.md),
+  [Fire](docs/time-stranger/TS-208a-fire-models.md), [Ice](docs/time-stranger/TS-208b-ice-models.md),
+  [Nature](docs/time-stranger/TS-208c-nature-models.md), [Darkness](docs/time-stranger/TS-208d-darkness-models.md),
+  [Rare](docs/time-stranger/TS-208e-rare-models.md).
+
 - **Time Stranger's files** are another game's, not the disc's. How they are stored was
   read from that game's executable; what was not is listed under "Time Stranger files"
   and "Time Stranger models", each under "Not read from the executable", and in "Time
@@ -599,6 +785,27 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   Fire Again and its name are this project's as well, made at the owner's request; in the
   game BK WarGreymon has the one deck, and it plays WarGreymon.
 
+- **Time Stranger custom decks and themes (Phase 3).** The fifteen full compositions,
+  theme-driven supports/cross choices, featured-line copy counts, ban list and evolution
+  tools are project designs requested by the owner. Their base decks now supply only
+  metadata; the historical exact-exchange policy is superseded. Their featured Ultimate
+  supplies the displayed owner and portrait. Most new supports work on any active
+  Specialty; the Wingdramon group intentionally rewards a different active Specialty.
+  GrapLeomon's zero-selected-power check uses the project's interpreter variable 0x50.
+  Renamon and Taomon's shared random-color operation 0x36 is also project-authored,
+  explicitly requested to replace the one-sided Darkness conversion.
+  Details and existing official lore sources are in
+  [card-design.md](docs/time-stranger/card-design.md) and [decks.md](docs/time-stranger/decks.md).
+  Original disc cards/decks, BlackWarGreymon, pictures and models retain their data.
+
+- **Time Stranger Phase 1 cards.** The new labels and palette choices are project additions
+  requested by the owner. TS-106 (2026-10-14) chooses original numbers and effects for
+  all 45 cards, based on Specialty and each Digimon's official lore; see [card-design.md](docs/time-stranger/card-design.md).
+  These are project designs, not canonical Time Stranger numbers or translated mechanics.
+  Missing attack labels use verified Time Stranger skills, including a few buff/debuff
+  names: these do not add Time Stranger mechanics to DDCB. Reference Book order is
+  retained without claiming a verified strength ranking. Both art modes share the
+  prepared native pictures per the owner's update; no separate Legacy image is built.
 - **Planned Time Stranger roster.** The 45 cards in
   [roster.md](docs/time-stranger/roster.md) are custom additions, not disc cards.
   Their five Specialties and placeholder bases are project choices. On 2026-10-13
@@ -606,8 +813,9 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   when a Time Stranger signature attack has a different element. Time Stranger's
   elemental matchups and skill elements do not supply one intrinsic element to copy.
   TS-001 records online field-guide evidence, identity corrections and two replacements;
-  checking the owner's installed game tables follows TS-201/TS-203. This plan does not
-  add playable cards, stats, pictures or models yet.
+  checking the owner's installed game tables follows TS-201/TS-203. That initial roster audit alone did not
+  add playable cards. TS-101–105 made all 45 playable; TS-106 gives them original gameplay.
+  Recoloured models remain placeholders until Phase 2.
   All work stays on the `time-stranger` feature branch; it must not merge to `main`
   until all 45 new cards are complete and their applicable acceptance criteria pass.
   See [the feature workflow](docs/time-stranger/README.md#feature-branch-and-merge-gate).
@@ -697,11 +905,12 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   arrival at a target is judged by distance travelled. The alternate models in archive `G`
   are not used, and five models whose palette is not in their own file fall back to their
   texture's first palette. Sounds named by motions are not played; sounds named by scripts
-  are, where the sound bank has them. Motions are not yet timed as the game times them (see
-  *How long a motion lasts*): here a motion begins at its first key without the lead, so the
-  Digimon moves 2 × d0 frames (4 to 64) ahead of its script's effects; a motion that is
-  started while it is playing is left to run on; and a hidden model keeps moving. The
-  entrance motion (slot 7) is never shown.
+  are, where the sound bank has them. An effect model on the constant-speed path keeps, in
+  the game, whatever accelerations its whole-model record (the camera's) was left with; they
+  are taken as 0 here (whether the block is cleared when a model is loaded was not read).
+  The entrance motion (slot 7) is never shown. After the
+  second strike of a turn the game's director waits 30 frames (`0x801eea98`) where it waits
+  20 after the first (`0x801ee910`); here every strike is a scene of its own and waits 20.
 - **Taking back in the Digivolve Phase.** In the game, answering No to "Is it OK to end the
   Digivolve Phase?" (or backing out of the digivolve choice) returns the DP card placed this
   turn and an option card used to no effect to the hand and starts the phase again
@@ -734,6 +943,18 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   darkest value any of them has there, which leaves the white letter they share. The dark
   edge around the letter is this project's, added because the new pictures are often bright
   where the game's are dark.
+- **Time Stranger picture preparation (TS-002).** The current cards 302–346 use 44
+  regular official illustrations and Reference Book Crescemon. There are 43 recorded
+  ComfyUI restorations; Keramon uses clean EX1-044 crop [80,105,320] without an edit.
+  Crescemon is a suitability fallback: card rules obscure its legs and attempted
+  reconstruction changed its anatomy. These restorations are project additions, not
+  game data. Sources/edits are in roster.md, tools/time_stranger_art.json and
+  tools/new_art_edits.json. tools/prepare_time_stranger_art.py caches/replays the
+  recipes with --review for contact sheets. The stored workflow uses local
+  512-inpainting-ema.safetensors, 24 Euler steps, CFG 6 and explicit seeds. Native
+  images/masks/hash metadata stay ignored under extracted/newart; pixels outside each
+  mask are preserved. Picture preparation itself does not add playable cards.
+
 - **Deck editor screen.** The rules above are the game's; the screen, the search, the
   filters, undo, and the list and code a deck is exported as are this project's. The game's
   editor only offers the cards a save holds ("Cards in Stock": a working copy at `0x801f3f48`,
@@ -969,6 +1190,20 @@ offset in the vertex (+6). `0x14035f260` turns them into the Direct3D input layo
 Number types: 0 byte, 7 16-bit signed normalised (not in any of the 532), 8 half float,
 9 float.
 
+**A texture coordinate is (u, v) with v counted from the picture's bottom row**, where the
+`.img` (a DDS, first row on top) is decoded top row first. This is from the data, not from
+the executable, and it was read wrongly until TS-207: taken from the top row every model
+is painted wrongly, and it only shows where the picture is not the same upside down. The
+owner saw it on Guilmon: a white face where the real one is red with its mark. The white
+was the jaw's, the belly had lost its mark, and the eyes took the last row of the eye
+sheet, the narrowed ones, instead of the first. Counted from the bottom, Guilmon, Agumon,
+Coronamon and Goburimon are painted as those Digimon are, the two halves of a mark that
+is cut at a picture's edge meet, and all 45 roster models are themselves
+(`docs/time-stranger/img/ts-203-roster-models.png`). `tools/ts_model_read.py` gives v
+already turned (1 − v), so everything made from it counts rows from the top. Within one
+half of a model that is painted once, the other half has u + 1: the picture is repeated,
+not mirrored (1,878 of Guilmon's mirrored vertex pairs differ by exactly 1 in u).
+
 **Material**: +0 u32 hash of its name (data; the name table lists the names in another
 order), +0x320 u8 shader parameters, +0x321 u8 render states, then 0x20 bytes for each of
 them from +0x328, and the next material follows (`0x1402df51a`).
@@ -1032,6 +1267,118 @@ skin and the colour textures; `--png` draws the front and the side.
 - The dump was not compared with the game running; the ticket's log says what it was
   compared with.
 
+## Time Stranger models as DDCB models
+
+**Current workflow (TS-208a–e, 2026-10-14):** `model.native: true` exports full
+source visible geometry, original material texture dimensions/colors, every bone and
+all four weights through `tools/ts_native_model.py`. `battlenative.js` supplies weighted
+skin and native RGBA rendering in all three styles, including Ultra shadows. Source
+local poses retain shear/zero scales; logical effect anchors alias source bones. The
+DDCB base's eight key timelines, camera and sound records remain. Triangle, bone and
+texture limits are postponed by the owner. All 45 models 401–445 use this format;
+Guilmon's pilot was rebuilt too. See [native format/rebuild](docs/time-stranger/native-model-format.md)
+and the [import skill](.claude/skills/import-ts-model/SKILL.md).
+
+```json
+"model": {"number": 401, "ts": "chr090", "native": true, "against": "chr050", "parts": {"0": "J_spine02"}}
+```
+
+### Historical reduced-format converter (TS-205–207)
+
+The following figures describe the original pilot converter, which remains available
+when explicitly chosen. They are not the current TS-208 defaults or owner requirement.
+
+
+`tools/ts_model.py` turns a Time Stranger model into a model file of this site
+(`web/assets/models/NNN.*`, the format of `tools/build_models.py`) that costs no more than
+one of the disc's models costs, and gives it eight motions made from its Time Stranger
+motions on the keys of the card's base (TS-205, TS-206; settled on Guilmon in TS-207).
+**None of it is the PlayStation game's doing**; every choice below is this project's, made
+to fit what the disc's models are. Those were measured over the 211 card models in
+`web/assets/models`: rigid parts (2 to 31), 380 to 1,246 triangles, every triangle inside
+one part, textures of 16 colours a palette row (1 to 16 rows), up to 256×216, mostly
+256×128.
+
+A card of `tools/custom_cards.json` names its Time Stranger model in `model`, and
+`tools/build_custom.py` converts it (the Time Stranger files are looked for in
+`extracted_ts/app_0` beside the unpacked disc, or where `--ts` says; a card is left as it
+is when they are missing):
+
+```json
+"model": {"number": 401, "ts": "chr090", "against": "chr050", "parts": {"0": "J_spine02"}}
+```
+
+```bash
+tools/.venv/Scripts/python -I tools/build_custom.py extracted web model 302
+```
+
+That is Guilmon (`chr090`) on the keys of Agumon's model 3: 30 parts, 975 triangles, a
+256×128 texture, 14 palette rows. The tool by itself does the same and draws what it made
+(`--preview`, `--poses`):
+
+```bash
+tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr090.geom web 3 <out dir> 401 --detail 170 --against extracted_ts/app_0/chr050.geom --part 0=J_spine02 --preview look.png --poses poses.png
+```
+
+| Step | What the tool does |
+|---|---|
+| Figures | What the model may cost: parts, triangles, the texture's size and its palette rows. They are those of the disc model named by `--detail` (the card's `detail`); `build_custom.py` names **Angewomon's model 170** unless the card says otherwise: 30 parts, 976 triangles, 256×128, 14 rows. That was the former owner choice, superseded by the full native workflow above: Agumon's own figures (16 parts, 690 triangles, 3 rows) are low, Angewomon's is one of the disc's detailed models. Single figures can be given (`--triangles`, the card's `figures`), never more than the most any disc model has (31 parts, 1,246 triangles, 256×216, 16 rows). Without `--detail` the tool takes the base's |
+| Parts | A vertex goes with the bone that weighs most on it. Bones are merged into their parents until there are no more parts than the figure allows: each time the bone whose vertices that moves least, measured over every second frame of the motions the slots take, a vertex counting by the surface around it. The two sides of a pair (`_l`, `_r`) go together. Guilmon has 33 bones with vertices; the neck and the two collars were merged into the chest |
+| Skin | A triangle whose corners are in different parts keeps them there and is stretched between the parts like skin, so no joint opens when the model moves. **The disc's models have no such triangle** (none in any of the game's model files here); whether the game's own drawing routine could draw one was not read. The port moves a model vertex by vertex (`web/js/battle3d.js`), so it can. The first try (TS-205) gave a triangle whole to one part: every joint tore open in the motions. Enhanced and Smooth had to learn it too: `refine` in `web/js/battlehd.js` measured a new corner in one part's coordinates and now measures it in the model's where a side runs between two parts. The meshes it makes of all other models are byte for byte what they were (checked by hash over the 256 other models; `tools/battletest.js` checks that a new corner lies on its side) |
+| Part numbers | `--part N=<bone>` (the card's `parts`) gives a bone's part the number N. The base's battle scripts hang effects on parts by number (`docs/time-stranger/motion-slots.md`, the "Parts" columns; TS-204): Agumon's first attack names part 0, its chest, so Guilmon's `J_spine02` is part 0 |
+| Triangles | Edges are collapsed onto one of their ends, cheapest first by how far the surface moves (quadric error), down to the figure. A collapse that would tear the texture mapping at a seam, turn a triangle over or pinch the mesh is refused. The eyes' triangles weigh 30 times more, so they are not the first to go |
+| Texture | The pieces of the texture mapping still in use are laid out again in one sheet, each by its own shape (the texels its triangles touch and one around), the largest first, at the first free place from the top left; pieces on the same texels (the two sides of a model painted once) share them. All are shrunk by the same factor, the eyes' pieces half as much (1.5 times as large). The pieces are sorted into as many groups as there are palette rows by their mean colour, and the texels of each group are reduced to 16 colours. Guilmon: 28 pieces, 14 after sharing, at 0.159 of their size, 69% of the sheet used |
+| Size and place | With `--against <the base's own Time Stranger model>` (the card's `against`) the model is as large against the base as it is in Time Stranger: Agumon is 1.743 high there and Guilmon 2.170, so Guilmon stands 1.24 times as tall as the disc's Agumon, 312 against 251. Without it it is as tall as the base in key 0 of its standing motion. The two games do not size their Digimon alike, so `--against` is for where it fits: Coronamon would come out a third of Goburimon's height. `--size K` (the card's `size`) makes the model K times as large as either rule does, a number chosen by eye. Stood on the base's ground, y downward and facing −z as the disc's models |
+| Motions | Each of the eight slots keeps the base's keys: as many, each as long, with the base's sound and camera record. So the motion lasts what the base's lasts, and every sound and camera move comes at the base's moment. The pose of each key comes from the model's Time Stranger motion for that slot (table below) |
+
+**Motions** (TS-206). What a slot is and how long a motion lasts is the PlayStation game's
+(above, "Polygon Battle": 2 × d0 + Σ 2 × d frames); which Time Stranger motion fills it,
+and how, is this project's.
+
+| Slot | What | Time Stranger motion | Its name in that game's script |
+|---|---|---|---|
+| 0 | Standing | `bn01` | `MOTION_TYPE_IDLE` |
+| 1 | First attack | `ba01` | `MOTION_TYPE_ATTACK` |
+| 2 | Second attack | `ba02` | `MOTION_TYPE_COMMON_SKILL` |
+| 3 | Third attack | `bs01` | `MOTION_TYPE_SPECIAL_SKILL01` |
+| 4 | Damage | `bd01` | `MOTION_TYPE_DAMAGE` |
+| 5 | KO | `bd02` | `MOTION_TYPE_DOWN` |
+| 6 | Victory | `bv01` | `MOTION_TYPE_WIN` |
+| 7 | Entrance | `bn01` | none: that game's battle table has no motion for coming in, so the slot gets the standing motion, the pose an entrance ends in. The site does not play slot 7 |
+
+- **Which attack is which** is a choice: the three attack motions in the order the other
+  game numbers them (2, 5, 34). A motion the model lacks is replaced by the next of the
+  three, a missing `bd02` by `bd01`, a missing `bv01` by `fe02` (`MOTION_TYPE_HAPPY`), and
+  anything still missing by `bn01`; `--motion SLOT=<name>` names another. The tool prints
+  every replacement.
+- **Time.** Key 0 takes the motion's first frame and the last key its last frame; the keys
+  between take the frame at their share of the time between the two. A slot of the base
+  that goes round from key 0, on a Time Stranger motion that ends as it begins, is laid on
+  the round instead, the way back to key 0 counted in. Nothing puts the strike of an
+  attack at the moment the base's script fires: the Time Stranger files were not searched
+  for when a motion strikes.
+- **Pose.** A part moves as its own bone does (the bone's matrix in that frame times its
+  inverse bind matrix); bones merged into the part move with it as one piece. From that
+  the key gets, for each part, angles in the
+  game's order Ry·Rx·Rz, a move added to the part's place and a scale. The angles of a key
+  are written as near the key before as a whole turn allows, and key 0 of every slot as
+  near the standing pose, because the game goes from key to key number by number. Between
+  keys the game eases those numbers, which is not the path the Time Stranger motion took.
+- **Not used:** the `chrNNNloc_*.anim`, `cam_chrNNN_*.anim` and `ef_b_chrNNN_*.anim` files
+  beside a model's motions, and the motions without a number in the battle table.
+
+**Looking at a converted model.** `tools/ts_model.py --preview look.png --show 0,6` draws
+the base and the new model as built with the parts of those numbers in plain colours: what
+body part a number is in the base and where it lies in the new model. In the battle,
+`tools/sheet_server.py` serves the site without caching and hands the page
+`tools/model_sheet.js`, which steps a scene frame by frame and draws a sheet of chosen
+frames, a row for each card in each style, with the frames at which the model's motions
+start and end. The pictures of TS-207 were made with it. Both are for checking and not
+part of the site. The steps for one more model are in the skill `import-ts-model`.
+
+The eyes' two overlay textures are laid over each other as `ts_model_read.py --overlays`
+does; how the game's shader mixes them was not read.
+
 ## Time Stranger tables
 
 The game's tables are `.mbe` files (`data/`, `text/`, `message/`). `tools/ts_mbe.py` reads
@@ -1076,10 +1423,10 @@ read.
 | | 4 | a number, `1090` for `chr090` |
 
 That column 3 is the model was not read from a routine: Guilmon's row names `chr090`,
-which the owner confirmed to be Guilmon (TS-202), and the 44 models found this way were
+which the owner confirmed to be Guilmon (TS-202), and the 44 other models plus Keramon/chr626 were
 drawn and are the Digimon their rows name (`docs/time-stranger/img/ts-203-roster-models.png`).
-`docs/time-stranger/roster.md` has the model of each card. Agumon (Black) has no row in
-either table of this build.
+`docs/time-stranger/roster.md` has the model of each card. All 45 current identities now have local model rows. The owner replaced the Fire black
+Agumon variant with Keramon; the former native-model exception no longer applies.
 
 ## Time Stranger motions
 
@@ -1119,9 +1466,19 @@ close (their dot product averages 0.9975 and never falls below 0.83 over 4,546 v
 and Guilmon posed with it stands as a creature should
 (`docs/time-stranger/img/ts-203-guilmon-bn01.png`).
 
-**What the values are** (from that picture, not from a routine): a rotation is the bone's
-whole rotation in its parent; a position is added to the bone's rest position. Between two
-stored values `ts_anim_read.py` goes in a straight line; how the game does it was not read.
+**What the values are** (from the data, not from a routine): what the motion changes of
+the rest pose. A position is added to the bone's rest position, and a rotation is made
+after the bone's rest rotation (rest × motion). Most bones have no rest rotation, so the
+rotation looks like the bone's whole rotation in its parent, and it was taken for that
+until TS-207. The owner saw the fault in the battle: one of Guilmon's ears hung down.
+Guilmon's right ear is its one bone with a rest rotation (half a turn about x) and has
+the same stored values as the left ear: taken whole it hangs in every motion; made after
+the rest rotation it is the left ear's mirror image to three decimals in every frame
+tried (`bn01`, `ba01`, `bv01`); the other order, motion × rest, is not (0.06 to 0.21
+off). 389 of the 532 models have bones with a rest rotation that carry vertices, among
+them 28 of the 45 roster models (Coronamon's arms and hands, WarGrowlmon's arms and
+legs). Between two stored values `ts_anim_read.py` goes in a straight line; how the game
+does it was not read.
 
 ```bash
 tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr090_*.anim
@@ -1189,6 +1546,7 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 | `tools/build_owners.py`, `web/assets/owner` | The deck owners' pictures of the "VS" screen, and their export |
 | `web/assets/art2`, `mini2` | Generated: new art for the Digimon cards (`tools/build_new_art.py`, `tools/new_art.json`) |
 | `tools/build_levels.py`, `web/assets/ui/level_*.png` | The level letters of the game's board pictures, cut out to lie over new art |
+| `tools/time_stranger_design_test.js` | TS-106 original stat ranges, 113 support scenarios; `--soak` plays 750 temporary mono/three-color deck matches |
 | `tools/check_paths.py` | Checks that every file the page asks for is in git under its exact name |
 | `tools/mips.py` | MIPS disassembly helper for the EXE and overlays (overlay base `0x801DDF38`) |
 | `tools/extract_*.py`, `tim.py`, `comfy.py` | Disc, archive, texture and ComfyUI helpers |
@@ -1205,6 +1563,9 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
 | `tools/ts_extract.py`, `x64.py` | Time Stranger: the `.mvgl` unpacker and the x86-64 disassembly helper for its executable |
 | `tools/ts_model_read.py` | Time Stranger: reads a `.geom` model and its textures, dumps it as `.glb` or a drawing |
+| `tools/ts_native_model.py` | Time Stranger: full source geometry, skeleton, RGBA and weighted-skin web model exporter |
+| `web/js/battlenative.js` | Native weighted skin, bounds and quaternion helpers |
+| `tools/ts_model.py` | Time Stranger: optional historical reduced DDCB model converter |
 | `tools/ts_mbe.py` | Time Stranger: reads the tables of a `.mbe` file |
 | `tools/ts_anim_read.py` | Time Stranger: reads a `.anim` motion, lists its channels, draws a model in one of its frames |
 | `tools/ts_luac.py` | Time Stranger: lists the globals and constants of a compiled script (`.lua`) |
@@ -1218,3 +1579,13 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 - `B/CARD2.CDD`: 191 Digimon records (316 bytes), 102 option records (226), 8 digivolve records (112).
 - `B/DECK2.DEK`: 110-byte records: 30 card ids, deck name (byte 60), owner (byte 79), rank, armor byte.
 - `B/MATCH/NNN.ARC`: the textures of the screen before a battle, by deck number; an ARC of 14 TIM images.
+
+## Time Stranger roster correction (2026-10-13)
+
+The owner replaced the Fire black Agumon variant in the Darkness roster with Keramon
+(329/428). Base Tsukaimon (135) originally supplied the numbers/effects; TS-106 now supplies
+new gameplay design. TS-208d now supplies Keramon's full chr626 model as 428; Tsukaimon retains only the inherited visual scripts/timings. The source diffuse pupils are black; the unread reflection shader is documented in the model log.
+Local char_KERAMON maps to chr626 in both model tables; Phase 2 has all nine Darkness
+models to convert. The old model exception and cloned effect offset 20000 are retired;
+other published offsets remain stable. Both art modes use unedited official EX1-044
+crop [80,105,320]. [Full evidence](docs/time-stranger/roster.md).

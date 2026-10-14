@@ -25,7 +25,7 @@ For all 45 Digimon, know which file is its model and which of its animations are
 
 ## Acceptance criteria
 
-- [x] All 45 rows have their model file. (44 from Time Stranger; card 329 keeps the disc's Agumon by the owner's decision.)
+- [x] All 45 rows have their model file. (all 45 current rows from Time Stranger, including Keramon/chr626 in slot 329.)
 - [x] Guilmon's animation list with the role of each, and where the role was read.
 - [x] README: the animation format and the table, with sources.
 
@@ -35,18 +35,31 @@ For all 45 Digimon, know which file is its model and which of its animations are
 
 ## Questions for the owner
 
-- None open. (2026-10-13: Agumon (Black), card 329, has no row in the tables of Steam build
-  23514637; answered under Decisions.)
+- None.
 
 ## Decisions
 
-- 2026-10-13, the owner: Agumon (Black) uses the PS1 game's Agumon with its texture
-  recoloured, not a Time Stranger model. Card 329 and model 428 stay as Phase 1 makes them;
-  TS-208d converts the other eight Darkness models only.
+- Owner correction: replace the Fire black Agumon variant with Keramon (329/428);
+  Phase 2 uses chr626. All nine Darkness models are to be converted.
 
 ## Log
 
 <!-- Date, what was done, what was found and where (addresses, URLs, commits). -->
+
+### 2026-10-14, correction (TS-207)
+
+**The pictures of this ticket that show a model's paint were wrong until today.** The
+reader took a texture coordinate's second number from the picture's top row; it counts
+from the bottom row (README, "Time Stranger models", "Attributes"). Both pictures below were made
+again with the corrected reader. In the sheet of the 45 models each is now painted as its
+Digimon is, which the earlier sheet could not show; that each row names the right model
+stands as it was found.
+
+**The motion reader was wrong in one thing too**: a motion's rotation is not the bone's
+whole rotation but is made after its rest rotation (README, "Time Stranger motions").
+Guilmon posed "as a creature should" with one ear hanging, which nobody saw until it
+stood in the battle. `tools/ts_anim_read.py` is corrected and the picture of `bn01` made
+again.
 
 ### 2026-10-13 — the models
 
@@ -62,18 +75,18 @@ left has a type 0 column.
 `patch` archive has a newer `char_info.mbe` (839 rows against 836); the 45 rows wanted are
 the same in both.
 
-44 of the 45 are found by their exact English name and are in [roster.md](roster.md).
+All 45 current identities are found by their exact English name and are in [roster.md](roster.md).
 Their keys are the Japanese names: Huckmon `char_HACKMON`, Growlmon `char_GROWMON`,
 WarGrowlmon `char_MEGAGROWLMON`, Syakomon `char_SHAKOMON`, Octomon `char_OCTMON`, Dragomon
 `char_DAGOMON`, Dracmon `char_DRACUMON`, Matadormon `char_MATADRMON`, Grizzlymon
 `char_GRYZMON`, Chirinmon `char_TYILINMON`.
 
-Each of the 44 was read with `tools/ts_model_read.py` and drawn (`--overlays`); they are
+All 45 current models were read with `tools/ts_model_read.py` and drawn (`--overlays`); they are
 the Digimon their rows name:
 
-![The 44 models found through the tables](img/ts-203-roster-models.png)
+![All 45 current models found through the tables](img/ts-203-roster-models.png)
 
-**Agumon (Black), card 329, is not in this build.** Neither `char_name.mbe` nor
+**Historical finding, superseded:** Agumon (Black) was not in this build. Neither `char_name.mbe` nor
 `char_info.mbe` (of `app_0` and of `patch`) has a row for it: the names holding "agumon"
 are Agumon, Agumon (Bond of Bravery), Pagumon, ToyAgumon (two rows) and Agumon & Gatomon.
 The field guide the roster was checked against lists it as no. 468. See the question to
@@ -176,3 +189,15 @@ classes. The callers pass the number in a variable, and the constants in the cla
 **For TS-204 and TS-206:** the candidates for DDCB's slots are `bn01` (idle), `ba01`
 (attack), `ba02` (common skill), `bs01` (special skill), `bg01` (guard), `bd01` (damage),
 `bd02` (down), `bv01` (win), all 30 frames a second.
+
+### 2026-10-13 — owner correction: Keramon replaces Agumon (Black)
+
+Current slot 329 is Keramon, Darkness/R, base Tsukaimon (135), placeholder model 428.
+Initially its numbers/effects were copied from Tsukaimon; TS-106 supersedes that
+with original gameplay (card-design.md). Local char_KERAMON → chr626 is
+present in both model tables; Phase 2 converts all nine Darkness models. The old
+black Agumon exception is superseded. Official EX1-044 crop [80,105,320] needs no
+restoration and is shared by both art modes. Offset 20000 is retired; the four other
+published offsets remain stable. [Full evidence and current roster](roster.md).
+
+![Keramon chr626, drawn from the installed model](img/ts-203-keramon-model.png)
