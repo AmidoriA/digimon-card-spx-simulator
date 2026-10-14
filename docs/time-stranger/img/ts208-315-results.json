@@ -1,0 +1,698 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-315-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Sorcerimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Lekismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Sorcerimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Lekismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Sorcerimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Lekismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-315-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Sorcerimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          270,
+          2,
+          "ended"
+        ]
+      ],
+      "Lekismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          270,
+          2,
+          "ended"
+        ]
+      ],
+      "Sorcerimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          270,
+          2,
+          "ended"
+        ]
+      ],
+      "Lekismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          270,
+          2,
+          "ended"
+        ]
+      ],
+      "Sorcerimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          270,
+          2,
+          "ended"
+        ]
+      ],
+      "Lekismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          270,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      69,
+      136,
+      203,
+      270
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-315-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Sorcerimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Lekismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Sorcerimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Lekismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Sorcerimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Lekismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-315-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Sorcerimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Lekismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Sorcerimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Lekismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Sorcerimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Lekismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      337,
+      367,
+      397,
+      427
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-315-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Sorcerimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Lekismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Sorcerimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Lekismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Sorcerimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ],
+      "Lekismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          447,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      342,
+      377,
+      412,
+      447
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-315-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Sorcerimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          494,
+          6,
+          "runs"
+        ]
+      ],
+      "Lekismon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          494,
+          6,
+          "runs"
+        ]
+      ],
+      "Sorcerimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          494,
+          6,
+          "runs"
+        ]
+      ],
+      "Lekismon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          494,
+          6,
+          "runs"
+        ]
+      ],
+      "Sorcerimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          494,
+          6,
+          "runs"
+        ]
+      ],
+      "Lekismon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          257,
+          0,
+          "runs"
+        ],
+        [
+          494,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      494,
+      539,
+      584,
+      629,
+      674
+    ]
+  }
+]

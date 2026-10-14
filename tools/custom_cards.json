@@ -169,282 +169,6 @@
     }
    }
   ],
-  "ts-311-model": [
-   {
-    "hue": [
-     25,
-     80
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 210,
-     "sat": 0.9
-    }
-   },
-   {
-    "hue": [
-     80,
-     170
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 210,
-     "sat": 0.8
-    }
-   }
-  ],
-  "ts-312-model": [
-   {
-    "hue": [
-     170,
-     275
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 265,
-     "sat": 0.45,
-     "val": 1.2
-    }
-   },
-   {
-    "hue": [
-     5,
-     70
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 320,
-     "sat": 0.45
-    }
-   }
-  ],
-  "ts-313-model": [
-   {
-    "hue": [
-     75,
-     165
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 80,
-     "sat": 0.7
-    }
-   },
-   {
-    "hue": [
-     0,
-     60
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 290,
-     "sat": 0.6
-    }
-   }
-  ],
-  "ts-314-model": [
-   {
-    "hue": [
-     175,
-     265
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 210,
-     "sat": 0.8
-    }
-   },
-   {
-    "hue": [
-     0,
-     60
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 0,
-     "sat": 0.65
-    }
-   }
-  ],
-  "ts-315-model": [
-   {
-    "hue": [
-     15,
-     90
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 265,
-     "sat": 0.3,
-     "val": 1.2
-    }
-   },
-   {
-    "hue": [
-     90,
-     175
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 215,
-     "sat": 0.55
-    }
-   }
-  ],
-  "ts-316-model": [
-   {
-    "hue": [
-     0,
-     60
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 30,
-     "sat": 0.8,
-     "val": 0.7
-    }
-   },
-   {
-    "hue": [
-     60,
-     170
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 35,
-     "sat": 0.7
-    }
-   }
-  ],
-  "ts-317-model": [
-   {
-    "hue": [
-     175,
-     270
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 215,
-     "sat": 0.45,
-     "val": 0.55
-    }
-   },
-   {
-    "hue": [
-     0,
-     70
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 0,
-     "sat": 0.8
-    }
-   }
-  ],
-  "ts-318-model": [
-   {
-    "hue": [
-     170,
-     285
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 250,
-     "sat": 0.3,
-     "val": 1.2
-    }
-   },
-   {
-    "hue": [
-     0,
-     75
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 270,
-     "sat": 0.45
-    }
-   }
-  ],
-  "ts-319-model": [
-   {
-    "hue": [
-     0,
-     70
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 275,
-     "sat": 0.85,
-     "val": 0.6
-    }
-   },
-   {
-    "hue": [
-     75,
-     175
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 265,
-     "sat": 0.65
-    }
-   }
-  ],
   "ts-320-model": [
    {
     "hue": [
@@ -2593,7 +2317,16 @@
    },
    "model": {
     "number": 410,
-    "recolour": "ts-311-model"
+    "ts": "chr055",
+    "parts": {
+     "1": "J_joint12",
+     "0": "J_joint11"
+    },
+    "against": "chr151",
+    "motions": {
+     "3": "ba01"
+    },
+    "native": true
    },
    "art": {
     "shared": true,
@@ -2697,7 +2430,11 @@
    },
    "model": {
     "number": 411,
-    "recolour": "ts-312-model"
+    "ts": "chr002",
+    "parts": {
+     "0": "J_spine01"
+    },
+    "native": true
    },
    "art": {
     "shared": true,
@@ -2786,7 +2523,14 @@
    },
    "model": {
     "number": 412,
-    "recolour": "ts-313-model"
+    "ts": "chr709",
+    "parts": {
+     "7": "J_shell02",
+     "0": "J_center",
+     "1": "J_spine01"
+    },
+    "against": "chr389",
+    "native": true
    },
    "art": {
     "shared": true,
@@ -2915,7 +2659,15 @@
    },
    "model": {
     "number": 413,
-    "recolour": "ts-314-model"
+    "ts": "chr068",
+    "parts": {
+     "0": "J_body2",
+     "2": "J_head",
+     "11": "J_b_leg0_r"
+    },
+    "against": "chr012",
+    "native": true,
+    "size": 1.6
    },
    "art": {
     "shared": true,
@@ -3019,7 +2771,14 @@
    },
    "model": {
     "number": 414,
-    "recolour": "ts-315-model"
+    "ts": "chr003",
+    "parts": {
+     "0": "J_spine02",
+     "6": "J_hand_r",
+     "9": "J_hand_r"
+    },
+    "against": "chr755",
+    "native": true
    },
    "art": {
     "shared": true,
@@ -3123,7 +2882,14 @@
    },
    "model": {
     "number": 415,
-    "recolour": "ts-316-model"
+    "ts": "chr240",
+    "parts": {
+     "0": "J_head"
+    },
+    "native": true,
+    "motions": {
+     "6": "fe02"
+    }
    },
    "art": {
     "shared": true,
@@ -3227,7 +2993,17 @@
    },
    "model": {
     "number": 416,
-    "recolour": "ts-317-model"
+    "ts": "chr074",
+    "parts": {
+     "0": "J_tail0",
+     "5": "J_jnt_rh0",
+     "8": "J_jnt_lh0",
+     "13": "J_foot_r",
+     "17": "J_toe_l"
+    },
+    "against": "chr140",
+    "native": true,
+    "ground": 0.013540250225618833
    },
    "art": {
     "shared": true,
@@ -3341,7 +3117,16 @@
    },
    "model": {
     "number": 417,
-    "recolour": "ts-318-model"
+    "ts": "chr004",
+    "parts": {
+     "0": "J_spine02",
+     "8": "J_hand_l",
+     "20": "J_foot_l"
+    },
+    "native": true,
+    "motions": {
+     "3": "ba02"
+    }
    },
    "art": {
     "shared": true,
@@ -3439,7 +3224,13 @@
    },
    "model": {
     "number": 418,
-    "recolour": "ts-319-model"
+    "ts": "chr129",
+    "parts": {
+     "0": "J_spine02",
+     "2": "J_head_center",
+     "9": "J_hand_l"
+    },
+    "native": true
    },
    "art": {
     "shared": true,

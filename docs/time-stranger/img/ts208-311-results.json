@@ -1,0 +1,758 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-311-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gabumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "Gaomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "Gabumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "Gaomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "Gabumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ],
+      "Gaomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      71,
+      140,
+      209,
+      278
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-311-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gabumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Gaomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Gabumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Gaomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Gabumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Gaomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      71,
+      140,
+      209,
+      278
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-311-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gabumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Gaomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Gabumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Gaomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Gabumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Gaomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-311-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gabumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Gaomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Gabumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Gaomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Gabumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Gaomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      335,
+      363,
+      391,
+      419
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-311-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gabumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          503,
+          5,
+          "ended"
+        ]
+      ],
+      "Gaomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          503,
+          5,
+          "ended"
+        ]
+      ],
+      "Gabumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          503,
+          5,
+          "ended"
+        ]
+      ],
+      "Gaomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          503,
+          5,
+          "ended"
+        ]
+      ],
+      "Gabumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          503,
+          5,
+          "ended"
+        ]
+      ],
+      "Gaomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          503,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      356,
+      405,
+      454,
+      503
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-311-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Gabumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          294,
+          0,
+          "runs"
+        ],
+        [
+          516,
+          6,
+          "runs"
+        ]
+      ],
+      "Gaomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          294,
+          0,
+          "runs"
+        ],
+        [
+          516,
+          6,
+          "runs"
+        ]
+      ],
+      "Gabumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          294,
+          0,
+          "runs"
+        ],
+        [
+          516,
+          6,
+          "runs"
+        ]
+      ],
+      "Gaomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          294,
+          0,
+          "runs"
+        ],
+        [
+          516,
+          6,
+          "runs"
+        ]
+      ],
+      "Gabumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          294,
+          0,
+          "runs"
+        ],
+        [
+          516,
+          6,
+          "runs"
+        ]
+      ],
+      "Gaomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          278,
+          1,
+          "ended"
+        ],
+        [
+          294,
+          0,
+          "runs"
+        ],
+        [
+          516,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      516,
+      561,
+      606,
+      651,
+      696
+    ]
+  }
+]
