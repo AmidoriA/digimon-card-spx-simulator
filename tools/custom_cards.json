@@ -332,6 +332,42 @@
     "Ikkakumon": "Octomon",
     "Zudomon": "Dragomon"
    }
+  },
+  {
+   "name": "Divine Fox Again",
+   "base": {
+    "name": "Divine Monster",
+    "owner": "Nefertimon"
+   },
+   "replace": {
+    "Gatomon": "Renamon",
+    "Unimon": "Kyubimon",
+    "Angewomon": "Taomon"
+   }
+  },
+  {
+   "name": "Rapid Hope Again",
+   "base": {
+    "name": "Call of Destiny",
+    "owner": "Gatomon"
+   },
+   "replace": {
+    "Salamon": "Terriermon",
+    "Leomon": "Gargomon",
+    "MagnaAngemon": "Rapidmon"
+   }
+  },
+  {
+   "name": "Flower Bloom Again",
+   "base": {
+    "name": "Flower Fairies",
+    "owner": "Lillymon"
+   },
+   "replace": {
+    "Palmon": "Lalamon",
+    "Togemon": "Sunflowmon",
+    "Lillymon": "Lilamon"
+   }
   }
  ],
  "cards": [

@@ -279,6 +279,9 @@ evolution chains. The exact exchanges, ranked bases and disc-data exceptions are
 | MachGaogamon | Lunar Howl Again | Shoot Everything! | MetalGarurumon |
 | Crescemon | Moonlight Revived | Fightback | Garurumon |
 | Dragomon | Deep Sea Revived | First Aid | Joe |
+| Taomon | Divine Fox Again | Divine Monster | Nefertimon |
+| Rapidmon | Rapid Hope Again | Call of Destiny | Gatomon |
+| Lilamon | Flower Bloom Again | Flower Fairies | Lillymon |
 
 `node tools/time_stranger_deck_test.js` checks exact exchanges, original-data hashes,
 metadata, legality and both themed evolution steps. `node tools/time_stranger_deck_sim.js`
