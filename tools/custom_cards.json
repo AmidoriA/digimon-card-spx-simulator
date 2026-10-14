@@ -169,37 +169,6 @@
     }
    }
   ],
-  "ts-302-model": [
-   {
-    "hue": [
-     35,
-     75
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 0,
-     "sat": 0.85,
-     "val": 0.9
-    }
-   },
-   {
-    "hue": [
-     80,
-     160
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 52,
-     "sat": 0.85
-    }
-   }
-  ],
   "ts-303-model": [
    {
     "hue": [
@@ -1885,7 +1854,11 @@
    },
    "model": {
     "number": 401,
-    "recolour": "ts-302-model"
+    "ts": "chr090",
+    "against": "chr050",
+    "parts": {
+     "0": "J_spine02"
+    }
    },
    "art": {
     "shared": true,

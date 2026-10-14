@@ -183,6 +183,13 @@ Cards 302–310 are playable with recoloured disc placeholders, unchanged base n
 verified three-slot labels (attack-sources.md), and identical prepared pictures in both
 art modes. Required checks and browser review passed; integrated into time-stranger.
 
+### TS-207 Phase 2 pilot — 2026-10-14
+
+**Guilmon (302) wears its Time Stranger model** `chr090` as model 401, no longer the
+recoloured Agumon: 30 parts, 975 triangles, 256×128, 14 palette rows, sized against Agumon
+as in Time Stranger (1.24 times as tall). The owner has yet to approve the look
+([TS-207](TS-207-pilot-guilmon.md)). The other 44 cards keep their placeholders until TS-208.
+
 ### TS-102 Phase 1 — 2026-10-13
 
 Cards 311–319 are playable with recoloured disc placeholders, unchanged base numbers/effects,

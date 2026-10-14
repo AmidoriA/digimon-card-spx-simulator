@@ -669,6 +669,14 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   is which of its Time Stranger motions fills which of the game's eight slots and how it is
   laid on the base's keys
   (`tools/ts_model.py`; "Time Stranger models as DDCB models" lists every choice).
+  Three of those choices leave what the disc's models are: a converted model has triangles
+  between two parts, which no model of the game has; it may cost what Angewomon's model
+  costs whatever its base costs (the owner's choice, 2026-10-14); and it is sized against
+  its base by the two Digimon's sizes in Time Stranger. **Guilmon (302) is the first card
+  with such a model** (TS-207): its mesh, texture and motions are Time Stranger's, its
+  motions' lengths, sounds and camera Agumon's, and its three attacks still play Agumon's
+  scripts, so the fire of the first two comes when Agumon's would, not when Guilmon
+  strikes. The other 44 Time Stranger cards still wear their recoloured disc models.
 
 - **Time Stranger's files** are another game's, not the disc's. How they are stored was
   read from that game's executable; what was not is listed under "Time Stranger files"
@@ -1151,28 +1159,45 @@ skin and the colour textures; `--png` draws the front and the side.
 ## Time Stranger models as DDCB models
 
 `tools/ts_model.py` turns a Time Stranger model into a model file of this site
-(`web/assets/models/NNN.*`, the format of `tools/build_models.py`), within the figures of
-the card's base model (TS-205), and gives it eight motions made from its Time Stranger
-motions on the base's keys (TS-206). **None of it is the PlayStation game's doing**; every
-choice below is this project's, made to fit what the disc's models are. Those were
-measured over the 211 card models in `web/assets/models`: rigid parts (2 to 31), 380 to
-1,246 triangles, every triangle inside one part, textures of 16 colours a palette row
-(1 to 16 rows), mostly 256×128.
+(`web/assets/models/NNN.*`, the format of `tools/build_models.py`) that costs no more than
+one of the disc's models costs, and gives it eight motions made from its Time Stranger
+motions on the keys of the card's base (TS-205, TS-206; settled on Guilmon in TS-207).
+**None of it is the PlayStation game's doing**; every choice below is this project's, made
+to fit what the disc's models are. Those were measured over the 211 card models in
+`web/assets/models`: rigid parts (2 to 31), 380 to 1,246 triangles, every triangle inside
+one part, textures of 16 colours a palette row (1 to 16 rows), up to 256×216, mostly
+256×128.
 
-```bash
-tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr090.geom web 3 <out dir> 401 --part 0=J_spine02 --preview look.png --poses poses.png
+A card of `tools/custom_cards.json` names its Time Stranger model in `model`, and
+`tools/build_custom.py` converts it (the Time Stranger files are looked for in
+`extracted_ts/app_0` beside the unpacked disc, or where `--ts` says; a card is left as it
+is when they are missing):
+
+```json
+"model": {"number": 401, "ts": "chr090", "against": "chr050", "parts": {"0": "J_spine02"}}
 ```
 
-That is Guilmon (`chr090`) on the figures of Agumon's model 3: 16 parts, 690 triangles, a
-256×124 texture, 3 palette rows.
+```bash
+tools/.venv/Scripts/python -I tools/build_custom.py extracted web model 302
+```
+
+That is Guilmon (`chr090`) on the keys of Agumon's model 3: 30 parts, 975 triangles, a
+256×128 texture, 14 palette rows. The tool by itself does the same and draws what it made
+(`--preview`, `--poses`):
+
+```bash
+tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr090.geom web 3 <out dir> 401 --detail 170 --against extracted_ts/app_0/chr050.geom --part 0=J_spine02 --preview look.png --poses poses.png
+```
 
 | Step | What the tool does |
 |---|---|
-| Parts | A vertex goes with the bone that weighs most on it. The bone with the fewest vertices is merged into its parent until there are no more parts than the base has. A triangle whose corners fall in different parts goes whole to the part most of them are in |
-| Part numbers | `--part N=<bone>` gives a bone's part the number N. The base's battle scripts hang effects on parts by number (`docs/time-stranger/motion-slots.md`, the "Parts" columns; TS-204): Agumon's first attack names part 0, its chest, so Guilmon's `J_spine02` is part 0 |
-| Triangles | Edges are collapsed onto one of their ends, cheapest first by how far the surface moves (quadric error), down to the base's count. A collapse that would tear the texture mapping at a seam, turn a triangle over or pinch the mesh is refused. The eyes' triangles weigh 30 times more, so they are not the first to go |
-| Texture | The pieces of the texture mapping still in use are laid out again in one sheet of the base's size; pieces that use the same texels share them. All are shrunk by one factor across and one down. The pieces are sorted into as many groups as the base has palette rows by their mean colour, and the texels each group uses are reduced to 16 colours |
-| Size and place | Scaled to the height of the base in key 0 of its standing motion, stood on the same ground, y downward and facing −z as the disc's models |
+| Figures | What the model may cost: parts, triangles, the texture's size and its palette rows. They are those of the disc model named by `--detail` (the card's `detail`); `build_custom.py` names **Angewomon's model 170** unless the card says otherwise: 30 parts, 976 triangles, 256×128, 14 rows. That is the owner's choice (2026-10-14): Agumon's own figures (16 parts, 690 triangles, 3 rows) are low, Angewomon's is one of the disc's detailed models. Single figures can be given (`--triangles`, the card's `figures`), never more than the most any disc model has (31 parts, 1,246 triangles, 256×216, 16 rows). Without `--detail` the tool takes the base's |
+| Parts | A vertex goes with the bone that weighs most on it. Bones are merged into their parents until there are no more parts than the figure allows: each time the bone whose vertices that moves least, measured over every second frame of the motions the slots take, a vertex counting by the surface around it. The two sides of a pair (`_l`, `_r`) go together. Guilmon has 33 bones with vertices; the neck and the two collars were merged into the chest |
+| Skin | A triangle whose corners are in different parts keeps them there and is stretched between the parts like skin, so no joint opens when the model moves. **The disc's models have no such triangle** (none in any of the game's model files here); whether the game's own drawing routine could draw one was not read. The port moves a model vertex by vertex (`web/js/battle3d.js`), so it can. The first try (TS-205) gave a triangle whole to one part: every joint tore open in the motions. Enhanced and Smooth had to learn it too: `refine` in `web/js/battlehd.js` measured a new corner in one part's coordinates and now measures it in the model's where a side runs between two parts. The meshes it makes of all other models are byte for byte what they were (checked by hash over the 256 other models; `tools/battletest.js` checks that a new corner lies on its side) |
+| Part numbers | `--part N=<bone>` (the card's `parts`) gives a bone's part the number N. The base's battle scripts hang effects on parts by number (`docs/time-stranger/motion-slots.md`, the "Parts" columns; TS-204): Agumon's first attack names part 0, its chest, so Guilmon's `J_spine02` is part 0 |
+| Triangles | Edges are collapsed onto one of their ends, cheapest first by how far the surface moves (quadric error), down to the figure. A collapse that would tear the texture mapping at a seam, turn a triangle over or pinch the mesh is refused. The eyes' triangles weigh 30 times more, so they are not the first to go |
+| Texture | The pieces of the texture mapping still in use are laid out again in one sheet, each by its own shape (the texels its triangles touch and one around), the largest first, at the first free place from the top left; pieces on the same texels (the two sides of a model painted once) share them. All are shrunk by the same factor, the eyes' pieces half as much (1.5 times as large). The pieces are sorted into as many groups as there are palette rows by their mean colour, and the texels of each group are reduced to 16 colours. Guilmon: 28 pieces, 14 after sharing, at 0.153 of their size, 65% of the sheet used |
+| Size and place | With `--against <the base's own Time Stranger model>` (the card's `against`) the model is as large against the base as it is in Time Stranger: Agumon is 1.743 high there and Guilmon 2.170, so Guilmon stands 1.24 times as tall as the disc's Agumon, 312 against 251. Without it (a base that Time Stranger does not have) it is as tall as the base in key 0 of its standing motion. Stood on the base's ground, y downward and facing −z as the disc's models |
 | Motions | Each of the eight slots keeps the base's keys: as many, each as long, with the base's sound and camera record. So the motion lasts what the base's lasts, and every sound and camera move comes at the base's moment. The pose of each key comes from the model's Time Stranger motion for that slot (table below) |
 
 **Motions** (TS-206). What a slot is and how long a motion lasts is the PlayStation game's
@@ -1202,8 +1227,8 @@ and how, is this project's.
   attack at the moment the base's script fires: the Time Stranger files were not searched
   for when a motion strikes.
 - **Pose.** A part moves as its own bone does (the bone's matrix in that frame times its
-  inverse bind matrix); bones merged into the part move with it as one piece, so a tail
-  merged into the hips does not bend. From that the key gets, for each part, angles in the
+  inverse bind matrix); bones merged into the part move with it as one piece. From that
+  the key gets, for each part, angles in the
   game's order Ry·Rx·Rz, a move added to the part's place and a scale. The angles of a key
   are written as near the key before as a whole turn allows, and key 0 of every slot as
   near the standing pose, because the game goes from key to key number by number. Between

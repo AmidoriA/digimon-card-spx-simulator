@@ -15,6 +15,16 @@ README lists every custom card under "Not from the game code".
      "xfx": "Nature Foe x3",         the cross attack's effect, by its name in engine.js (XFX)
      "support": {"prio", "conds", "acts", "text"},   the support effect, as in cards.js
      "model":  {"number": 400, "recolour": name},    web/assets/models/400.*
+                or {"number": 401, "ts": "chr090",     a Time Stranger model instead of the base's,
+                    "against": "chr050",               on the base's keys (ts_model.py): its file;
+                    "parts": {"0": "J_spine02"},       the base's own model of that game, if it has
+                    "motions": {"3": "ba02"},          one (the model is then as large against the
+                    "detail": 170,                     base as it is there, else as tall as the
+                    "figures": {"triangles": 800}}     base); the bones whose parts must carry a
+                                     number the base's scripts name; and, optional: another Time
+                                     Stranger motion for a slot than ts_model.ROLES gives, the
+                                     disc model whose figures it may cost (TS_DETAIL without it)
+                                     and single figures (parts, triangles, width, height, rows)
      "battle": {"offset": 10000, "recolour": name, "accent": "dark"},
                                      the base's attack and hit scripts and their effect files,
                                      copied under their number + offset
@@ -62,6 +72,10 @@ XFX = ["None", "1st Attack", "○ to 0", "△ to 0", "✕ to 0", "○ Counter", 
        "Eat-up HP", "Jamming", "Fire Foe x3", "Ice Foe x3", "Nature Foe x3", "Darkness Foe x3", "Rare Foe x3"]
 FIRST_ID = 301          # the game's cards end at 300
 FIRST_MODEL = 400       # the game's models end at 300
+# What a model converted from Time Stranger may cost: the figures of Angewomon's model 170
+# (30 parts, 976 triangles, a 256x128 texture, 14 palette rows), one of the disc's detailed
+# ones. The owner's choice (2026-10-14, TS-207): Agumon's own figures are low.
+TS_DETAIL = 170
 
 
 def load():
@@ -74,6 +88,7 @@ def load():
         if "model" in c:
             n = c["model"]["number"]
             assert FIRST_MODEL <= n < 1000 and n not in models, "model number %s" % n
+            assert ("ts" in c["model"]) != ("recolour" in c["model"]), "model %s: a recolour or a Time Stranger model" % n
             models.add(n)
         if "battle" in c:
             o = c["battle"]["offset"]

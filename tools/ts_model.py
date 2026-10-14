@@ -1,42 +1,55 @@
-"""Turn a Time Stranger model into a DDCB model file (TS-205) with its motions (TS-206).
+"""Turn a Time Stranger model into a DDCB model file (TS-205) with its motions (TS-206),
+as settled on Guilmon (TS-207).
 
-Usage (run with tools/.venv python):
+Usage (run with tools/.venv python; tools/build_custom.py calls make() for a card whose
+"model" names a Time Stranger model):
   python -I ts_model.py <file.geom> <web dir> <base model number> <out dir> <number>
-        [--part N=<bone> ...] [--images <dir>] [--preview out.png]
-        [--anims <prefix>] [--motion SLOT=<name> ...] [--poses out.png]
+        [--detail <model number>] [--parts N] [--triangles N] [--width N] [--height N] [--rows N]
+        [--against <the base's own .geom>] [--part N=<bone> ...] [--motion SLOT=<name> ...]
+        [--images <dir>] [--anims <prefix>] [--preview out.png] [--poses out.png]
 
-Writes <out dir>/NNN.bin.gz, NNN.png and NNNp.png in the format of tools/build_models.py,
-within the figures of the base model web/assets/models/<base>.bin.gz: no more parts,
-triangles, texture area or palette rows than it has, standing as tall as the base stands
-in its standing motion and facing the way it faces. The eight motions are made from the
-model's Time Stranger motions <prefix><name>.anim (the prefix is the .geom's path without
-its ending and with "_" unless --anims gives another), on the base's own keys.
+Writes <out dir>/NNN.bin.gz, NNN.png and NNNp.png in the format of tools/build_models.py.
+The eight motions are made from the model's Time Stranger motions <prefix><name>.anim (the
+prefix is the .geom's path without its ending and with "_" unless --anims gives another),
+on the keys of the base model web/assets/models/<base>.bin.gz.
 
---motion SLOT=<name> takes another Time Stranger motion for a slot than ROLES names.
---poses draws the base (upper row of each slot) and the written model (lower row) in six
-keys of every slot, from the side.
-
+--detail names the disc model whose figures the new one may cost: its parts, triangles,
+texture size and palette rows (FIGURES). Without it they are the base's. --parts and the
+others give single figures; none may be more than the most a disc model has (MOST).
+--against names the Time Stranger model of the base's own Digimon: the new model is then
+as large against the base as it is in that game. Without it, as tall as the base.
 --part N=<bone> gives a bone's part the number N. The base's battle scripts hang effects
 on parts by number (docs/time-stranger/motion-slots.md, the "Parts" columns), so the part
 that plays that role in the new model has to carry it.
+--motion SLOT=<name> takes another Time Stranger motion for a slot than ROLES names.
+--preview draws the base and the written model as they are built, front and side; --poses
+draws the base (upper row of each slot) and the written model (lower row) in six keys of
+every slot, from the side.
 
 How it is made. None of this is the PlayStation game's doing: the choices are this
-project's, made to fit what the disc's models are (rigid parts, 16-colour palette rows,
-every triangle inside one part; measured over the 211 card models in web/assets/models).
-  1. parts: a vertex goes with the bone that weighs most on it. The bone with the fewest
-     vertices is merged into its parent until there are no more parts than the base has.
-  2. fewer triangles: edges are collapsed onto one of their ends, cheapest first by the
-     distance the surface moves (quadric error), until the base's triangle count. An edge
-     is left alone where its collapse would tear the texture mapping at a seam or turn a
-     triangle over. The eyes' triangles weigh more, so that they are not the first to go.
+project's, made to fit what the disc's models are (rigid parts, 16-colour palette rows;
+measured over the 211 card models in web/assets/models). In one thing the result is not
+what they are: the disc's models keep every triangle inside one part.
+  1. fewer triangles: edges are collapsed onto one of their ends, cheapest first by the
+     distance the surface moves (quadric error), down to the figure. An edge is left
+     alone where its collapse would tear the texture mapping at a seam, turn a triangle
+     over, pinch the mesh, or join two bones that no edge of the model joins. The eyes'
+     triangles weigh more, so that they are not the first to go.
+  2. parts: a vertex goes with the bone that weighs most on it. Bones are merged into
+     their parents until there are no more parts than the figure: each time the bone
+     whose vertices that moves least, measured over the motions the slots take (a collar
+     before an elbow), the two sides of a pair together. A triangle whose corners are in
+     different parts keeps them there and is stretched between the parts like skin, so no
+     joint opens; web/js/battle3d.js moves a model vertex by vertex and battlehd.js
+     refines such a triangle in the model's coordinates.
   3. texture: the pieces of the texture mapping that are still used are laid out again in
-     one sheet of the base's size; pieces that use the same texels share them. All are
-     shrunk by one factor across and one down. The pieces are sorted into as many groups
-     as the base has palette rows by their colour, and each group's used texels are
-     reduced to 16 colours.
-  4. size and place: the model is scaled to the height of the base in key 0 of its
-     standing motion and stood on the same ground, turned to face the same way (the
-     disc's models have y downward and face -z).
+     one sheet, each by its own shape, the largest first; pieces on the same texels (the
+     two sides of a model painted once) share them. All are shrunk by one factor, the
+     eyes' pieces less (EYE_TEXELS). The pieces are sorted into as many groups as there
+     are palette rows by their colour, and each group's texels are reduced to 16 colours.
+  4. size and place: the model is scaled against the base (--against) or to the height of
+     the base in key 0 of its standing motion, stood on the same ground and turned to
+     face the same way (the disc's models have y downward and face -z).
   The eyes' two overlay textures are laid over each other as ts_model_read.py --overlays
   does; how the game's shader mixes them was not read.
   5. motions (TS-206): a slot keeps the base's keys: as many, each as long, with the base's
@@ -68,6 +81,13 @@ import ts_anim_read as A
 import ts_model_read as T
 
 EYE_WEIGHT = 30.0
+EYE_TEXELS = 1.5
+SHAPE_SIDE = 512       # a texture piece's shape is drawn no larger than this before it is laid out
+# What a model costs: the figures the converted model must stay within. They are the base's
+# unless given (--parts and so on), and never more than the most any of the disc's 211 card
+# models has (measured over web/assets/models; the shader of battle3d.js holds 32 parts).
+FIGURES = ("parts", "triangles", "width", "height", "rows")
+MOST = {"parts": 31, "triangles": 1246, "width": 256, "height": 216, "rows": 16}
 
 # The Time Stranger motion for each of the game's eight slots (README, "Polygon Battle", has
 # what a slot is; "Time Stranger motions" has the names the other game gives its own):
@@ -191,9 +211,13 @@ def weld(pos, uv, src, bone, tris):
 
 # ---- fewer triangles -------------------------------------------------------------------
 
-def decimate(P, place, tris, weight, want, log):
+def decimate(P, place, tris, weight, want, log, bone=None):
     """Half-edge collapses on the places (welded points), wedges following along.
-    P: position of each wedge; place: its place; tris: wedge triples. Returns the triangles left."""
+    P: position of each wedge; place: its place; tris: wedge triples; bone: each wedge's
+    bone. Returns the triangles left.
+    A collapse may not join two bones by an edge that no edge of the model joins: a
+    triangle then never reaches from one part of the body to a far one (from the hips to
+    the tail's end), which the parts would pull apart when they move."""
     nplace = place.max() + 1
     ppos = np.zeros((nplace, 3))
     ppos[place] = P
@@ -232,6 +256,12 @@ def decimate(P, place, tris, weight, want, log):
                 Q[b] += k
     version = [0] * nplace
     heap = []
+    pbone = np.zeros(nplace, np.int64)
+    joined = set()
+    if bone is not None:
+        pbone[place] = bone
+        joined = {(min(pbone[a], pbone[b]), max(pbone[a], pbone[b])) for a, b in edge_use}
+    apart = 0
 
     def neighbours(p):
         return {place[w] for ti in around[p] for w in tri[ti]} - {p}
@@ -252,6 +282,10 @@ def decimate(P, place, tris, weight, want, log):
         shared = [ti for ti in around[a] if any(place[w] == b for w in tri[ti])]
         if not shared or len(neighbours(a) & neighbours(b)) > len(shared):
             refused += 1
+            continue
+        if bone is not None and any(pbone[n] != pbone[b] and (min(pbone[n], pbone[b]), max(pbone[n], pbone[b])) not in joined
+                                    for n in neighbours(a) if n != b):
+            apart += 1
             continue
         # every wedge at a must have a wedge at b on a common triangle: its texture mapping goes there
         to = {}
@@ -295,8 +329,8 @@ def decimate(P, place, tris, weight, want, log):
         for n in neighbours(b):
             push(b, n)
             push(n, b)
-    log("triangles %d -> %d (%d collapses refused for a seam, an overturned triangle or the mesh's shape)" % (
-        len(tri), left, refused))
+    log("triangles %d -> %d (%d collapses refused for a seam, an overturned triangle or the mesh's shape, %d for joining bones that no edge joins)" % (
+        len(tri), left, refused, apart))
     keep = [i for i, ok in enumerate(alive) if ok]
     return np.array([tri[i] for i in keep]), weight[keep]
 
@@ -311,8 +345,11 @@ def chain(parent, p):
     return out
 
 
-def choose_parts(bones, bone_of, limit, fixed, log):
-    """Merge the bone with the fewest vertices into its parent until `limit` parts are left.
+def choose_parts(bones, bone_of, limit, fixed, log, apart=None):
+    """Merge bones into their parents until `limit` parts are left: each time the bone whose
+    vertices that moves least over the model's motions. apart(b, q) is how far the vertices
+    of bone b are from where bone q would carry them, squared and summed over the frames
+    (motion_cost); without it the bone with the fewest vertices goes first.
     fixed: {part number: bone} that must stay parts with those numbers.
     Returns {bone: part number} for every bone in use and the bone of each part."""
     parent = [b["parent"] for b in bones]
@@ -322,6 +359,27 @@ def choose_parts(bones, bone_of, limit, fixed, log):
     for b in fixed.values():
         count.setdefault(b, 0)
     into = {b: b for b in count}
+
+    def above(p):
+        q = parent[p]
+        while q not in count:
+            q = parent[q]
+        return q
+
+    def price(p):
+        if apart is None:
+            return count[p]
+        q = above(p)
+        return sum(apart(b, q) - apart(b, p) for b, v in into.items() if v == p)
+
+    def twin(p):
+        """The same bone of the other side (J_arm_l and J_arm_r), if it is a part too."""
+        name = bones[p]["name"]
+        for a, b in (("_l", "_r"), ("_r", "_l"), ("_L", "_R"), ("_R", "_L")):
+            if name.endswith(a):
+                other = [q for q in count if bones[q]["name"] == name[:-2] + b]
+                return other[0] if other else None
+        return None
 
     def tops():
         out = set()
@@ -350,15 +408,24 @@ def choose_parts(bones, bone_of, limit, fixed, log):
             break
         root = next(iter(roots))
         free = [p for p in count if p != root and p not in fixed.values()]
-        small = min(free, key=lambda p: (count[p], p))
-        q = parent[small]
-        while q not in count:
-            q = parent[q]
-        log("part %s (%d vertices) joins %s" % (bones[small]["name"], count[small], bones[q]["name"]))
-        count[q] += count.pop(small)
-        for k, v in into.items():
-            if v == small:
-                into[k] = q
+        # the two sides of a pair go together, so that the model stays the same on both
+        units = {}
+        for p in free:
+            t = twin(p)
+            if t is None or t in free:
+                units[min(p, t) if t is not None else p] = [p] if t is None else sorted((p, t))
+        if not units:
+            raise ValueError("no bone left to merge for %d parts" % limit)
+        prices = {p: price(p) for u in units.values() for p in u}
+        unit = min(units.values(), key=lambda u: (sum(prices[p] for p in u) / len(u), u[0]))
+        for small in unit:
+            q = above(small)
+            log("part %s (%d vertices) joins %s" % (bones[small]["name"], count[small], bones[q]["name"]) + (
+                "" if apart is None else ": %s" % apart(None, prices[small])))
+            count[q] += count.pop(small)
+            for k, v in into.items():
+                if v == small:
+                    into[k] = q
     order = [None] * len(count)
     for n, b in fixed.items():
         if n >= len(order):
@@ -393,22 +460,43 @@ def islands(tris):
     return list(out.values())
 
 
-def pack(sizes, width, height, sx, sy):
-    """Shelf packing of (w, h) boxes scaled by sx, sy, one texel apart. None if they do not fit."""
-    boxes = sorted(((max(2, int(math.ceil(w * sx))), max(2, int(math.ceil(h * sy))), i) for i, (w, h) in enumerate(sizes)),
-                   key=lambda b: -b[1])
-    x = y = shelf = 0
+def shape_at(shape, w, h):
+    """A piece's shape (texels its triangles touch, drawn at SHAPE_SCALE) in a box of w x h
+    texels with a rim of one texel around it: where any of it falls, and one texel around."""
+    small = np.asarray(Image.fromarray(shape.astype(np.uint8) * 255).resize((w, h), Image.BOX)) > 0
+    m = np.pad(small, 1)
+    grown = m.copy()
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            grown[max(dy, 0):m.shape[0] + min(dy, 0), max(dx, 0):m.shape[1] + min(dx, 0)] |= \
+                m[max(-dy, 0):m.shape[0] + min(-dy, 0), max(-dx, 0):m.shape[1] + min(-dx, 0)]
+    return grown
+
+
+def pack(shapes, sizes, width, height, sx, sy):
+    """Lay the pieces into the sheet by their shapes, the largest first, each at the first
+    free place from the top left (row by row). shapes: shape_at's input for each piece;
+    sizes: its (w, h) in texels of its picture, scaled here by sx, sy.
+    -> {piece: (x, y, mask)}, the mask with its rim, or None if they do not fit."""
+    masks = {}
+    for i, (w, h) in enumerate(sizes):
+        masks[i] = shape_at(shapes[i], max(1, int(math.ceil(w * sx))), max(1, int(math.ceil(h * sy))))
+        if masks[i].shape[1] > width or masks[i].shape[0] > height:
+            return None
+    taken = np.zeros((height, width))
     out = {}
-    for w, h, i in boxes:
-        if w > width:
+    fh, fw = 2 * height, 2 * width
+    for i in sorted(masks, key=lambda i: (-int(masks[i].sum()), i)):
+        m = masks[i]
+        h, w = m.shape
+        # how many taken texels the piece would lie on, for every place it could have
+        hit = np.fft.irfft2(np.fft.rfft2(taken, (fh, fw)) * np.fft.rfft2(m[::-1, ::-1].astype(np.float64), (fh, fw)), (fh, fw))
+        free = hit[h - 1:height, w - 1:width] < 0.5
+        if not free.any():
             return None
-        if x + w > width:
-            x, y, shelf = 0, y + shelf + 1, 0
-        if y + h > height:
-            return None
-        out[i] = (x, y, w, h)
-        x += w + 1
-        shelf = max(shelf, h)
+        y, x = np.unravel_index(int(free.argmax()), free.shape)
+        taken[y:y + h, x:x + w] += m
+        out[i] = (int(x), int(y), m)
     return out
 
 
@@ -433,7 +521,7 @@ def sixteen(pixels):
     return np.round(out).astype(np.uint8)
 
 
-def bake(tris, wuv, wsrc, pictures, width, height, rows, log):
+def bake(tris, wuv, wsrc, pictures, width, height, rows, log, eyes=()):
     """-> texel coordinates of each wedge, palette row of each triangle, index sheet, palette rows."""
     isl = islands(tris)
     box = []
@@ -443,7 +531,9 @@ def bake(tris, wuv, wsrc, pictures, width, height, rows, log):
         px = wuv[ws] * pic.shape[1::-1]
         lo, hi = np.floor(px.min(0)), np.ceil(px.max(0))
         box.append([wsrc[ws[0]], lo, np.maximum(hi, lo + 1)])
-    # pieces that lie over each other in the same picture share their texels
+    # pieces that lie on the same texels of the same picture (the two sides of a model that
+    # is painted once) share them; every other piece gets a place of its own in the sheet,
+    # so that the sheet is filled and each piece can take the palette row that fits it
     team = list(range(len(isl)))
 
     def find(i):
@@ -455,7 +545,8 @@ def bake(tris, wuv, wsrc, pictures, width, height, rows, log):
     for i in range(len(isl)):
         for j in range(i):
             a, b = box[i], box[j]
-            if a[0] == b[0] and (a[1] < b[2]).all() and (b[1] < a[2]).all():
+            both = np.clip(np.minimum(a[2], b[2]) - np.maximum(a[1], b[1]), 0, None).prod()
+            if a[0] == b[0] and both > 0.8 * max((a[2] - a[1]).prod(), (b[2] - b[1]).prod()):
                 team[find(i)] = find(j)
     teams = {}
     for i in range(len(isl)):
@@ -465,57 +556,77 @@ def bake(tris, wuv, wsrc, pictures, width, height, rows, log):
         lo = np.min([box[i][1] for i in members], 0)
         hi = np.max([box[i][2] for i in members], 0)
         rects.append({"src": box[members[0]][0], "lo": lo, "hi": hi, "tris": [ti for i in members for ti in isl[i]]})
-    sizes = [(r["hi"][0] - r["lo"][0], r["hi"][1] - r["lo"][1]) for r in rects]
+    # the eyes' pieces are laid out EYE_TEXELS times as large each way as the rest: they are
+    # a few texels of their picture and what a face is read by
+    eyes = set(int(t) for t in eyes)
+    sizes = [((r["hi"][0] - r["lo"][0]) * k, (r["hi"][1] - r["lo"][1]) * k)
+             for r in rects for k in [EYE_TEXELS if eyes.intersection(r["tris"]) else 1.0]]
+    # each piece's shape: the texels of its picture its triangles touch, at SHAPE_SCALE
+    shapes = []
+    for r in rects:
+        bw, bh = r["hi"] - r["lo"]
+        pic = pictures[r["src"]]
+        ph, pw = pic.shape[:2]
+        k = min(1.0, SHAPE_SIDE / max(bw, bh))
+        sw, sh = max(1, int(math.ceil(bw * k))), max(1, int(math.ceil(bh * k)))
+        shape = np.zeros((sh, sw), bool)
+        for ti in r["tris"]:
+            t = (wuv[tris[ti]] * (pw, ph) - r["lo"]) * k
+            x0, x1 = int(max(math.floor(t[:, 0].min()), 0)), int(min(math.ceil(t[:, 0].max()), sw - 1))
+            y0, y1 = int(max(math.floor(t[:, 1].min()), 0)), int(min(math.ceil(t[:, 1].max()), sh - 1))
+            gx, gy = np.meshgrid(np.arange(x0, x1 + 1) + 0.5, np.arange(y0, y1 + 1) + 0.5)
+            den = (t[1, 1] - t[2, 1]) * (t[0, 0] - t[2, 0]) + (t[2, 0] - t[1, 0]) * (t[0, 1] - t[2, 1])
+            if abs(den) < 1e-9:
+                shape[y0:y1 + 1, x0:x1 + 1] = True
+                continue
+            w0 = ((t[1, 1] - t[2, 1]) * (gx - t[2, 0]) + (t[2, 0] - t[1, 0]) * (gy - t[2, 1])) / den
+            w1 = ((t[2, 1] - t[0, 1]) * (gx - t[2, 0]) + (t[0, 0] - t[2, 0]) * (gy - t[2, 1])) / den
+            near = 1.0 / max(math.sqrt(abs(den)), 1e-6)
+            shape[y0:y1 + 1, x0:x1 + 1] |= (w0 >= -near) & (w1 >= -near) & (1 - w0 - w1 >= -near)
+        shapes.append(shape)
     best = None
-    for aspect in (1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0):   # texels may be shrunk more one way than the other
+    for aspect in (0.5, 0.67, 0.8, 1.0, 1.25, 1.5, 2.0):     # texels may be shrunk more one way than the other
         lo_s, hi_s = 0.0, 1.0
-        for _ in range(30):
+        for _ in range(14):
             mid = (lo_s + hi_s) / 2
-            if pack(sizes, width, height, mid * aspect, mid):
+            if pack(shapes, sizes, width, height, mid * aspect, mid):
                 lo_s = mid
             else:
                 hi_s = mid
-        if lo_s > 0 and (best is None or lo_s * lo_s * aspect > best[0]):
-            best = (lo_s * lo_s * aspect, lo_s * aspect, lo_s)
+        # the most texels, but a sheet shrunk evenly both ways before one shrunk unevenly
+        worth = lo_s * lo_s * aspect * min(aspect, 1 / aspect) ** 0.5
+        if lo_s > 0 and (best is None or worth > best[0]):
+            best = (worth, lo_s * aspect, lo_s)
     if best is None:
         raise ValueError("the texture pieces do not fit the sheet at any size")
-    where = pack(sizes, width, height, best[1], best[2])
-    log("%d texture pieces in %d groups of shared texels, shrunk to %.3f across and %.3f down, in a sheet of %dx%d" % (
-        len(isl), len(rects), best[1], best[2], width, height))
+    where = pack(shapes, sizes, width, height, best[1], best[2])
     sheet = np.zeros((height, width, 3), np.uint8)
     texel = np.zeros((len(wuv), 2))
     covered = np.full((height, width), -1)
     means = []
+    tiles = {}
     for i, r in enumerate(rects):
-        x, y, w, h = where[i]
+        x, y, mask = where[i]
+        h, w = mask.shape
         pic = pictures[r["src"]]
         ph, pw = pic.shape[:2]
         lo, hi = r["lo"], r["hi"]
-        tile = np.tile(pic, (3, 3, 1))                 # coordinates may run past the picture's edge
+        if r["src"] not in tiles:
+            tiles[r["src"]] = np.tile(pic, (3, 3, 1))  # coordinates may run past the picture's edge
+        tile = tiles[r["src"]]
         crop = tile[int(lo[1]) % ph + ph:int(lo[1]) % ph + ph + int(hi[1] - lo[1]), int(lo[0]) % pw + pw:int(lo[0]) % pw + pw + int(hi[0] - lo[0])]
-        sheet[y:y + h, x:x + w] = np.asarray(Image.fromarray(crop).resize((w, h), Image.BOX))
+        # the piece inside its rim; the rim repeats the piece's outermost texels, so that a
+        # smoothed lookup at the edge (battlehd.js) does not reach into the next piece
+        inner = np.asarray(Image.fromarray(crop).resize((w - 2, h - 2), Image.BOX))
+        sheet[y:y + h, x:x + w][mask] = np.pad(inner, ((1, 1), (1, 1), (0, 0)), mode="edge")[mask]
+        covered[y:y + h, x:x + w][mask] = i
         for wd in {int(wd) for ti in r["tris"] for wd in tris[ti]}:
             p = wuv[wd] * (pw, ph)
-            texel[wd] = (x + (p[0] - lo[0]) / (hi[0] - lo[0]) * (w - 1) + 0.5, y + (p[1] - lo[1]) / (hi[1] - lo[1]) * (h - 1) + 0.5)
-        # the texels the triangles of this group touch (one texel around them too)
-        mask = np.zeros((height, width), bool)
-        for ti in r["tris"]:
-            t = texel[tris[ti]]
-            x0, x1 = int(max(t[:, 0].min() - 1, x)), int(min(t[:, 0].max() + 1, x + w - 1))
-            y0, y1 = int(max(t[:, 1].min() - 1, y)), int(min(t[:, 1].max() + 1, y + h - 1))
-            gx, gy = np.meshgrid(np.arange(x0, x1 + 1) + 0.5, np.arange(y0, y1 + 1) + 0.5)
-            den = (t[1, 1] - t[2, 1]) * (t[0, 0] - t[2, 0]) + (t[2, 0] - t[1, 0]) * (t[0, 1] - t[2, 1])
-            if abs(den) < 1e-9:
-                mask[y0:y1 + 1, x0:x1 + 1] = True
-                continue
-            w0 = ((t[1, 1] - t[2, 1]) * (gx - t[2, 0]) + (t[2, 0] - t[1, 0]) * (gy - t[2, 1])) / den
-            w1 = ((t[2, 1] - t[0, 1]) * (gx - t[2, 0]) + (t[0, 0] - t[2, 0]) * (gy - t[2, 1])) / den
-            near = 1.5 / max(math.sqrt(abs(den)), 1e-6)
-            mask[y0:y1 + 1, x0:x1 + 1] |= (w0 >= -near) & (w1 >= -near) & (1 - w0 - w1 >= -near)
-        covered[mask] = i
+            texel[wd] = (x + 1 + (p[0] - lo[0]) / (hi[0] - lo[0]) * (w - 2), y + 1 + (p[1] - lo[1]) / (hi[1] - lo[1]) * (h - 2))
         r["area"] = int(mask.sum())
-        means.append(sheet[mask].reshape(-1, 3).mean(0) if mask.any() else np.zeros(3))
-        r["rect"] = (x, y, w, h)
+        means.append(sheet[y:y + h, x:x + w][mask].reshape(-1, 3).mean(0))
+    log("%d texture pieces, %d after those on the same texels are joined, shrunk to %.3f across and %.3f down, in a sheet of %dx%d (%d%% of it used)" % (
+        len(isl), len(rects), best[1], best[2], width, height, round(100 * (covered >= 0).mean())))
     # palette groups: k-means on the groups' mean colours, weighted by their texels
     cols, wts = np.array(means), np.array([r["area"] for r in rects], np.float64) + 1e-6
     k = min(rows, len(rects))
@@ -537,10 +648,8 @@ def bake(tris, wuv, wsrc, pictures, width, height, rows, log):
         pal = sixteen(sheet[mask].reshape(-1, 3))
         palette[c, :16, :3] = pal
         palette[c, :16, 3] = 255
-        for i in members:                               # every texel of the group's boxes, used or not
-            x, y, w, h = rects[i]["rect"]
-            block = sheet[y:y + h, x:x + w].astype(np.float64)
-            index[y:y + h, x:x + w] = ((block[:, :, None] - pal[None, None].astype(np.float64)) ** 2).sum(3).argmin(2)
+        index[mask] = ((sheet[mask].astype(np.float64)[:, None] - pal[None].astype(np.float64)) ** 2).sum(2).argmin(1)
+        for i in members:
             tri_row[rects[i]["tris"]] = c
         log("palette row %d: %d texels in use, %s" % (c, int(mask.sum()), " ".join("%02x%02x%02x" % tuple(x) for x in pal)))
     return texel, tri_row, index, palette
@@ -548,7 +657,46 @@ def bake(tris, wuv, wsrc, pictures, width, height, rows, log):
 
 # ---- the file --------------------------------------------------------------------------
 
-def convert(geom, images, base, fixed_names, log):
+def motion_cost(g, anims, pos, bone_of, area, log):
+    """-> apart(b, q) for choose_parts: the squared distance, summed over the vertices of
+    bone b and over every second frame of the model's motions, between where b carries them
+    and where q would; a vertex counts by the surface around it (area: a third of its
+    triangles'). apart(None, cost) puts a cost into words. None without motions."""
+    frames = []
+    for anim in anims:
+        for f in range(0, anim["frames"], 2):
+            world = T.rest_world(A.posed(g, A.sample(anim, f)))
+            frames.append(np.array([w @ b["inverse_bind"] for w, b in zip(world, g["bones"])]))
+    if not frames:
+        return None
+    S = np.array(frames)                                 # frame, bone, 4, 4
+    high = pos[:, 1].max() - pos[:, 1].min()
+    at, cache = {}, {}
+    for b in set(bone_of.tolist()):
+        at[b] = (np.concatenate([pos[bone_of == b], np.ones(((bone_of == b).sum(), 1))], 1), area[bone_of == b])
+
+    def apart(b, q):
+        if b is None:
+            return "that moves the surface %.2f%% of the model's height from its place (all of it, all frames together)" % (
+                100 * math.sqrt(max(q, 0.0) / (area.sum() * len(S))) / high)
+        if b not in at or b == q:
+            return 0.0
+        if (b, q) not in cache:
+            d = np.einsum("fij,vj->fvi", S[:, b] - S[:, q], at[b][0])[..., :3]
+            cache[b, q] = float(((d * d).sum(2) * at[b][1]).sum())
+        return cache[b, q]
+    log("parts chosen over %d frames of %d motions" % (len(S), len(anims)))
+    return apart
+
+
+def source_height(geom):
+    """How tall a Time Stranger model is as it is built (its drawn meshes)."""
+    g = T.read_geom(geom)
+    y = np.concatenate([m["attributes"]["POSITION"][:, 1] for m in T.drawn(g, False)])
+    return float(y.max() - y.min())
+
+
+def convert(geom, images, base, fixed_names, log, anims=(), figures=None, against=None):
     g = T.read_geom(geom)
     names = {b["name"]: i for i, b in enumerate(g["bones"])}
     fixed = {}
@@ -563,16 +711,30 @@ def convert(geom, images, base, fixed_names, log):
     wpos, wnrm, wuv, wbone = pos[first], nrm[first], uv[first], bone[first]
     wsrc = [src[i] for i in first]
     log("source: %d triangles, %d wedges at %d points, %d bones in use" % (len(wtris), len(first), place.max() + 1, len(set(wbone.tolist()))))
-    wtris, weight = decimate(wpos, place, wtris, weight, base["triangles"], log)
+    lim = {k: base[k] for k in FIGURES}
+    lim.update(figures or {})
+    wtris, weight = decimate(wpos, place, wtris, weight, lim["triangles"], log, wbone)
     log("of them %d are the eyes'" % int((weight > 1).sum()))
     used = np.unique(wtris)
-    part_of_bone, order = choose_parts(g["bones"], wbone[used], base["parts"], fixed, log)
+    area = np.zeros(len(wpos))
+    for t in wtris:
+        area[t] += np.linalg.norm(np.cross(wpos[t[1]] - wpos[t[0]], wpos[t[2]] - wpos[t[0]])) / 6
+    if len(fixed) and max(fixed) >= lim["parts"]:
+        raise ValueError("part %d asked for with %d parts" % (max(fixed), lim["parts"]))
+    part_of_bone, order = choose_parts(g["bones"], wbone[used], lim["parts"], fixed, log,
+                                       motion_cost(g, anims, wpos[used], wbone[used], area[used], log))
     world = T.rest_world(g["bones"])
     joint = np.array([world[b][:3, 3] for b in order])
-    texel, tri_row, index, palette = bake(wtris, wuv, wsrc, pictures, base["width"], base["height"], base["rows"], log)
+    texel, tri_row, index, palette = bake(wtris, wuv, wsrc, pictures, lim["width"], lim["height"], lim["rows"], log,
+                                         np.nonzero(weight > 1)[0])
     # as tall as the base stands, on its ground; y downward and facing -z as the disc's models
     lo, hi = wpos[used].min(0), wpos[used].max(0)
-    scale = (base["hi"][1] - base["lo"][1]) / (hi[1] - lo[1])
+    if against:                                         # the base's own model of that game is the measure
+        scale = (base["hi"][1] - base["lo"][1]) / against
+        log("as large against the base as in Time Stranger: the base's model is %.3f high there, this one %.3f (%.2f times)" % (
+            against, hi[1] - lo[1], (hi[1] - lo[1]) / against))
+    else:
+        scale = (base["hi"][1] - base["lo"][1]) / (hi[1] - lo[1])
     flip = np.array([-1.0, -1.0, -1.0])
     shift = np.array([0.0, base["hi"][1] - (-lo[1] * scale), 0.0])
     log("scale %.2f: %.3f high there, %d here (the base stands from y %d to %d)" % (scale, hi[1] - lo[1], round((hi[1] - lo[1]) * scale), base["lo"][1], base["hi"][1]))
@@ -601,11 +763,13 @@ def convert(geom, images, base, fixed_names, log):
     centre = np.array(centre, np.float64)
     verts, where, out_tris = [], {}, []
     for ti, t in enumerate(wtris):
-        ps = [part_of_bone[int(wbone[w])] for w in t]
-        part = max(set(ps), key=ps.count)               # the whole triangle goes with one part
         ids = []
         for w in t:
-            key = (int(w), part, int(tri_row[ti]))
+            # a corner stays with its own bone's part: a triangle between two parts is
+            # stretched by them like skin (the disc's models have none; the port moves a
+            # model vertex by vertex, battle3d.js, so it can draw one)
+            part = part_of_bone[int(wbone[w])]
+            key = (int(w), int(tri_row[ti]))
             if key not in where:
                 where[key] = len(verts)
                 p = np.round(to_dm(wpos[w]) - centre[part])
@@ -688,6 +852,24 @@ def key_frames(keys, anim, m, log, name):
     return list(after0 / after0[-1] * last), "first frame to last"
 
 
+def slot_names(slot, chosen):
+    """The Time Stranger motions to try for a slot, first choice first."""
+    if slot in chosen:
+        return [chosen[slot]]
+    return [ROLES.get(slot, "bn01")] + [x for x in FALLBACK.get(slot, ()) if x != ROLES.get(slot)] + ["bn01"]
+
+
+def slot_anims(base, prefix, chosen):
+    """The motions the model's slots will take, each once."""
+    out, seen = [], set()
+    for slot in range(len(base["motions"])):
+        name = next((x for x in slot_names(slot, chosen) if os.path.exists(prefix + x + ".anim")), None)
+        if name and name not in seen:
+            seen.add(name)
+            out.append(A.read(prefix + name + ".anim"))
+    return out
+
+
 def motions(m, base, prefix, chosen, log):
     """The eight motions on the base's keys. -> motions, [what was done for each slot]"""
     n = len(m["parts"])
@@ -701,7 +883,7 @@ def motions(m, base, prefix, chosen, log):
 
     stand = None
     for slot, keys in enumerate(base["motions"]):
-        names = [chosen[slot]] if slot in chosen else [ROLES.get(slot, "bn01")] + [x for x in FALLBACK.get(slot, ()) if x != ROLES.get(slot)] + ["bn01"]
+        names = slot_names(slot, chosen)
         name = next((x for x in names if load(x)), None)
         if name is None:
             log("slot %d: none of %s is there; the bind pose held still" % (slot, " ".join(names)))
@@ -888,13 +1070,42 @@ def preview(m, base, web, base_num, out, size=240):
     Image.fromarray(canvas).save(out)
 
 
+def make(geom, web, base_num, out_dir, num, fixed=None, chosen=None, images=None, anims=None, log=print, figures=None,
+         detail=None, against=None):
+    """Convert <geom> on the keys of the base model and write it as model <num>
+    (tools/build_custom.py calls this for a card whose "model" names a Time Stranger model).
+    detail: the disc model whose figures it may cost (the base's without it); figures:
+    single figures given outright; against: the .geom of the base's own Time Stranger model."""
+    base = read_dm(os.path.join(web, "assets", "models", "%03d.bin.gz" % base_num))
+    log("base %03d: %d parts, %d triangles, texture %dx%d, %d palette rows" % (
+        base_num, base["parts"], base["triangles"], base["width"], base["height"], base["rows"]))
+    if detail is not None:
+        like = read_dm(os.path.join(web, "assets", "models", "%03d.bin.gz" % detail))
+        figures = dict({k: like[k] for k in FIGURES}, **(figures or {}))
+        log("figures of %03d: %d parts, %d triangles, texture %dx%d, %d palette rows" % (
+            detail, like["parts"], like["triangles"], like["width"], like["height"], like["rows"]))
+    images = images or os.path.join(os.path.dirname(os.path.abspath(geom)), "images")
+    prefix, chosen = anims or os.path.splitext(geom)[0] + "_", chosen or {}
+    for k, v in (figures or {}).items():
+        if k not in FIGURES or not 0 < v <= MOST[k]:
+            raise ValueError("%s %s: the disc's models have at most %s" % (k, v, MOST.get(k, "no such figure")))
+    m = convert(geom, images, base, fixed or {}, lambda s: log("  " + s), slot_anims(base, prefix, chosen), figures,
+                source_height(against) if against else None)
+    made, notes = motions(m, base, prefix, chosen, lambda s: log("  " + s))
+    write(m, made, out_dir, num)
+    return m, made, notes, base
+
+
 def main():
     args = sys.argv[1:]
-    opts, pos, fixed, chosen = {}, [], {}, {}
+    opts, pos, fixed, chosen, figures = {}, [], {}, {}, {}
     i = 0
     while i < len(args):
-        if args[i] in ("--images", "--preview", "--anims", "--poses"):
+        if args[i] in ("--images", "--preview", "--anims", "--poses", "--detail", "--against"):
             opts[args[i][2:]] = args[i + 1]
+            i += 1
+        elif args[i][2:] in FIGURES:
+            figures[args[i][2:]] = int(args[i + 1])
             i += 1
         elif args[i] == "--part":
             n, name = args[i + 1].split("=")
@@ -910,13 +1121,9 @@ def main():
     if len(pos) != 5:
         sys.exit(__doc__)
     geom, web, base_num, out_dir, num = pos[0], pos[1], int(pos[2]), pos[3], int(pos[4])
-    base = read_dm(os.path.join(web, "assets", "models", "%03d.bin.gz" % base_num))
-    print("base %03d: %d parts, %d triangles, texture %dx%d, %d palette rows" % (
-        base_num, base["parts"], base["triangles"], base["width"], base["height"], base["rows"]))
-    images = opts.get("images") or os.path.join(os.path.dirname(os.path.abspath(geom)), "images")
-    m = convert(geom, images, base, fixed, lambda s: print("  " + s))
-    made, notes = motions(m, base, opts.get("anims") or os.path.splitext(geom)[0] + "_", chosen, lambda s: print("  " + s))
-    write(m, made, out_dir, num)
+    m, made, notes, base = make(geom, web, base_num, out_dir, num, fixed, chosen, opts.get("images"), opts.get("anims"),
+                                figures=figures, detail=int(opts["detail"]) if "detail" in opts else None,
+                                against=opts.get("against"))
     print("wrote %03d: %d parts, %d vertices, %d triangles, texture %dx%d, %d palette rows, %d motions" % (
         num, len(m["parts"]), len(m["verts"]), len(m["tris"]), m["index"].shape[1], m["index"].shape[0], len(m["palette"]), len(made)))
     print("  parts: " + " ".join("%d=%s" % (i, n) for i, n in enumerate(m["names"])))

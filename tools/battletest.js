@@ -44,16 +44,37 @@ function mesh(model) {
   const bytes = zlib.gunzipSync(fs.readFileSync(path.join(web, 'assets/models', String(model).padStart(3, '0') + '.bin.gz')));
   const w = new Int16Array(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
   const u = new Uint16Array(w.buffer), nv = u[4], nto = u[5], ntb = u[6], off = 10 + w[2] * 4;
-  return { n: w[2], nv, nto, ntb, vb: new Float32Array(w.slice(off, off + nv * 13)), ib: u.slice(off + nv * 13, off + nv * 13 + (nto + ntb) * 3) };
+  const parents = [], offsets = [];
+  for (let i = 0; i < w[2]; i++) { parents.push(w[10 + i * 4]); offsets.push([w[11 + i * 4], w[12 + i * 4], w[13 + i * 4]]); }
+  return { n: w[2], nv, nto, ntb, parents, offsets, vb: new Float32Array(w.slice(off, off + nv * 13)), ib: u.slice(off + nv * 13, off + nv * 13 + (nto + ntb) * 3) };
+}
+// Where a vertex of a mesh is in the model as it is built: its part's offsets added up.
+function built(m, mesh, n) {
+  let part = mesh.vb[n * 13 + 11], p = [mesh.vb[n * 13], mesh.vb[n * 13 + 1], mesh.vb[n * 13 + 2]];
+  for (let guard = 0; part >= 0 && guard < 64; part = m.parents[part], guard++) for (let k = 0; k < 3; k++) p[k] += m.offsets[part][k];
+  return p;
+}
+// A refined mesh has six corners for each triangle it was made from: the three it had and
+// one on each side. A corner on a side must lie near the middle of that side, also where
+// the side runs between two parts (the models converted from Time Stranger, TS-207).
+function sidesHold(m, mesh, name) {
+  for (let t = 0; t < mesh.nv; t += 6) [[0, 1, 3], [1, 2, 4], [2, 0, 5]].forEach(e => {
+    const a = built(m, mesh, t + e[0]), b = built(m, mesh, t + e[1]), c = built(m, mesh, t + e[2]);
+    const off = Math.hypot(c[0] - (a[0] + b[0]) / 2, c[1] - (a[1] + b[1]) / 2, c[2] - (a[2] + b[2]) / 2);
+    assert(off <= 0.3 * Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2]) + 1e-3, name + ': a new corner lies ' + off.toFixed(1) + ' from the middle of its side');
+  });
 }
 (async () => {
-  let vertices = 0, triangles = 0;
+  let vertices = 0, triangles = 0, between = 0;
+  const skinned = new Set();
   for (const model of new Set(cards.map(c => c.model))) {
     const m = mesh(model), before = m.vb.slice(), hd = HD.refine(m), smooth = HD.smooth(m);
     assert(hd.vb.every(Number.isFinite), 'non-finite mesh ' + model);
     assert(hd.ib.every(i => i < hd.vb.length / 13), 'invalid index ' + model);
     assert(hd.ib.length === (hd.nto + hd.ntb) * 3);
     assert.deepStrictEqual(m.vb, before, 'modified original mesh ' + model);
+    sidesHold(m, hd, 'refined mesh ' + model); sidesHold(m, smooth, 'Smooth mesh ' + model);
+    for (let t = 0; t < m.ib.length; t += 3) if (m.vb[m.ib[t] * 13 + 11] !== m.vb[m.ib[t + 1] * 13 + 11] || m.vb[m.ib[t] * 13 + 11] !== m.vb[m.ib[t + 2] * 13 + 11]) { between++; skinned.add(model); }
     assert(smooth.vb.every(Number.isFinite), 'non-finite Smooth mesh ' + model);
     assert(smooth.ib.every(i => i < smooth.nv), 'invalid Smooth index ' + model);
     assert(smooth.ib.length === m.ib.length * 16, 'Smooth did not subdivide twice ' + model);
@@ -68,6 +89,9 @@ function mesh(model) {
     vertices += hd.vb.length / 13; triangles += hd.ib.length / 3;
   }
   console.log('Refined all %d card models: %d vertices, %d triangles; original meshes preserved.', new Set(cards.map(c => c.model)).size, vertices, triangles);
+  // the disc's models keep every triangle inside one part; only converted ones may not
+  for (const model of skinned) assert(cards.some(c => c.model === model && c.custom != null), 'a model of the game has triangles between parts: ' + model);
+  console.log('%d triangles between parts, in the converted models %s; their new corners lie on their sides.', between, [...skinned].join(' ') || '(none)');
   let count = 0, max = 0;
   for (const c of cards) for (let k = 0; k < 3; k++) {
     const atk = c.atk[k], opts = { models: [c.model, cards[0].model], attacker: 0, first: 0, script: atk.script, hit: atk.hit,

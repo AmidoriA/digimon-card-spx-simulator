@@ -1,11 +1,15 @@
 """Make the files of the custom cards (tools/custom_cards.json, see custom.py).
 
 Usage (venv python):  build_custom.py <extracted_dir> <web_dir> [data] [model] [battle] [art] [card numbers...]
+                                      [--ts <dir>]
 
   data    web/js/data/cards.js               the game's cards and decks with the custom cards
                                              after them (build_data.py)
   model   web/assets/models/NNN.*            the base card's model, its palettes and vertex
-                                             colours changed by the card's recolour
+                                             colours changed by the card's recolour; or, for a
+                                             card whose model names a Time Stranger model
+                                             ("ts"), that model on the base's figures and keys
+                                             (ts_model.py)
   battle  web/assets/battle/scripts.json.gz  the game's scripts and the custom cards' (the
                                              base's attack and hit scripts with other colours)
           web/assets/battle/fx/N.bin.gz      the effect files of those scripts: sprites,
@@ -17,6 +21,10 @@ Usage (venv python):  build_custom.py <extracted_dir> <web_dir> [data] [model] [
 With no part named, all four are made. `art` needs ComfyUI (http://127.0.0.1:8188,
 RealESRGAN_x4plus); the others need only the unpacked disc. Card numbers limit model,
 battle's effect files and art to those cards.
+
+--ts <dir> is where the Time Stranger files are (tools/ts_extract.py); without it,
+extracted_ts/app_0 beside <extracted_dir>. They are another game's files: run this with
+python -I when it reads them. A card that needs them is left as it is when they are missing.
 """
 import os
 import sys
@@ -31,7 +39,34 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PARTS = ("data", "model", "battle", "art")
 
 
-def do_model(ext, web, c, base, rules):
+def do_ts_model(web, c, base, ts_dir):
+    """A Time Stranger model on the figures and keys of the base's (ts_model.py, TS-205 to TS-207)."""
+    import ts_model
+    m = c["model"]
+    geom = os.path.join(ts_dir, m["ts"] + ".geom")
+    if not os.path.exists(geom):
+        print("  %s: model %d LEFT AS IT IS: no %s" % (c["name"], m["number"], geom))
+        return
+    against = os.path.join(ts_dir, m["against"] + ".geom") if "against" in m else None
+    if against and not os.path.exists(against):
+        print("  %s: model %d LEFT AS IT IS: no %s" % (c["name"], m["number"], against))
+        return
+    lines = []
+    made = ts_model.make(geom, web, base["model"], os.path.join(web, "assets", "models"), m["number"],
+                         {int(k): v for k, v in m.get("parts", {}).items()},
+                         {int(k): v for k, v in m.get("motions", {}).items()}, log=lines.append,
+                         figures=m.get("figures"), detail=m.get("detail", custom.TS_DETAIL), against=against)[0]
+    print("  %s: model %d from Time Stranger %s on the keys of %d, %d parts, %d vertices, %d triangles, texture %dx%d, %d palette rows" % (
+        c["name"], m["number"], m["ts"], base["model"], len(made["parts"]), len(made["verts"]), len(made["tris"]),
+        made["index"].shape[1], made["index"].shape[0], len(made["palette"])))
+    for x in lines:
+        if any(k in x for k in ("swing round", "takes its place", "held still", "as large against", "texture pieces", "does not end as it begins")):
+            print("   " + x.strip())
+
+
+def do_model(ext, web, c, base, rules, ts_dir):
+    if "ts" in c["model"]:
+        return do_ts_model(web, c, base, ts_dir)
     f = custom.recolour(rules[c["model"]["recolour"]])
     src = os.path.join(ext, "drv", "F", "%03d.PAK" % base["model"])
     nv, nt, size, wh = build_models.export(src, os.path.join(web, "assets", "models"), c["model"]["number"],
@@ -124,8 +159,13 @@ def do_art(ext, web, c, base, rules):
 
 def main():
     ext, web = sys.argv[1], sys.argv[2]
-    what = [a for a in sys.argv[3:] if a in PARTS] or list(PARTS)
-    only = {int(a) for a in sys.argv[3:] if a.isdigit()}
+    rest = sys.argv[3:]
+    ts_dir = os.path.join(os.path.dirname(os.path.abspath(ext)), "extracted_ts", "app_0")
+    if "--ts" in rest:
+        ts_dir = rest[rest.index("--ts") + 1]
+        del rest[rest.index("--ts"):rest.index("--ts") + 2]
+    what = [a for a in rest if a in PARTS] or list(PARTS)
+    only = {int(a) for a in rest if a.isdigit()}
     d = custom.load()
     game = build_data.build_cards(open(os.path.join(ext, "drv", "B", "CARD2.CDD"), "rb").read())
     if "data" in what:
@@ -139,7 +179,7 @@ def main():
             continue
         base = custom.base_of(c, game)
         if "model" in what and "model" in c:
-            do_model(ext, web, c, base, d["recolours"])
+            do_model(ext, web, c, base, d["recolours"], ts_dir)
         if "battle" in what and "battle" in c:
             do_fx(ext, web, c, base, d["recolours"])
         if "art" in what and "art" in c:
