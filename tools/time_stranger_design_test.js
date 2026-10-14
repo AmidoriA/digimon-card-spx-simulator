@@ -61,6 +61,8 @@ function verify(){
   assert.deepStrictEqual(design.cards.map(r=>r.id).sort((a,b)=>a-b),Array.from({length:45},(_,i)=>302+i));
   for(const row of design.cards){
     const c=E.card(row.id),donor=E.card(c.custom);assert.strictEqual(c.name,row.name);assert.strictEqual(E.XFX[c.xfx],row.xfx,row.name+': intended cross');
+    if(row.dp!=null)assert.strictEqual(c.dp,row.dp,row.name+': requested DP');
+    if(row.pp!=null)assert.strictEqual(c.pp,row.pp,row.name+': requested added DP');
     assert.deepStrictEqual({prio:c.prio,conds:c.conds,acts:c.acts,text:c.text},row.support,row.name+': exported support agrees with plan');
     assert.notDeepStrictEqual([c.hp,c.dp,c.pp,...c.atk.map(a=>a.power)],[donor.hp,donor.dp,donor.pp,...donor.atk.map(a=>a.power)],row.name+': not a stat clone');
     const peers=E.CARDS.filter(a=>a.custom==null&&a.type==='digimon'&&a.spec===c.spec&&a.level===c.level);
@@ -129,6 +131,7 @@ function verify(){
     expectPass(row,{...q.patch,hp:9900},{...q.result,hp:9990});scenarios++;
     const r=setup(id,q.patch);assert.strictEqual(r.order.s[1].dp.length,2,'healing support never discards enemy DP');assert.strictEqual(r.order.s[1].deck,27,'healing support never mills enemy deck');scenarios++;
   }
+  const moon=setup(318,{ownAtk:[100,150,10],foeAtk:[80,150,0]});assert.deepStrictEqual(moon.order.s.map(p=>p.atk),[[0,0,0],[0,0,0]],'Crescemon lowers both sides with a zero floor');assert.strictEqual(moon.order.s[0].deck,26);assert.strictEqual(moon.order.s[0].offline,3);assert(!moon.events.some(e=>e.t==='recycle'&&e.p===0),'Crescemon never recycles its user’s pile');assert.deepStrictEqual([E.card(318).dp,E.card(318).pp],[40,10]);scenarios++;
   assert.strictEqual(E.card(303).atk[0].name,'Corona\uff70Knuckles');assert.strictEqual(E.card(335).atk[0].name,'Giga Destroyer\u2161');assert.strictEqual(E.card(341).atk[2].name,'Great Strike\u2161');
   console.log('PASS: 45 themed cards; '+scenarios+' independent support/cross scenarios, permitted Specialties, failed gates, costs and revival.');return scenarios;
 }

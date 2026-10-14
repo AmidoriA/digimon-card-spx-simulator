@@ -2254,7 +2254,7 @@
    "spec": "Ice",
    "level": "U",
    "dp": 40,
-   "pp": 20,
+   "pp": 10,
    "hp": 1820,
    "attacks": [
     {
@@ -2275,6 +2275,21 @@
     "prio": 1,
     "conds": [],
     "acts": [
+     {
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
      {
       "op": 11,
       "v": [
@@ -2304,24 +2319,9 @@
       ],
       "m1": 0,
       "m2": 0
-     },
-     {
-      "op": 34,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       3,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
      }
     ],
-    "text": "Lower opponent's Attack Power -150, discard 3 Cards from opponent's Online Deck and return up to 3 Cards from own Offline Pile to own Online Deck."
+    "text": "Lower both players' Attack Power -150 and discard 3 Cards from opponent's Online Deck."
    },
    "model": {
     "number": 417,

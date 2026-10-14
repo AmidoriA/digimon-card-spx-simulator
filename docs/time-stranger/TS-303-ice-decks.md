@@ -147,3 +147,25 @@ See [theme-validation.md](theme-validation.md) for seed/coverage details, the st
 200-match soak's explicitly reported stalemate explorations, and counter/Crash caveats.
 This owner request is integrated in one commit on `time-stranger`; the main merge gate
 remains. Prior exact-exchange acceptance is historical.
+
+## Crescemon support balance — owner request, 2026-10-15
+
+Crescemon now lowers all three attacks of **both players by 150**, with the normal
+zero floor, and discards three cards from the enemy Online Deck. It no longer returns
+any cards from its own Offline Pile. Its required/added DP is **40 / +10** (the +P value
+falls from 20 to 10). HP, attack powers, cross effect and the deck composition remain.
+Lekismon's separate two-card recycling support is outside this specific change.
+
+Validation: 32 selftests with 367 behavioral scenarios, 11 deck checks, all 51 option
+evolution routes, 31 effect scripts and asset paths pass. Tests assert the 40/+10
+values, symmetric reductions and zero floor, no own recycle event or own deck/pile
+change, and the retained three-card enemy discard. The combined Taomon/Crescemon
+build completes 200 standard plus 360 directed matches without timeouts; the standard
+run needs zero stalemate explorations. Every featured Ultimate evolves naturally.
+Crescemon's 24 directed games include eight natural evolutions, with 12 wins.
+
+Browser checks show 40 DP and +10 P in the card detail, all six Crescemon-line previews
+across both art modes, and a prepared board support playback with both sides' attack
+values reduced and no own recycle. No page errors or missing assets. The playback
+capture was visually inspected. Local artifacts: `sheets/ts-phase3/crescemon/`.
+Earlier descriptions of Crescemon recycling its own pile are superseded.

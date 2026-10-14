@@ -304,6 +304,10 @@ three Special Digivolve. Psychemon and MudFrigimon replace the milling/DP-discar
 partners, and Kyubimon/Taomon heal instead of discarding enemy DP. The shared random
 Specialty effect remains. Full current counts are in the deck list above.
 
+Crescemon's current support lowers both players' attack powers by 150 and discards
+three enemy deck cards, with no self-recycling. Its DP/+P is 40/+10. Lekismon's separate
+recycling support remains.
+
 The card supports and cross effects follow the requested themes in
 [card-design.md](docs/time-stranger/card-design.md). Ordinary own-active Specialty
 restrictions are removed from the 45 new cards. The Wingdramon group deliberately

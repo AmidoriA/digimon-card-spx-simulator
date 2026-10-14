@@ -13,7 +13,7 @@ is implied by a gameplay effect. Attack names retain [their verified sources](at
 - No ordinary support requires the active Digimon to have the support card's own Specialty.
   The sole deliberate exception is the Rare Wingdramon line: it rewards any **non-Rare**
   active with a stronger effect, supporting the Ice/Nature partners in its three-color deck.
-- Specialty, level, HP, DP, +P and attack names stay as in version 1. Only Terriermon (321),
+- Specialty, level, HP and attack names stay as in version 1. Crescemon is now 40 DP / +10 P by owner request; other DP/+P values stay. Only Terriermon (321),
   Gargomon (324) and Rapidmon (327) change cross base power, from 140/190/260 respectively
   to **0**, because their new triangle counters must pay the usual missed-counter cost.
 - Cross effects can match a donor card if the requested theme calls for it. The old blanket
@@ -153,13 +153,13 @@ Pure Ice. Healing establishes an HP lead, Gaogamon rewards a lead or tie, and Ma
 
 ## Crescemon
 
-Ice with Rare partners that also mill or recycle. Reduce enemy attack while consuming its Online Deck and returning spent cards from the Offline Pile.
+Ice with Rare partners that also mill or recycle. Crescemon now lowers both players’ attacks by 150 and mills three enemy cards, without recycling its own pile. Lekismon still provides the separate, smaller recycling effect.
 
 | Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
 |---|---|---:|---:|---:|---|---|
 | 312 | Lunamon / R | 710 | 0 | 20 | 300 / 210 / 140 | ○ to 0 |
 | 315 | Lekismon / C | 980 | 40 | 20 | 430 / 350 / 150 | ○ to 0 |
-| 318 | Crescemon / U | 1820 | 40 | 20 | 650 / 490 / 240 | △ to 0 |
+| 318 | Crescemon / U | 1820 | 40 | 10 | 650 / 490 / 240 | △ to 0 |
 
 ### Lunamon (312)
 
@@ -175,7 +175,7 @@ Ice with Rare partners that also mill or recycle. Reduce enemy attack while cons
 
 ### Crescemon (318)
 
-**Support:** Lower opponent's Attack Power -150, discard 3 Cards from opponent's Online Deck and return up to 3 Cards from own Offline Pile to own Online Deck.
+**Support:** Lower both players' Attack Power -150 and discard 3 Cards from opponent's Online Deck.
 
 **Retained species summary:** Fluid dance steps confuse foes; moonlight is said to double its strength, and its weapons form an ice bowgun. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=crescemon).
 

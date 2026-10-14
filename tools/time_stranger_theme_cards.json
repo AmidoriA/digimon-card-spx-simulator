@@ -5,7 +5,7 @@
     "Project-authored deck-theme tuning; no original disc card changes.",
     "Handwritten expectations use: own/foe HP600/900; own/foe attacks400,300,200/360,240,120; own/foe deck26/27; own/foe DP2; own/foe Offline3; own remaining Hand0. Hand patches refer to cards remaining after the support card leaves hand.",
     "Only Wingdramon-line supports gate own Specialty; their Rare cards intentionally boost any non-Rare active.",
-    "Counter x attacks have zero base power. IDs321 (Terriermon),324 (Gargomon),327 (Rapidmon) change only their cross base power to0; all other stats stay unchanged.",
+    "Counter x attacks have zero base power. IDs321 (Terriermon),324 (Gargomon),327 (Rapidmon) change only their cross base power to0; other stats stay unchanged except Crescemon now uses 40 DP / +10 P by owner request.",
     "Custom effect variable0x50 returns own currently selected Attack Power; it is a project extension, not a disc variable.",
     "Evolution help in Dragomon supports means drawing/recycling stages and Options, not evolving during Battle Phase. Evolution Options are independently required in all decks.",
     "The old requirement that every cross effect differ from its donor is superseded by the requested deck themes.",
@@ -1251,6 +1251,21 @@
         "conds": [],
         "acts": [
           {
+            "op": 10,
+            "v": [
+              0,
+              0,
+              11
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          },
+          {
             "op": 11,
             "v": [
               0,
@@ -1279,44 +1294,34 @@
             ],
             "m1": 0,
             "m2": 0
-          },
-          {
-            "op": 34,
-            "v": [
-              0,
-              0,
-              0
-            ],
-            "i": [
-              3,
-              0,
-              0
-            ],
-            "m1": 0,
-            "m2": 0
           }
         ],
-        "text": "Lower opponent's Attack Power -150, discard 3 Cards from opponent's Online Deck and return up to 3 Cards from own Offline Pile to own Online Deck."
+        "text": "Lower both players' Attack Power -150 and discard 3 Cards from opponent's Online Deck."
       },
       "expect": {
         "pass": {
           "patch": {},
           "result": {
+            "atk": [
+              250,
+              150,
+              50
+            ],
             "foeAtk": [
               210,
               90,
               0
             ],
             "foeDeck": 24,
-            "foeOffline": 6,
-            "deck": 29,
-            "offline": 0
+            "foeOffline": 6
           }
         },
         "fail": [],
         "allSpecialties": true
       },
-      "design": "Crescemon theme; all changes are project-authored tuning."
+      "design": "Owner balance correction, 2026-10-15: symmetric attack reduction, no own recycling, DP40 and +P10. Enemy milling remains as the existing three-card effect.",
+      "dp": 40,
+      "pp": 10
     },
     {
       "id": 319,

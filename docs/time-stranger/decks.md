@@ -117,7 +117,7 @@ Owner/portrait: **MachGaogamon**, card #317. Base provenance:
 
 ## Crescemon — Moonlight Revived
 
-Stall by lowering enemy attack, mill the enemy deck, and recycle the offline pile. Armadillomon and Rockmon reinforce milling.
+Crescemon lowers both players’ attacks and mills the enemy deck, without recycling its own cards. Lekismon retains its smaller recycling support. Armadillomon and Rockmon reinforce milling; Crescemon itself uses 40 DP / +10 P.
 
 - **Rookie:** Lunamon ×4; Armadillomon ×3; Gomamon ×2.
 - **Champion:** Lekismon ×3; Rockmon ×3.
