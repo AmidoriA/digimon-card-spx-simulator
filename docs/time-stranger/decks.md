@@ -1,280 +1,266 @@
-# Decks: one per new Ultimate (Phase 3)
+# Time Stranger themed decks
 
-TS-301 plan, verified against all 159 original deck records (IDs 0–158) on 2026-10-14.
-Build tickets TS-302–TS-306 consume `tools/time_stranger_decks.json`; the JSON records the
-same ordered replacements, copy counts, all ranked candidates and the frozen original-data hashes.
-The card gameplay comes from [card-design.md](card-design.md), not the visual donors.
+The owner's theme rebuild on 2026-10-14 supersedes the initial TS-301 exact-replacement
+composition rules. The current machine-readable deck source is
+`tools/time_stranger_theme_decks.json`. The original candidate audit and base selection
+remain archived in `tools/time_stranger_decks.json`; they explain provenance, not the
+current 30-card lists.
 
-## Names, owners and exact exchanges
+All fifteen decks contain **R 9 / C 6 / U 3 / Options 12**. Every featured themed group has
+**Rookie ×4, Champion ×3 and Ultimate ×3**. No card exceeds four copies. Only the requested
+Digimon Specialties appear; Options are colorless and include evolution Options in this
+ratio. Original disc decks #0–158 and Black Fire Again #159 stay unchanged.
 
-Each `×N` means **all N copies** of that one source are exchanged. Every other card stays
-at the same position, including all Options. Each result has 30 cards and at most 4 copies
-of any card. Rank, armor and music come from the base. The base owner in the table is source
-provenance. Owner update (2026-10-14): the displayed owner is the Ultimate in the first
-column; its prepared illustration supplies the selector and large-preview portrait.
-`owner` and `ownerCard` in the machine plan record this separately from `base.owner`.
+All seven Sevens cards (#285–291) and Download Digivolve (#293, the requested “Downloader”
+ban) are absent. Ordinary effects with a seven-card resource cost are allowed. The new
+lists also avoid vanilla support and Option conditions that require a particular own
+active Specialty. The deliberate exception is the Wingdramon group's powerful support
+for an active Specialty **different from Rare**, supporting its Ice/Nature partners.
 
-| Ultimate | Spec | Base deck (ID; owner) | Exchange | Name | Reason |
-|---|---|---|---|---|---|
-| WarGrowlmon | Fire | Go Go Dinosaur (#6; Veemon) | Agumon ×4 → Guilmon; Greymon ×3 → Growlmon; MetalGreymon ×2 → WarGrowlmon | Crimson Fire Again | Rank 7 exact R/C copies, 25 target-Specialty Digimon copies, then lowest deck ID. |
-| Flaremon | Fire | First Attack (#42; Birdramon) | Goburimon ×3 → Coronamon; Birdramon ×4 → Firamon; Garudamon ×2 → Flaremon | Solar Flame Again | Skip #158 Practice: Player owner is excluded from opponent list (ui.js OP_DECKS), so it cannot meet TS-302 opponent/match acceptance. Next candidate #42 ranks 3 exact R/C copies and 20 Fire Digimon copies; Birdramon supplies missing Centarumon. |
-| SaviorHuckmon | Fire | Fire Heart (#27; Davis) | Veemon ×1 → Huckmon; Flarerizamon ×1 → BaoHuckmon; Paildramon ×2 → SaviorHuckmon | Brave Fire Revived | Rank 2 exact R/C copies, 21 target-Specialty Digimon copies, then lowest deck ID. |
-| MachGaogamon | Ice | Shoot Everything! (#88; MetalGarurumon) | Gabumon ×4 → Gaomon; Garurumon ×4 → Gaogamon; WereGarurumon ×1 → MachGaogamon | Lunar Howl Again | Rank 8 exact R/C copies, 22 target-Specialty Digimon copies, then lowest deck ID. |
-| Crescemon | Ice | Fightback (#13; Garurumon) | Penguinmon ×3 → Lunamon; Garurumon ×4 → Lekismon; Zudomon ×2 → Crescemon | Moonlight Revived | Ultimate roster donor appears in no original deck; rank same-Specialty Ultimate alternatives. Rank 3 exact R/C copies, 22 target-Specialty Digimon copies, then lowest deck ID. Fallback: Lekismon from Garurumon, Crescemon from Zudomon. |
-| Dragomon | Ice | First Aid (#91; Joe) | Betamon ×4 → Syakomon; Ikkakumon ×3 → Octomon; Zudomon ×2 → Dragomon | Deep Sea Revived | Rank 4 exact R/C copies, 27 target-Specialty Digimon copies, then lowest deck ID. Fallback: Octomon from Ikkakumon. |
-| Taomon | Nature | Divine Monster (#74; Nefertimon) | Gatomon ×1 → Renamon; Unimon ×3 → Kyubimon; Angewomon ×2 → Taomon | Divine Fox Again | Rank 4 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID. |
-| Rapidmon | Nature | Call of Destiny (#73; Gatomon) | Salamon ×3 → Terriermon; Leomon ×3 → Gargomon; MagnaAngemon ×2 → Rapidmon | Rapid Hope Again | Rank 3 exact R/C copies, 17 target-Specialty Digimon copies, then lowest deck ID. Fallback: Terriermon from Salamon. |
-| Lilamon | Nature | Flower Fairies (#85; Lillymon) | Palmon ×4 → Lalamon; Togemon ×4 → Sunflowmon; Lillymon ×4 → Lilamon | Flower Bloom Again | Rank 8 exact R/C copies, 30 target-Specialty Digimon copies, then lowest deck ID. |
-| MetalTyrannomon | Darkness | Go Go Dinosaur (#6; Veemon) | Agumon ×4 → Keramon; Greymon ×3 → Kurisarimon; MasterTyrannomon ×1 → MetalTyrannomon | Dark Steel Again | Rank 0 exact R/C copies, 0 target-Specialty Digimon copies, then lowest deck ID. Fallback: Keramon from Agumon, Kurisarimon from Greymon. |
-| Cyberdramon | Darkness | Machine Empire (#100; Machinedramon) | Kokuwamon ×4 → Monodramon; Guardromon ×4 → Strikedramon; Andromon ×1 → Cyberdramon | Machine Fang Again | Rank 0 exact R/C copies, 13 target-Specialty Digimon copies, then lowest deck ID. Fallback: Monodramon from Kokuwamon, Strikedramon from Guardromon. |
-| Matadormon | Darkness | Dark Revival (#52; Myotismon) | DemiDevimon ×4 → Dracmon; Devidramon ×3 → Sangloupmon; Myotismon ×4 → Matadormon | Night Dance Again | Skip higher candidate lacking a Rookie or Champion level. Rank 4 exact R/C copies, 21 target-Specialty Digimon copies, then lowest deck ID. Fallback: Sangloupmon from Devidramon. |
-| Wingdramon | Rare | Mega Giga (#38; Gigadramon) | Agumon ×3 → Dracomon; Flarerizamon ×3 → Coredramon (Blue); Gigadramon ×2 → Wingdramon | Sky Dragon Again | Rank 0 exact R/C copies, 0 target-Specialty Digimon copies, then lowest deck ID. Fallback: Dracomon from Agumon, Coredramon (Blue) from Flarerizamon. |
-| GrapLeomon | Rare | Steel Gate (#51; MetalEtemon) | Psychemon ×3 → Bearmon; ShimaUnimon ×2 → Grizzlymon; Etemon ×2 → GrapLeomon | Beast Fist Again | Rank 3 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID. Fallback: Grizzlymon from ShimaUnimon. |
-| Chirinmon | Rare | Steel Gate (#51; MetalEtemon) | Vi-Elecmon ×3 → Kudamon; ShimaUnimon ×2 → Reppamon; MetalEtemon ×3 → Chirinmon | Holy Beast Revived | Ultimate roster donor appears in no original deck; rank same-Specialty Ultimate alternatives. Rank 5 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID. Fallback: Chirinmon from MetalEtemon. |
+## Owners, themes and composition
 
-## Deterministic selection and exceptions
+Each deck retains its existing name, featured-Ultimate owner and prepared illustration.
+Its original base provides rank, armor, music and source provenance. These are project
+custom decks and effects chosen by the owner, not disc-derived competitive deck designs.
 
-See [phase3.md](phase3.md) for the complete order. R/C score counts copies of the exact
-roster donors, including a donor from another Specialty. Specialty score counts all
-Digimon copies of the target Specialty, ignoring Options. Final ties use ascending disc
-deck ID; repeated rematch records are candidates in their own right. A candidate must
-be eligible as an opponent and contain a Rookie, Champion and Ultimate so that each new themed group appears.
+| Deck ID | Featured Ultimate | Digimon Specialties | Copies by Specialty | Base deck ID | Evolution Options |
+|---:|---|---|---|---:|---|
+| 160 | WarGrowlmon | Fire | Fire 18 | 6 | Speed Digivolve ×3 |
+| 161 | Flaremon | Fire | Fire 18 | 42 | Speed Digivolve ×3 |
+| 162 | SaviorHuckmon | Fire + Nature | Fire 12, Nature 6 | 27 | Special Digivolve ×3 |
+| 163 | MachGaogamon | Ice | Ice 18 | 88 | Speed Digivolve ×3 |
+| 164 | Crescemon | Ice + Rare | Ice 12, Rare 6 | 13 | Special Digivolve ×3 |
+| 165 | Dragomon | Ice | Ice 18 | 91 | Speed Digivolve ×3; Warp Digivolve ×2 |
+| 166 | Taomon | Nature + Rare | Nature 10, Rare 8 | 74 | Special Digivolve ×3 |
+| 167 | Rapidmon | Nature | Nature 18 | 73 | Speed Digivolve ×3 |
+| 168 | Lilamon | Nature | Nature 18 | 85 | Speed Digivolve ×3 |
+| 169 | MetalTyrannomon | Fire + Darkness | Darkness 12, Fire 6 | 6 | Special Digivolve ×3; Speed Digivolve ×2 |
+| 170 | Cyberdramon | Darkness + Rare | Darkness 12, Rare 6 | 100 | Special Digivolve ×3; Mutant Digivolve ×1; Speed Digivolve ×2 |
+| 171 | Matadormon | Darkness | Darkness 18 | 52 | Speed Digivolve ×3 |
+| 172 | Wingdramon | Ice + Rare + Nature | Rare 10, Ice 4, Nature 4 | 38 | Special Digivolve ×4; Mutant Digivolve ×2 |
+| 173 | GrapLeomon | Rare + Nature | Rare 10, Nature 8 | 51 | Special Digivolve ×3 |
+| 174 | Chirinmon | Rare | Rare 18 | 51 | Speed Digivolve ×3 |
 
-The original plan cannot be followed literally in these disc-proven cases:
+## Evolution access
 
-- **Crescemon:** Panjyamon (41) occurs in **0/159 decks**. Rank every Ice deck containing an Ice Ultimate; #13 wins on 3 R/C copies, 22 Ice copies and lowest ID. Its most numerous Ice Ultimate is Zudomon ×2; its missing Sorcerimon slot uses Garurumon ×4. Penguinmon ×3 is exact.
-- **Chirinmon:** MetalGarurumon (37) occurs in **0/159 decks**. Rank every Rare deck containing a Rare Ultimate; #51 wins with both exact line donors (Vi-Elecmon ×3 + ShimaUnimon ×2), 20 Rare copies. MetalEtemon ×3 is its most numerous Rare Ultimate and becomes Chirinmon.
-- **Matadormon:** #36 has 4 exact Rookie copies and 26 Darkness copies, but **zero Champions of any Specialty**. Skip it; #52 is the next ranked candidate (4 exact R/C copies, 21 Darkness copies) and supplies Devidramon ×3. No stage or Option is repurposed.
-- **MetalTyrannomon:** its Fire donor MasterTyrannomon appears only in #6 and #25. Both have zero exact R/C donors and zero Darkness cards at R/C. #6 wins by ID; Fire is dominant at both levels. Agumon ×4 → Keramon and Greymon ×3 → Kurisarimon supply the complete Darkness group. The group is thematic; no direct Keramon → Kurisarimon → MetalTyrannomon lore chain is claimed.
-- **Wingdramon:** Gigadramon appears only in #38 and #115; neither has Rare R/C cards. #38 wins on ID after equal 0/0 R/C/Specialty scores. Fire and Darkness tie at 5 Rookie copies, so Fire (Specialty ID 0) wins; the same tie at 4 Champion copies again selects Fire. Agumon ×3 and Flarerizamon ×3 become Dracomon and Coredramon (Blue).
-- **Cyberdramon:** Veemon (a cross-Specialty visual donor) is absent from its sole eligible base #100; Kokuwamon ×4 provides Darkness Rookies. Darkrizamon is also absent; Guardromon ×4 supplies Darkness Champions.
-- **Flaremon opponent eligibility:** #158 Practice has the best exact R/C count (4) but its Player owner is excluded from the opponent list by `ui.js` `OP_DECKS`. #42 First Attack (Birdramon) is next, with 3 exact R/C copies and 20 Fire cards. It supplies Goburimon ×3, Birdramon ×4 and Garudamon ×2.
-- **Other missing slots:** Flaremon uses Birdramon ×4 because #42 has no Centarumon; Dragomon uses Ikkakumon ×3 because #91 has no Gesomon; Rapidmon uses Salamon ×3 because #73 has no Patamon; GrapLeomon uses ShimaUnimon ×2 because #51 has no Ankylomon. Tied legal source cards use the lowest source card ID.
+Evolution follows the existing `web/js/engine.js` `evoLegal` port of disc routine
+`0x801e9f5c`. No engine evolution rule changes are needed.
 
-Exactly one donor is chosen for a missing slot: combining every card of the same level
-would exceed the four-copy limit in many bases. A chosen donor is exchanged completely;
-there are no partial substitutions. This is a necessary clarification of the original
-plural fallback wording. Strict Ultimate donor containment remains the rule wherever
-that donor occurs at all. The two absent-U exceptions, Player exclusion and the empty-Champion exception
-are project choices documented here, not rules read from the game.
+- **Every mixed deck:** at least three Special Digivolve (#295). This genuinely ignores
+  Specialty for R→C and C→U, adding 20 to current DP. It does not remove the stage rule.
+  The JSON records a legal cross-Specialty route to every Champion and Ultimate, with
+  explicit DP cards and costs. Wingdramon has four copies, plus two Mutant Digivolve.
+- **Cyberdramon and Wingdramon:** Mutant Digivolve (#296) also changes Specialty at the
+  same level while paying the target DP. It is an additional bridge rather than a
+  replacement for their Special Digivolve copies.
+- **MetalTyrannomon and Cyberdramon:** two Speed Digivolve copies supplement their
+  cross-Specialty bridges. These advance the same-color featured group without spending
+  DP, improving natural Ultimate access while attack supports compete for resources.
+- **Every pure deck:** three Speed Digivolve (#299), which ignores DP when Specialty
+  matches and the active stack entered as a Rookie (`abn === 0`). All Champions and
+  Ultimates have a matching Rookie-based route recorded in the JSON.
+- **Dragomon:** two Warp Digivolve (#297) provide additional same-Specialty R→U access,
+  paying the Ultimate DP. Its total of five evolution Options distinguishes fast
+  evolution from the other pure decks.
 
-## Exhaustive candidate ranking
+The JSON paths are constructive legality examples, not claims that every opening hand
+contains the required cards. Ratio checks, actual evolution execution and match
+simulations validate accessibility separately from matchup balance.
 
-The following lists contain **every eligible original deck**, in rank order. For the
-two absent Ultimate donors, the candidates are all decks containing a target-Specialty
-Ultimate. `R/C/U` are exact visual-donor copies (U remains zero for absent-donor cases);
-`Spec` counts Digimon copies of the target Specialty. `Skip` marks a Player-owned deck or
-a deck missing an entire R/C level. No gameplay tuning is used to reorder the phase3 rules.
+## WarGrowlmon — Crimson Fire Again
 
-### WarGrowlmon
+Spend HP, cards and deck resources for large attack boosts. Tankmon and Chain Saw are deliberate high-risk finishers.
 
-Roster donors: Agumon (27) / Greymon (14) / MetalGreymon (9).
+- **Rookie:** Guilmon ×4; Agumon ×3; Biyomon ×2.
+- **Champion:** Growlmon ×3; Tankmon ×3.
+- **Ultimate:** WarGrowlmon ×3.
+- **Options:** Speed Digivolve ×3; Devil's Chip ×3; Mega Hand ×2; Chain Saw ×2; Training Manual ×2.
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 6 | Go Go Dinosaur | Veemon | 4/3/2 | 7 | 25 | Chosen |
-| 2 | 27 | Fire Heart | Davis | 3/2/1 | 5 | 21 |  |
+Owner/portrait: **WarGrowlmon**, card #308. Base provenance:
+**Go Go Dinosaur** (#6; original owner Veemon).
 
-### Flaremon
+## Flaremon — Solar Flame Again
 
-Roster donors: Goburimon (33) / Centarumon (19) / Garudamon (7).
+Repeated attack boosts plus draw effects keep the hand stocked; Veemon and the Flaremon group supply both pressure and cards.
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 158 | Practice | Player | 4/0/1 | 4 | 16 | Skip: Player deck excluded from opponent list |
-| 2 | 42 | First Attack | Birdramon | 3/0/2 | 3 | 20 | Chosen |
-| 3 | 82 | Sun's Gift | Garudamon | 0/0/4 | 0 | 22 |  |
-| 4 | 135 | Sun's Gift | Garudamon | 0/0/4 | 0 | 22 |  |
-| 5 | 83 | Hyper Digivolution | Sora | 0/0/4 | 0 | 20 |  |
-| 6 | 58 | Storm Bringer | Aquilamon | 0/0/2 | 0 | 11 |  |
-| 7 | 3 | New Power | Babamon | 0/0/1 | 0 | 6 |  |
+- **Rookie:** Coronamon ×4; Veemon ×3; Biyomon ×2.
+- **Champion:** Firamon ×3; Akatorimon ×3.
+- **Ultimate:** Flaremon ×3.
+- **Options:** Speed Digivolve ×3; Attack Chip ×3; Training Manual ×3; Digi-Diamond ×3.
 
-### SaviorHuckmon
+Owner/portrait: **Flaremon**, card #309. Base provenance:
+**First Attack** (#42; original owner Birdramon).
 
-Roster donors: Veemon (175) / Flarerizamon (26) / Paildramon (4).
+## SaviorHuckmon — Brave Fire Revived
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 27 | Fire Heart | Davis | 1/1/2 | 2 | 21 | Chosen |
-| 2 | 103 | Miracle Knight's | Magnamon | 1/0/3 | 1 | 21 |  |
-| 3 | 81 | Three Signs | Paildramon | 0/0/4 | 0 | 19 |  |
+Red core with green draw and healing; choose Circle or Triangle and amplify it through the whole Huckmon group.
 
-### MachGaogamon
+- **Rookie:** Huckmon ×4; Hawkmon ×3; Muchomon ×2.
+- **Champion:** BaoHuckmon ×3; Airdramon ×3.
+- **Ultimate:** SaviorHuckmon ×3.
+- **Options:** Special Digivolve ×3; Attack Disk ○ ×3; Attack Disk △ ×3; Training Manual ×3.
 
-Roster donors: Gabumon (62) / Garurumon (46) / WereGarurumon (39).
+Owner/portrait: **SaviorHuckmon**, card #310. Base provenance:
+**Fire Heart** (#27; original owner Davis).
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 88 | Shoot Everything! | MetalGarurumon | 4/4/1 | 8 | 22 | Chosen |
-| 2 | 136 | Shooter | MetalGarurumon | 4/4/1 | 8 | 22 |  |
-| 3 | 13 | Fightback | Garurumon | 3/4/1 | 7 | 22 |  |
-| 4 | 138 | Fightback | Garurumon | 3/4/1 | 7 | 22 |  |
-| 5 | 43 | Howl to the Moon | WereGarurumon | 3/4/4 | 7 | 21 |  |
-| 6 | 91 | First Aid | Joe | 0/0/1 | 0 | 27 |  |
+## MachGaogamon — Lunar Howl Again
 
-### Crescemon
+Gain HP to unlock favorable own-versus-enemy HP comparisons; recover while behind and gain attack while ahead.
 
-Roster donors: Penguinmon (64) / Sorcerimon (57) / Panjyamon (41).
+- **Rookie:** Gaomon ×4; Gomamon ×3; Betamon ×2.
+- **Champion:** Gaogamon ×3; Frigimon ×3.
+- **Ultimate:** MachGaogamon ×3.
+- **Options:** Speed Digivolve ×3; Sup. Rec. Floppy ×3; Dark Lord's Cape ×3; Recovery Floppy ×3.
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 13 | Fightback | Garurumon | 3/0/0 | 3 | 22 | Chosen |
-| 2 | 47 | Mega Flood | MegaSeadramon | 3/0/0 | 3 | 22 |  |
-| 3 | 116 | Patriot | BK MetalGarurumon | 0/3/0 | 3 | 22 |  |
-| 4 | 138 | Fightback | Garurumon | 3/0/0 | 3 | 22 |  |
-| 5 | 41 | Anti-Fire | Ikkakumon | 3/0/0 | 3 | 21 |  |
-| 6 | 43 | Howl to the Moon | WereGarurumon | 3/0/0 | 3 | 21 |  |
-| 7 | 11 | Hearty Meal | Frigimon | 3/0/0 | 3 | 19 |  |
-| 8 | 90 | Armed | Zudomon | 0/2/0 | 2 | 19 |  |
-| 9 | 134 | Armed | Zudomon | 0/2/0 | 2 | 19 |  |
-| 10 | 89 | Bonding | Matt | 2/0/0 | 2 | 13 |  |
-| 11 | 31 | Magic Strike | Wizardmon | 0/2/0 | 2 | 6 |  |
-| 12 | 113 | Blue Star Red Moon | Omnimon | 1/0/0 | 1 | 11 |  |
-| 13 | 3 | New Power | Babamon | 0/1/0 | 1 | 6 |  |
-| 14 | 91 | First Aid | Joe | 0/0/0 | 0 | 27 |  |
-| 15 | 12 | Guarding Sea | Whamon | 0/0/0 | 0 | 22 |  |
-| 16 | 88 | Shoot Everything! | MetalGarurumon | 0/0/0 | 0 | 22 |  |
-| 17 | 98 | Rough Sea King | MetalSeadramon | 0/0/0 | 0 | 22 |  |
-| 18 | 136 | Shooter | MetalGarurumon | 0/0/0 | 0 | 22 |  |
-| 19 | 112 | Permafrost | Vikemon | 0/0/0 | 0 | 13 |  |
-| 20 | 87 | Yellow Submarine | Submarimon | 0/0/0 | 0 | 11 |  |
-| 21 | 75 | Swirling Light | Tylomon | 0/0/0 | 0 | 10 |  |
-| 22 | 22 | Bad Luck Wind | Quetzalmon | 0/0/0 | 0 | 9 |  |
-| 23 | 102 | 4 Strong Monsters | Piedmon | 0/0/0 | 0 | 6 |  |
-| 24 | 110 | Invincible Emperor | Imperialdramon | 0/0/0 | 0 | 6 |  |
-| 25 | 141 | Pick Up | Betamon | 0/0/0 | 0 | 2 | Skip: missing R/C level |
+Owner/portrait: **MachGaogamon**, card #317. Base provenance:
+**Shoot Everything!** (#88; original owner MetalGarurumon).
 
-### Dragomon
+## Crescemon — Moonlight Revived
 
-Roster donors: Betamon (63) / Gesomon (51) / Zudomon (40).
+Stall by lowering enemy attack, mill the enemy deck, and recycle the offline pile. Armadillomon and Rockmon reinforce milling.
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 91 | First Aid | Joe | 4/0/2 | 4 | 27 | Chosen |
-| 2 | 12 | Guarding Sea | Whamon | 3/0/1 | 3 | 22 |  |
-| 3 | 13 | Fightback | Garurumon | 0/0/2 | 0 | 22 |  |
-| 4 | 138 | Fightback | Garurumon | 0/0/2 | 0 | 22 |  |
-| 5 | 41 | Anti-Fire | Ikkakumon | 0/0/2 | 0 | 21 |  |
-| 6 | 90 | Armed | Zudomon | 0/0/4 | 0 | 19 |  |
-| 7 | 134 | Armed | Zudomon | 0/0/4 | 0 | 19 |  |
-| 8 | 3 | New Power | Babamon | 0/0/1 | 0 | 6 |  |
+- **Rookie:** Lunamon ×4; Armadillomon ×3; Gomamon ×2.
+- **Champion:** Lekismon ×3; Rockmon ×3.
+- **Ultimate:** Crescemon ×3.
+- **Options:** Special Digivolve ×3; Digimon Grave ×3; Digimon Analyzer ×3; High Speed Disk ×3.
 
-### Taomon
+Owner/portrait: **Crescemon**, card #318. Base provenance:
+**Fightback** (#13; original owner Garurumon).
 
-Roster donors: Gatomon (184) / Unimon (88) / Angewomon (77).
+## Dragomon — Deep Sea Revived
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 74 | Divine Monster | Nefertimon | 1/3/2 | 4 | 20 | Chosen |
-| 2 | 95 | Shining Goddess | Angewomon | 1/2/4 | 3 | 20 |  |
-| 3 | 26 | Evil Slayer | Angemon | 0/2/2 | 2 | 21 |  |
-| 4 | 30 | Wings of Hope | T.K. | 0/2/1 | 2 | 20 |  |
-| 5 | 34 | Ladies' Night | Kari | 1/0/2 | 1 | 19 |  |
+Pure Ice fast evolution through five evolution Options, with draw, recycling and attack reduction to keep the engine moving.
 
-### Rapidmon
+- **Rookie:** Syakomon ×4; Gomamon ×3; Betamon ×2.
+- **Champion:** Octomon ×3; Seadramon ×3.
+- **Ultimate:** Dragomon ×3.
+- **Options:** Speed Digivolve ×3; Warp Digivolve ×2; Training Manual ×3; Attack Chip ×2; Recovery Floppy ×2.
 
-Roster donors: Patamon (183) / Leomon (85) / MagnaAngemon (75).
+Owner/portrait: **Dragomon**, card #319. Base provenance:
+**First Aid** (#91; original owner Joe).
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 73 | Call of Destiny | Gatomon | 0/3/2 | 3 | 17 | Chosen |
-| 2 | 72 | Great Hope | Pegasusmon | 1/0/2 | 1 | 21 |  |
-| 3 | 94 | Divine Sword | MagnaAngemon | 1/0/3 | 1 | 21 |  |
-| 4 | 106 | Heaven's Gate | Seraphimon | 1/0/1 | 1 | 21 |  |
-| 5 | 30 | Wings of Hope | T.K. | 1/0/2 | 1 | 20 |  |
-| 6 | 71 | Twin Meteor | Baronmon | 1/0/2 | 1 | 11 |  |
-| 7 | 26 | Evil Slayer | Angemon | 0/0/1 | 0 | 21 |  |
-| 8 | 89 | Bonding | Matt | 0/0/1 | 0 | 8 |  |
+## Taomon — Divine Fox Again
 
-### Lilamon
+Change the enemy Specialty and discard enemy DP to disrupt evolution. Rare partners add DP removal, draw and milling.
 
-Roster donors: Palmon (98) / Togemon (84) / Lillymon (78).
+- **Rookie:** Renamon ×4; Armadillomon ×3; ClearAgumon ×2.
+- **Champion:** Kyubimon ×3; Numemon ×3.
+- **Ultimate:** Taomon ×3.
+- **Options:** Special Digivolve ×3; Evil Program ×3; Rare Altar ×3; Digimon Grave ×3.
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 85 | Flower Fairies | Lillymon | 4/4/4 | 8 | 30 | Chosen |
-| 2 | 132 | Flower Fairies | Lillymon | 4/4/4 | 8 | 30 |  |
-| 3 | 39 | Spiky | Togemon | 4/4/2 | 8 | 20 |  |
-| 4 | 34 | Ladies' Night | Kari | 4/3/1 | 7 | 19 |  |
-| 5 | 86 | Princess | Mimi | 4/3/4 | 7 | 11 |  |
-| 6 | 7 | Quick Digivolve | Vegiemon | 4/2/2 | 6 | 30 |  |
-| 7 | 3 | New Power | Babamon | 0/0/1 | 0 | 6 |  |
+Owner/portrait: **Taomon**, card #326. Base provenance:
+**Divine Monster** (#74; original owner Nefertimon).
 
-### MetalTyrannomon
+## Rapidmon — Rapid Hope Again
 
-Roster donors: Tsukaimon (135) / Bakemon (123) / MasterTyrannomon (8).
+Force enemy Triangle for zero-power Triangle Counter, and answer enemy Circle with effects that reduce it to zero. Kuwagamon provides another native Triangle Counter.
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 6 | Go Go Dinosaur | Veemon | 0/0/1 | 0 | 0 | Chosen |
-| 2 | 25 | Paleo-Energy | Tyrannomon | 0/0/3 | 0 | 0 |  |
+- **Rookie:** Terriermon ×4; Tentomon ×3; Hawkmon ×2.
+- **Champion:** Gargomon ×3; Kuwagamon ×3.
+- **Ultimate:** Rapidmon ×3.
+- **Options:** Speed Digivolve ×3; Defense Disk ○ ×3; Disrupt Ray ×3; Triangle Hitter ×3.
 
-### Cyberdramon
+Owner/portrait: **Rapidmon**, card #327. Base provenance:
+**Call of Destiny** (#73; original owner Gatomon).
 
-Roster donors: Veemon (175) / Darkrizamon (130) / Andromon (116).
+## Lilamon — Flower Bloom Again
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 100 | Machine Empire | Machinedramon | 0/0/1 | 0 | 13 | Chosen |
+Heal repeatedly and eat enemy HP through attacks. Palmon adds another Eat-up HP attacker, while Gotsumon rewards the HP lead.
 
-### Matadormon
+- **Rookie:** Lalamon ×4; Palmon ×3; Gotsumon ×2.
+- **Champion:** Sunflowmon ×3; Airdramon ×3.
+- **Ultimate:** Lilamon ×3.
+- **Options:** Speed Digivolve ×3; Dark Bone ×3; Recovery Floppy ×3; Beetle Diamond ×3.
 
-Roster donors: DemiDevimon (132) / Gururumon (126) / Myotismon (111).
+Owner/portrait: **Lilamon**, card #328. Base provenance:
+**Flower Fairies** (#85; original owner Lillymon).
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 36 | Dark Digivolution | DemiDevimon | 4/0/2 | 4 | 26 | Skip: missing R/C level |
-| 2 | 52 | Dark Revival | Myotismon | 4/0/4 | 4 | 21 | Chosen |
-| 3 | 69 | Dark Prince | Myotismon | 3/0/4 | 3 | 21 |  |
-| 4 | 21 | Evil Fire Revived | Shadramon | 0/0/2 | 0 | 14 |  |
+## MetalTyrannomon — Dark Steel Again
 
-### Wingdramon
+Dinosaur and machine partners convert HP, hand and DP resources into attack gains. Fire Tyrannomon and Agumon pair with the Darkness machine group.
 
-Roster donors: ClearAgumon (168) / Rockmon (159) / Gigadramon (5).
+- **Rookie:** Keramon ×4; Agumon ×3; Kokuwamon ×2.
+- **Champion:** Kurisarimon ×3; Tyrannomon ×3.
+- **Ultimate:** MetalTyrannomon ×3.
+- **Options:** Special Digivolve ×3; Attack Chip ×3; Metal Parts ×2; Speed Digivolve ×2; Training Manual ×2.
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 38 | Mega Giga | Gigadramon | 0/0/2 | 0 | 0 | Chosen |
-| 2 | 115 | Black Fire Heart | BK WarGreymon | 0/0/1 | 0 | 0 |  |
+Owner/portrait: **MetalTyrannomon**, card #335. Base provenance:
+**Go Go Dinosaur** (#6; original owner Veemon).
 
-### GrapLeomon
+## Cyberdramon — Machine Fang Again
 
-Roster donors: Psychemon (170) / Ankylomon (151) / Etemon (150).
+Balanced Dark/Rare suppression and attack pressure. ClearAgumon voids supports, Starmon complements enemy-Darkness disruption, and Wormmon draws.
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 51 | Steel Gate | MetalEtemon | 3/0/2 | 3 | 20 | Chosen |
+- **Rookie:** Monodramon ×4; ClearAgumon ×3; Wormmon ×2.
+- **Champion:** Strikedramon ×3; Starmon ×3.
+- **Ultimate:** Cyberdramon ×3.
+- **Options:** Special Digivolve ×3; Mutant Digivolve ×1; Attack Chip ×2; Training Manual ×3; Silver Ball ×1; Speed Digivolve ×2.
 
-### Chirinmon
+Owner/portrait: **Cyberdramon**, card #336. Base provenance:
+**Machine Empire** (#100; original owner Machinedramon).
 
-Roster donors: Vi-Elecmon (169) / ShimaUnimon (162) / MetalGarurumon (37).
+## Matadormon — Night Dance Again
 
-| Rank | ID | Base deck | Owner | R/C/U | R+C | Spec | Decision |
-|---:|---:|---|---|---|---:|---:|---|
-| 1 | 51 | Steel Gate | MetalEtemon | 3/2/0 | 5 | 20 | Chosen |
-| 2 | 65 | Star Force | SuperStarmon | 4/0/0 | 4 | 24 |  |
-| 3 | 105 | Ancient Legend | Shakkoumon | 3/0/0 | 3 | 21 |  |
-| 4 | 119 | Who Are You? | Nanimon | 3/0/0 | 3 | 20 |  |
-| 5 | 128 | Who Are You? | Nanimon | 3/0/0 | 3 | 20 |  |
-| 6 | 129 | Who Are You? | Nanimon | 3/0/0 | 3 | 20 |  |
-| 7 | 130 | Who Are You? | Nanimon | 3/0/0 | 3 | 20 |  |
-| 8 | 131 | Who Are You? | Nanimon | 3/0/0 | 3 | 20 |  |
-| 9 | 15 | Toy Party | Hagurumon | 2/0/0 | 2 | 21 |  |
-| 10 | 61 | Rock Head | Ankylomon | 2/0/0 | 2 | 21 |  |
-| 11 | 63 | Blitzkrieg | Thundermon | 2/0/0 | 2 | 19 |  |
-| 12 | 62 | Mountain CrusherDX | Digmon | 2/0/0 | 2 | 16 |  |
-| 13 | 99 | Toy Castle | Puppetmon | 0/0/0 | 0 | 23 |  |
-| 14 | 29 | Ready To Go | Cody | 0/0/0 | 0 | 20 |  |
-| 15 | 64 | Bean Stalk | MetalMamemon | 0/0/0 | 0 | 18 |  |
-| 16 | 102 | 4 Strong Monsters | Piedmon | 0/0/0 | 0 | 10 |  |
-| 17 | 87 | Yellow Submarine | Submarimon | 0/0/0 | 0 | 8 |  |
-| 18 | 112 | Permafrost | Vikemon | 0/0/0 | 0 | 7 |  |
-| 19 | 141 | Pick Up | Betamon | 0/0/0 | 0 | 2 | Skip: missing R/C level |
+Explosive effects while behind on HP, backed by repeated revival. Guardromon and the risky Options deliberately lower HP.
 
-## Verification and provenance
+- **Rookie:** Dracmon ×4; Sharmamon ×3; Kokuwamon ×2.
+- **Champion:** Sangloupmon ×3; Guardromon ×3.
+- **Ultimate:** Matadormon ×3.
+- **Options:** Speed Digivolve ×3; Miracle Ruby ×3; Chain Saw ×2; Metallic Banana ×2; Recovery Floppy ×2.
 
-- Source: `web/js/data/cards.js` at `time-stranger` commit `a2e69da`; all disc IDs 0–158 were searched, excluding Black Fire Again (custom #159).
-- The original 301 cards, original 159 decks, preexisting custom records and full pre-Phase-3 arrays are frozen as SHA-256 hashes of `JSON.stringify(records)` in the planning JSON.
-- Each exchange source exists in its chosen base, is a Digimon of the target level, and maps to the roster group in first/second/third Specialty order.
-- Applying the replacements to the ordered source arrays gives fifteen 30-card decks, each with maximum duplicate count ≤4, with all Options unchanged. All fifteen names are unique against the existing 160 decks and against one another, and have ≤18 characters including spaces.
-- These are original project decks using TS-106 designs. Selection and structural validation do not establish equal competitive strength; the Phase 3 simulations and browser checks belong to the build tickets.
+Owner/portrait: **Matadormon**, card #337. Base provenance:
+**Dark Revival** (#52; original owner Myotismon).
+
+## Wingdramon — Sky Dragon Again
+
+Rare dragon support gives powerful bonuses to active Ice or Nature Digimon; all three Specialties have live evolution targets.
+
+- **Rookie:** Dracomon ×4; Gomamon ×3; Hawkmon ×2.
+- **Champion:** Coredramon (Blue) ×3; Airdramon ×2; Seadramon ×1.
+- **Ultimate:** Wingdramon ×3.
+- **Options:** Special Digivolve ×4; Mutant Digivolve ×2; Attack Chip ×2; Training Manual ×2; Short Lance ×2.
+
+Owner/portrait: **Wingdramon**, card #344. Base provenance:
+**Mega Giga** (#38; original owner Gigadramon).
+
+## GrapLeomon — Beast Fist Again
+
+Counterattack with zero-base-power Cross attacks, or use GrapLeomon group supports to turn a selected zero-power attack into a direct attack. Nature partners provide both Circle and Triangle Counter.
+
+- **Rookie:** Bearmon ×4; Salamon ×3; Hawkmon ×2.
+- **Champion:** Grizzlymon ×3; Kuwagamon ×3.
+- **Ultimate:** GrapLeomon ×3.
+- **Options:** Special Digivolve ×3; Golden Banana ×3; Beam Gun ×2; Recovery Floppy ×2; Attack Chip ×2.
+
+Owner/portrait: **GrapLeomon**, card #345. Base provenance:
+**Steel Gate** (#51; original owner MetalEtemon).
+
+## Chirinmon — Holy Beast Revived
+
+Attack first and stack attack gains. SandYanmamon adds native first strike, while ClearAgumon protects the attack plan from enemy supports.
+
+- **Rookie:** Kudamon ×4; ClearAgumon ×3; Vi-Elecmon ×2.
+- **Champion:** Reppamon ×3; SandYanmamon ×3.
+- **Ultimate:** Chirinmon ×3.
+- **Options:** Speed Digivolve ×3; Beetle Diamond ×3; Attack Chip ×3; Triangle Hitter ×3.
+
+Owner/portrait: **Chirinmon**, card #346. Base provenance:
+**Steel Gate** (#51; original owner MetalEtemon).
+
+## Dependency order and validation
+
+1. Lock the 45 custom card effects in `tools/custom_cards.json` and
+   [card-design.md](card-design.md). Names, IDs and Specialties remain stable.
+2. Apply the explicit named deck counts from `tools/time_stranger_theme_decks.json`.
+   Preserve deck IDs, displayed owners, portraits and base metadata.
+3. Regenerate `web/js/data/cards.js` through the normal custom-data exporter. Do not edit
+   generated card data by hand.
+4. Validate the new lists, copy limits, exact Specialty sets, bans, effect themes and
+   evolution routes. Confirm the original 159 decks and Black Fire Again remain intact.
+5. Run the repository checks and themed matchup simulations, then inspect the updated
+   deck selector, deck preview and a started game in the browser.
+
+Card theme encoding and any required support variable must land before behavioral
+checks and deck simulations. Decklist construction itself depends only on stable IDs,
+levels, Specialties, PP/DP and the traced evolution rules. The deck changes introduce
+no new engine rule and retain no requirement to keep the old Options or exchange counts.

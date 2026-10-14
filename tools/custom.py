@@ -42,6 +42,8 @@ README lists every custom card under "Not from the game code".
      "replace": {"WarGreymon": "BlackWarGreymon"}                        the music of its base
      "owner": "BlackWarGreymon",   optional display name, otherwise the base's owner
      "ownerCard": "BlackWarGreymon" optional in-deck Digimon card used for its portrait
+     "cards": {"Huckmon": 4, ...}  optional complete 30-card named-count composition;
+                                     replaces the exchange recipe, keeps base metadata
    }]}
 
 A recolour is a list of rules; the first rule that takes a colour changes it, a colour no
@@ -116,11 +118,24 @@ def decks(game_decks, all_cards):
         base = [x for x in game_decks if x["name"] == d["base"]["name"] and x["owner"] == d["base"]["owner"]]
         assert base, "base deck %r" % (d["base"],)
         base = base[0]
-        swap = {ids[a]: ids[b] for a, b in d["replace"].items()}
-        assert all(a in base["cards"] for a in swap), "deck %s: a card to replace is not in %s" % (d["name"], base["name"])
+        if "cards" in d:
+            assert "replace" not in d, "deck %s: choose a full list or an exchange recipe" % d["name"]
+            composition = []
+            for name, count in d["cards"].items():
+                assert name in ids, "deck %s: unknown card %s" % (d["name"], name)
+                assert type(count) is int and 1 <= count <= 4, "deck %s: invalid copies of %s" % (d["name"], name)
+                composition.extend([ids[name]] * count)
+            assert len(composition) == 30, "deck %s: expected 30 cards" % d["name"]
+            chosen = [c for c in all_cards if c["id"] in composition]
+            assert any(c["type"] == "digimon" for c in chosen), "deck %s: no Digimon" % d["name"]
+            assert all(c.get("level") != 1 for c in chosen), "deck %s: armor forms cannot be in a deck" % d["name"]
+        else:
+            swap = {ids[a]: ids[b] for a, b in d["replace"].items()}
+            assert all(a in base["cards"] for a in swap), "deck %s: a card to replace is not in %s" % (d["name"], base["name"])
+            composition = [swap.get(i, i) for i in base["cards"]]
         assert len(d["name"]) <= 18 and not any(x["name"] == d["name"] for x in game_decks + out), "deck name %s" % d["name"]
         out.append(dict(base, id=len(game_decks) + len(out), name=d["name"],
-                        cards=[swap.get(i, i) for i in base["cards"]],
+                        cards=composition,
                         custom=base["id"]))                # not a deck of the game: made from this one
         if "owner" in d:
             assert isinstance(d["owner"], str) and d["owner"].strip(), "deck owner %s" % d["name"]

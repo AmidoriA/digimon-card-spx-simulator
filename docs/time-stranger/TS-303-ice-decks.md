@@ -120,3 +120,30 @@ Validation: 32 selftests, 11 deck checks, the standard 200-match engine soak,
 all fifteen new owners/portraits load in both art modes; all fifteen match names and
 introductory battle logs match the Ultimate. Zero page errors or failed asset requests.
 Representative WarGrowlmon setup and MetalTyrannomon match screenshots were inspected.
+
+### Theme composition redesign — owner request, 2026-10-14
+
+Current source is `tools/time_stranger_theme_decks.json`; full lists and rationales are
+in `decks.md`. The owner superseded the initial exact-base-exchange constraint: every
+featured R/C/U group is now 4/3/3 copies, all lists are 9 R / 6 C / 3 U / 12 options,
+and Sevens cards plus Download Digivolve are excluded. Each pure-color deck has
+evolution support, and every mixed-color deck has genuine cross-Specialty evolution.
+Base records retain source metadata provenance; names and Ultimate portraits remain.
+The matching 45 custom card effects are revised in `card-design.md`. Original disc
+cards/decks and Black Fire Again remain intact. Historical acceptance evidence above
+describes the prior lists and does not override the owner's new requirements.
+
+#### Revised-theme validation complete
+
+- [x] Complete 4/3/3 featured groups, 9/6/3/12 ratios, exact colors and banned-card checks.
+- [x] 353 effect scenarios; 30 normal evolution steps and 51 actual option routes.
+- [x] 360 directed and 750 extended theme matches without timeouts or AI intervention;
+  every featured Ultimate evolves naturally and all 45 supports activate naturally.
+- [x] 32 selftests, 11 deck checks, 31 board-effect scripts and asset paths pass.
+- [x] All 15 browser deck lists/match starts and all 90 card previews pass; three actual
+  prepared board support playbacks pass without errors.
+
+See [theme-validation.md](theme-validation.md) for seed/coverage details, the standard
+200-match soak's explicitly reported stalemate explorations, and counter/Crash caveats.
+This owner request is integrated in one commit on `time-stranger`; the main merge gate
+remains. Prior exact-exchange acceptance is historical.

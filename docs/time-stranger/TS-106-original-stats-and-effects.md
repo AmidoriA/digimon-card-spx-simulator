@@ -18,7 +18,7 @@ their Specialty and official lore. This supersedes donor-stat copying.
 official source links and individual roles/tradeoffs. Source of runtime data:
 tools/custom_cards.json. Keep the five Specialties, roster and shared native pictures.
 
-## Acceptance
+## Initial acceptance (historical, superseded where noted below)
 
 - [x] 45 new stat profiles, 45 changed cross effects and 45 distinct supports.
 - [x] Each card has official lore evidence and an explicit gameplay interpretation.
@@ -46,3 +46,34 @@ previous commit. Visual assets, donor scripts and shared pictures are unchanged.
 previously corrupted special-character attack labels were repaired from official sources.
 These designs fit disc stat ranges but need further deck playtests; do not infer equal
 competitive balance from runtime simulation success. Integrated/pushed to time-stranger.
+
+## Theme redesign requested by the owner — 2026-10-14
+
+The owner requested fifteen concrete deck themes, 3–4 copies of each featured R/C/U
+stage, ordinary own-Specialty gates removed, evolution tools for pure and mixed lists,
+and no Sevens or Download Digivolve. The new designs in `card-design.md` and
+`tools/time_stranger_theme_cards.json` supersede the original exact cross/support
+choices. Keeping every cross different from its visual donor is no longer a criterion.
+
+The 45 supports now follow their deck themes. Only the Wingdramon group deliberately
+requires a non-Rare active Digimon for its strong cross-color bonuses. GrapLeomon's
+group tests selected attack power through custom variable 0x50; all actual effect
+operations remain the existing DDCB operations. Terriermon, Gargomon and Rapidmon's
+cross powers become zero to accompany Triangle Counter. Other stats, all original disc
+cards, BlackWarGreymon and visual assets remain intact. The original-source lore
+citations remain available in the design document.
+
+#### Revised-theme validation complete
+
+- [x] Complete 4/3/3 featured groups, 9/6/3/12 ratios, exact colors and banned-card checks.
+- [x] 353 effect scenarios; 30 normal evolution steps and 51 actual option routes.
+- [x] 360 directed and 750 extended theme matches without timeouts or AI intervention;
+  every featured Ultimate evolves naturally and all 45 supports activate naturally.
+- [x] 32 selftests, 11 deck checks, 31 board-effect scripts and asset paths pass.
+- [x] All 15 browser deck lists/match starts and all 90 card previews pass; three actual
+  prepared board support playbacks pass without errors.
+
+See [theme-validation.md](theme-validation.md) for seed/coverage details, the standard
+200-match soak's explicitly reported stalemate explorations, and counter/Crash caveats.
+This owner request is integrated in one commit on `time-stranger`; the main merge gate
+remains. Prior exact-exchange acceptance is historical.

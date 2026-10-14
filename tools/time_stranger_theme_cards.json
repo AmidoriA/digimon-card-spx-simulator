@@ -1,0 +1,3653 @@
+{
+  "version": 2,
+  "requested": "2026-10-14",
+  "notes": [
+    "Project-authored deck-theme tuning; no original disc card changes.",
+    "Handwritten expectations use: own/foe HP600/900; own/foe attacks400,300,200/360,240,120; own/foe deck26/27; own/foe DP2; own/foe Offline3; own remaining Hand0. Hand patches refer to cards remaining after the support card leaves hand.",
+    "Only Wingdramon-line supports gate own Specialty; their Rare cards intentionally boost any non-Rare active.",
+    "Counter x attacks have zero base power. IDs321 (Terriermon),324 (Gargomon),327 (Rapidmon) change only their cross base power to0; all other stats stay unchanged.",
+    "Custom effect variable0x50 returns own currently selected Attack Power; it is a project extension, not a disc variable.",
+    "Evolution help in Dragomon supports means drawing/recycling stages and Options, not evolving during Battle Phase. Evolution Options are independently required in all decks.",
+    "The old requirement that every cross effect differ from its donor is superseded by the requested deck themes."
+  ],
+  "cards": [
+    {
+      "id": 302,
+      "name": "Guilmon",
+      "line": "WarGrowlmon",
+      "xfx": "1st Attack",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              100,
+              0,
+              0
+            ],
+            "op": 2,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              0,
+              0,
+              3
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          },
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own HP are more than 100, lose 100 HP and boost own Attack Power +250."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hp": 500,
+            "atk": [
+              650,
+              550,
+              450
+            ]
+          }
+        },
+        "fail": [
+          {
+            "hp": 100
+          },
+          {
+            "hp": 90
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "WarGrowlmon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 303,
+      "name": "Coronamon",
+      "line": "Flaremon",
+      "xfx": "○ to 0",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 49,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Boost own Attack Power +100 and draw 1 Card."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              500,
+              400,
+              300
+            ],
+            "hand": 1,
+            "deck": 25
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Flaremon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 304,
+      "name": "Huckmon",
+      "line": "SaviorHuckmon",
+      "xfx": "△ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              17,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "op": 1,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 4,
+            "v": [
+              5,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 6,
+            "v": [
+              7,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own Attack is ○ or △, boost own ○ and △ Attack Power +150."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              550,
+              450,
+              200
+            ]
+          }
+        },
+        "fail": [
+          {
+            "choice": 2
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "SaviorHuckmon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 305,
+      "name": "Growlmon",
+      "line": "WarGrowlmon",
+      "xfx": "Ice Foe x3",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              200,
+              0,
+              0
+            ],
+            "op": 2,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              0,
+              0,
+              3
+            ],
+            "i": [
+              0,
+              200,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          },
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              350,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own HP are more than 200, lose 200 HP and boost own Attack Power +350."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hp": 400,
+            "atk": [
+              750,
+              650,
+              550
+            ]
+          }
+        },
+        "fail": [
+          {
+            "hp": 200
+          },
+          {
+            "hp": 190
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "WarGrowlmon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 306,
+      "name": "Firamon",
+      "line": "Flaremon",
+      "xfx": "1st Attack",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 49,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Boost own Attack Power +150 and draw 1 Card."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              550,
+              450,
+              350
+            ],
+            "hand": 1,
+            "deck": 25
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Flaremon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 307,
+      "name": "BaoHuckmon",
+      "line": "SaviorHuckmon",
+      "xfx": "○ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              17,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "op": 1,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 4,
+            "v": [
+              5,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 6,
+            "v": [
+              7,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own Attack is ○ or △, boost own ○ and △ Attack Power +250."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              650,
+              550,
+              200
+            ]
+          }
+        },
+        "fail": [
+          {
+            "choice": 2
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "SaviorHuckmon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 308,
+      "name": "WarGrowlmon",
+      "line": "WarGrowlmon",
+      "xfx": "Crash",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              27,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              3,
+              0,
+              0
+            ],
+            "op": 3,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 32,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              3,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              450,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If 3 or more Cards remain in own Online Deck, discard 3 Cards from own Online Deck and boost own Attack Power +450."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              850,
+              750,
+              650
+            ],
+            "deck": 23,
+            "offline": 6
+          }
+        },
+        "fail": [
+          {
+            "deck": 2
+          },
+          {
+            "deck": 0
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "WarGrowlmon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 309,
+      "name": "Flaremon",
+      "line": "Flaremon",
+      "xfx": "Jamming",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              21,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              2,
+              0,
+              0
+            ],
+            "op": 1,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              200,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 49,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              2,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If 2 or less Cards are in own Hand, boost own Attack Power +200 and draw 2 Cards."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              600,
+              500,
+              400
+            ],
+            "hand": 2,
+            "deck": 24
+          }
+        },
+        "fail": [
+          {
+            "hand": 3
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "Flaremon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 310,
+      "name": "SaviorHuckmon",
+      "line": "SaviorHuckmon",
+      "xfx": "1st Attack",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              17,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "op": 1,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 4,
+            "v": [
+              5,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              350,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 6,
+            "v": [
+              7,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              350,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 53,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own Attack is ○ or △, boost own ○ and △ Attack Power +350 and attack first."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              750,
+              650,
+              200
+            ],
+            "first": 0
+          }
+        },
+        "fail": [
+          {
+            "choice": 2
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "SaviorHuckmon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 311,
+      "name": "Gaomon",
+      "line": "MachGaogamon",
+      "xfx": "1st Attack",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              3,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              200,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 5,
+            "v": [
+              0,
+              0,
+              6
+            ],
+            "i": [
+              0,
+              80,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          }
+        ],
+        "text": "Recover own HP +200 and lower opponent's ○ Attack Power -80."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hp": 800,
+            "foeAtk": [
+              280,
+              240,
+              120
+            ]
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "MachGaogamon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 312,
+      "name": "Lunamon",
+      "line": "Crescemon",
+      "xfx": "○ to 0",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 11,
+            "v": [
+              0,
+              0,
+              12
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          },
+          {
+            "op": 33,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Lower opponent's Attack Power -100 and discard 1 Card from opponent's Online Deck."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "foeAtk": [
+              260,
+              140,
+              20
+            ],
+            "foeDeck": 26,
+            "foeOffline": 4
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Crescemon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 313,
+      "name": "Syakomon",
+      "line": "Dragomon",
+      "xfx": "○ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 49,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 5,
+            "v": [
+              0,
+              0,
+              6
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          }
+        ],
+        "text": "Draw 1 Card and lower opponent's ○ Attack Power -100."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hand": 1,
+            "deck": 25,
+            "foeAtk": [
+              260,
+              240,
+              120
+            ]
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Dragomon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 314,
+      "name": "Gaogamon",
+      "line": "MachGaogamon",
+      "xfx": "1st Attack",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              4,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "op": 3,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              3,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own HP are at least opponent's HP, recover own HP +150 and boost own Attack Power +250."
+      },
+      "expect": {
+        "pass": {
+          "patch": {
+            "hp": 1000
+          },
+          "result": {
+            "hp": 1150,
+            "atk": [
+              650,
+              550,
+              450
+            ]
+          }
+        },
+        "fail": [
+          {
+            "hp": 890
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "MachGaogamon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 315,
+      "name": "Lekismon",
+      "line": "Crescemon",
+      "xfx": "○ to 0",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 5,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 34,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              2,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Lower opponent's ○ Attack Power to 0 and return up to 2 Cards from own Offline Pile to own Online Deck."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "foeAtk": [
+              0,
+              240,
+              120
+            ],
+            "deck": 28,
+            "offline": 1
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Crescemon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 316,
+      "name": "Octomon",
+      "line": "Dragomon",
+      "xfx": "Jamming",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 49,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              2,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Draw 2 Cards."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hand": 2,
+            "deck": 24
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Dragomon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 317,
+      "name": "MachGaogamon",
+      "line": "MachGaogamon",
+      "xfx": "Eat-up HP",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              4,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "op": 0,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              3,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              400,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 11,
+            "v": [
+              0,
+              0,
+              12
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          }
+        ],
+        "text": "If own HP are less than opponent's HP, recover own HP +400 and lower opponent's Attack Power -100."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hp": 1000,
+            "foeAtk": [
+              260,
+              140,
+              20
+            ]
+          }
+        },
+        "fail": [
+          {
+            "hp": 900
+          },
+          {
+            "hp": 910
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "MachGaogamon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 318,
+      "name": "Crescemon",
+      "line": "Crescemon",
+      "xfx": "△ to 0",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 11,
+            "v": [
+              0,
+              0,
+              12
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          },
+          {
+            "op": 33,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              3,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 34,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              3,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Lower opponent's Attack Power -150, discard 3 Cards from opponent's Online Deck and return up to 3 Cards from own Offline Pile to own Online Deck."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "foeAtk": [
+              210,
+              90,
+              0
+            ],
+            "foeDeck": 24,
+            "foeOffline": 6,
+            "deck": 29,
+            "offline": 0
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Crescemon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 319,
+      "name": "Dragomon",
+      "line": "Dragomon",
+      "xfx": "Jamming",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              0,
+              0,
+              11
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          },
+          {
+            "op": 34,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              3,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 49,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              2,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Lower own Attack Power -100, return up to 3 Cards from own Offline Pile to own Online Deck and draw 2 Cards."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              300,
+              200,
+              100
+            ],
+            "deck": 27,
+            "offline": 0,
+            "hand": 2
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Dragomon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 320,
+      "name": "Renamon",
+      "line": "Taomon",
+      "xfx": "○ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 1,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              3,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 49,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Change opponent's Specialty to Darkness and draw 1 Card."
+      },
+      "expect": {
+        "pass": {
+          "patch": {
+            "foeSpec": 0
+          },
+          "result": {
+            "foeSpec": 3,
+            "hand": 1,
+            "deck": 25
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Taomon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 321,
+      "name": "Terriermon",
+      "line": "Rapidmon",
+      "xfx": "△ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 17,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Opponent uses △."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "foeChoice": 1
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Rapidmon theme; all changes are project-authored tuning.",
+      "attacks": [
+        {
+          "name": "Terrier Tornado",
+          "power": 310
+        },
+        {
+          "name": "Blazing Fire",
+          "power": 210
+        },
+        {
+          "name": "Double Typhoon",
+          "power": 0
+        }
+      ]
+    },
+    {
+      "id": 322,
+      "name": "Lalamon",
+      "line": "Lilamon",
+      "xfx": "Eat-up HP",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              3,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              200,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Recover own HP +200."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hp": 800
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Lilamon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 323,
+      "name": "Kyubimon",
+      "line": "Taomon",
+      "xfx": "Jamming",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 37,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 11,
+            "v": [
+              0,
+              0,
+              12
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          }
+        ],
+        "text": "Discard 1 Card from opponent's DP Slot and lower opponent's Attack Power -100."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "foeDp": 1,
+            "foeOffline": 4,
+            "foeAtk": [
+              260,
+              140,
+              20
+            ]
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Taomon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 324,
+      "name": "Gargomon",
+      "line": "Rapidmon",
+      "xfx": "△ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 5,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 6,
+            "v": [
+              7,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Lower opponent's ○ Attack Power to 0 and boost own △ Attack Power +150."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "foeAtk": [
+              0,
+              240,
+              120
+            ],
+            "atk": [
+              400,
+              450,
+              200
+            ]
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Rapidmon theme; all changes are project-authored tuning.",
+      "attacks": [
+        {
+          "name": "Gatling Arm",
+          "power": 530
+        },
+        {
+          "name": "Dumdum Uppercut",
+          "power": 390
+        },
+        {
+          "name": "Thunder Fall I",
+          "power": 0
+        }
+      ]
+    },
+    {
+      "id": 325,
+      "name": "Sunflowmon",
+      "line": "Lilamon",
+      "xfx": "Eat-up HP",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              3,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 10,
+            "v": [
+              0,
+              0,
+              11
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          },
+          {
+            "op": 51,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Recover own HP +250, lower own Attack Power -100 and own attack gains Eat-up HP."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hp": 850,
+            "atk": [
+              300,
+              200,
+              100
+            ],
+            "flag": "eatup"
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Lilamon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 326,
+      "name": "Taomon",
+      "line": "Taomon",
+      "xfx": "Darkness Foe x3",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 1,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              3,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 37,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              2,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 10,
+            "v": [
+              0,
+              0,
+              11
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          }
+        ],
+        "text": "Change opponent's Specialty to Darkness, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100."
+      },
+      "expect": {
+        "pass": {
+          "patch": {
+            "foeSpec": 0
+          },
+          "result": {
+            "foeSpec": 3,
+            "foeDp": 0,
+            "foeOffline": 5,
+            "atk": [
+              300,
+              200,
+              100
+            ]
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Taomon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 327,
+      "name": "Rapidmon",
+      "line": "Rapidmon",
+      "xfx": "△ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 17,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 5,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 4,
+            "v": [
+              0,
+              0,
+              5
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          }
+        ],
+        "text": "Opponent uses △, opponent's ○ Attack Power becomes 0, and own ○ Attack Power is lowered by 100."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "foeChoice": 1,
+            "foeAtk": [
+              0,
+              240,
+              120
+            ],
+            "atk": [
+              300,
+              300,
+              200
+            ]
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Rapidmon theme; all changes are project-authored tuning.",
+      "attacks": [
+        {
+          "name": "Rapid Fire",
+          "power": 820
+        },
+        {
+          "name": "Golden Triangle",
+          "power": 600
+        },
+        {
+          "name": "Thunder Fall II",
+          "power": 0
+        }
+      ]
+    },
+    {
+      "id": 328,
+      "name": "Lilamon",
+      "line": "Lilamon",
+      "xfx": "Eat-up HP",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              3,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              300,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 51,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Recover own HP +300 and own attack gains Eat-up HP."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hp": 900,
+            "flag": "eatup"
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Lilamon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 329,
+      "name": "Keramon",
+      "line": "MetalTyrannomon",
+      "xfx": "Jamming",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              27,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "op": 3,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 32,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If at least 1 Card remains in own Online Deck, discard 1 Card from own Online Deck and boost own Attack Power +150."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              550,
+              450,
+              350
+            ],
+            "deck": 25,
+            "offline": 4
+          }
+        },
+        "fail": [
+          {
+            "deck": 0
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "MetalTyrannomon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 330,
+      "name": "Monodramon",
+      "line": "Cyberdramon",
+      "xfx": "○ to 0",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              4,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "op": 0,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own HP are less than opponent's HP, boost own Attack Power +250."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              650,
+              550,
+              450
+            ]
+          }
+        },
+        "fail": [
+          {
+            "hp": 900
+          },
+          {
+            "hp": 910
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "Cyberdramon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 331,
+      "name": "Dracmon",
+      "line": "Matadormon",
+      "xfx": "Eat-up HP",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              4,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "op": 0,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 51,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 6,
+            "v": [
+              7,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own HP are less than opponent's HP, own attack gains Eat-up HP and own △ Attack Power is boosted by 100."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "flag": "eatup",
+            "atk": [
+              400,
+              400,
+              200
+            ]
+          }
+        },
+        "fail": [
+          {
+            "hp": 900
+          },
+          {
+            "hp": 910
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "Matadormon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 332,
+      "name": "Kurisarimon",
+      "line": "MetalTyrannomon",
+      "xfx": "△ to 0",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              23,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "op": 3,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 36,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot and boost own Attack Power +250."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "dp": 1,
+            "offline": 4,
+            "atk": [
+              650,
+              550,
+              450
+            ]
+          }
+        },
+        "fail": [
+          {
+            "dp": 0
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "MetalTyrannomon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 333,
+      "name": "Strikedramon",
+      "line": "Cyberdramon",
+      "xfx": "Darkness Foe x3",
+      "support": {
+        "prio": 3,
+        "conds": [
+          {
+            "v": [
+              2,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              3,
+              0,
+              0
+            ],
+            "op": 5,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 44,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If opponent's Specialty is Darkness, void opponent's Digimon Support Effect and boost own Attack Power +150."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "void": true,
+            "atk": [
+              550,
+              450,
+              350
+            ]
+          }
+        },
+        "fail": [
+          {
+            "foeSpec": 0
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "Cyberdramon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 334,
+      "name": "Sangloupmon",
+      "line": "Matadormon",
+      "xfx": "Eat-up HP",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              4,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "op": 0,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 48,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              200,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own HP are less than opponent's HP, boost own Attack Power +250. Digimon KO'd in this battle revives with 200 HP; the battle still counts as a loss."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              650,
+              550,
+              450
+            ],
+            "flag": "revive",
+            "reviveHp": 200
+          }
+        },
+        "fail": [
+          {
+            "hp": 900
+          },
+          {
+            "hp": 910
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "Matadormon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 335,
+      "name": "MetalTyrannomon",
+      "line": "MetalTyrannomon",
+      "xfx": "○ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              200,
+              0,
+              0
+            ],
+            "op": 2,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              0,
+              0,
+              3
+            ],
+            "i": [
+              0,
+              200,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          },
+          {
+            "op": 4,
+            "v": [
+              5,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              400,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 6,
+            "v": [
+              7,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              300,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own HP are more than 200, lose 200 HP, boost own ○ Attack Power +400 and own △ Attack Power +300."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hp": 400,
+            "atk": [
+              800,
+              600,
+              200
+            ]
+          }
+        },
+        "fail": [
+          {
+            "hp": 200
+          },
+          {
+            "hp": 190
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "MetalTyrannomon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 336,
+      "name": "Cyberdramon",
+      "line": "Cyberdramon",
+      "xfx": "Darkness Foe x3",
+      "support": {
+        "prio": 3,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              100,
+              0,
+              0
+            ],
+            "op": 2,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 2,
+            "v": [
+              0,
+              0,
+              3
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 1
+          },
+          {
+            "op": 44,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              300,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own HP are more than 100, lose 100 HP, void opponent's Digimon Support Effect and boost own Attack Power +300."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "hp": 500,
+            "void": true,
+            "atk": [
+              700,
+              600,
+              500
+            ]
+          }
+        },
+        "fail": [
+          {
+            "hp": 100
+          },
+          {
+            "hp": 90
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "Cyberdramon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 337,
+      "name": "Matadormon",
+      "line": "Matadormon",
+      "xfx": "Eat-up HP",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              3,
+              0,
+              0,
+              4,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "op": 0,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              400,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 48,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              400,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own HP are less than opponent's HP, boost own Attack Power +400. Digimon KO'd in this battle revives with 400 HP; the battle still counts as a loss."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              800,
+              700,
+              600
+            ],
+            "flag": "revive",
+            "reviveHp": 400
+          }
+        },
+        "fail": [
+          {
+            "hp": 900
+          },
+          {
+            "hp": 910
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "Matadormon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 338,
+      "name": "Dracomon",
+      "line": "Wingdramon",
+      "xfx": "Crash",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              4,
+              0,
+              0
+            ],
+            "op": 4,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              200,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 53,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own Specialty is not Rare, boost own Attack Power +200 and attack first."
+      },
+      "expect": {
+        "pass": {
+          "patch": {
+            "spec": 1
+          },
+          "result": {
+            "atk": [
+              600,
+              500,
+              400
+            ],
+            "first": 0
+          }
+        },
+        "fail": [
+          {
+            "spec": 4
+          }
+        ],
+        "allSpecialties": false
+      },
+      "design": "A Rare support card rewards a differently colored active; intentionally works for every non-Rare active, including the Ice/Nature deck partners."
+    },
+    {
+      "id": 339,
+      "name": "Bearmon",
+      "line": "GrapLeomon",
+      "xfx": "○ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              80,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "op": 5,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 2,
+            "v": [
+              3,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own current Attack Power is 0, boost own Attack Power +250 and recover own HP +100."
+      },
+      "expect": {
+        "pass": {
+          "patch": {
+            "ownAtk": [
+              0,
+              300,
+              200
+            ]
+          },
+          "result": {
+            "atk": [
+              250,
+              550,
+              450
+            ],
+            "hp": 700
+          }
+        },
+        "fail": [
+          {
+            "ownAtk": [
+              10,
+              300,
+              200
+            ]
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "Custom variable 0x50 tests selected attack power after preceding effects; any chosen zero-power attack qualifies."
+    },
+    {
+      "id": 340,
+      "name": "Kudamon",
+      "line": "Chirinmon",
+      "xfx": "1st Attack",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 4,
+            "v": [
+              5,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              100,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 53,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Boost own ○ Attack Power +100 and attack first."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              500,
+              300,
+              200
+            ],
+            "first": 0
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Chirinmon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 341,
+      "name": "Coredramon (Blue)",
+      "line": "Wingdramon",
+      "xfx": "○ to 0",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              4,
+              0,
+              0
+            ],
+            "op": 4,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 4,
+            "v": [
+              5,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              350,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 6,
+            "v": [
+              7,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 49,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              1,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own Specialty is not Rare, boost own ○ Attack Power +350, own △ Attack Power +250 and draw 1 Card."
+      },
+      "expect": {
+        "pass": {
+          "patch": {
+            "spec": 2
+          },
+          "result": {
+            "atk": [
+              750,
+              550,
+              200
+            ],
+            "hand": 1,
+            "deck": 25
+          }
+        },
+        "fail": [
+          {
+            "spec": 4
+          }
+        ],
+        "allSpecialties": false
+      },
+      "design": "Strong color handoff from a Rare support to Ice/Nature or any other non-Rare active."
+    },
+    {
+      "id": 342,
+      "name": "Grizzlymon",
+      "line": "GrapLeomon",
+      "xfx": "○ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              80,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "op": 5,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              350,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 53,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own current Attack Power is 0, boost own Attack Power +350 and attack first."
+      },
+      "expect": {
+        "pass": {
+          "patch": {
+            "choice": 1,
+            "ownAtk": [
+              400,
+              0,
+              200
+            ]
+          },
+          "result": {
+            "atk": [
+              750,
+              350,
+              550
+            ],
+            "first": 0
+          }
+        },
+        "fail": [
+          {
+            "ownAtk": [
+              400,
+              10,
+              200
+            ]
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "A zeroed selected attack becomes usable. A successful counter still follows normal counter timing."
+    },
+    {
+      "id": 343,
+      "name": "Reppamon",
+      "line": "Chirinmon",
+      "xfx": "1st Attack",
+      "support": {
+        "prio": 1,
+        "conds": [],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              150,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 53,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "Boost own Attack Power +150 and attack first."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              550,
+              450,
+              350
+            ],
+            "first": 0
+          }
+        },
+        "fail": [],
+        "allSpecialties": true
+      },
+      "design": "Chirinmon theme; all changes are project-authored tuning."
+    },
+    {
+      "id": 344,
+      "name": "Wingdramon",
+      "line": "Wingdramon",
+      "xfx": "1st Attack",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              4,
+              0,
+              0
+            ],
+            "op": 4,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 4,
+            "v": [
+              5,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              400,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 6,
+            "v": [
+              7,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              300,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 53,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own Specialty is not Rare, boost own ○ Attack Power +400, own △ Attack Power +300 and attack first."
+      },
+      "expect": {
+        "pass": {
+          "patch": {
+            "spec": 1
+          },
+          "result": {
+            "atk": [
+              800,
+              600,
+              200
+            ],
+            "first": 0
+          }
+        },
+        "fail": [
+          {
+            "spec": 4
+          }
+        ],
+        "allSpecialties": false
+      },
+      "design": "Powerful cross-Specialty burst; a Rare Wingdramon cannot use another Rare Wingdramon as this support."
+    },
+    {
+      "id": 345,
+      "name": "GrapLeomon",
+      "line": "GrapLeomon",
+      "xfx": "△ Counter",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              80,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "op": 5,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              500,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 53,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If own current Attack Power is 0, boost own Attack Power +500 and attack first."
+      },
+      "expect": {
+        "pass": {
+          "patch": {
+            "choice": 2,
+            "ownAtk": [
+              400,
+              300,
+              0
+            ]
+          },
+          "result": {
+            "atk": [
+              900,
+              800,
+              500
+            ],
+            "first": 0
+          }
+        },
+        "fail": [
+          {
+            "ownAtk": [
+              400,
+              300,
+              10
+            ]
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "A counter attack that would miss can still deal ordinary boosted cross damage; counter resolution is unchanged."
+    },
+    {
+      "id": 346,
+      "name": "Chirinmon",
+      "line": "Chirinmon",
+      "xfx": "1st Attack",
+      "support": {
+        "prio": 1,
+        "conds": [
+          {
+            "v": [
+              27,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0,
+              2,
+              0,
+              0
+            ],
+            "op": 3,
+            "m": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "acts": [
+          {
+            "op": 32,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              2,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 10,
+            "v": [
+              11,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              250,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          },
+          {
+            "op": 53,
+            "v": [
+              0,
+              0,
+              0
+            ],
+            "i": [
+              0,
+              0,
+              0
+            ],
+            "m1": 0,
+            "m2": 0
+          }
+        ],
+        "text": "If 2 or more Cards remain in own Online Deck, discard 2 Cards from own Online Deck, boost own Attack Power +250 and attack first."
+      },
+      "expect": {
+        "pass": {
+          "patch": {},
+          "result": {
+            "atk": [
+              650,
+              550,
+              450
+            ],
+            "deck": 24,
+            "offline": 5,
+            "first": 0
+          }
+        },
+        "fail": [
+          {
+            "deck": 1
+          },
+          {
+            "deck": 0
+          }
+        ],
+        "allSpecialties": true
+      },
+      "design": "Chirinmon theme; all changes are project-authored tuning."
+    }
+  ]
+}

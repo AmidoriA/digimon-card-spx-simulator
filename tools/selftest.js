@@ -354,12 +354,12 @@ test('Time Stranger visual bases, roster and shared pictures remain intact', () 
   });
 });
 
-test('Time Stranger original designs activate as documented', () => {
+test('Time Stranger theme effects activate as documented', () => {
   require('./time_stranger_design_test.js').verify();
 });
 
-const TS_DECK_COUNT = 15; // TS-302..306: raise by three with each completed Specialty.
-test('Time Stranger decks are exactly the frozen exchanges, inherit their bases and evolve through every themed group', () => {
+const TS_DECK_COUNT = 15; // The owner-requested theme redesign ships all fifteen decks together.
+test('Time Stranger themed lists meet copy, ratio, color, ban and evolution requirements', () => {
   require('./time_stranger_deck_test.js').verify(TS_DECK_COUNT);
 });
 

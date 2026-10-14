@@ -2174,5 +2174,7 @@
       "owner": "Chirinmon",
       "ownerCard": 346
     }
-  ]
+  ],
+  "status": "Historical donor-selection audit; current compositions superseded by owner theme redesign.",
+  "supersededBy": "tools/time_stranger_theme_decks.json"
 }

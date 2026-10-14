@@ -267,13 +267,21 @@
     "name": "Go Go Dinosaur",
     "owner": "Veemon"
    },
-   "replace": {
-    "Agumon": "Guilmon",
-    "Greymon": "Growlmon",
-    "MetalGreymon": "WarGrowlmon"
-   },
    "owner": "WarGrowlmon",
-   "ownerCard": "WarGrowlmon"
+   "ownerCard": "WarGrowlmon",
+   "cards": {
+    "Guilmon": 4,
+    "Agumon": 3,
+    "Biyomon": 2,
+    "Growlmon": 3,
+    "Tankmon": 3,
+    "WarGrowlmon": 3,
+    "Speed Digivolve": 3,
+    "Devil's Chip": 3,
+    "Mega Hand": 2,
+    "Chain Saw": 2,
+    "Training Manual": 2
+   }
   },
   {
    "name": "Solar Flame Again",
@@ -281,13 +289,20 @@
     "name": "First Attack",
     "owner": "Birdramon"
    },
-   "replace": {
-    "Goburimon": "Coronamon",
-    "Birdramon": "Firamon",
-    "Garudamon": "Flaremon"
-   },
    "owner": "Flaremon",
-   "ownerCard": "Flaremon"
+   "ownerCard": "Flaremon",
+   "cards": {
+    "Coronamon": 4,
+    "Veemon": 3,
+    "Biyomon": 2,
+    "Firamon": 3,
+    "Akatorimon": 3,
+    "Flaremon": 3,
+    "Speed Digivolve": 3,
+    "Attack Chip": 3,
+    "Training Manual": 3,
+    "Digi-Diamond": 3
+   }
   },
   {
    "name": "Brave Fire Revived",
@@ -295,13 +310,20 @@
     "name": "Fire Heart",
     "owner": "Davis"
    },
-   "replace": {
-    "Veemon": "Huckmon",
-    "Flarerizamon": "BaoHuckmon",
-    "Paildramon": "SaviorHuckmon"
-   },
    "owner": "SaviorHuckmon",
-   "ownerCard": "SaviorHuckmon"
+   "ownerCard": "SaviorHuckmon",
+   "cards": {
+    "Huckmon": 4,
+    "Hawkmon": 3,
+    "Muchomon": 2,
+    "BaoHuckmon": 3,
+    "Airdramon": 3,
+    "SaviorHuckmon": 3,
+    "Special Digivolve": 3,
+    "Attack Disk ○": 3,
+    "Attack Disk △": 3,
+    "Training Manual": 3
+   }
   },
   {
    "name": "Lunar Howl Again",
@@ -309,13 +331,20 @@
     "name": "Shoot Everything!",
     "owner": "MetalGarurumon"
    },
-   "replace": {
-    "Gabumon": "Gaomon",
-    "Garurumon": "Gaogamon",
-    "WereGarurumon": "MachGaogamon"
-   },
    "owner": "MachGaogamon",
-   "ownerCard": "MachGaogamon"
+   "ownerCard": "MachGaogamon",
+   "cards": {
+    "Gaomon": 4,
+    "Gomamon": 3,
+    "Betamon": 2,
+    "Gaogamon": 3,
+    "Frigimon": 3,
+    "MachGaogamon": 3,
+    "Speed Digivolve": 3,
+    "Sup. Rec. Floppy": 3,
+    "Dark Lord's Cape": 3,
+    "Recovery Floppy": 3
+   }
   },
   {
    "name": "Moonlight Revived",
@@ -323,13 +352,20 @@
     "name": "Fightback",
     "owner": "Garurumon"
    },
-   "replace": {
-    "Penguinmon": "Lunamon",
-    "Garurumon": "Lekismon",
-    "Zudomon": "Crescemon"
-   },
    "owner": "Crescemon",
-   "ownerCard": "Crescemon"
+   "ownerCard": "Crescemon",
+   "cards": {
+    "Lunamon": 4,
+    "Armadillomon": 3,
+    "Gomamon": 2,
+    "Lekismon": 3,
+    "Rockmon": 3,
+    "Crescemon": 3,
+    "Special Digivolve": 3,
+    "Digimon Grave": 3,
+    "Digimon Analyzer": 3,
+    "High Speed Disk": 3
+   }
   },
   {
    "name": "Deep Sea Revived",
@@ -337,13 +373,21 @@
     "name": "First Aid",
     "owner": "Joe"
    },
-   "replace": {
-    "Betamon": "Syakomon",
-    "Ikkakumon": "Octomon",
-    "Zudomon": "Dragomon"
-   },
    "owner": "Dragomon",
-   "ownerCard": "Dragomon"
+   "ownerCard": "Dragomon",
+   "cards": {
+    "Syakomon": 4,
+    "Gomamon": 3,
+    "Betamon": 2,
+    "Octomon": 3,
+    "Seadramon": 3,
+    "Dragomon": 3,
+    "Speed Digivolve": 3,
+    "Warp Digivolve": 2,
+    "Training Manual": 3,
+    "Attack Chip": 2,
+    "Recovery Floppy": 2
+   }
   },
   {
    "name": "Divine Fox Again",
@@ -351,13 +395,20 @@
     "name": "Divine Monster",
     "owner": "Nefertimon"
    },
-   "replace": {
-    "Gatomon": "Renamon",
-    "Unimon": "Kyubimon",
-    "Angewomon": "Taomon"
-   },
    "owner": "Taomon",
-   "ownerCard": "Taomon"
+   "ownerCard": "Taomon",
+   "cards": {
+    "Renamon": 4,
+    "Armadillomon": 3,
+    "ClearAgumon": 2,
+    "Kyubimon": 3,
+    "Numemon": 3,
+    "Taomon": 3,
+    "Special Digivolve": 3,
+    "Evil Program": 3,
+    "Rare Altar": 3,
+    "Digimon Grave": 3
+   }
   },
   {
    "name": "Rapid Hope Again",
@@ -365,13 +416,20 @@
     "name": "Call of Destiny",
     "owner": "Gatomon"
    },
-   "replace": {
-    "Salamon": "Terriermon",
-    "Leomon": "Gargomon",
-    "MagnaAngemon": "Rapidmon"
-   },
    "owner": "Rapidmon",
-   "ownerCard": "Rapidmon"
+   "ownerCard": "Rapidmon",
+   "cards": {
+    "Terriermon": 4,
+    "Tentomon": 3,
+    "Hawkmon": 2,
+    "Gargomon": 3,
+    "Kuwagamon": 3,
+    "Rapidmon": 3,
+    "Speed Digivolve": 3,
+    "Defense Disk ○": 3,
+    "Disrupt Ray": 3,
+    "Triangle Hitter": 3
+   }
   },
   {
    "name": "Flower Bloom Again",
@@ -379,13 +437,20 @@
     "name": "Flower Fairies",
     "owner": "Lillymon"
    },
-   "replace": {
-    "Palmon": "Lalamon",
-    "Togemon": "Sunflowmon",
-    "Lillymon": "Lilamon"
-   },
    "owner": "Lilamon",
-   "ownerCard": "Lilamon"
+   "ownerCard": "Lilamon",
+   "cards": {
+    "Lalamon": 4,
+    "Palmon": 3,
+    "Gotsumon": 2,
+    "Sunflowmon": 3,
+    "Airdramon": 3,
+    "Lilamon": 3,
+    "Speed Digivolve": 3,
+    "Dark Bone": 3,
+    "Recovery Floppy": 3,
+    "Beetle Diamond": 3
+   }
   },
   {
    "name": "Dark Steel Again",
@@ -393,13 +458,21 @@
     "name": "Go Go Dinosaur",
     "owner": "Veemon"
    },
-   "replace": {
-    "Agumon": "Keramon",
-    "Greymon": "Kurisarimon",
-    "MasterTyrannomon": "MetalTyrannomon"
-   },
    "owner": "MetalTyrannomon",
-   "ownerCard": "MetalTyrannomon"
+   "ownerCard": "MetalTyrannomon",
+   "cards": {
+    "Keramon": 4,
+    "Agumon": 3,
+    "Kokuwamon": 2,
+    "Kurisarimon": 3,
+    "Tyrannomon": 3,
+    "MetalTyrannomon": 3,
+    "Special Digivolve": 3,
+    "Attack Chip": 3,
+    "Metal Parts": 2,
+    "Speed Digivolve": 2,
+    "Training Manual": 2
+   }
   },
   {
    "name": "Machine Fang Again",
@@ -407,13 +480,22 @@
     "name": "Machine Empire",
     "owner": "Machinedramon"
    },
-   "replace": {
-    "Kokuwamon": "Monodramon",
-    "Guardromon": "Strikedramon",
-    "Andromon": "Cyberdramon"
-   },
    "owner": "Cyberdramon",
-   "ownerCard": "Cyberdramon"
+   "ownerCard": "Cyberdramon",
+   "cards": {
+    "Monodramon": 4,
+    "ClearAgumon": 3,
+    "Wormmon": 2,
+    "Strikedramon": 3,
+    "Starmon": 3,
+    "Cyberdramon": 3,
+    "Special Digivolve": 3,
+    "Mutant Digivolve": 1,
+    "Attack Chip": 2,
+    "Training Manual": 3,
+    "Silver Ball": 1,
+    "Speed Digivolve": 2
+   }
   },
   {
    "name": "Night Dance Again",
@@ -421,13 +503,21 @@
     "name": "Dark Revival",
     "owner": "Myotismon"
    },
-   "replace": {
-    "DemiDevimon": "Dracmon",
-    "Devidramon": "Sangloupmon",
-    "Myotismon": "Matadormon"
-   },
    "owner": "Matadormon",
-   "ownerCard": "Matadormon"
+   "ownerCard": "Matadormon",
+   "cards": {
+    "Dracmon": 4,
+    "Sharmamon": 3,
+    "Kokuwamon": 2,
+    "Sangloupmon": 3,
+    "Guardromon": 3,
+    "Matadormon": 3,
+    "Speed Digivolve": 3,
+    "Miracle Ruby": 3,
+    "Chain Saw": 2,
+    "Metallic Banana": 2,
+    "Recovery Floppy": 2
+   }
   },
   {
    "name": "Sky Dragon Again",
@@ -435,13 +525,22 @@
     "name": "Mega Giga",
     "owner": "Gigadramon"
    },
-   "replace": {
-    "Agumon": "Dracomon",
-    "Flarerizamon": "Coredramon (Blue)",
-    "Gigadramon": "Wingdramon"
-   },
    "owner": "Wingdramon",
-   "ownerCard": "Wingdramon"
+   "ownerCard": "Wingdramon",
+   "cards": {
+    "Dracomon": 4,
+    "Gomamon": 3,
+    "Hawkmon": 2,
+    "Coredramon (Blue)": 3,
+    "Airdramon": 2,
+    "Seadramon": 1,
+    "Wingdramon": 3,
+    "Special Digivolve": 4,
+    "Mutant Digivolve": 2,
+    "Attack Chip": 2,
+    "Training Manual": 2,
+    "Short Lance": 2
+   }
   },
   {
    "name": "Beast Fist Again",
@@ -449,13 +548,21 @@
     "name": "Steel Gate",
     "owner": "MetalEtemon"
    },
-   "replace": {
-    "Psychemon": "Bearmon",
-    "ShimaUnimon": "Grizzlymon",
-    "Etemon": "GrapLeomon"
-   },
    "owner": "GrapLeomon",
-   "ownerCard": "GrapLeomon"
+   "ownerCard": "GrapLeomon",
+   "cards": {
+    "Bearmon": 4,
+    "Salamon": 3,
+    "Hawkmon": 2,
+    "Grizzlymon": 3,
+    "Kuwagamon": 3,
+    "GrapLeomon": 3,
+    "Special Digivolve": 3,
+    "Golden Banana": 3,
+    "Beam Gun": 2,
+    "Recovery Floppy": 2,
+    "Attack Chip": 2
+   }
   },
   {
    "name": "Holy Beast Revived",
@@ -463,13 +570,20 @@
     "name": "Steel Gate",
     "owner": "MetalEtemon"
    },
-   "replace": {
-    "Vi-Elecmon": "Kudamon",
-    "ShimaUnimon": "Reppamon",
-    "MetalEtemon": "Chirinmon"
-   },
    "owner": "Chirinmon",
-   "ownerCard": "Chirinmon"
+   "ownerCard": "Chirinmon",
+   "cards": {
+    "Kudamon": 4,
+    "ClearAgumon": 3,
+    "Vi-Elecmon": 2,
+    "Reppamon": 3,
+    "SandYanmamon": 3,
+    "Chirinmon": 3,
+    "Speed Digivolve": 3,
+    "Beetle Diamond": 3,
+    "Attack Chip": 3,
+    "Triangle Hitter": 3
+   }
   }
  ],
  "cards": [
@@ -569,100 +683,6 @@
     "conds": [
      {
       "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
-    "acts": [
-     {
-      "op": 4,
-      "v": [
-       5,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       250,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     }
-    ],
-    "text": "If own Specialty is Fire, boost own ○ Attack Power +250."
-   },
-   "model": {
-    "number": 401,
-    "ts": "chr090",
-    "native": true,
-    "against": "chr050",
-    "parts": {
-     "0": "J_spine02"
-    }
-   },
-   "art": {
-    "shared": true,
-    "new": {
-     "card": "BT2-009",
-     "crop": [
-      0,
-      24,
-      430
-     ],
-     "edited": "edited/ts002/302.png"
-    }
-   }
-  },
-  {
-   "id": 303,
-   "name": "Coronamon",
-   "base": 33,
-   "spec": "Fire",
-   "level": "R",
-   "dp": 0,
-   "pp": 20,
-   "hp": 520,
-   "attacks": [
-    {
-     "name": "CoronaｰKnuckles",
-     "power": 360
-    },
-    {
-     "name": "Corona Flame",
-     "power": 250
-    },
-    {
-     "name": "Petit Prominence",
-     "power": 120
-    }
-   ],
-   "xfx": "○ to 0",
-   "support": {
-    "prio": 1,
-    "conds": [
-     {
-      "v": [
        3,
        0,
        0,
@@ -720,6 +740,89 @@
      }
     ],
     "text": "If own HP are more than 100, lose 100 HP and boost own Attack Power +250."
+   },
+   "model": {
+    "number": 401,
+    "ts": "chr090",
+    "native": true,
+    "against": "chr050",
+    "parts": {
+     "0": "J_spine02"
+    }
+   },
+   "art": {
+    "shared": true,
+    "new": {
+     "card": "BT2-009",
+     "crop": [
+      0,
+      24,
+      430
+     ],
+     "edited": "edited/ts002/302.png"
+    }
+   }
+  },
+  {
+   "id": 303,
+   "name": "Coronamon",
+   "base": 33,
+   "spec": "Fire",
+   "level": "R",
+   "dp": 0,
+   "pp": 20,
+   "hp": 520,
+   "attacks": [
+    {
+     "name": "CoronaｰKnuckles",
+     "power": 360
+    },
+    {
+     "name": "Corona Flame",
+     "power": 250
+    },
+    {
+     "name": "Petit Prominence",
+     "power": 120
+    }
+   ],
+   "xfx": "○ to 0",
+   "support": {
+    "prio": 1,
+    "conds": [],
+    "acts": [
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     }
+    ],
+    "text": "Boost own Attack Power +100 and draw 1 Card."
    },
    "model": {
     "number": 402,
@@ -786,7 +889,7 @@
        0,
        0
       ],
-      "op": 5,
+      "op": 1,
       "m": [
        0,
        0,
@@ -797,6 +900,21 @@
     ],
     "acts": [
      {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
       "op": 6,
       "v": [
        7,
@@ -805,29 +923,14 @@
       ],
       "i": [
        0,
-       100,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
-      "op": 53,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
+       150,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Attack is △, boost own △ Attack Power +100 and attack first."
+    "text": "If own Attack is ○ or △, boost own ○ and △ Attack Power +150."
    },
    "model": {
     "number": 403,
@@ -880,7 +983,7 @@
     "conds": [
      {
       "v": [
-       1,
+       3,
        0,
        0,
        0,
@@ -891,11 +994,11 @@
        0,
        0,
        0,
-       0,
+       200,
        0,
        0
       ],
-      "op": 5,
+      "op": 2,
       "m": [
        0,
        0,
@@ -906,37 +1009,37 @@
     ],
     "acts": [
      {
-      "op": 11,
+      "op": 2,
       "v": [
        0,
        0,
-       12
+       3
       ],
       "i": [
        0,
-       150,
+       200,
        0
       ],
       "m1": 0,
       "m2": 1
      },
      {
-      "op": 4,
+      "op": 10,
       "v": [
-       5,
+       11,
        0,
        0
       ],
       "i": [
        0,
-       100,
+       350,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Fire, lower opponent's Attack Power -150 and boost own ○ Attack Power +100."
+    "text": "If own HP are more than 200, lose 200 HP and boost own Attack Power +350."
    },
    "model": {
     "number": 404,
@@ -987,33 +1090,7 @@
    "xfx": "1st Attack",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
       "op": 10,
@@ -1046,7 +1123,7 @@
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Fire, boost own Attack Power +150 and draw 1 Card."
+    "text": "Boost own Attack Power +150 and draw 1 Card."
    },
    "model": {
     "number": 405,
@@ -1121,7 +1198,7 @@
        0,
        0
       ],
-      "op": 5,
+      "op": 1,
       "m": [
        0,
        0,
@@ -1132,6 +1209,21 @@
     ],
     "acts": [
      {
+      "op": 4,
+      "v": [
+       5,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       250,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
       "op": 6,
       "v": [
        7,
@@ -1140,29 +1232,14 @@
       ],
       "i": [
        0,
-       200,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
-      "op": 53,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
+       250,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Attack is △, boost own △ Attack Power +200 and attack first."
+    "text": "If own Attack is ○ or △, boost own ○ and △ Attack Power +250."
    },
    "model": {
     "number": 406,
@@ -1217,31 +1294,6 @@
     "conds": [
      {
       "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
        27,
        0,
        0,
@@ -1291,14 +1343,14 @@
       ],
       "i": [
        0,
-       350,
+       450,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Fire and 3 or more Cards remain in own Online Deck, discard 3 Cards from own Online Deck and boost own Attack Power +350."
+    "text": "If 3 or more Cards remain in own Online Deck, discard 3 Cards from own Online Deck and boost own Attack Power +450."
    },
    "model": {
     "number": 407,
@@ -1351,7 +1403,7 @@
     "conds": [
      {
       "v": [
-       1,
+       21,
        0,
        0,
        0,
@@ -1362,11 +1414,11 @@
        0,
        0,
        0,
-       0,
+       2,
        0,
        0
       ],
-      "op": 5,
+      "op": 1,
       "m": [
        0,
        0,
@@ -1377,21 +1429,6 @@
     ],
     "acts": [
      {
-      "op": 2,
-      "v": [
-       3,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       250,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
       "op": 10,
       "v": [
        11,
@@ -1400,14 +1437,29 @@
       ],
       "i": [
        0,
-       150,
+       200,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 49,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       2,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Fire, recover own HP +250 and boost own Attack Power +150."
+    "text": "If 2 or less Cards are in own Hand, boost own Attack Power +200 and draw 2 Cards."
    },
    "model": {
     "number": 408,
@@ -1461,10 +1513,10 @@
     "conds": [
      {
       "v": [
-       3,
+       17,
        0,
        0,
-       4,
+       0,
        0,
        0
       ],
@@ -1472,11 +1524,11 @@
        0,
        0,
        0,
-       0,
+       1,
        0,
        0
       ],
-      "op": 0,
+      "op": 1,
       "m": [
        0,
        0,
@@ -1487,37 +1539,52 @@
     ],
     "acts": [
      {
-      "op": 2,
+      "op": 4,
       "v": [
-       3,
+       5,
        0,
        0
       ],
       "i": [
        0,
-       200,
+       350,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 10,
+      "op": 6,
       "v": [
-       11,
+       7,
        0,
        0
       ],
       "i": [
        0,
-       400,
+       350,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own HP are less than opponent's HP, recover own HP +200 and boost own Attack Power +400."
+    "text": "If own Attack is ○ or △, boost own ○ and △ Attack Power +350 and attack first."
    },
    "model": {
     "number": 409,
@@ -1571,69 +1638,18 @@
    "xfx": "1st Attack",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
-       17,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 53,
+      "op": 2,
       "v": [
-       0,
+       3,
        0,
        0
       ],
       "i": [
        0,
-       0,
+       200,
        0
       ],
       "m1": 0,
@@ -1648,14 +1664,14 @@
       ],
       "i": [
        0,
-       100,
+       80,
        0
       ],
       "m1": 0,
       "m2": 1
      }
     ],
-    "text": "If own Specialty is Ice and own Attack is △, attack first and lower opponent's ○ Attack Power -100."
+    "text": "Recover own HP +200 and lower opponent's ○ Attack Power -80."
    },
    "model": {
     "number": 410,
@@ -1709,66 +1725,40 @@
    "xfx": "○ to 0",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 2,
-      "v": [
-       3,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       150,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
-      "op": 7,
+      "op": 11,
       "v": [
        0,
        0,
-       8
+       12
       ],
       "i": [
        0,
-       80,
+       100,
        0
       ],
       "m1": 0,
       "m2": 1
+     },
+     {
+      "op": 33,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       1,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Ice, recover own HP +150 and lower opponent's △ Attack Power -80."
+    "text": "Lower opponent's Attack Power -100 and discard 1 Card from opponent's Online Deck."
    },
    "model": {
     "number": 411,
@@ -1817,51 +1807,40 @@
    "xfx": "○ Counter",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       3,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       500,
-       0,
-       0
-      ],
-      "op": 1,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 11,
+      "op": 49,
       "v": [
        0,
        0,
-       12
+       0
       ],
       "i": [
+       1,
        0,
-       2,
        0
       ],
       "m1": 0,
-      "m2": 3
+      "m2": 0
+     },
+     {
+      "op": 5,
+      "v": [
+       0,
+       0,
+       6
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
      }
     ],
-    "text": "If own HP are 500 or less, halve opponent's Attack Power."
+    "text": "Draw 1 Card and lower opponent's ○ Attack Power -100."
    },
    "model": {
     "number": 412,
@@ -1916,35 +1895,10 @@
     "conds": [
      {
       "v": [
-       1,
+       3,
        0,
        0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
-       17,
-       0,
-       0,
-       0,
+       4,
        0,
        0
       ],
@@ -1956,7 +1910,7 @@
        0,
        0
       ],
-      "op": 5,
+      "op": 3,
       "m": [
        0,
        0,
@@ -1967,9 +1921,9 @@
     ],
     "acts": [
      {
-      "op": 4,
+      "op": 2,
       "v": [
-       5,
+       3,
        0,
        0
       ],
@@ -1982,22 +1936,22 @@
       "m2": 0
      },
      {
-      "op": 53,
+      "op": 10,
       "v": [
-       0,
+       11,
        0,
        0
       ],
       "i": [
        0,
-       0,
+       250,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Ice and own Attack is ○, boost own ○ Attack Power +150 and attack first."
+    "text": "If own HP are at least opponent's HP, recover own HP +150 and boost own Attack Power +250."
    },
    "model": {
     "number": 413,
@@ -2050,33 +2004,7 @@
    "xfx": "○ to 0",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
       "op": 5,
@@ -2094,22 +2022,22 @@
       "m2": 0
      },
      {
-      "op": 2,
+      "op": 34,
       "v": [
-       3,
+       0,
        0,
        0
       ],
       "i": [
+       2,
        0,
-       100,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Ice, lower opponent's ○ Attack Power to 0 and recover own HP +100."
+    "text": "Lower opponent's ○ Attack Power to 0 and return up to 2 Cards from own Offline Pile to own Online Deck."
    },
    "model": {
     "number": 414,
@@ -2161,33 +2089,7 @@
    "xfx": "Jamming",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
       "op": 49,
@@ -2203,24 +2105,9 @@
       ],
       "m1": 0,
       "m2": 0
-     },
-     {
-      "op": 11,
-      "v": [
-       0,
-       0,
-       12
-      ],
-      "i": [
-       0,
-       100,
-       0
-      ],
-      "m1": 0,
-      "m2": 1
      }
     ],
-    "text": "If own Specialty is Ice, draw 2 Cards and lower opponent's Attack Power -100."
+    "text": "Draw 2 Cards."
    },
    "model": {
     "number": 415,
@@ -2269,16 +2156,16 @@
      "power": 260
     }
    ],
-   "xfx": "1st Attack",
+   "xfx": "Eat-up HP",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       1,
+       3,
        0,
        0,
-       0,
+       4,
        0,
        0
       ],
@@ -2286,11 +2173,11 @@
        0,
        0,
        0,
-       1,
+       0,
        0,
        0
       ],
-      "op": 5,
+      "op": 0,
       "m": [
        0,
        0,
@@ -2301,37 +2188,37 @@
     ],
     "acts": [
      {
-      "op": 6,
+      "op": 2,
       "v": [
-       7,
+       3,
        0,
        0
       ],
       "i": [
        0,
-       200,
+       400,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 53,
+      "op": 11,
       "v": [
        0,
        0,
-       0
+       12
       ],
       "i": [
        0,
-       0,
+       100,
        0
       ],
       "m1": 0,
-      "m2": 0
+      "m2": 1
      }
     ],
-    "text": "If own Specialty is Ice, boost own △ Attack Power +200 and attack first."
+    "text": "If own HP are less than opponent's HP, recover own HP +400 and lower opponent's Attack Power -100."
    },
    "model": {
     "number": 416,
@@ -2386,76 +2273,55 @@
    "xfx": "△ to 0",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
-       17,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 6,
+      "op": 11,
       "v": [
        0,
        0,
-       7
+       12
       ],
       "i": [
        0,
-       2,
+       150,
        0
       ],
       "m1": 0,
-      "m2": 2
+      "m2": 1
+     },
+     {
+      "op": 33,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       3,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 34,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       3,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Ice and own Attack is △, double own △ Attack Power."
+    "text": "Lower opponent's Attack Power -150, discard 3 Cards from opponent's Online Deck and return up to 3 Cards from own Offline Pile to own Online Deck."
    },
    "model": {
     "number": 417,
@@ -2503,43 +2369,32 @@
    "xfx": "Jamming",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 47,
+      "op": 10,
+      "v": [
+       0,
+       0,
+       11
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
+     {
+      "op": 34,
       "v": [
        0,
        0,
        0
       ],
       "i": [
-       0,
+       3,
        0,
        0
       ],
@@ -2547,22 +2402,22 @@
       "m2": 0
      },
      {
-      "op": 11,
+      "op": 49,
       "v": [
        0,
        0,
-       12
+       0
       ],
       "i": [
+       2,
        0,
-       200,
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Ice, change opponent's Attack from ○ to △, △ to ✕, or ✕ to ○, then lower opponent's Attack Power -200."
+    "text": "Lower own Attack Power -100, return up to 3 Cards from own Offline Pile to own Online Deck and draw 2 Cards."
    },
    "model": {
     "number": 418,
@@ -2616,14 +2471,14 @@
     "conds": [],
     "acts": [
      {
-      "op": 0,
+      "op": 1,
       "v": [
-       2,
+       0,
        0,
        0
       ],
       "i": [
-       0,
+       3,
        0,
        0
       ],
@@ -2646,7 +2501,7 @@
       "m2": 0
      }
     ],
-    "text": "Change own Specialty to opponent's Specialty and draw 1 Card."
+    "text": "Change opponent's Specialty to Darkness and draw 1 Card."
    },
    "model": {
     "number": 419,
@@ -2692,57 +2547,16 @@
     },
     {
      "name": "Double Typhoon",
-     "power": 140
+     "power": 0
     }
    ],
-   "xfx": "1st Attack",
+   "xfx": "△ Counter",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       2,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 10,
-      "v": [
-       11,
-       0,
-       66
-      ],
-      "i": [
-       0,
-       40,
-       0
-      ],
-      "m1": 0,
-      "m2": 2
-     },
-     {
-      "op": 49,
+      "op": 17,
       "v": [
        0,
        0,
@@ -2757,7 +2571,7 @@
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Nature, add number of Nature Cards in own DP Slot x40 to own Attack Power and draw 1 Card."
+    "text": "Opponent uses △."
    },
    "model": {
     "number": 420,
@@ -2805,36 +2619,10 @@
      "power": 100
     }
    ],
-   "xfx": "○ to 0",
+   "xfx": "Eat-up HP",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       2,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
       "op": 2,
@@ -2845,29 +2633,14 @@
       ],
       "i": [
        0,
-       150,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
-      "op": 49,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       1,
-       0,
+       200,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Nature, recover own HP +150 and draw 1 Card."
+    "text": "Recover own HP +200."
    },
    "model": {
     "number": 421,
@@ -2919,34 +2692,23 @@
    "xfx": "Jamming",
    "support": {
     "prio": 1,
-    "conds": [
+    "conds": [],
+    "acts": [
      {
+      "op": 37,
       "v": [
-       1,
-       0,
-       0,
        0,
        0,
        0
       ],
       "i": [
-       0,
-       0,
-       0,
-       2,
+       1,
        0,
        0
       ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
-    "acts": [
+      "m1": 0,
+      "m2": 0
+     },
      {
       "op": 11,
       "v": [
@@ -2956,29 +2718,14 @@
       ],
       "i": [
        0,
-       150,
-       0
-      ],
-      "m1": 0,
-      "m2": 1
-     },
-     {
-      "op": 2,
-      "v": [
-       3,
-       0,
-       0
-      ],
-      "i": [
-       0,
        100,
        0
       ],
       "m1": 0,
-      "m2": 0
+      "m2": 1
      }
     ],
-    "text": "If own Specialty is Nature, lower opponent's Attack Power -150 and recover own HP +100."
+    "text": "Discard 1 Card from opponent's DP Slot and lower opponent's Attack Power -100."
    },
    "model": {
     "number": 422,
@@ -3024,72 +2771,46 @@
     },
     {
      "name": "Thunder Fall I",
-     "power": 190
+     "power": 0
     }
    ],
-   "xfx": "✕ to 0",
+   "xfx": "△ Counter",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       2,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 4,
+      "op": 5,
       "v": [
-       5,
+       0,
        0,
        0
       ],
       "i": [
        0,
-       250,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 9,
+      "op": 6,
       "v": [
-       0,
+       7,
        0,
        0
       ],
       "i": [
        0,
-       0,
+       150,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Nature, boost own ○ Attack Power +250 and lower opponent's ✕ Attack Power to 0."
+    "text": "Lower opponent's ○ Attack Power to 0 and boost own △ Attack Power +150."
    },
    "model": {
     "number": 423,
@@ -3140,33 +2861,7 @@
    "xfx": "Eat-up HP",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       2,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
       "op": 2,
@@ -3177,29 +2872,44 @@
       ],
       "i": [
        0,
-       200,
+       250,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 4,
+      "op": 10,
       "v": [
-       5,
        0,
-       66
+       0,
+       11
       ],
       "i": [
        0,
-       50,
+       100,
        0
       ],
       "m1": 0,
-      "m2": 2
+      "m2": 1
+     },
+     {
+      "op": 51,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Nature, recover own HP +200 and add number of Nature Cards in own DP Slot x50 to own ○ Attack Power."
+    "text": "Recover own HP +250, lower own Attack Power -100 and own attack gains Eat-up HP."
    },
    "model": {
     "number": 424,
@@ -3248,46 +2958,35 @@
      "power": 220
     }
    ],
-   "xfx": "Jamming",
+   "xfx": "Darkness Foe x3",
    "support": {
-    "prio": 3,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       2,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "prio": 1,
+    "conds": [],
     "acts": [
      {
-      "op": 44,
+      "op": 1,
       "v": [
        0,
        0,
        0
       ],
       "i": [
+       3,
        0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 37,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       2,
        0,
        0
       ],
@@ -3303,29 +3002,14 @@
       ],
       "i": [
        0,
-       2,
+       100,
        0
       ],
       "m1": 0,
-      "m2": 3
-     },
-     {
-      "op": 2,
-      "v": [
-       3,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       200,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
+      "m2": 1
      }
     ],
-    "text": "If own Specialty is Nature, void opponent's Digimon Support Effect, halve own Attack Power and recover own HP +200."
+    "text": "Change opponent's Specialty to Darkness, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100."
    },
    "model": {
     "number": 425,
@@ -3371,67 +3055,16 @@
     },
     {
      "name": "Thunder Fall II",
-     "power": 260
+     "power": 0
     }
    ],
-   "xfx": "1st Attack",
+   "xfx": "△ Counter",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       2,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
-       23,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 3,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 36,
+      "op": 17,
       "v": [
        0,
        0,
@@ -3446,37 +3079,37 @@
       "m2": 0
      },
      {
-      "op": 10,
+      "op": 5,
       "v": [
-       11,
+       0,
        0,
        0
       ],
       "i": [
        0,
-       200,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 53,
+      "op": 4,
       "v": [
        0,
        0,
-       0
+       5
       ],
       "i": [
        0,
-       0,
+       100,
        0
       ],
       "m1": 0,
-      "m2": 0
+      "m2": 1
      }
     ],
-    "text": "If own Specialty is Nature and at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot, boost own Attack Power +200 and attack first."
+    "text": "Opponent uses △, opponent's ○ Attack Power becomes 0, and own ○ Attack Power is lowered by 100."
    },
    "model": {
     "number": 426,
@@ -3526,61 +3159,35 @@
      "power": 240
     }
    ],
-   "xfx": "△ to 0",
+   "xfx": "Eat-up HP",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       2,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 10,
+      "op": 2,
       "v": [
+       3,
        0,
-       0,
-       11
+       0
       ],
       "i": [
        0,
-       100,
+       300,
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
      },
      {
-      "op": 48,
+      "op": 51,
       "v": [
        0,
        0,
        0
       ],
       "i": [
-       300,
+       0,
        0,
        0
       ],
@@ -3588,7 +3195,7 @@
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Nature, lower own Attack Power -100. Digimon KO'd in this battle revives with 300 HP; the battle still counts as a loss."
+    "text": "Recover own HP +300 and own attack gains Eat-up HP."
    },
    "model": {
     "number": 427,
@@ -3643,7 +3250,7 @@
     "conds": [
      {
       "v": [
-       1,
+       27,
        0,
        0,
        0,
@@ -3654,11 +3261,11 @@
        0,
        0,
        0,
-       3,
+       1,
        0,
        0
       ],
-      "op": 5,
+      "op": 3,
       "m": [
        0,
        0,
@@ -3669,22 +3276,7 @@
     ],
     "acts": [
      {
-      "op": 33,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       2,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
-      "op": 49,
+      "op": 32,
       "v": [
        0,
        0,
@@ -3697,9 +3289,24 @@
       ],
       "m1": 0,
       "m2": 0
+     },
+     {
+      "op": 10,
+      "v": [
+       11,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       150,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Darkness, discard 2 Cards from opponent's Online Deck and draw 1 Card."
+    "text": "If at least 1 Card remains in own Online Deck, discard 1 Card from own Online Deck and boost own Attack Power +150."
    },
    "model": {
     "number": 428,
@@ -3752,10 +3359,10 @@
     "conds": [
      {
       "v": [
-       1,
+       3,
        0,
        0,
-       0,
+       4,
        0,
        0
       ],
@@ -3763,36 +3370,11 @@
        0,
        0,
        0,
-       3,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
-       3,
-       0,
-       0,
        0,
        0,
        0
       ],
-      "i": [
-       0,
-       0,
-       0,
-       400,
-       0,
-       0
-      ],
-      "op": 1,
+      "op": 0,
       "m": [
        0,
        0,
@@ -3818,7 +3400,7 @@
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Darkness and own HP are 400 or less, boost own Attack Power +250."
+    "text": "If own HP are less than opponent's HP, boost own Attack Power +250."
    },
    "model": {
     "number": 429,
@@ -3875,10 +3457,10 @@
     "conds": [
      {
       "v": [
-       1,
+       3,
        0,
        0,
-       0,
+       4,
        0,
        0
       ],
@@ -3886,11 +3468,11 @@
        0,
        0,
        0,
-       3,
+       0,
        0,
        0
       ],
-      "op": 5,
+      "op": 0,
       "m": [
        0,
        0,
@@ -3901,14 +3483,14 @@
     ],
     "acts": [
      {
-      "op": 17,
+      "op": 51,
       "v": [
        0,
        0,
        0
       ],
       "i": [
-       1,
+       0,
        0,
        0
       ],
@@ -3916,11 +3498,11 @@
       "m2": 0
      },
      {
-      "op": 7,
+      "op": 6,
       "v": [
+       7,
        0,
-       0,
-       8
+       0
       ],
       "i": [
        0,
@@ -3928,10 +3510,10 @@
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Darkness, opponent uses △ and opponent's △ Attack Power is lowered by 100."
+    "text": "If own HP are less than opponent's HP, own attack gains Eat-up HP and own △ Attack Power is boosted by 100."
    },
    "model": {
     "number": 430,
@@ -3986,31 +3568,6 @@
     "conds": [
      {
       "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       3,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
        23,
        0,
        0,
@@ -4052,37 +3609,22 @@
       "m2": 0
      },
      {
-      "op": 2,
+      "op": 10,
       "v": [
-       3,
+       11,
        0,
        0
       ],
       "i": [
        0,
-       300,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
-     {
-      "op": 33,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       3,
-       0,
+       250,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Darkness and at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot, recover own HP +300 and discard 3 Cards from opponent's Online Deck."
+    "text": "If at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot and boost own Attack Power +250."
    },
    "model": {
     "number": 431,
@@ -4130,7 +3672,7 @@
    ],
    "xfx": "Darkness Foe x3",
    "support": {
-    "prio": 1,
+    "prio": 3,
     "conds": [
      {
       "v": [
@@ -4156,48 +3698,23 @@
        0,
        0
       ]
-     },
-     {
-      "v": [
-       3,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       100,
-       0,
-       0
-      ],
-      "op": 2,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
      }
     ],
     "acts": [
      {
-      "op": 2,
+      "op": 44,
       "v": [
        0,
        0,
-       3
+       0
       ],
       "i": [
        0,
-       100,
+       0,
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
      },
      {
       "op": 10,
@@ -4208,14 +3725,14 @@
       ],
       "i": [
        0,
-       300,
+       150,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If opponent's Specialty is Darkness and own HP are more than 100, lose 100 HP and boost own Attack Power +300."
+    "text": "If opponent's Specialty is Darkness, void opponent's Digimon Support Effect and boost own Attack Power +150."
    },
    "model": {
     "number": 432,
@@ -4270,10 +3787,10 @@
     "conds": [
      {
       "v": [
-       1,
+       3,
        0,
        0,
-       0,
+       4,
        0,
        0
       ],
@@ -4281,11 +3798,11 @@
        0,
        0,
        0,
-       3,
+       0,
        0,
        0
       ],
-      "op": 5,
+      "op": 0,
       "m": [
        0,
        0,
@@ -4296,37 +3813,37 @@
     ],
     "acts": [
      {
-      "op": 51,
+      "op": 10,
       "v": [
-       0,
+       11,
        0,
        0
       ],
       "i": [
        0,
-       0,
+       250,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 5,
+      "op": 48,
       "v": [
        0,
        0,
-       6
+       0
       ],
       "i": [
+       200,
        0,
-       100,
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Darkness, own attack gains Eat-up HP and opponent's ○ Attack Power is lowered by 100."
+    "text": "If own HP are less than opponent's HP, boost own Attack Power +250. Digimon KO'd in this battle revives with 200 HP; the battle still counts as a loss."
    },
    "model": {
     "number": 433,
@@ -4383,7 +3900,7 @@
     "conds": [
      {
       "v": [
-       1,
+       3,
        0,
        0,
        0,
@@ -4394,11 +3911,11 @@
        0,
        0,
        0,
-       3,
+       200,
        0,
        0
       ],
-      "op": 5,
+      "op": 2,
       "m": [
        0,
        0,
@@ -4409,19 +3926,19 @@
     ],
     "acts": [
      {
-      "op": 5,
+      "op": 2,
       "v": [
        0,
        0,
-       6
+       3
       ],
       "i": [
        0,
-       2,
+       200,
        0
       ],
       "m1": 0,
-      "m2": 3
+      "m2": 1
      },
      {
       "op": 4,
@@ -4432,14 +3949,29 @@
       ],
       "i": [
        0,
-       150,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       300,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Darkness, halve opponent's ○ Attack Power and boost own ○ Attack Power +150."
+    "text": "If own HP are more than 200, lose 200 HP, boost own ○ Attack Power +400 and own △ Attack Power +300."
    },
    "model": {
     "number": 434,
@@ -4500,7 +4032,7 @@
     "conds": [
      {
       "v": [
-       2,
+       3,
        0,
        0,
        0,
@@ -4511,11 +4043,11 @@
        0,
        0,
        0,
-       3,
+       100,
        0,
        0
       ],
-      "op": 5,
+      "op": 2,
       "m": [
        0,
        0,
@@ -4525,6 +4057,21 @@
      }
     ],
     "acts": [
+     {
+      "op": 2,
+      "v": [
+       0,
+       0,
+       3
+      ],
+      "i": [
+       0,
+       100,
+       0
+      ],
+      "m1": 0,
+      "m2": 1
+     },
      {
       "op": 44,
       "v": [
@@ -4543,20 +4090,20 @@
      {
       "op": 10,
       "v": [
+       11,
        0,
-       0,
-       11
+       0
       ],
       "i": [
        0,
-       100,
+       300,
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
      }
     ],
-    "text": "If opponent's Specialty is Darkness, void opponent's Digimon Support Effect and lower own Attack Power -100."
+    "text": "If own HP are more than 100, lose 100 HP, void opponent's Digimon Support Effect and boost own Attack Power +300."
    },
    "model": {
     "number": 435,
@@ -4607,16 +4154,16 @@
      "power": 310
     }
    ],
-   "xfx": "1st Attack",
+   "xfx": "Eat-up HP",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       4,
-       0,
-       0,
        3,
+       0,
+       0,
+       4,
        0,
        0
       ],
@@ -4628,7 +4175,7 @@
        0,
        0
       ],
-      "op": 2,
+      "op": 0,
       "m": [
        0,
        0,
@@ -4639,37 +4186,37 @@
     ],
     "acts": [
      {
-      "op": 51,
+      "op": 10,
       "v": [
-       0,
+       11,
        0,
        0
       ],
       "i": [
        0,
-       0,
+       400,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 6,
+      "op": 48,
       "v": [
-       7,
+       0,
        0,
        0
       ],
       "i": [
+       400,
        0,
-       150,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If opponent's HP are more than own HP, own attack gains Eat-up HP and own △ Attack Power is boosted by 150."
+    "text": "If own HP are less than opponent's HP, boost own Attack Power +400. Digimon KO'd in this battle revives with 400 HP; the battle still counts as a loss."
    },
    "model": {
     "number": 436,
@@ -4741,32 +4288,7 @@
        0,
        0
       ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
-       3,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       300,
-       0,
-       0
-      ],
-      "op": 1,
+      "op": 4,
       "m": [
        0,
        0,
@@ -4792,22 +4314,22 @@
       "m2": 0
      },
      {
-      "op": 11,
+      "op": 53,
       "v": [
-       12,
+       0,
        0,
        0
       ],
       "i": [
        0,
-       100,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Rare and own HP are 300 or less, boost own Attack Power +200 and opponent's Attack Power +100."
+    "text": "If own Specialty is not Rare, boost own Attack Power +200 and attack first."
    },
    "model": {
     "number": 437,
@@ -4859,7 +4381,7 @@
     "conds": [
      {
       "v": [
-       1,
+       80,
        0,
        0,
        0,
@@ -4870,7 +4392,7 @@
        0,
        0,
        0,
-       4,
+       0,
        0,
        0
       ],
@@ -4885,24 +4407,24 @@
     ],
     "acts": [
      {
-      "op": 2,
+      "op": 10,
       "v": [
-       3,
+       11,
        0,
        0
       ],
       "i": [
        0,
-       150,
+       250,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 4,
+      "op": 2,
       "v": [
-       5,
+       3,
        0,
        0
       ],
@@ -4915,7 +4437,7 @@
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Rare, recover own HP +150 and boost own ○ Attack Power +100."
+    "text": "If own current Attack Power is 0, boost own Attack Power +250 and recover own HP +100."
    },
    "model": {
     "number": 438,
@@ -4964,41 +4486,15 @@
      "power": 150
     }
    ],
-   "xfx": "Darkness Foe x3",
+   "xfx": "1st Attack",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       4,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 2,
+      "op": 4,
       "v": [
-       3,
+       5,
        0,
        0
       ],
@@ -5011,22 +4507,22 @@
       "m2": 0
      },
      {
-      "op": 5,
+      "op": 53,
       "v": [
        0,
        0,
-       6
+       0
       ],
       "i": [
        0,
-       100,
+       0,
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Rare, recover own HP +100 and lower opponent's ○ Attack Power -100."
+    "text": "Boost own ○ Attack Power +100 and attack first."
    },
    "model": {
     "number": 439,
@@ -5102,7 +4598,7 @@
        0,
        0
       ],
-      "op": 5,
+      "op": 4,
       "m": [
        0,
        0,
@@ -5121,6 +4617,21 @@
       ],
       "i": [
        0,
+       350,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
        250,
        0
       ],
@@ -5128,22 +4639,22 @@
       "m2": 0
      },
      {
-      "op": 5,
+      "op": 49,
       "v": [
        0,
        0,
-       6
+       0
       ],
       "i": [
+       1,
        0,
-       100,
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Rare, boost own ○ Attack Power +250 and lower opponent's ○ Attack Power -100."
+    "text": "If own Specialty is not Rare, boost own ○ Attack Power +350, own △ Attack Power +250 and draw 1 Card."
    },
    "model": {
     "number": 440,
@@ -5197,7 +4708,7 @@
     "conds": [
      {
       "v": [
-       18,
+       80,
        0,
        0,
        0,
@@ -5223,37 +4734,37 @@
     ],
     "acts": [
      {
-      "op": 52,
+      "op": 10,
       "v": [
-       0,
+       11,
        0,
        0
       ],
       "i": [
        0,
-       0,
+       350,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 2,
+      "op": 53,
       "v": [
-       3,
+       0,
        0,
        0
       ],
       "i": [
        0,
-       200,
+       0,
        0
       ],
       "m1": 0,
       "m2": 0
      }
     ],
-    "text": "If opponent uses ○, counterattack and attack second, and recover own HP +200."
+    "text": "If own current Attack Power is 0, boost own Attack Power +350 and attack first."
    },
    "model": {
     "number": 441,
@@ -5306,38 +4817,12 @@
    "xfx": "1st Attack",
    "support": {
     "prio": 1,
-    "conds": [
-     {
-      "v": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       4,
-       0,
-       0
-      ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     }
-    ],
+    "conds": [],
     "acts": [
      {
-      "op": 6,
+      "op": 10,
       "v": [
-       7,
+       11,
        0,
        0
       ],
@@ -5350,22 +4835,22 @@
       "m2": 0
      },
      {
-      "op": 7,
+      "op": 53,
       "v": [
        0,
        0,
-       8
+       0
       ],
       "i": [
        0,
-       150,
+       0,
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Rare, boost own △ Attack Power +150 and lower opponent's △ Attack Power -150."
+    "text": "Boost own Attack Power +150 and attack first."
    },
    "model": {
     "number": 442,
@@ -5434,32 +4919,7 @@
        0,
        0
       ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
-       3,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       100,
-       0,
-       0
-      ],
-      "op": 2,
+      "op": 4,
       "m": [
        0,
        0,
@@ -5470,21 +4930,6 @@
     ],
     "acts": [
      {
-      "op": 2,
-      "v": [
-       0,
-       0,
-       3
-      ],
-      "i": [
-       0,
-       100,
-       0
-      ],
-      "m1": 0,
-      "m2": 1
-     },
-     {
       "op": 4,
       "v": [
        5,
@@ -5493,7 +4938,22 @@
       ],
       "i": [
        0,
-       150,
+       400,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
+     },
+     {
+      "op": 6,
+      "v": [
+       7,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       300,
        0
       ],
       "m1": 0,
@@ -5515,7 +4975,7 @@
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Rare and own HP are more than 100, lose 100 HP, boost own ○ Attack Power +150 and attack first."
+    "text": "If own Specialty is not Rare, boost own ○ Attack Power +400, own △ Attack Power +300 and attack first."
    },
    "model": {
     "number": 443,
@@ -5579,7 +5039,7 @@
     "conds": [
      {
       "v": [
-       1,
+       80,
        0,
        0,
        0,
@@ -5590,7 +5050,7 @@
        0,
        0,
        0,
-       4,
+       0,
        0,
        0
       ],
@@ -5601,49 +5061,9 @@
        0,
        0
       ]
-     },
-     {
-      "v": [
-       23,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       1,
-       0,
-       0
-      ],
-      "op": 3,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
      }
     ],
     "acts": [
-     {
-      "op": 36,
-      "v": [
-       0,
-       0,
-       0
-      ],
-      "i": [
-       1,
-       0,
-       0
-      ],
-      "m1": 0,
-      "m2": 0
-     },
      {
       "op": 10,
       "v": [
@@ -5653,21 +5073,21 @@
       ],
       "i": [
        0,
-       300,
+       500,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 49,
+      "op": 53,
       "v": [
        0,
        0,
        0
       ],
       "i": [
-       1,
+       0,
        0,
        0
       ],
@@ -5675,7 +5095,7 @@
       "m2": 0
      }
     ],
-    "text": "If own Specialty is Rare and at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot, boost own Attack Power +300 and draw 1 Card."
+    "text": "If own current Attack Power is 0, boost own Attack Power +500 and attack first."
    },
    "model": {
     "number": 444,
@@ -5725,13 +5145,13 @@
      "power": 310
     }
    ],
-   "xfx": "Darkness Foe x3",
+   "xfx": "1st Attack",
    "support": {
     "prio": 1,
     "conds": [
      {
       "v": [
-       1,
+       27,
        0,
        0,
        0,
@@ -5742,36 +5162,11 @@
        0,
        0,
        0,
-       4,
+       2,
        0,
        0
       ],
-      "op": 5,
-      "m": [
-       0,
-       0,
-       0,
-       0
-      ]
-     },
-     {
-      "v": [
-       3,
-       0,
-       0,
-       4,
-       0,
-       0
-      ],
-      "i": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-      ],
-      "op": 0,
+      "op": 3,
       "m": [
        0,
        0,
@@ -5782,37 +5177,52 @@
     ],
     "acts": [
      {
-      "op": 2,
+      "op": 32,
       "v": [
-       3,
+       0,
        0,
        0
       ],
       "i": [
+       2,
        0,
-       400,
        0
       ],
       "m1": 0,
       "m2": 0
      },
      {
-      "op": 11,
+      "op": 10,
       "v": [
+       11,
        0,
-       0,
-       12
+       0
       ],
       "i": [
        0,
-       200,
+       250,
        0
       ],
       "m1": 0,
-      "m2": 1
+      "m2": 0
+     },
+     {
+      "op": 53,
+      "v": [
+       0,
+       0,
+       0
+      ],
+      "i": [
+       0,
+       0,
+       0
+      ],
+      "m1": 0,
+      "m2": 0
      }
     ],
-    "text": "If own Specialty is Rare and own HP are less than opponent's HP, recover own HP +400 and lower opponent's Attack Power -200."
+    "text": "If 2 or more Cards remain in own Online Deck, discard 2 Cards from own Online Deck, boost own Attack Power +250 and attack first."
    },
    "model": {
     "number": 445,

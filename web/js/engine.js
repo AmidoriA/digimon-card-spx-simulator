@@ -383,6 +383,9 @@
     // number of cards of Specialty v - 0x40 in the own DP Slot, 0x48-0x4c in the opponent's.
     if (v >= 0x40 && v <= 0x44) return dpOfSpec(S, v - 0x40);
     if (v >= 0x48 && v <= 0x4c) return dpOfSpec(O, v - 0x48);
+    // Project effect variable: GrapLeomon's requested zero-power support checks the
+    // selected attack, after earlier supports, rather than always checking Circle.
+    if (v === 0x50) return S.b ? S.b.atk[S.b.choice] : 0;
     return 0;
   }
   function dpOfSpec(P, spec) {

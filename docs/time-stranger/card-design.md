@@ -1,503 +1,486 @@
-# TS-106: ออกแบบ stat และ effect ใหม่ครบ 45 ใบ
+# Time Stranger: card design and deck-theme revision
 
-**เวอร์ชัน:** 1 · **เจ้าของขอ:** 2026-10-14 · **สถานะ:** ใส่ในเกมและผ่านการตรวจ
+**Version 2 — owner request: 2026-10-14**
 
-ตัวเลขและการแปลงประวัติเป็นเอฟเฟกต์เป็นการออกแบบใหม่ของโปรเจกต์ ไม่ใช่ค่าใน
-Time Stranger หรือการแปลกลไกจากเกมนั้นโดยตรง ประวัติย่ออ้างอิง Digimon Reference Book
-เป็นข้อเท็จจริงเรื่องสายพันธุ์ การตีความเป็นการ์ดอธิบายแยกในแต่ละแถว
-ใช้ชื่อท่าที่ตรวจสอบไว้ใน [attack-sources.md](attack-sources.md)
+This revision designs all 45 custom supports around the owner's fifteen deck themes.
+The numbers and support combinations are project-authored tuning, not values or new rules
+ported from Digimon Story Time Stranger. The retained species summaries below cite the
+same official Digimon Reference Book sources used for version 1; no additional lore claim
+is implied by a gameplay effect. Attack names retain [their verified sources](attack-sources.md).
 
-HP, DP, +P และพลังทั้งสามถูกเลือกใหม่ทั้งชุด; Rookie ยังคง DP 0 และค่า +P มาตรฐาน
-อาจตรงต้นแบบได้ แต่ไม่มีใบใดใช้ stat profile, ✕ effect หรือ support เดิมทั้งชุด
-ทุกใบมี ✕ effect ต่างจากรุ่นก่อน และ support มีส่วนผสม/เงื่อนไขต่างกันทั้ง 45 ใบ
-ตัว ✕ effect เลือกจาก 16 แบบที่เกมรองรับ จึงซ้ำประเภทกันได้ ไม่ได้เพิ่ม 45 กฎใหม่
+## Rules for this revision
 
-## หลักบาลานซ์
+- No ordinary support requires the active Digimon to have the support card's own Specialty.
+  The sole deliberate exception is the Rare Wingdramon line: it rewards any **non-Rare**
+  active with a stronger effect, supporting the Ice/Nature partners in its three-color deck.
+- Specialty, level, HP, DP, +P and attack names stay as in version 1. Only Terriermon (321),
+  Gargomon (324) and Rapidmon (327) change cross base power, from 140/190/260 respectively
+  to **0**, because their new triangle counters must pay the usual missed-counter cost.
+- Cross effects can match a donor card if the requested theme calls for it. The old blanket
+  requirement that every cross effect differ from its donor is superseded by this request.
+- Each new custom deck has 3–4 copies of every member of its designated R/C/U line and
+  an evolution Option appropriate to its colors. Multi-color decks include an Option that
+  permits evolution across Specialties. Sevens/7-Cards and Download/Downloader are excluded.
+  Full lists, ratios and partner choices belong in [decks.md](decks.md).
+- Costs are gated before execution: HP must exceed an HP payment; deck or DP payment must
+  be available. A failed condition changes no HP, attacks or resources. Drawing, milling
+  and recycling that are effects rather than costs operate on the available cards only.
+- Attack increases, reductions, first attack, counters and support voiding last for this
+  battle. HP, hand/deck/DP/Offline changes and Specialty changes are persistent state.
+  A changed Specialty is restored by the normal evolution/replacement rules, not end turn.
+- Eat-up HP uses the existing damage-dependent HP recovery. Revival still awards the lost
+  point, and cannot rescue the KO that decides the match. Jamming/void affects Digimon
+  supports only; Options retain their normal behavior.
 
-- เปรียบเทียบการ์ดบนดิสก์สีและระดับเดียวกัน; ไม่ลดต้นทุน DP เพื่อชดเชย model ต้นแบบ
-- Fire บุกสูง, Ice ทนสูง, Nature มี +P/การฟื้น/การเติบโต, Darkness มีความเสี่ยงและการก่อกวน,
-  Rare ให้รางวัลการอ่านจังหวะและคุมทรัพยากร ยังคง Specialty ที่ยืนยันใน roster
-- คู่ counter มีพลัง ✕ 0: ถ้าทายผิดย่อมเสียโอกาสโจมตี; Crash แลก HP เหลือ 10 ตามเกม
-- Support ใช้ใบจากมือ/เด็คแล้วเสียใบนั้นเอง ไม่มีพลังแฝงฟรีเมื่อเป็นตัว active
-- บัฟ/ดีบัฟพลัง, การสวน, ชิงจังหวะ และ flag ต่าง ๆ ใช้ในศึกปัจจุบันเท่านั้น;
-  HP, การ์ดที่จั่ว/ทิ้ง และการเปลี่ยน Specialty เป็นการเปลี่ยน state จริงตามกฎเดิม
-  Renamon เปลี่ยนสีจนกว่าจะวิวัฒนาการ/ออกจากสนาม ไม่คืนสีเมื่อจบเทิร์น
-  ไม่มี burn, freeze, sleep หรือ poison หลายเทิร์น
-- Jamming/void ในชุดนี้หยุดเฉพาะ Digimon support ไม่หยุด Option support;
-  HP จากการรีไวฟ์ยังเสียแต้มและไม่กู้ KO ที่ตัดสินแมตช์ตามกฎเดิม
-- ตัวเลขนี้คือ tuning เริ่มต้นที่มีเหตุผลรองรับ การทดสอบพิสูจน์พฤติกรรม/ไม่ค้าง
-  ยังไม่ใช่หลักฐานว่าเด็คทั้ง 15 สมดุลเท่ากัน; ต้อง playtest Phase 3 ต่อ
+## Reading the tables
 
-## ช่วงที่ใช้เปรียบเทียบ
+R/C/U = Rookie/Champion/Ultimate. Powers are circle / triangle / cross. HP / DP / +P and
+all listed powers include this revision. Hand conditions are evaluated after the support
+card leaves the hand. Attack reductions have a floor of zero. A support belongs to the
+card consumed from hand/deck; it is not a passive ability of the active Digimon.
 
-ช่วง HP/DP/+P และพลังโจมตีของการ์ดเดิมทั้งหมดในแต่ละสี/ระดับอ่านจาก cards.js
-ตัวเลข HP และพลังของชุดใหม่อยู่ภายในช่วงดังกล่าวทุกใบ (DP/+P ใช้ค่าของ tier นั้น)
-ไฟล์ tools/time_stranger_design_test.js ตรวจกรอบนี้และผลของ support จริง
+## WarGrowlmon
 
-## วิธีอ่าน
+Pure Fire. Every stage offers a substantial attack increase in exchange for HP or Online Deck cards; Crash makes the Ultimate itself especially risky.
 
-R / C / U = Rookie / Champion / Ultimate; พลังเรียง ○ / △ / ✕.
-ข้อความ support ภาษาอังกฤษด้านล่างตรงกับที่เกมแสดง; เงื่อนไขอ่านหลังเปิดใช้ support
-จึงนับมือโดยไม่นับใบ support ที่ใช้ไปแล้ว ค่าลดพลังมีพื้น 0 ตามเกม
-
-## Fire — บุกหนัก / ชิงจังหวะ / แลกทรัพยากรเพื่อไฟ
-
-| Id | Card / Lv | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
 |---|---|---:|---:|---:|---|---|
 | 302 | Guilmon / R | 590 | 0 | 20 | 370 / 230 / 140 | 1st Attack |
-| 303 | Coronamon / R | 520 | 0 | 20 | 360 / 250 / 120 | ○ to 0 |
-| 304 | Huckmon / R | 560 | 0 | 20 | 340 / 270 / 0 | △ Counter |
 | 305 | Growlmon / C | 920 | 40 | 10 | 590 / 430 / 180 | Ice Foe x3 |
-| 306 | Firamon / C | 780 | 30 | 20 | 540 / 400 / 160 | 1st Attack |
-| 307 | BaoHuckmon / C | 850 | 40 | 10 | 580 / 450 / 0 | ○ Counter |
 | 308 | WarGrowlmon / U | 1620 | 50 | 10 | 890 / 670 / 250 | Crash |
-| 309 | Flaremon / U | 1480 | 40 | 20 | 800 / 610 / 280 | Jamming |
-| 310 | SaviorHuckmon / U | 1450 | 50 | 20 | 860 / 650 / 300 | 1st Attack |
 
 ### Guilmon (302)
 
-**Support:** If own Specialty is Fire, boost own ○ Attack Power +250.
-
-**แนวคิด:** นักบุกระยะประชิด: กรงเล็บแรงและไฟกดดัน เน้น ○; ไม้ตายรองยังมีพลังให้เลือก
-
-**Lore:** A ferocious young reptile with stone-breaking claws and fire breath. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=guilmon).
-
-### Coronamon (303)
-
 **Support:** If own HP are more than 100, lose 100 HP and boost own Attack Power +250.
 
-**แนวคิด:** แลก HP เพื่อเร่งไฟ; ✕ เป็นเกราะไฟตัด ○ แลกกับ HP เริ่มต้นต่ำ
-
-**Lore:** Its flame shot consumes stamina; a whole-body flame cloak also defends it. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=coronamon).
-
-### Huckmon (304)
-
-**Support:** If own Attack is △, boost own △ Attack Power +100 and attack first.
-
-**แนวคิด:** นักดาบฝึกหัด: △ คล่องตัวและสวนทาง △; จ่ายพลังโจมตี ✕ เพื่อความสามารถสวน
-
-**Lore:** Trained by Gankoomon and Sistermon, it relies on nimble close combat and aspiration. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=huckmon).
+**Retained species summary:** A ferocious young reptile with stone-breaking claws and fire breath. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=guilmon).
 
 ### Growlmon (305)
 
-**Support:** If own Specialty is Fire, lower opponent's Attack Power -150 and boost own ○ Attack Power +100.
+**Support:** If own HP are more than 200, lose 200 HP and boost own Attack Power +350.
 
-**แนวคิด:** มังกรขู่ศัตรู: HP สูงกว่าสายเร็ว ลดพลังคู่ต่อสู้ก่อนโจมตีด้วยไฟ
-
-**Lore:** Its ferocity and powerful roar intimidate foes before its blades and explosive flame attack. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=growmon).
-
-### Firamon (306)
-
-**Support:** If own Specialty is Fire, boost own Attack Power +150 and draw 1 Card.
-
-**แนวคิด:** สิงโตบินจู่โจม: เข้าเกมไวแต่ HP ต่ำ; support ช่วยทีมบุกและเติมมือ
-
-**Lore:** A flying lion and helpful leader protecting ruins, diving from above wrapped in flame. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=firamon).
-
-### BaoHuckmon (307)
-
-**Support:** If own Attack is △, boost own △ Attack Power +200 and attack first.
-
-**แนวคิด:** นักสู้มีวินัย: △ เป็นคอมโบเร็ว; ✕ ใช้ Blazing Flame สวน ○ โดยตรง
-
-**Lore:** Strict training refines independent tactical judgment; Blazing Flame serves as a counter. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=baohuckmon).
+**Retained species summary:** Its ferocity and powerful roar intimidate foes before its blades and explosive flame attack. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=growmon).
 
 ### WarGrowlmon (308)
 
-**Support:** If own Specialty is Fire and 3 or more Cards remain in own Online Deck, discard 3 Cards from own Online Deck and boost own Attack Power +350.
+**Support:** If 3 or more Cards remain in own Online Deck, discard 3 Cards from own Online Deck and boost own Attack Power +450.
 
-**แนวคิด:** อาวุธหนัก: stat สูงแลก DP 50; support ใช้เชื้อเพลิงจากเด็ค และ Crash เสี่ยงเหลือ HP 10
+**Retained species summary:** A huge armored cyborg with restrained immense power and twin atomic guns. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=megalogrowmon).
 
-**Lore:** A huge armored cyborg with restrained immense power and twin atomic guns. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=megalogrowmon).
+## SaviorHuckmon
 
-### Flaremon (309)
+Fire with Nature partners. Either circle or triangle qualifies; both attack slots gain power so the player can choose between them. The Ultimate adds first attack.
 
-**Support:** If own Specialty is Fire, recover own HP +250 and boost own Attack Power +150.
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 304 | Huckmon / R | 560 | 0 | 20 | 340 / 270 / 0 | △ Counter |
+| 307 | BaoHuckmon / C | 850 | 40 | 10 | 580 / 450 / 0 | ○ Counter |
+| 310 | SaviorHuckmon / U | 1450 | 50 | 20 | 860 / 650 / 300 | 1st Attack |
 
-**แนวคิด:** ไฟคุ้มครองเพื่อน: ฟื้นตัวพร้อมบุก; เสียงคำราม ✕ ล้าง Digimon support ฝ่ายตรงข้าม
+### Huckmon (304)
 
-**Lore:** A courageous friend with martial flame attacks and a purifying howl that fragments hostile data. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=flaremon).
+**Support:** If own Attack is ○ or △, boost own ○ and △ Attack Power +150.
+
+**Retained species summary:** Trained by Gankoomon and Sistermon, it relies on nimble close combat and aspiration. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=huckmon).
+
+### BaoHuckmon (307)
+
+**Support:** If own Attack is ○ or △, boost own ○ and △ Attack Power +250.
+
+**Retained species summary:** Strict training refines independent tactical judgment; Blazing Flame serves as a counter. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=baohuckmon).
 
 ### SaviorHuckmon (310)
 
-**Support:** If own HP are less than opponent's HP, recover own HP +200 and boost own Attack Power +400.
+**Support:** If own Attack is ○ or △, boost own ○ and △ Attack Power +350 and attack first.
 
-**แนวคิด:** ผู้ช่วยฝ่ายเสียเปรียบ: support แรงเฉพาะตอน HP น้อยกว่า; stat บุกสูงแต่ไม่ใช่สาย tank
+**Retained species summary:** Its travels strengthen a resolve to aid victims of conflict; blades and rapid flames become more offensive. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=saviorhuckmon).
 
-**Lore:** Its travels strengthen a resolve to aid victims of conflict; blades and rapid flames become more offensive. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=saviorhuckmon).
+## Flaremon
 
-## Ice — HP สูง / ปิดท่า / เปลี่ยนจังหวะ / สวนกลับ
+Pure Fire. Attack boosts refill the hand; Flaremon rewards committing cards before activating its support.
 
-| Id | Card / Lv | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 303 | Coronamon / R | 520 | 0 | 20 | 360 / 250 / 120 | ○ to 0 |
+| 306 | Firamon / C | 780 | 30 | 20 | 540 / 400 / 160 | 1st Attack |
+| 309 | Flaremon / U | 1480 | 40 | 20 | 800 / 610 / 280 | Jamming |
+
+### Coronamon (303)
+
+**Support:** Boost own Attack Power +100 and draw 1 Card.
+
+**Retained species summary:** Its flame shot consumes stamina; a whole-body flame cloak also defends it. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=coronamon).
+
+### Firamon (306)
+
+**Support:** Boost own Attack Power +150 and draw 1 Card.
+
+**Retained species summary:** A flying lion and helpful leader protecting ruins, diving from above wrapped in flame. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=firamon).
+
+### Flaremon (309)
+
+**Support:** If 2 or less Cards are in own Hand, boost own Attack Power +200 and draw 2 Cards.
+
+**Retained species summary:** A courageous friend with martial flame attacks and a purifying howl that fragments hostile data. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=flaremon).
+
+## MachGaogamon
+
+Pure Ice. Healing establishes an HP lead, Gaogamon rewards a lead or tie, and MachGaogamon recovers when behind. MachGaogamon gains Eat-up HP on its cross attack.
+
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
 |---|---|---:|---:|---:|---|---|
 | 311 | Gaomon / R | 680 | 0 | 20 | 320 / 230 / 160 | 1st Attack |
-| 312 | Lunamon / R | 710 | 0 | 20 | 300 / 210 / 140 | ○ to 0 |
-| 313 | Syakomon / R | 770 | 0 | 20 | 280 / 200 / 0 | ○ Counter |
 | 314 | Gaogamon / C | 1120 | 40 | 10 | 450 / 310 / 170 | 1st Attack |
-| 315 | Lekismon / C | 980 | 40 | 20 | 430 / 350 / 150 | ○ to 0 |
-| 316 | Octomon / C | 1230 | 40 | 10 | 400 / 280 / 170 | Jamming |
-| 317 | MachGaogamon / U | 1900 | 50 | 10 | 750 / 550 / 260 | 1st Attack |
-| 318 | Crescemon / U | 1820 | 40 | 20 | 650 / 490 / 240 | △ to 0 |
-| 319 | Dragomon / U | 2180 | 50 | 10 | 680 / 410 / 280 | Jamming |
+| 317 | MachGaogamon / U | 1900 | 50 | 10 | 750 / 550 / 260 | Eat-up HP |
 
 ### Gaomon (311)
 
-**Support:** If own Specialty is Ice and own Attack is △, attack first and lower opponent's ○ Attack Power -100.
+**Support:** Recover own HP +200 and lower opponent's ○ Attack Power -80.
 
-**แนวคิด:** มวยคล่องตัว: ใช้ความเร็วในธีม Ice คุมจังหวะและลดหมัด ○ ของคู่ต่อสู้
-
-**Lore:** A nimble boxer specializing in hit-and-run and rapid punches. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=gaomon).
-
-### Lunamon (312)
-
-**Support:** If own Specialty is Ice, recover own HP +150 and lower opponent's △ Attack Power -80.
-
-**แนวคิด:** กระต่ายจันทร์: ฟองน้ำป้องกันและประคอง HP; พลังโจมตีต่ำกว่าสายมวย
-
-**Lore:** A timid moon-born rabbit with water shots and a bubble vortex from its ears. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lunamon).
-
-### Syakomon (313)
-
-**Support:** If own HP are 500 or less, halve opponent's Attack Power.
-
-**แนวคิด:** เปลือกหอยรับแรง: HP สูงและสวน ○; support ลดความแรงเมื่อเริ่มบาดเจ็บ ไม่ป้องกันเต็มตั้งแต่แรก
-
-**Lore:** Its sturdy closed shell repels attacks, concealing a deceptive soft body. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=shakomon).
+**Retained species summary:** A nimble boxer specializing in hit-and-run and rapid punches. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=gaomon).
 
 ### Gaogamon (314)
 
-**Support:** If own Specialty is Ice and own Attack is ○, boost own ○ Attack Power +150 and attack first.
+**Support:** If own HP are at least opponent's HP, recover own HP +150 and boost own Attack Power +250.
 
-**แนวคิด:** หมาป่าวิ่งเข้าประชิด: ○ เป็นจุดเด่น; ได้ความไวแต่จ่าย DP สูงกว่าสาย support
-
-**Lore:** It closes distance faster than foes can follow, then uses claws, a persistent bite and spiral wind. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=gaogamon).
-
-### Lekismon (315)
-
-**Support:** If own Specialty is Ice, lower opponent's ○ Attack Power to 0 and recover own HP +100.
-
-**แนวคิด:** นักล่าจันทรา: ฟองสะกดทำให้ ○ ใช้ไม่ได้ในศึกนี้; ไม่มีสถานะหลับหลายเทิร์น
-
-**Lore:** An agile jumper whose water bubbles hypnotize foes and whose ice arrows attack at range. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lekismon).
-
-### Octomon (316)
-
-**Support:** If own Specialty is Ice, draw 2 Cards and lower opponent's Attack Power -100.
-
-**แนวคิด:** นักสะสมใต้ทะเล: จั่วเพื่อสะสมทรัพยากร หมึกพิษลดพลังทันที; HP สูงแต่โจมตีเบา
-
-**Lore:** A treasure collector with danger-sensing symbiotic shellfish and poisonous ink. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=octmon).
+**Retained species summary:** It closes distance faster than foes can follow, then uses claws, a persistent bite and spiral wind. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=gaogamon).
 
 ### MachGaogamon (317)
 
-**Support:** If own Specialty is Ice, boost own △ Attack Power +200 and attack first.
+**Support:** If own HP are less than opponent's HP, recover own HP +400 and lower opponent's Attack Power -100.
 
-**แนวคิด:** นักมวยจรวด: เร่ง △ และชิงโจมตีก่อน; พลังมากแต่ DP 50 และ +P 10
+**Retained species summary:** Rocket bursts power hit-and-run, lightning-fast combinations and a heavy finishing punch. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=machgaogamon).
 
-**Lore:** Rocket bursts power hit-and-run, lightning-fast combinations and a heavy finishing punch. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=machgaogamon).
+## Crescemon
+
+Ice with Rare partners that also mill or recycle. Reduce enemy attack while consuming its Online Deck and returning spent cards from the Offline Pile.
+
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 312 | Lunamon / R | 710 | 0 | 20 | 300 / 210 / 140 | ○ to 0 |
+| 315 | Lekismon / C | 980 | 40 | 20 | 430 / 350 / 150 | ○ to 0 |
+| 318 | Crescemon / U | 1820 | 40 | 20 | 650 / 490 / 240 | △ to 0 |
+
+### Lunamon (312)
+
+**Support:** Lower opponent's Attack Power -100 and discard 1 Card from opponent's Online Deck.
+
+**Retained species summary:** A timid moon-born rabbit with water shots and a bubble vortex from its ears. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lunamon).
+
+### Lekismon (315)
+
+**Support:** Lower opponent's ○ Attack Power to 0 and return up to 2 Cards from own Offline Pile to own Online Deck.
+
+**Retained species summary:** An agile jumper whose water bubbles hypnotize foes and whose ice arrows attack at range. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lekismon).
 
 ### Crescemon (318)
 
-**Support:** If own Specialty is Ice and own Attack is △, double own △ Attack Power.
+**Support:** Lower opponent's Attack Power -150, discard 3 Cards from opponent's Online Deck and return up to 3 Cards from own Offline Pile to own Online Deck.
 
-**แนวคิด:** นักธนูจันทร์: จำลองพลังใต้จันทร์ด้วย △ x2 แบบมีเงื่อนไข; ○ เบากว่าสายมวย
+**Retained species summary:** Fluid dance steps confuse foes; moonlight is said to double its strength, and its weapons form an ice bowgun. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=crescemon).
 
-**Lore:** Fluid dance steps confuse foes; moonlight is said to double its strength, and its weapons form an ice bowgun. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=crescemon).
+## Dragomon
+
+Pure Ice. Draw and recycle stages or evolution Options to support fast evolution. These Battle Phase supports never directly evolve a Digimon; Speed/other evolution Options supply that mechanic.
+
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 313 | Syakomon / R | 770 | 0 | 20 | 280 / 200 / 0 | ○ Counter |
+| 316 | Octomon / C | 1230 | 40 | 10 | 400 / 280 / 170 | Jamming |
+| 319 | Dragomon / U | 2180 | 50 | 10 | 680 / 410 / 280 | Jamming |
+
+### Syakomon (313)
+
+**Support:** Draw 1 Card and lower opponent's ○ Attack Power -100.
+
+**Retained species summary:** Its sturdy closed shell repels attacks, concealing a deceptive soft body. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=shakomon).
+
+### Octomon (316)
+
+**Support:** Draw 2 Cards.
+
+**Retained species summary:** A treasure collector with danger-sensing symbiotic shellfish and poisonous ink. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=octmon).
 
 ### Dragomon (319)
 
-**Support:** If own Specialty is Ice, change opponent's Attack from ○ to △, △ to ✕, or ✕ to ○, then lower opponent's Attack Power -200.
+**Support:** Lower own Attack Power -100, return up to 3 Cards from own Offline Pile to own Online Deck and draw 2 Cards.
 
-**แนวคิด:** เจ้าแห่งทางเดินผิด: บังคับวนท่าคู่ต่อสู้และกดพลัง; HP สูงแลก DP และการโจมตีรองต่ำ
+**Retained species summary:** A sea-floor deity associated with a virus that sends ships off course, using a powerful trident. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dagomon).
 
-**Lore:** A sea-floor deity associated with a virus that sends ships off course, using a powerful trident. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dagomon).
+## Taomon
 
-## Nature — ฟื้นตัว / +P สูง / ใช้ DP สีเดียวกันสะสมพลัง
+Nature with Rare partners. Change the enemy Specialty to Darkness and discard cards from its DP Slot, disrupting normal same-Specialty evolution. Taomon cross attacks gain Darkness Foe x3.
 
-| Id | Card / Lv | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
 |---|---|---:|---:|---:|---|---|
 | 320 | Renamon / R | 580 | 0 | 20 | 330 / 230 / 0 | ○ Counter |
-| 321 | Terriermon / R | 630 | 0 | 30 | 310 / 210 / 140 | 1st Attack |
-| 322 | Lalamon / R | 650 | 0 | 30 | 290 / 200 / 100 | ○ to 0 |
 | 323 | Kyubimon / C | 840 | 30 | 30 | 400 / 310 / 180 | Jamming |
-| 324 | Gargomon / C | 950 | 40 | 20 | 530 / 390 / 190 | ✕ to 0 |
-| 325 | Sunflowmon / C | 910 | 30 | 30 | 450 / 280 / 180 | Eat-up HP |
-| 326 | Taomon / U | 1560 | 40 | 30 | 740 / 530 / 220 | Jamming |
-| 327 | Rapidmon / U | 1440 | 50 | 20 | 820 / 600 / 260 | 1st Attack |
-| 328 | Lilamon / U | 1690 | 40 | 30 | 680 / 450 / 240 | △ to 0 |
+| 326 | Taomon / U | 1560 | 40 | 30 | 740 / 530 / 220 | Darkness Foe x3 |
 
 ### Renamon (320)
 
-**Support:** Change own Specialty to opponent's Specialty and draw 1 Card.
+**Support:** Change opponent's Specialty to Darkness and draw 1 Card.
 
-**แนวคิด:** จิ้งจอกเลียนแบบ: support เปลี่ยนสีตามศัตรูเพื่อพลิก matchup; ✕ เป็นการสวนเชิงเทคนิค
-
-**Lore:** Calm techniques prioritize speed over power; Kohenkyo copies appearance and overwrites texture. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=renamon).
-
-### Terriermon (321)
-
-**Support:** If own Specialty is Nature, add number of Nature Cards in own DP Slot x40 to own Attack Power and draw 1 Card.
-
-**แนวคิด:** คู่หูประสานพลัง: +P 30 และ support โตตาม Nature ใน DP; พลังเดี่ยวต่ำกว่าสายบุก
-
-**Lore:** Calm, apparently harmless, but strong in combat; Double Typhoon is a twin cooperative move. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=terriermon).
-
-### Lalamon (322)
-
-**Support:** If own Specialty is Nature, recover own HP +150 and draw 1 Card.
-
-**แนวคิด:** เมล็ดพันธุ์ตั้งทีม: ฟื้น HP และเติมมือ; เพลงกล่อมแทนด้วยการตัด ○ ในศึกปัจจุบัน
-
-**Lore:** A drifting flower bud with accurate seeds and a song that lulls foes to sleep. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lalamon).
+**Retained species summary:** Calm techniques prioritize speed over power; Kohenkyo copies appearance and overwrites texture. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=renamon).
 
 ### Kyubimon (323)
 
-**Support:** If own Specialty is Nature, lower opponent's Attack Power -150 and recover own HP +100.
+**Support:** Discard 1 Card from opponent's DP Slot and lower opponent's Attack Power -100.
 
-**แนวคิด:** จิ้งจอกคาถา: พลังตรงต่ำกว่า Gargomon แต่กดศัตรูและฟื้นตัว; ✕ รบกวน Digimon support
-
-**Lore:** A nine-tailed fox that lacks physical power but excels in spiritual energy and spells. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=kyubimon).
-
-### Gargomon (324)
-
-**Support:** If own Specialty is Nature, boost own ○ Attack Power +250 and lower opponent's ✕ Attack Power to 0.
-
-**แนวคิด:** นักยิงแม่น: ○ แรงและปิดท่าก่อกวน ✕; แลกความคล่องด้าน DP ของสีเขียวด้วย DP 40
-
-**Lore:** A cheerful, accurate hunter with twin arm guns, strong legs and occasional loss of control when angry. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=galgomon).
-
-### Sunflowmon (325)
-
-**Support:** If own Specialty is Nature, recover own HP +200 and add number of Nature Cards in own DP Slot x50 to own ○ Attack Power.
-
-**แนวคิด:** ดอกไม้สะสมแสง: DP สีเขียวเป็นตัวแทนพลังที่เก็บ; ฟื้นตัวและเร่ง ○ ตามการเติบโต
-
-**Lore:** Sunlight feeds its energy and attacks, while a thorn-covered stalk protects it. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=sunflowmon).
+**Retained species summary:** A nine-tailed fox that lacks physical power but excels in spiritual energy and spells. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=kyubimon).
 
 ### Taomon (326)
 
-**Support:** If own Specialty is Nature, void opponent's Digimon Support Effect, halve own Attack Power and recover own HP +200.
+**Support:** Change opponent's Specialty to Darkness, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100.
 
-**แนวคิด:** ผู้วางยันต์: ล้างเฉพาะ Digimon support ระดับ 3 แลกกับพลังตนเองครึ่งหนึ่ง; ฟื้น HP เล็กน้อย
+**Retained species summary:** A quiet Taoist specializing in charms, curses, talismans and hidden implements. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=taomon).
 
-**Lore:** A quiet Taoist specializing in charms, curses, talismans and hidden implements. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=taomon).
+## Rapidmon
+
+Pure Nature. All three stages have triangle counters with zero base cross power. Supports force the opponent to use triangle or shut down circle, giving the counter plan consistent tools.
+
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 321 | Terriermon / R | 630 | 0 | 30 | 310 / 210 / 0 | △ Counter |
+| 324 | Gargomon / C | 950 | 40 | 20 | 530 / 390 / 0 | △ Counter |
+| 327 | Rapidmon / U | 1440 | 50 | 20 | 820 / 600 / 0 | △ Counter |
+
+### Terriermon (321)
+
+**Support:** Opponent uses △.
+
+**Retained species summary:** Calm, apparently harmless, but strong in combat; Double Typhoon is a twin cooperative move. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=terriermon).
+
+### Gargomon (324)
+
+**Support:** Lower opponent's ○ Attack Power to 0 and boost own △ Attack Power +150.
+
+**Retained species summary:** A cheerful, accurate hunter with twin arm guns, strong legs and occasional loss of control when angry. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=galgomon).
 
 ### Rapidmon (327)
 
-**Support:** If own Specialty is Nature and at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot, boost own Attack Power +200 and attack first.
+**Support:** Opponent uses △, opponent's ○ Attack Power becomes 0, and own ○ Attack Power is lowered by 100.
 
-**แนวคิด:** นักล่าความเร็วสูง: support ชิงจังหวะพร้อมบุก แต่ใช้ DP จริง 1 ใบจึงกระทบการวิวัฒนาการ
+**Retained species summary:** A near-lightspeed cyborg with radar, precise movement and homing missiles. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=rapidmon).
 
-**Lore:** A near-lightspeed cyborg with radar, precise movement and homing missiles. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=rapidmon).
+## Lilamon
+
+Pure Nature. Heal directly and recover additional HP through the existing Eat-up HP combat effect. All three stages have Eat-up HP cross attacks.
+
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 322 | Lalamon / R | 650 | 0 | 30 | 290 / 200 / 100 | Eat-up HP |
+| 325 | Sunflowmon / C | 910 | 30 | 30 | 450 / 280 / 180 | Eat-up HP |
+| 328 | Lilamon / U | 1690 | 40 | 30 | 680 / 450 / 240 | Eat-up HP |
+
+### Lalamon (322)
+
+**Support:** Recover own HP +200.
+
+**Retained species summary:** A drifting flower bud with accurate seeds and a song that lulls foes to sleep. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lalamon).
+
+### Sunflowmon (325)
+
+**Support:** Recover own HP +250, lower own Attack Power -100 and own attack gains Eat-up HP.
+
+**Retained species summary:** Sunlight feeds its energy and attacks, while a thorn-covered stalk protects it. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=sunflowmon).
 
 ### Lilamon (328)
 
-**Support:** If own Specialty is Nature, lower own Attack Power -100. Digimon KO'd in this battle revives with 300 HP; the battle still counts as a loss.
+**Support:** Recover own HP +300 and own attack gains Eat-up HP.
 
-**แนวคิด:** นางฟ้าคืนชีพ: รีไวฟ์ได้แต่เสียแต้มตามกฎเกม และใช้ไม่ได้กับ KO ที่ตัดสินแมตช์; พลังต่ำลงเป็นต้นทุน
+**Retained species summary:** A lilac pixie associated with death and rebirth, poison and entrancing pollen. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lilamon).
 
-**Lore:** A lilac pixie associated with death and rebirth, poison and entrancing pollen. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=lilamon).
+## MetalTyrannomon
 
-## Darkness — กินข้อมูล / ดูด HP / ก่อกวน / ใช้ต้นทุนแลกพลัง
+Fire and Darkness, with dinosaur and machine partners. Online Deck cards, DP cards and HP become attack fuel. Existing identities and colors of the three custom stages stay unchanged; the Fire partners provide the dinosaur half.
 
-| Id | Card / Lv | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
 |---|---|---:|---:|---:|---|---|
 | 329 | Keramon / R | 510 | 0 | 20 | 300 / 230 / 120 | Jamming |
-| 330 | Monodramon / R | 620 | 0 | 20 | 360 / 260 / 150 | ○ to 0 |
-| 331 | Dracmon / R | 470 | 0 | 20 | 330 / 220 / 160 | Eat-up HP |
 | 332 | Kurisarimon / C | 1100 | 40 | 10 | 420 / 300 / 210 | △ to 0 |
-| 333 | Strikedramon / C | 880 | 40 | 10 | 540 / 400 / 210 | Darkness Foe x3 |
-| 334 | Sangloupmon / C | 930 | 30 | 10 | 490 / 360 / 220 | Eat-up HP |
 | 335 | MetalTyrannomon / U | 1870 | 60 | 0 | 930 / 620 / 0 | ○ Counter |
-| 336 | Cyberdramon / U | 1750 | 50 | 10 | 850 / 640 / 300 | Darkness Foe x3 |
-| 337 | Matadormon / U | 1460 | 40 | 10 | 730 / 480 / 310 | 1st Attack |
 
 ### Keramon (329)
 
-**Support:** If own Specialty is Darkness, discard 2 Cards from opponent's Online Deck and draw 1 Card.
+**Support:** If at least 1 Card remains in own Online Deck, discard 1 Card from own Online Deck and boost own Attack Power +150.
 
-**แนวคิด:** นักกินข้อมูล: ตัดเด็ค 2 แล้วจั่ว 1; HP ต่ำและพลังกลาง ป้องกันการเก่งทั้งบุกและ mill
-
-**Lore:** Playfully consumes and destroys data, shooting a destructive beam while laughing. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=keramon).
-
-### Monodramon (330)
-
-**Support:** If own Specialty is Darkness and own HP are 400 or less, boost own Attack Power +250.
-
-**แนวคิด:** มังกรไม่ยอมแพ้: support เร่งพลังเมื่อบาดเจ็บ; Crack Bite ในธีมการ์ดทำให้ท่า ○ ขัดข้อง
-
-**Lore:** A persistent rough brawler; its bite fragments data and can cause malfunctions. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=monodramon).
-
-### Dracmon (331)
-
-**Support:** If own Specialty is Darkness, opponent uses △ and opponent's △ Attack Power is lowered by 100.
-
-**แนวคิด:** แวมไพร์เจ้าเล่ห์: บังคับคู่ต่อสู้เล่น △ แล้วลดพลัง; ✕ ดูดเลือดชดเชย HP เริ่มต้นต่ำ
-
-**Lore:** A reckless vampire prankster whose palm eyes can control minds. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dracumon).
+**Retained species summary:** Playfully consumes and destroys data, shooting a destructive beam while laughing. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=keramon).
 
 ### Kurisarimon (332)
 
-**Support:** If own Specialty is Darkness and at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot, recover own HP +300 and discard 3 Cards from opponent's Online Deck.
+**Support:** If at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot and boost own Attack Power +250.
 
-**แนวคิด:** ดักแด้สะสมพลัง: HP สูงแต่ตีเบา; ใช้ DP ที่สะสมเพื่อซ่อมตัวและทำลายข้อมูลฝั่งตรงข้าม
-
-**Lore:** An immobile tough chrysalis stores energy while tentacles destroy composition data. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=chrysalimon).
-
-### Strikedramon (333)
-
-**Support:** If opponent's Specialty is Darkness and own HP are more than 100, lose 100 HP and boost own Attack Power +300.
-
-**แนวคิด:** นักล่าไวรัส: เป้าหมายในเกมคือสี Darkness แทนฝั่งศัตรู ไม่เท่ากับ Virus ทุกตัว; พลังแรงแบบมีต้นทุน
-
-**Lore:** A commando dragon hunts Virus Digimon with relentless extermination instincts and heated armor. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=strikedramon).
-
-### Sangloupmon (334)
-
-**Support:** If own Specialty is Darkness, own attack gains Eat-up HP and opponent's ○ Attack Power is lowered by 100.
-
-**แนวคิด:** หมาป่าดูดพลัง: ทุกท่าที่เลือกดูด HP ได้ในศึกนี้; เงาหลบแทนด้วยการลด ○ ไม่ใช่หลบแน่นอน
-
-**Lore:** A noble bloodsucking wolf drains DigiCore information and can vanish into a foe’s shadow. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=sangloupmon).
+**Retained species summary:** An immobile tough chrysalis stores energy while tentacles destroy composition data. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=chrysalimon).
 
 ### MetalTyrannomon (335)
 
-**Support:** If own Specialty is Darkness, halve opponent's ○ Attack Power and boost own ○ Attack Power +150.
+**Support:** If own HP are more than 200, lose 200 HP, boost own ○ Attack Power +400 and own △ Attack Power +300.
 
-**แนวคิด:** ป้อมเคลื่อนที่: HP และ ○ สูง เกราะสวน ○; DP 60 และ +P 0 จำกัดการใช้เป็นเชื้อเพลิง
+**Retained species summary:** A heavily strengthened anti-ground cyborg whose armor repels attacks, with missile and laser arms. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=metaltyranomon).
 
-**Lore:** A heavily strengthened anti-ground cyborg whose armor repels attacks, with missile and laser arms. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=metaltyranomon).
+## Cyberdramon
+
+Darkness and Rare. Comeback attack boosts and targeted or costly Digimon-support disruption; the deck composition supplies the requested adjusted ratio.
+
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 330 | Monodramon / R | 620 | 0 | 20 | 360 / 260 / 150 | ○ to 0 |
+| 333 | Strikedramon / C | 880 | 40 | 10 | 540 / 400 / 210 | Darkness Foe x3 |
+| 336 | Cyberdramon / U | 1750 | 50 | 10 | 850 / 640 / 300 | Darkness Foe x3 |
+
+### Monodramon (330)
+
+**Support:** If own HP are less than opponent's HP, boost own Attack Power +250.
+
+**Retained species summary:** A persistent rough brawler; its bite fragments data and can cause malfunctions. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=monodramon).
+
+### Strikedramon (333)
+
+**Support:** If opponent's Specialty is Darkness, void opponent's Digimon Support Effect and boost own Attack Power +150.
+
+**Retained species summary:** A commando dragon hunts Virus Digimon with relentless extermination instincts and heated armor. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=strikedramon).
 
 ### Cyberdramon (336)
 
-**Support:** If opponent's Specialty is Darkness, void opponent's Digimon Support Effect and lower own Attack Power -100.
+**Support:** If own HP are more than 100, lose 100 HP, void opponent's Digimon Support Effect and boost own Attack Power +300.
 
-**แนวคิด:** ผู้ลบไวรัส: ล้าง Digimon support ของฝ่าย Darkness ระดับ 3 แลกพลัง 100; ไม่ล้าง Option support
+**Retained species summary:** An independent Virus hunter with resistant rubber armor and claws that eradicate configuration data. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=cyberdramon).
 
-**Lore:** An independent Virus hunter with resistant rubber armor and claws that eradicate configuration data. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=cyberdramon).
+## Matadormon
+
+Strong bonuses require less HP than the opponent. Champion and Ultimate supports revive after a non-deciding KO, while every stage can use an Eat-up HP cross attack.
+
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 331 | Dracmon / R | 470 | 0 | 20 | 330 / 220 / 160 | Eat-up HP |
+| 334 | Sangloupmon / C | 930 | 30 | 10 | 490 / 360 / 220 | Eat-up HP |
+| 337 | Matadormon / U | 1460 | 40 | 10 | 730 / 480 / 310 | Eat-up HP |
+
+### Dracmon (331)
+
+**Support:** If own HP are less than opponent's HP, own attack gains Eat-up HP and own △ Attack Power is boosted by 100.
+
+**Retained species summary:** A reckless vampire prankster whose palm eyes can control minds. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dracumon).
+
+### Sangloupmon (334)
+
+**Support:** If own HP are less than opponent's HP, boost own Attack Power +250. Digimon KO'd in this battle revives with 200 HP; the battle still counts as a loss.
+
+**Retained species summary:** A noble bloodsucking wolf drains DigiCore information and can vanish into a foe’s shadow. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=sangloupmon).
 
 ### Matadormon (337)
 
-**Support:** If opponent's HP are more than own HP, own attack gains Eat-up HP and own △ Attack Power is boosted by 150.
+**Support:** If own HP are less than opponent's HP, boost own Attack Power +400. Digimon KO'd in this battle revives with 400 HP; the battle still counts as a loss.
 
-**แนวคิด:** นักเต้นแวมไพร์: เล็งฝ่าย HP สูงกว่าเพื่อกินเลือด; △ ได้แรงเพิ่ม ส่วน ✕ ชิงจังหวะ
+**Retained species summary:** A dancing vampire martial artist seeks strong Digimon as prey and hides many rapiers in its clothing. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=matadrmon).
 
-**Lore:** A dancing vampire martial artist seeks strong Digimon as prey and hides many rapiers in its clothing. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=matadrmon).
+## Wingdramon
 
-## Rare — เทคนิค / ตอบโต้ / ป้องกันด้วยแสง / ความยืดหยุ่น
+Ice, Rare and Nature. The line itself remains Rare; its unusually strong supports require a non-Rare active. This is an explicit cross-Specialty reward, and works with Fire or Darkness too if used in another deck.
 
-| Id | Card / Lv | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
 |---|---|---:|---:|---:|---|---|
 | 338 | Dracomon / R | 550 | 0 | 20 | 280 / 240 / 160 | Crash |
-| 339 | Bearmon / R | 640 | 0 | 20 | 280 / 220 / 0 | ○ Counter |
-| 340 | Kudamon / R | 610 | 0 | 20 | 250 / 200 / 150 | Darkness Foe x3 |
 | 341 | Coredramon (Blue) / C | 960 | 40 | 10 | 480 / 350 / 190 | ○ to 0 |
-| 342 | Grizzlymon / C | 990 | 40 | 10 | 460 / 330 / 0 | ○ Counter |
-| 343 | Reppamon / C | 820 | 30 | 10 | 420 / 310 / 150 | 1st Attack |
 | 344 | Wingdramon / U | 1720 | 50 | 10 | 810 / 650 / 300 | 1st Attack |
-| 345 | GrapLeomon / U | 1810 | 50 | 10 | 830 / 620 / 0 | △ Counter |
-| 346 | Chirinmon / U | 1980 | 50 | 20 | 750 / 570 / 310 | Darkness Foe x3 |
 
 ### Dracomon (338)
 
-**Support:** If own Specialty is Rare and own HP are 300 or less, boost own Attack Power +200 and opponent's Attack Power +100.
+**Support:** If own Specialty is not Rare, boost own Attack Power +200 and attack first.
 
-**แนวคิด:** มังกรเกล็ดพิโรธ: ยิ่งเจ็บยิ่งแรงแต่เพิ่มพลังศัตรูด้วย; Crash มีความเสี่ยงตามกฎเกมเดิม
-
-**Lore:** An ancient strong dragon child whose fury scale triggers indiscriminate rage. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dracomon).
-
-### Bearmon (339)
-
-**Support:** If own Specialty is Rare, recover own HP +150 and boost own ○ Attack Power +100.
-
-**แนวคิด:** หมีอึด: ฟื้น HP แล้วต่อยต่อ สวนหมัด ○; จ่ายพลัง ✕ เพื่อความสามารถสวน
-
-**Lore:** A friendly, plucky bear with great stamina and destructive punches it must wrap its fists to withstand. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=bearmon).
-
-### Kudamon (340)
-
-**Support:** If own Specialty is Rare, recover own HP +100 and lower opponent's ○ Attack Power -100.
-
-**แนวคิด:** ผู้คุ้มครองศักดิ์สิทธิ์: แสงรบกวน ○ และเยียวยา; พลังตรงต่ำ แต่ Holy Light ✕ ชนะ Darkness
-
-**Lore:** A calm holy beast stores sacred power, shelters inside its cartridge and blinds foes with light. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=kudamon).
+**Retained species summary:** An ancient strong dragon child whose fury scale triggers indiscriminate rage. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=dracomon).
 
 ### Coredramon (Blue) (341)
 
-**Support:** If own Specialty is Rare, boost own ○ Attack Power +250 and lower opponent's ○ Attack Power -100.
+**Support:** If own Specialty is not Rare, boost own ○ Attack Power +350, own △ Attack Power +250 and draw 1 Card.
 
-**แนวคิด:** มังกรเปิดจุดอ่อน: ลด ○ ศัตรูและเร่ง ○ ตนเอง; สีน้ำเงินของตัวไม่จำเป็นต้องเป็นการ์ด Ice
-
-**Lore:** A swift pure-blooded blue dragon whose blue flames strip texture data and expose DigiCores. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=coredramon_b).
-
-### Grizzlymon (342)
-
-**Support:** If opponent uses ○, counterattack and attack second, and recover own HP +200.
-
-**แนวคิด:** หมีรับแล้วสวน: พลังของ support มาจากการสวนตามกฎเกม ต้องทาย ○ ถูก; ถ้าผิดไม่ฟื้น HP ด้วย
-
-**Lore:** An honest martial artist redirects enemy force, avoiding or deflecting blows despite its size. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=gryzmon).
-
-### Reppamon (343)
-
-**Support:** If own Specialty is Rare, boost own △ Attack Power +150 and lower opponent's △ Attack Power -150.
-
-**แนวคิด:** หางมีเจตจำนง: รับและตัดทาง △ พร้อมเพิ่มแรง △; HP ต่ำแต่ DP 30 เข้าเกมไว
-
-**Lore:** A nimble forest fighter whose independently moving blade tail covers surprise attacks. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=reppamon).
+**Retained species summary:** A swift pure-blooded blue dragon whose blue flames strip texture data and expose DigiCores. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=coredramon_b).
 
 ### Wingdramon (344)
 
-**Support:** If own Specialty is Rare and own HP are more than 100, lose 100 HP, boost own ○ Attack Power +150 and attack first.
+**Support:** If own Specialty is not Rare, boost own ○ Attack Power +400, own △ Attack Power +300 and attack first.
 
-**แนวคิด:** จ้าวเวหา: ชิงก่อนและเร่ง ○ ด้วยการพุ่งเสีย HP; ไม่มีการหลบทุกท่าหรือ damage นอกกฎเกม
+**Retained species summary:** A largely airborne dragon exceeding Mach 20, creating damaging shockwaves as it moves. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=wingdramon).
 
-**Lore:** A largely airborne dragon exceeding Mach 20, creating damaging shockwaves as it moves. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=wingdramon).
+## GrapLeomon
+
+Rare and Nature, counterattack partners and zero-power attacks. Each support checks the power of the currently selected attack, regardless of whether that is circle, triangle or cross. A zero-power counter that misses can still use the boosted ordinary attack.
+
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 339 | Bearmon / R | 640 | 0 | 20 | 280 / 220 / 0 | ○ Counter |
+| 342 | Grizzlymon / C | 990 | 40 | 10 | 460 / 330 / 0 | ○ Counter |
+| 345 | GrapLeomon / U | 1810 | 50 | 10 | 830 / 620 / 0 | △ Counter |
+
+### Bearmon (339)
+
+**Support:** If own current Attack Power is 0, boost own Attack Power +250 and recover own HP +100.
+
+**Retained species summary:** A friendly, plucky bear with great stamina and destructive punches it must wrap its fists to withstand. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=bearmon).
+
+### Grizzlymon (342)
+
+**Support:** If own current Attack Power is 0, boost own Attack Power +350 and attack first.
+
+**Retained species summary:** An honest martial artist redirects enemy force, avoiding or deflecting blows despite its size. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=gryzmon).
 
 ### GrapLeomon (345)
 
-**Support:** If own Specialty is Rare and at least 1 Card is in own DP Slot, discard 1 Card from own DP Slot, boost own Attack Power +300 and draw 1 Card.
+**Support:** If own current Attack Power is 0, boost own Attack Power +500 and attack first.
 
-**แนวคิด:** นักสู้กังหัน: ใช้ DP เป็นแรงขับ เร่งทั้งชุดและเติมมือ; ✕ สวน △ แทนท่าตีธรรมดา
+**Retained species summary:** A fighting-game-trained martial artist powers limb turbines with focused DigiCore fighting spirit. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=grappuleomon).
 
-**Lore:** A fighting-game-trained martial artist powers limb turbines with focused DigiCore fighting spirit. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=grappuleomon).
+## Chirinmon
+
+Pure Rare. All stages have first-attack cross effects and supports that combine first attack with increased attack power. The Ultimate spends Online Deck cards for its larger boost.
+
+| Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
+|---|---|---:|---:|---:|---|---|
+| 340 | Kudamon / R | 610 | 0 | 20 | 250 / 200 / 150 | 1st Attack |
+| 343 | Reppamon / C | 820 | 30 | 10 | 420 / 310 / 150 | 1st Attack |
+| 346 | Chirinmon / U | 1980 | 50 | 20 | 750 / 570 / 310 | 1st Attack |
+
+### Kudamon (340)
+
+**Support:** Boost own ○ Attack Power +100 and attack first.
+
+**Retained species summary:** A calm holy beast stores sacred power, shelters inside its cartridge and blinds foes with light. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=kudamon).
+
+### Reppamon (343)
+
+**Support:** Boost own Attack Power +150 and attack first.
+
+**Retained species summary:** A nimble forest fighter whose independently moving blade tail covers surprise attacks. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=reppamon).
 
 ### Chirinmon (346)
 
-**Support:** If own Specialty is Rare and own HP are less than opponent's HP, recover own HP +400 and lower opponent's Attack Power -200.
+**Support:** If 2 or more Cards remain in own Online Deck, discard 2 Cards from own Online Deck, boost own Attack Power +250 and attack first.
 
-**แนวคิด:** ผู้พิทักษ์เมตตา: stat สมดุลและ support กู้ฝ่ายเสียเปรียบ; ไม่แจก heal 400 แบบไร้เงื่อนไข
+**Retained species summary:** An ancient compassionate holy beast, powerful for an Ultimate, opposing cruelty and guiding foes toward righteousness. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=tyilinmon).
 
-**Lore:** An ancient compassionate holy beast, powerful for an Ultimate, opposing cruelty and guiding foes toward righteousness. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=tyilinmon).
+## Encoding and verification
 
-## Encoding และที่มาของกลไก
+`tools/custom_cards.json` remains the runtime source, and the normal builder generates
+`web/js/data/cards.js`. `tools/time_stranger_theme_cards.json` records this revision's
+support/x-effect design plus handwritten behavioral expectations; it is not loaded by the game.
 
-ใช้เฉพาะ engine.js ที่มีอยู่: getVar (0x801e7dd4), exec (0x801e81dc),
-runEffect (0x801e9c1c), runXfx (0x801e9700), HP cap/การหารตัดลงหลักสิบ (0x801e9abc).
-DP สี Nature ใช้ตัวแปรโปรเจกต์ 0x42 ซึ่งมีอยู่เดิมและใช้แนวทาง BlackWarGreymon
-ไม่ใช่ตัวแปรบนดิสก์; DP count หมายถึงจำนวนใบ ไม่ใช่ผลรวม +P.
-ข้อมูลจริงอยู่ใน tools/custom_cards.json; docs ไม่เป็น runtime source อีกชุด
+Existing interpreter operations come from `getVar` (0x801e7dd4), `exec` (0x801e81dc),
+`runEffect` (0x801e9c1c), `runXfx` (0x801e9700), and HP caps/division rounding (0x801e9abc).
 
-## Validation
+**Project extension 0x50:** return the power of `own battle attack[own chosen attack]`.
+The original game's variables end at 0x1c; this is explicitly a custom variable, not a
+new original-game discovery. GrapLeomon-line conditions use 0x50 == 0 and therefore work
+for every attack slot, including a power reduced to zero by an earlier effect. Existing
+counter timing and cross-effect resolution remain unchanged.
 
-- selftest 31 checks รวม 113 support scenarios: ครบทุกใบ, เงื่อนไขผ่าน/ไม่ผ่าน,
-  ทรัพยากรไม่พอ, การนับเฉพาะ Nature DP, รีไวฟ์/เสียแต้ม/KO ตัดสิน และ void เฉพาะ Digimon
-- decktest 11, sim ปกติ 200 แมตช์ไม่ค้าง, fxtest ทั้ง 31 scripts,
-  battletest 237 Digimon / 711 ท่าในแต่ละรูปแบบการแสดงผลทั้ง 3 แบบ ผ่าน
-- TS soak 750 แมตช์: 300 ชนต้นแบบ, 300 ชนชุดใหม่กันเอง, 150 เด็คสามสี;
-  ไม่ค้าง, จำนวนการ์ด 30 ใบต่อฝ่ายคงอยู่, support ทั้ง 45 ใบมีการเปิดใช้จริง
-  ค่าเฉลี่ย 10.7 เทิร์น, สูงสุด 34 เทิร์น; AI มีการสุ่ม ผลชนะอาจเปลี่ยนเมื่อรันใหม่
-- Browser: อ่านค่า/ท่า/✕/support ทั้ง 45 ใบจาก editor จริงใน Legacy และ New รวม 90 previews
-  และเทียบกับข้อมูล runtime/ตารางนี้ รายการยาวเลื่อนได้ในแถบรายละเอียด ไม่ถูกตัดข้อมูล
-- เล่นการแสดงผล support จริงของ Coronamon (เสีย HP 100), Keramon (mill 2/draw 1),
-  Taomon (void Digimon support/half attack/heal 200) ในแมตช์สองผู้เล่น โดยจัดมือ,
-  DP และฝั่งตรงข้ามเอง; คืนค่าสถานะ active เต็มก่อนศึก ไม่ใช่การเล่นเด็คปกติจนถึงสถานการณ์นั้น
-  ทุกใบตรวจเชิงพฤติกรรมด้วย node; ไม่ได้เล่นภาพ support ทุกใบด้วยมือ
-- การ์ดบนดิสก์ 301 ใบ, BlackWarGreymon และเด็คจริงทั้ง 160 เด็คเหมือนก่อน TS-106 ทุกค่า
-  รูปภาพ, model, animation/effect assets เหมือนก่อน ตรวจ check_paths หลัง staging ผ่าน
-- แก้ชื่อที่อักษรพิเศษเสีย 3 รายการ: CoronaｰKnuckles, Giga DestroyerⅡ, Great StrikeⅡ
-  ตาม Reference Book และตรวจใน browser ทั้งสองรูปแบบภาพ
-- หลักฐานในเครื่อง: extracted/newart/ts-phase1-browser/ts106-*;
-  log soak: extracted/time_stranger_references/ts106-design-test.log (ไม่ใส่ใน git)
-- งานนี้เป็นหนึ่ง request commit ของ TS-106 รวมและ push เข้า time-stranger;
-  ยังมี Phase 2/3 และการเล่นเพื่อปรับบาลานซ์ตามแผนงานเดิม
+Behavioral verification covers all 45 supports, every ordinary own Specialty, all four
+allowed Wingdramon active Specialties plus its Rare rejection, failing gates and exact
+payment thresholds. Expectations are handwritten from the English supports rather than
+computed from action encoding. Additional cases must exercise each chosen zero-power
+attack slot, available/empty recycle piles, shortage of non-cost mill/DP effects, HP
+comparison ties, and non-deciding versus deciding revival KOs. Integration validation
+also checks original disc records, theme deck composition, simulations and browser previews.
+Passing those checks establishes implemented behavior and stability; it does not establish
+that all fifteen decks have equal competitive strength. Match play remains necessary for
+further numerical balance changes.

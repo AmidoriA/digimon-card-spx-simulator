@@ -260,21 +260,26 @@ the game's from 400, and their battle scripts and effect files carry the number 
 script they were made from plus 10000 for the first custom card, 20000 for the second.
 The deck editor offers them like any other card; no deck of the game holds one.
 
-A **custom deck** is a deck of the game with some of its cards exchanged; the list names it
-with its base and the exchange. It follows the game's 159 decks and keeps its base's
-rank, armor form and music; its owner defaults to the base's unless explicitly chosen.
-The first is **Black Fire Again**, BK WarGreymon's second
-deck, which is his Black Fire Heart with its four WarGreymon exchanged for four
-BlackWarGreymon. Black Fire Heart itself is as the game has it.
+A **custom deck** follows the game's 159 decks and retains its base's rank, armor
+form and music. Its source entry can exchange cards from that base or provide an
+explicit 30-card named-count list. Owner and portrait can be chosen separately.
+The first is **Black Fire Again**, BK WarGreymon's Black Fire Heart with its four
+WarGreymon exchanged for BlackWarGreymon.
 
-Time Stranger adds one themed deck per new Ultimate, using the original gameplay
-designs from TS-106. The deck groups are project themes; they do not claim canonical
-evolution chains. The exact exchanges, ranked bases and disc-data exceptions are in
-[decks.md](docs/time-stranger/decks.md). At the owner’s request (2026-10-14), each
-Time Stranger deck is owned by its featured Ultimate and uses that card’s existing
-prepared illustration as its portrait in both deck selectors and the large preview.
-The original source owner remains recorded in the base-deck plan. `owner` and `ownerCard`
-in `tools/custom_cards.json` set this presentation; rank, armor and music remain inherited.
+The fifteen Time Stranger decks now use complete theme-based compositions, requested
+by the owner on 2026-10-14, instead of the initial donor swaps. Each carries **4 Rookies,
+3 Champions and 3 Ultimates from its featured group**, within **9 R / 6 C / 3 U /
+12 options**, with no more than four copies of any card. All seven Sevens cards and
+Download Digivolve are excluded from these fifteen lists. Every deck has evolution
+options; every mixed-Specialty list has Special Digivolve for actual cross-Specialty
+R→C and C→U routes. Full lists, themes and verified routes are in
+[decks.md](docs/time-stranger/decks.md), sourced from
+`tools/time_stranger_theme_decks.json`. Original disc decks and Black Fire Again retain
+their existing compositions.
+
+Each deck's displayed owner is its featured Ultimate, with that card's prepared
+portrait. The table's base identifies metadata provenance. Theme groups do not claim
+canonical evolution chains.
 
 | Ultimate | Custom deck | Base deck | Owner |
 |---|---|---|---|
@@ -294,18 +299,27 @@ in `tools/custom_cards.json` set this presentation; rank, armor and music remain
 | GrapLeomon | Beast Fist Again | Steel Gate | GrapLeomon |
 | Chirinmon | Holy Beast Revived | Steel Gate | Chirinmon |
 
-`node tools/time_stranger_deck_test.js` checks exact exchanges, original-data hashes,
-metadata, legality and both themed evolution steps. `node tools/time_stranger_deck_sim.js`
-plays each installed deck against its base and five mixed-Specialty originals in both
-seats (24 matches per deck). These initial deck lists are not equal-strength ratings.
+The card supports and cross effects follow the requested themes in
+[card-design.md](docs/time-stranger/card-design.md). Ordinary own-active Specialty
+restrictions are removed from the 45 new cards. The Wingdramon group deliberately
+offers powerful cross-Specialty support when the active Digimon is not Rare.
+GrapLeomon's group rewards a selected attack whose power is zero; project effect
+variable **0x50** reads that attack after earlier supports. This is a custom interpreter
+variable, not a value recovered from the disc. All other effect operations and cross
+effect types already exist. Terriermon, Gargomon and Rapidmon now have zero-power
+Triangle Counter cross attacks. No visual assets or attack animations are rebuilt.
 
-Both simulations seed AI noise and hypothetical evaluation randomness as well as
-shuffles. The standard `sim.js` soak reports `staleExplorations` when it exercises
-another legal attack after 20 identical positions; two original MegaSeadramon can
-otherwise keep choosing Circle Counter forever. `node tools/sim.js 200 --strict-ai`
-retains the unassisted live AI policy and reproduces that existing original-deck
-stalemate in the final Phase 3 deck schedule. Live AI and battle rules are unchanged.
+`node tools/time_stranger_design_test.js` checks effect outcomes, costs and failed gates.
+`node tools/time_stranger_deck_test.js` checks compositions, ratios, bans, color identities
+and actual evolution paths. `node tools/time_stranger_deck_sim.js` exercises every deck
+against original and themed opponents. Runtime checks establish playable mechanics;
+they do not establish equal competitive strength. See the
+[theme validation report](docs/time-stranger/theme-validation.md) for results and limits.
 
+The standard `sim.js` engine soak seeds AI noise and reports `staleExplorations` if it
+tries another legal attack after 20 identical positions. Original MegaSeadramon counter
+mirrors can otherwise stagnate; `--strict-ai` retains the unassisted policy. The directed
+theme-deck suite uses the live AI policy without those interventions.
 
 | | BlackWarGreymon (301) | WarGreymon (2), which it is made from |
 |---|---|---|
@@ -742,13 +756,16 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   Fire Again and its name are this project's as well, made at the owner's request; in the
   game BK WarGreymon has the one deck, and it plays WarGreymon.
 
-- **Time Stranger custom decks (Phase 3).** The deck names and fifteen themed exchanges
-  are project choices requested by the owner, listed next to their Ultimates above.
-  They retain their source decks' rank, armor, music, options and copy counts; the owner
-  explicitly chose the featured Ultimate’s name and prepared portrait for each deck.
-  Missing visual-donor cards or missing donor levels require the documented exceptions
-  in [phase3.md](docs/time-stranger/phase3.md); gameplay uses TS-106's original designs.
-  No original disc card or deck is modified.
+- **Time Stranger custom decks and themes (Phase 3).** The fifteen full compositions,
+  theme-driven supports/cross choices, featured-line copy counts, ban list and evolution
+  tools are project designs requested by the owner. Their base decks now supply only
+  metadata; the historical exact-exchange policy is superseded. Their featured Ultimate
+  supplies the displayed owner and portrait. Most new supports work on any active
+  Specialty; the Wingdramon group intentionally rewards a different active Specialty.
+  GrapLeomon's zero-selected-power check uses the project's interpreter variable 0x50.
+  Details and existing official lore sources are in
+  [card-design.md](docs/time-stranger/card-design.md) and [decks.md](docs/time-stranger/decks.md).
+  Original disc cards/decks, BlackWarGreymon, pictures and models retain their data.
 
 - **Time Stranger Phase 1 cards.** The new labels and palette choices are project additions
   requested by the owner. TS-106 (2026-10-14) chooses original numbers and effects for
