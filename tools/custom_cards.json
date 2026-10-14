@@ -209,254 +209,6 @@
     }
    }
   ],
-  "ts-338-model": [
-   {
-    "hue": [
-     30,
-     85
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 170,
-     "sat": 0.6,
-     "val": 0.7
-    }
-   },
-   {
-    "hue": [
-     170,
-     270
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 170,
-     "sat": 0.7,
-     "val": 0.8
-    }
-   },
-   {
-    "hue": [
-     0,
-     30
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 0,
-     "sat": 0.8
-    }
-   }
-  ],
-  "ts-339-model": [
-   {
-    "hue": [
-     300,
-     25
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 30,
-     "sat": 0.35,
-     "val": 0.6
-    }
-   },
-   {
-    "hue": [
-     25,
-     170
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 30,
-     "sat": 0.4,
-     "val": 0.45
-    }
-   },
-   {
-    "hue": [
-     175,
-     300
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 215,
-     "sat": 0.6,
-     "val": 0.5
-    }
-   }
-  ],
-  "ts-340-model": [
-   {
-    "hue": [
-     0,
-     85
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 45,
-     "sat": 0.7,
-     "val": 1.2
-    }
-   },
-   {
-    "hue": [
-     85,
-     300
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 45,
-     "sat": 0.3,
-     "val": 1.25
-    }
-   }
-  ],
-  "ts-341-model": [
-   {
-    "hue": [
-     75,
-     175
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 225,
-     "sat": 0.8
-    }
-   }
-  ],
-  "ts-342-model": [
-   {
-    "hue": [
-     20,
-     85
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 215,
-     "sat": 0.6,
-     "val": 0.55
-    }
-   },
-   {
-    "hue": [
-     85,
-     170
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 215,
-     "sat": 0.7,
-     "val": 0.6
-    }
-   },
-   {
-    "hue": [
-     175,
-     300
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 0,
-     "sat": 0.65
-    }
-   }
-  ],
-  "ts-343-model": [
-   {
-    "hue": [
-     0,
-     85
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 0,
-     "sat": 0.8
-    }
-   },
-   {
-    "hue": [
-     175,
-     300
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 215,
-     "sat": 0.8
-    }
-   }
-  ],
-  "ts-344-model": [
-   {
-    "hue": [
-     0,
-     90
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 220,
-     "sat": 0.55
-    }
-   },
-   {
-    "hue": [
-     175,
-     300
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 220,
-     "sat": 0.6,
-     "val": 1.1
-    }
-   }
-  ],
   "ts-344-fx": [
    {
     "hue": [
@@ -474,81 +226,6 @@
      ],
      "sat": 0.8,
      "val": 1
-    }
-   }
-  ],
-  "ts-345-model": [
-   {
-    "hue": [
-     20,
-     85
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 42,
-     "sat": 0.8
-    }
-   },
-   {
-    "hue": [
-     85,
-     300
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 215,
-     "sat": 0.12,
-     "val": 1.2
-    }
-   }
-  ],
-  "ts-346-model": [
-   {
-    "hue": [
-     15,
-     90
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 165,
-     "sat": 0.85
-    }
-   },
-   {
-    "hue": [
-     170,
-     300
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 160,
-     "sat": 0.8
-    }
-   },
-   {
-    "hue": [
-     330,
-     15
-    ],
-    "sat": [
-     0.3,
-     1
-    ],
-    "to": {
-     "hue": 0,
-     "sat": 0.8
     }
    }
   ],
@@ -4924,7 +4601,11 @@
    },
    "model": {
     "number": 437,
-    "recolour": "ts-338-model"
+    "ts": "chr208",
+    "native": true,
+    "parts": {
+     "0": "J_center"
+    }
    },
    "art": {
     "shared": true,
@@ -5028,7 +4709,14 @@
    },
    "model": {
     "number": 438,
-    "recolour": "ts-339-model"
+    "ts": "chr234",
+    "native": true,
+    "parts": {
+     "0": "J_spine01",
+     "1": "J_head",
+     "2": "J_jaw",
+     "9": "J_hand_l"
+    }
    },
    "art": {
     "shared": true,
@@ -5132,7 +4820,20 @@
    },
    "model": {
     "number": 439,
-    "recolour": "ts-340-model"
+    "ts": "chr053",
+    "native": true,
+    "parts": {
+     "0": "J_center",
+     "13": "J_spine",
+     "14": "J_spine1",
+     "15": "J_spine2",
+     "16": "J_spine3",
+     "17": "J_spine4",
+     "18": "J_spine5",
+     "19": "J_spine6",
+     "20": "J_spine7",
+     "21": "J_spine8"
+    }
    },
    "art": {
     "shared": true,
@@ -5236,7 +4937,13 @@
    },
    "model": {
     "number": 440,
-    "recolour": "ts-341-model"
+    "ts": "chr218",
+    "native": true,
+    "parts": {
+     "0": "J_spine01",
+     "4": "J_hand_r",
+     "7": "J_hand_l"
+    }
    },
    "art": {
     "shared": true,
@@ -5340,7 +5047,15 @@
    },
    "model": {
     "number": 441,
-    "recolour": "ts-342-model"
+    "ts": "chr235",
+    "native": true,
+    "parts": {
+     "0": "J_spine02",
+     "5": "J_hand_r",
+     "11": "J_foot_r",
+     "14": "J_foot_l",
+     "17": "J_tail"
+    }
    },
    "art": {
     "shared": true,
@@ -5444,7 +5159,13 @@
    },
    "model": {
     "number": 442,
-    "recolour": "ts-343-model"
+    "ts": "chr077",
+    "native": true,
+    "parts": {
+     "0": "spine2",
+     "2": "head",
+     "3": "mouth"
+    }
    },
    "art": {
     "shared": true,
@@ -5588,7 +5309,18 @@
    },
    "model": {
     "number": 443,
-    "recolour": "ts-344-model"
+    "ts": "chr210",
+    "native": true,
+    "parts": {
+     "0": "J_spain03",
+     "5": "J_arm_r",
+     "7": "J_hand_r",
+     "10": "J_arm_l",
+     "11": "J_elbow_l",
+     "12": "J_hand_l",
+     "13": "J_finger03_l",
+     "16": "J_spain01"
+    }
    },
    "art": {
     "shared": true,
@@ -5737,7 +5469,15 @@
    },
    "model": {
     "number": 444,
-    "recolour": "ts-345-model"
+    "ts": "chr403",
+    "native": true,
+    "against": "chr311",
+    "parts": {
+     "0": "J_spine02",
+     "5": "J_hand_r",
+     "8": "J_hand_l",
+     "15": "J_foot_r"
+    }
    },
    "art": {
     "shared": true,
@@ -5866,7 +5606,13 @@
    },
    "model": {
     "number": 445,
-    "recolour": "ts-346-model"
+    "ts": "chr084",
+    "native": true,
+    "against": "chr135",
+    "parts": {
+     "0": "J_spine02",
+     "2": "J_head"
+    }
    },
    "art": {
     "shared": true,

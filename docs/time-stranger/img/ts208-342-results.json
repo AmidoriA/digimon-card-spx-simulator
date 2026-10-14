@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-342-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Ankylomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      72,
+      142,
+      212,
+      282
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-342-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Ankylomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          198,
+          2,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          198,
+          2,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          198,
+          2,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          198,
+          2,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          198,
+          2,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          198,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      51,
+      100,
+      149,
+      198
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-342-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Ankylomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          306,
+          3,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          306,
+          3,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          306,
+          3,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          306,
+          3,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          306,
+          3,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          306,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      78,
+      154,
+      230,
+      306
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-342-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Ankylomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      337,
+      367,
+      397,
+      427
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-342-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Ankylomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Ankylomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ],
+      "Grizzlymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          487,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      352,
+      397,
+      442,
+      487
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-342-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Ankylomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          304,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "Grizzlymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          304,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "Ankylomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          304,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "Grizzlymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          304,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "Ankylomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          304,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "Grizzlymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          282,
+          1,
+          "ended"
+        ],
+        [
+          304,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      527,
+      572,
+      617,
+      662,
+      707
+    ]
+  }
+]

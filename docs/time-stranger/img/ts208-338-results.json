@@ -1,0 +1,758 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-338-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ClearAgumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ]
+      ],
+      "Dracomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ]
+      ],
+      "ClearAgumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ]
+      ],
+      "Dracomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ]
+      ],
+      "ClearAgumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ]
+      ],
+      "Dracomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      65,
+      128,
+      191,
+      254
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-338-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ClearAgumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Dracomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "ClearAgumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Dracomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "ClearAgumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ],
+      "Dracomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-338-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ClearAgumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "Dracomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "ClearAgumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "Dracomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "ClearAgumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "Dracomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      62,
+      122,
+      182,
+      242
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-338-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ClearAgumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          383,
+          4,
+          "ended"
+        ]
+      ],
+      "Dracomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          383,
+          4,
+          "ended"
+        ]
+      ],
+      "ClearAgumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          383,
+          4,
+          "ended"
+        ]
+      ],
+      "Dracomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          383,
+          4,
+          "ended"
+        ]
+      ],
+      "ClearAgumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          383,
+          4,
+          "ended"
+        ]
+      ],
+      "Dracomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          383,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      326,
+      345,
+      364,
+      383
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-338-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ClearAgumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "Dracomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "ClearAgumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "Dracomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "ClearAgumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "Dracomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      351,
+      395,
+      439,
+      483
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-338-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "ClearAgumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ],
+        [
+          258,
+          0,
+          "runs"
+        ],
+        [
+          480,
+          6,
+          "runs"
+        ]
+      ],
+      "Dracomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ],
+        [
+          258,
+          0,
+          "runs"
+        ],
+        [
+          480,
+          6,
+          "runs"
+        ]
+      ],
+      "ClearAgumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ],
+        [
+          258,
+          0,
+          "runs"
+        ],
+        [
+          480,
+          6,
+          "runs"
+        ]
+      ],
+      "Dracomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ],
+        [
+          258,
+          0,
+          "runs"
+        ],
+        [
+          480,
+          6,
+          "runs"
+        ]
+      ],
+      "ClearAgumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ],
+        [
+          258,
+          0,
+          "runs"
+        ],
+        [
+          480,
+          6,
+          "runs"
+        ]
+      ],
+      "Dracomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          254,
+          1,
+          "ended"
+        ],
+        [
+          258,
+          0,
+          "runs"
+        ],
+        [
+          480,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      480,
+      525,
+      570,
+      615,
+      660
+    ]
+  }
+]

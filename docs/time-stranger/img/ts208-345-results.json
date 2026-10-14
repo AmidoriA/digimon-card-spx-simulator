@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-345-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Etemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      51,
+      100,
+      149,
+      198
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-345-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Etemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          254,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      65,
+      128,
+      191,
+      254
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-345-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Etemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          298,
+          3,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          298,
+          3,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          298,
+          3,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          298,
+          3,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          298,
+          3,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          298,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      76,
+      150,
+      224,
+      298
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-345-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Etemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      337,
+      367,
+      397,
+      427
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-345-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Etemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "Etemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ],
+      "GrapLeomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          471,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      348,
+      389,
+      430,
+      471
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-345-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Etemon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          299,
+          0,
+          "runs"
+        ],
+        [
+          561,
+          6,
+          "runs"
+        ]
+      ],
+      "GrapLeomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          299,
+          0,
+          "runs"
+        ],
+        [
+          561,
+          6,
+          "runs"
+        ]
+      ],
+      "Etemon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          299,
+          0,
+          "runs"
+        ],
+        [
+          561,
+          6,
+          "runs"
+        ]
+      ],
+      "GrapLeomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          299,
+          0,
+          "runs"
+        ],
+        [
+          561,
+          6,
+          "runs"
+        ]
+      ],
+      "Etemon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          299,
+          0,
+          "runs"
+        ],
+        [
+          561,
+          6,
+          "runs"
+        ]
+      ],
+      "GrapLeomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          299,
+          0,
+          "runs"
+        ],
+        [
+          561,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      561,
+      606,
+      651,
+      696,
+      741
+    ]
+  }
+]

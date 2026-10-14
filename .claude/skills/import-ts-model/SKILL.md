@@ -1,260 +1,206 @@
 ---
 name: import-ts-model
-description: Give a custom card the 3D model and motions of its Digimon from Digimon Story Time Stranger, in place of its recoloured disc model. Use when a Time Stranger card's model is to be converted (the TS-208 tickets), when a converted model looks wrong in the battle, or when the converter tools/ts_model.py is changed.
+description: Give custom cards their Digimon Story Time Stranger geometry, full skeleton, native textures and motions. Use for TS-208 imports, incorrect converted anatomy, and source/native model pipeline changes.
 ---
 
 # Giving a custom card its Time Stranger model
 
-A custom card starts with its base's model in other colours (the `create-card` skill). This
-replaces that model with the Digimon's own from Time Stranger: its mesh, its texture and
-its motions, cut down to what a model of the disc costs and laid on the base's keys, so
-that the base's battle scripts still run on it.
+A custom card starts with its disc base's recolored model. The current workflow replaces
+it with the Digimon's complete Time Stranger model while keeping the base battle scripts.
+The owner explicitly changed the requirement on 2026-10-14: retain full source shape,
+textures and bones; revisit a triangle budget later. Use `"native": true` for this work.
+Do not silently apply the former Angewomon 976-triangle/30-part/256 x 128 budget, a
+2000-triangle interim budget, or the legacy `no_decimate` 30-part path.
 
-**None of this is the PlayStation game's.** Guilmon (card 302, model 401) is the worked
-example: TS-207's log in `docs/time-stranger/TS-207-pilot-guilmon.md` has what it looked
-like at each step, and the README, "Time Stranger models as DDCB models", has every rule
-the converter follows. Read both before the first model.
+Read the README's Time Stranger model/motion sections, the card's roster row, its
+TS-208 ticket, `docs/time-stranger/motion-slots.md`, and the TS-207 Guilmon pilot log
+before the first model. The pilot's reduced-mesh figures are historical; its source
+comparison and visual verification lessons still apply. These are another game's files,
+not PlayStation-native models.
 
-| File | What |
+| File | Role |
 |---|---|
-| `tools/custom_cards.json` | The card's `model` entry: the only thing you write by hand |
-| `tools/build_custom.py` | Converts every card whose `model` has `"ts"` |
-| `tools/ts_model.py` | The converter. Run by itself it writes somewhere else and draws what it made |
-| `tools/ts_mbe.py` | Reads Time Stranger's tables (which model is which Digimon) |
-| `tools/sheet_server.py`, `tools/model_sheet.js` | Pictures of the model in the battle, frame by frame |
-| `docs/time-stranger/roster.md` | Each card's base and Time Stranger model |
-| `docs/time-stranger/motion-slots.md` | The body parts each base's scripts hang effects on |
+| `tools/custom_cards.json`, `tools/custom.py` | Card model proposals and accepted options |
+| `tools/build_custom.py` | Canonical card build; routes `native: true` to the native exporter |
+| `tools/ts_native_model.py` | Full source geometry, four-weight skin, full skeleton and RGBA exporter |
+| `web/js/battlenative.js` | Native parser, CPU weighted skin, bounds and quaternion helpers |
+| `web/js/battle3d.js`, `web/js/battleultra.js` | Native playback/material rendering and Ultra drawing |
+| `tools/ts_model_read.py`, `tools/ts_anim_read.py` | Source model/texture and motion readers |
+| `tools/ts_mbe.py` | Source identity tables |
+| `tools/sheet_server.py`, `tools/model_sheet.js`, `tools/model_sheet_page.html` | Six browser cases, timelines and saved pictures |
+| `tools/battlenative_test.js`, `tools/ts_native_model_test.py` | Native semantic regression tests |
+| `tools/ts_model.py` | Optional historical reduced-format converter |
 
-You need the unpacked disc (`extracted/`), the unpacked Time Stranger files
-(`extracted_ts/`, 49 GB, never committed) and `tools/.venv/Scripts/python`. In a worktree
-all three are only in the main checkout: use their full paths. Time Stranger's files are
-another game's: run every tool that reads them with `python -I`. The examples below write
-`extracted`, `extracted_ts` and `tools/.venv/Scripts/python` for those paths.
+Unpacked disc files, the Time Stranger extraction (about 49 GB), and the Python virtual
+environment may live only in the main checkout. Use full paths from a worktree. Never
+commit extracted source data. Run every Python source-reading tool with `python -I`.
+A helper importing project tools must explicitly add that tools directory to its path.
 
-## 1. Look up what the card is made of
+## 1. Establish identity, effects and size
 
-- **The roster row** (`roster.md`): the card's number, its base, its model number and its
-  Time Stranger model `chrNNN`.
-- **The base's model number**:
+Read the roster for card ID, model number, `chrNNN` and disc base. Confirm the base's
+model number from the generated cards data. Read the base's three rows in motion-slots,
+including every body-part number named by its effects. Part 0 also matters for incoming
+hit effects. Inspect a colored front/side preview of the disc base to identify the actual
+anatomy behind those numbers; compare left/right in the same facing view.
 
-```bash
-node -e "const c=require('./web/js/data/cards.js').cards;const x=c.find(c=>c.id===303);console.log(x.name,'base card',x.custom,'base model',c[x.custom].model)"
-```
-
-- **The parts the base's scripts name**: `motion-slots.md`, "Where the scripts start
-  them", the base's three rows, column **Parts**. A script hangs its fire or its glow on
-  those body parts of its own Digimon, by number. The new model needs the right body part
-  under each of those numbers (step 3). **Part 0 matters for every model**: other cards'
-  hit scripts hang objects on part 0 of whoever is hit.
-- **The base's own Digimon in Time Stranger**, if it has one (for the size, step 3). The
-  keys are the Japanese names, so look the English one up first:
+Look up the base's own Time Stranger identity if available using the English name table
+and `char_info`. Names can differ (Goblimon, Tailmon, Vamdemon); search name fragments,
+then verify the exact identity rather than choosing a similar Digimon.
 
 ```bash
 tools/.venv/Scripts/python -I tools/ts_mbe.py extracted_ts/app_text01/text/char_name.mbe Sheet1 Goblimon
-```
-
-```bash
 tools/.venv/Scripts/python -I tools/ts_mbe.py extracted_ts/app_0/data/char_info.mbe char_info char_GOBURIMON
 ```
 
-  The first gives the key (`char_GOBURIMON`), the second its model in the fourth column
-  (`chr111`). Time Stranger spells some names differently (Goblimon, Tailmon); search for
-  a part of the name.
+The base-height rule is the default. Consider `--against <base's own .geom>` only when
+source/base height ratio is about 0.8 to 1.3 and the body looks appropriately sized beside
+the base. Record both measured heights, ratio and decision. Horns, ears, raised weapons
+or flames can dominate height; compare the body too. An optional numeric `--ground SOURCE_Y` (card `ground`) chooses a measured source
+foot-sole floor when an accessory extends below the feet. It changes translation only.
+Record the source bind/standing measurement and recheck every motion. A manual `--size K` is allowed when
+needed, but record the exact factor as a visual choice and why. A similar silhouette is
+not evidence of matching source scale.
 
-## 2. Convert it once to look
+## 2. Read and compare the full source
 
-Not into `web/` yet. Give a scratch directory, and name the parts you want to see:
+Draw the source with overlays and inspect poses from actual source motion files before
+judging the import. Compare with the card's official artwork or another official image.
+Check face marks, eyes, body colors, paired limbs, wings, armor, feet, cloth and weapons.
 
 ```bash
-tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr136.geom web 80 <scratch dir> 402 --detail 170 --preview look.png --show 0,6 --poses poses.png
+tools/.venv/Scripts/python -I tools/ts_model_read.py extracted_ts/app_0/chr136.geom --png source.png --overlays
+tools/.venv/Scripts/python -I tools/ts_anim_read.py extracted_ts/app_0/chr136_ba01.anim --geom extracted_ts/app_0/chr136.geom --frame 20 --png source-pose.png
 ```
 
-`chr136.geom` the Time Stranger model, `80` the base's model number, `402` the card's.
-Read what it prints:
+The source debug raster is not the native browser renderer. Alpha planes can appear as
+rectangles in that raster; check native RGBA transparency in the browser. The material
+shader is not fully read. A known example is Keramon: decoded native eye textures contain
+black pupils, while card artwork shows green rings; do not invent a green recolor or claim
+shader parity. Record the observed limitation and the source evidence.
 
-- `source: … triangles, … bones in use` and each `part X joins Y`: the bones that were
-  merged to come down to 30 parts, cheapest first. The percentage is how far that moves
-  the surface. Nails, collars and hair ends should go first; if a knee or an elbow goes,
-  say so in the log and look at that joint in the battle.
-- `slot N: no ba02; bs01 takes its place`: the model lacks a motion. See step 3.
-- `slot N … ends more than half a turn from the standing pose`: the way back to standing
-  will swing round. After a KO nothing follows; after an attack look at the frames where
-  the script puts the Digimon back to standing.
-- `parts: 0=J_center 1=J_leg_l …`: the bone of each part number. These are the names
-  `--part` takes.
-- `texture pieces … shrunk to 0.159 … (69% of it used)`: how much of the picture is left.
+## 3. Make a native scratch export and choose aliases
 
-`look.png` shows the base and the new model as built, front and side, with the parts of
-`--show` in plain colours (magenta, cyan, green, yellow, in that order): what body part a
-number is in the base, and where that number lies in the new model. `poses.png` shows
-every slot in six keys, the base above the new model.
+```bash
+tools/.venv/Scripts/python -I tools/ts_native_model.py extracted_ts/app_0/chr136.geom web 80 <scratch-dir> 402 --part 0=J_spine01 --part 6=J_hand_r --stats <scratch-dir>/stats.json
+```
 
-## 3. Choose what the tool cannot
+Arguments are source geometry, current web directory, disc base model number, output
+directory and new model number. `--part N=BONE`, `--motion SLOT=NAME`, `--against GEOM`
+and `--size K` repeat or work as shown in the CLI help. Read the exact figures and stats.
+Keep all drawn mesh vertices/triangles, original source bone IDs and hierarchy, inverse
+bind matrices, four normalized skin weights, source UVs and native-resolution RGBA
+material textures. Unindexed zero-weight source vertices may exist; they are retained
+but do not contribute to drawn bounds. A referenced zero-weight vertex is a fault.
 
-Each of these is a choice of this project's. Write down which you made and why.
+`parts` maps a script's logical number to an original source bone **as an effect alias**.
+It does not merge, reorder or renumber source bones. True skeleton matrices remain
+separate from aliased effect matrices. Choose anatomical aliases for all script numbers,
+including high numbers such as Paildramon's 28/29; a convenient bone number is not a
+justification. Check emitters in each attack, and log unavoidable anatomy differences.
 
-- **Part numbers.** For every number the base's scripts name, find the bone of the new
-  model that is that body part (`look.png`, the `parts:` line) and give it the number:
-  `--part 6=J_hand_r`. Left and right: the base and the new model face the same way in
-  the picture, so the hand on the same side of the picture is the same hand. Leave part 0
-  on the body (the root bone or the chest) unless the base's part 0 is something else.
-- **Size.** Without anything the model is as tall as the base. That is wrong where the
-  height is ears, horns, a raised weapon or a flame: Guilmon's ears made its body small.
-  `--against <the base's own .geom>` sizes it against the base as the two are sized in
-  Time Stranger; Guilmon is 1.24 times Agumon there and it fitted. **Look at the number
-  it prints**: the two games do not size their Digimon alike, and Coronamon comes out a
-  third of Goburimon's height. Take `--against` when it gives about 0.8 to 1.3 and looks
-  right beside the base; else keep the base's height, or give `--size K` and name K as a
-  number chosen by eye. The camera of the base's scripts was made for the base's shape:
-  a model much larger or smaller is cut by its close-ups.
-- **Motions.** A missing motion is replaced by the next of its kind, printed. If the
-  replacement makes two attacks alike or a slot wrong, name another: `--motion 3=ba02`.
-  The names a model has are its `chrNNN_<name>.anim` files; what each is for is in the
-  README, "Time Stranger motions".
-- **Figures.** `--detail 170` is Angewomon's model: 30 parts, 976 triangles, 256×128, 14
-  palette rows. That is the owner's choice for every converted model (2026-10-14);
-  `build_custom.py` uses it without being told. Give another model or single figures
-  (`--triangles 800`, the card's `detail` or `figures`) only when the owner asks, or when
-  a model cannot be made within them, and say so.
+Standard slots are 0/7 `bn01`, 1 `ba01`, 2 `ba02`, 3 `bs01`, 4 `bd01`, 5 `bd02`, 6 `bv01`.
+The exporter prints missing-motion substitutions. Inspect them; use another named source
+motion when a substitute duplicates attacks or has the wrong role. Record every change.
+Native local positions/scales and quaternions retain source precision. Bone rotations
+are rest times motion as established by the reader, and playback uses quaternion slerp.
+No Euler/SVD decomposition or inversion of a posed singular matrix is needed. Legitimate
+zero-scale animation hides geometry; do not invent an unhidden pose to conceal it.
 
-Run step 2 again with your choices until `look.png` and `poses.png` are right.
+Native affine placement must apply site translation once. If source bind vertices use
+C = S plus site shift (S is the untranslated axis/scale basis), native bone world is
+C × source bone world × inverse(S), and native inverse bind is
+S × source inverse bind × inverse(C). Using C on the inverse bind's left side double-applies
+root placement. Check a nonzero shift or ground with rotated/nonuniform and zero-scale
+bones against transformed source weighted poses and rest bounds. Zero-shift tests do not
+catch this error. A correction requires rebuilding every affected native asset and fresh
+browser QA.
 
-## 4. Write the card's entry and build
+Base key durations, camera, sounds and effect timing remain. Source poses are sampled
+over source duration at those key times. This preserves the script timeline, but does
+not prove the source strike occurs on the inherited effect moment. Source camera,
+location and effect-animation files are not automatically imported.
 
-In `tools/custom_cards.json` the card's `model` loses its `recolour` and names the model.
-Remove the recolour's rules from `"recolours"` too if nothing else uses them.
+## 4. Build the card canonically
 
 ```json
-"model": {"number": 402, "ts": "chr136", "parts": {"6": "J_hand_r"}}
+"model": {"number": 402, "ts": "chr136", "native": true, "parts": {"0": "J_spine01", "6": "J_hand_r"}}
 ```
 
-`against` (the base's `chrNNN`), `size`, `motions` (`{"3": "ba02"}`), `detail` and
-`figures` are the options of step 3; `tools/custom.py` lists them. Then:
+Optional `against`, `size` and `motions` are anatomical/timing choices. Omit reduced-only
+`detail`, `figures`, `preserve_seams` and `no_decimate` from native proposals. Remove the
+old model recolor and remove unused recolor rules when integrating. With multiple workers,
+write separate proposals/log fragments and have one owner integrate shared config/docs.
+A worker can run canonical `build_custom.main()` with a parsed configuration copy that
+replaces only its owned model entries, leaving the shared file untouched until integration.
 
 ```bash
 tools/.venv/Scripts/python -I tools/build_custom.py extracted web model 303
 ```
 
-`303` is the card: without a number the model of every custom card is built again. It prints what
-it made and the lines of step 2 that matter. `git status` must show the three files of
-the model (`web/assets/models/402.bin.gz`, `.png`, `p.png`) and `custom_cards.json`, and
-nothing else of `web/`: `cards.js` holds only the model's number, which does not change.
-Building twice gives the same bytes; a card whose Time Stranger files are not there is
-left as it is, with a line that says so.
+Native artifacts are `web/assets/models/402.bin.gz` (gzip JSON `ts-native-v1`) and
+`402-0.png`, `402-1.png`, etc. (one RGBA image per material), not a palette/index pair.
+The generated card still references the same model number. Check deterministic output
+when changing exporter code. Obsolete reduced `.png`/`p.png` artifacts can be removed
+once no current model uses them; never delete source data during import.
 
-## 5. Check it
+## 5. Verify source semantics and all browser cases
+
+Run meaningful native/parser tests for changes to that pipeline, then `battletest.js`
+and the required CLAUDE checks at the integration owner level. Avoid every worker running
+the same full suite simultaneously. Native models may exceed 32 bones and 65,535 source
+or expanded vertices. Native rendering uses expanded drawArrays and its own adaptive
+smoothing path; the historical 16-bit disc index limit is not a native source budget.
+
+Open the sheet harness on the active sheet server, e.g.
+`http://localhost:8767/sheet-qa.html?card=303` (use its actual configured port), click
+**Run model sheets**, and read each saved JPG. A batch can use `?cards=303,304`. Generate
+three attacks, damage, KO and victory in Original PS1, Enhanced and Enhanced Ultra
+(Smooth), with the base beside the new model. Each case must have saved true, shots equal
+to wanted (normally 30), errors 0 and sameTimeline true. Derive five frames over the
+case's actual motion timeline; a far-frame probe provides runs/ended checkpoints.
+
+Read every sheet and compare to full source and official art. Confirm whole connected
+anatomy, face/marks/colors, both sides when the pose is symmetric, upright facing/ground
+placement, armor/cape/feet/weapons and correct effect body parts. Inspect source motion
+keys when geometry leaves the camera, especially collapse/flight/cloth poses. Metrics
+alone do not show whether the Digimon was visible. If inherited framing clips it, use
+fixed-camera full-source pose evidence and document the precise case/frames; choose a
+suitable source substitute only when warranted, and record it. Reload after a rebuild
+because the browser caches models. Save the final reviewed pictures/results to docs/img.
+
+## 6. Record reviewable evidence
+
+Update the README, roster phase status, ticket log and checklist as authorized. Record
+canonical command/helper, full geometry/bone/material counts and texture dimensions,
+all anchor aliases with anatomy, measured size decision, eight motion sources/durations
+and substitutions, observations for each of the six sheets, and remaining limitations.
+Link reviewed JPGs/JSON and source/pose references. Do not reuse superseded reduced-mesh
+figures or claim shader/strike synchronization that was not checked.
+
+## Optional historical reduced-format workflow
+
+The TS-207 pilot and early TS-208 work used `tools/ts_model.py`. This remains available
+only when a user explicitly requests that reduced format or a separate compatibility
+experiment; it is not the current full-source task's default.
 
 ```bash
-node tools/battletest.js
+tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr136.geom web 80 <scratch-dir> 402 --detail 170 --part 6=J_hand_r --show 0,6 --preview look.png --poses poses.png
 ```
 
-It plays every card's three attacks in the three styles and checks the refined meshes of
-every model, also that the new corners of a triangle between two parts lie on its sides.
-Then the five checks of `CLAUDE.md`.
+`--detail 170` historically meant 30 parts, 976 triangles, 256 x 128 and 14 palette rows.
+`--figures` individual CLI flags/card `figures` and card `detail` choose other supported
+legacy figures. `--preserve-seams` protects source UV/material/bone wedges, eye vertices,
+connected surfaces and closed shells during reduction; examine texture stretch and the
+actual final budget. `--no-decimate` keeps legacy triangle detail but still does not imply
+full native bones, textures or weighted skin. Legacy exports are `.bin.gz`, index `.png`
+and palette `p.png`. Their 16-bit index/bone/texture limitations do not describe the
+native exporter. Lost shell components, cloth, eyes and joints must never be accepted
+because a reduced result is recognizable. Compare every body component against source.
 
-Then look at it. A converted model that passes every test can still be torn, tiny, or
-turned the wrong way. `.claude/launch.json` has the server `model-sheets` (port 8766; it
-serves `web/` of the checkout it is started in, without caching, and keeps pictures in
-`sheets/`, which git ignores). Open `http://localhost:8766/battle-preview.html`, load the
-helper and make a sheet of each case, the base beside the new card:
-
-```js
-await new Promise((ok, no) => { const s = document.createElement('script'); s.src = '/sheet.js?' + Date.now(); s.onload = ok; s.onerror = no; document.head.appendChild(s); });
-```
-
-```js
-JSON.stringify(await modelSheet({ cards: ['Goburimon', 'Coronamon'], attack: 0, frames: [30, 110, 150, 195, 230], out: 'coronamon-attack1.jpg' }))
-```
-
-| Case | Options | Frames |
-|---|---|---|
-| Attacks 1 to 3 | `attack: 0`, `1`, `2` | five over the attack's slot; its length is in `motion-slots.md`, and the motion starts at frame 2 |
-| Damage | `defend: 1` | the damage motion, from the frame the timeline gives |
-| KO | `defend: 1, ko: true` | the KO motion likewise |
-| Victory | `attack: 0, win: true` | the victory motion likewise |
-
-Call a case once with one far frame (`frames: [900]`) to get its `timeline`: the frames at
-which the card's model changes motion (`[307, 5, "runs"]`: slot 5 starts at frame 307;
-`"ended"`: its last key is reached). That call draws nothing, since the scene is over
-before frame 900. Then name five frames inside the motion. A sheet's result must have
-`sameTimeline: true` (the new model's motions start and end at the base's frames in all
-three styles), `errors: 0` and as many `shots` as `wanted`. Read every sheet
-(`sheets/<name>.jpg`) and look for:
-
-- **the Digimon itself**: put its card art or an official picture beside the sheet. The
-  face, its marks, the eyes and the colours of each body part must be that Digimon's;
-- **both sides alike**: two ears, two arms, two wings held the same way where the pose is
-  even. One that hangs, sticks out or is turned on one side only is a fault, not a pose;
-- a body that is whole in all three styles: no gaps at joints, no shards, no fans;
-- the model on the ground, upright, facing the opponent, about the base's size;
-- the script's effects at the body part they belong to;
-- the face: do the eyes and markings read?
-
-After a rebuild, load the page again before the next sheet: the page keeps models it has
-loaded.
-
-## 6. Write it down
-
-- `README.md`, "Not from the game code": the card now wears its Time Stranger model, and
-  every number you chose (a `size`, another motion, other figures) with its reason.
-- `docs/time-stranger/roster.md`: the card's Phase 2 status.
-- The ticket's log: the command, the figures it printed, the choices of step 3, what you
-  saw in each sheet, what is not right, and what you did not look at. Put the sheets the
-  log shows into `docs/time-stranger/img/`.
-- Trello: tick the Digimon on its ticket's checklist.
-
-## What is known to be not right
-
-Do not report these as new, and do not hide them:
-
-- **The strike is not on the script's moment.** The keys of a slot are spread evenly over
-  the Time Stranger motion. The base's script fires when the base would strike. When a
-  Time Stranger motion strikes was not looked for in that game's files.
-- **The scripts and the camera are the base's.** A fireball can come under a claw
-  attack's name, and a close-up made for the base can cut the new model.
-- **The colours are the texture's own.** How Time Stranger's shader lights them was not
-  read; they can look dull beside the disc's models. A recolour on top of a converted
-  model is not built.
-- **Bones merged into one part move as one piece.**
-
-## Traps
-
-- **A model that looks like a creature is not yet the Digimon.** Two faults of the readers
-  passed three tickets of pictures because nobody held the result against the real
-  Guilmon, and the owner found both at first sight:
-  - the texture was read upside down (`ts_model_read.py` took v from the top row; it
-    counts from the bottom). A texture is mostly one colour, so the model still looked
-    painted: a white snout instead of a red face with its mark, no mark on the belly,
-    narrowed eyes;
-  - a motion's rotation was taken for the bone's whole rotation (`ts_anim_read.py`); it
-    is made after the bone's rest rotation. Only bones with a rest rotation show it:
-    Guilmon's right ear hung down in every motion. 28 of the 45 roster models have such
-    bones, often arms, hands, wings and hair.
-
-  Both are corrected. What they teach: when a face, a mark, an eye or one limb is off,
-  suspect the reading of the other game's files before the converter, and draw the source
-  model alone to see which it is: `ts_model_read.py <geom> --png look.png --overlays` for
-  the paint, `ts_anim_read.py <anim> --png pose.png --geom <geom> --frame N` for a pose.
-  What is known and not known about those files is in the README, "Time Stranger models"
-  and "Time Stranger motions"; add to it what you find, with how you checked it.
-
-- **Do not give a triangle whole to one part** to match the disc's models. That was the
-  first try (TS-205): every joint tore open as soon as a motion played. The converted
-  models have triangles between parts on purpose, and `refine` in `web/js/battlehd.js`
-  knows about them. A change there must leave every other model's mesh as it was;
-  `battletest.js` checks the converted ones.
-- **A fan or a shard in Enhanced or Smooth only** is a triangle that reaches between far
-  parts: its refined corners go with one end. The thinning refuses to join bones that no
-  edge of the model joins; if you see one all the same, find the triangle before touching
-  the refining.
-- **The browser keeps old files.** Use the `model-sheets` server, not a plain one, and
-  load the page again after every build.
-- **A number in `--against`'s line far from 1** means the two games size those Digimon
-  differently. Do not ship a model a third of its base's size because a rule said so.
-- **`python -I` and the script's own directory.** The tools add their directory to the
-  path themselves; a helper script of yours that imports them has to do the same.
-- **A long shell here-document with quotes in it fails on this machine.** Write a script
-  to a file and run that.
-- **The Time Stranger files are never committed**, the converted model's three files are.
-- **Smooth must fit 16-bit indices**: no more triangles than the most a disc model has
-  (1,246). The tool refuses more.
+Historical traps still matter: UV v counts from the bottom; rigid `POSITION.w` selects
+a bone palette index; motion rotations are made after rest rotations; giving an entire
+triangle to one bone tears weighted joints. Native skin must compose posed full bone
+world with source inverse bind and weight positions/normals at each vertex, not invert a
+posed matrix. Test nonuniform parent scale/rotation and zero scale with reference affine
+math when changing this. Keep source reading and model rendering faults distinct.

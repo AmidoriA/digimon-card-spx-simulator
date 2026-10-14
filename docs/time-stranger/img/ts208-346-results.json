@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-346-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MetalGarurumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      69,
+      136,
+      203,
+      270
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-346-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MetalGarurumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          258,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      66,
+      130,
+      194,
+      258
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-346-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MetalGarurumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          270,
+          3,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          270,
+          3,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          270,
+          3,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          270,
+          3,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          270,
+          3,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          270,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      69,
+      136,
+      203,
+      270
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-346-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MetalGarurumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      336,
+      365,
+      394,
+      423
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-346-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MetalGarurumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "MetalGarurumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ],
+      "Chirinmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          539,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      365,
+      423,
+      481,
+      539
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-346-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "MetalGarurumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          284,
+          0,
+          "runs"
+        ],
+        [
+          542,
+          6,
+          "runs"
+        ]
+      ],
+      "Chirinmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          284,
+          0,
+          "runs"
+        ],
+        [
+          542,
+          6,
+          "runs"
+        ]
+      ],
+      "MetalGarurumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          284,
+          0,
+          "runs"
+        ],
+        [
+          542,
+          6,
+          "runs"
+        ]
+      ],
+      "Chirinmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          284,
+          0,
+          "runs"
+        ],
+        [
+          542,
+          6,
+          "runs"
+        ]
+      ],
+      "MetalGarurumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          284,
+          0,
+          "runs"
+        ],
+        [
+          542,
+          6,
+          "runs"
+        ]
+      ],
+      "Chirinmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          270,
+          1,
+          "ended"
+        ],
+        [
+          284,
+          0,
+          "runs"
+        ],
+        [
+          542,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      542,
+      587,
+      632,
+      677,
+      722
+    ]
+  }
+]
