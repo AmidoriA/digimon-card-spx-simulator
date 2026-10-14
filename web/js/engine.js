@@ -460,6 +460,13 @@
       case 0x33: S.b.eatup = true; emit(G, ev, { t: 'flag', p: s, flag: 'eatup' }); break;
       case 0x34: S.b.counter = true; O.b.counter = false; emit(G, ev, { t: 'flag', p: s, flag: 'counter' }); break;
       case 0x35: S.b.first = true; emit(G, ev, { t: 'flag', p: s, flag: 'first' }); break;
+      case 0x36: // Project effect: one shared random Specialty for both active Digimon.
+        k = Math.floor(G.rng() * SPEC.length);
+        if (S.active) S.active.spec = k;
+        if (O.active) O.active.spec = k;
+        emit(G, ev, { t: 'spec', p: s });
+        emit(G, ev, { t: 'spec', p: o });
+        break;
     }
   }
 

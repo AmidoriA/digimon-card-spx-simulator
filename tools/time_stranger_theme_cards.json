@@ -8,7 +8,8 @@
     "Counter x attacks have zero base power. IDs321 (Terriermon),324 (Gargomon),327 (Rapidmon) change only their cross base power to0; all other stats stay unchanged.",
     "Custom effect variable0x50 returns own currently selected Attack Power; it is a project extension, not a disc variable.",
     "Evolution help in Dragomon supports means drawing/recycling stages and Options, not evolving during Battle Phase. Evolution Options are independently required in all decks.",
-    "The old requirement that every cross effect differ from its donor is superseded by the requested deck themes."
+    "The old requirement that every cross effect differ from its donor is superseded by the requested deck themes.",
+    "Owner balance correction: custom operation 0x36 uses one seeded uniform roll over all five Specialties and applies the same result to both active Digimon; Renamon and Taomon use it instead of forcing the enemy to Darkness."
   ],
   "cards": [
     {
@@ -1403,14 +1404,14 @@
         "conds": [],
         "acts": [
           {
-            "op": 1,
+            "op": 54,
             "v": [
               0,
               0,
               0
             ],
             "i": [
-              3,
+              0,
               0,
               0
             ],
@@ -1433,23 +1434,25 @@
             "m2": 0
           }
         ],
-        "text": "Change opponent's Specialty to Darkness and draw 1 Card."
+        "text": "Change both Digimon to the same random Specialty and draw 1 Card."
       },
       "expect": {
         "pass": {
           "patch": {
-            "foeSpec": 0
+            "foeSpec": 0,
+            "rngValue": 0.4
           },
           "result": {
-            "foeSpec": 3,
+            "foeSpec": 2,
             "hand": 1,
-            "deck": 25
+            "deck": 25,
+            "spec": 2
           }
         },
         "fail": [],
         "allSpecialties": true
       },
-      "design": "Taomon theme; all changes are project-authored tuning."
+      "design": "Owner balance correction: a single uniform roll gives both active Digimon the same random Specialty, including the possibility of their current Specialty. Color disruption affects both sides."
     },
     {
       "id": 321,
@@ -1765,14 +1768,14 @@
         "conds": [],
         "acts": [
           {
-            "op": 1,
+            "op": 54,
             "v": [
               0,
               0,
               0
             ],
             "i": [
-              3,
+              0,
               0,
               0
             ],
@@ -1810,28 +1813,30 @@
             "m2": 1
           }
         ],
-        "text": "Change opponent's Specialty to Darkness, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100."
+        "text": "Change both Digimon to the same random Specialty, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100."
       },
       "expect": {
         "pass": {
           "patch": {
-            "foeSpec": 0
+            "foeSpec": 0,
+            "rngValue": 0.4
           },
           "result": {
-            "foeSpec": 3,
+            "foeSpec": 2,
             "foeDp": 0,
             "foeOffline": 5,
             "atk": [
               300,
               200,
               100
-            ]
+            ],
+            "spec": 2
           }
         },
         "fail": [],
         "allSpecialties": true
       },
-      "design": "Taomon theme; all changes are project-authored tuning."
+      "design": "Owner balance correction: a single uniform roll gives both active Digimon the same random Specialty, including the possibility of their current Specialty. Color disruption affects both sides."
     },
     {
       "id": 327,

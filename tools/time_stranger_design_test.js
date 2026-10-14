@@ -18,6 +18,7 @@ function fixture(id,patch={},activeId=NEUTRAL){
   if(patch.noSupport)P.hand=[];else assert(E.setSupport(G,0,0));
   if(patch.foeSupport!=null){O.hand=[patch.foeSupport];assert(E.setSupport(G,1,0));}
   if(patch.first!=null)G.tp=patch.first;
+  if(patch.rngValue!=null)G.rng=()=>patch.rngValue;
   return G;
 }
 function resolve(G,patch={}){const events=E.resolveBattle(G,[patch.choice??0,patch.foeChoice??0],[]),order=events.find(e=>e.t==='order');assert(order);return {G,events,order,support:events.find(e=>e.t==='support'&&e.p===0)};}
@@ -93,16 +94,35 @@ function verify(){
   const protectedCircle=setup(324,{choice:2},327);assert.strictEqual(protectedCircle.order.s[1].atk[0],0);scenarios++;
   for(const row of design.cards.filter(r=>r.expect.pass.result?.flag==='eatup')){const r=setup(row.id,row.expect.pass.patch);const strike=r.events.find(e=>e.t==='attack'&&e.p===0);assert.strictEqual(strike.heal,strike.dmg,row.name+': actual eat-up healing');assert(strike.heal>0);scenarios++;}
   for(const id of [333,336])for(const target of ['Agumon','Attack Chip']){const r=setup(id,{foeSupport:byName(target)}),effect=r.events.find(e=>e.t==='support'&&e.p===1);assert.strictEqual(!!effect.voided,target==='Agumon');scenarios++;}
-  for(const id of [320,326]){const r=setup(id,{foeSpec:0});E.endTurn(r.G);assert.strictEqual(r.G.players[1].active.spec,3,'changed enemy Specialty persists after battle');scenarios++;}
+  for(const id of [320,326])for(let spec=0;spec<5;spec++){
+    const G=fixture(id,{spec:(spec+1)%5,foeSpec:(spec+2)%5});let rolls=0;
+    G.rng=()=>{rolls++;return (spec+0.5)/5;};
+    const r=resolve(G);assert(r.support.ok);assert.strictEqual(rolls,1,'shared color uses exactly one random roll');
+    assert.deepStrictEqual(r.order.s.map(p=>p.spec),[spec,spec],'both active Digimon receive the same sampled Specialty');
+    assert.strictEqual(r.events.filter(e=>e.t==='spec').length,2,'both color changes produce board events');
+    E.endTurn(G);assert.deepStrictEqual(G.players.map(p=>p.active.spec),[spec,spec],'both changed Specialties persist after battle');scenarios++;
+  }
+  for(const id of [320,326]){
+    const seen=new Set();
+    for(let seed=1;seed<=40;seed++){
+      const colors=[];
+      for(let replay=0;replay<2;replay++){
+        const G=fixture(id);G.rng=E.makeRng(Math.imul(seed,0x9e3779b1)>>>0);const r=resolve(G);
+        assert.strictEqual(r.order.s[0].spec,r.order.s[1].spec);colors.push(r.order.s[0].spec);
+      }
+      assert.strictEqual(colors[0],colors[1],'seeded shared Specialty replays identically');seen.add(colors[0]);
+    }
+    assert.deepStrictEqual([...seen].sort(),[0,1,2,3,4],'seeded rolls reach all five Specialties');scenarios++;
+  }
   // Disruption must affect an actual future evolution, not just a printed battle
   // snapshot. Enemy starts with a legal Fire R→C and two real +20 DP cards.
   for(const id of [320,323,326]){
-    const G=fixture(id),O=G.players[1],rookie=byName('Agumon'),champion=byName('Greymon'),special=byName('Special Digivolve');
+    const G=fixture(id,{rngValue:0.4}),O=G.players[1],rookie=byName('Agumon'),champion=byName('Greymon'),special=byName('Special Digivolve');
     O.active={stack:[rookie],armor:-1,hp:2000,spec:0,base:[100,0,0],abn:0};O.hand=[champion,special];O.dp=[NATURE,NATURE];
     assert(E.evoLegal(O,champion,-1),'normal evolution initially legal');resolve(G);E.endTurn(G);
     assert(!E.evoLegal(O,champion,-1),'theme support disrupts prepared normal evolution');
     if(id===323){assert.strictEqual(O.active.spec,0);assert.strictEqual(O.dp.length,1);O.dp.push(NATURE);assert(E.evoLegal(O,champion,-1),'restoring DP permits normal evolution');}
-    else {assert.strictEqual(O.active.spec,3,'enemy Specialty stays changed');if(id===326){assert.strictEqual(O.dp.length,0);assert(!E.evoLegal(O,champion,special),'DP mill also denies an underfunded Special');O.dp=[NATURE,NATURE];}assert(E.evoLegal(O,champion,special),'Special can recover from changed Specialty with enough DP');G.tp=1;assert(E.digivolve(G,1,{kind:'option',target:0,opt:1}));assert.strictEqual(O.active.spec,0,'successful evolution resets Specialty to new card');}
+    else {assert.strictEqual(O.active.spec,2,'enemy retains the sampled Nature Specialty');assert.strictEqual(G.players[0].active.spec,2,'the user also takes the sampled Specialty');if(id===326){assert.strictEqual(O.dp.length,0);assert(!E.evoLegal(O,champion,special),'DP mill also denies an underfunded Special');O.dp=[NATURE,NATURE];}assert(E.evoLegal(O,champion,special),'Special can recover from changed Specialty with enough DP');G.tp=1;assert(E.digivolve(G,1,{kind:'option',target:0,opt:1}));assert.strictEqual(O.active.spec,0,'successful evolution resets Specialty to new card');}
     scenarios++;
   }
   assert.strictEqual(E.card(303).atk[0].name,'Corona\uff70Knuckles');assert.strictEqual(E.card(335).atk[0].name,'Giga Destroyer\u2161');assert.strictEqual(E.card(341).atk[2].name,'Great Strike\u2161');

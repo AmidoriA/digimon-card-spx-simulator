@@ -141,7 +141,8 @@ Owner/portrait: **Dragomon**, card #319. Base provenance:
 
 ## Taomon — Divine Fox Again
 
-Change the enemy Specialty and discard enemy DP to disrupt evolution. Rare partners add DP removal, draw and milling.
+Give both active Digimon one shared random Specialty, risking evolution disruption for
+both sides. Taomon still discards enemy DP. Rare partners add DP removal, draw and milling.
 
 - **Rookie:** Renamon ×4; Armadillomon ×3; ClearAgumon ×2.
 - **Champion:** Kyubimon ×3; Numemon ×3.

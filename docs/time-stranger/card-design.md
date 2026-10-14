@@ -209,7 +209,7 @@ Pure Ice. Draw and recycle stages or evolution Options to support fast evolution
 
 ## Taomon
 
-Nature with Rare partners. Change the enemy Specialty to Darkness and discard cards from its DP Slot, disrupting normal same-Specialty evolution. Taomon cross attacks gain Darkness Foe x3.
+Nature with Rare partners. Renamon and Taomon give both active Digimon one shared random Specialty, so color disruption is a risk for both players. Taomon also discards enemy DP. Its Darkness Foe x3 is now a conditional opportunity, not a guaranteed color-setting combo.
 
 | Id | Card / level | HP | DP | +P | ○ / △ / ✕ | ✕ effect |
 |---|---|---:|---:|---:|---|---|
@@ -219,7 +219,7 @@ Nature with Rare partners. Change the enemy Specialty to Darkness and discard ca
 
 ### Renamon (320)
 
-**Support:** Change opponent's Specialty to Darkness and draw 1 Card.
+**Support:** Change both Digimon to the same random Specialty and draw 1 Card.
 
 **Retained species summary:** Calm techniques prioritize speed over power; Kohenkyo copies appearance and overwrites texture. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=renamon).
 
@@ -231,7 +231,7 @@ Nature with Rare partners. Change the enemy Specialty to Darkness and discard ca
 
 ### Taomon (326)
 
-**Support:** Change opponent's Specialty to Darkness, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100.
+**Support:** Change both Digimon to the same random Specialty, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100.
 
 **Retained species summary:** A quiet Taoist specializing in charms, curses, talismans and hidden implements. [Official Reference Book](https://digimon.net/reference_en/detail.php?directory_name=taomon).
 
@@ -473,6 +473,14 @@ The original game's variables end at 0x1c; this is explicitly a custom variable,
 new original-game discovery. GrapLeomon-line conditions use 0x50 == 0 and therefore work
 for every attack slot, including a power reduced to zero by an earlier effect. Existing
 counter timing and cross-effect resolution remain unchanged.
+
+**Project operation 0x36 — owner balance correction:** Renamon and Taomon use exactly
+one draw from the match's seeded RNG to select uniformly among all five Specialties.
+Both active Digimon receive that same result, with a separate board event for each.
+Current colors may be rolled again. This explicitly custom operation replaces the
+one-sided forced Darkness conversion; it is not a discovered original-game operation.
+Kyubimon's DP removal remains unchanged. Taomon's Darkness Foe x3 now depends on the
+actual resulting enemy color instead of an automatic Darkness setup.
 
 Behavioral verification covers all 45 supports, every ordinary own Specialty, all four
 allowed Wingdramon active Specialties plus its Rare rejection, failing gates and exact

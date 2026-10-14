@@ -2471,14 +2471,14 @@
     "conds": [],
     "acts": [
      {
-      "op": 1,
+      "op": 54,
       "v": [
        0,
        0,
        0
       ],
       "i": [
-       3,
+       0,
        0,
        0
       ],
@@ -2501,7 +2501,7 @@
       "m2": 0
      }
     ],
-    "text": "Change opponent's Specialty to Darkness and draw 1 Card."
+    "text": "Change both Digimon to the same random Specialty and draw 1 Card."
    },
    "model": {
     "number": 419,
@@ -2964,14 +2964,14 @@
     "conds": [],
     "acts": [
      {
-      "op": 1,
+      "op": 54,
       "v": [
        0,
        0,
        0
       ],
       "i": [
-       3,
+       0,
        0,
        0
       ],
@@ -3009,7 +3009,7 @@
       "m2": 1
      }
     ],
-    "text": "Change opponent's Specialty to Darkness, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100."
+    "text": "Change both Digimon to the same random Specialty, discard 2 Cards from opponent's DP Slot and lower own Attack Power -100."
    },
    "model": {
     "number": 425,

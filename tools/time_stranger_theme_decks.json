@@ -784,7 +784,7 @@
         "Nature",
         "Rare"
       ],
-      "theme": "Change the enemy Specialty and discard enemy DP to disrupt evolution. Rare partners add DP removal, draw and milling.",
+      "theme": "Randomize both active Digimon to one shared Specialty, disrupting evolution on both sides, while discarding enemy DP and milling.",
       "counts": {
         "Renamon": 4,
         "Armadillomon": 3,

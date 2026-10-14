@@ -81,3 +81,27 @@ Using the running local preview with fresh scripts and service workers blocked:
   that ignored folder is not part of the published repository.
 
 The test server continues to serve the revised branch at `http://127.0.0.1:8765/`.
+
+## Taomon random-color balance correction — 2026-10-14
+
+The owner's follow-up supersedes the forced enemy-Darkness support effects. Renamon
+and Taomon now change **both active Digimon to the same random Specialty**, using one
+uniform seeded roll among all five colors. A current color can be rolled again. Color
+changes persist until evolution/replacement, so the evolution risk is shared. Their
+other draw/DP-discard/attack effects remain; Kyubimon and the deck list are unchanged.
+Custom engine operation 0x36 implements the shared roll and emits both board changes.
+
+Validation: 32 selftests containing **363 effect scenarios**, 11 deck checks, 31 board
+effect scripts, asset paths, 360 directed matches and 200 standard matches pass.
+Both match suites have zero timeouts; this standard run needed zero stalemate
+explorations. Directed results: 3,376 battles, 913 evolutions, maximum 71 turns, with
+every featured Ultimate evolving naturally. Tests cover all five outcomes, exactly
+one roll per activation, identical seeded replays, both persistent colors, and actual
+future evolution behavior. Original disc cards/decks and BlackWarGreymon remain intact.
+
+The running browser preview shows all three Taomon-line cards in both art modes
+(six card previews). Renamon and Taomon were played through normal board playback in
+explicitly prepared positions with a controlled Fire roll: both Nature Digimon became
+Fire, and Taomon still removed enemy DP. No page errors or missing assets. The Taomon
+playback screenshot was inspected. Local artifacts: `sheets/ts-phase3/taomon/`.
+The earlier fixed-Darkness evidence in this document is historical.

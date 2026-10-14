@@ -305,8 +305,11 @@ restrictions are removed from the 45 new cards. The Wingdramon group deliberatel
 offers powerful cross-Specialty support when the active Digimon is not Rare.
 GrapLeomon's group rewards a selected attack whose power is zero; project effect
 variable **0x50** reads that attack after earlier supports. This is a custom interpreter
-variable, not a value recovered from the disc. All other effect operations and cross
-effect types already exist. Terriermon, Gargomon and Rapidmon now have zero-power
+variable, not a value recovered from the disc. Renamon and Taomon now use project
+operation **0x36** to give both active Digimon one shared random Specialty, chosen
+uniformly from all five colors, instead of forcing only the enemy to Darkness.
+The roll can keep a current color; both changes persist until evolution or replacement.
+Other effect operations and cross types already exist. Terriermon, Gargomon and Rapidmon have zero-power
 Triangle Counter cross attacks. No visual assets or attack animations are rebuilt.
 
 `node tools/time_stranger_design_test.js` checks effect outcomes, costs and failed gates.
@@ -763,6 +766,8 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   supplies the displayed owner and portrait. Most new supports work on any active
   Specialty; the Wingdramon group intentionally rewards a different active Specialty.
   GrapLeomon's zero-selected-power check uses the project's interpreter variable 0x50.
+  Renamon and Taomon's shared random-color operation 0x36 is also project-authored,
+  explicitly requested to replace the one-sided Darkness conversion.
   Details and existing official lore sources are in
   [card-design.md](docs/time-stranger/card-design.md) and [decks.md](docs/time-stranger/decks.md).
   Original disc cards/decks, BlackWarGreymon, pictures and models retain their data.
