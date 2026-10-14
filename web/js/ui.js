@@ -658,9 +658,19 @@
   }
 
   // ------------------------------------------------------------------ render
+  var preloadKey = '';
+  function preloadBattle() {
+    if (!S.G || !B3D.enabled) { preloadKey = ''; return; }
+    var cards = S.G.players.map(function (p) { return E.top(p); });
+    var key = cards.map(function (c) { return c ? c.id : -1; }).join(',') + '/' + (S.arena ? S.arena.file : '');
+    if (key === preloadKey) return;
+    preloadKey = key;
+    B3D.preload(cards, S.arena);
+  }
   function render() {
     var G = S.G;
     if (!G) return;
+    preloadBattle();
     var dyn = clear($('dyn')), A = S.anim, tp = A ? A.tp : G.tp;
     $('turnNo').textContent = G.turn;
     var can = handActions();
@@ -1444,6 +1454,8 @@
   $('anim3d').checked = B3D.enabled;
   $('anim3d').onchange = function () {
     B3D.enabled = $('anim3d').checked;
+    preloadKey = ''; preloadBattle();
+    if (!B3D.enabled) B3D.stop();
     try { localStorage.setItem('ddcb-anim3d', B3D.enabled ? '1' : '0'); } catch (err) { /* ignore */ }
   };
   // new or legacy card art, from the start screen or during a match: the cards on the board

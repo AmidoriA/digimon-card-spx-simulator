@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Attack preview · Digital Card Battle</title>
-<link rel="stylesheet" href="css/style.css?v=battle-hd-7">
+<link rel="stylesheet" href="css/style.css?v=asset-loading-1">
 <link rel="stylesheet" href="css/battle-graphics.css?v=battle-options-2">
 <style>
   .showcase { max-width: 1080px; margin: 32px auto; padding: 0 20px; }
@@ -45,6 +45,10 @@
     <div class="preview-empty">Choose any Digimon.<br>Its original moves, with a new level of detail.</div>
     <canvas id="b3d" class="b3d" width="1280" height="960" hidden></canvas>
     <canvas id="b3dui" class="b3d b3dui" width="1280" height="960" hidden></canvas>
+    <div id="assetLoading" class="asset-loading" role="status" aria-live="polite" hidden>
+      <div class="loading-cards" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p>Loading battle…</p>
+    </div>
   </div>
 </main>
 <script src="js/data/cards.js"></script>
@@ -52,7 +56,7 @@
 <script src="js/effects.js"></script>
 <script src="js/battlehd.js?v=battle-options-2"></script>
 <script src="js/battleultra.js?v=battle-options-2"></script>
-<script src="js/battle3d.js?v=battle-options-2"></script>
+<script src="js/battle3d.js?v=asset-loading-1"></script>
 <script src="js/battlegraphics.js?v=battle-options-2"></script>
 <script src="js/battle-preview.js?v=battle-options-3"></script>
 </body>

@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0a1018">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.css?v=mobile-attacks-1">
+<link rel="stylesheet" href="css/style.css?v=asset-loading-1">
 <link rel="stylesheet" href="css/battle-graphics.css?v=battle-options-2">
 </head>
 <body>
@@ -181,6 +181,10 @@
           <div class="askrow"><button id="askYes" class="gbtn">Yes</button><button id="askNo" class="gbtn">No</button></div>
         </div>
       </div>
+      <div id="assetLoading" class="asset-loading" role="status" aria-live="polite" hidden>
+        <div class="loading-cards" aria-hidden="true"><span></span><span></span><span></span></div>
+        <p>Loading battle…</p>
+      </div>
     </div>
 
     <section id="attackPicker" class="attack-picker panel" aria-labelledby="attackPickerTitle" hidden></section>
@@ -300,10 +304,10 @@
 <script src="js/effects.js"></script>
 <script src="js/battlehd.js?v=battle-options-2"></script>
 <script src="js/battleultra.js?v=battle-options-2"></script>
-<script src="js/battle3d.js?v=battle-options-2"></script>
+<script src="js/battle3d.js?v=asset-loading-1"></script>
 <script src="js/battlegraphics.js?v=battle-options-2"></script>
 <script src="js/decks.js"></script>
-<script src="js/ui.js?v=mobile-attacks-1"></script>
+<script src="js/ui.js?v=asset-loading-1"></script>
 <script src="js/editor.js"></script>
 <script>if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));</script>
 </body>
