@@ -22,7 +22,7 @@ Leave the Time Stranger model work repeatable and say plainly what is not from t
 
 ## Acceptance criteria
 
-- [ ] A new agent can convert one more Digimon by following the skill alone. (Not shown yet: its author ran every command of it, on Guilmon and on Coronamon; TS-208a is the first use by someone else.)
+- [x] A new agent can convert one more Digimon by following the skill alone. (Independently demonstrated on Coronamon in TS-208a, 2026-10-14.)
 - [x] README updated.
 
 ## Out of scope
@@ -75,3 +75,26 @@ motions on the base's keys, camera and sound the base's).
 
 **Checks** after the tool changes: Guilmon's three files build to the same bytes as in
 TS-207; the checks of `CLAUDE.md` and `battletest.js` pass.
+
+### 2026-10-14 — independent use in TS-208a
+
+A different agent followed the skill alone for Coronamon, card 303 / model 402:
+looked up chr136 and Goburimon's model 80, made the part/pose previews, assigned
+part 6 to J_hand_r, retained the base height (the documented 0.32 source ratio
+would be too small), removed only its model recolour and built with build_custom.py.
+The result has 30 parts, 1,041 vertices, 976 triangles, a 256×128 atlas and 14
+palette rows. No motion replacement was needed.
+
+The six contact sheets (three attacks, damage, KO and victory), each with the
+base alongside in Original PS1, Enhanced and Enhanced Ultra/Smooth, were read.
+Each saved 30/30 frames, with sameTimeline true and zero page errors. The face,
+forehead ring, chest tuft, orange body, claws and flame tail were compared with
+the prepared official EX5-007 artwork. No torn joints or asymmetric standing
+limbs were seen. Borrowed close-ups clip the jumping attack/victory, as the skill
+already warns; source flame pieces remain polygonal at this detail budget.
+
+The full battletest passed for 237 Digimon / 711 attacks in three styles.
+selftest (31), decktest (11), sim (200 matches, no timeouts), fxtest (31 scripts)
+and check_paths passed. The independent conversion and its images are recorded
+in TS-208a's log. This closes this ticket's remaining acceptance criterion;
+it does not change the feature's main merge gate.
