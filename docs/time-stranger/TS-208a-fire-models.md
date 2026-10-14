@@ -19,7 +19,7 @@ Convert the nine Fire Digimon to their model numbers: Guilmon (401), Coronamon (
 - Guilmon (card 302, model 401) is the worked example: [TS-207](TS-207-pilot-guilmon.md).
 - [roster.md](roster.md): each card's base and Time Stranger model.
   [motion-slots.md](motion-slots.md): the body parts each base's scripts name.
-- Guilmon (401) was converted in TS-207; eight are left here. If the owner changes Guilmon's look in TS-207, build it again with the others.
+- Guilmon (401) was converted in TS-207 and the owner approved it (2026-10-14); eight are left here.
 
 ## Steps
 

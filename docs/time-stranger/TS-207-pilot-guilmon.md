@@ -23,9 +23,9 @@ Settle the look on one card with the owner before converting the other 44.
 
 ## Acceptance criteria
 
-- [ ] The owner approves the result.
+- [x] The owner approves the result. (2026-10-14, after the two corrections in the log.)
 - [x] All checks of CLAUDE.md and `battletest.js` pass.
-- [x] roster.md Phase 2 status for Guilmon is done. (Noted there as converted and waiting for the owner's word.)
+- [x] roster.md Phase 2 status for Guilmon is done.
 
 ## Out of scope
 
@@ -173,3 +173,16 @@ TS-206's log were made with the old reading.
   its numbers, as in TS-206.
 - Not looked at: a whole match on the board with Guilmon, the sounds, and the model at the
   site's real speed (everything was stepped).
+
+### 2026-10-14, approved
+
+**The owner: 207 looks right in everything now.** That was said of Guilmon as built in
+commit 448c399, with the paint and the ear corrected. The look is settled, and with it
+what the other 44 models are converted with: Angewomon's figures, skin between the parts,
+the texture laid out by its pieces, the size rules and the motions on the base's keys
+(the skill `import-ts-model`).
+
+The points listed above as not right stay as they are and are what the owner looked at:
+the strike is not laid on the script's moment, the scripts and the camera are the base's,
+and the colours are the texture's own. A whole match on the board, the sounds and the
+site's real speed were not looked at by the one who built it.
