@@ -142,9 +142,12 @@
   function ownerPic(d, second) {
     var el = h('span', 'op'), img,
       name = own(d) || d.owner === 'Player' ? (second ? 'player2' : 'player') : d.pic != null ? pad3(d.pic) : null;
-    if (name == null) { el.classList.add('none'); return el; }
+    // Owner request: TS decks use their featured Ultimate's prepared card illustration.
+    var cardPortrait = !own(d) && d.owner !== 'Player' && d.ownerCard != null;
+    if (name == null && !cardPortrait) { el.classList.add('none'); return el; }
     img = document.createElement('img');
-    img.src = 'assets/owner/' + name + '.webp'; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+    img.src = cardPortrait ? artUrl(d.ownerCard, false) : 'assets/owner/' + name + '.webp';
+    img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
     el.appendChild(img);
     return el;
   }

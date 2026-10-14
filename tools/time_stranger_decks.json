@@ -108,7 +108,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 7 exact R/C copies, 25 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 7 exact R/C copies, 25 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "WarGrowlmon",
+      "ownerCard": 308
     },
     {
       "ticket": "TS-302",
@@ -254,7 +256,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Skip #158 Practice: Player owner is excluded from opponent list (ui.js OP_DECKS), so it cannot meet TS-302 opponent/match acceptance. Next candidate #42 ranks 3 exact R/C copies and 20 Fire Digimon copies; Birdramon supplies missing Centarumon."
+      "reason": "Skip #158 Practice: Player owner is excluded from opponent list (ui.js OP_DECKS), so it cannot meet TS-302 opponent/match acceptance. Next candidate #42 ranks 3 exact R/C copies and 20 Fire Digimon copies; Birdramon supplies missing Centarumon.",
+      "owner": "Flaremon",
+      "ownerCard": 309
     },
     {
       "ticket": "TS-302",
@@ -351,7 +355,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 2 exact R/C copies, 21 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 2 exact R/C copies, 21 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "SaviorHuckmon",
+      "ownerCard": 310
     },
     {
       "ticket": "TS-303",
@@ -484,7 +490,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 8 exact R/C copies, 22 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 8 exact R/C copies, 22 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "MachGaogamon",
+      "ownerCard": 317
     },
     {
       "ticket": "TS-303",
@@ -846,7 +854,9 @@
           "skipReason": "missing Rookie or Champion level"
         }
       ],
-      "reason": "Ultimate roster donor appears in no original deck; rank same-Specialty Ultimate alternatives. Rank 3 exact R/C copies, 22 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Ultimate roster donor appears in no original deck; rank same-Specialty Ultimate alternatives. Rank 3 exact R/C copies, 22 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Crescemon",
+      "ownerCard": 318
     },
     {
       "ticket": "TS-303",
@@ -1003,7 +1013,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 4 exact R/C copies, 27 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 4 exact R/C copies, 27 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Dragomon",
+      "ownerCard": 319
     },
     {
       "ticket": "TS-304",
@@ -1124,7 +1136,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 4 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 4 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Taomon",
+      "ownerCard": 326
     },
     {
       "ticket": "TS-304",
@@ -1281,7 +1295,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 3 exact R/C copies, 17 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 3 exact R/C copies, 17 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Rapidmon",
+      "ownerCard": 327
     },
     {
       "ticket": "TS-304",
@@ -1426,7 +1442,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 8 exact R/C copies, 30 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 8 exact R/C copies, 30 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Lilamon",
+      "ownerCard": 328
     },
     {
       "ticket": "TS-305",
@@ -1511,7 +1529,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 0 exact R/C copies, 0 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 0 exact R/C copies, 0 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "MetalTyrannomon",
+      "ownerCard": 335
     },
     {
       "ticket": "TS-305",
@@ -1584,7 +1604,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 0 exact R/C copies, 13 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 0 exact R/C copies, 13 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Cyberdramon",
+      "ownerCard": 336
     },
     {
       "ticket": "TS-305",
@@ -1694,7 +1716,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Skip higher candidate lacking a Rookie or Champion level. Rank 4 exact R/C copies, 21 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Skip higher candidate lacking a Rookie or Champion level. Rank 4 exact R/C copies, 21 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Matadormon",
+      "ownerCard": 337
     },
     {
       "ticket": "TS-306",
@@ -1779,7 +1803,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 0 exact R/C copies, 0 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 0 exact R/C copies, 0 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Wingdramon",
+      "ownerCard": 344
     },
     {
       "ticket": "TS-306",
@@ -1852,7 +1878,9 @@
           "opponentEligible": true
         }
       ],
-      "reason": "Rank 3 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Rank 3 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "GrapLeomon",
+      "ownerCard": 345
     },
     {
       "ticket": "TS-306",
@@ -2142,7 +2170,9 @@
           "skipReason": "missing Rookie or Champion level"
         }
       ],
-      "reason": "Ultimate roster donor appears in no original deck; rank same-Specialty Ultimate alternatives. Rank 5 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID."
+      "reason": "Ultimate roster donor appears in no original deck; rank same-Specialty Ultimate alternatives. Rank 5 exact R/C copies, 20 target-Specialty Digimon copies, then lowest deck ID.",
+      "owner": "Chirinmon",
+      "ownerCard": 346
     }
   ]
 }

@@ -261,33 +261,38 @@ script they were made from plus 10000 for the first custom card, 20000 for the s
 The deck editor offers them like any other card; no deck of the game holds one.
 
 A **custom deck** is a deck of the game with some of its cards exchanged; the list names it
-with its base and the exchange. It follows the game's 159 decks and keeps its base's owner,
-rank, armor form and music. The first is **Black Fire Again**, BK WarGreymon's second
+with its base and the exchange. It follows the game's 159 decks and keeps its base's
+rank, armor form and music; its owner defaults to the base's unless explicitly chosen.
+The first is **Black Fire Again**, BK WarGreymon's second
 deck, which is his Black Fire Heart with its four WarGreymon exchanged for four
 BlackWarGreymon. Black Fire Heart itself is as the game has it.
 
 Time Stranger adds one themed deck per new Ultimate, using the original gameplay
 designs from TS-106. The deck groups are project themes; they do not claim canonical
 evolution chains. The exact exchanges, ranked bases and disc-data exceptions are in
-[decks.md](docs/time-stranger/decks.md).
+[decks.md](docs/time-stranger/decks.md). At the owner’s request (2026-10-14), each
+Time Stranger deck is owned by its featured Ultimate and uses that card’s existing
+prepared illustration as its portrait in both deck selectors and the large preview.
+The original source owner remains recorded in the base-deck plan. `owner` and `ownerCard`
+in `tools/custom_cards.json` set this presentation; rank, armor and music remain inherited.
 
 | Ultimate | Custom deck | Base deck | Owner |
 |---|---|---|---|
-| WarGrowlmon | Crimson Fire Again | Go Go Dinosaur | Veemon |
-| Flaremon | Solar Flame Again | First Attack | Birdramon |
-| SaviorHuckmon | Brave Fire Revived | Fire Heart | Davis |
-| MachGaogamon | Lunar Howl Again | Shoot Everything! | MetalGarurumon |
-| Crescemon | Moonlight Revived | Fightback | Garurumon |
-| Dragomon | Deep Sea Revived | First Aid | Joe |
-| Taomon | Divine Fox Again | Divine Monster | Nefertimon |
-| Rapidmon | Rapid Hope Again | Call of Destiny | Gatomon |
-| Lilamon | Flower Bloom Again | Flower Fairies | Lillymon |
-| MetalTyrannomon | Dark Steel Again | Go Go Dinosaur | Veemon |
-| Cyberdramon | Machine Fang Again | Machine Empire | Machinedramon |
-| Matadormon | Night Dance Again | Dark Revival | Myotismon |
-| Wingdramon | Sky Dragon Again | Mega Giga | Gigadramon |
-| GrapLeomon | Beast Fist Again | Steel Gate | MetalEtemon |
-| Chirinmon | Holy Beast Revived | Steel Gate | MetalEtemon |
+| WarGrowlmon | Crimson Fire Again | Go Go Dinosaur | WarGrowlmon |
+| Flaremon | Solar Flame Again | First Attack | Flaremon |
+| SaviorHuckmon | Brave Fire Revived | Fire Heart | SaviorHuckmon |
+| MachGaogamon | Lunar Howl Again | Shoot Everything! | MachGaogamon |
+| Crescemon | Moonlight Revived | Fightback | Crescemon |
+| Dragomon | Deep Sea Revived | First Aid | Dragomon |
+| Taomon | Divine Fox Again | Divine Monster | Taomon |
+| Rapidmon | Rapid Hope Again | Call of Destiny | Rapidmon |
+| Lilamon | Flower Bloom Again | Flower Fairies | Lilamon |
+| MetalTyrannomon | Dark Steel Again | Go Go Dinosaur | MetalTyrannomon |
+| Cyberdramon | Machine Fang Again | Machine Empire | Cyberdramon |
+| Matadormon | Night Dance Again | Dark Revival | Matadormon |
+| Wingdramon | Sky Dragon Again | Mega Giga | Wingdramon |
+| GrapLeomon | Beast Fist Again | Steel Gate | GrapLeomon |
+| Chirinmon | Holy Beast Revived | Steel Gate | Chirinmon |
 
 `node tools/time_stranger_deck_test.js` checks exact exchanges, original-data hashes,
 metadata, legality and both themed evolution steps. `node tools/time_stranger_deck_sim.js`
@@ -739,7 +744,8 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 - **Time Stranger custom decks (Phase 3).** The deck names and fifteen themed exchanges
   are project choices requested by the owner, listed next to their Ultimates above.
-  They retain their source decks' owner, rank, armor, music, options and copy counts.
+  They retain their source decks' rank, armor, music, options and copy counts; the owner
+  explicitly chose the featured Ultimate’s name and prepared portrait for each deck.
   Missing visual-donor cards or missing donor levels require the documented exceptions
   in [phase3.md](docs/time-stranger/phase3.md); gameplay uses TS-106's original designs.
   No original disc card or deck is modified.

@@ -55,13 +55,20 @@ function verify(expectedCount = E.DATA.decks.length-160) {
     assert.notStrictEqual(d.owner,'Player',d.name + ': selectable as a computer opponent');
     assert.strictEqual(d.name,row.name); assert(d.name.length <= 18);
     assert.strictEqual(d.custom,base.id);
+    assert.strictEqual(d.owner,row.ultimate,d.name + ': featured Ultimate owns the deck');
+    assert.strictEqual(row.owner,row.ultimate);
+    assert.strictEqual(d.ownerCard,byName(row.ultimate).id);
+    assert.strictEqual(d.ownerCard,row.ownerCard);
+    assert(d.cards.includes(d.ownerCard),d.name + ': portrait belongs to a card in the deck');
     // Compare every inherited field, including future metadata, rather than a partial field list.
     const inherited = {...d}; delete inherited.id; delete inherited.name; delete inherited.cards; delete inherited.custom;
     const original = {...base}; delete original.id; delete original.name; delete original.cards;
+    delete inherited.owner; delete inherited.ownerCard; delete original.owner;
     assert.deepStrictEqual(inherited,original,d.name + ': inherited metadata');
     const spec = input.decks.find(x=>x.name===row.name);
     assert(spec,d.name + ': exporter specification');
     assert.deepStrictEqual(spec.base,{name:base.name,owner:base.owner});
+    assert.strictEqual(spec.owner,row.owner); assert.strictEqual(spec.ownerCard,row.ultimate);
     assert.deepStrictEqual(spec.replace,row.replace,d.name + ': specification matches approved plan');
     const replacements = new Map();
     row.exchanges.forEach(x => {

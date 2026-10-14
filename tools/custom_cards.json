@@ -271,7 +271,9 @@
     "Agumon": "Guilmon",
     "Greymon": "Growlmon",
     "MetalGreymon": "WarGrowlmon"
-   }
+   },
+   "owner": "WarGrowlmon",
+   "ownerCard": "WarGrowlmon"
   },
   {
    "name": "Solar Flame Again",
@@ -283,7 +285,9 @@
     "Goburimon": "Coronamon",
     "Birdramon": "Firamon",
     "Garudamon": "Flaremon"
-   }
+   },
+   "owner": "Flaremon",
+   "ownerCard": "Flaremon"
   },
   {
    "name": "Brave Fire Revived",
@@ -295,7 +299,9 @@
     "Veemon": "Huckmon",
     "Flarerizamon": "BaoHuckmon",
     "Paildramon": "SaviorHuckmon"
-   }
+   },
+   "owner": "SaviorHuckmon",
+   "ownerCard": "SaviorHuckmon"
   },
   {
    "name": "Lunar Howl Again",
@@ -307,7 +313,9 @@
     "Gabumon": "Gaomon",
     "Garurumon": "Gaogamon",
     "WereGarurumon": "MachGaogamon"
-   }
+   },
+   "owner": "MachGaogamon",
+   "ownerCard": "MachGaogamon"
   },
   {
    "name": "Moonlight Revived",
@@ -319,7 +327,9 @@
     "Penguinmon": "Lunamon",
     "Garurumon": "Lekismon",
     "Zudomon": "Crescemon"
-   }
+   },
+   "owner": "Crescemon",
+   "ownerCard": "Crescemon"
   },
   {
    "name": "Deep Sea Revived",
@@ -331,7 +341,9 @@
     "Betamon": "Syakomon",
     "Ikkakumon": "Octomon",
     "Zudomon": "Dragomon"
-   }
+   },
+   "owner": "Dragomon",
+   "ownerCard": "Dragomon"
   },
   {
    "name": "Divine Fox Again",
@@ -343,7 +355,9 @@
     "Gatomon": "Renamon",
     "Unimon": "Kyubimon",
     "Angewomon": "Taomon"
-   }
+   },
+   "owner": "Taomon",
+   "ownerCard": "Taomon"
   },
   {
    "name": "Rapid Hope Again",
@@ -355,7 +369,9 @@
     "Salamon": "Terriermon",
     "Leomon": "Gargomon",
     "MagnaAngemon": "Rapidmon"
-   }
+   },
+   "owner": "Rapidmon",
+   "ownerCard": "Rapidmon"
   },
   {
    "name": "Flower Bloom Again",
@@ -367,7 +383,9 @@
     "Palmon": "Lalamon",
     "Togemon": "Sunflowmon",
     "Lillymon": "Lilamon"
-   }
+   },
+   "owner": "Lilamon",
+   "ownerCard": "Lilamon"
   },
   {
    "name": "Dark Steel Again",
@@ -379,7 +397,9 @@
     "Agumon": "Keramon",
     "Greymon": "Kurisarimon",
     "MasterTyrannomon": "MetalTyrannomon"
-   }
+   },
+   "owner": "MetalTyrannomon",
+   "ownerCard": "MetalTyrannomon"
   },
   {
    "name": "Machine Fang Again",
@@ -391,7 +411,9 @@
     "Kokuwamon": "Monodramon",
     "Guardromon": "Strikedramon",
     "Andromon": "Cyberdramon"
-   }
+   },
+   "owner": "Cyberdramon",
+   "ownerCard": "Cyberdramon"
   },
   {
    "name": "Night Dance Again",
@@ -403,7 +425,9 @@
     "DemiDevimon": "Dracmon",
     "Devidramon": "Sangloupmon",
     "Myotismon": "Matadormon"
-   }
+   },
+   "owner": "Matadormon",
+   "ownerCard": "Matadormon"
   },
   {
    "name": "Sky Dragon Again",
@@ -415,7 +439,9 @@
     "Agumon": "Dracomon",
     "Flarerizamon": "Coredramon (Blue)",
     "Gigadramon": "Wingdramon"
-   }
+   },
+   "owner": "Wingdramon",
+   "ownerCard": "Wingdramon"
   },
   {
    "name": "Beast Fist Again",
@@ -427,7 +453,9 @@
     "Psychemon": "Bearmon",
     "ShimaUnimon": "Grizzlymon",
     "Etemon": "GrapLeomon"
-   }
+   },
+   "owner": "GrapLeomon",
+   "ownerCard": "GrapLeomon"
   },
   {
    "name": "Holy Beast Revived",
@@ -439,7 +467,9 @@
     "Vi-Elecmon": "Kudamon",
     "ShimaUnimon": "Reppamon",
     "MetalEtemon": "Chirinmon"
-   }
+   },
+   "owner": "Chirinmon",
+   "ownerCard": "Chirinmon"
   }
  ],
  "cards": [

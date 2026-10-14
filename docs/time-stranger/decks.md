@@ -9,7 +9,10 @@ The card gameplay comes from [card-design.md](card-design.md), not the visual do
 
 Each `×N` means **all N copies** of that one source are exchanged. Every other card stays
 at the same position, including all Options. Each result has 30 cards and at most 4 copies
-of any card. Owner, rank, armor, music and source deck picture come from the base.
+of any card. Rank, armor and music come from the base. The base owner in the table is source
+provenance. Owner update (2026-10-14): the displayed owner is the Ultimate in the first
+column; its prepared illustration supplies the selector and large-preview portrait.
+`owner` and `ownerCard` in the machine plan record this separately from `base.owner`.
 
 | Ultimate | Spec | Base deck (ID; owner) | Exchange | Name | Reason |
 |---|---|---|---|---|---|

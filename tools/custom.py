@@ -40,6 +40,8 @@ README lists every custom card under "Not from the game code".
      "name": "Black Fire Again",    follows the game's 159 decks and keeps the owner, the rank,
      "base": {"name": "Black Fire Heart", "owner": "BK WarGreymon"},     the armor form and
      "replace": {"WarGreymon": "BlackWarGreymon"}                        the music of its base
+     "owner": "BlackWarGreymon",   optional display name, otherwise the base's owner
+     "ownerCard": "BlackWarGreymon" optional in-deck Digimon card used for its portrait
    }]}
 
 A recolour is a list of rules; the first rule that takes a colour changes it, a colour no
@@ -120,6 +122,13 @@ def decks(game_decks, all_cards):
         out.append(dict(base, id=len(game_decks) + len(out), name=d["name"],
                         cards=[swap.get(i, i) for i in base["cards"]],
                         custom=base["id"]))                # not a deck of the game: made from this one
+        if "owner" in d:
+            assert isinstance(d["owner"], str) and d["owner"].strip(), "deck owner %s" % d["name"]
+            out[-1]["owner"] = d["owner"]
+        if "ownerCard" in d:
+            card = next((c for c in all_cards if c["id"] == ids[d["ownerCard"]]), None)
+            assert card and card["type"] == "digimon" and card["id"] in out[-1]["cards"], "deck portrait %s" % d["name"]
+            out[-1]["ownerCard"] = card["id"]
     return out
 
 

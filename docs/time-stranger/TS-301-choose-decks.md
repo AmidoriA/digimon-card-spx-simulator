@@ -65,3 +65,17 @@ The parent task presents the finished name/owner list to satisfy the final visib
   TS-302–TS-306 perform the runtime build, gameplay/simulation and browser verification.
 
 - 2026-10-14: Presented all fifteen finished deck names and owners in the parent chat.
+
+### Owner presentation update — 2026-10-14
+
+Owner request: replace the inherited character portrait and deck-owner name on all
+fifteen Time Stranger decks. Each now displays its featured Ultimate’s name and uses
+that card’s prepared illustration in the deck selector and large preview. Match names
+and battle-log introductions use the same new owner. Source owners remain in the
+base-deck records for provenance; rank, armor, music and exact card exchanges remain.
+The initial inherited-owner/picture criteria above are historical and superseded.
+Validation: 32 selftests, 11 deck checks, the standard 200-match engine soak,
+31 board-effect scripts and asset paths pass. On the running localhost:8765 preview,
+all fifteen new owners/portraits load in both art modes; all fifteen match names and
+introductory battle logs match the Ultimate. Zero page errors or failed asset requests.
+Representative WarGrowlmon setup and MetalTyrannomon match screenshots were inspected.

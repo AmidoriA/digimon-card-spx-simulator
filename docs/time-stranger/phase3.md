@@ -25,7 +25,10 @@ owner's request, and the README says so.
   a donor from another Specialty.
 - **Name**: at most 18 letters, unique among all decks, in the manner of the game's second
   decks ("Black Fire Again", "Evil Fire Revived").
-- **Owner, rank, armor form, music**: the base deck's (that is how custom decks work).
+- **Owner and portrait (owner update, 2026-10-14)**: the featured Ultimate's name and
+  its existing prepared card illustration. This supersedes the initial inherited-owner
+  presentation. Keep the base owner in the source record for provenance.
+- **Rank, armor form, music**: the base deck's.
 
 Test: TS-302 adds one selftest with the list of Time Stranger decks (later tickets add to
 it): each is its base deck with exactly the exchange of decks.md. `node tools/sim.js` then
@@ -53,7 +56,7 @@ candidate lists, counts and exact exchanges are in [decks.md](decks.md) and
 
 These exceptions and tie-break choices are original project deck design, not disc rules.
 Never replace Options, change a donor's level, insert extra cards or perform a partial
-copy replacement. Names and all inherited owner/rank/armor/music fields follow the rules
+copy replacement. Names, presentation choices and inherited rank/armor/music fields follow the rules
 above. Gameplay choices remain the independent TS-106 designs, not the visual donor stats.
 
 ## Gameplay source (2026-10-14)
