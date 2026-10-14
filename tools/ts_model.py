@@ -5,7 +5,7 @@ Usage (run with tools/.venv python; tools/build_custom.py calls make() for a car
 "model" names a Time Stranger model):
   python -I ts_model.py <file.geom> <web dir> <base model number> <out dir> <number>
         [--detail <model number>] [--parts N] [--triangles N] [--width N] [--height N] [--rows N]
-        [--against <the base's own .geom>] [--size K] [--part N=<bone> ...] [--motion SLOT=<name> ...]
+        [--against <the base's own .geom>] [--size K] [--preserve-seams] [--no-decimate] [--part N=<bone> ...] [--motion SLOT=<name> ...]
         [--images <dir>] [--anims <prefix>] [--preview out.png [--show N,N]] [--poses out.png]
 
 Writes <out dir>/NNN.bin.gz, NNN.png and NNNp.png in the format of tools/build_models.py.
@@ -15,7 +15,10 @@ on the keys of the base model web/assets/models/<base>.bin.gz.
 
 --detail names the disc model whose figures the new one may cost: its parts, triangles,
 texture size and palette rows (FIGURES). Without it they are the base's. --parts and the
-others give single figures; none may be more than the most a disc model has (MOST).
+others give single figures; none may exceed the disc's bounds (MOST). --no-decimate
+keeps all source triangles, positions, UVs, normals and rigid bone assignments; the
+owner explicitly deferred triangle budgets on 2026-10-14. Parts and atlas settings
+remain those of --detail. The existing 16-bit asset indices must still fit.
 --against names the Time Stranger model of the base's own Digimon: the new model is then
 as large against the base as it is in that game. Without it, as tall as the base. The
 two games do not size their Digimon alike (Coronamon is a third of Goburimon's height in
@@ -24,6 +27,13 @@ either rule does: a number chosen by eye, to be named in the README.
 --part N=<bone> gives a bone's part the number N. The base's battle scripts hang effects
 on parts by number (docs/time-stranger/motion-slots.md, the "Parts" columns), so the part
 that plays that role in the new model has to carry it.
+--preserve-seams is an explicit choice for armor with many separate texture charts.
+It keeps every moved wedge's own UV, material and bone at the surviving endpoint, holds
+eye vertices, keeps every connected surface and refuses closed shells folded into
+coincident faces. Chart area may stretch: compare face, markings, limbs and all battle
+sheets before accepting it. Without it the settled strict chart mapping is retained.
+No reduced model is written if either mode cannot meet the requested triangle budget.
+--no-decimate bypasses reduction and that triangle target, preserving source geometry.
 --motion SLOT=<name> takes another Time Stranger motion for a slot than ROLES names.
 --preview draws the base and the written model as they are built, front and side; with
 --show N,N the parts of those numbers are painted in plain colours in both (magenta, cyan,
@@ -186,7 +196,7 @@ def source(g, images):
         if "BLENDINDICES" in a:
             heavy = palette[a["BLENDINDICES"][np.arange(m["vertices"]), a["BLENDWEIGHT"].argmax(1)]]
         else:
-            heavy = np.full(m["vertices"], palette[0])
+            heavy = T.rigid_bones(m)
         for t in m["triangles"]:
             c = coords[t]
             base = np.floor(c.min(0) + 1e-6)
@@ -217,13 +227,15 @@ def weld(pos, uv, src, bone, tris):
 
 # ---- fewer triangles -------------------------------------------------------------------
 
-def decimate(P, place, tris, weight, want, log, bone=None):
+def decimate(P, place, tris, weight, want, log, bone=None, preserve_seams=False):
     """Half-edge collapses on the places (welded points), wedges following along.
     P: position of each wedge; place: its place; tris: wedge triples; bone: each wedge's
     bone. Returns the triangles left.
     A collapse may not join two bones by an edge that no edge of the model joins: a
     triangle then never reaches from one part of the body to a far one (from the hips to
-    the tail's end), which the parts would pull apart when they move."""
+    the tail's end), which the parts would pull apart when they move. preserve_seams keeps
+    every moved wedge's UV, material and bone rather than merging chart endpoints, and
+    holds eye vertices. Geometric chart area may change: this opt-in needs visual review."""
     nplace = place.max() + 1
     ppos = np.zeros((nplace, 3))
     ppos[place] = P
@@ -260,6 +272,19 @@ def decimate(P, place, tris, weight, want, log, bone=None):
                 k = np.outer(pl, pl) * (d @ d) * 10 * weight[users[0]]
                 Q[a] += k
                 Q[b] += k
+    # The opt-in seam mode keeps every surface, including open sheets/minimal shells.
+    component = list(range(nplace))
+    def find_component(a):
+        while component[a] != a:
+            component[a] = component[component[a]]
+            a = component[a]
+        return a
+    for a, b in edge_use:
+        component[find_component(a)] = find_component(b)
+    tri_component = [find_component(place[t[0]]) for t in tri]
+    component_left = {}
+    for c in tri_component:
+        component_left[c] = component_left.get(c, 0) + 1
     version = [0] * nplace
     heap = []
     pbone = np.zeros(nplace, np.int64)
@@ -267,7 +292,13 @@ def decimate(P, place, tris, weight, want, log, bone=None):
     if bone is not None:
         pbone[place] = bone
         joined = {(min(pbone[a], pbone[b]), max(pbone[a], pbone[b])) for a, b in edge_use}
+    source_bone_edges = set()
+    if bone is not None and preserve_seams:
+        source_bone_edges = {(min(int(bone[t[i]]), int(bone[t[(i + 1) % 3]])),
+                              max(int(bone[t[i]]), int(bone[t[(i + 1) % 3]])))
+                             for t in tri for i in range(3)}
     apart = 0
+    moved_seams = 0
 
     def neighbours(p):
         return {place[w] for ti in around[p] for w in tri[ti]} - {p}
@@ -289,11 +320,24 @@ def decimate(P, place, tris, weight, want, log, bone=None):
         if not shared or len(neighbours(a) & neighbours(b)) > len(shared):
             refused += 1
             continue
-        if bone is not None and any(pbone[n] != pbone[b] and (min(pbone[n], pbone[b]), max(pbone[n], pbone[b])) not in joined
+        if bone is not None and not preserve_seams and any(pbone[n] != pbone[b] and (min(pbone[n], pbone[b]), max(pbone[n], pbone[b])) not in joined
                                     for n in neighbours(a) if n != b):
             apart += 1
             continue
-        # every wedge at a must have a wedge at b on a common triangle: its texture mapping goes there
+        c = tri_component[shared[0]]
+        if preserve_seams and component_left[c] <= len(shared):
+            refused += 1
+            continue
+        # A tetrahedron must not become two coincident faces and then disappear.
+        surviving = [ti for ti in around[a] | around[b] if ti not in shared]
+        faces = [tuple(sorted(b if place[w] == a else place[w] for w in tri[ti])) for ti in surviving]
+        if preserve_seams and len(faces) != len(set(faces)):
+            refused += 1
+            continue
+        if preserve_seams and any(weight[ti] > 1 for ti in around[a]):
+            refused += 1
+            continue
+        # Strict mode maps wedges only along their existing texture chart edge.
         to = {}
         for ti in shared:
             t = tri[ti]
@@ -302,9 +346,22 @@ def decimate(P, place, tris, weight, want, log, bone=None):
             if to.setdefault(wa, wb) != wb:
                 to = None
                 break
-        if to is None or any(w not in to for ti in around[a] for w in tri[ti] if place[w] == a):
+        moving = {w for ti in around[a] for w in tri[ti] if place[w] == a}
+        if preserve_seams:
+            # Retain each wedge's own texture coordinate, material and bone. Only its
+            # geometric point moves; chart boundaries may stretch but never merge.
+            to = {w: w for w in moving}
+        elif to is None or any(w not in to for w in moving):
             refused += 1
             continue
+        if bone is not None and preserve_seams:
+            # Test actual wedge labels; one geometric point can carry several bones.
+            candidate = [tuple(to.get(w, w) for w in tri[ti]) for ti in surviving]
+            if any((min(int(bone[t[i]]), int(bone[t[(i + 1) % 3]])),
+                    max(int(bone[t[i]]), int(bone[t[(i + 1) % 3]]))) not in source_bone_edges
+                   for t in candidate for i in range(3)):
+                apart += 1
+                continue
         flip = False
         for ti in around[a]:
             if ti in shared:
@@ -325,9 +382,15 @@ def decimate(P, place, tris, weight, want, log, bone=None):
             for w in tri[ti]:
                 around[place[w]].discard(ti)
         left -= len(shared)
+        component_left[c] -= len(shared)
         for ti in list(around[a]):
             tri[ti] = tuple(to.get(w, w) for w in tri[ti])
             around[b].add(ti)
+        if preserve_seams:
+            for w in moving:
+                P[w] = ppos[b]
+                place[w] = b
+            moved_seams += len(moving)
         around[a] = set()
         Q[b] += Q[a]
         version[a] += 1
@@ -337,6 +400,8 @@ def decimate(P, place, tris, weight, want, log, bone=None):
             push(n, b)
     log("triangles %d -> %d (%d collapses refused for a seam, an overturned triangle or the mesh's shape, %d for joining bones that no edge joins)" % (
         len(tri), left, refused, apart))
+    if preserve_seams:
+        log("seam wedges kept with their own UV, material and bone: %d moved; eye vertices held" % moved_seams)
     keep = [i for i, ok in enumerate(alive) if ok]
     return np.array([tri[i] for i in keep]), weight[keep]
 
@@ -470,6 +535,13 @@ def shape_at(shape, w, h):
     """A piece's shape (texels its triangles touch, drawn at SHAPE_SCALE) in a box of w x h
     texels with a rim of one texel around it: where any of it falls, and one texel around."""
     small = np.asarray(Image.fromarray(shape.astype(np.uint8) * 255).resize((w, h), Image.BOX)) > 0
+    if not small.any():
+        # A tiny UV surface can be rounded to zero by BOX's byte-sized average.
+        # Retain one sample at the occupied source centroid, plus its normal rim.
+        yy, xx = np.nonzero(shape)
+        x = min(w - 1, int((float(xx.mean()) + 0.5) * w / shape.shape[1])) if len(xx) else w // 2
+        y = min(h - 1, int((float(yy.mean()) + 0.5) * h / shape.shape[0])) if len(yy) else h // 2
+        small[y, x] = True
     m = np.pad(small, 1)
     grown = m.copy()
     for dy in (-1, 0, 1):
@@ -698,11 +770,11 @@ def motion_cost(g, anims, pos, bone_of, area, log):
 def source_height(geom):
     """How tall a Time Stranger model is as it is built (its drawn meshes)."""
     g = T.read_geom(geom)
-    y = np.concatenate([m["attributes"]["POSITION"][:, 1] for m in T.drawn(g, False)])
+    y = T.drawn_positions(g)[:, 1]
     return float(y.max() - y.min())
 
 
-def convert(geom, images, base, fixed_names, log, anims=(), figures=None, against=None, size=1.0):
+def convert(geom, images, base, fixed_names, log, anims=(), figures=None, against=None, size=1.0, preserve_seams=False, no_decimate=False):
     g = T.read_geom(geom)
     names = {b["name"]: i for i, b in enumerate(g["bones"])}
     fixed = {}
@@ -719,7 +791,12 @@ def convert(geom, images, base, fixed_names, log, anims=(), figures=None, agains
     log("source: %d triangles, %d wedges at %d points, %d bones in use" % (len(wtris), len(first), place.max() + 1, len(set(wbone.tolist()))))
     lim = {k: base[k] for k in FIGURES}
     lim.update(figures or {})
-    wtris, weight = decimate(wpos, place, wtris, weight, lim["triangles"], log, wbone)
+    if no_decimate:
+        log("no decimation: all %d source triangles and their geometry/UV/bone wedges retained" % len(wtris))
+    else:
+        wtris, weight = decimate(wpos, place, wtris, weight, lim["triangles"], log, wbone, preserve_seams)
+        if len(wtris) > lim["triangles"]:
+            raise ValueError("cannot meet triangle budget: %d remain, %d allowed; no model was written" % (len(wtris), lim["triangles"]))
     log("of them %d are the eyes'" % int((weight > 1).sum()))
     used = np.unique(wtris)
     area = np.zeros(len(wpos))
@@ -822,7 +899,8 @@ def part_pose(m, anim, frame):
     """What a key holds for each part with the Time Stranger motion at `frame`:
     (angles, move, scale) a part, as Actor.resolve of web/js/battle3d.js uses them."""
     g, order = m["geom"], m["bones"]
-    world = T.rest_world(A.posed(g, A.sample(anim, frame)))
+    posed_bones = A.posed(g, A.sample(anim, frame))
+    world = T.rest_world(posed_bones)
     F, shift = np.diag(m["flip"]), m["shift"]
     Mw, Tw = [], []
     for i, b in enumerate(order):
@@ -830,16 +908,44 @@ def part_pose(m, anim, frame):
         a = F @ S[:3, :3] @ F
         Mw.append(a)
         Tw.append(a @ (m["centre"][i] - shift) + F @ S[:3, 3] * m["scale"] + shift)
+    # A native zero scale hides geometry (chr016 bs01 hair, frames 35..80).
+    # Its orientation is still encoded by the sampled rotations. Restore only
+    # collapsed scale axes in a reference hierarchy to recover that orientation;
+    # the emitted geometry keeps its actual zero scales and source translation.
+    reference = None
+
+    def zero_rotation(i, parent):
+        nonlocal reference
+        if reference is None:
+            safe = [dict(b, scale=tuple(1.0 if abs(v) < 1e-12 else v for v in b["scale"]))
+                    for b in posed_bones]
+            safe_world = T.rest_world(safe)
+            reference = [F @ (safe_world[b] @ g["bones"][b]["inverse_bind"])[:3, :3] @ F
+                         for b in order]
+        r = np.linalg.inv(reference[parent]) @ reference[i] if parent >= 0 else reference[i]
+        r = r / np.linalg.norm(r, axis=0)
+        u, _, vt = np.linalg.svd(r)
+        return u @ vt
+
     out = []
     for i in range(len(order)):
         parent, off = m["parts"][i]
         if parent >= 0:
-            inv = np.linalg.inv(Mw[parent])
+            # A child of a collapsed parent is collapsed too. Its source world
+            # translation remains meaningful, but an ordinary inverse does not.
+            inv = (np.linalg.pinv(Mw[parent]) if np.linalg.matrix_rank(Mw[parent]) < 3
+                   else np.linalg.inv(Mw[parent]))
             L, move = inv @ Mw[i], inv @ (Tw[i] - Tw[parent]) - off
         else:
             L, move = Mw[i], Tw[i] - off
         scale = np.linalg.norm(L, axis=0)
-        u, _, vt = np.linalg.svd(L / scale)
+        collapsed = scale < 1e-12
+        if collapsed.any():
+            r = L / np.where(collapsed, 1.0, scale)
+            r[:, collapsed] = zero_rotation(i, parent)[:, collapsed]
+        else:
+            r = L / scale
+        u, _, vt = np.linalg.svd(r)
         out.append((angles_yxz(u @ vt), move, scale))
     return out
 
@@ -953,6 +1059,8 @@ def still_motions(m, base):
 
 
 def write(m, motions, out_dir, num):
+    if len(m["verts"]) > 65535 or len(m["tris"]) > 65535 or (len(m["tris"]) and m["tris"].max() > 65535):
+        raise ValueError("full geometry does not fit the 16-bit asset vertex/triangle indices; no model was written")
     w = [0x4D44, 1, len(m["parts"]), len(motions), len(m["verts"]), len(m["tris"]), 0, m["index"].shape[1], m["index"].shape[0], len(m["palette"])]
     for parent, off in m["parts"]:
         w += [parent] + [int(x) for x in off]
@@ -1082,7 +1190,7 @@ def preview(m, base, web, base_num, out, size=240, show=()):
 
 
 def make(geom, web, base_num, out_dir, num, fixed=None, chosen=None, images=None, anims=None, log=print, figures=None,
-         detail=None, against=None, size=1.0):
+         detail=None, against=None, size=1.0, preserve_seams=False, no_decimate=False):
     """Convert <geom> on the keys of the base model and write it as model <num>
     (tools/build_custom.py calls this for a card whose "model" names a Time Stranger model).
     detail: the disc model whose figures it may cost (the base's without it); figures:
@@ -1102,7 +1210,7 @@ def make(geom, web, base_num, out_dir, num, fixed=None, chosen=None, images=None
         if k not in FIGURES or not 0 < v <= MOST[k]:
             raise ValueError("%s %s: the disc's models have at most %s" % (k, v, MOST.get(k, "no such figure")))
     m = convert(geom, images, base, fixed or {}, lambda s: log("  " + s), slot_anims(base, prefix, chosen), figures,
-                source_height(against) if against else None, size)
+                source_height(against) if against else None, size, preserve_seams, no_decimate)
     made, notes = motions(m, base, prefix, chosen, lambda s: log("  " + s))
     write(m, made, out_dir, num)
     return m, made, notes, base
@@ -1116,6 +1224,10 @@ def main():
         if args[i] in ("--images", "--preview", "--anims", "--poses", "--detail", "--against", "--show", "--size"):
             opts[args[i][2:]] = args[i + 1]
             i += 1
+        elif args[i] == "--preserve-seams":
+            opts["preserve_seams"] = True
+        elif args[i] == "--no-decimate":
+            opts["no_decimate"] = True
         elif args[i][2:] in FIGURES:
             figures[args[i][2:]] = int(args[i + 1])
             i += 1
@@ -1135,7 +1247,9 @@ def main():
     geom, web, base_num, out_dir, num = pos[0], pos[1], int(pos[2]), pos[3], int(pos[4])
     m, made, notes, base = make(geom, web, base_num, out_dir, num, fixed, chosen, opts.get("images"), opts.get("anims"),
                                 figures=figures, detail=int(opts["detail"]) if "detail" in opts else None,
-                                against=opts.get("against"), size=float(opts.get("size", 1)))
+                                against=opts.get("against"), size=float(opts.get("size", 1)),
+                                preserve_seams=opts.get("preserve_seams", False),
+                                no_decimate=opts.get("no_decimate", False))
     print("wrote %03d: %d parts, %d vertices, %d triangles, texture %dx%d, %d palette rows, %d motions" % (
         num, len(m["parts"]), len(m["verts"]), len(m["tris"]), m["index"].shape[1], m["index"].shape[0], len(m["palette"]), len(made)))
     print("  parts: " + " ".join("%d=%s" % (i, n) for i, n in enumerate(m["names"])))

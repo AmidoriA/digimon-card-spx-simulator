@@ -664,24 +664,19 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
 
 ## Not from the game code
 
-- **Time Stranger models made into DDCB models.** How a model is cut into parts, thinned,
-  given its texture sheet and palette rows, sized and placed is this project's own, and so
-  is which of its Time Stranger motions fills which of the game's eight slots and how it is
-  laid on the base's keys
-  (`tools/ts_model.py`; "Time Stranger models as DDCB models" lists every choice).
-  In short: the model, its texture and its motions are Time Stranger's. Its bones are
-  merged down to at most 30 rigid parts, its triangles thinned to under a thousand, its
-  texture laid out again in a 256×128 sheet of 16-colour palette rows, its motions sampled
-  at the keys of the base's motions so that each lasts what the base's lasts, and the
-  camera record and the sound of every key are the base's, since Time Stranger's motions
-  have neither. Three of those choices leave what the disc's models are: a converted model has triangles
-  between two parts, which no model of the game has; it may cost what Angewomon's model
-  costs whatever its base costs (the owner's choice, 2026-10-14); and it is sized against
-  its base by the two Digimon's sizes in Time Stranger. **Guilmon (302) is the first card
-  with such a model** (TS-207): its mesh, texture and motions are Time Stranger's, its
-  motions' lengths, sounds and camera Agumon's, and its three attacks still play Agumon's
-  scripts, so the fire of the first two comes when Agumon's would, not when Guilmon
-  strikes. The other 44 Time Stranger cards still wear their recoloured disc models.
+- **Full Time Stranger models in the web battle.** Cards 302–346 now use their own
+  Time Stranger models 401–445, including the revised Guilmon and Firamon. The owner's
+  final 2026-10-14 choice retains full visible source geometry, RGBA texture resolution
+  and the whole skeleton with all four skin weights; polygon/texture/bone budgets are
+  postponed. Source poses fill the base's eight motion slots on its original key times,
+  sounds and cameras. The slot choices, size/ground placement, interpolation, effect
+  anchor aliases and native web skin/material renderer are this project's. The source
+  lighting/reflection/outline shaders remain unread and eye overlays use the reader's
+  full-resolution composition. Source leaps can leave inherited close-ups and strike
+  moments can differ from the script's fire. [Format and rebuild](docs/time-stranger/native-model-format.md),
+  [Fire](docs/time-stranger/TS-208a-fire-models.md), [Ice](docs/time-stranger/TS-208b-ice-models.md),
+  [Nature](docs/time-stranger/TS-208c-nature-models.md), [Darkness](docs/time-stranger/TS-208d-darkness-models.md),
+  [Rare](docs/time-stranger/TS-208e-rare-models.md).
 
 - **Time Stranger's files** are another game's, not the disc's. How they are stored was
   read from that game's executable; what was not is listed under "Time Stranger files"
@@ -1177,6 +1172,26 @@ skin and the colour textures; `--png` draws the front and the side.
 
 ## Time Stranger models as DDCB models
 
+**Current workflow (TS-208a–e, 2026-10-14):** `model.native: true` exports full
+source visible geometry, original material texture dimensions/colors, every bone and
+all four weights through `tools/ts_native_model.py`. `battlenative.js` supplies weighted
+skin and native RGBA rendering in all three styles, including Ultra shadows. Source
+local poses retain shear/zero scales; logical effect anchors alias source bones. The
+DDCB base's eight key timelines, camera and sound records remain. Triangle, bone and
+texture limits are postponed by the owner. All 45 models 401–445 use this format;
+Guilmon's pilot was rebuilt too. See [native format/rebuild](docs/time-stranger/native-model-format.md)
+and the [import skill](.claude/skills/import-ts-model/SKILL.md).
+
+```json
+"model": {"number": 401, "ts": "chr090", "native": true, "against": "chr050", "parts": {"0": "J_spine02"}}
+```
+
+### Historical reduced-format converter (TS-205–207)
+
+The following figures describe the original pilot converter, which remains available
+when explicitly chosen. They are not the current TS-208 defaults or owner requirement.
+
+
 `tools/ts_model.py` turns a Time Stranger model into a model file of this site
 (`web/assets/models/NNN.*`, the format of `tools/build_models.py`) that costs no more than
 one of the disc's models costs, and gives it eight motions made from its Time Stranger
@@ -1210,7 +1225,7 @@ tools/.venv/Scripts/python -I tools/ts_model.py extracted_ts/app_0/chr090.geom w
 
 | Step | What the tool does |
 |---|---|
-| Figures | What the model may cost: parts, triangles, the texture's size and its palette rows. They are those of the disc model named by `--detail` (the card's `detail`); `build_custom.py` names **Angewomon's model 170** unless the card says otherwise: 30 parts, 976 triangles, 256×128, 14 rows. That is the owner's choice (2026-10-14): Agumon's own figures (16 parts, 690 triangles, 3 rows) are low, Angewomon's is one of the disc's detailed models. Single figures can be given (`--triangles`, the card's `figures`), never more than the most any disc model has (31 parts, 1,246 triangles, 256×216, 16 rows). Without `--detail` the tool takes the base's |
+| Figures | What the model may cost: parts, triangles, the texture's size and its palette rows. They are those of the disc model named by `--detail` (the card's `detail`); `build_custom.py` names **Angewomon's model 170** unless the card says otherwise: 30 parts, 976 triangles, 256×128, 14 rows. That was the former owner choice, superseded by the full native workflow above: Agumon's own figures (16 parts, 690 triangles, 3 rows) are low, Angewomon's is one of the disc's detailed models. Single figures can be given (`--triangles`, the card's `figures`), never more than the most any disc model has (31 parts, 1,246 triangles, 256×216, 16 rows). Without `--detail` the tool takes the base's |
 | Parts | A vertex goes with the bone that weighs most on it. Bones are merged into their parents until there are no more parts than the figure allows: each time the bone whose vertices that moves least, measured over every second frame of the motions the slots take, a vertex counting by the surface around it. The two sides of a pair (`_l`, `_r`) go together. Guilmon has 33 bones with vertices; the neck and the two collars were merged into the chest |
 | Skin | A triangle whose corners are in different parts keeps them there and is stretched between the parts like skin, so no joint opens when the model moves. **The disc's models have no such triangle** (none in any of the game's model files here); whether the game's own drawing routine could draw one was not read. The port moves a model vertex by vertex (`web/js/battle3d.js`), so it can. The first try (TS-205) gave a triangle whole to one part: every joint tore open in the motions. Enhanced and Smooth had to learn it too: `refine` in `web/js/battlehd.js` measured a new corner in one part's coordinates and now measures it in the model's where a side runs between two parts. The meshes it makes of all other models are byte for byte what they were (checked by hash over the 256 other models; `tools/battletest.js` checks that a new corner lies on its side) |
 | Part numbers | `--part N=<bone>` (the card's `parts`) gives a bone's part the number N. The base's battle scripts hang effects on parts by number (`docs/time-stranger/motion-slots.md`, the "Parts" columns; TS-204): Agumon's first attack names part 0, its chest, so Guilmon's `J_spine02` is part 0 |
@@ -1451,7 +1466,9 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 | `extracted/` | Working copy of the disc and disassembly notes (about 270 MB, safe to delete) |
 | `tools/ts_extract.py`, `x64.py` | Time Stranger: the `.mvgl` unpacker and the x86-64 disassembly helper for its executable |
 | `tools/ts_model_read.py` | Time Stranger: reads a `.geom` model and its textures, dumps it as `.glb` or a drawing |
-| `tools/ts_model.py` | Time Stranger: makes a DDCB model file from a `.geom` within a base model's figures |
+| `tools/ts_native_model.py` | Time Stranger: full source geometry, skeleton, RGBA and weighted-skin web model exporter |
+| `web/js/battlenative.js` | Native weighted skin, bounds and quaternion helpers |
+| `tools/ts_model.py` | Time Stranger: optional historical reduced DDCB model converter |
 | `tools/ts_mbe.py` | Time Stranger: reads the tables of a `.mbe` file |
 | `tools/ts_anim_read.py` | Time Stranger: reads a `.anim` motion, lists its channels, draws a model in one of its frames |
 | `tools/ts_luac.py` | Time Stranger: lists the globals and constants of a compiled script (`.lua`) |
@@ -1470,8 +1487,7 @@ Outside battles: `bv02` and `bv03` are in the table `battle_extra_win`
 
 The owner replaced the Fire black Agumon variant in the Darkness roster with Keramon
 (329/428). Base Tsukaimon (135) originally supplied the numbers/effects; TS-106 now supplies
-new gameplay design. Tsukaimon still supplies the temporary
-mesh/motions; its palette is changed towards Keramon's grey-blue body and green eyes.
+new gameplay design. TS-208d now supplies Keramon's full chr626 model as 428; Tsukaimon retains only the inherited visual scripts/timings. The source diffuse pupils are black; the unread reflection shader is documented in the model log.
 Local char_KERAMON maps to chr626 in both model tables; Phase 2 has all nine Darkness
 models to convert. The old model exception and cloned effect offset 20000 are retired;
 other published offsets remain stable. Both art modes use unedited official EX1-044

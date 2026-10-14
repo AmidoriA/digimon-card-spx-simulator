@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-302-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Agumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Guilmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      58,
+      114,
+      170,
+      226
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-302-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Agumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          226,
+          2,
+          "ended"
+        ]
+      ],
+      "Guilmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          226,
+          2,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          226,
+          2,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          226,
+          2,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          226,
+          2,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          226,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      58,
+      114,
+      170,
+      226
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-302-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Agumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          222,
+          3,
+          "ended"
+        ]
+      ],
+      "Guilmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          222,
+          3,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          222,
+          3,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          222,
+          3,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          222,
+          3,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          222,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      57,
+      112,
+      167,
+      222
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-302-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Agumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Guilmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      336,
+      365,
+      394,
+      423
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-302-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Agumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          435,
+          5,
+          "ended"
+        ]
+      ],
+      "Guilmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          435,
+          5,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          435,
+          5,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          435,
+          5,
+          "ended"
+        ]
+      ],
+      "Agumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          435,
+          5,
+          "ended"
+        ]
+      ],
+      "Guilmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          435,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      339,
+      371,
+      403,
+      435
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-302-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Agumon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          254,
+          0,
+          "runs"
+        ],
+        [
+          476,
+          6,
+          "runs"
+        ]
+      ],
+      "Guilmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          254,
+          0,
+          "runs"
+        ],
+        [
+          476,
+          6,
+          "runs"
+        ]
+      ],
+      "Agumon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          254,
+          0,
+          "runs"
+        ],
+        [
+          476,
+          6,
+          "runs"
+        ]
+      ],
+      "Guilmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          254,
+          0,
+          "runs"
+        ],
+        [
+          476,
+          6,
+          "runs"
+        ]
+      ],
+      "Agumon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          254,
+          0,
+          "runs"
+        ],
+        [
+          476,
+          6,
+          "runs"
+        ]
+      ],
+      "Guilmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          226,
+          1,
+          "ended"
+        ],
+        [
+          254,
+          0,
+          "runs"
+        ],
+        [
+          476,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      476,
+      521,
+      566,
+      611,
+      656
+    ]
+  }
+]

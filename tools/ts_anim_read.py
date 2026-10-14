@@ -203,7 +203,8 @@ def draw_pose(geom, anim, frame, out):
                 mats = np.stack([skin[pal[j]] for j in a["BLENDINDICES"][:, k]])
                 res += w[:, k:k + 1] * np.einsum("nij,nj->ni", mats, p)[:, :3]
         else:
-            res = (p @ skin[pal[0]].T)[:, :3]
+            mats = np.stack([skin[int(b)] for b in t.rigid_bones(m)])
+            res = np.einsum("nij,nj->ni", mats, p)[:, :3]
         a["POSITION"] = res.astype(np.float32)
     images = os.path.join(os.path.dirname(os.path.abspath(geom)), "images")
     return t.draw(g, images, out, False, True)

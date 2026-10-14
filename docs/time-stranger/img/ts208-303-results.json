@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-303-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Goburimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Coronamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      63,
+      124,
+      185,
+      246
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-303-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Goburimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Coronamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      71,
+      140,
+      209,
+      278
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-303-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Goburimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Coronamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      65,
+      128,
+      191,
+      254
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-303-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Goburimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Coronamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      335,
+      363,
+      391,
+      419
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-303-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Goburimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Coronamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Goburimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Coronamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      355,
+      403,
+      451,
+      499
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-303-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Goburimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          292,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Coronamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          292,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Goburimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          292,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Coronamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          292,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Goburimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          292,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ],
+      "Coronamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          246,
+          1,
+          "ended"
+        ],
+        [
+          292,
+          0,
+          "runs"
+        ],
+        [
+          514,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      514,
+      559,
+      604,
+      649,
+      694
+    ]
+  }
+]

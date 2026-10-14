@@ -1,0 +1,758 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-310-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Paildramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "Paildramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "Paildramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      67,
+      132,
+      197,
+      262
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-310-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Paildramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          238,
+          2,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          238,
+          2,
+          "ended"
+        ]
+      ],
+      "Paildramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          238,
+          2,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          238,
+          2,
+          "ended"
+        ]
+      ],
+      "Paildramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          238,
+          2,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          238,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      61,
+      120,
+      179,
+      238
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-310-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Paildramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "SaviorHuckmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Paildramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "Paildramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-310-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Paildramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Paildramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Paildramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      336,
+      365,
+      394,
+      423
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-310-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Paildramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Paildramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Paildramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      354,
+      401,
+      448,
+      495
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-310-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Paildramon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          280,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "SaviorHuckmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          280,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "Paildramon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          280,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          280,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "Paildramon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          280,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ],
+      "SaviorHuckmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          262,
+          1,
+          "ended"
+        ],
+        [
+          280,
+          0,
+          "runs"
+        ],
+        [
+          527,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      527,
+      572,
+      617,
+      662,
+      707
+    ]
+  }
+]

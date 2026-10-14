@@ -253,3 +253,15 @@ All 45 cards now have original stat profiles, changed cross effects and distinct
 [card-design.md](card-design.md) holds exact values, source links and tradeoffs. The earlier
 dated base-stat completion notes above are historical and superseded for gameplay.
 Visual bases, local model mappings, source pictures and published effect offsets remain.
+
+### TS-208a–e Phase 2 — 2026-10-14
+
+All 45 cards 302–346 now use their own local Time Stranger models 401–445 with
+`native: true`: full visible geometry, original RGBA texture dimensions/colors, full
+skeletons and all four skin influences. Guilmon's earlier pilot and the reduced Fire
+drafts were rebuilt, including Firamon's complete face, mane, wings and armor. The
+owner postponed polygon, texture and bone budgets. Earlier placeholder/reduced notes
+above are historical. Donor effect scripts, camera/key/sound timelines and the TS-106
+gameplay/art entries remain. The five TS-208 logs record anchors, sizes, source counts,
+motion substitutions, six browser cases per card and inherited camera/shader limits.
+[Native format and rebuild](native-model-format.md). Feature work remains on `time-stranger`.

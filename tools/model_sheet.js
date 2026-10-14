@@ -14,7 +14,9 @@
 //   defend    1..3 instead: the opponent attacks the card with that attack (damage motion);
 //             ko: true ends at 0 HP (KO motion)
 //   win       true: the card's attack takes the opponent to 0 HP (victory motion follows)
-//   frames    the scene's frames to draw, rising. The scene is stepped one frame at a time.
+//   frames    the scene's frames to draw, rising. Every simulated frame is observed;
+//             inspection APIs render only capture frames, when available.
+//   inspect   false forces the old render-every-frame path for comparison checks
 //   out       file name under the server's save directory (.jpg or .png)
 //   cw        width of a cell, default 256 (its height is 3/4 of that)
 //   opponent  default 'Garurumon';  arena: index in arenas.json, default the first (a dark one)
@@ -49,20 +51,36 @@ window.modelSheet = async function (opt) {
       o = { models: [card.model, opp.model], attacker: 0, first: 0, script: atk.script, hit: atk.hit, attack: k, name: atk.name, specialty: card.spec, accent: atk.accent,
         arena: arena, sound: false, hp: [1200, opt.win ? 0 : 900], hpBefore: 1200, damage: opt.win ? 1200 : 300 };
     }
-    await new Promise(function (res) { o.shown = res; B.attack(o); });
+    await new Promise(function (res, reject) {
+      o.shown = res;
+      const started = B.attack(o);
+      // attack() returns false when loading or WebGL setup fails, without calling shown.
+      if (started && typeof started.then === 'function') started.then(function (result) {
+        if (result === false) reject(new Error('battle scene could not load for ' + rows[r].name));
+      }, reject);
+    });
     B.paused = true;
     const line = timeline[rows[r].name + ' / ' + said[rows[r].style]] = [];
     let was = null;
+    const inspect = opt.inspect !== false && typeof B.advanceInspect === 'function' && typeof B.renderInspect === 'function';
+    function observe(sc) {
+      if (!sc) return;
+      const a = sc.actors[0], state = a.cur < 0 ? 'ended' : 'runs';
+      if (a.motion + state !== was) { line.push([sc.frame, a.motion, state]); was = a.motion + state; }
+    }
     for (let c = 0; c < frames.length; c++) {
       let sc = B._debug(); if (!sc) break;
       while (sc && sc.frame < frames[c]) {
-        B.advance(1); sc = B._debug();
-        if (sc) {
-          const a = sc.actors[0], state = a.cur < 0 ? 'ended' : 'runs';     // cur < 0: the last key is reached
-          if (a.motion + state !== was) { line.push([sc.frame, a.motion, state]); was = a.motion + state; }
+        if (inspect) {
+          // Observe every frame inside the chunk, including short motions between shots.
+          B.advanceInspect(Math.min(120, frames[c] - sc.frame), observe);
+          sc = B._debug();
+        } else {
+          B.advance(1); sc = B._debug(); observe(sc);
         }
       }
       if (!sc) break;
+      if (inspect) B.renderInspect();
       g.drawImage(document.getElementById('b3d'), c * cw, r * ch, cw, ch);
       g.drawImage(document.getElementById('b3dui'), c * cw, r * ch, cw, ch);
       g.font = '12px sans-serif'; const text = rows[r].name + ' · frame ' + sc.frame + ' · ' + said[rows[r].style];

@@ -322,12 +322,45 @@ def info(g, images):
                 print("      %-24s %s" % (p["name"], " ".join("%x" % v for v in p["value"])))
 
 
+def rigid_bones(mesh):
+    """Bone of each unweighted vertex, from the data's rigid palette index.
+
+    POSITION has three components on single-bone meshes. On rigid multi-bone
+    meshes its fourth component is an integer index into the mesh's bone palette,
+    not homogeneous w. All such drawn meshes in the 532-model install validate;
+    Coredramon's teeth/claws then follow jaw/finger/toe bones instead of its head.
+    """
+    a = mesh["attributes"]
+    if "BLENDINDICES" in a:
+        raise ValueError("rigid_bones called for a weighted mesh")
+    palette = np.asarray(mesh["palette"], np.int64)
+    pos = a["POSITION"]
+    if pos.shape[1] == 4:
+        value = pos[:, 3]
+        if (not np.isfinite(value).all() or not np.equal(value, np.round(value)).all()
+                or np.any(value < 0) or np.any(value >= len(palette))):
+            raise ValueError("POSITION.w is not a valid rigid bone-palette index")
+        return palette[value.astype(np.int64)]
+    if pos.shape[1] != 3 or len(palette) != 1:
+        raise ValueError("an unweighted three-component mesh must name one bone")
+    return np.full(len(pos), palette[0], np.int64)
+
+
 def drawn(g, everything):
     """The meshes to show: unless asked for, not those without a colour texture or drawn blended."""
     def plain(m):
         mat = g["materials"][m["material"]]
         return param(mat, "ColorSampler") and not (param(mat, "blend_enable") or (0,))[0]
     return [m for m in g["meshes"] if everything or plain(m)]
+
+
+def drawn_positions(g):
+    """Positions referenced by rendered faces; unused vertices do not affect fitting."""
+    arrays = [m["attributes"]["POSITION"][np.unique(m["triangles"]), :3]
+              for m in drawn(g, False) if len(m["triangles"])]
+    if not arrays:
+        raise ValueError("source has no rendered triangle positions")
+    return np.concatenate(arrays)
 
 
 def write_glb(g, images, out, outline):
@@ -417,9 +450,9 @@ def write_glb(g, images, out, outline):
             j[:, :a["BLENDINDICES"].shape[1]] = palette[a["BLENDINDICES"].astype(np.int64)]
             j[w == 0] = 0
             w /= np.maximum(w.sum(1, keepdims=True), 1e-8)
-        else:  # one bone and no weights: the whole mesh goes with that bone
+        else:  # rigid: one palette bone per vertex (POSITION.w on multi-bone meshes)
             j = np.zeros((nv, 4), np.uint16)
-            j[:, 0] = palette[0]
+            j[:, 0] = rigid_bones(m)
             w = np.zeros((nv, 4), np.float32)
             w[:, 0] = 1
         prim["attributes"]["JOINTS_0"] = add(j.astype(np.uint16), 34962)

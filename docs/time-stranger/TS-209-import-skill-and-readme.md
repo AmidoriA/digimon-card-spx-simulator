@@ -98,3 +98,12 @@ selftest (31), decktest (11), sim (200 matches, no timeouts), fxtest (31 scripts
 and check_paths passed. The independent conversion and its images are recorded
 in TS-208a's log. This closes this ticket's remaining acceptance criterion;
 it does not change the feature's main merge gate.
+
+### Later owner scope correction
+
+The independent Coronamon verification above closed TS-209 before the owner removed
+model budgets. TS-208a–e subsequently rebuild all 45 models through the full native
+pipeline, and the skill/README now document that active workflow. Independent agents
+used it for Fire/Ice/Darkness/Rare imports and browser evidence; the reduced Coronamon
+figures above remain historical verification evidence, not its current asset figures.
+See [native format](native-model-format.md) and the final five TS-208 logs.

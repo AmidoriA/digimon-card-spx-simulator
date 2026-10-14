@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attack preview · Digital Card Battle</title>
+<link rel="stylesheet" href="css/style.css?v=battle-hd-7">
+<link rel="stylesheet" href="css/battle-graphics.css?v=battle-options-2">
+<style>
+  .showcase { max-width: 1080px; margin: 32px auto; padding: 0 20px; }
+  .showcase h1 { margin: 16px 0 8px; }
+  .preview-controls { display: flex; gap: 16px; flex-wrap: wrap; align-items: end; margin: 22px 0; }
+  .preview-controls .optl { display: grid; gap: 6px; }
+  .preview-controls select { max-width: 280px; }
+  .preview-stage { display: flex; gap: 10px; align-items: center; }
+  .preview-stage img { width: 72px; height: 54px; object-fit: cover; border: 1px solid #354568; border-radius: 5px; }
+  .battle-view { position: relative; width: 100%; aspect-ratio: 4 / 3; background: #080b17; border: 1px solid #354568; border-radius: 12px; overflow: hidden; }
+  .battle-view .b3d { width: 100%; height: 100%; }
+  .battle-view .b3dui { image-rendering: auto; }
+  .preview-empty { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; color: #aebfd7; }
+  #previewStatus { min-height: 24px; color: #b6c9e4; }
+</style>
+</head>
+<body>
+<main class="showcase">
+  <a class="btn ghost small" href="index.html">&larr; Back to game</a>
+  <p class="kicker" id="previewCount">All Digimon · All three attacks</p>
+  <h1>Attack preview</h1>
+  <p>Choose a Digimon, opponent, stage and move, then play the attack. Garurumon is the default opponent. Use the battle visuals presets, or open Graphics options to mix lighting, model shape, resolution and attack effects. Switch settings while paused to compare the same moment.</p>
+  <div class="preview-controls">
+    <label class="optl">Digimon<select id="previewCard"></select></label>
+    <label class="optl">Attack<select id="previewAttack"></select></label>
+    <label class="optl">Opponent<select id="previewOpponent"></select></label>
+    <label class="optl">Stage
+      <span class="preview-stage"><select id="previewStage" aria-label="Stage" disabled><option>Loading stages…</option></select><img id="previewStageThumb" alt="Selected stage preview" hidden></span>
+    </label>
+    <label class="optl">Battle visuals<select id="previewStyle" data-battle-preset><option value="ultra">Enhanced Ultra</option><option value="enhanced">Enhanced</option><option value="legacy">Original PS1</option><option value="custom" disabled>Custom</option></select></label>
+    <button class="btn primary" id="previewPlay" disabled>Play attack</button>
+    <button class="btn ghost" id="previewPause" disabled>Pause</button>
+    <button class="btn ghost" id="previewStep" disabled>Next moment</button>
+  </div>
+  <details class="graphics-settings preview-graphics"><summary>Graphics options</summary><div class="graphics-grid" data-battle-graphics="preview"></div><p>Adjust each setting independently. Presets reset all graphics options. Changes keep the same animation moment.</p></details>
+  <p id="previewStatus" role="status">Select a Digimon and play an attack.</p>
+  <div class="battle-view">
+    <div class="preview-empty">Choose any Digimon.<br>Its original moves, with a new level of detail.</div>
+    <canvas id="b3d" class="b3d" width="1280" height="960" hidden></canvas>
+    <canvas id="b3dui" class="b3d b3dui" width="1280" height="960" hidden></canvas>
+  </div>
+</main>
+<script src="js/data/cards.js"></script>
+<script src="js/data/effects.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/battlehd.js?v=battle-options-3"></script>
+<script src="js/battleultra.js?v=battle-options-2"></script>
+<script src="js/battlenative.js"></script>
+<script src="js/battle3d.js?v=battle-options-2"></script>
+<script src="js/battlegraphics.js?v=battle-options-2"></script>
+<script src="js/battle-preview.js?v=battle-options-3"></script>
+<script src="/sheet.js"></script>
+<button id="runSheets">Run model sheets</button><button id="compareInspection">Compare inspection paths</button><pre id="sheetResults"></pre>
+<script>
+document.getElementById('runSheets').onclick = async function () {
+ this.disabled=true;
+ const params=new URLSearchParams(location.search);
+ const ids=[...new Set((params.get('cards')||params.get('card')||'303').split(',').map(Number))];
+ const inspect=params.get('inspect')!=='false';
+ const cases=[{tag:'attack1',attack:0,slot:1},{tag:'attack2',attack:1,slot:2},{tag:'attack3',attack:2,slot:3},{tag:'damage',defend:1,slot:4},{tag:'ko',defend:1,ko:true,slot:5},{tag:'victory',attack:0,win:true,slot:6}];
+ const display=document.getElementById('sheetResults'), batch=[];
+ try {
+ for(const id of ids) {
+  const card=DDCB_DATA.cards.find(c=>c.id===id&&c.type==='digimon');
+  const base=card&&DDCB_DATA.cards.find(c=>c.id===card.custom);
+  if(!card||!base) throw Error('Invalid custom Digimon card '+id);
+  const results=[];
+  for(const c of cases) {
+   display.textContent='RUNNING '+id+' '+card.name+' '+c.tag+' ('+(batch.length+1)+'/'+ids.length+')\n'+JSON.stringify(results,null,2);
+   const opt={cards:[base.name,card.name],inspect,...c};
+   const t=await modelSheet({...opt,frames:[1400],out:'ts208-'+id+'-'+c.tag+'-timeline.jpg',cw:320});
+   const line=t.timeline[card.name+' / Original PS1'];
+   const start=line.find(x=>x[1]===c.slot&&x[2]==='runs');
+   const end=line.find(x=>x[1]===c.slot&&x[2]==='ended');
+   if(!start) throw Error('Missing slot '+c.slot+' '+JSON.stringify(t));
+   const last=end?end[0]:start[0]+180;
+   const frames=Array.from({length:5},(_,i)=>Math.round(start[0]+(last-start[0])*i/4));
+   const r=await modelSheet({...opt,frames,out:'ts208-'+id+'-'+c.tag+'.jpg',cw:320});
+   r.frames=frames;results.push(r);
+  }
+  const saved=await fetch('/save/ts208-'+id+'-results.json',{method:'POST',body:JSON.stringify(results,null,2)});
+  if(!saved.ok) throw Error('Could not save results for '+id);
+  batch.push({id,name:card.name,results});
+  display.textContent='SAVED '+id+' '+card.name+' ('+batch.length+'/'+ids.length+')\n'+JSON.stringify(batch,null,2);
+ }
+ display.textContent='COMPLETE\n'+JSON.stringify(batch,null,2);
+ }catch(e){display.textContent='FAILED '+e.stack+'\nSaved cards: '+batch.map(x=>x.id).join(',');}
+ this.disabled=false;
+};
+document.getElementById('compareInspection').onclick = async function () {
+ this.disabled=true;
+ const params=new URLSearchParams(location.search), id=Number(params.get('comparecard')||params.get('card')||(params.get('cards')||'311').split(',')[0]);
+ const card=DDCB_DATA.cards.find(c=>c.id===id),base=card&&DDCB_DATA.cards.find(c=>c.id===card.custom),display=document.getElementById('sheetResults');
+ try {
+  if(!base) throw Error('Invalid comparison card '+id);
+  display.textContent='Comparing rendered and inspected frame stepping for '+id+' '+card.name;
+  const opt={cards:[base.name,card.name],styles:['legacy'],attack:0,frames:[2,71,140,209,278],cw:320};
+  // Legacy script particles call Math.random. Reset only this temporary check's
+  // random stream for an exact pixel comparison, restoring the page afterward.
+  const previousRandom=Math.random;
+  let before,after,seed,calls,beforeCalls,afterCalls;
+  const seeded=()=>{calls++;seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
+  try {
+   seed=123456;calls=0;Math.random=seeded;
+   before=await modelSheet({...opt,inspect:false,out:'inspect-compare-'+id+'-before.png'});beforeCalls=calls;
+   seed=123456;calls=0;Math.random=seeded;
+   after=await modelSheet({...opt,inspect:true,out:'inspect-compare-'+id+'-after.png'});afterCalls=calls;
+  }finally{Math.random=previousRandom;}
+  display.textContent='COMPARE COMPLETE\n'+JSON.stringify({id,timelinesEqual:JSON.stringify(before.timeline)===JSON.stringify(after.timeline),shotsEqual:before.shots===after.shots,beforeCalls,afterCalls,before,after},null,2);
+ }catch(e){display.textContent='COMPARE FAILED '+e.stack;}
+ this.disabled=false;
+};
+</script></body>
+</html>

@@ -100,8 +100,17 @@ def wanted():
     for n in ("player", "player2"):
         add("assets/owner/%s.webp" % n, "the players' pictures in js/ui.js")
     for m in sorted(set(d["models"])):
-        for ext in (".bin.gz", ".png", "p.png"):
-            add("assets/models/%03d%s" % (m, ext), "model %d" % m)
+        binary = "assets/models/%03d.bin.gz" % m
+        add(binary, "model %d" % m)
+        model_bytes = gzip.open(os.path.join(WEB, binary), "rb").read()
+        if model_bytes.startswith(b"{"):
+            native = json.loads(model_bytes)
+            assert native.get("format") == "ts-native-v1", "unknown model format %d" % m
+            for material in native["materials"]:
+                add("assets/models/" + material["texture"], "native model %d" % m)
+        else:
+            for ext in (".png", "p.png"):
+                add("assets/models/%03d%s" % (m, ext), "model %d" % m)
     for i in d["se"]:
         add("assets/audio/se/%02x.ogg" % i, "sound %#x in js/data/audio.js" % i)
     for i in d["bgm"]:
@@ -124,7 +133,7 @@ def wanted():
 def main():
     git, disk, want = tracked(), on_disk(), wanted()
     if "--working-tree" in sys.argv:
-        git |= disk  # Local development: include new, deliberately uncommitted files.
+        git = disk  # Local development: verify current files, including adds/deletions.
     lower, problems = {}, []
     for p in sorted(git):
         if p.lower() in lower:

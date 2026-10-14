@@ -8,8 +8,9 @@ Usage (venv python):  build_custom.py <extracted_dir> <web_dir> [data] [model] [
   model   web/assets/models/NNN.*            the base card's model, its palettes and vertex
                                              colours changed by the card's recolour; or, for a
                                              card whose model names a Time Stranger model
-                                             ("ts"), that model on the base's figures and keys
-                                             (ts_model.py)
+                                             ("ts"), native full source geometry/skin/RGBA with
+                                             base key times (ts_native_model.py), or optional
+                                             legacy reduction (ts_model.py)
   battle  web/assets/battle/scripts.json.gz  the game's scripts and the custom cards' (the
                                              base's attack and hit scripts with other colours)
           web/assets/battle/fx/N.bin.gz      the effect files of those scripts: sprites,
@@ -52,17 +53,28 @@ def do_ts_model(web, c, base, ts_dir):
         print("  %s: model %d LEFT AS IT IS: no %s" % (c["name"], m["number"], against))
         return
     lines = []
+    if m.get("native"):
+        import ts_native_model
+        made, stats = ts_native_model.make(geom, web, base["model"], os.path.join(web, "assets", "models"), m["number"],
+                                          {int(k): v for k, v in m.get("parts", {}).items()},
+                                          {int(k): v for k, v in m.get("motions", {}).items()},
+                                          against=against, size=m.get("size", 1.0), ground=m.get("ground"), log=lines.append)
+        print("  %s: native model %d from %s, %d bones, %d vertices, %d triangles, %d native RGBA materials" % (
+            c["name"], m["number"], m["ts"], stats["bones"], stats["vertices"], stats["triangles"], len(stats["materials"])))
+        for x in lines:
+            print("   " + x)
+        return
     made = ts_model.make(geom, web, base["model"], os.path.join(web, "assets", "models"), m["number"],
                          {int(k): v for k, v in m.get("parts", {}).items()},
                          {int(k): v for k, v in m.get("motions", {}).items()}, log=lines.append,
                          figures=m.get("figures"), detail=m.get("detail", custom.TS_DETAIL), against=against,
-                         size=m.get("size", 1.0))[0]
+                         size=m.get("size", 1.0), preserve_seams=m.get("preserve_seams", False), no_decimate=m.get("no_decimate", False))[0]
     print("  %s: model %d from Time Stranger %s on the keys of %d, %d parts, %d vertices, %d triangles, texture %dx%d, %d palette rows" % (
         c["name"], m["number"], m["ts"], base["model"], len(made["parts"]), len(made["verts"]), len(made["tris"]),
         made["index"].shape[1], made["index"].shape[0], len(made["palette"])))
     for x in lines:
         if any(k in x for k in ("swing round", "takes its place", "held still", "as large against", "times that size", "scale ",
-                                "texture pieces", "does not end as it begins")):
+                                "texture pieces", "does not end as it begins", "seam wedges", "no decimation")):
             print("   " + x.strip())
 
 

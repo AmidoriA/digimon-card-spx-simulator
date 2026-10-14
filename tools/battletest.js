@@ -33,7 +33,7 @@ const sandbox = {
   setInterval: fn => { interval = fn; return 1; }, clearInterval: () => { interval = null; }
 };
 vm.createContext(sandbox);
-for (const f of ['data/effects.js', 'effects.js', 'battlehd.js', 'battleultra.js', 'battle3d.js']) vm.runInContext(fs.readFileSync(path.join(web, 'js', f), 'utf8'), sandbox);
+for (const f of ['data/effects.js', 'effects.js', 'battlehd.js', 'battleultra.js', 'battlenative.js', 'battle3d.js']) vm.runInContext(fs.readFileSync(path.join(web, 'js', f), 'utf8'), sandbox);
 const B = sandbox.window.DDCB_B3D, HD = sandbox.window.DDCB_BATTLE_HD;
 const cards = data.cards.filter(c => c.type === 'digimon');
 async function waitFor(check) {
@@ -42,6 +42,7 @@ async function waitFor(check) {
 }
 function mesh(model) {
   const bytes = zlib.gunzipSync(fs.readFileSync(path.join(web, 'assets/models', String(model).padStart(3, '0') + '.bin.gz')));
+  if(bytes[0]===123)return sandbox.window.DDCB_BATTLE_NATIVE.parse(JSON.parse(bytes.toString('utf8')));
   const w = new Int16Array(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
   const u = new Uint16Array(w.buffer), nv = u[4], nto = u[5], ntb = u[6], off = 10 + w[2] * 4;
   const parents = [], offsets = [];
@@ -68,7 +69,15 @@ function sidesHold(m, mesh, name) {
   let vertices = 0, triangles = 0, between = 0;
   const skinned = new Set();
   for (const model of new Set(cards.map(c => c.model))) {
-    const m = mesh(model), before = m.vb.slice(), hd = HD.refine(m), smooth = HD.smooth(m);
+    const m = mesh(model);
+    if(m.native){
+      assert(m.ib.length===m.nto*3 && m.ib.every(i=>i<m.nv),'native geometry lost or index out of bounds '+model);
+      assert(m.motions.length===8,'native motion slots '+model);
+      for(const material of m.materials)assert(fs.existsSync(path.join(web,'assets/models',material.texture)),'native RGBA missing '+model);
+      for(const mesh of m.meshes){const drawn=new Set(mesh.indices);for(let v=0;v<mesh.nv;v++){let total=0;for(let k=0;k<4;k++)total+=mesh.weights[v*4+k];assert(Math.abs(total-1)<1e-6 || (!drawn.has(v)&&total===0),'native weights '+model);}}
+      vertices+=m.nv;triangles+=m.nto;continue;
+    }
+    const before = m.vb.slice(), hd = HD.refine(m), smooth = HD.smooth(m);
     assert(hd.vb.every(Number.isFinite), 'non-finite mesh ' + model);
     assert(hd.ib.every(i => i < hd.vb.length / 13), 'invalid index ' + model);
     assert(hd.ib.length === (hd.nto + hd.ntb) * 3);
