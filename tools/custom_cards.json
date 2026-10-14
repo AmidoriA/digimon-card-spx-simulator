@@ -404,6 +404,42 @@
     "Devidramon": "Sangloupmon",
     "Myotismon": "Matadormon"
    }
+  },
+  {
+   "name": "Sky Dragon Again",
+   "base": {
+    "name": "Mega Giga",
+    "owner": "Gigadramon"
+   },
+   "replace": {
+    "Agumon": "Dracomon",
+    "Flarerizamon": "Coredramon (Blue)",
+    "Gigadramon": "Wingdramon"
+   }
+  },
+  {
+   "name": "Beast Fist Again",
+   "base": {
+    "name": "Steel Gate",
+    "owner": "MetalEtemon"
+   },
+   "replace": {
+    "Psychemon": "Bearmon",
+    "ShimaUnimon": "Grizzlymon",
+    "Etemon": "GrapLeomon"
+   }
+  },
+  {
+   "name": "Holy Beast Revived",
+   "base": {
+    "name": "Steel Gate",
+    "owner": "MetalEtemon"
+   },
+   "replace": {
+    "Vi-Elecmon": "Kudamon",
+    "ShimaUnimon": "Reppamon",
+    "MetalEtemon": "Chirinmon"
+   }
   }
  ],
  "cards": [

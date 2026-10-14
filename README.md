@@ -285,6 +285,9 @@ evolution chains. The exact exchanges, ranked bases and disc-data exceptions are
 | MetalTyrannomon | Dark Steel Again | Go Go Dinosaur | Veemon |
 | Cyberdramon | Machine Fang Again | Machine Empire | Machinedramon |
 | Matadormon | Night Dance Again | Dark Revival | Myotismon |
+| Wingdramon | Sky Dragon Again | Mega Giga | Gigadramon |
+| GrapLeomon | Beast Fist Again | Steel Gate | MetalEtemon |
+| Chirinmon | Holy Beast Revived | Steel Gate | MetalEtemon |
 
 `node tools/time_stranger_deck_test.js` checks exact exchanges, original-data hashes,
 metadata, legality and both themed evolution steps. `node tools/time_stranger_deck_sim.js`
