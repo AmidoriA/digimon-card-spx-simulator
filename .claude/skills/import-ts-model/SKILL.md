@@ -82,7 +82,7 @@ Read what it prints:
   the script puts the Digimon back to standing.
 - `parts: 0=J_center 1=J_leg_l …`: the bone of each part number. These are the names
   `--part` takes.
-- `texture pieces … shrunk to 0.15… (65% of it used)`: how much of the picture is left.
+- `texture pieces … shrunk to 0.159 … (69% of it used)`: how much of the picture is left.
 
 `look.png` shows the base and the new model as built, front and side, with the parts of
 `--show` in plain colours (magenta, cyan, green, yellow, in that order): what body part a
@@ -181,6 +181,10 @@ before frame 900. Then name five frames inside the motion. A sheet's result must
 three styles), `errors: 0` and as many `shots` as `wanted`. Read every sheet
 (`sheets/<name>.jpg`) and look for:
 
+- **the Digimon itself**: put its card art or an official picture beside the sheet. The
+  face, its marks, the eyes and the colours of each body part must be that Digimon's;
+- **both sides alike**: two ears, two arms, two wings held the same way where the pose is
+  even. One that hangs, sticks out or is turned on one side only is a fault, not a pose;
 - a body that is whole in all three styles: no gaps at joints, no shards, no fans;
 - the model on the ground, upright, facing the opponent, about the base's size;
 - the script's effects at the body part they belong to;
@@ -214,6 +218,25 @@ Do not report these as new, and do not hide them:
 - **Bones merged into one part move as one piece.**
 
 ## Traps
+
+- **A model that looks like a creature is not yet the Digimon.** Two faults of the readers
+  passed three tickets of pictures because nobody held the result against the real
+  Guilmon, and the owner found both at first sight:
+  - the texture was read upside down (`ts_model_read.py` took v from the top row; it
+    counts from the bottom). A texture is mostly one colour, so the model still looked
+    painted: a white snout instead of a red face with its mark, no mark on the belly,
+    narrowed eyes;
+  - a motion's rotation was taken for the bone's whole rotation (`ts_anim_read.py`); it
+    is made after the bone's rest rotation. Only bones with a rest rotation show it:
+    Guilmon's right ear hung down in every motion. 28 of the 45 roster models have such
+    bones, often arms, hands, wings and hair.
+
+  Both are corrected. What they teach: when a face, a mark, an eye or one limb is off,
+  suspect the reading of the other game's files before the converter, and draw the source
+  model alone to see which it is: `ts_model_read.py <geom> --png look.png --overlays` for
+  the paint, `ts_anim_read.py <anim> --png pose.png --geom <geom> --frame N` for a pose.
+  What is known and not known about those files is in the README, "Time Stranger models"
+  and "Time Stranger motions"; add to it what you find, with how you checked it.
 
 - **Do not give a triangle whole to one part** to match the disc's models. That was the
   first try (TS-205): every joint tore open as soon as a motion played. The converted
