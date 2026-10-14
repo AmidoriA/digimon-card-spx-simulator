@@ -95,11 +95,11 @@ with progress (goal, context, steps) and what is found (the Log).
 | [TS-205](TS-205-convert-mesh.md) | Converter: mesh and texture to the DDCB model format | 2 Models | TS-202, TS-204 | [card](https://trello.com/c/2nugKL0f) |
 | [TS-206](TS-206-convert-motions.md) | Converter: motions | 2 Models | TS-203, TS-204, TS-205 | [card](https://trello.com/c/tzzuM8kp) |
 | [TS-207](TS-207-pilot-guilmon.md) | Pilot: Guilmon (302) with its Time Stranger model | 2 Models | TS-101, TS-205, TS-206 | [card](https://trello.com/c/Br9ZwXGj) |
-| [TS-208a](TS-208a-fire-models.md) | Fire models from Time Stranger | 2 Models | TS-207, TS-101 | [card](https://trello.com/c/zTdFN9Xd) |
-| [TS-208b](TS-208b-ice-models.md) | Ice models from Time Stranger | 2 Models | TS-207, TS-102 | [card](https://trello.com/c/vUoHDXbM) |
-| [TS-208c](TS-208c-nature-models.md) | Nature models from Time Stranger | 2 Models | TS-207, TS-103 | [card](https://trello.com/c/Clemd8tm) |
-| [TS-208d](TS-208d-darkness-models.md) | Darkness models from Time Stranger | 2 Models | TS-207, TS-104 | [card](https://trello.com/c/EzPc1GY6) |
-| [TS-208e](TS-208e-rare-models.md) | Rare models from Time Stranger | 2 Models | TS-207, TS-105 | [card](https://trello.com/c/7IcLCqJO) |
+| [TS-208a](TS-208a-fire-models.md) | Fire models from Time Stranger | 2 Models | TS-207, TS-209, TS-101 | [card](https://trello.com/c/zTdFN9Xd) |
+| [TS-208b](TS-208b-ice-models.md) | Ice models from Time Stranger | 2 Models | TS-207, TS-209, TS-102 | [card](https://trello.com/c/vUoHDXbM) |
+| [TS-208c](TS-208c-nature-models.md) | Nature models from Time Stranger | 2 Models | TS-207, TS-209, TS-103 | [card](https://trello.com/c/Clemd8tm) |
+| [TS-208d](TS-208d-darkness-models.md) | Darkness models from Time Stranger | 2 Models | TS-207, TS-209, TS-104 | [card](https://trello.com/c/EzPc1GY6) |
+| [TS-208e](TS-208e-rare-models.md) | Rare models from Time Stranger | 2 Models | TS-207, TS-209, TS-105 | [card](https://trello.com/c/7IcLCqJO) |
 | [TS-209](TS-209-import-skill-and-readme.md) | Skill `import-ts-model` and the README | 2 Models | TS-207 | [card](https://trello.com/c/Q68gsJGz) |
 | [TS-301](TS-301-choose-decks.md) | Choose the 15 base decks and exchanges | 3 Decks | TS-101 … TS-105 | [card](https://trello.com/c/CC15DUlA) |
 | [TS-302](TS-302-fire-decks.md) | Fire decks | 3 Decks | TS-301, TS-101 | [card](https://trello.com/c/tfBaYtSp) |
