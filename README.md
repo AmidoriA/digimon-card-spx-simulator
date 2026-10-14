@@ -159,7 +159,7 @@ dropped; it says what it understood before anything is kept, names a card it doe
 with the nearest name, and leaves out what the rules do not allow. A deck that is not
 complete yet is kept, opens in the editor and cannot start a battle.
 
-`node tools/decktest.js` checks the rules against all 159 decks of the game and the custom one, the search and
+`node tools/decktest.js` checks the rules against all 159 decks of the game and the custom decks, the search and
 filters, and that every deck comes back the same from both exported forms.
 
 ## Rules, as traced in the game code
@@ -262,9 +262,33 @@ The deck editor offers them like any other card; no deck of the game holds one.
 
 A **custom deck** is a deck of the game with some of its cards exchanged; the list names it
 with its base and the exchange. It follows the game's 159 decks and keeps its base's owner,
-rank, armor form and music. There is one: **Black Fire Again**, BK WarGreymon's second
+rank, armor form and music. The first is **Black Fire Again**, BK WarGreymon's second
 deck, which is his Black Fire Heart with its four WarGreymon exchanged for four
 BlackWarGreymon. Black Fire Heart itself is as the game has it.
+
+Time Stranger adds one themed deck per new Ultimate, using the original gameplay
+designs from TS-106. The deck groups are project themes; they do not claim canonical
+evolution chains. The exact exchanges, ranked bases and disc-data exceptions are in
+[decks.md](docs/time-stranger/decks.md).
+
+| Ultimate | Custom deck | Base deck | Owner |
+|---|---|---|---|
+| WarGrowlmon | Crimson Fire Again | Go Go Dinosaur | Veemon |
+| Flaremon | Solar Flame Again | First Attack | Birdramon |
+| SaviorHuckmon | Brave Fire Revived | Fire Heart | Davis |
+
+`node tools/time_stranger_deck_test.js` checks exact exchanges, original-data hashes,
+metadata, legality and both themed evolution steps. `node tools/time_stranger_deck_sim.js`
+plays each installed deck against its base and five mixed-Specialty originals in both
+seats (24 matches per deck). These initial deck lists are not equal-strength ratings.
+
+Both simulations seed AI noise and hypothetical evaluation randomness as well as
+shuffles. The standard `sim.js` soak reports `staleExplorations` when it exercises
+another legal attack after 20 identical positions; two original MegaSeadramon can
+otherwise keep choosing Circle Counter forever. `node tools/sim.js 200 --strict-ai`
+retains the unassisted live AI policy and reproduces that existing original-deck
+stalemate in the final Phase 3 deck schedule. Live AI and battle rules are unchanged.
+
 
 | | BlackWarGreymon (301) | WarGreymon (2), which it is made from |
 |---|---|---|
@@ -700,6 +724,13 @@ arenas; every Digimon's three attacks run to their end in the browser's dry-run 
   is; the builder runs both scripts and compares every object's colours). The deck Black
   Fire Again and its name are this project's as well, made at the owner's request; in the
   game BK WarGreymon has the one deck, and it plays WarGreymon.
+
+- **Time Stranger custom decks (Phase 3).** The deck names and fifteen themed exchanges
+  are project choices requested by the owner, listed next to their Ultimates above.
+  They retain their source decks' owner, rank, armor, music, options and copy counts.
+  Missing visual-donor cards or missing donor levels require the documented exceptions
+  in [phase3.md](docs/time-stranger/phase3.md); gameplay uses TS-106's original designs.
+  No original disc card or deck is modified.
 
 - **Time Stranger Phase 1 cards.** The new labels and palette choices are project additions
   requested by the owner. TS-106 (2026-10-14) chooses original numbers and effects for

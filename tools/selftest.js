@@ -358,6 +358,11 @@ test('Time Stranger original designs activate as documented', () => {
   require('./time_stranger_design_test.js').verify();
 });
 
+const TS_DECK_COUNT = 3; // TS-302..306: raise by three with each completed Specialty.
+test('Time Stranger decks are exactly the frozen exchanges, inherit their bases and evolve through every themed group', () => {
+  require('./time_stranger_deck_test.js').verify(TS_DECK_COUNT);
+});
+
 test('custom decks follow the 159 decks of the game; Black Fire Again is Black Fire Heart with BlackWarGreymon', () => {
   const decks = E.DATA.decks, own = decks.filter((d) => d.custom != null);
   assert.strictEqual(decks.filter((d) => d.custom == null).length, 159);

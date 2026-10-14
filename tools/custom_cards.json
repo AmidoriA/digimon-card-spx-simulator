@@ -260,6 +260,42 @@
    "replace": {
     "WarGreymon": "BlackWarGreymon"
    }
+  },
+  {
+   "name": "Crimson Fire Again",
+   "base": {
+    "name": "Go Go Dinosaur",
+    "owner": "Veemon"
+   },
+   "replace": {
+    "Agumon": "Guilmon",
+    "Greymon": "Growlmon",
+    "MetalGreymon": "WarGrowlmon"
+   }
+  },
+  {
+   "name": "Solar Flame Again",
+   "base": {
+    "name": "First Attack",
+    "owner": "Birdramon"
+   },
+   "replace": {
+    "Goburimon": "Coronamon",
+    "Birdramon": "Firamon",
+    "Garudamon": "Flaremon"
+   }
+  },
+  {
+   "name": "Brave Fire Revived",
+   "base": {
+    "name": "Fire Heart",
+    "owner": "Davis"
+   },
+   "replace": {
+    "Veemon": "Huckmon",
+    "Flarerizamon": "BaoHuckmon",
+    "Paildramon": "SaviorHuckmon"
+   }
   }
  ],
  "cards": [
