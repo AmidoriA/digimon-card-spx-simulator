@@ -513,7 +513,10 @@ var DATA = {
     {"id":159,"name":"Black Fire Again","owner":"BK WarGreymon","cards":[301,301,301,301,5,14,14,14,14,15,15,24,27,27,27,27,30,30,30,30,31,31,224,224,253,253,253,253,299,299],"rank":16,"armor":0,"bgm":46,"bgm3d":37,"pic":115,"custom":115},
     {"id":160,"name":"Crimson Fire Again","owner":"Veemon","cards":[8,308,308,10,10,305,305,305,16,16,16,17,17,17,302,302,302,302,28,28,29,32,32,33,175,264,264,264,267,267],"rank":5,"armor":0,"bgm":46,"bgm3d":37,"pic":6,"custom":6},
     {"id":161,"name":"Solar Flame Again","owner":"Birdramon","cards":[309,309,13,13,306,306,306,306,21,21,29,29,29,29,31,31,31,303,303,303,196,196,204,204,249,249,250,250,251,251],"rank":8,"armor":0,"bgm":46,"bgm3d":37,"pic":42,"custom":42},
-    {"id":162,"name":"Brave Fire Revived","owner":"Davis","cards":[310,310,9,12,12,12,14,14,18,307,27,27,27,29,29,29,31,31,32,32,304,198,258,258,258,264,264,264,267,267],"rank":8,"armor":1,"bgm":46,"bgm3d":37,"pic":27,"custom":27}
+    {"id":162,"name":"Brave Fire Revived","owner":"Davis","cards":[310,310,9,12,12,12,14,14,18,307,27,27,27,29,29,29,31,31,32,32,304,198,258,258,258,264,264,264,267,267],"rank":8,"armor":1,"bgm":46,"bgm3d":37,"pic":27,"custom":27},
+    {"id":163,"name":"Lunar Howl Again","owner":"MetalGarurumon","cards":[36,36,36,36,317,314,314,314,314,58,58,60,311,311,311,311,65,65,65,68,68,68,198,202,202,204,204,230,234,234],"rank":10,"armor":0,"bgm":46,"bgm3d":37,"pic":88,"custom":88},
+    {"id":164,"name":"Moonlight Revived","owner":"Garurumon","cards":[39,318,318,315,315,315,315,59,59,60,60,62,62,62,312,312,312,66,66,67,67,67,249,249,250,250,251,251,264,264],"rank":6,"armor":0,"bgm":46,"bgm3d":37,"pic":13,"custom":13},
+    {"id":165,"name":"Deep Sea Revived","owner":"Joe","cards":[38,38,38,39,319,319,316,316,316,48,48,48,52,52,55,55,61,61,61,61,313,313,313,313,66,66,66,0,0,0],"rank":10,"armor":0,"bgm":46,"bgm3d":37,"pic":91,"custom":91}
   ]
 };
 if (typeof module !== 'undefined' && module.exports) module.exports = DATA; else root.DDCB_DATA = DATA;

@@ -296,6 +296,42 @@
     "Flarerizamon": "BaoHuckmon",
     "Paildramon": "SaviorHuckmon"
    }
+  },
+  {
+   "name": "Lunar Howl Again",
+   "base": {
+    "name": "Shoot Everything!",
+    "owner": "MetalGarurumon"
+   },
+   "replace": {
+    "Gabumon": "Gaomon",
+    "Garurumon": "Gaogamon",
+    "WereGarurumon": "MachGaogamon"
+   }
+  },
+  {
+   "name": "Moonlight Revived",
+   "base": {
+    "name": "Fightback",
+    "owner": "Garurumon"
+   },
+   "replace": {
+    "Penguinmon": "Lunamon",
+    "Garurumon": "Lekismon",
+    "Zudomon": "Crescemon"
+   }
+  },
+  {
+   "name": "Deep Sea Revived",
+   "base": {
+    "name": "First Aid",
+    "owner": "Joe"
+   },
+   "replace": {
+    "Betamon": "Syakomon",
+    "Ikkakumon": "Octomon",
+    "Zudomon": "Dragomon"
+   }
   }
  ],
  "cards": [

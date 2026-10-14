@@ -276,6 +276,9 @@ evolution chains. The exact exchanges, ranked bases and disc-data exceptions are
 | WarGrowlmon | Crimson Fire Again | Go Go Dinosaur | Veemon |
 | Flaremon | Solar Flame Again | First Attack | Birdramon |
 | SaviorHuckmon | Brave Fire Revived | Fire Heart | Davis |
+| MachGaogamon | Lunar Howl Again | Shoot Everything! | MetalGarurumon |
+| Crescemon | Moonlight Revived | Fightback | Garurumon |
+| Dragomon | Deep Sea Revived | First Aid | Joe |
 
 `node tools/time_stranger_deck_test.js` checks exact exchanges, original-data hashes,
 metadata, legality and both themed evolution steps. `node tools/time_stranger_deck_sim.js`
