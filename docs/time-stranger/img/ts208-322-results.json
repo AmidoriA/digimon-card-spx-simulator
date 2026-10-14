@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-322-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Palmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "Lalamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      51,
+      100,
+      149,
+      198
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-322-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Palmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          214,
+          2,
+          "ended"
+        ]
+      ],
+      "Lalamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          214,
+          2,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          214,
+          2,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          214,
+          2,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          214,
+          2,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          214,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      55,
+      108,
+      161,
+      214
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-322-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Palmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Lalamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          254,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      65,
+      128,
+      191,
+      254
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-322-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Palmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Lalamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      337,
+      367,
+      397,
+      427
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-322-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Palmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "Lalamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "Palmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ],
+      "Lalamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          483,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      351,
+      395,
+      439,
+      483
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-322-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Palmon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          247,
+          0,
+          "runs"
+        ],
+        [
+          499,
+          6,
+          "runs"
+        ]
+      ],
+      "Lalamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          247,
+          0,
+          "runs"
+        ],
+        [
+          499,
+          6,
+          "runs"
+        ]
+      ],
+      "Palmon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          247,
+          0,
+          "runs"
+        ],
+        [
+          499,
+          6,
+          "runs"
+        ]
+      ],
+      "Lalamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          247,
+          0,
+          "runs"
+        ],
+        [
+          499,
+          6,
+          "runs"
+        ]
+      ],
+      "Palmon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          247,
+          0,
+          "runs"
+        ],
+        [
+          499,
+          6,
+          "runs"
+        ]
+      ],
+      "Lalamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          198,
+          1,
+          "ended"
+        ],
+        [
+          247,
+          0,
+          "runs"
+        ],
+        [
+          499,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      499,
+      544,
+      589,
+      634,
+      679
+    ]
+  }
+]

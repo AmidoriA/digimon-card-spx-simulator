@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-321-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Patamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ]
+      ],
+      "Terriermon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      73,
+      144,
+      215,
+      286
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-321-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Patamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          282,
+          2,
+          "ended"
+        ]
+      ],
+      "Terriermon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          282,
+          2,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          282,
+          2,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          282,
+          2,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          282,
+          2,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          282,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      72,
+      142,
+      212,
+      282
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-321-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Patamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          278,
+          3,
+          "ended"
+        ]
+      ],
+      "Terriermon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          278,
+          3,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          278,
+          3,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          278,
+          3,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          278,
+          3,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          278,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      71,
+      140,
+      209,
+      278
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-321-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Patamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Terriermon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          427,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      337,
+      367,
+      397,
+      427
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-321-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Patamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Terriermon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Patamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ],
+      "Terriermon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          495,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      354,
+      401,
+      448,
+      495
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-321-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Patamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ],
+        [
+          297,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "Terriermon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ],
+        [
+          297,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "Patamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ],
+        [
+          297,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "Terriermon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ],
+        [
+          297,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "Patamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ],
+        [
+          297,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ],
+      "Terriermon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          286,
+          1,
+          "ended"
+        ],
+        [
+          297,
+          0,
+          "runs"
+        ],
+        [
+          543,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      543,
+      588,
+      633,
+      678,
+      723
+    ]
+  }
+]

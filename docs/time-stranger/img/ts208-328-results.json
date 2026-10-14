@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-328-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Lillymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ]
+      ],
+      "Lilamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      56,
+      110,
+      164,
+      218
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-328-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Lillymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "Lilamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          250,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      64,
+      126,
+      188,
+      250
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-328-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Lillymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "Lilamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          242,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      62,
+      122,
+      182,
+      242
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-328-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Lillymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Lilamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      336,
+      365,
+      394,
+      423
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-328-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Lillymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          463,
+          5,
+          "ended"
+        ]
+      ],
+      "Lilamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          463,
+          5,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          463,
+          5,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          463,
+          5,
+          "ended"
+        ]
+      ],
+      "Lillymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          463,
+          5,
+          "ended"
+        ]
+      ],
+      "Lilamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          463,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      346,
+      385,
+      424,
+      463
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-328-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Lillymon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          449,
+          6,
+          "runs"
+        ]
+      ],
+      "Lilamon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          449,
+          6,
+          "runs"
+        ]
+      ],
+      "Lillymon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          449,
+          6,
+          "runs"
+        ]
+      ],
+      "Lilamon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          449,
+          6,
+          "runs"
+        ]
+      ],
+      "Lillymon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          449,
+          6,
+          "runs"
+        ]
+      ],
+      "Lilamon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          218,
+          1,
+          "ended"
+        ],
+        [
+          227,
+          0,
+          "runs"
+        ],
+        [
+          449,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      449,
+      494,
+      539,
+      584,
+      629
+    ]
+  }
+]

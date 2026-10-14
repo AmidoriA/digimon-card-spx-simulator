@@ -1,0 +1,788 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-326-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Angewomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ]
+      ],
+      "Taomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      66,
+      130,
+      194,
+      258
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-326-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Angewomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          218,
+          2,
+          "ended"
+        ]
+      ],
+      "Taomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          218,
+          2,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          218,
+          2,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          218,
+          2,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          218,
+          2,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          218,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      56,
+      110,
+      164,
+      218
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-326-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Angewomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          230,
+          3,
+          "ended"
+        ]
+      ],
+      "Taomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          230,
+          3,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          230,
+          3,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          230,
+          3,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          230,
+          3,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          230,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      59,
+      116,
+      173,
+      230
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-326-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Angewomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Taomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          423,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      336,
+      365,
+      394,
+      423
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-326-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Angewomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          531,
+          5,
+          "ended"
+        ]
+      ],
+      "Taomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          531,
+          5,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          531,
+          5,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          531,
+          5,
+          "ended"
+        ]
+      ],
+      "Angewomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          531,
+          5,
+          "ended"
+        ]
+      ],
+      "Taomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          531,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      363,
+      419,
+      475,
+      531
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-326-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Angewomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ],
+        [
+          319,
+          0,
+          "runs"
+        ],
+        [
+          591,
+          6,
+          "runs"
+        ]
+      ],
+      "Taomon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ],
+        [
+          319,
+          0,
+          "runs"
+        ],
+        [
+          591,
+          6,
+          "runs"
+        ]
+      ],
+      "Angewomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ],
+        [
+          319,
+          0,
+          "runs"
+        ],
+        [
+          591,
+          6,
+          "runs"
+        ]
+      ],
+      "Taomon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ],
+        [
+          319,
+          0,
+          "runs"
+        ],
+        [
+          591,
+          6,
+          "runs"
+        ]
+      ],
+      "Angewomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ],
+        [
+          319,
+          0,
+          "runs"
+        ],
+        [
+          591,
+          6,
+          "runs"
+        ]
+      ],
+      "Taomon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          258,
+          1,
+          "ended"
+        ],
+        [
+          319,
+          0,
+          "runs"
+        ],
+        [
+          591,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      591,
+      636,
+      681,
+      726,
+      771
+    ]
+  }
+]

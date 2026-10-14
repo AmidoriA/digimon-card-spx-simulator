@@ -1,0 +1,728 @@
+[
+  {
+    "saved": true,
+    "out": "ts208-323-attack1.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Unimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Kyubimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Unimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Kyubimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Unimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ],
+      "Kyubimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      47,
+      92,
+      137,
+      182
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-323-attack2.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Unimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Unimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Unimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          2,
+          "runs"
+        ],
+        [
+          278,
+          2,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      71,
+      140,
+      209,
+      278
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-323-attack3.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Unimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          258,
+          3,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          258,
+          3,
+          "ended"
+        ]
+      ],
+      "Unimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          258,
+          3,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          258,
+          3,
+          "ended"
+        ]
+      ],
+      "Unimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          258,
+          3,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          3,
+          "runs"
+        ],
+        [
+          258,
+          3,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      2,
+      66,
+      130,
+      194,
+      258
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-323-damage.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Unimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Unimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Unimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          4,
+          "runs"
+        ],
+        [
+          419,
+          4,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      335,
+      363,
+      391,
+      419
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-323-ko.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Unimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Unimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Unimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ],
+      "Kyubimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          307,
+          5,
+          "runs"
+        ],
+        [
+          499,
+          5,
+          "ended"
+        ]
+      ]
+    },
+    "frames": [
+      307,
+      355,
+      403,
+      451,
+      499
+    ]
+  },
+  {
+    "saved": true,
+    "out": "ts208-323-victory.jpg",
+    "width": 1600,
+    "height": 1440,
+    "shots": 30,
+    "wanted": 30,
+    "errors": 0,
+    "sameTimeline": true,
+    "timeline": {
+      "Unimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          277,
+          0,
+          "runs"
+        ],
+        [
+          523,
+          6,
+          "runs"
+        ]
+      ],
+      "Kyubimon / Original PS1": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          277,
+          0,
+          "runs"
+        ],
+        [
+          523,
+          6,
+          "runs"
+        ]
+      ],
+      "Unimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          277,
+          0,
+          "runs"
+        ],
+        [
+          523,
+          6,
+          "runs"
+        ]
+      ],
+      "Kyubimon / Enhanced": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          277,
+          0,
+          "runs"
+        ],
+        [
+          523,
+          6,
+          "runs"
+        ]
+      ],
+      "Unimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          277,
+          0,
+          "runs"
+        ],
+        [
+          523,
+          6,
+          "runs"
+        ]
+      ],
+      "Kyubimon / Enhanced Ultra (Smooth)": [
+        [
+          1,
+          0,
+          "runs"
+        ],
+        [
+          2,
+          1,
+          "runs"
+        ],
+        [
+          277,
+          0,
+          "runs"
+        ],
+        [
+          523,
+          6,
+          "runs"
+        ]
+      ]
+    },
+    "frames": [
+      523,
+      568,
+      613,
+      658,
+      703
+    ]
+  }
+]
